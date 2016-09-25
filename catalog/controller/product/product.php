@@ -3,12 +3,14 @@ class ControllerProductProduct extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->load->language('product/product');
+		//$this->load->language('product/product');
+		$data = array_merge($data = array(), $this->language->load('product/product'));
+
 
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
+			'text' => $data['text_home'],
 			'href' => $this->url->link('common/home')
 		);
 
@@ -71,7 +73,7 @@ class ControllerProductProduct extends Controller {
 
 		if (isset($this->request->get['manufacturer_id'])) {
 			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_brand'),
+				'text' => $data['text_brand'],
 				'href' => $this->url->link('product/manufacturer')
 			);
 
@@ -143,7 +145,7 @@ class ControllerProductProduct extends Controller {
 			}
 
 			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_search'),
+				'text' => $data['text_search'],
 				'href' => $this->url->link('product/search', $url)
 			);
 		}
@@ -226,41 +228,13 @@ class ControllerProductProduct extends Controller {
 
 			$data['heading_title'] = $product_info['name'];
 
-			$data['text_select'] = $this->language->get('text_select');
-			$data['text_manufacturer'] = $this->language->get('text_manufacturer');
-			$data['text_model'] = $this->language->get('text_model');
-			$data['text_reward'] = $this->language->get('text_reward');
-			$data['text_points'] = $this->language->get('text_points');
-			$data['text_stock'] = $this->language->get('text_stock');
-			$data['text_discount'] = $this->language->get('text_discount');
-			$data['text_tax'] = $this->language->get('text_tax');
-			$data['text_option'] = $this->language->get('text_option');
 			$data['text_minimum'] = sprintf($this->language->get('text_minimum'), $product_info['minimum']);
-			$data['text_write'] = $this->language->get('text_write');
 			$data['text_login'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true));
-			$data['text_note'] = $this->language->get('text_note');
-			$data['text_tags'] = $this->language->get('text_tags');
-			$data['text_related'] = $this->language->get('text_related');
-			$data['text_payment_recurring'] = $this->language->get('text_payment_recurring');
-			$data['text_loading'] = $this->language->get('text_loading');
 
-			$data['entry_qty'] = $this->language->get('entry_qty');
-			$data['entry_name'] = $this->language->get('entry_name');
-			$data['entry_review'] = $this->language->get('entry_review');
-			$data['entry_rating'] = $this->language->get('entry_rating');
-			$data['entry_good'] = $this->language->get('entry_good');
-			$data['entry_bad'] = $this->language->get('entry_bad');
-
-			$data['button_cart'] = $this->language->get('button_cart');
-			$data['button_wishlist'] = $this->language->get('button_wishlist');
-			$data['button_compare'] = $this->language->get('button_compare');
-			$data['button_upload'] = $this->language->get('button_upload');
-			$data['button_continue'] = $this->language->get('button_continue');
 
 			$this->load->model('catalog/review');
 
-			$data['tab_description'] = $this->language->get('tab_description');
-			$data['tab_attribute'] = $this->language->get('tab_attribute');
+
 			$data['tab_review'] = sprintf($this->language->get('tab_review'), $product_info['reviews']);
 
 			$data['product_id'] = (int)$this->request->get['product_id'];
@@ -276,7 +250,7 @@ class ControllerProductProduct extends Controller {
 			} elseif ($this->config->get('config_stock_display')) {
 				$data['stock'] = $product_info['quantity'];
 			} else {
-				$data['stock'] = $this->language->get('text_instock');
+				$data['stock'] = $data['text_instock'];
 			}
 
 			$this->load->model('tool/image');
@@ -299,8 +273,8 @@ class ControllerProductProduct extends Controller {
 
 			foreach ($results as $result) {
 				$data['images'][] = array(
-					'popup' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
-					'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'))
+					'popup'	 => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
+					'thumb'	 => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'))
 				);
 			}
 
@@ -329,7 +303,7 @@ class ControllerProductProduct extends Controller {
 			foreach ($discounts as $discount) {
 				$data['discounts'][] = array(
 					'quantity' => $discount['quantity'],
-					'price'    => $this->currency->format($this->tax->calculate($discount['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'])
+					'price'		 => $this->currency->format($this->tax->calculate($discount['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'])
 				);
 			}
 
@@ -347,24 +321,24 @@ class ControllerProductProduct extends Controller {
 						}
 
 						$product_option_value_data[] = array(
-							'product_option_value_id' => $option_value['product_option_value_id'],
-							'option_value_id'         => $option_value['option_value_id'],
-							'name'                    => $option_value['name'],
-							'image'                   => $this->model_tool_image->resize($option_value['image'], 50, 50),
-							'price'                   => $price,
-							'price_prefix'            => $option_value['price_prefix']
+							'product_option_value_id'	 => $option_value['product_option_value_id'],
+							'option_value_id'					 => $option_value['option_value_id'],
+							'name'										 => $option_value['name'],
+							'image'										 => $this->model_tool_image->resize($option_value['image'], 50, 50),
+							'price'										 => $price,
+							'price_prefix'						 => $option_value['price_prefix']
 						);
 					}
 				}
 
 				$data['options'][] = array(
-					'product_option_id'    => $option['product_option_id'],
+					'product_option_id'		 => $option['product_option_id'],
 					'product_option_value' => $product_option_value_data,
-					'option_id'            => $option['option_id'],
-					'name'                 => $option['name'],
-					'type'                 => $option['type'],
-					'value'                => $option['value'],
-					'required'             => $option['required']
+					'option_id'						 => $option['option_id'],
+					'name'								 => $option['name'],
+					'type'								 => $option['type'],
+					'value'								 => $option['value'],
+					'required'						 => $option['required']
 				);
 			}
 
@@ -438,16 +412,16 @@ class ControllerProductProduct extends Controller {
 				}
 
 				$data['products'][] = array(
-					'product_id'  => $result['product_id'],
-					'thumb'       => $image,
-					'name'        => $result['name'],
-					'description' => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
-					'price'       => $price,
-					'special'     => $special,
-					'tax'         => $tax,
-					'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
-					'rating'      => $rating,
-					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'])
+					'product_id'	 => $result['product_id'],
+					'thumb'				 => $image,
+					'name'				 => $result['name'],
+					'description'	 => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
+					'price'				 => $price,
+					'special'			 => $special,
+					'tax'					 => $tax,
+					'minimum'			 => $result['minimum'] > 0 ? $result['minimum'] : 1,
+					'rating'			 => $rating,
+					'href'				 => $this->url->link('product/product', 'product_id=' . $result['product_id'])
 				);
 			}
 
@@ -458,7 +432,7 @@ class ControllerProductProduct extends Controller {
 
 				foreach ($tags as $tag) {
 					$data['tags'][] = array(
-						'tag'  => trim($tag),
+						'tag'	 => trim($tag),
 						'href' => $this->url->link('product/search', 'tag=' . trim($tag))
 					);
 				}
@@ -576,9 +550,9 @@ class ControllerProductProduct extends Controller {
 
 		foreach ($results as $result) {
 			$data['reviews'][] = array(
-				'author'     => $result['author'],
-				'text'       => nl2br($result['text']),
-				'rating'     => (int)$result['rating'],
+				'author'		 => $result['author'],
+				'text'			 => nl2br($result['text']),
+				'rating'		 => (int)$result['rating'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
@@ -666,11 +640,11 @@ class ControllerProductProduct extends Controller {
 		if ($product_info && $recurring_info) {
 			if (!$json) {
 				$frequencies = array(
-					'day'        => $this->language->get('text_day'),
-					'week'       => $this->language->get('text_week'),
+					'day'				 => $this->language->get('text_day'),
+					'week'			 => $this->language->get('text_week'),
 					'semi_month' => $this->language->get('text_semi_month'),
-					'month'      => $this->language->get('text_month'),
-					'year'       => $this->language->get('text_year'),
+					'month'			 => $this->language->get('text_month'),
+					'year'			 => $this->language->get('text_year'),
 				);
 
 				if ($recurring_info['trial_status'] == 1) {
@@ -695,4 +669,5 @@ class ControllerProductProduct extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }
