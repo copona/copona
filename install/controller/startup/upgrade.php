@@ -15,7 +15,7 @@ class ControllerStartupUpgrade extends Controller {
 		
 		if ($upgrade) {
 			//TODO
-			die('config.php already exists width a size &gt; 0. Please, consider upgrade manually.');
+			die('config.php already exists with a size &gt; 0. Please, consider upgrade manually.');
 			$this->response->redirect($this->url->link('upgrade/upgrade'));
 		}
 	}
