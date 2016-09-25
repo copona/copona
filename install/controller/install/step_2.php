@@ -3,9 +3,9 @@ class ControllerInstallStep2 extends Controller {
 	private $error = array();
 
 	public function index() {
-		//$this->language->load('install/step_2');		
+		//$this->language->load('install/step_2');
 		$data = array_merge($data = array(), $this->language->load('install/step_2'));
-		
+
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->response->redirect($this->url->link('install/step_3'));
 		}
@@ -29,9 +29,9 @@ class ControllerInstallStep2 extends Controller {
 		$data['session_auto_start'] = ini_get('session_auto_start');
 
 		$db = array(
-			'mysql', 
-			'mysqli', 
-			'pgsql', 
+			'mysql',
+			'mysqli',
+			'pgsql',
 			'pdo'
 		);
 
@@ -46,17 +46,17 @@ class ControllerInstallStep2 extends Controller {
 		$data['mcrypt_encrypt'] = function_exists('mcrypt_encrypt');
 		$data['zlib'] = extension_loaded('zlib');
 		$data['zip'] = extension_loaded('zip');
-		
+
 		$data['iconv'] = function_exists('iconv');
 		$data['mbstring'] = extension_loaded('mbstring');
 
 		$data['config_catalog'] = DIR_OPENCART . 'config.php';
 		$data['config_admin'] = DIR_OPENCART . 'admin/config.php';
-		
+
 		$data['image'] = DIR_OPENCART . 'image';
 		$data['image_cache'] = DIR_OPENCART . 'image/cache';
-		$data['image_catalog'] = DIR_OPENCART . 'image/catalog';		
-		
+		$data['image_catalog'] = DIR_OPENCART . 'image/catalog';
+
 		$data['cache'] = DIR_SYSTEM . 'storage/cache';
 		$data['logs'] = DIR_SYSTEM . 'storage/logs';
 		$data['download'] = DIR_SYSTEM . 'storage/download';
@@ -86,9 +86,9 @@ class ControllerInstallStep2 extends Controller {
 		}
 
 		$db = array(
-			'mysql', 
-			'mysqli', 
-			'pdo', 
+			'mysql',
+			'mysqli',
+			'pdo',
 			'pgsql'
 		);
 
@@ -115,16 +115,16 @@ class ControllerInstallStep2 extends Controller {
 		if (!extension_loaded('zip')) {
 			$this->error['warning'] = $this->language->get('error_zip');
 		}
-		
+
 		if (!function_exists('iconv') && !extension_loaded('mbstring')) {
 			$this->error['warning'] = $this->language->get('error_mbstring');
 		}
-		
+
 		if (!file_exists(DIR_OPENCART . 'config.php')) {
 			//$this->error['warning'] = $this->language->get('error_catalog_exist');
 		} elseif (!is_writable(DIR_OPENCART . 'config.php')) {
 			$this->error['warning'] = $this->language->get('error_catalog_writable');
-		} elseif ( filesize(DIR_OPENCART . 'config.php') > 0 ) {
+		} elseif (filesize(DIR_OPENCART . 'config.php') > 0) {
 			$this->error['warning'] = "Application 'config.php' file already exists.";
 		}
 
@@ -132,7 +132,7 @@ class ControllerInstallStep2 extends Controller {
 			//$this->error['warning'] = $this->language->get('error_admin_exist');
 		} elseif (!is_writable(DIR_OPENCART . 'admin/config.php')) {
 			$this->error['warning'] = $this->language->get('error_admin_writable');
-		} elseif ( filesize(DIR_OPENCART . 'admin/config.php') > 0 ) {
+		} elseif (filesize(DIR_OPENCART . 'admin/config.php') > 0) {
 			$this->error['warning'] = "Application 'admin/config.php' file already exists.";
 		}
 
@@ -147,7 +147,7 @@ class ControllerInstallStep2 extends Controller {
 		if (!is_writable(DIR_OPENCART . 'image/catalog')) {
 			$this->error['warning'] = $this->language->get('error_image_catalog');
 		}
-		
+
 		if (!is_writable(DIR_SYSTEM . 'storage/cache')) {
 			$this->error['warning'] = $this->language->get('error_cache');
 		}
@@ -170,4 +170,5 @@ class ControllerInstallStep2 extends Controller {
 
 		return !$this->error;
 	}
+
 }
