@@ -39,6 +39,10 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
 			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n";
 
+			if(!file_exists( DIR_OPENCART . 'config.php' ) ) {
+				touch(DIR_OPENCART . 'config.php');
+			}
+			
 			$file = fopen(DIR_OPENCART . 'config.php', 'w');
 
 			fwrite($file, $output);
@@ -77,6 +81,10 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
 			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n";
 
+			if(!file_exists( DIR_OPENCART . 'admin/config.php' ) ) {
+				touch(DIR_OPENCART . 'admin/config.php');
+			}
+			
 			$file = fopen(DIR_OPENCART . 'admin/config.php', 'w');
 
 			fwrite($file, $output);
@@ -290,13 +298,16 @@ class ControllerInstallStep3 extends Controller {
 			$this->error['email'] = $this->language->get('error_email');
 		}
 
-		if (!is_writable(DIR_OPENCART . 'config.php')) {
+		/*TODO:
+		We have already checked the availabliliity of file. This is useless.
+		if (!is_writable(DIR_OPENCART . 'config.php') || ( file_exists() ) {
 			$this->error['warning'] = $this->language->get('error_config') . DIR_OPENCART . 'config.php!';
 		}
 
 		if (!is_writable(DIR_OPENCART . 'admin/config.php')) {
 			$this->error['warning'] = $this->language->get('error_config') . DIR_OPENCART . 'admin/config.php!';
 		}
+		*/
 
 		return !$this->error;
 	}

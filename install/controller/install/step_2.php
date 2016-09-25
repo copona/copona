@@ -3,48 +3,16 @@ class ControllerInstallStep2 extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->language->load('install/step_2');
+		//$this->language->load('install/step_2');		
+		$data = array_merge($data = array(), $this->language->load('install/step_2'));
 		
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->response->redirect($this->url->link('install/step_3'));
 		}
 
-		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle($data['heading_title']);
 
-		$data['heading_title'] = $this->language->get('heading_title');
-		
-		$data['text_step_2'] = $this->language->get('text_step_2');
-		$data['text_install_php'] = $this->language->get('text_install_php');
-		$data['text_install_extension'] = $this->language->get('text_install_extension');
-		$data['text_install_file'] = $this->language->get('text_install_file');
-		$data['text_install_directory'] = $this->language->get('text_install_directory');
-		$data['text_setting'] = $this->language->get('text_setting');
-		$data['text_current'] = $this->language->get('text_current');
-		$data['text_required'] = $this->language->get('text_required');
-		$data['text_extension'] = $this->language->get('text_extension');
-		$data['text_file'] = $this->language->get('text_file');
-		$data['text_directory'] = $this->language->get('text_directory');
-		$data['text_status'] = $this->language->get('text_status');
-		$data['text_on'] = $this->language->get('text_on');
-		$data['text_off'] = $this->language->get('text_off');
-		$data['text_missing'] = $this->language->get('text_missing');
-		$data['text_writable'] = $this->language->get('text_writable');
-		$data['text_unwritable'] = $this->language->get('text_unwritable');
-		$data['text_version'] = $this->language->get('text_version');
-		$data['text_global'] = $this->language->get('text_global');
-		$data['text_magic'] = $this->language->get('text_magic');
-		$data['text_file_upload'] = $this->language->get('text_file_upload');
-		$data['text_session'] = $this->language->get('text_session');
-		$data['text_db'] = $this->language->get('text_db');
-		$data['text_gd'] = $this->language->get('text_gd');
-		$data['text_curl'] = $this->language->get('text_curl');
-		$data['text_mcrypt'] = $this->language->get('text_mcrypt');
-		$data['text_zlib'] = $this->language->get('text_zlib');
-		$data['text_zip'] = $this->language->get('text_zip');
-		$data['text_mbstring'] = $this->language->get('text_mbstring');
-
-		$data['button_continue'] = $this->language->get('button_continue');
-		$data['button_back'] = $this->language->get('button_back');
+		$data['heading_title'] = $data['heading_title'];
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -87,7 +55,8 @@ class ControllerInstallStep2 extends Controller {
 		
 		$data['image'] = DIR_OPENCART . 'image';
 		$data['image_cache'] = DIR_OPENCART . 'image/cache';
-		$data['image_catalog'] = DIR_OPENCART . 'image/catalog';
+		$data['image_catalog'] = DIR_OPENCART . 'image/catalog';		
+		
 		$data['cache'] = DIR_SYSTEM . 'storage/cache';
 		$data['logs'] = DIR_SYSTEM . 'storage/logs';
 		$data['download'] = DIR_SYSTEM . 'storage/download';
@@ -152,15 +121,19 @@ class ControllerInstallStep2 extends Controller {
 		}
 		
 		if (!file_exists(DIR_OPENCART . 'config.php')) {
-			$this->error['warning'] = $this->language->get('error_catalog_exist');
+			//$this->error['warning'] = $this->language->get('error_catalog_exist');
 		} elseif (!is_writable(DIR_OPENCART . 'config.php')) {
 			$this->error['warning'] = $this->language->get('error_catalog_writable');
+		} elseif ( filesize(DIR_OPENCART . 'config.php') > 0 ) {
+			$this->error['warning'] = "Application 'config.php' file already exists.";
 		}
 
 		if (!file_exists(DIR_OPENCART . 'admin/config.php')) {
-			$this->error['warning'] = $this->language->get('error_admin_exist');
+			//$this->error['warning'] = $this->language->get('error_admin_exist');
 		} elseif (!is_writable(DIR_OPENCART . 'admin/config.php')) {
 			$this->error['warning'] = $this->language->get('error_admin_writable');
+		} elseif ( filesize(DIR_OPENCART . 'admin/config.php') > 0 ) {
+			$this->error['warning'] = "Application 'admin/config.php' file already exists.";
 		}
 
 		if (!is_writable(DIR_OPENCART . 'image')) {

@@ -229,7 +229,7 @@
               <tr>
                 <td><?php echo $config_catalog; ?></td>
                 <td><?php if (!file_exists($config_catalog)) { ?>
-                  <span class="text-danger"><?php echo $text_missing; ?></span>
+                  <span class="text-success">Will be created.</span>
                   <?php } elseif (!is_writable($config_catalog)) { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
                   <?php } else { ?>
@@ -239,7 +239,7 @@
               <tr>
                 <td><?php echo $config_admin; ?></td>
                 <td><?php if (!file_exists($config_admin)) { ?>
-                  <span class="text-danger"><?php echo $text_missing; ?></span>
+                  <span class="text-success">Will be created.</span>
                   <?php } elseif (!is_writable($config_admin)) { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
                   <?php } else { ?>
