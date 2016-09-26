@@ -1,5 +1,6 @@
 <?php
 class ControllerToolUpload extends Controller {
+
 	public function index() {
 		$this->load->language('tool/upload');
 
@@ -75,4 +76,5 @@ class ControllerToolUpload extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

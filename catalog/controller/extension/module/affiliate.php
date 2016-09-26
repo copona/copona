@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionModuleAffiliate extends Controller {
+
 	public function index() {
 		$this->load->language('extension/module/affiliate');
 
@@ -30,4 +31,5 @@ class ControllerExtensionModuleAffiliate extends Controller {
 
 		return $this->load->view('extension/module/affiliate', $data);
 	}
+
 }

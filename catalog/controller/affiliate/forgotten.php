@@ -22,7 +22,7 @@ class ControllerAffiliateForgotten extends Controller {
 
 			$subject = sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 
-			$message  = sprintf($this->language->get('text_greeting'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')) . "\n\n";
+			$message = sprintf($this->language->get('text_greeting'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')) . "\n\n";
 			$message .= $this->language->get('text_password') . "\n\n";
 			$message .= $password;
 
@@ -53,7 +53,7 @@ class ControllerAffiliateForgotten extends Controller {
 
 					$activity_data = array(
 						'affiliate_id' => $affiliate_info['affiliate_id'],
-						'name'         => $affiliate_info['firstname'] . ' ' . $affiliate_info['lastname']
+						'name'				 => $affiliate_info['firstname'] . ' ' . $affiliate_info['lastname']
 					);
 
 					$this->model_affiliate_activity->addActivity('forgotten', $activity_data);
@@ -120,9 +120,10 @@ class ControllerAffiliateForgotten extends Controller {
 		$affiliate_info = $this->model_affiliate_affiliate->getAffiliateByEmail($this->request->post['email']);
 
 		if ($affiliate_info && !$affiliate_info['approved']) {
-		    $this->error['warning'] = $this->language->get('error_approved');
+			$this->error['warning'] = $this->language->get('error_approved');
 		}
 
 		return !$this->error;
 	}
+
 }

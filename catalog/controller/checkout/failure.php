@@ -1,5 +1,6 @@
 <?php
 class ControllerCheckoutFailure extends Controller {
+
 	public function index() {
 		$this->load->language('checkout/failure');
 
@@ -44,4 +45,5 @@ class ControllerCheckoutFailure extends Controller {
 
 		$this->response->setOutput($this->load->view('common/success', $data));
 	}
+
 }

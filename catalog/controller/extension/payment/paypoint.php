@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentPaypoint extends Controller {
+
 	public function index() {
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
@@ -161,4 +162,5 @@ class ControllerExtensionPaymentPaypoint extends Controller {
 			}
 		}
 	}
+
 }

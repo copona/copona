@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentBluePayHosted extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/bluepay_hosted');
 		$this->load->model('checkout/order');
@@ -92,4 +93,5 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($this->request->get));
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerErrorNotFound extends Controller {
+
 	public function index() {
 		$this->load->language('error/not_found');
 
@@ -52,4 +53,5 @@ class ControllerErrorNotFound extends Controller {
 
 		$this->response->setOutput($this->load->view('error/not_found', $data));
 	}
+
 }

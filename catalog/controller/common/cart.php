@@ -1,5 +1,6 @@
 <?php
 class ControllerCommonCart extends Controller {
+
 	public function index() {
 		$this->load->language('common/cart');
 
@@ -13,10 +14,10 @@ class ControllerCommonCart extends Controller {
 		// Because __call can not keep var references so we put them into an array.
 		$total_data = array(
 			'totals' => &$totals,
-			'taxes'  => &$taxes,
-			'total'  => &$total
+			'taxes'	 => &$taxes,
+			'total'	 => &$total
 		);
-			
+
 		// Display prices
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 			$sort_order = array();
@@ -84,16 +85,16 @@ class ControllerCommonCart extends Controller {
 				}
 
 				$option_data[] = array(
-					'name'  => $option['name'],
-					'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value),
-					'type'  => $option['type']
+					'name'	 => $option['name'],
+					'value'	 => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value),
+					'type'	 => $option['type']
 				);
 			}
 
 			// Display prices
 			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 				$unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
-				
+
 				$price = $this->currency->format($unit_price, $this->session->data['currency']);
 				$total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
 			} else {
@@ -102,16 +103,16 @@ class ControllerCommonCart extends Controller {
 			}
 
 			$data['products'][] = array(
-				'cart_id'   => $product['cart_id'],
-				'thumb'     => $image,
-				'name'      => $product['name'],
-				'model'     => $product['model'],
-				'option'    => $option_data,
-				'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
-				'quantity'  => $product['quantity'],
-				'price'     => $price,
-				'total'     => $total,
-				'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+				'cart_id'		 => $product['cart_id'],
+				'thumb'			 => $image,
+				'name'			 => $product['name'],
+				'model'			 => $product['model'],
+				'option'		 => $option_data,
+				'recurring'	 => ($product['recurring'] ? $product['recurring']['name'] : ''),
+				'quantity'	 => $product['quantity'],
+				'price'			 => $price,
+				'total'			 => $total,
+				'href'			 => $this->url->link('product/product', 'product_id=' . $product['product_id'])
 			);
 		}
 
@@ -121,9 +122,9 @@ class ControllerCommonCart extends Controller {
 		if (!empty($this->session->data['vouchers'])) {
 			foreach ($this->session->data['vouchers'] as $key => $voucher) {
 				$data['vouchers'][] = array(
-					'key'         => $key,
-					'description' => $voucher['description'],
-					'amount'      => $this->currency->format($voucher['amount'], $this->session->data['currency'])
+					'key'					 => $key,
+					'description'	 => $voucher['description'],
+					'amount'			 => $this->currency->format($voucher['amount'], $this->session->data['currency'])
 				);
 			}
 		}
@@ -132,8 +133,8 @@ class ControllerCommonCart extends Controller {
 
 		foreach ($totals as $total) {
 			$data['totals'][] = array(
-				'title' => $total['title'],
-				'text'  => $this->currency->format($total['value'], $this->session->data['currency']),
+				'title'	 => $total['title'],
+				'text'	 => $this->currency->format($total['value'], $this->session->data['currency']),
 			);
 		}
 
@@ -146,4 +147,5 @@ class ControllerCommonCart extends Controller {
 	public function info() {
 		$this->response->setOutput($this->index());
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerCheckoutShippingMethod extends Controller {
+
 	public function index() {
 		$this->load->language('checkout/checkout');
 
@@ -19,10 +20,10 @@ class ControllerCheckoutShippingMethod extends Controller {
 
 					if ($quote) {
 						$method_data[$result['code']] = array(
-							'title'      => $quote['title'],
-							'quote'      => $quote['quote'],
+							'title'			 => $quote['title'],
+							'quote'			 => $quote['quote'],
 							'sort_order' => $quote['sort_order'],
-							'error'      => $quote['error']
+							'error'			 => $quote['error']
 						);
 					}
 				}
@@ -130,4 +131,5 @@ class ControllerCheckoutShippingMethod extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentCod extends Controller {
+
 	public function index() {
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
@@ -17,4 +18,5 @@ class ControllerExtensionPaymentCod extends Controller {
 			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('cod_order_status_id'));
 		}
 	}
+
 }

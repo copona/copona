@@ -1,5 +1,6 @@
 <?php
 class ControllerAccountNewsletter extends Controller {
+
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/newsletter', '', true);
@@ -63,4 +64,5 @@ class ControllerAccountNewsletter extends Controller {
 
 		$this->response->setOutput($this->load->view('account/newsletter', $data));
 	}
+
 }

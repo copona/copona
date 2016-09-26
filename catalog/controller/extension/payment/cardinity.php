@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentCardinity extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/cardinity');
 
@@ -16,8 +17,8 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
-				'value' => sprintf('%02d', $i)
+				'text'	 => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+				'value'	 => sprintf('%02d', $i)
 			);
 		}
 
@@ -27,8 +28,8 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['years'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -59,17 +60,17 @@ class ControllerExtensionPaymentCardinity extends Controller {
 			}
 
 			$payment_data = array(
-				'amount'			 => (float)$this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false),
-				'currency'			 => $order_info['currency_code'],
-				'order_id'			 => $order_id,
-				'country'            => $order_info['shipping_iso_code_2'],
-				'payment_method'     => 'card',
+				'amount'						 => (float)$this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false),
+				'currency'					 => $order_info['currency_code'],
+				'order_id'					 => $order_id,
+				'country'						 => $order_info['shipping_iso_code_2'],
+				'payment_method'		 => 'card',
 				'payment_instrument' => array(
-					'pan'		=> preg_replace('!\s+!', '', $this->request->post['pan']),
-					'exp_year'	=> (int)$this->request->post['exp_year'],
-					'exp_month' => (int)$this->request->post['exp_month'],
-					'cvc'		=> $this->request->post['cvc'],
-					'holder'	=> $this->request->post['holder']
+					'pan'				 => preg_replace('!\s+!', '', $this->request->post['pan']),
+					'exp_year'	 => (int)$this->request->post['exp_year'],
+					'exp_month'	 => (int)$this->request->post['exp_month'],
+					'cvc'				 => $this->request->post['cvc'],
+					'holder'		 => $this->request->post['holder']
 				),
 			);
 
@@ -97,7 +98,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 					$json['redirect'] = $this->url->link('checkout/checkout', '', true);
 				} else {
 					$this->model_extension_payment_cardinity->addOrder(array(
-						'order_id'   => $this->session->data['order_id'],
+						'order_id'	 => $this->session->data['order_id'],
 						'payment_id' => $payment->getId()
 					));
 
@@ -107,16 +108,16 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 						$encryption_data = array(
 							'order_id' => $this->session->data['order_id'],
-							'secret'   => $this->config->get('cardinity_secret')
+							'secret'	 => $this->config->get('cardinity_secret')
 						);
 
 						$hash = $this->encryption->encrypt(json_encode($encryption_data));
 
 						$json['3ds'] = array(
-							'url'     => $authorization_information->getUrl(),
-							'PaReq'   => $authorization_information->getData(),
-							'TermUrl' => $this->url->link('extension/payment/cardinity/threeDSecureCallback', '', true),
-							'hash'    => $hash
+							'url'			 => $authorization_information->getUrl(),
+							'PaReq'		 => $authorization_information->getData(),
+							'TermUrl'	 => $this->url->link('extension/payment/cardinity/threeDSecureCallback', '', true),
+							'hash'		 => $hash
 						);
 					} elseif ($payment->getStatus() == 'approved') {
 						$this->finalizeOrder($payment);
@@ -143,7 +144,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		$encryption_data = array(
 			'order_id' => $this->session->data['order_id'],
-			'secret'   => $this->config->get('cardinity_secret')
+			'secret'	 => $this->config->get('cardinity_secret')
 		);
 
 		$hash = $this->encryption->encrypt(json_encode($encryption_data));
@@ -178,7 +179,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		$encryption_data = array(
 			'order_id' => $this->session->data['order_id'],
-			'secret'   => $this->config->get('cardinity_secret')
+			'secret'	 => $this->config->get('cardinity_secret')
 		);
 
 		$hash = $this->encryption->encrypt(json_encode($encryption_data));
@@ -294,4 +295,5 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		return $error;
 	}
+
 }

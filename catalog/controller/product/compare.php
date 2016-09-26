@@ -1,5 +1,6 @@
 <?php
 class ControllerProductCompare extends Controller {
+
 	public function index() {
 		$this->load->language('product/compare');
 
@@ -111,25 +112,25 @@ class ControllerProductCompare extends Controller {
 				}
 
 				$data['products'][$product_id] = array(
-					'product_id'   => $product_info['product_id'],
-					'name'         => $product_info['name'],
-					'thumb'        => $image,
-					'price'        => $price,
-					'special'      => $special,
-					'description'  => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..',
-					'model'        => $product_info['model'],
+					'product_id'	 => $product_info['product_id'],
+					'name'				 => $product_info['name'],
+					'thumb'				 => $image,
+					'price'				 => $price,
+					'special'			 => $special,
+					'description'	 => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..',
+					'model'				 => $product_info['model'],
 					'manufacturer' => $product_info['manufacturer'],
 					'availability' => $availability,
-					'minimum'      => $product_info['minimum'] > 0 ? $product_info['minimum'] : 1,
-					'rating'       => (int)$product_info['rating'],
-					'reviews'      => sprintf($this->language->get('text_reviews'), (int)$product_info['reviews']),
-					'weight'       => $this->weight->format($product_info['weight'], $product_info['weight_class_id']),
-					'length'       => $this->length->format($product_info['length'], $product_info['length_class_id']),
-					'width'        => $this->length->format($product_info['width'], $product_info['length_class_id']),
-					'height'       => $this->length->format($product_info['height'], $product_info['length_class_id']),
-					'attribute'    => $attribute_data,
-					'href'         => $this->url->link('product/product', 'product_id=' . $product_id),
-					'remove'       => $this->url->link('product/compare', 'remove=' . $product_id)
+					'minimum'			 => $product_info['minimum'] > 0 ? $product_info['minimum'] : 1,
+					'rating'			 => (int)$product_info['rating'],
+					'reviews'			 => sprintf($this->language->get('text_reviews'), (int)$product_info['reviews']),
+					'weight'			 => $this->weight->format($product_info['weight'], $product_info['weight_class_id']),
+					'length'			 => $this->length->format($product_info['length'], $product_info['length_class_id']),
+					'width'				 => $this->length->format($product_info['width'], $product_info['length_class_id']),
+					'height'			 => $this->length->format($product_info['height'], $product_info['length_class_id']),
+					'attribute'		 => $attribute_data,
+					'href'				 => $this->url->link('product/product', 'product_id=' . $product_id),
+					'remove'			 => $this->url->link('product/compare', 'remove=' . $product_id)
 				);
 
 				foreach ($attribute_groups as $attribute_group) {
@@ -192,4 +193,5 @@ class ControllerProductCompare extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

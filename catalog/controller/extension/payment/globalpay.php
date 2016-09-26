@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentGlobalpay extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/globalpay');
 
@@ -21,11 +22,11 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 		if ($this->config->get('globalpay_card_select') == 1) {
 			$card_types = array(
-				'visa' => $this->language->get('text_card_visa'),
-				'mc' => $this->language->get('text_card_mc'),
-				'amex' => $this->language->get('text_card_amex'),
+				'visa'	 => $this->language->get('text_card_visa'),
+				'mc'		 => $this->language->get('text_card_mc'),
+				'amex'	 => $this->language->get('text_card_amex'),
 				'switch' => $this->language->get('text_card_switch'),
-				'laser' => $this->language->get('text_card_laser'),
+				'laser'	 => $this->language->get('text_card_laser'),
 				'diners' => $this->language->get('text_card_diners'),
 			);
 
@@ -36,8 +37,8 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 			foreach ($accounts as $card => $account) {
 				if (isset($account['enabled']) && $account['enabled'] == 1) {
 					$data['cards'][] = array(
-						'type' => $card_types[$card],
-						'account' => (isset($account['default']) && $account['default'] == 1 ? $this->config->get('globalpay_merchant_id') : $account['merchant_id']),
+						'type'		 => $card_types[$card],
+						'account'	 => (isset($account['default']) && $account['default'] == 1 ? $this->config->get('globalpay_merchant_id') : $account['merchant_id']),
 					);
 				}
 			}
@@ -61,7 +62,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		$data['timestamp'] = strftime("%Y%m%d%H%M%S");
 		$data['order_id'] = $this->session->data['order_id'] . 'T' . $data['timestamp'] . mt_rand(1, 999);
 
-		$data['amount'] = round($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false)*100);
+		$data['amount'] = round($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) * 100);
 		$data['currency'] = $order_info['currency_code'];
 
 		$tmp = $data['timestamp'] . '.' . $data['merchant_id'] . '.' . $data['order_id'] . '.' . $data['amount'] . '.' . $data['currency'];
@@ -255,4 +256,5 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/payment/globalpay_response', $data));
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentSkrill extends Controller {
+
 	public function index() {
 		$this->load->model('checkout/order');
 
@@ -65,7 +66,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 
 			// md5sig validation
 			if ($this->config->get('skrill_secret')) {
-				$hash  = $this->request->post['merchant_id'];
+				$hash = $this->request->post['merchant_id'];
 				$hash .= $this->request->post['transaction_id'];
 				$hash .= strtoupper(md5($this->config->get('skrill_secret')));
 				$hash .= $this->request->post['mb_amount'];
@@ -81,7 +82,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 			}
 
 			if ($verified) {
-				switch($this->request->post['status']) {
+				switch ($this->request->post['status']) {
 					case '2':
 						$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('skrill_order_status_id'), '', true);
 						break;
@@ -103,4 +104,5 @@ class ControllerExtensionPaymentSkrill extends Controller {
 			}
 		}
 	}
+
 }

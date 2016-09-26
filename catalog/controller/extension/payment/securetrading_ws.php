@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentSecureTradingWs extends Controller {
+
 	public function index() {
 		$this->load->model('checkout/order');
 		$this->load->language('extension/payment/securetrading_ws');
@@ -18,22 +19,22 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			$data['button_confirm'] = $this->language->get('button_confirm');
 
 			$cards = array(
-				'AMEX' => 'American Express',
-				'VISA' => 'Visa',
-				'DELTA' => 'Visa Debit',
-				'ELECTRON' => 'Visa Electron',
-				'PURCHASING' => 'Visa Purchasing',
-				'VPAY' => 'V Pay',
-				'MASTERCARD' => 'MasterCard',
-				'MASTERCARDDEBIT' => 'MasterCard Debit',
-				'MAESTRO' => 'Maestro',
-				'PAYPAL' => 'PayPal',
+				'AMEX'						 => 'American Express',
+				'VISA'						 => 'Visa',
+				'DELTA'						 => 'Visa Debit',
+				'ELECTRON'				 => 'Visa Electron',
+				'PURCHASING'			 => 'Visa Purchasing',
+				'VPAY'						 => 'V Pay',
+				'MASTERCARD'			 => 'MasterCard',
+				'MASTERCARDDEBIT'	 => 'MasterCard Debit',
+				'MAESTRO'					 => 'Maestro',
+				'PAYPAL'					 => 'PayPal',
 			);
 
 			for ($i = 1; $i <= 12; $i++) {
 				$data['months'][] = array(
-					'text' => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
-					'value' => sprintf('%02d', $i)
+					'text'	 => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+					'value'	 => sprintf('%02d', $i)
 				);
 			}
 
@@ -43,8 +44,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 			for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 				$data['year_expire'][] = array(
-					'text' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-					'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+					'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+					'value'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 				);
 			}
 
@@ -257,17 +258,17 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 						$threed_status = (string)$response_xml->response->threedsecure->status;
 
 						$status_code_mapping = array(
-							0 => $this->language->get('text_not_given'),
-							1 => $this->language->get('text_not_checked'),
-							2 => $this->language->get('text_match'),
-							4 => $this->language->get('text_not_match'),
+							0	 => $this->language->get('text_not_given'),
+							1	 => $this->language->get('text_not_checked'),
+							2	 => $this->language->get('text_match'),
+							4	 => $this->language->get('text_not_match'),
 						);
 
 						$threed_status_mapping = array(
-							'Y' => $this->language->get('text_authenticated'),
-							'N' => $this->language->get('text_not_authenticated'),
-							'A' => $this->language->get('text_authentication_not_completed'),
-							'U' => $this->language->get('text_unable_to_perform'),
+							'Y'	 => $this->language->get('text_authenticated'),
+							'N'	 => $this->language->get('text_not_authenticated'),
+							'A'	 => $this->language->get('text_authentication_not_completed'),
+							'U'	 => $this->language->get('text_unable_to_perform'),
 						);
 
 						$message = sprintf($this->language->get('text_auth_code'), $authcode) . "\n";
@@ -319,10 +320,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 					$authcode = (string)$response_xml->response->authcode;
 
 					$status_code_mapping = array(
-						0 => $this->language->get('text_not_given'),
-						1 => $this->language->get('text_not_checked'),
-						2 => $this->language->get('text_match'),
-						4 => $this->language->get('text_not_match'),
+						0	 => $this->language->get('text_not_given'),
+						1	 => $this->language->get('text_not_checked'),
+						2	 => $this->language->get('text_match'),
+						4	 => $this->language->get('text_not_match'),
 					);
 
 					$message = sprintf($this->language->get('text_auth_code'), $authcode) . "\n";
@@ -357,4 +358,5 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 		return $json;
 	}
+
 }

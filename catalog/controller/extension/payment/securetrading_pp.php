@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentSecureTradingPp extends Controller {
+
 	public function index() {
 		$this->load->model('checkout/order');
 		$this->load->model('localisation/country');
@@ -50,16 +51,16 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 			}
 
 			$cards = array(
-				'AMEX' => 'American Express',
-				'VISA' => 'Visa',
-				'DELTA' => 'Visa Debit',
-				'ELECTRON' => 'Visa Electron',
-				'PURCHASING' => 'Visa Purchasing',
-				'VPAY' => 'V Pay',
-				'MASTERCARD' => 'MasterCard',
-				'MASTERCARDDEBIT' => 'MasterCard Debit',
-				'MAESTRO' => 'Maestro',
-				'PAYPAL' => 'PayPal',
+				'AMEX'						 => 'American Express',
+				'VISA'						 => 'Visa',
+				'DELTA'						 => 'Visa Debit',
+				'ELECTRON'				 => 'Visa Electron',
+				'PURCHASING'			 => 'Visa Purchasing',
+				'VPAY'						 => 'V Pay',
+				'MASTERCARD'			 => 'MasterCard',
+				'MASTERCARDDEBIT'	 => 'MasterCard Debit',
+				'MAESTRO'					 => 'Maestro',
+				'PAYPAL'					 => 'PayPal',
 			);
 
 			$data['cards'] = array();
@@ -86,7 +87,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		$keys = array_keys($this->request->post);
 		sort($keys);
 
-		$keys_ignore = array('notificationreference', 'responsesitesecurity');
+		$keys_ignore = array( 'notificationreference', 'responsesitesecurity' );
 
 		$string_to_hash = '';
 
@@ -106,10 +107,10 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 				if ($order_total == $this->request->post['mainamount'] && $order_info['currency_code'] == $this->request->post['currencyiso3a'] && $order_info['payment_code'] == 'securetrading_pp') {
 					$status_code_mapping = array(
-						0 => $this->language->get('text_not_given'),
-						1 => $this->language->get('text_not_checked'),
-						2 => $this->language->get('text_match'),
-						4 => $this->language->get('text_not_match'),
+						0	 => $this->language->get('text_not_given'),
+						1	 => $this->language->get('text_not_checked'),
+						2	 => $this->language->get('text_match'),
+						4	 => $this->language->get('text_not_match'),
 					);
 					$shipping_country = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['customercountryiso2a']);
 					$payment_country = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['billingcountryiso2a']);
@@ -167,4 +168,5 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 			}
 		}
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerCheckoutLogin extends Controller {
+
 	public function index() {
 		$this->load->language('checkout/checkout');
 
@@ -106,8 +107,8 @@ class ControllerCheckoutLogin extends Controller {
 				$this->load->model('account/activity');
 
 				$activity_data = array(
-					'customer_id' => $this->customer->getId(),
-					'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+					'customer_id'	 => $this->customer->getId(),
+					'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
 				);
 
 				$this->model_account_activity->addActivity('login', $activity_data);
@@ -119,4 +120,5 @@ class ControllerCheckoutLogin extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

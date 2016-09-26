@@ -1,5 +1,6 @@
 <?php
 class ControllerAccountRecurring extends Controller {
+
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/recurring', '', true);
@@ -70,10 +71,10 @@ class ControllerAccountRecurring extends Controller {
 
 			$data['recurrings'][] = array(
 				'order_recurring_id' => $result['order_recurring_id'],
-				'product'            => $result['product_name'],
-				'status'             => $status,
-				'date_added'         => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'view'               => $this->url->link('account/recurring/info', 'order_recurring_id=' . $result['order_recurring_id'], true),
+				'product'						 => $result['product_name'],
+				'status'						 => $status,
+				'date_added'				 => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'view'							 => $this->url->link('account/recurring/info', 'order_recurring_id=' . $result['order_recurring_id'], true),
 			);
 		}
 
@@ -192,8 +193,8 @@ class ControllerAccountRecurring extends Controller {
 			foreach ($results as $result) {
 				$data['transactions'][] = array(
 					'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-					'type'       => $result['type'],
-					'amount'     => $this->currency->format($result['amount'], $recurring_info['currency_code'])
+					'type'			 => $result['type'],
+					'amount'		 => $this->currency->format($result['amount'], $recurring_info['currency_code'])
 				);
 			}
 
@@ -253,4 +254,5 @@ class ControllerAccountRecurring extends Controller {
 			$this->response->setOutput($this->load->view('error/not_found', $data));
 		}
 	}
+
 }

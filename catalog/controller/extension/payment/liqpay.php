@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentLiqPay extends Controller {
+
 	public function index() {
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
@@ -9,7 +10,7 @@ class ControllerExtensionPaymentLiqPay extends Controller {
 
 		$data['action'] = 'https://liqpay.com/?do=clickNbuy';
 
-		$xml  = '<request>';
+		$xml = '<request>';
 		$xml .= '	<version>1.2</version>';
 		$xml .= '	<result_url>' . $this->url->link('checkout/success', '', true) . '</result_url>';
 		$xml .= '	<server_url>' . $this->url->link('extension/payment/liqpay/callback', '', true) . '</server_url>';
@@ -43,4 +44,5 @@ class ControllerExtensionPaymentLiqPay extends Controller {
 			$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('config_order_status_id'));
 		}
 	}
+
 }

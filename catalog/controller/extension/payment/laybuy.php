@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentLaybuy extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/laybuy');
 
@@ -44,7 +45,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		return $this->load->view('extension/payment/laybuy', $data);
 	}
 
-	public function postToLaybuy()	{
+	public function postToLaybuy() {
 		$this->load->model('extension/payment/laybuy');
 
 		$this->model_extension_payment_laybuy->log('Posting to Laybuy');
@@ -59,18 +60,18 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 				$data = array();
 
-				$data['VERSION']      = '0.2';
-				$data['MEMBER']       = $this->config->get('laybuys_membership_id');
-				$data['RETURNURL']    = $this->url->link('extension/payment/laybuy/callback', '', true);
-				$data['CANCELURL']    = $this->url->link('extension/payment/laybuy/cancel', '', true);
-				$data['AMOUNT']       = round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN);
-				$data['CURRENCY']     = $order_info['currency_code'];
-				$data['INIT']         = (int)$this->request->post['INIT'];
-				$data['MONTHS']       = (int)$this->request->post['MONTHS'];
-				$data['MIND']         = ((int)$this->config->get('laybuy_min_deposit')) ? (int)$this->config->get('laybuy_min_deposit') : 20;
-				$data['MAXD']         = ((int)$this->config->get('laybuy_max_deposit')) ? (int)$this->config->get('laybuy_max_deposit') : 50;
-				$data['CUSTOM']       = $order_info['order_id'] . ':' . md5($this->config->get('laybuy_token'));
-				$data['EMAIL']        = $order_info['email'];
+				$data['VERSION'] = '0.2';
+				$data['MEMBER'] = $this->config->get('laybuys_membership_id');
+				$data['RETURNURL'] = $this->url->link('extension/payment/laybuy/callback', '', true);
+				$data['CANCELURL'] = $this->url->link('extension/payment/laybuy/cancel', '', true);
+				$data['AMOUNT'] = round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN);
+				$data['CURRENCY'] = $order_info['currency_code'];
+				$data['INIT'] = (int)$this->request->post['INIT'];
+				$data['MONTHS'] = (int)$this->request->post['MONTHS'];
+				$data['MIND'] = ((int)$this->config->get('laybuy_min_deposit')) ? (int)$this->config->get('laybuy_min_deposit') : 20;
+				$data['MAXD'] = ((int)$this->config->get('laybuy_max_deposit')) ? (int)$this->config->get('laybuy_max_deposit') : 50;
+				$data['CUSTOM'] = $order_info['order_id'] . ':' . md5($this->config->get('laybuy_token'));
+				$data['EMAIL'] = $order_info['email'];
 
 				$data_string = '';
 
@@ -102,7 +103,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 				$this->model_extension_payment_laybuy->log('Response: ' . print_r($result, true));
 
-			 	if (isset($result['ACK']) && isset($result['TOKEN']) && $result['ACK'] == 'SUCCESS') {
+				if (isset($result['ACK']) && isset($result['TOKEN']) && $result['ACK'] == 'SUCCESS') {
 					$this->model_extension_payment_laybuy->log('Success response. Redirecting to PayPal.');
 
 					$this->response->redirect($this->config->get('laybuy_gateway_url') . '?TOKEN=' . $result['TOKEN']);
@@ -422,21 +423,21 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 							if ($payment['type'] == 'd') {
 								$report_content[] = array(
-									'instalment'	=> 0,
-									'amount'		=> $this->currency->format($payment['amount'], $transaction['currency']),
-									'date'			=> $date,
-									'pp_trans_id'	=> $payment['txnID'],
-									'status'		=> $payment['paymentStatus']
+									'instalment'	 => 0,
+									'amount'			 => $this->currency->format($payment['amount'], $transaction['currency']),
+									'date'				 => $date,
+									'pp_trans_id'	 => $payment['txnID'],
+									'status'			 => $payment['paymentStatus']
 								);
 							} elseif ($payment['type'] == 'p') {
 								$pending_flag = true;
 
 								$report_content[] = array(
-									'instalment'	=> $month,
-									'amount'		=> $this->currency->format($payment['amount'], $transaction['currency']),
-									'date'			=> $date,
-									'pp_trans_id'	=> $payment['txnID'],
-									'status'		=> $payment['paymentStatus']
+									'instalment'	 => $month,
+									'amount'			 => $this->currency->format($payment['amount'], $transaction['currency']),
+									'date'				 => $date,
+									'pp_trans_id'	 => $payment['txnID'],
+									'status'			 => $payment['paymentStatus']
 								);
 
 								$next_payment_status = $payment['paymentStatus'];
@@ -455,11 +456,11 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 								$date = date($this->language->get('date_format_short'), strtotime($next_payment_date));
 
 								$report_content[] = array(
-									'instalment'	=> $month,
-									'amount'		=> $this->currency->format($transaction['payment_amounts'], $transaction['currency']),
-									'date'			=> $date,
-									'pp_trans_id'	=> '',
-									'status'		=> $next_payment_status
+									'instalment'	 => $month,
+									'amount'			 => $this->currency->format($transaction['payment_amounts'], $transaction['currency']),
+									'date'				 => $date,
+									'pp_trans_id'	 => '',
+									'status'			 => $next_payment_status
 								);
 							}
 						}
@@ -493,4 +494,5 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			$this->model_extension_payment_laybuy->log('Token does not match.');
 		}
 	}
+
 }

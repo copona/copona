@@ -1,5 +1,6 @@
 <?php
 class ControllerCommonSearch extends Controller {
+
 	public function index() {
 		$this->load->language('common/search');
 
@@ -13,4 +14,5 @@ class ControllerCommonSearch extends Controller {
 
 		return $this->load->view('common/search', $data);
 	}
+
 }

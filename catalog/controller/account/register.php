@@ -32,8 +32,8 @@ class ControllerAccountRegister extends Controller {
 				$this->load->model('account/activity');
 
 				$activity_data = array(
-					'customer_id' => $customer_id,
-					'name'        => $this->request->post['firstname'] . ' ' . $this->request->post['lastname']
+					'customer_id'	 => $customer_id,
+					'name'				 => $this->request->post['firstname'] . ' ' . $this->request->post['lastname']
 				);
 
 				$this->model_account_activity->addActivity('register', $activity_data);
@@ -410,11 +410,12 @@ class ControllerAccountRegister extends Controller {
 		$custom_fields = $this->model_account_custom_field->getCustomFields($customer_group_id);
 
 		foreach ($custom_fields as $custom_field) {
-            if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
+			if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
 				$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-			} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
-            	$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-            }
+			} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array(
+					'options' => array( 'regexp' => $custom_field['validation'] ) ))) {
+				$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+			}
 		}
 
 		if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
@@ -464,12 +465,13 @@ class ControllerAccountRegister extends Controller {
 
 		foreach ($custom_fields as $custom_field) {
 			$json[] = array(
-				'custom_field_id' => $custom_field['custom_field_id'],
-				'required'        => $custom_field['required']
+				'custom_field_id'	 => $custom_field['custom_field_id'],
+				'required'				 => $custom_field['required']
 			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

@@ -22,7 +22,7 @@ class ControllerAccountForgotten extends Controller {
 
 			$subject = sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 
-			$message  = sprintf($this->language->get('text_greeting'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')) . "\n\n";
+			$message = sprintf($this->language->get('text_greeting'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')) . "\n\n";
 			$message .= $this->language->get('text_change') . "\n\n";
 			$message .= $this->url->link('account/reset', 'code=' . $code, true) . "\n\n";
 			$message .= sprintf($this->language->get('text_ip'), $this->request->server['REMOTE_ADDR']) . "\n\n";
@@ -53,8 +53,8 @@ class ControllerAccountForgotten extends Controller {
 					$this->load->model('account/activity');
 
 					$activity_data = array(
-						'customer_id' => $customer_info['customer_id'],
-						'name'        => $customer_info['firstname'] . ' ' . $customer_info['lastname']
+						'customer_id'	 => $customer_info['customer_id'],
+						'name'				 => $customer_info['firstname'] . ' ' . $customer_info['lastname']
 					);
 
 					$this->model_account_activity->addActivity('forgotten', $activity_data);
@@ -132,4 +132,5 @@ class ControllerAccountForgotten extends Controller {
 
 		return !$this->error;
 	}
+
 }

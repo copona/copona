@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionModuleAmazonPay extends Controller {
+
 	public function index() {
 
 		$this->load->model('extension/payment/amazon_login_pay');
@@ -103,14 +104,14 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 
 					if ($this->config->get('config_tax_customer') == 'payment') {
 						$payment_address = $this->model_account_address->getAddress($this->customer->getAddressId());
-						if($payment_address){
+						if ($payment_address) {
 							$this->session->data['payment_address'] = $payment_address;
 						}
 					}
 
 					if ($this->config->get('config_tax_customer') == 'shipping') {
 						$shipping_address = $this->model_account_address->getAddress($this->customer->getAddressId());
-						if($shipping_address){
+						if ($shipping_address) {
 							$this->session->data['shipping_address'] = $shipping_address;
 						}
 					}
@@ -119,8 +120,8 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 						$this->load->model('account/activity');
 
 						$activity_data = array(
-							'customer_id' => $this->customer->getId(),
-							'name' => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+							'customer_id'	 => $this->customer->getId(),
+							'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
 						);
 
 						$this->model_account_activity->addActivity('login', $activity_data);
@@ -143,20 +144,20 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 				$first_name = implode(' ', $full_name);
 
 				$data = array(
-					'customer_group_id' => (int)$this->config->get('config_customer_group_id'),
-					'firstname' => $first_name,
-					'lastname' => $last_name,
-					'email' => $user->email,
-					'telephone' => '',
-					'fax' => '',
-					'password' => uniqid(rand(), true),
-					'company' => '',
-					'address_1' => '',
-					'address_2' => '',
-					'city' => '',
-					'postcode' => '',
-					'country_id' => (int)$country_id,
-					'zone_id' => (int)$zone_id,
+					'customer_group_id'	 => (int)$this->config->get('config_customer_group_id'),
+					'firstname'					 => $first_name,
+					'lastname'					 => $last_name,
+					'email'							 => $user->email,
+					'telephone'					 => '',
+					'fax'								 => '',
+					'password'					 => uniqid(rand(), true),
+					'company'						 => '',
+					'address_1'					 => '',
+					'address_2'					 => '',
+					'city'							 => '',
+					'postcode'					 => '',
+					'country_id'				 => (int)$country_id,
+					'zone_id'						 => (int)$zone_id,
 				);
 
 				$customer_id = $this->model_extension_payment_amazon_login_pay->addCustomer($data);
@@ -170,14 +171,14 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 
 					if ($this->config->get('config_tax_customer') == 'payment') {
 						$payment_address = $this->model_account_address->getAddress($this->customer->getAddressId());
-						if($payment_address){
+						if ($payment_address) {
 							$this->session->data['payment_address'] = $payment_address;
 						}
 					}
 
 					if ($this->config->get('config_tax_customer') == 'shipping') {
 						$shipping_address = $this->model_account_address->getAddress($this->customer->getAddressId());
-						if($shipping_address){
+						if ($shipping_address) {
 							$this->session->data['shipping_address'] = $shipping_address;
 						}
 					}
@@ -186,8 +187,8 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 						$this->load->model('account/activity');
 
 						$activity_data = array(
-							'customer_id' => $this->customer->getId(),
-							'name' => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+							'customer_id'	 => $this->customer->getId(),
+							'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
 						);
 
 						$this->model_account_activity->addActivity('login', $activity_data);

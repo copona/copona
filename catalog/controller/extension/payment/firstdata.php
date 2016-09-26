@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentFirstdata extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/firstdata');
 
@@ -76,7 +77,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 		if ($this->config->get('firstdata_card_storage') == 1 && $this->customer->isLogged()) {
 			$data['card_storage'] = 1;
 			$data['stored_cards'] = $this->model_extension_payment_firstdata->getStoredCards();
-			$data['new_hosted_id'] = sha1($this->customer->getId()  . '-' . date("Y-m-d-H-i-s") . rand(10, 500));
+			$data['new_hosted_id'] = sha1($this->customer->getId() . '-' . date("Y-m-d-H-i-s") . rand(10, 500));
 		} else {
 			$data['card_storage'] = 0;
 			$data['stored_cards'] = array();
@@ -104,7 +105,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 			if ($local_hash == $this->request->post['notification_hash']) {
 				$order_id_parts = explode('T', $this->request->post['oid']);
 
-				$order_id = str_replace("CON-","",$order_id_parts[0]);
+				$order_id = str_replace("CON-", "", $order_id_parts[0]);
 
 				$order_info = $this->model_checkout_order->getOrder($order_id);
 
@@ -113,33 +114,33 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 						$response_parts = explode(':', $this->request->post['approval_code']);
 
 						$address_codes = array(
-							'PPX' => $this->language->get('text_address_ppx'),
-							'YYY' => $this->language->get('text_address_yyy'),
-							'YNA' => $this->language->get('text_address_yna'),
-							'NYZ' => $this->language->get('text_address_nyz'),
-							'NNN' => $this->language->get('text_address_nnn'),
-							'YPX' => $this->language->get('text_address_ypx'),
-							'PYX' => $this->language->get('text_address_pyx'),
-							'XXU' => $this->language->get('text_address_xxu')
+							'PPX'	 => $this->language->get('text_address_ppx'),
+							'YYY'	 => $this->language->get('text_address_yyy'),
+							'YNA'	 => $this->language->get('text_address_yna'),
+							'NYZ'	 => $this->language->get('text_address_nyz'),
+							'NNN'	 => $this->language->get('text_address_nnn'),
+							'YPX'	 => $this->language->get('text_address_ypx'),
+							'PYX'	 => $this->language->get('text_address_pyx'),
+							'XXU'	 => $this->language->get('text_address_xxu')
 						);
 
 						$cvv_codes = array(
-							'M'    => $this->language->get('text_card_code_m'),
-							'N'    => $this->language->get('text_card_code_n'),
-							'P'    => $this->language->get('text_card_code_p'),
-							'S'    => $this->language->get('text_card_code_s'),
-							'U'    => $this->language->get('text_card_code_u'),
-							'X'    => $this->language->get('text_card_code_x'),
+							'M'		 => $this->language->get('text_card_code_m'),
+							'N'		 => $this->language->get('text_card_code_n'),
+							'P'		 => $this->language->get('text_card_code_p'),
+							'S'		 => $this->language->get('text_card_code_s'),
+							'U'		 => $this->language->get('text_card_code_u'),
+							'X'		 => $this->language->get('text_card_code_x'),
 							'NONE' => $this->language->get('text_card_code_blank')
 						);
 
 						$card_types = array(
-							'M'         => $this->language->get('text_card_type_m'),
-							'V'         => $this->language->get('text_card_type_v'),
-							'C'         => $this->language->get('text_card_type_c'),
-							'A'         => $this->language->get('text_card_type_a'),
-							'MA'        => $this->language->get('text_card_type_ma'),
-							'MAESTROUK' => $this->language->get('text_card_type_mauk')
+							'M'					 => $this->language->get('text_card_type_m'),
+							'V'					 => $this->language->get('text_card_type_v'),
+							'C'					 => $this->language->get('text_card_type_c'),
+							'A'					 => $this->language->get('text_card_type_a'),
+							'MA'				 => $this->language->get('text_card_type_ma'),
+							'MAESTROUK'	 => $this->language->get('text_card_type_mauk')
 						);
 
 						if ($response_parts[0] == 'Y') {
@@ -244,4 +245,5 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
 		$this->response->redirect($this->url->link('checkout/checkout', '', true));
 	}
+
 }

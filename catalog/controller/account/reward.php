@@ -1,5 +1,6 @@
 <?php
 class ControllerAccountReward extends Controller {
+
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/reward', '', true);
@@ -50,10 +51,10 @@ class ControllerAccountReward extends Controller {
 		$data['rewards'] = array();
 
 		$filter_data = array(
-			'sort'  => 'date_added',
-			'order' => 'DESC',
-			'start' => ($page - 1) * 10,
-			'limit' => 10
+			'sort'	 => 'date_added',
+			'order'	 => 'DESC',
+			'start'	 => ($page - 1) * 10,
+			'limit'	 => 10
 		);
 
 		$reward_total = $this->model_account_reward->getTotalRewards();
@@ -62,11 +63,11 @@ class ControllerAccountReward extends Controller {
 
 		foreach ($results as $result) {
 			$data['rewards'][] = array(
-				'order_id'    => $result['order_id'],
-				'points'      => $result['points'],
-				'description' => $result['description'],
-				'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'href'        => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], true)
+				'order_id'		 => $result['order_id'],
+				'points'			 => $result['points'],
+				'description'	 => $result['description'],
+				'date_added'	 => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'href'				 => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], true)
 			);
 		}
 
@@ -93,4 +94,5 @@ class ControllerAccountReward extends Controller {
 
 		$this->response->setOutput($this->load->view('account/reward', $data));
 	}
+
 }

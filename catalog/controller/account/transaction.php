@@ -1,5 +1,6 @@
 <?php
 class ControllerAccountTransaction extends Controller {
+
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/transaction', '', true);
@@ -50,10 +51,10 @@ class ControllerAccountTransaction extends Controller {
 		$data['transactions'] = array();
 
 		$filter_data = array(
-			'sort'  => 'date_added',
-			'order' => 'DESC',
-			'start' => ($page - 1) * 10,
-			'limit' => 10
+			'sort'	 => 'date_added',
+			'order'	 => 'DESC',
+			'start'	 => ($page - 1) * 10,
+			'limit'	 => 10
 		);
 
 		$transaction_total = $this->model_account_transaction->getTotalTransactions();
@@ -62,9 +63,9 @@ class ControllerAccountTransaction extends Controller {
 
 		foreach ($results as $result) {
 			$data['transactions'][] = array(
-				'amount'      => $this->currency->format($result['amount'], $this->config->get('config_currency')),
-				'description' => $result['description'],
-				'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+				'amount'			 => $this->currency->format($result['amount'], $this->config->get('config_currency')),
+				'description'	 => $result['description'],
+				'date_added'	 => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
 
@@ -91,4 +92,5 @@ class ControllerAccountTransaction extends Controller {
 
 		$this->response->setOutput($this->load->view('account/transaction', $data));
 	}
+
 }

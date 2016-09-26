@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentRealex extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/realex');
 
@@ -21,11 +22,11 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 		if ($this->config->get('realex_card_select') == 1) {
 			$card_types = array(
-				'visa' => $this->language->get('text_card_visa'),
-				'mc' => $this->language->get('text_card_mc'),
-				'amex' => $this->language->get('text_card_amex'),
+				'visa'	 => $this->language->get('text_card_visa'),
+				'mc'		 => $this->language->get('text_card_mc'),
+				'amex'	 => $this->language->get('text_card_amex'),
 				'switch' => $this->language->get('text_card_switch'),
-				'laser' => $this->language->get('text_card_laser'),
+				'laser'	 => $this->language->get('text_card_laser'),
 				'diners' => $this->language->get('text_card_diners'),
 			);
 
@@ -36,8 +37,8 @@ class ControllerExtensionPaymentRealex extends Controller {
 			foreach ($accounts as $card => $account) {
 				if (isset($account['enabled']) && $account['enabled'] == 1) {
 					$data['cards'][] = array(
-						'type' => $card_types[$card],
-						'account' => (isset($account['default']) && $account['default'] == 1 ? $this->config->get('realex_merchant_id') : $account['merchant_id']),
+						'type'		 => $card_types[$card],
+						'account'	 => (isset($account['default']) && $account['default'] == 1 ? $this->config->get('realex_merchant_id') : $account['merchant_id']),
 					);
 				}
 			}
@@ -255,4 +256,5 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/payment/realex_response', $data));
 	}
+
 }

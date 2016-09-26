@@ -1,5 +1,6 @@
 <?php
 class ControllerAccountWishList extends Controller {
+
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/wishlist', '', true);
@@ -102,14 +103,14 @@ class ControllerAccountWishList extends Controller {
 
 				$data['products'][] = array(
 					'product_id' => $product_info['product_id'],
-					'thumb'      => $image,
-					'name'       => $product_info['name'],
-					'model'      => $product_info['model'],
-					'stock'      => $stock,
-					'price'      => $price,
-					'special'    => $special,
-					'href'       => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
-					'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
+					'thumb'			 => $image,
+					'name'			 => $product_info['name'],
+					'model'			 => $product_info['model'],
+					'stock'			 => $stock,
+					'price'			 => $price,
+					'special'		 => $special,
+					'href'			 => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
+					'remove'		 => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
 				);
 			} else {
 				$this->model_account_wishlist->deleteWishlist($result['product_id']);
@@ -171,4 +172,5 @@ class ControllerAccountWishList extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

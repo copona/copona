@@ -1,5 +1,6 @@
 <?php
 class ControllerCheckoutPaymentMethod extends Controller {
+
 	public function index() {
 		$this->load->language('checkout/checkout');
 
@@ -12,10 +13,10 @@ class ControllerCheckoutPaymentMethod extends Controller {
 			// Because __call can not keep var references so we put them into an array.
 			$total_data = array(
 				'totals' => &$totals,
-				'taxes'  => &$taxes,
-				'total'  => &$total
+				'taxes'	 => &$taxes,
+				'total'	 => &$total
 			);
-			
+
 			$this->load->model('extension/extension');
 
 			$sort_order = array();
@@ -31,7 +32,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 			foreach ($results as $result) {
 				if ($this->config->get($result['code'] . '_status')) {
 					$this->load->model('extension/total/' . $result['code']);
-					
+
 					// We have to put the totals in an array so that they pass by reference.
 					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 				}
@@ -189,4 +190,5 @@ class ControllerCheckoutPaymentMethod extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

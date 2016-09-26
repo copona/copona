@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentRealexRemote extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/realex_remote');
 
@@ -19,11 +20,11 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 		$accounts = $this->config->get('realex_remote_account');
 
 		$card_types = array(
-			'visa' => $this->language->get('text_card_visa'),
-			'mc' => $this->language->get('text_card_mc'),
-			'amex' => $this->language->get('text_card_amex'),
+			'visa'	 => $this->language->get('text_card_visa'),
+			'mc'		 => $this->language->get('text_card_mc'),
+			'amex'	 => $this->language->get('text_card_amex'),
 			'switch' => $this->language->get('text_card_switch'),
-			'laser' => $this->language->get('text_card_laser'),
+			'laser'	 => $this->language->get('text_card_laser'),
 			'diners' => $this->language->get('text_card_diners'),
 		);
 
@@ -42,8 +43,8 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
-				'value' => sprintf('%02d', $i)
+				'text'	 => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+				'value'	 => sprintf('%02d', $i)
 			);
 		}
 
@@ -53,8 +54,8 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -116,17 +117,17 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 				// Proceed to 3D secure
 				if (isset($verify_3ds->result) && $verify_3ds->result == '00') {
 					$enc_data = array(
-						'account' => $account,
-						'amount' => $amount,
-						'currency' => $currency,
-						'order_id' => $order_id,
-						'order_ref' => $order_ref,
-						'cc_number' => $this->request->post['cc_number'],
-						'cc_expire' => $this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'],
-						'cc_name' => $this->request->post['cc_name'],
-						'cc_type' => $this->request->post['cc_type'],
-						'cc_cvv2' => $this->request->post['cc_cvv2'],
-						'cc_issue' => $this->request->post['cc_issue']
+						'account'		 => $account,
+						'amount'		 => $amount,
+						'currency'	 => $currency,
+						'order_id'	 => $order_id,
+						'order_ref'	 => $order_ref,
+						'cc_number'	 => $this->request->post['cc_number'],
+						'cc_expire'	 => $this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'],
+						'cc_name'		 => $this->request->post['cc_name'],
+						'cc_type'		 => $this->request->post['cc_type'],
+						'cc_cvv2'		 => $this->request->post['cc_cvv2'],
+						'cc_issue'	 => $this->request->post['cc_issue']
 					);
 
 					$md = $this->encryption->encrypt(json_encode($enc_data));
@@ -179,7 +180,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 				}
 
 				// Invalid response from Enrollment Server. No shift in liability. ECI = 7
-				if (isset($verify_3ds->result)  && $verify_3ds->result >= 500 && $verify_3ds->result < 600) {
+				if (isset($verify_3ds->result) && $verify_3ds->result >= 500 && $verify_3ds->result < 600) {
 					if ($this->config->get('realex_remote_liability') != 1) {
 						$this->load->language('extension/payment/realex_remote');
 
@@ -202,21 +203,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 		}
 
 		$capture_result = $this->model_extension_payment_realex_remote->capturePayment(
-			$account,
-			$amount,
-			$currency,
-			$order_id,
-			$order_ref,
-			$this->request->post['cc_number'],
-			$this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'],
-			$this->request->post['cc_name'],
-			$this->request->post['cc_type'],
-			$this->request->post['cc_cvv2'],
-			$this->request->post['cc_issue'],
-			$eci_ref,
-			$eci,
-			$cavv,
-			$xid
+			$account, $amount, $currency, $order_id, $order_ref, $this->request->post['cc_number'], $this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'], $this->request->post['cc_name'], $this->request->post['cc_type'], $this->request->post['cc_cvv2'], $this->request->post['cc_issue'], $eci_ref, $eci, $cavv, $xid
 		);
 
 		$this->model_extension_payment_realex_remote->logger('Capture result:\r\n' . print_r($capture_result, 1));
@@ -283,7 +270,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 				}
 
 				// Invalid response from ACS.  No shift in liability. ECI = 7
-				if (isset($signature_result->result)  && $signature_result->result >= 500 && $signature_result->result < 600) {
+				if (isset($signature_result->result) && $signature_result->result >= 500 && $signature_result->result < 600) {
 					$eci_ref = 9;
 					$xid = '';
 					$cavv = '';
@@ -315,21 +302,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 			}
 
 			$capture_result = $this->model_extension_payment_realex_remote->capturePayment(
-				$md['account'],
-				$md['amount'],
-				$md['currency'],
-				$md['order_id'],
-				$md['order_ref'],
-				$md['cc_number'],
-				$md['cc_expire'],
-				$md['cc_name'],
-				$md['cc_type'],
-				$md['cc_cvv2'],
-				$md['cc_issue'],
-				$eci_ref,
-				$eci,
-				$cavv,
-				$xid
+				$md['account'], $md['amount'], $md['currency'], $md['order_id'], $md['order_ref'], $md['cc_number'], $md['cc_expire'], $md['cc_name'], $md['cc_type'], $md['cc_cvv2'], $md['cc_issue'], $eci_ref, $eci, $cavv, $xid
 			);
 
 			$this->model_extension_payment_realex_remote->logger('Capture result:\r\n' . print_r($capture_result, 1));
@@ -345,4 +318,5 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
 	}
+
 }

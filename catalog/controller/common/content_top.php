@@ -1,5 +1,6 @@
 <?php
 class ControllerCommonContentTop extends Controller {
+
 	public function index() {
 		$this->load->model('design/layout');
 
@@ -71,4 +72,5 @@ class ControllerCommonContentTop extends Controller {
 
 		return $this->load->view('common/content_top', $data);
 	}
+
 }

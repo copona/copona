@@ -1,5 +1,6 @@
 <?php
 class ControllerAccountSuccess extends Controller {
+
 	public function index() {
 		$this->load->language('account/success');
 
@@ -51,4 +52,5 @@ class ControllerAccountSuccess extends Controller {
 
 		$this->response->setOutput($this->load->view('common/success', $data));
 	}
+
 }

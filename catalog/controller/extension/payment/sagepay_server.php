@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentSagepayServer extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/sagepay_server');
 		$data['text_credit_card'] = $this->language->get('text_credit_card');
@@ -133,12 +134,12 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$str_basket = "";
 		foreach ($order_products as $product) {
 			$str_basket .=
-					":" . str_replace(":", " ", $product['name'] . " " . $product['model']) .
-					":" . $product['quantity'] .
-					":" . $this->currency->format($product['price'], $order_info['currency_code'], false, false) .
-					":" . $this->currency->format($product['tax'], $order_info['currency_code'], false, false) .
-					":" . $this->currency->format(($product['price'] + $product['tax']), $order_info['currency_code'], false, false) .
-					":" . $this->currency->format(($product['price'] + $product['tax']) * $product['quantity'], $order_info['currency_code'], false, false);
+				":" . str_replace(":", " ", $product['name'] . " " . $product['model']) .
+				":" . $product['quantity'] .
+				":" . $this->currency->format($product['price'], $order_info['currency_code'], false, false) .
+				":" . $this->currency->format($product['tax'], $order_info['currency_code'], false, false) .
+				":" . $this->currency->format(($product['price'] + $product['tax']), $order_info['currency_code'], false, false) .
+				":" . $this->currency->format(($product['price'] + $product['tax']) * $product['quantity'], $order_info['currency_code'], false, false);
 			$cart_rows++;
 		}
 
@@ -363,8 +364,8 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		 * * the contents of the VPSSignature field in the POST.  Check the Sage Pay Server protocol **
 		 * * if you need clarification on this process * */
 		$str_message = $str_vps_tx_id . $vendor_tx_code . $str_status . $str_tx_auth_no . $this->config->get('sagepay_server_vendor') . urldecode($str_avs_cv2) . $str_security_key
-				. $str_address_result . $str_postcode_result . $str_cv2_result . $str_gift_aid . $str_3d_secure_status . $str_cavv
-				. $str_address_status . $str_payer_status . $str_card_type . $str_last_4_digits . $str_decline_code . $str_expiry_date . $str_bank_auth_code;
+			. $str_address_result . $str_postcode_result . $str_cv2_result . $str_gift_aid . $str_3d_secure_status . $str_cavv
+			. $str_address_status . $str_payer_status . $str_card_type . $str_last_4_digits . $str_decline_code . $str_expiry_date . $str_bank_auth_code;
 
 		$str_my_signature = strtoupper(md5($str_message));
 

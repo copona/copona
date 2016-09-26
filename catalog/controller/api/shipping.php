@@ -1,5 +1,6 @@
 <?php
 class ControllerApiShipping extends Controller {
+
 	public function address() {
 		$this->load->language('api/shipping');
 
@@ -73,7 +74,8 @@ class ControllerApiShipping extends Controller {
 				foreach ($custom_fields as $custom_field) {
 					if (($custom_field['location'] == 'address') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 						$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-					} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
+					} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array(
+							'options' => array( 'regexp' => $custom_field['validation'] ) ))) {
 						$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 					}
 				}
@@ -108,22 +110,22 @@ class ControllerApiShipping extends Controller {
 					}
 
 					$this->session->data['shipping_address'] = array(
-						'firstname'      => $this->request->post['firstname'],
-						'lastname'       => $this->request->post['lastname'],
-						'company'        => $this->request->post['company'],
-						'address_1'      => $this->request->post['address_1'],
-						'address_2'      => $this->request->post['address_2'],
-						'postcode'       => $this->request->post['postcode'],
-						'city'           => $this->request->post['city'],
-						'zone_id'        => $this->request->post['zone_id'],
-						'zone'           => $zone,
-						'zone_code'      => $zone_code,
-						'country_id'     => $this->request->post['country_id'],
-						'country'        => $country,
-						'iso_code_2'     => $iso_code_2,
-						'iso_code_3'     => $iso_code_3,
+						'firstname'			 => $this->request->post['firstname'],
+						'lastname'			 => $this->request->post['lastname'],
+						'company'				 => $this->request->post['company'],
+						'address_1'			 => $this->request->post['address_1'],
+						'address_2'			 => $this->request->post['address_2'],
+						'postcode'			 => $this->request->post['postcode'],
+						'city'					 => $this->request->post['city'],
+						'zone_id'				 => $this->request->post['zone_id'],
+						'zone'					 => $zone,
+						'zone_code'			 => $zone_code,
+						'country_id'		 => $this->request->post['country_id'],
+						'country'				 => $country,
+						'iso_code_2'		 => $iso_code_2,
+						'iso_code_3'		 => $iso_code_3,
 						'address_format' => $address_format,
-						'custom_field'   => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : array()
+						'custom_field'	 => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : array()
 					);
 
 					$json['success'] = $this->language->get('text_address');
@@ -177,10 +179,10 @@ class ControllerApiShipping extends Controller {
 
 						if ($quote) {
 							$json['shipping_methods'][$result['code']] = array(
-								'title'      => $quote['title'],
-								'quote'      => $quote['quote'],
+								'title'			 => $quote['title'],
+								'quote'			 => $quote['quote'],
 								'sort_order' => $quote['sort_order'],
-								'error'      => $quote['error']
+								'error'			 => $quote['error']
 							);
 						}
 					}
@@ -267,4 +269,5 @@ class ControllerApiShipping extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerCheckoutRegister extends Controller {
+
 	public function index() {
 		$this->load->language('checkout/checkout');
 
@@ -39,7 +40,7 @@ class ControllerCheckoutRegister extends Controller {
 
 			$customer_groups = $this->model_account_customer_group->getCustomerGroups();
 
-			foreach ($customer_groups  as $customer_group) {
+			foreach ($customer_groups as $customer_group) {
 				if (in_array($customer_group['customer_group_id'], $this->config->get('config_customer_group_display'))) {
 					$data['customer_groups'][] = $customer_group;
 				}
@@ -215,7 +216,8 @@ class ControllerCheckoutRegister extends Controller {
 			foreach ($custom_fields as $custom_field) {
 				if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
 					$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-				} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
+				} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array(
+						'options' => array( 'regexp' => $custom_field['validation'] ) ))) {
 					$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 				}
 			}
@@ -268,8 +270,8 @@ class ControllerCheckoutRegister extends Controller {
 				$this->load->model('account/activity');
 
 				$activity_data = array(
-					'customer_id' => $customer_id,
-					'name'        => $this->request->post['firstname'] . ' ' . $this->request->post['lastname']
+					'customer_id'	 => $customer_id,
+					'name'				 => $this->request->post['firstname'] . ' ' . $this->request->post['lastname']
 				);
 
 				$this->model_account_activity->addActivity('register', $activity_data);
@@ -279,4 +281,5 @@ class ControllerCheckoutRegister extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

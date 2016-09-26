@@ -1,5 +1,6 @@
 <?php
 class ControllerCheckoutPaymentAddress extends Controller {
+
 	public function index() {
 		$this->load->language('checkout/checkout');
 
@@ -156,9 +157,10 @@ class ControllerCheckoutPaymentAddress extends Controller {
 				foreach ($custom_fields as $custom_field) {
 					if (($custom_field['location'] == 'address') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 						$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-					} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
-                        $json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-                    }
+					} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array(
+							'options' => array( 'regexp' => $custom_field['validation'] ) ))) {
+						$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+					}
 				}
 
 				if (!$json) {
@@ -176,8 +178,8 @@ class ControllerCheckoutPaymentAddress extends Controller {
 						$this->load->model('account/activity');
 
 						$activity_data = array(
-							'customer_id' => $this->customer->getId(),
-							'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+							'customer_id'	 => $this->customer->getId(),
+							'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
 						);
 
 						$this->model_account_activity->addActivity('address_add', $activity_data);
@@ -189,4 +191,5 @@ class ControllerCheckoutPaymentAddress extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

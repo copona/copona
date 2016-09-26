@@ -2,6 +2,7 @@
 // Nochex via form will work for both simple "Seller" account and "Merchant" account holders
 // Nochex via APC maybe only avaiable to "Merchant" account holders only - site docs a bit vague on this point
 class ControllerExtensionPaymentNochex extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/nochex');
 
@@ -29,9 +30,9 @@ class ControllerExtensionPaymentNochex extends Controller {
 		$data['billing_fullname'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
 
 		if ($order_info['payment_address_2']) {
-			$data['billing_address']  = $order_info['payment_address_1'] . "\r\n" . $order_info['payment_address_2'] . "\r\n" . $order_info['payment_city'] . "\r\n" . $order_info['payment_zone'] . "\r\n";
+			$data['billing_address'] = $order_info['payment_address_1'] . "\r\n" . $order_info['payment_address_2'] . "\r\n" . $order_info['payment_city'] . "\r\n" . $order_info['payment_zone'] . "\r\n";
 		} else {
-			$data['billing_address']  = $order_info['payment_address_1'] . "\r\n" . $order_info['payment_city'] . "\r\n" . $order_info['payment_zone'] . "\r\n";
+			$data['billing_address'] = $order_info['payment_address_1'] . "\r\n" . $order_info['payment_city'] . "\r\n" . $order_info['payment_zone'] . "\r\n";
 		}
 
 		$data['billing_postcode'] = $order_info['payment_postcode'];
@@ -59,7 +60,7 @@ class ControllerExtensionPaymentNochex extends Controller {
 		}
 
 		$data['email_address'] = $order_info['email'];
-		$data['customer_phone_number']= $order_info['telephone'];
+		$data['customer_phone_number'] = $order_info['telephone'];
 		$data['test'] = $this->config->get('nochex_test');
 		$data['success_url'] = $this->url->link('checkout/success', '', true);
 		$data['cancel_url'] = $this->url->link('checkout/payment', '', true);
@@ -124,4 +125,5 @@ class ControllerExtensionPaymentNochex extends Controller {
 		// It's up to the store owner to manually verify payment.
 		$this->response->redirect($this->url->link('checkout/success', '', true));
 	}
+
 }

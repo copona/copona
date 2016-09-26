@@ -29,8 +29,8 @@ class ControllerAccountReset extends Controller {
 					$this->load->model('account/activity');
 
 					$activity_data = array(
-						'customer_id' => $customer_info['customer_id'],
-						'name'        => $customer_info['firstname'] . ' ' . $customer_info['lastname']
+						'customer_id'	 => $customer_info['customer_id'],
+						'name'				 => $customer_info['firstname'] . ' ' . $customer_info['lastname']
 					);
 
 					$this->model_account_activity->addActivity('reset', $activity_data);
@@ -124,4 +124,5 @@ class ControllerAccountReset extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerCommonHome extends Controller {
+
 	public function index() {
 		$this->document->setTitle($this->config->get('config_meta_title'));
 		$this->document->setDescription($this->config->get('config_meta_description'));
@@ -18,4 +19,5 @@ class ControllerCommonHome extends Controller {
 
 		$this->response->setOutput($this->load->view('common/home', $data));
 	}
+
 }

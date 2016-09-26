@@ -1,8 +1,9 @@
 <?php
 class ControllerExtensionFeedGoogleSitemap extends Controller {
+
 	public function index() {
 		if ($this->config->get('google_sitemap_status')) {
-			$output  = '<?xml version="1.0" encoding="UTF-8"?>';
+			$output = '<?xml version="1.0" encoding="UTF-8"?>';
 			$output .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
 
 			$this->load->model('catalog/product');
@@ -41,7 +42,7 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
 				$output .= '<priority>0.7</priority>';
 				$output .= '</url>';
 
-				$products = $this->model_catalog_product->getProducts(array('filter_manufacturer_id' => $manufacturer['manufacturer_id']));
+				$products = $this->model_catalog_product->getProducts(array( 'filter_manufacturer_id' => $manufacturer['manufacturer_id'] ));
 
 				foreach ($products as $product) {
 					$output .= '<url>';
@@ -89,7 +90,7 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
 			$output .= '<priority>0.7</priority>';
 			$output .= '</url>';
 
-			$products = $this->model_catalog_product->getProducts(array('filter_category_id' => $result['category_id']));
+			$products = $this->model_catalog_product->getProducts(array( 'filter_category_id' => $result['category_id'] ));
 
 			foreach ($products as $product) {
 				$output .= '<url>';
@@ -104,4 +105,5 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
 
 		return $output;
 	}
+
 }

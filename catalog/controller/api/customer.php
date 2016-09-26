@@ -1,5 +1,6 @@
 <?php
 class ControllerApiCustomer extends Controller {
+
 	public function index() {
 		$this->load->language('api/customer');
 
@@ -70,21 +71,22 @@ class ControllerApiCustomer extends Controller {
 			foreach ($custom_fields as $custom_field) {
 				if (($custom_field['location'] == 'account') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 					$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-				} elseif (($custom_field['location'] == 'account') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
+				} elseif (($custom_field['location'] == 'account') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array(
+						'options' => array( 'regexp' => $custom_field['validation'] ) ))) {
 					$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 				}
 			}
 
 			if (!$json) {
 				$this->session->data['customer'] = array(
-					'customer_id'       => $this->request->post['customer_id'],
-					'customer_group_id' => $customer_group_id,
-					'firstname'         => $this->request->post['firstname'],
-					'lastname'          => $this->request->post['lastname'],
-					'email'             => $this->request->post['email'],
-					'telephone'         => $this->request->post['telephone'],
-					'fax'               => $this->request->post['fax'],
-					'custom_field'      => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : array()
+					'customer_id'				 => $this->request->post['customer_id'],
+					'customer_group_id'	 => $customer_group_id,
+					'firstname'					 => $this->request->post['firstname'],
+					'lastname'					 => $this->request->post['lastname'],
+					'email'							 => $this->request->post['email'],
+					'telephone'					 => $this->request->post['telephone'],
+					'fax'								 => $this->request->post['fax'],
+					'custom_field'			 => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : array()
 				);
 
 				$json['success'] = $this->language->get('text_success');
@@ -101,4 +103,5 @@ class ControllerApiCustomer extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

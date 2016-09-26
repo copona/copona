@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
+
 	public function index() {
 		$this->load->model('checkout/order');
 
@@ -33,8 +34,8 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 			for ($i = 1; $i <= 31; $i++) {
 				$data['days'][] = array(
-					'text'  => sprintf('%02d', $i),
-					'value' => $i
+					'text'	 => sprintf('%02d', $i),
+					'value'	 => $i
 				);
 			}
 
@@ -42,8 +43,8 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 			for ($i = 1; $i <= 12; $i++) {
 				$data['months'][] = array(
-					'text'  => sprintf('%02d', $i),
-					'value' => $i
+					'text'	 => sprintf('%02d', $i),
+					'value'	 => $i
 				);
 			}
 
@@ -51,8 +52,8 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 			for ($i = date('Y'); $i >= 1900; $i--) {
 				$data['years'][] = array(
-					'text'  => $i,
-					'value' => $i
+					'text'	 => $i,
+					'value'	 => $i
 				);
 			}
 
@@ -64,8 +65,8 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 			// Because __call can not keep var references so we put them into an array.
 			$total_data = array(
 				'totals' => &$totals,
-				'taxes'  => &$taxes,
-				'total'  => &$total
+				'taxes'	 => &$taxes,
+				'total'	 => &$total
 			);
 
 			$this->load->model('extension/extension');
@@ -87,7 +88,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					$taxes = array();
-					
+
 					// We have to put the totals in an array so that they pass by reference.
 					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 
@@ -130,12 +131,12 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 			$data['phone_number'] = $order_info['telephone'];
 
 			$country_to_currency = array(
-				'NOR' => 'NOK',
-				'SWE' => 'SEK',
-				'FIN' => 'EUR',
-				'DNK' => 'DKK',
-				'DEU' => 'EUR',
-				'NLD' => 'EUR'
+				'NOR'	 => 'NOK',
+				'SWE'	 => 'SEK',
+				'FIN'	 => 'EUR',
+				'DNK'	 => 'DKK',
+				'DEU'	 => 'EUR',
+				'NLD'	 => 'EUR'
 			);
 
 			if ($order_info['payment_iso_code_3'] == 'DEU' || $order_info['payment_iso_code_3'] == 'NLD') {
@@ -175,7 +176,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 				// 1 - Account
 				// 2 - Special
 				// 3 - Fixed
-				if (!in_array($pclass['type'], array(0, 1, 3))) {
+				if (!in_array($pclass['type'], array( 0, 1, 3 ))) {
 					continue;
 				}
 
@@ -275,8 +276,8 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 			foreach ($payment_option as $payment_option) {
 				$data['payment_options'][] = array(
-					'code'  => $payment_option['pclass_id'],
-					'title' => sprintf($this->language->get('text_monthly_payment'), $payment_option['title'], $this->currency->format($this->currency->convert($payment_option['monthly_cost'], $country_to_currency[$order_info['payment_iso_code_3']], $this->session->data['currency']), $this->session->data['currency'], 1))
+					'code'	 => $payment_option['pclass_id'],
+					'title'	 => sprintf($this->language->get('text_monthly_payment'), $payment_option['title'], $this->currency->format($this->currency->convert($payment_option['monthly_cost'], $country_to_currency[$order_info['payment_iso_code_3']], $this->session->data['currency']), $this->session->data['currency'], 1))
 				);
 			}
 
@@ -313,12 +314,12 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 				}
 
 				$country_to_currency = array(
-					'NOR' => 'NOK',
-					'SWE' => 'SEK',
-					'FIN' => 'EUR',
-					'DNK' => 'DKK',
-					'DEU' => 'EUR',
-					'NLD' => 'EUR'
+					'NOR'	 => 'NOK',
+					'SWE'	 => 'SEK',
+					'FIN'	 => 'EUR',
+					'DNK'	 => 'DKK',
+					'DEU'	 => 'EUR',
+					'NLD'	 => 'EUR'
 				);
 
 				switch ($order_info['payment_iso_code_3']) {
@@ -385,33 +386,33 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 				}
 
 				$address = array(
-					'email'           => $order_info['email'],
-					'telno'           => $this->request->post['phone_no'],
-					'cellno'          => '',
-					'fname'           => $order_info['payment_firstname'],
-					'lname'           => $order_info['payment_lastname'],
-					'company'         => $order_info['payment_company'],
-					'careof'          => '',
-					'street'          => $street,
-					'house_number'    => $house_no,
-					'house_extension' => $house_ext,
-					'zip'             => $order_info['payment_postcode'],
-					'city'            => $order_info['payment_city'],
-					'country'         => $country
+					'email'						 => $order_info['email'],
+					'telno'						 => $this->request->post['phone_no'],
+					'cellno'					 => '',
+					'fname'						 => $order_info['payment_firstname'],
+					'lname'						 => $order_info['payment_lastname'],
+					'company'					 => $order_info['payment_company'],
+					'careof'					 => '',
+					'street'					 => $street,
+					'house_number'		 => $house_no,
+					'house_extension'	 => $house_ext,
+					'zip'							 => $order_info['payment_postcode'],
+					'city'						 => $order_info['payment_city'],
+					'country'					 => $country
 				);
 
 				$product_query = $this->db->query("SELECT `name`, `model`, `price`, `quantity`, `tax` / `price` * 100 AS 'tax_rate' FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = " . (int)$order_info['order_id'] . " UNION ALL SELECT '', `code`, `amount`, '1', 0.00 FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = " . (int)$order_info['order_id']);
 
 				foreach ($product_query->rows as $product) {
 					$goods_list[] = array(
-						'qty'   => (int)$product['quantity'],
-						'goods' => array(
-							'artno'    => $product['model'],
-							'title'    => $product['name'],
-							'price'    => (int)str_replace('.', '', $this->currency->format($product['price'], $country_to_currency[$order_info['payment_iso_code_3']], '', false)),
-							'vat'      => (float)$product['tax_rate'],
+						'qty'		 => (int)$product['quantity'],
+						'goods'	 => array(
+							'artno'		 => $product['model'],
+							'title'		 => $product['name'],
+							'price'		 => (int)str_replace('.', '', $this->currency->format($product['price'], $country_to_currency[$order_info['payment_iso_code_3']], '', false)),
+							'vat'			 => (float)$product['tax_rate'],
 							'discount' => 0.0,
-							'flags'    => 0
+							'flags'		 => 0
 						)
 					);
 				}
@@ -425,14 +426,14 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 				foreach ($totals as $total) {
 					if ($total['code'] != 'sub_total' && $total['code'] != 'tax' && $total['code'] != 'total') {
 						$goods_list[] = array(
-							'qty'   => 1,
-							'goods' => array(
-								'artno'    => '',
-								'title'    => $total['title'],
-								'price'    => (int)str_replace('.', '', $this->currency->format($total['value'], $country_to_currency[$order_info['payment_iso_code_3']], '', false)),
-								'vat'      => (float)$total['tax_rate'],
+							'qty'		 => 1,
+							'goods'	 => array(
+								'artno'		 => '',
+								'title'		 => $total['title'],
+								'price'		 => (int)str_replace('.', '', $this->currency->format($total['value'], $country_to_currency[$order_info['payment_iso_code_3']], '', false)),
+								'vat'			 => (float)$total['tax_rate'],
 								'discount' => 0.0,
-								'flags'    => 0
+								'flags'		 => 0
 							)
 						);
 					}
@@ -486,7 +487,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 					$pclass,
 					$goods_list,
 					$order_info['comment'],
-					array('delay_adjust' => 1),
+					array( 'delay_adjust' => 1 ),
 					array(),
 					array(),
 					array(),
@@ -494,11 +495,11 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 					array(),
 				);
 
-				$xml  = '<methodCall>';
+				$xml = '<methodCall>';
 				$xml .= '  <methodName>add_invoice</methodName>';
 				$xml .= '  <params>';
 
-				foreach ($transaction as $parameter)  {
+				foreach ($transaction as $parameter) {
 					$xml .= '    <param><value>' . $this->constructXmlrpc($parameter) . '</value></param>';
 				}
 
@@ -651,16 +652,16 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 	}
 
 	private function splitAddress($address) {
-		$numbers = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+		$numbers = array( '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' );
 
-		$characters = array('-', '/', ' ', '#', '.', 'a', 'b', 'c', 'd', 'e',
-						'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-						'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A',
-						'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-						'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
-						'X', 'Y', 'Z');
+		$characters = array( '-', '/', ' ', '#', '.', 'a', 'b', 'c', 'd', 'e',
+			'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+			'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A',
+			'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+			'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+			'X', 'Y', 'Z' );
 
-		$specialchars = array('-', '/', ' ', '#', '.');
+		$specialchars = array( '-', '/', ' ', '#', '.' );
 
 		$num_pos = $this->strposArr($address, $numbers, 2);
 
@@ -685,14 +686,14 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 			$house_extension = '';
 		}
 
-		return array($street_name, $house_number, $house_extension);
+		return array( $street_name, $house_number, $house_extension );
 	}
 
 	private function strposArr($haystack, $needle, $where) {
 		$defpos = 10000;
 
 		if (!is_array($needle)) {
-			$needle = array($needle);
+			$needle = array( $needle );
 		}
 
 		foreach ($needle as $what) {
@@ -705,4 +706,5 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 		return $defpos;
 	}
+
 }
