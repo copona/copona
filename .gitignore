@@ -26,6 +26,7 @@
 
 # Force ignore individual files
 *-gitignore*
+!.gitignore
 
 # Not files
 !/system/storage/**/index.html
