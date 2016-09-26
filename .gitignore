@@ -24,6 +24,9 @@
 /system/storage/*
 /system/storage/logs/*
 
+# Force ignore individual files
+*-gitignore*
+
 # Not files
 !/system/storage/**/index.html
 !/image/cache/index.html
