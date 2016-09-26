@@ -21,6 +21,7 @@ class ControllerCommonHeader extends Controller {
 			$server = $this->config->get('config_url');
 		}
 
+
 		if (is_file(DIR_IMAGE . $this->config->get('config_icon'))) {
 			$this->document->addLink($server . 'image/' . $this->config->get('config_icon'), 'icon');
 		}
@@ -28,6 +29,9 @@ class ControllerCommonHeader extends Controller {
 		$data['title'] = $this->document->getTitle();
 
 		$data['base'] = $server;
+		//TODO: back compatibility :(
+		$data['template_name'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
+
 		$data['description'] = $this->document->getDescription();
 		$data['keywords'] = $this->document->getKeywords();
 		$data['links'] = $this->document->getLinks();

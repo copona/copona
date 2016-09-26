@@ -4,6 +4,15 @@ class ControllerCommonFooter extends Controller {
 	public function index() {
 		$this->load->language('common/footer');
 
+		if ($this->request->server['HTTPS']) {
+			$server = $this->config->get('config_ssl');
+		} else {
+			$server = $this->config->get('config_url');
+		}
+
+		$data['base'] = $server;
+		$data['template_name'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
+
 		$data['scripts'] = $this->document->getScripts('footer');
 
 		$data['text_information'] = $this->language->get('text_information');
