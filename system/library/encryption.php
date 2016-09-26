@@ -13,4 +13,5 @@ final class Encryption {
 	public function decrypt($value) {
 		return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, hash('sha256', $this->key, true), base64_decode(strtr($value, '-_,', '+/=')), MCRYPT_MODE_ECB));
 	}
+
 }

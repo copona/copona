@@ -10,7 +10,7 @@ final class Openbay {
 		$this->getInstalled();
 
 		foreach ($this->installed_markets as $market) {
-			$class = '\openbay\\'. ucfirst($market);
+			$class = '\openbay\\' . ucfirst($market);
 
 			$this->{$market} = new $class($registry);
 		}
@@ -133,9 +133,8 @@ final class Openbay {
 		 *
 		 * @param $product_id_array
 		 */
-
 		foreach ($this->installed_markets as $market) {
-			if ($this->config->get($market . '_status') == 1 || $this->config->get('openbay_' .$market . '_status') == 1) {
+			if ($this->config->get($market . '_status') == 1 || $this->config->get('openbay_' . $market . '_status') == 1) {
 				$this->{$market}->putStockUpdateBulk($product_id_array, $end_inactive);
 			}
 		}
@@ -143,7 +142,7 @@ final class Openbay {
 
 	public function testDbColumn($table, $column) {
 		$res = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . $table . "` LIKE '" . $column . "'");
-		if($res->num_rows != 0) {
+		if ($res->num_rows != 0) {
 			return true;
 		} else {
 			return false;
@@ -155,11 +154,11 @@ final class Openbay {
 
 		$tables = array();
 
-		foreach($res->rows as $row) {
+		foreach ($res->rows as $row) {
 			$tables[] = $row['c'];
 		}
 
-		if(in_array($table, $tables)) {
+		if (in_array($table, $tables)) {
 			return true;
 		} else {
 			return false;
@@ -173,8 +172,8 @@ final class Openbay {
 		$lname = implode(' ', $name);
 
 		return array(
-			'firstname' => $fname,
-			'surname'   => $lname
+			'firstname'	 => $fname,
+			'surname'		 => $lname
 		);
 	}
 
@@ -201,11 +200,11 @@ final class Openbay {
 
 		foreach ($tax_query->rows as $result) {
 			$tax_rates[$result['tax_rate_id']] = array(
-				'tax_rate_id' => $result['tax_rate_id'],
-				'name'        => $result['name'],
-				'rate'        => $result['rate'],
-				'type'        => $result['type'],
-				'priority'    => $result['priority']
+				'tax_rate_id'	 => $result['tax_rate_id'],
+				'name'				 => $result['name'],
+				'rate'				 => $result['rate'],
+				'type'				 => $result['type'],
+				'priority'		 => $result['priority']
 			);
 		}
 
@@ -215,8 +214,8 @@ final class Openbay {
 	public function getTaxRate($class_id) {
 		$rates = $this->getTaxRates($class_id);
 		$percentage = 0.00;
-		foreach($rates as $rate) {
-			if($rate['type'] == 'P') {
+		foreach ($rates as $rate) {
+			if ($rate['type'] == 'P') {
 				$percentage += $rate['rate'];
 			}
 		}
@@ -227,7 +226,7 @@ final class Openbay {
 	public function getZoneId($name, $country_id) {
 		$query = $this->db->query("SELECT `zone_id` FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "' AND status = '1' AND `name` = '" . $this->db->escape($name) . "'");
 
-		if($query->num_rows > 0) {
+		if ($query->num_rows > 0) {
 			return $query->row['zone_id'];
 		} else {
 			return 0;
@@ -237,13 +236,13 @@ final class Openbay {
 	public function newOrderAdminNotify($order_id, $order_status_id) {
 		$this->load->model('checkout/order');
 		$order_info = $this->model_checkout_order->getOrder($order_id);
-		
+
 		if (version_compare(VERSION, '2.2', '>') == true) {
 			$language_code = $order_info['language_code'];
 		} else {
 			$language_code = $order_info['language_directory'];
 		}
-		
+
 		$language = new Language($language_code);
 		$language->load($language_code);
 		$language->load('mail/order');
@@ -259,7 +258,7 @@ final class Openbay {
 		$subject = sprintf($language->get('text_new_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'), $order_id);
 
 		// Text
-		$text  = $language->get('text_new_received') . "\n\n";
+		$text = $language->get('text_new_received') . "\n\n";
 		$text .= $language->get('text_new_order_id') . ' ' . $order_info['order_id'] . "\n";
 		$text .= $language->get('text_new_date_added') . ' ' . date($language->get('date_format_short'), strtotime($order_info['date_added'])) . "\n";
 		$text .= $language->get('text_new_order_status') . ' ' . $order_status . "\n\n";
@@ -334,17 +333,17 @@ final class Openbay {
 		 * Use it to add stock back to the marketplaces
 		 */
 		foreach ($this->installed_markets as $market) {
-			if ($this->config->get($market . '_status') == 1 || $this->config->get('openbay_' .$market . '_status') == 1) {
+			if ($this->config->get($market . '_status') == 1 || $this->config->get('openbay_' . $market . '_status') == 1) {
 				$this->{$market}->orderDelete($order_id);
 			}
 		}
 	}
 
 	public function getProductModelNumber($product_id, $sku = null) {
-		if($sku != null) {
+		if ($sku != null) {
 			$qry = $this->db->query("SELECT `sku` FROM `" . DB_PREFIX . "product_option_variant` WHERE `product_id` = '" . (int)$product_id . "' AND `sku` = '" . $this->db->escape($sku) . "'");
 
-			if($qry->num_rows > 0) {
+			if ($qry->num_rows > 0) {
 				return $qry->row['sku'];
 			} else {
 				return false;
@@ -352,7 +351,7 @@ final class Openbay {
 		} else {
 			$qry = $this->db->query("SELECT `model` FROM `" . DB_PREFIX . "product` WHERE `product_id` = '" . (int)$product_id . "' LIMIT 1");
 
-			if($qry->num_rows > 0) {
+			if ($qry->num_rows > 0) {
 				return $qry->row['model'];
 			} else {
 				return false;
@@ -363,7 +362,7 @@ final class Openbay {
 	public function getProductTaxClassId($product_id) {
 		$qry = $this->db->query("SELECT `tax_class_id` FROM `" . DB_PREFIX . "product` WHERE `product_id` = '" . (int)$product_id . "' LIMIT 1");
 
-		if($qry->num_rows > 0) {
+		if ($qry->num_rows > 0) {
 			return $qry->row['tax_class_id'];
 		} else {
 			return false;
@@ -389,7 +388,7 @@ final class Openbay {
 	public function getUserByEmail($email) {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `email` = '" . $this->db->escape($email) . "'");
 
-		if($qry->num_rows){
+		if ($qry->num_rows) {
 			return $qry->row['customer_id'];
 		} else {
 			return false;
@@ -409,37 +408,37 @@ final class Openbay {
 
 				foreach ($product_option_value_query->rows as $product_option_value) {
 					$product_option_value_data[] = array(
-						'product_option_value_id' => $product_option_value['product_option_value_id'],
-						'option_value_id'         => $product_option_value['option_value_id'],
-						'name'                    => $product_option_value['name'],
-						'image'                   => $product_option_value['image'],
-						'quantity'                => $product_option_value['quantity'],
-						'subtract'                => $product_option_value['subtract'],
-						'price'                   => $product_option_value['price'],
-						'price_prefix'            => $product_option_value['price_prefix'],
-						'points'                  => $product_option_value['points'],
-						'points_prefix'           => $product_option_value['points_prefix'],
-						'weight'                  => $product_option_value['weight'],
-						'weight_prefix'           => $product_option_value['weight_prefix']
+						'product_option_value_id'	 => $product_option_value['product_option_value_id'],
+						'option_value_id'					 => $product_option_value['option_value_id'],
+						'name'										 => $product_option_value['name'],
+						'image'										 => $product_option_value['image'],
+						'quantity'								 => $product_option_value['quantity'],
+						'subtract'								 => $product_option_value['subtract'],
+						'price'										 => $product_option_value['price'],
+						'price_prefix'						 => $product_option_value['price_prefix'],
+						'points'									 => $product_option_value['points'],
+						'points_prefix'						 => $product_option_value['points_prefix'],
+						'weight'									 => $product_option_value['weight'],
+						'weight_prefix'						 => $product_option_value['weight_prefix']
 					);
 				}
 
 				$product_option_data[] = array(
-					'product_option_id'    => $product_option['product_option_id'],
-					'option_id'            => $product_option['option_id'],
-					'name'                 => $product_option['name'],
-					'type'                 => $product_option['type'],
+					'product_option_id'		 => $product_option['product_option_id'],
+					'option_id'						 => $product_option['option_id'],
+					'name'								 => $product_option['name'],
+					'type'								 => $product_option['type'],
 					'product_option_value' => $product_option_value_data,
-					'required'             => $product_option['required']
+					'required'						 => $product_option['required']
 				);
 			} else {
 				$product_option_data[] = array(
-					'product_option_id' => $product_option['product_option_id'],
-					'option_id'         => $product_option['option_id'],
-					'name'              => $product_option['name'],
-					'type'              => $product_option['type'],
-					'option_value'      => $product_option['value'],
-					'required'          => $product_option['required']
+					'product_option_id'	 => $product_option['product_option_id'],
+					'option_id'					 => $product_option['option_id'],
+					'name'							 => $product_option['name'],
+					'type'							 => $product_option['type'],
+					'option_value'			 => $product_option['value'],
+					'required'					 => $product_option['required']
 				);
 			}
 		}
@@ -450,7 +449,7 @@ final class Openbay {
 	public function getOrderProducts($order_id) {
 		$order_products = $this->db->query("SELECT `product_id`, `order_product_id` FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
 
-		if($order_products->num_rows > 0) {
+		if ($order_products->num_rows > 0) {
 			return $order_products->rows;
 		} else {
 			return array();
@@ -472,4 +471,5 @@ final class Openbay {
 			return $this->model_extension_module_openstock->getVariantByOptionValues($options, $product_id);
 		}
 	}
+
 }

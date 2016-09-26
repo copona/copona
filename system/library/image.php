@@ -13,7 +13,7 @@ class Image {
 
 			$info = getimagesize($file);
 
-			$this->width  = $info[0];
+			$this->width = $info[0];
 			$this->height = $info[1];
 			$this->bits = isset($info['bits']) ? $info['bits'] : '';
 			$this->mime = isset($info['mime']) ? $info['mime'] : '';
@@ -123,7 +123,7 @@ class Image {
 	}
 
 	public function watermark($watermark, $position = 'bottomright') {
-		switch($position) {
+		switch ($position) {
 			case 'topleft':
 				$watermark_pos_x = 0;
 				$watermark_pos_y = 0;
@@ -161,9 +161,9 @@ class Image {
 				$watermark_pos_y = $this->height - $watermark->getHeight();
 				break;
 		}
-		
-		imagealphablending( $this->image, true );
-		imagesavealpha( $this->image, true );
+
+		imagealphablending($this->image, true);
+		imagesavealpha($this->image, true);
 		imagecopy($this->image, $watermark->getImage(), $watermark_pos_x, $watermark_pos_y, 0, 0, $watermark->getWidth(), $watermark->getHeight());
 
 		imagedestroy($watermark->getImage());
@@ -190,9 +190,9 @@ class Image {
 	}
 
 	private function filter() {
-        $args = func_get_args();
+		$args = func_get_args();
 
-        call_user_func_array('imagefilter', $args);
+		call_user_func_array('imagefilter', $args);
 	}
 
 	private function text($text, $x = 0, $y = 0, $size = 5, $color = '000000') {
@@ -211,9 +211,9 @@ class Image {
 		}
 
 		if (strlen($color) == 6) {
-			list($r, $g, $b) = array($color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5]);
+			list($r, $g, $b) = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
 		} elseif (strlen($color) == 3) {
-			list($r, $g, $b) = array($color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]);
+			list($r, $g, $b) = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
 		} else {
 			return false;
 		}
@@ -222,6 +222,7 @@ class Image {
 		$g = hexdec($g);
 		$b = hexdec($b);
 
-		return array($r, $g, $b);
+		return array( $r, $g, $b );
 	}
+
 }

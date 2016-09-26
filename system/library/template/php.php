@@ -1,12 +1,14 @@
 <?php
+
 namespace Template;
+
 final class PHP {
 	private $data = array();
-	
+
 	public function set($key, $value) {
 		$this->data[$key] = $value;
 	}
-	
+
 	public function render($template) {
 		$file = DIR_TEMPLATE . $template;
 
@@ -22,5 +24,6 @@ final class PHP {
 
 		trigger_error('Error: Could not load template ' . $file . '!');
 		exit();
-	}	
+	}
+
 }

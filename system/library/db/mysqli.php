@@ -1,5 +1,7 @@
 <?php
+
 namespace DB;
+
 final class MySQLi {
 	private $connection;
 
@@ -37,14 +39,14 @@ final class MySQLi {
 				return true;
 			}
 		} else {
-			throw new \Exception('Error: ' . $this->connection->error  . '<br />Error No: ' . $this->connection->errno . '<br />' . $sql);
+			throw new \Exception('Error: ' . $this->connection->error . '<br />Error No: ' . $this->connection->errno . '<br />' . $sql);
 		}
 	}
 
 	public function escape($value) {
 		return $this->connection->real_escape_string($value);
 	}
-	
+
 	public function countAffected() {
 		return $this->connection->affected_rows;
 	}
@@ -52,12 +54,13 @@ final class MySQLi {
 	public function getLastId() {
 		return $this->connection->insert_id;
 	}
-	
+
 	public function connected() {
 		return $this->connection->ping();
 	}
-	
+
 	public function __destruct() {
 		$this->connection->close();
 	}
+
 }

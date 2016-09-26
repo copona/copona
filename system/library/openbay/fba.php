@@ -1,4 +1,5 @@
 <?php
+
 namespace openbay;
 
 class fba {
@@ -6,7 +7,6 @@ class fba {
 	private $api_account_id;
 	private $url = 'https://api.openbaypro.io/';
 	private $registry;
-
 	private $logging = 1;
 	private $logging_verbose = 1;
 	private $max_log_size = 50;
@@ -26,7 +26,6 @@ class fba {
 	 * 1 = shipping
 	 * 2 = cancel
 	 */
-
 	public function __construct($registry) {
 		$this->registry = $registry;
 
@@ -58,15 +57,15 @@ class fba {
 		$headers[] = 'X-Account-ID: ' . $this->api_account_id;
 
 		$defaults = array(
-			CURLOPT_HTTPHEADER      => $headers,
-			CURLOPT_URL             => $this->url . $uri,
-			CURLOPT_USERAGENT       => 'OpenBay Pro for Fulfillment by Amazon',
-			CURLOPT_FRESH_CONNECT   => 1,
-			CURLOPT_RETURNTRANSFER  => 1,
-			CURLOPT_FORBID_REUSE    => 1,
-			CURLOPT_TIMEOUT         => 30,
-			CURLOPT_SSL_VERIFYPEER  => 0,
-			CURLOPT_SSL_VERIFYHOST  => 0,
+			CURLOPT_HTTPHEADER		 => $headers,
+			CURLOPT_URL						 => $this->url . $uri,
+			CURLOPT_USERAGENT			 => 'OpenBay Pro for Fulfillment by Amazon',
+			CURLOPT_FRESH_CONNECT	 => 1,
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_FORBID_REUSE	 => 1,
+			CURLOPT_TIMEOUT				 => 30,
+			CURLOPT_SSL_VERIFYPEER => 0,
+			CURLOPT_SSL_VERIFYHOST => 0,
 		);
 
 		if ($this->logging_verbose == 1) {
@@ -92,7 +91,8 @@ class fba {
 		if (!$result) {
 			$this->log('call() - Curl Failed ' . curl_error($ch) . ' ' . curl_errno($ch));
 
-			$response = array('error' => true, 'error_messages' => array(curl_error($ch) . ' ' . curl_errno($ch)), 'body' => null, 'response_http' => 0);
+			$response = array( 'error'					 => true, 'error_messages' => array( curl_error($ch) . ' ' . curl_errno($ch) ),
+				'body'					 => null, 'response_http'	 => 0 );
 		} else {
 			$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
@@ -113,10 +113,10 @@ class fba {
 			$this->log(print_r($result_parsed, true));
 
 			$response = array(
-				'error' => false,
+				'error'					 => false,
 				'error_messages' => array(),
-				'body' => (isset($result_parsed['result']) ? $result_parsed['result'] : ''),
-				'response_http' => $http_code
+				'body'					 => (isset($result_parsed['result']) ? $result_parsed['result'] : ''),
+				'response_http'	 => $http_code
 			);
 
 			if (isset($result_parsed['errors']) && !empty($result_parsed['errors'])) {
@@ -143,8 +143,8 @@ class fba {
 	}
 
 	private function setLogger() {
-		if(file_exists(DIR_LOGS . 'fulfillment_by_amazon.log')) {
-			if(filesize(DIR_LOGS . 'fulfillment_by_amazon.log') > ($this->max_log_size * 1000000)) {
+		if (file_exists(DIR_LOGS . 'fulfillment_by_amazon.log')) {
+			if (filesize(DIR_LOGS . 'fulfillment_by_amazon.log') > ($this->max_log_size * 1000000)) {
 				rename(DIR_LOGS . 'fulfillment_by_amazon.log', DIR_LOGS . '_fulfillment_by_amazon_' . date('Y-m-d_H-i-s') . '.log');
 			}
 		}
@@ -212,18 +212,18 @@ class fba {
 
 		// start date filter
 		if (isset($filter['filter_start'])) {
-			$sql .= " AND `created` >= '".$filter['filter_start']."'";
+			$sql .= " AND `created` >= '" . $filter['filter_start'] . "'";
 		}
 		// end date filter
 		if (isset($filter['filter_end'])) {
-			$sql .= " AND `created` <= '".$filter['filter_end']."'";
+			$sql .= " AND `created` <= '" . $filter['filter_end'] . "'";
 		}
 		// status filter
 		if (isset($filter['filter_status'])) {
-			$sql .= " AND `status` = '".$filter['filter_status']."'";
+			$sql .= " AND `status` = '" . $filter['filter_status'] . "'";
 		}
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fba_order` WHERE 1 ".$sql." ORDER BY `created` DESC");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fba_order` WHERE 1 " . $sql . " ORDER BY `created` DESC");
 
 		if ($query->num_rows == 0) {
 			return false;
@@ -269,7 +269,7 @@ class fba {
 	}
 
 	public function hasOrderFBAItems($order_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_product` `op` LEFT JOIN `" . DB_PREFIX . "product` `p` ON `op`.`product_id` = `p`.`product_id` WHERE `p`.`location` = 'FBA' AND `op`.`order_id` = '".(int)$order_id."'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_product` `op` LEFT JOIN `" . DB_PREFIX . "product` `p` ON `op`.`product_id` = `p`.`product_id` WHERE `p`.`location` = 'FBA' AND `op`.`order_id` = '" . (int)$order_id . "'");
 
 		if ($query->num_rows == 0) {
 			return false;
@@ -277,4 +277,5 @@ class fba {
 			return $query->row['total'];
 		}
 	}
+
 }

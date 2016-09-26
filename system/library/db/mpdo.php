@@ -1,13 +1,16 @@
 <?php
+
 namespace DB;
+
 final class mPDO {
 	private $connection = null;
 	private $statement = null;
 
 	public function __construct($hostname, $username, $password, $database, $port = '3306') {
 		try {
-			$this->connection = new \PDO("mysql:host=" . $hostname . ";port=" . $port . ";dbname=" . $database, $username, $password, array(\PDO::ATTR_PERSISTENT => true));
-		} catch(\PDOException $e) {
+			$this->connection = new \PDO("mysql:host=" . $hostname . ";port=" . $port . ";dbname=" . $database, $username, $password, array(
+				\PDO::ATTR_PERSISTENT => true ));
+		} catch (\PDOException $e) {
 			throw new \Exception('Failed to connect to database. Reason: \'' . $e->getMessage() . '\'');
 		}
 
@@ -43,14 +46,14 @@ final class mPDO {
 				$result->rows = $data;
 				$result->num_rows = $this->statement->rowCount();
 			}
-		} catch(\PDOException $e) {
+		} catch (\PDOException $e) {
 			throw new \Exception('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode());
 		}
 	}
 
 	public function query($sql, $params = array()) {
 		$this->statement = $this->connection->prepare($sql);
-		
+
 		$result = false;
 
 		try {
@@ -82,7 +85,8 @@ final class mPDO {
 	}
 
 	public function escape($value) {
-		return str_replace(array("\\", "\0", "\n", "\r", "\x1a", "'", '"'), array("\\\\", "\\0", "\\n", "\\r", "\Z", "\'", '\"'), $value);
+		return str_replace(array( "\\", "\0", "\n", "\r", "\x1a", "'", '"' ), array( "\\\\",
+			"\\0", "\\n", "\\r", "\Z", "\'", '\"' ), $value);
 	}
 
 	public function countAffected() {
@@ -96,7 +100,7 @@ final class mPDO {
 	public function getLastId() {
 		return $this->connection->lastInsertId();
 	}
-	
+
 	public function isConnected() {
 		if ($this->connection) {
 			return true;
@@ -104,8 +108,9 @@ final class mPDO {
 			return false;
 		}
 	}
-	
+
 	public function __destruct() {
 		$this->connection = null;
 	}
+
 }

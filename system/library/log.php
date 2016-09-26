@@ -13,4 +13,5 @@ class Log {
 	public function __destruct() {
 		fclose($this->handle);
 	}
+
 }

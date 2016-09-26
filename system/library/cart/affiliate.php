@@ -1,5 +1,7 @@
 <?php
+
 namespace Cart;
+
 class Affiliate {
 	private $affiliate_id;
 	private $firstname;
@@ -96,4 +98,5 @@ class Affiliate {
 	public function getCode() {
 		return $this->code;
 	}
+
 }

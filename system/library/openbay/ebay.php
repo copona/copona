@@ -1,4 +1,5 @@
 <?php
+
 namespace openbay;
 
 final class Ebay {
@@ -7,7 +8,8 @@ final class Ebay {
 	private $enc2;
 	private $url = 'https://uk.openbaypro.com/';
 	private $registry;
-	private $no_log = array('notification/getPublicNotifications/', 'setup/getEbayCategories/', 'item/getItemAllList/', 'account/validate/', 'item/getItemListLimited/');
+	private $no_log = array( 'notification/getPublicNotifications/', 'setup/getEbayCategories/',
+		'item/getItemAllList/', 'account/validate/', 'item/getItemListLimited/' );
 	private $logger;
 	private $max_log_size = 50; //max log size in Mb
 
@@ -34,11 +36,11 @@ final class Ebay {
 
 	public function call($call, array $post = null, array $options = array(), $content_type = 'json', $status_override = false) {
 		if ($this->config->get('ebay_status') == 1 || $status_override == true) {
-			$this->lasterror    = '';
-			$this->lastmsg      = '';
+			$this->lasterror = '';
+			$this->lastmsg = '';
 
 			if (!in_array($call, $this->no_log)) {
-				$this->log('call(' . $call . ') - Data: ' .  json_encode($post));
+				$this->log('call(' . $call . ') - Data: ' . json_encode($post));
 			}
 
 			if (defined("HTTPS_CATALOG")) {
@@ -47,25 +49,29 @@ final class Ebay {
 				$domain = $this->config->get('config_url');
 			}
 
-			$data = array('token' => $this->token, 'secret' => $this->secret, 'server' => $this->server, 'domain' => $domain, 'openbay_version' => (int)$this->config->get('openbay_version'), 'opencart_version' => VERSION, 'data' => $post, 'content_type' => $content_type, 'language' => $this->config->get('openbay_language'));
+			$data = array( 'token'						 => $this->token, 'secret'					 => $this->secret,
+				'server'					 => $this->server,
+				'domain'					 => $domain, 'openbay_version'	 => (int)$this->config->get('openbay_version'),
+				'opencart_version' => VERSION, 'data'						 => $post, 'content_type'		 => $content_type,
+				'language'				 => $this->config->get('openbay_language') );
 
 			$defaults = array(
-				CURLOPT_POST            => 1,
-				CURLOPT_HEADER          => 0,
-				CURLOPT_URL             => $this->url . $call,
-				CURLOPT_USERAGENT       => "OpenBay Pro for eBay",
-				CURLOPT_FRESH_CONNECT   => 1,
-				CURLOPT_RETURNTRANSFER  => 1,
-				CURLOPT_FORBID_REUSE    => 1,
-				CURLOPT_TIMEOUT         => 0,
-				CURLOPT_SSL_VERIFYPEER  => 0,
-				CURLOPT_SSL_VERIFYHOST  => 0,
-				CURLOPT_POSTFIELDS      => http_build_query($data, '', "&")
+				CURLOPT_POST					 => 1,
+				CURLOPT_HEADER				 => 0,
+				CURLOPT_URL						 => $this->url . $call,
+				CURLOPT_USERAGENT			 => "OpenBay Pro for eBay",
+				CURLOPT_FRESH_CONNECT	 => 1,
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_FORBID_REUSE	 => 1,
+				CURLOPT_TIMEOUT				 => 0,
+				CURLOPT_SSL_VERIFYPEER => 0,
+				CURLOPT_SSL_VERIFYHOST => 0,
+				CURLOPT_POSTFIELDS		 => http_build_query($data, '', "&")
 			);
 
 			$ch = curl_init();
 			curl_setopt_array($ch, ($options + $defaults));
-			if (! $result = curl_exec($ch)) {
+			if (!$result = curl_exec($ch)) {
 				$this->log('call() - Curl Failed ' . curl_error($ch) . ' ' . curl_errno($ch));
 			}
 			curl_close($ch);
@@ -81,19 +87,19 @@ final class Ebay {
 					$result = preg_replace('/[^(\x20-\x7F)]*/', '', $result);
 				}
 
-				$result             = json_decode($result, 1);
-				$this->lasterror    = $result['error'];
-				$this->lastmsg      = $result['msg'];
+				$result = json_decode($result, 1);
+				$this->lasterror = $result['error'];
+				$this->lastmsg = $result['msg'];
 
 				if (!empty($result['data'])) {
 					return $result['data'];
 				} else {
 					return false;
 				}
-			}elseif ($content_type == 'xml') {
-				$result             = simplexml_load_string($result);
-				$this->lasterror    = $result->error;
-				$this->lastmsg      = $result->msg;
+			} elseif ($content_type == 'xml') {
+				$result = simplexml_load_string($result);
+				$this->lasterror = $result->error;
+				$this->lastmsg = $result->msg;
 
 				if (!empty($result->data)) {
 					return $result->data;
@@ -108,7 +114,7 @@ final class Ebay {
 
 	public function callNoResponse($call, array $post = null, array $options = array(), $content_type = 'json') {
 		if ($this->config->get('ebay_status') == 1) {
-			$this->log('openbay_noresponse_call(' . $call . ') - Data :' .  json_encode($post));
+			$this->log('openbay_noresponse_call(' . $call . ') - Data :' . json_encode($post));
 
 			if (defined("HTTPS_CATALOG")) {
 				$domain = HTTPS_CATALOG;
@@ -116,20 +122,24 @@ final class Ebay {
 				$domain = $this->config->get('config_url');
 			}
 
-			$data = array('token' => $this->token, 'secret' => $this->secret, 'server' => $this->server, 'domain' => $domain, 'openbay_version' => (int)$this->config->get('openbay_version'), 'opencart_version' => VERSION, 'data' => $post, 'content_type' => $content_type, 'language' => $this->config->get('openbay_language'));
+			$data = array( 'token'						 => $this->token, 'secret'					 => $this->secret,
+				'server'					 => $this->server,
+				'domain'					 => $domain, 'openbay_version'	 => (int)$this->config->get('openbay_version'),
+				'opencart_version' => VERSION, 'data'						 => $post, 'content_type'		 => $content_type,
+				'language'				 => $this->config->get('openbay_language') );
 
 			$defaults = array(
-				CURLOPT_POST            => 1,
-				CURLOPT_HEADER          => 0,
-				CURLOPT_URL             => $this->url . $call,
-				CURLOPT_USERAGENT       => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
-				CURLOPT_FRESH_CONNECT   => 1,
-				CURLOPT_RETURNTRANSFER  => 0,
-				CURLOPT_FORBID_REUSE    => 1,
-				CURLOPT_TIMEOUT         => 5,
-				CURLOPT_SSL_VERIFYPEER  => 0,
-				CURLOPT_SSL_VERIFYHOST  => 0,
-				CURLOPT_POSTFIELDS      => http_build_query($data, '', "&")
+				CURLOPT_POST					 => 1,
+				CURLOPT_HEADER				 => 0,
+				CURLOPT_URL						 => $this->url . $call,
+				CURLOPT_USERAGENT			 => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
+				CURLOPT_FRESH_CONNECT	 => 1,
+				CURLOPT_RETURNTRANSFER => 0,
+				CURLOPT_FORBID_REUSE	 => 1,
+				CURLOPT_TIMEOUT				 => 5,
+				CURLOPT_SSL_VERIFYPEER => 0,
+				CURLOPT_SSL_VERIFYHOST => 0,
+				CURLOPT_POSTFIELDS		 => http_build_query($data, '', "&")
 			);
 
 			$ch = curl_init();
@@ -143,8 +153,8 @@ final class Ebay {
 	}
 
 	private function setLogger() {
-		if(file_exists(DIR_LOGS . 'ebaylog.log')) {
-			if(filesize(DIR_LOGS . 'ebaylog.log') > ($this->max_log_size * 1000000)) {
+		if (file_exists(DIR_LOGS . 'ebaylog.log')) {
+			if (filesize(DIR_LOGS . 'ebaylog.log') > ($this->max_log_size * 1000000)) {
 				rename(DIR_LOGS . 'ebaylog.log', DIR_LOGS . '_ebaylog_' . date('Y-m-d_H-i-s') . '.log');
 			}
 		}
@@ -251,10 +261,10 @@ final class Ebay {
 	}
 
 	public function getLiveListingArray() {
-	/*
-	 * Returns the list of linked items with eBay from the database
-	 * @return array ([product id] = ebay item id)
-	 */
+		/*
+		 * Returns the list of linked items with eBay from the database
+		 * @return array ([product id] = ebay item id)
+		 */
 		$this->log('getLiveListingArray()');
 
 		$qry = $this->db->query("SELECT `product_id`, `ebay_item_id` FROM `" . DB_PREFIX . "ebay_listing` WHERE `status` = '1'");
@@ -293,9 +303,9 @@ final class Ebay {
 
 	public function getLiveProductArray() {
 		/**
-		* Returns the list of linked items with eBay from the database
-		* @return array ([ebay item id] = product id)
-		*/
+		 * Returns the list of linked items with eBay from the database
+		 * @return array ([ebay item id] = product id)
+		 */
 		$qry = $this->db->query("SELECT `product_id`, `ebay_item_id` FROM `" . DB_PREFIX . "ebay_listing` WHERE `status` = '1'");
 
 		$data = array();
@@ -312,14 +322,14 @@ final class Ebay {
 		$this->log('endItem() - ID "' . $item_id);
 
 		if ($this->config->get('ebay_enditems') == 1) {
-			$this->call('item/endItem/', array('id' => $item_id));
+			$this->call('item/endItem/', array( 'id' => $item_id ));
 			$this->removeItemByItemId($item_id);
 
 			if ($this->lasterror != true) {
 				$this->log('endItem() - OK');
-				return array('error' => false, 'msg' => 'ok');
+				return array( 'error' => false, 'msg' => 'ok' );
 			} else {
-				return array('error' => true, 'msg' => $this->lasterror);
+				return array( 'error' => true, 'msg' => $this->lasterror );
 			}
 		} else {
 			$this->removeItemByItemId($item_id);
@@ -331,14 +341,14 @@ final class Ebay {
 
 			$this->notifyAdmin('eBay item not ended: ' . $item_id, $message);
 
-			return array('error' => true, 'msg' => 'Settings do not allow you to end items, but the link has been removed . ');
+			return array( 'error' => true, 'msg' => 'Settings do not allow you to end items, but the link has been removed . ' );
 		}
 	}
 
 	public function ebaySaleStockReduce($product_id, $sku = null) {
 		/**
-		* Gets the product info from an ID and sends to ebay update method.
-		*/
+		 * Gets the product info from an ID and sends to ebay update method.
+		 */
 		$this->log('ebaySaleStockReduce() - Is stock update needed (Item ID: ' . $product_id . ',SKU: ' . $sku . ')');
 
 		if (!empty($product_id)) {
@@ -390,25 +400,25 @@ final class Ebay {
 			switch (json_last_error()) {
 				case JSON_ERROR_NONE:
 					$this->log('validateJsonDecode() - No json decode errors');
-				break;
+					break;
 				case JSON_ERROR_DEPTH:
 					$this->log('validateJsonDecode() - Maximum stack depth exceeded');
-				break;
+					break;
 				case JSON_ERROR_STATE_MISMATCH:
 					$this->log('validateJsonDecode() - Underflow or the modes mismatch');
-				break;
+					break;
 				case JSON_ERROR_CTRL_CHAR:
 					$this->log('validateJsonDecode() - Unexpected control character found');
-				break;
+					break;
 				case JSON_ERROR_SYNTAX:
 					$this->log('validateJsonDecode() - Syntax error, malformed JSON');
-				break;
+					break;
 				case JSON_ERROR_UTF8:
 					$this->log('validateJsonDecode() - Malformed UTF-8 characters, possibly incorrectly encoded');
-				break;
+					break;
 				default:
 					$this->log('validateJsonDecode() - Unknown error');
-				break;
+					break;
 			}
 		} else {
 			$this->log('validateJsonDecode() - json_last_error PHP function does not exist');
@@ -419,17 +429,19 @@ final class Ebay {
 
 	private function eBayShippingStatus($item, $txn, $status, $tracking_no = '', $carrier_id = '') {
 		$this->log('eBayShippingStatus() - Update order shipping status (Item: ' . $item . ',Txn: ' . $txn . ',Status:' . $status . ',Tracking: ' . $tracking_no . ', Carrier: ' . $carrier_id . ')');
-		return $this->call('order/shippingStatus/', array('item' => $item, 'txn' => $txn, 'status' => $status, 'carrier' => $carrier_id, 'tracking' => $tracking_no));
+		return $this->call('order/shippingStatus/', array( 'item'		 => $item, 'txn'			 => $txn,
+				'status'	 => $status, 'carrier'	 => $carrier_id, 'tracking' => $tracking_no ));
 	}
 
 	private function eBayPaymentStatus($item, $txn, $status) {
 		$this->log('eBayPaymentStatus() - Updates order payment status (Item: ' . $item . ',Txn: ' . $txn . ',Status:' . $status . ')');
-		return $this->call('order/paymentStatus/', array('item' => $item, 'txn' => $txn, 'status' => $status));
+		return $this->call('order/paymentStatus/', array( 'item'	 => $item, 'txn'		 => $txn,
+				'status' => $status ));
 	}
 
 	private function getSaleRecord($sale_id) {
 		$this->log('getSaleRecord() - Get ebay sale record ID: ' . $sale_id);
-		return $this->call('order/getSmpRecord/', array('id' => $sale_id));
+		return $this->call('order/getSmpRecord/', array( 'id' => $sale_id ));
 	}
 
 	public function getEbayActiveListings() {
@@ -439,7 +451,8 @@ final class Ebay {
 
 	public function getEbayItemList($limit = 100, $page = 1, $filter = array()) {
 		$this->log('getEbayItemList() - Get active eBay items from API');
-		return $this->call('item/getItemListLimited/', array('page' => $page, 'limit' => $limit, 'filter' => $filter));
+		return $this->call('item/getItemListLimited/', array( 'page'	 => $page, 'limit'	 => $limit,
+				'filter' => $filter ));
 	}
 
 	public function disableProduct($product_id) {
@@ -454,11 +467,11 @@ final class Ebay {
 		$this->log('putStockUpdate()');
 		$this->log('putStockUpdate() - New local stock: ' . $stock);
 
-		$listing    = $this->call('item/getItem', array('itemId' => $item_id));
+		$listing = $this->call('item/getItem', array( 'itemId' => $item_id ));
 		$product_id = $this->getProductId($item_id);
-		$reserve    = $this->getReserve($product_id, $item_id, (($sku != null) ? $sku : ''));
+		$reserve = $this->getReserve($product_id, $item_id, (($sku != null) ? $sku : ''));
 
-		if ($listing['status'] == 1 ) {
+		if ($listing['status'] == 1) {
 			if ($reserve != false) {
 				$this->log('putStockUpdate() - Reserve stock: ' . $reserve);
 
@@ -478,8 +491,8 @@ final class Ebay {
 
 					$this->endItem($item_id);
 					return true;
-				}elseif ($listing['qty'] != $stock) {
-					$this->call('item/reviseStock/', array('itemId' => $item_id, 'stock' => $stock));
+				} elseif ($listing['qty'] != $stock) {
+					$this->call('item/reviseStock/', array( 'itemId' => $item_id, 'stock' => $stock ));
 					$this->log('putStockUpdate() - OK');
 					return true;
 				} else {
@@ -506,7 +519,8 @@ final class Ebay {
 
 				if ($variant_stock == true || $stock > 0) {
 					$this->log('putStockUpdate() - Revising item with Item ID "' . $item_id . '" to stock level "' . $stock . '", sku "' . $sku . '"');
-					$this->call('item/reviseStock/', array('itemId' => $item_id, 'stock' => $stock, 'sku' => $sku));
+					$this->call('item/reviseStock/', array( 'itemId' => $item_id, 'stock'	 => $stock,
+						'sku'		 => $sku ));
 					return true;
 				} else {
 					$this->log('putStockUpdate() - Sending end for item, no variants have stock!');
@@ -516,7 +530,7 @@ final class Ebay {
 		} else {
 			$this->removeItemByItemId($item_id);
 
-			if($sku == null) {
+			if ($sku == null) {
 				if ($stock <= 0 && $this->config->get('ebay_disable_nostock') == 1) {
 					$this->disableProduct($product_id);
 				}
@@ -553,16 +567,16 @@ final class Ebay {
 		$ebay_listings = $this->getEbayActiveListings();
 		$live_data = $this->getLiveListingArray();
 
-		$linked_items        = array();
-		$linked_ended_items   = array();
+		$linked_items = array();
+		$linked_ended_items = array();
 
 		foreach ($product_id_array as $product_id) {
 			if (array_key_exists((int)$product_id, $live_data)) {
 				//product has been passed and is linked to active item
-				$linked_items[] = array('productId' => (int)$product_id, 'itemId' => $live_data[$product_id]);
-			}elseif (array_key_exists((int)$product_id, $ended_data)) {
+				$linked_items[] = array( 'productId' => (int)$product_id, 'itemId' => $live_data[$product_id] );
+			} elseif (array_key_exists((int)$product_id, $ended_data)) {
 				//product has been passed and is not currently active
-				$linked_ended_items[] = array('productId' => (int)$product_id, 'itemId' => $ended_data[$product_id]);
+				$linked_ended_items[] = array( 'productId' => (int)$product_id, 'itemId' => $ended_data[$product_id] );
 			} else {
 				//product does not exist in live or ended links so has never been linked.
 			}
@@ -637,7 +651,7 @@ final class Ebay {
 
 							$this->putStockUpdate($item['itemId'], (int)$local_stock['quantity']);
 						}
-					}elseif (!empty($options) && !empty($ebay_listings[$item['itemId']]['variants'])) {
+					} elseif (!empty($options) && !empty($ebay_listings[$item['itemId']]['variants'])) {
 						// This item has variants
 						$this->log('putStockUpdateBulk() - Variants found');
 
@@ -665,7 +679,8 @@ final class Ebay {
 									}
 
 									$this->log('putStockUpdateBulk() - Revising variant item: ' . $item['itemId'] . ',Stock: ' . $options[$option_id]['stock'] . ', SKU ' . $ebay_variant['sku']);
-									$this->call('item/reviseStock/', array('itemId' => $item['itemId'], 'stock' => $options[$option_id]['stock'], 'sku' => $ebay_variant['sku']));
+									$this->call('item/reviseStock/', array( 'itemId' => $item['itemId'], 'stock'	 => $options[$option_id]['stock'],
+										'sku'		 => $ebay_variant['sku'] ));
 								}
 							}
 						}
@@ -685,11 +700,11 @@ final class Ebay {
 		if ($sku == '' || $sku == null) {
 			$qry = $this->db->query("SELECT `quantity`, `status` FROM `" . DB_PREFIX . "product` WHERE `product_id` = '" . (int)$product_id . "' LIMIT 1");
 
-			return array('quantity' => (int)$qry->row['quantity'], 'status' => ($qry->row['status']));
+			return array( 'quantity' => (int)$qry->row['quantity'], 'status' => ($qry->row['status']) );
 		} else {
 			$qry = $this->db->query("SELECT `stock`, `active` FROM `" . DB_PREFIX . "product_option_variant` WHERE `product_id` = '" . (int)$product_id . "' AND `sku` = '" . $this->db->escape($sku) . "' LIMIT 1");
 
-			return array('quantity' => (int)$qry->row['stock'], 'status' => ($qry->row['active']));
+			return array( 'quantity' => (int)$qry->row['stock'], 'status' => ($qry->row['active']) );
 		}
 	}
 
@@ -719,7 +734,7 @@ final class Ebay {
 				$variant_data = array();
 
 				$groups = $this->openbay->getProductOptions($product_id);
-				$variant_data['groups']  = array();
+				$variant_data['groups'] = array();
 				$variant_data['related'] = array();
 
 				foreach ($groups as $grp) {
@@ -729,7 +744,7 @@ final class Ebay {
 
 						$variant_data['related'][$grp_node['product_option_value_id']] = $grp['name'];
 					}
-					$variant_data['groups'][] = array('name' => $grp['name'], 'child' => $t_tmp);
+					$variant_data['groups'][] = array( 'name' => $grp['name'], 'child' => $t_tmp );
 				}
 
 				$v = 0;
@@ -785,7 +800,7 @@ final class Ebay {
 
 				$this->decideEbayStockAction($product_id, $product['quantity'], $product['subtract']);
 
-				return array('msg' => 'ok', 'error' => false);
+				return array( 'msg' => 'ok', 'error' => false );
 			}
 		} else {
 			$old_item_id = $this->getEndedEbayItemId($product_id);
@@ -939,7 +954,7 @@ final class Ebay {
 			foreach ($qry->rows as $img) {
 				$this->log('Image: ' . $img['name']);
 
-				$img_large = str_replace(array('$_1.JPG', '$_01.JPG', '$_12.JPG'), '$_57.JPG', $img['image_original']);
+				$img_large = str_replace(array( '$_1.JPG', '$_01.JPG', '$_12.JPG' ), '$_57.JPG', $img['image_original']);
 
 				$header_response = $this->getImageInfo($img_large);
 
@@ -974,7 +989,7 @@ final class Ebay {
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_NOBODY, true);
 
-		if(curl_exec($ch) === false) {
+		if (curl_exec($ch) === false) {
 			$this->log('Curl Error: ' . curl_error($ch));
 		}
 
@@ -1007,13 +1022,13 @@ final class Ebay {
 
 	public function getEbayListing($item_id) {
 		$this->log('getEbayListing()');
-		return $this->call('item/getItem/', array('itemId' => $item_id));
+		return $this->call('item/getItem/', array( 'itemId' => $item_id ));
 	}
 
 	public function relistItem($item_id, $product_id, $qty) {
 		$this->log('relistItem() - Starting relist item, ID: ' . $item_id . ', product: ' . $product_id . ', qty: ' . $qty);
 
-		$response = $this->call('listing/relistItem/', array('itemId' => $item_id, 'qty' => $qty));
+		$response = $this->call('listing/relistItem/', array( 'itemId' => $item_id, 'qty' => $qty ));
 
 		if (!empty($response['ItemID'])) {
 			$this->log('relistItem() - Created: ' . $response['ItemID']);
@@ -1079,10 +1094,11 @@ final class Ebay {
 			} else {
 				if ($variant == 0) {
 					$this->log('updateReserve() - not a variant');
-					$this->addReserve(array('product_id' => $product_id, 'qty' => array(0 => $reserve)), $item_id, 0);
+					$this->addReserve(array( 'product_id' => $product_id, 'qty' => array( 0 => $reserve ) ), $item_id, 0);
 				} else {
 					$this->log('updateReserve() - variant');
-					$this->addReserve(array('product_id' => $product_id, 'opt' => array(array('sku' => $sku, 'qty' => $reserve))), $item_id, 1);
+					$this->addReserve(array( 'product_id' => $product_id, 'opt'				 => array( array(
+								'sku'	 => $sku, 'qty'	 => $reserve ) ) ), $item_id, 1);
 				}
 			}
 		}
@@ -1165,7 +1181,7 @@ final class Ebay {
 			}
 		}
 
-		return array('msg' => $this->lastmsg, 'error' => $this->lasterror);
+		return array( 'msg' => $this->lastmsg, 'error' => $this->lasterror );
 	}
 
 	public function updateSettings() {
@@ -1430,7 +1446,7 @@ final class Ebay {
 			}
 		}
 
-		return array('msg' => $this->lastmsg, 'error' => $this->lasterror);
+		return array( 'msg' => $this->lastmsg, 'error' => $this->lasterror );
 	}
 
 	public function updateStore() {
@@ -1478,7 +1494,7 @@ final class Ebay {
 			}
 		}
 
-		return array('msg' => $this->lastmsg, 'error' => $this->lasterror);
+		return array( 'msg' => $this->lastmsg, 'error' => $this->lasterror );
 	}
 
 	public function editSetting($group, $data, $store_id = 0) {
@@ -1502,4 +1518,5 @@ final class Ebay {
 			return false;
 		}
 	}
+
 }
