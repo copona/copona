@@ -82,4 +82,5 @@ class ControllerExtensionTotalReward extends Controller {
 
 		return !$this->error;
 	}
+
 }

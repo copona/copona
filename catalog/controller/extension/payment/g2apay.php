@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentG2APay extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/g2apay');
 
@@ -28,8 +29,8 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		// Because __call can not keep var references so we put them into an array.
 		$total_data = array(
 			'totals' => &$totals,
-			'taxes'  => &$taxes,
-			'total'  => &$total
+			'taxes'	 => &$taxes,
+			'total'	 => &$total
 		);
 
 		$i = 0;
@@ -86,15 +87,15 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		$string = $this->session->data['order_id'] . $order_total . $order_info['currency_code'] . html_entity_decode($this->config->get('g2apay_secret'));
 
 		$fields = array(
-			'api_hash' => $this->config->get('g2apay_api_hash'),
-			'hash' => hash('sha256', $string),
-			'order_id' => $this->session->data['order_id'],
-			'amount' => $order_total,
-			'currency' => $order_info['currency_code'],
-			'email' => $order_info['email'],
-			'url_failure' => $this->url->link('checkout/failure'),
-			'url_ok' => $this->url->link('extension/payment/g2apay/success'),
-			'items' => json_encode($items)
+			'api_hash'		 => $this->config->get('g2apay_api_hash'),
+			'hash'				 => hash('sha256', $string),
+			'order_id'		 => $this->session->data['order_id'],
+			'amount'			 => $order_total,
+			'currency'		 => $order_info['currency_code'],
+			'email'				 => $order_info['email'],
+			'url_failure'	 => $this->url->link('checkout/failure'),
+			'url_ok'			 => $this->url->link('extension/payment/g2apay/success'),
+			'items'				 => json_encode($items)
 		);
 
 		$response_data = $this->model_extension_payment_g2apay->sendCurl($url, $fields);
@@ -160,7 +161,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 				$string = $g2apay_order['g2apay_transaction_id'] . $g2apay_order['order_id'] . round($g2apay_order['total'], 2) . html_entity_decode($this->config->get('g2apay_secret'));
 				$hash = hash('sha256', $string);
-				if($hash != $this->request->post['hash']){
+				if ($hash != $this->request->post['hash']) {
 					$this->model_extension_payment_g2apay->logger('Hashes do not match, possible tampering!');
 					return;
 				}
@@ -188,4 +189,5 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			}
 		}
 	}
+
 }

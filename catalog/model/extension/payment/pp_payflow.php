@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentPPPayflow extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/pp_payflow');
 
@@ -19,13 +20,14 @@ class ModelExtensionPaymentPPPayflow extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'pp_payflow',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'pp_payflow',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('pp_payflow_sort_order')
 			);
 		}
 
 		return $method_data;
 	}
+
 }

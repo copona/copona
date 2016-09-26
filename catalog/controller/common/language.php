@@ -1,5 +1,6 @@
 <?php
 class ControllerCommonLanguage extends Controller {
+
 	public function index() {
 		$this->load->language('common/language');
 
@@ -56,4 +57,5 @@ class ControllerCommonLanguage extends Controller {
 			$this->response->redirect($this->url->link('common/home'));
 		}
 	}
+
 }

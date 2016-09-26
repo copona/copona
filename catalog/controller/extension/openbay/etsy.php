@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionOpenbayEtsy extends Controller {
+
 	public function inbound() {
 		if ($this->config->get('etsy_status') != '1') {
 			$this->openbay->etsy->log('etsy/inbound - module inactive (503)');
@@ -58,7 +59,7 @@ class ControllerExtensionOpenbayEtsy extends Controller {
 
 	public function eventAddOrderHistory($route, $data) {
 		$this->openbay->etsy->log('eventAddOrderHistory Event fired: ' . $route);
-		
+
 		if (isset($data[0]) && !empty($data[0])) {
 			$this->load->model('extension/openbay/etsy_order');
 
@@ -67,4 +68,5 @@ class ControllerExtensionOpenbayEtsy extends Controller {
 			$this->model_extension_openbay_etsy_order->addOrderHistory((int)$data[0]);
 		}
 	}
+
 }

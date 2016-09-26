@@ -1,36 +1,37 @@
 <?php
 class ControllerExtensionPaymentCardConnect extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/cardconnect');
 
 		$this->load->model('extension/payment/cardconnect');
 
-		$data['text_title']            = $this->language->get('text_title');
-		$data['text_card_details']     = $this->language->get('text_card_details');
-		$data['text_echeck_details']   = $this->language->get('text_echeck_details');
-		$data['text_card']             = $this->language->get('text_card');
-		$data['text_echeck']           = $this->language->get('text_echeck');
-		$data['text_wait']             = $this->language->get('text_wait');
-		$data['text_loading']          = $this->language->get('text_loading');
-		$data['text_confirm_delete']   = $this->language->get('text_confirm_delete');
-		$data['text_no_cards']         = $this->language->get('text_no_cards');
-		$data['text_select_card']      = $this->language->get('text_select_card');
+		$data['text_title'] = $this->language->get('text_title');
+		$data['text_card_details'] = $this->language->get('text_card_details');
+		$data['text_echeck_details'] = $this->language->get('text_echeck_details');
+		$data['text_card'] = $this->language->get('text_card');
+		$data['text_echeck'] = $this->language->get('text_echeck');
+		$data['text_wait'] = $this->language->get('text_wait');
+		$data['text_loading'] = $this->language->get('text_loading');
+		$data['text_confirm_delete'] = $this->language->get('text_confirm_delete');
+		$data['text_no_cards'] = $this->language->get('text_no_cards');
+		$data['text_select_card'] = $this->language->get('text_select_card');
 
-		$data['entry_method']          = $this->language->get('entry_method');
+		$data['entry_method'] = $this->language->get('entry_method');
 		$data['entry_card_new_or_old'] = $this->language->get('entry_card_new_or_old');
-		$data['entry_card_new']        = $this->language->get('entry_card_new');
-		$data['entry_card_old']        = $this->language->get('entry_card_old');
-		$data['entry_card_type']       = $this->language->get('entry_card_type');
-		$data['entry_card_number']     = $this->language->get('entry_card_number');
-		$data['entry_card_expiry']     = $this->language->get('entry_card_expiry');
-		$data['entry_card_cvv2']       = $this->language->get('entry_card_cvv2');
-		$data['entry_card_save']       = $this->language->get('entry_card_save');
-		$data['entry_card_choice']     = $this->language->get('entry_card_choice');
-		$data['entry_account_number']  = $this->language->get('entry_account_number');
-		$data['entry_routing_number']  = $this->language->get('entry_routing_number');
+		$data['entry_card_new'] = $this->language->get('entry_card_new');
+		$data['entry_card_old'] = $this->language->get('entry_card_old');
+		$data['entry_card_type'] = $this->language->get('entry_card_type');
+		$data['entry_card_number'] = $this->language->get('entry_card_number');
+		$data['entry_card_expiry'] = $this->language->get('entry_card_expiry');
+		$data['entry_card_cvv2'] = $this->language->get('entry_card_cvv2');
+		$data['entry_card_save'] = $this->language->get('entry_card_save');
+		$data['entry_card_choice'] = $this->language->get('entry_card_choice');
+		$data['entry_account_number'] = $this->language->get('entry_account_number');
+		$data['entry_routing_number'] = $this->language->get('entry_routing_number');
 
-		$data['button_confirm']        = $this->language->get('button_confirm');
-		$data['button_delete']         = $this->language->get('button_delete');
+		$data['button_confirm'] = $this->language->get('button_confirm');
+		$data['button_delete'] = $this->language->get('button_delete');
 
 		$data['card_types'] = $this->model_extension_payment_cardconnect->getCardTypes();
 
@@ -55,7 +56,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		return $this->load->view('extension/payment/cardconnect', $data);
 	}
 
-	public function send()	{
+	public function send() {
 		$this->load->language('extension/payment/cardconnect');
 
 		$this->load->model('extension/payment/cardconnect');
@@ -137,28 +138,28 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 						}
 
 						$data = array(
-							'merchid'    => $this->config->get('cardconnect_merchant_id'),
-							'accttype'   => $accttype,
-							'account'    => $account,
-							'expiry'     => $expiry,
-							'cvv2'       => $cvv2,
-							'amount'     => round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN),
-							'currency'   => $order_info['currency_code'],
-							'orderid'    => $order_info['order_id'],
-							'name'       => $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'],
-							'address'    => $order_info['payment_address_1'],
-							'city'       => $order_info['payment_city'],
-							'region'     => $order_info['payment_zone'],
-							'country'    => $order_info['payment_iso_code_2'],
-							'postal'     => $order_info['payment_postcode'],
-							'email'      => $order_info['email'],
-							'phone'      => $order_info['telephone'],
-							'ecomind'    => 'E',
-							'tokenize'   => 'Y',
-							'profile'    => $profile,
-							'capture'    => $capture,
-							'bankaba'    => $bankaba,
-							'userfields' => array('secret_token' => $this->config->get('cardconnect_token')),
+							'merchid'		 => $this->config->get('cardconnect_merchant_id'),
+							'accttype'	 => $accttype,
+							'account'		 => $account,
+							'expiry'		 => $expiry,
+							'cvv2'			 => $cvv2,
+							'amount'		 => round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN),
+							'currency'	 => $order_info['currency_code'],
+							'orderid'		 => $order_info['order_id'],
+							'name'			 => $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'],
+							'address'		 => $order_info['payment_address_1'],
+							'city'			 => $order_info['payment_city'],
+							'region'		 => $order_info['payment_zone'],
+							'country'		 => $order_info['payment_iso_code_2'],
+							'postal'		 => $order_info['payment_postcode'],
+							'email'			 => $order_info['email'],
+							'phone'			 => $order_info['telephone'],
+							'ecomind'		 => 'E',
+							'tokenize'	 => 'Y',
+							'profile'		 => $profile,
+							'capture'		 => $capture,
+							'bankaba'		 => $bankaba,
+							'userfields' => array( 'secret_token' => $this->config->get('cardconnect_token') ),
 							'frontendid' => '26'
 						);
 
@@ -196,7 +197,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 						$this->model_extension_payment_cardconnect->log('Response: ' . print_r($response_data, true));
 
-					 	if (isset($response_data['respstat']) && $response_data['respstat'] == 'A') {
+						if (isset($response_data['respstat']) && $response_data['respstat'] == 'A') {
 							$this->load->model('checkout/order');
 
 							// if a cheque
@@ -313,8 +314,8 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 				$responses = $this->model_extension_payment_cardconnect->getSettlementStatuses($this->config->get('cardconnect_merchant_id'), $date);
 
-				foreach($responses as $response) {
-					foreach($response['txns'] as $transaction) {
+				foreach ($responses as $response) {
+					foreach ($response['txns'] as $transaction) {
 						$this->model_extension_payment_cardconnect->updateTransactionStatusByRetref($transaction['retref'], $transaction['setlstat']);
 					}
 				}
@@ -371,4 +372,5 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 		return $error;
 	}
+
 }

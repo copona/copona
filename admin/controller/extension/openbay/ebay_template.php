@@ -68,9 +68,9 @@ class ControllerExtensionOpenbayEbayTemplate extends Controller {
 
 		$data = $this->language->all();
 
-		$data['page_title']   = $data['heading_title'];
-		$data['btn_save']     = $this->url->link('extension/openbay/ebay_template/add', 'token=' . $this->session->data['token'], true);
-		$data['cancel']       = $this->url->link('extension/openbay/ebay_template/listAll', 'token=' . $this->session->data['token'], true);
+		$data['page_title'] = $data['heading_title'];
+		$data['btn_save'] = $this->url->link('extension/openbay/ebay_template/add', 'token=' . $this->session->data['token'], true);
+		$data['cancel'] = $this->url->link('extension/openbay/ebay_template/listAll', 'token=' . $this->session->data['token'], true);
 
 		if ($this->request->post && $this->templateValidate()) {
 			$this->session->data['success'] = $data['text_added'];
@@ -106,9 +106,9 @@ class ControllerExtensionOpenbayEbayTemplate extends Controller {
 
 		$data = $this->language->all();
 
-		$data['page_title']   = $data['text_title_list_edit'];
-		$data['btn_save']     = $this->url->link('extension/openbay/ebay_template/edit', 'token=' . $this->session->data['token'], true);
-		$data['cancel']       = $this->url->link('extension/openbay/ebay_template/listAll', 'token=' . $this->session->data['token'], true);
+		$data['page_title'] = $data['text_title_list_edit'];
+		$data['btn_save'] = $this->url->link('extension/openbay/ebay_template/edit', 'token=' . $this->session->data['token'], true);
+		$data['cancel'] = $this->url->link('extension/openbay/ebay_template/listAll', 'token=' . $this->session->data['token'], true);
 
 		if ($this->request->post && $this->templateValidate()) {
 
@@ -207,4 +207,5 @@ class ControllerExtensionOpenbayEbayTemplate extends Controller {
 
 		return !$this->error;
 	}
+
 }

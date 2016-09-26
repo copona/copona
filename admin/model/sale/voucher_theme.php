@@ -1,5 +1,6 @@
 <?php
 class ModelSaleVoucherTheme extends Model {
+
 	public function addVoucherTheme($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "voucher_theme SET image = '" . $this->db->escape($data['image']) . "'");
 
@@ -10,7 +11,7 @@ class ModelSaleVoucherTheme extends Model {
 		}
 
 		$this->cache->delete('voucher_theme');
-		
+
 		return $voucher_theme_id;
 	}
 
@@ -85,7 +86,7 @@ class ModelSaleVoucherTheme extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "voucher_theme_description WHERE voucher_theme_id = '" . (int)$voucher_theme_id . "'");
 
 		foreach ($query->rows as $result) {
-			$voucher_theme_data[$result['language_id']] = array('name' => $result['name']);
+			$voucher_theme_data[$result['language_id']] = array( 'name' => $result['name'] );
 		}
 
 		return $voucher_theme_data;
@@ -96,4 +97,5 @@ class ModelSaleVoucherTheme extends Model {
 
 		return $query->row['total'];
 	}
+
 }

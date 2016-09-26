@@ -1,5 +1,6 @@
 <?php
 class ModelLocalisationReturnAction extends Model {
+
 	public function addReturnAction($data) {
 		foreach ($data['return_action'] as $language_id => $value) {
 			if (isset($return_action_id)) {
@@ -12,7 +13,7 @@ class ModelLocalisationReturnAction extends Model {
 		}
 
 		$this->cache->delete('return_action');
-		
+
 		return $return_action_id;
 	}
 
@@ -86,7 +87,7 @@ class ModelLocalisationReturnAction extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "return_action WHERE return_action_id = '" . (int)$return_action_id . "'");
 
 		foreach ($query->rows as $result) {
-			$return_action_data[$result['language_id']] = array('name' => $result['name']);
+			$return_action_data[$result['language_id']] = array( 'name' => $result['name'] );
 		}
 
 		return $return_action_data;
@@ -97,4 +98,5 @@ class ModelLocalisationReturnAction extends Model {
 
 		return $query->row['total'];
 	}
+
 }

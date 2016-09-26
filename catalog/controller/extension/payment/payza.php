@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentPayza extends Controller {
+
 	public function index() {
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
@@ -28,4 +29,5 @@ class ControllerExtensionPaymentPayza extends Controller {
 			$this->model_checkout_order->addOrderHistory($this->request->post['ap_itemcode'], $this->config->get('payza_order_status_id'));
 		}
 	}
+
 }

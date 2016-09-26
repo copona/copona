@@ -26,7 +26,7 @@ class ControllerAffiliatePayment extends Controller {
 
 				$activity_data = array(
 					'affiliate_id' => $this->affiliate->getId(),
-					'name'         => $this->affiliate->getFirstName() . ' ' . $this->affiliate->getLastName()
+					'name'				 => $this->affiliate->getFirstName() . ' ' . $this->affiliate->getLastName()
 				);
 
 				$this->model_affiliate_activity->addActivity('payment', $activity_data);
@@ -161,4 +161,5 @@ class ControllerAffiliatePayment extends Controller {
 
 		$this->response->setOutput($this->load->view('affiliate/payment', $data));
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerAffiliateLogout extends Controller {
+
 	public function index() {
 		if ($this->affiliate->isLogged()) {
 			$this->affiliate->logout();
@@ -45,4 +46,5 @@ class ControllerAffiliateLogout extends Controller {
 
 		$this->response->setOutput($this->load->view('common/success', $data));
 	}
+
 }

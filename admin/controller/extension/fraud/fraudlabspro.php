@@ -167,37 +167,37 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		$this->load->model('extension/fraud/fraudlabspro');
 
 		// Action of the Approve/Reject button click
-		if (isset($_POST['flp_id'])){
+		if (isset($_POST['flp_id'])) {
 			$flp_status = $_POST['new_status'];
 			$data['flp_status'] = $flp_status;
 
 			//Feedback FLP status to server
 			$fraudlabspro_key = $this->config->get('fraudlabspro_key');
 
-			for($i=0; $i<3; $i++){
+			for ($i = 0; $i < 3; $i++) {
 				$result = @file_get_contents('https://api.fraudlabspro.com/v1/order/feedback?key=' . $fraudlabspro_key . '&format=json&id=' . $_POST['flp_id'] . '&action=' . $flp_status);
 
-				if($result) break;
+				if ($result)
+					break;
 			}
 
 			// Update fraud status into table
 			$this->db->query("UPDATE `" . DB_PREFIX . "fraudlabspro` SET fraudlabspro_status = '" . $this->db->escape($flp_status) . "' WHERE order_id = " . $this->db->escape($this->request->get['order_id']));
 
 			//Update history record
-			if (strtolower($flp_status) == 'approve'){
+			if (strtolower($flp_status) == 'approve') {
 				$data_temp = array(
-					'order_status_id'=>$this->config->get('fraudlabspro_approve_status_id'),
-					'notify'=>0,
-					'comment'=>'Approved using FraudLabs Pro.'
+					'order_status_id'	 => $this->config->get('fraudlabspro_approve_status_id'),
+					'notify'					 => 0,
+					'comment'					 => 'Approved using FraudLabs Pro.'
 				);
 
 				$this->model_extension_fraud_fraudlabspro->addOrderHistory($this->request->get['order_id'], $data_temp);
-			}
-			else if (strtolower($flp_status) == "reject"){
+			} else if (strtolower($flp_status) == "reject") {
 				$data_temp = array(
-					'order_status_id'=>$this->config->get('fraudlabspro_reject_status_id'),
-					'notify'=>0,
-					'comment'=>'Rejected using FraudLabs Pro.'
+					'order_status_id'	 => $this->config->get('fraudlabspro_reject_status_id'),
+					'notify'					 => 0,
+					'comment'					 => 'Rejected using FraudLabs Pro.'
 				);
 
 				$this->model_extension_fraud_fraudlabspro->addOrderHistory($this->request->get['order_id'], $data_temp);
@@ -407,4 +407,5 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		$s = preg_replace_callback("/( [ a-zA-Z]{1}')([a-zA-Z0-9]{1})/s", create_function('$matches', 'return $matches[1].strtoupper($matches[2]);'), $s);
 		return $s;
 	}
+
 }

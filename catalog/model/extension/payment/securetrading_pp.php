@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentSecureTradingPp extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/securetrading_pp');
 
@@ -19,9 +20,9 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'securetrading_pp',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'securetrading_pp',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('securetrading_pp_sort_order')
 			);
 		}
@@ -49,7 +50,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 		$this->load->model('checkout/order');
 
-		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = 0 WHERE order_id = "  . (int)$order_id);
+		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = 0 WHERE order_id = " . (int)$order_id);
 
 		$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
 
@@ -59,7 +60,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 		$amount = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
 
-		switch($this->config->get('securetrading_pp_settle_status')){
+		switch ($this->config->get('securetrading_pp_settle_status')) {
 			case 0:
 				$trans_type = 'auth';
 				break;
@@ -79,7 +80,6 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `settle_type` = '" . $this->config->get('securetrading_pp_settle_status') . "', `modified` = now(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $amount . "' WHERE order_id = " . (int)$order_info['order_id']);
 
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_pp_order_transaction` SET `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order['securetrading_pp_order_id'] . "', `amount` = '" . $amount . "', type = '" . $trans_type . "',  `created` = now()");
-
 	}
 
 	public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false) {
@@ -98,4 +98,5 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 		$log = new Log('secure.log');
 		$log->write($message);
 	}
+
 }

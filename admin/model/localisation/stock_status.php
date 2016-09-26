@@ -1,5 +1,6 @@
 <?php
 class ModelLocalisationStockStatus extends Model {
+
 	public function addStockStatus($data) {
 		foreach ($data['stock_status'] as $language_id => $value) {
 			if (isset($stock_status_id)) {
@@ -12,7 +13,7 @@ class ModelLocalisationStockStatus extends Model {
 		}
 
 		$this->cache->delete('stock_status');
-		
+
 		return $stock_status_id;
 	}
 
@@ -86,7 +87,7 @@ class ModelLocalisationStockStatus extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "stock_status WHERE stock_status_id = '" . (int)$stock_status_id . "'");
 
 		foreach ($query->rows as $result) {
-			$stock_status_data[$result['language_id']] = array('name' => $result['name']);
+			$stock_status_data[$result['language_id']] = array( 'name' => $result['name'] );
 		}
 
 		return $stock_status_data;
@@ -97,4 +98,5 @@ class ModelLocalisationStockStatus extends Model {
 
 		return $query->row['total'];
 	}
+
 }

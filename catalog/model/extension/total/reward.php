@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionTotalReward extends Model {
+
 	public function getTotal($total) {
 		if (isset($this->session->data['reward'])) {
 			$this->load->language('extension/total/reward');
@@ -40,9 +41,9 @@ class ModelExtensionTotalReward extends Model {
 				}
 
 				$total['totals'][] = array(
-					'code'       => 'reward',
-					'title'      => sprintf($this->language->get('text_reward'), $this->session->data['reward']),
-					'value'      => -$discount_total,
+					'code'			 => 'reward',
+					'title'			 => sprintf($this->language->get('text_reward'), $this->session->data['reward']),
+					'value'			 => -$discount_total,
 					'sort_order' => $this->config->get('reward_sort_order')
 				);
 
@@ -75,4 +76,5 @@ class ModelExtensionTotalReward extends Model {
 	public function unconfirm($order_id) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "customer_reward WHERE order_id = '" . (int)$order_id . "' AND points < 0");
 	}
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace openbay;
 
 final class Etsy {
@@ -25,7 +26,7 @@ final class Etsy {
 	public function __get($name) {
 		return $this->registry->get($name);
 	}
-	
+
 	public function resetConfig($token, $enc1, $enc2) {
 		$this->token = $token;
 		$this->enc1 = $enc1;
@@ -33,24 +34,24 @@ final class Etsy {
 	}
 
 	public function call($uri, $method, $data = array()) {
-		if($this->config->get('etsy_status') == 1) {
-			$headers = array ();
+		if ($this->config->get('etsy_status') == 1) {
+			$headers = array();
 			$headers[] = 'X-Auth-Token: ' . $this->token;
 			$headers[] = 'X-Auth-Enc: ' . $this->enc1;
 			$headers[] = 'Content-Type: application/json';
 			//$headers[] = 'Content-Length: '.strlen(json_encode($data));
 
 			$defaults = array(
-				CURLOPT_HEADER      	=> 0,
-				CURLOPT_HTTPHEADER      => $headers,
-				CURLOPT_URL             => $this->url . $uri,
-				CURLOPT_USERAGENT       => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
-				CURLOPT_FRESH_CONNECT   => 1,
-				CURLOPT_RETURNTRANSFER  => 1,
-				CURLOPT_FORBID_REUSE    => 1,
-				CURLOPT_TIMEOUT         => 10,
-				CURLOPT_SSL_VERIFYPEER  => 0,
-				CURLOPT_SSL_VERIFYHOST  => 0,
+				CURLOPT_HEADER				 => 0,
+				CURLOPT_HTTPHEADER		 => $headers,
+				CURLOPT_URL						 => $this->url . $uri,
+				CURLOPT_USERAGENT			 => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
+				CURLOPT_FRESH_CONNECT	 => 1,
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_FORBID_REUSE	 => 1,
+				CURLOPT_TIMEOUT				 => 10,
+				CURLOPT_SSL_VERIFYPEER => 0,
+				CURLOPT_SSL_VERIFYHOST => 0,
 				//CURLOPT_VERBOSE 		=> true,
 				//CURLOPT_STDERR 			=> fopen(DIR_LOGS . 'curl_verbose.log', "w+")
 			);
@@ -65,7 +66,7 @@ final class Etsy {
 
 			$response = array();
 
-			if (! $result = curl_exec($ch)) {
+			if (!$result = curl_exec($ch)) {
 				$this->log('call() - Curl Failed ' . curl_error($ch) . ' ' . curl_errno($ch));
 
 				return false;
@@ -74,7 +75,7 @@ final class Etsy {
 
 				$encoding = mb_detect_encoding($result);
 
-				if($encoding == 'UTF-8') {
+				if ($encoding == 'UTF-8') {
 					$result = preg_replace('/[^(\x20-\x7F)]*/', '', $result);
 				}
 
@@ -82,7 +83,7 @@ final class Etsy {
 
 				$response['header_code'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-				if(!empty($result)) {
+				if (!empty($result)) {
 					$response['data'] = $result;
 				} else {
 					$response['data'] = '';
@@ -172,7 +173,7 @@ final class Etsy {
 
 		$qry = $this->db->query("SELECT `data` FROM `" . DB_PREFIX . "etsy_setting_option` WHERE `key` = '" . $this->db->escape($key) . "' LIMIT 1");
 
-		if($qry->num_rows > 0) {
+		if ($qry->num_rows > 0) {
 			$this->log("getSetting() - Found setting");
 
 			return unserialize($qry->row['data']);
@@ -214,7 +215,7 @@ final class Etsy {
 
 		$qry = $this->db->query("SELECT `p`.`quantity`, `p`.`product_id`, `p`.`model`, `el`.`etsy_listing_id`, `el`.`status` AS `link_status` FROM `" . DB_PREFIX . "etsy_listing` `el` LEFT JOIN `" . DB_PREFIX . "product` `p` ON `p`.`product_id` = `el`.`product_id` WHERE `el`.`etsy_item_id` = '" . (int)$etsy_item_id . "' AND `el`.`status` = 1");
 
-		if($qry->num_rows) {
+		if ($qry->num_rows) {
 			$this->log("getLinkedProduct() - " . $qry->num_rows . " found");
 
 			return $qry->row;
@@ -227,15 +228,16 @@ final class Etsy {
 
 	public function updateListingStock($etsy_item_id, $new_stock, $status) {
 		$this->log("updateListingStock() - ItemID: " . $etsy_item_id . ", new stock: " . $new_stock . ", status: " . $status);
-		
+
 		if ($new_stock > 0) {
 			$this->log("updateListingStock() - stock > 0 - update stock");
-			
+
 			if ($status == 'edit') {
 				$status = 'inactive';
 			}
 
-			$response = $this->call('v1/etsy/product/listing/' . (int)$etsy_item_id . '/updateStock/', 'POST', array('quantity' => $new_stock, 'state' => $status));
+			$response = $this->call('v1/etsy/product/listing/' . (int)$etsy_item_id . '/updateStock/', 'POST', array(
+				'quantity' => $new_stock, 'state'		 => $status ));
 
 			if (isset($response['data']['error'])) {
 				return $response;
@@ -244,18 +246,18 @@ final class Etsy {
 			}
 		} else {
 			$this->log("updateListingStock() - stock > 0 - set to inactive");
-			
+
 			$this->deleteLink(null, $etsy_item_id);
 
 			$response = $this->call('v1/etsy/product/listing/' . (int)$etsy_item_id . '/inactive/', 'POST');
 
 			if (isset($response['data']['error'])) {
 				$this->log("updateListingStock() - Error: " . json_encode($response));
-				
+
 				return $response;
 			} else {
 				$this->log("updateListingStock() - Item ended OK");
-				
+
 				return true;
 			}
 		}
@@ -322,7 +324,7 @@ final class Etsy {
 
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "etsy_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-			if($query->num_rows > 0) {
+			if ($query->num_rows > 0) {
 				$this->log('orderFind() - Found');
 				return $query->row;
 			} else {
@@ -334,7 +336,7 @@ final class Etsy {
 
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "etsy_order` WHERE `receipt_id` = '" . (int)$receipt_id . "' LIMIT 1");
 
-			if($query->num_rows > 0) {
+			if ($query->num_rows > 0) {
 				$this->log('orderFind() - Found');
 				return $query->row;
 			} else {
@@ -347,10 +349,10 @@ final class Etsy {
 	public function orderDelete($order_id) {
 		$this->log("orderDelete() - ID: " . $order_id);
 
-		if(!$this->orderFind($order_id)) {
+		if (!$this->orderFind($order_id)) {
 			$query = $this->db->query("SELECT `p`.`product_id` FROM `" . DB_PREFIX . "order_product` `op` LEFT JOIN `" . DB_PREFIX . "product` `p` ON `op`.`product_id` = `p`.`product_id` WHERE `op`.`order_id` = '" . (int)$order_id . "'");
 
-			if($query->num_rows > 0) {
+			if ($query->num_rows > 0) {
 				$this->log("orderDelete() - " . $query->num_rows . " products");
 
 				foreach ($query->rows as $product) {
@@ -369,7 +371,8 @@ final class Etsy {
 	public function orderUpdatePaid($receipt_id, $status) {
 		$this->log("orderUpdatePaid() - Receipt ID: " . $receipt_id . ", Status: " . $status);
 
-		$response = $this->openbay->etsy->call('v1/etsy/order/update/payment/', 'POST', array('receipt_id' => $receipt_id, 'status' => $status));
+		$response = $this->openbay->etsy->call('v1/etsy/order/update/payment/', 'POST', array(
+			'receipt_id' => $receipt_id, 'status'		 => $status ));
 
 		if (isset($response['data']['error'])) {
 			$this->log("orderUpdatePaid() - Error: " . json_encode($response));
@@ -385,7 +388,8 @@ final class Etsy {
 	public function orderUpdateShipped($receipt_id, $status) {
 		$this->log("orderUpdateShipped() - Receipt ID: " . $receipt_id . ", Status: " . $status);
 
-		$response = $this->openbay->etsy->call('v1/etsy/order/update/shipping/', 'POST', array('receipt_id' => $receipt_id, 'status' => $status));
+		$response = $this->openbay->etsy->call('v1/etsy/order/update/shipping/', 'POST', array(
+			'receipt_id' => $receipt_id, 'status'		 => $status ));
 
 		if (isset($response['data']['error'])) {
 			$this->log("orderUpdateShipped() - Error: " . json_encode($response));
@@ -402,7 +406,7 @@ final class Etsy {
 		$this->log("putStockUpdateBulk() - ok");
 		$this->log("putStockUpdateBulk() - Item count: " . count($product_id_array));
 
-		foreach($product_id_array as $product_id) {
+		foreach ($product_id_array as $product_id) {
 			$this->log("putStockUpdateBulk() - Product ID: " . $product_id);
 
 			$links = $this->getLinks($product_id, 1);
@@ -442,7 +446,7 @@ final class Etsy {
 		$response = $this->openbay->etsy->call('v1/etsy/product/listing/' . $listing_id . '/', 'GET');
 
 		if (isset($response['data']['error'])) {
-			$this->log("getEtsyItem() error: ". $response['data']['error']);
+			$this->log("getEtsyItem() error: " . $response['data']['error']);
 
 			return $response;
 		} else {
@@ -463,4 +467,5 @@ final class Etsy {
 			return false;
 		}
 	}
+
 }

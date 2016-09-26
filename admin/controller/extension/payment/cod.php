@@ -114,4 +114,5 @@ class ControllerExtensionPaymentCod extends Controller {
 
 		return !$this->error;
 	}
+
 }

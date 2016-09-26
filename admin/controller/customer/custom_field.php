@@ -161,10 +161,10 @@ class ControllerCustomerCustomField extends Controller {
 		$data['custom_fields'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$custom_field_total = $this->model_customer_custom_field->getTotalCustomFields();
@@ -208,13 +208,13 @@ class ControllerCustomerCustomField extends Controller {
 			}
 
 			$data['custom_fields'][] = array(
-				'custom_field_id' => $result['custom_field_id'],
-				'name'            => $result['name'],
-				'location'        => $this->language->get('text_' . $result['location']),
-				'type'            => $type,
-				'status'          => $result['status'],
-				'sort_order'      => $result['sort_order'],
-				'edit'            => $this->url->link('customer/custom_field/edit', 'token=' . $this->session->data['token'] . '&custom_field_id=' . $result['custom_field_id'] . $url, true)
+				'custom_field_id'	 => $result['custom_field_id'],
+				'name'						 => $result['name'],
+				'location'				 => $this->language->get('text_' . $result['location']),
+				'type'						 => $type,
+				'status'					 => $result['status'],
+				'sort_order'			 => $result['sort_order'],
+				'edit'						 => $this->url->link('customer/custom_field/edit', 'token=' . $this->session->data['token'] . '&custom_field_id=' . $result['custom_field_id'] . $url, true)
 			);
 		}
 
@@ -473,9 +473,9 @@ class ControllerCustomerCustomField extends Controller {
 
 		foreach ($custom_field_values as $custom_field_value) {
 			$data['custom_field_values'][] = array(
-				'custom_field_value_id'          => $custom_field_value['custom_field_value_id'],
+				'custom_field_value_id'					 => $custom_field_value['custom_field_value_id'],
 				'custom_field_value_description' => $custom_field_value['custom_field_value_description'],
-				'sort_order'                     => $custom_field_value['sort_order']
+				'sort_order'										 => $custom_field_value['sort_order']
 			);
 		}
 
@@ -549,4 +549,5 @@ class ControllerCustomerCustomField extends Controller {
 
 		return !$this->error;
 	}
+
 }

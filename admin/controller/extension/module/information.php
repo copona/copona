@@ -75,4 +75,5 @@ class ControllerExtensionModuleInformation extends Controller {
 
 		return !$this->error;
 	}
+
 }

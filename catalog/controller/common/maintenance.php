@@ -1,5 +1,6 @@
 <?php
 class ControllerCommonMaintenance extends Controller {
+
 	public function index() {
 		$this->load->language('common/maintenance');
 
@@ -29,4 +30,5 @@ class ControllerCommonMaintenance extends Controller {
 
 		$this->response->setOutput($this->load->view('common/maintenance', $data));
 	}
+
 }

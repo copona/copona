@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionOpenBayAmazonOrder extends Model {
+
 	public function acknowledgeOrder($order_id) {
 		$amazon_order_id = $this->getAmazonOrderId($order_id);
 
@@ -188,11 +189,11 @@ class ModelExtensionOpenBayAmazonOrder extends Model {
 
 			if (!empty($option_details_row)) {
 				$options[] = array(
-					'product_option_id' => (int)$option_details_row['product_option_id'],
-					'product_option_value_id' => (int)$option_details_row['product_option_value_id'],
-					'name' => $option_details_row['name'],
-					'value' => $option_details_row['value'],
-					'type' => $option_details_row['type']
+					'product_option_id'				 => (int)$option_details_row['product_option_id'],
+					'product_option_value_id'	 => (int)$option_details_row['product_option_value_id'],
+					'name'										 => $option_details_row['name'],
+					'value'										 => $option_details_row['value'],
+					'type'										 => $option_details_row['type']
 				);
 			}
 		}
@@ -203,18 +204,18 @@ class ModelExtensionOpenBayAmazonOrder extends Model {
 	public function addOrderHistory($order_id) {
 		$logger = new Log('amazon_stocks.log');
 		$logger->write('addOrderHistory() called with order id: ' . $order_id);
-		
+
 		if ($this->config->get('openbay_amazon_status') != 1) {
 			$logger->write('addOrderHistory() openbay_amazon_status is disabled');
 			return;
 		}
-		
+
 		$order_products = $this->openbay->getOrderProducts($order_id);
-		
+
 		$logger->write($order_products);
 
 		if (!empty($order_products)) {
-			foreach($order_products as $order_product) {
+			foreach ($order_products as $order_product) {
 				$this->openbay->amazon->productUpdateListen($order_product['product_id']);
 			}
 		} else {
@@ -224,4 +225,5 @@ class ModelExtensionOpenBayAmazonOrder extends Model {
 
 		$logger->write('addOrder() exiting');
 	}
+
 }

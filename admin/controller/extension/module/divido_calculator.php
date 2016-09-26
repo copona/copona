@@ -72,4 +72,5 @@ class ControllerExtensionModuleDividoCalculator extends Controller {
 
 		return !$this->error;
 	}
+
 }

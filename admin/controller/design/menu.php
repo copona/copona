@@ -161,10 +161,10 @@ class ControllerDesignMenu extends Controller {
 		$data['menus'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$menu_total = $this->model_design_menu->getTotalMenus();
@@ -173,13 +173,13 @@ class ControllerDesignMenu extends Controller {
 
 		foreach ($results as $result) {
 			$data['menus'][] = array(
-				'menu_id'    => $result['menu_id'],
-				'name'       => $result['name'],
-				'store'      => $result['store'],
-				'type'       => $result['type'],
-				'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'menu_id'		 => $result['menu_id'],
+				'name'			 => $result['name'],
+				'store'			 => $result['store'],
+				'type'			 => $result['type'],
+				'status'		 => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'sort_order' => $result['sort_order'],
-				'edit'       => $this->url->link('design/menu/edit', 'token=' . $this->session->data['token'] . '&menu_id=' . $result['menu_id'] . $url, true)
+				'edit'			 => $this->url->link('design/menu/edit', 'token=' . $this->session->data['token'] . '&menu_id=' . $result['menu_id'] . $url, true)
 			);
 		}
 
@@ -237,7 +237,7 @@ class ControllerDesignMenu extends Controller {
 		$data['sort_type'] = $this->url->link('design/menu', 'token=' . $this->session->data['token'] . '&sort=m.type' . $url, true);
 		$data['sort_sort_order'] = $this->url->link('design/menu', 'token=' . $this->session->data['token'] . '&sort=m.sort_order' . $url, true);
 		$data['sort_status'] = $this->url->link('design/menu', 'token=' . $this->session->data['token'] . '&sort=m.status' . $url, true);
-		
+
 		$url = '';
 
 		if (isset($this->request->get['sort'])) {
@@ -277,10 +277,10 @@ class ControllerDesignMenu extends Controller {
 		$data['text_default'] = $this->language->get('text_default');
 		$data['text_link'] = $this->language->get('text_link');
 		$data['text_module'] = $this->language->get('text_module');
-		
+
 		$data['entry_name'] = $this->language->get('entry_name');
 		$data['entry_store'] = $this->language->get('entry_store');
-		$data['entry_type'] = $this->language->get('entry_type');	
+		$data['entry_type'] = $this->language->get('entry_type');
 		$data['entry_link'] = $this->language->get('entry_link');
 		$data['entry_module'] = $this->language->get('entry_module');
 		$data['entry_code'] = $this->language->get('entry_code');
@@ -358,32 +358,32 @@ class ControllerDesignMenu extends Controller {
 
 		$this->load->model('setting/store');
 
-		$data['stores'] = $this->model_setting_store->getStores();				
-				
+		$data['stores'] = $this->model_setting_store->getStores();
+
 		if (isset($this->request->post['store_id'])) {
 			$data['store_id'] = $this->request->post['store_id'];
 		} elseif (!empty($menu_info)) {
 			$data['store_id'] = $menu_info['store_id'];
 		} else {
 			$data['store_id'] = '';
-		}	
-		
+		}
+
 		if (isset($this->request->post['type'])) {
 			$data['type'] = $this->request->post['type'];
 		} elseif (!empty($menu_info)) {
 			$data['type'] = $menu_info['type'];
 		} else {
 			$data['type'] = '';
-		}	
-			
+		}
+
 		if (isset($this->request->post['link'])) {
 			$data['link'] = $this->request->post['link'];
 		} elseif (!empty($menu_info)) {
 			$data['link'] = $menu_info['link'];
 		} else {
 			$data['link'] = '';
-		}	
-			
+		}
+
 		if (isset($this->request->post['sort_order'])) {
 			$data['sort_order'] = $this->request->post['sort_order'];
 		} elseif (!empty($menu_info)) {
@@ -391,7 +391,7 @@ class ControllerDesignMenu extends Controller {
 		} else {
 			$data['sort_order'] = 0;
 		}
-		
+
 		if (isset($this->request->post['status'])) {
 			$data['status'] = $this->request->post['status'];
 		} elseif (!empty($menu_info)) {
@@ -399,7 +399,7 @@ class ControllerDesignMenu extends Controller {
 		} else {
 			$data['status'] = true;
 		}
-		
+
 		$this->load->model('extension/extension');
 
 		$data['extensions'] = array();
@@ -418,14 +418,14 @@ class ControllerDesignMenu extends Controller {
 			foreach ($modules as $module) {
 				$module_data[] = array(
 					'name' => strip_tags($module['name']),
-					'code' => $code . '.' .  $module['module_id']
+					'code' => $code . '.' . $module['module_id']
 				);
 			}
 
 			if ($module_data) {
 				$data['extensions'][] = array(
-					'name'   => strip_tags($this->language->get('heading_title')),
-					'code'   => $code,
+					'name'	 => strip_tags($this->language->get('heading_title')),
+					'code'	 => $code,
 					'module' => $module_data
 				);
 			}
@@ -443,12 +443,12 @@ class ControllerDesignMenu extends Controller {
 
 		foreach ($menu_modules as $menu_module) {
 			$part = explode('.', $menu_module['code']);
-		
-			$this->load->language('extension/menu/' . $part[0]);			
-			
+
+			$this->load->language('extension/menu/' . $part[0]);
+
 			$data['menu_modules'][$key][] = array(
-				'name'       => strip_tags($this->language->get('heading_title')),
-				'code'       => $menu_module['code'],
+				'name'			 => strip_tags($this->language->get('heading_title')),
+				'code'			 => $menu_module['code'],
 				'sort_order' => $menu_module['sort_order']
 			);
 		}
@@ -481,4 +481,5 @@ class ControllerDesignMenu extends Controller {
 
 		return !$this->error;
 	}
+
 }

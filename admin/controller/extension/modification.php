@@ -73,7 +73,7 @@ class ControllerExtensionModification extends Controller {
 			$files = array();
 
 			// Make path into an array
-			$path = array(DIR_MODIFICATION . '*');
+			$path = array( DIR_MODIFICATION . '*' );
 
 			// While the path array is still populated keep looping through
 			while (count($path) != 0) {
@@ -100,7 +100,7 @@ class ControllerExtensionModification extends Controller {
 					if (is_file($file)) {
 						unlink($file);
 
-					// If directory use the remove directory function
+						// If directory use the remove directory function
 					} elseif (is_dir($file)) {
 						rmdir($file);
 					}
@@ -134,10 +134,10 @@ class ControllerExtensionModification extends Controller {
 			$modification = array();
 
 			foreach ($xml as $xml) {
-				if (empty($xml)){
+				if (empty($xml)) {
 					continue;
 				}
-				
+
 				$dom = new DOMDocument('1.0', 'UTF-8');
 				$dom->preserveWhiteSpace = false;
 				$dom->loadXml($xml);
@@ -293,11 +293,12 @@ class ControllerExtensionModification extends Controller {
 															$new_lines = explode("\n", $add);
 
 															if ($offset < 0) {
-																array_splice($lines, $line_id + $offset, abs($offset) + 1, array(str_replace($search, $add, $line)));
+																array_splice($lines, $line_id + $offset, abs($offset) + 1, array(
+																	str_replace($search, $add, $line) ));
 
 																$line_id -= $offset;
 															} else {
-																array_splice($lines, $line_id, $offset + 1, array(str_replace($search, $add, $line)));
+																array_splice($lines, $line_id, $offset + 1, array( str_replace($search, $add, $line) ));
 															}
 
 															break;
@@ -377,7 +378,7 @@ class ControllerExtensionModification extends Controller {
 											else {
 												// Log
 												$log[] = 'NOT FOUND - OPERATIONS ABORTED!';
-											 	break;
+												break;
 											}
 										}
 									}
@@ -441,7 +442,7 @@ class ControllerExtensionModification extends Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
-		//	$this->response->redirect($this->url->link(!empty($data['redirect']) ? $data['redirect'] : 'extension/modification', 'token=' . $this->session->data['token'] . $url, true));
+			//	$this->response->redirect($this->url->link(!empty($data['redirect']) ? $data['redirect'] : 'extension/modification', 'token=' . $this->session->data['token'] . $url, true));
 		}
 
 		$this->getList();
@@ -458,7 +459,7 @@ class ControllerExtensionModification extends Controller {
 			$files = array();
 
 			// Make path into an array
-			$path = array(DIR_MODIFICATION . '*');
+			$path = array( DIR_MODIFICATION . '*' );
 
 			// While the path array is still populated keep looping through
 			while (count($path) != 0) {
@@ -485,7 +486,7 @@ class ControllerExtensionModification extends Controller {
 					if (is_file($file)) {
 						unlink($file);
 
-					// If directory use the remove directory function
+						// If directory use the remove directory function
 					} elseif (is_dir($file)) {
 						rmdir($file);
 					}
@@ -660,10 +661,10 @@ class ControllerExtensionModification extends Controller {
 		$data['modifications'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$modification_total = $this->model_extension_modification->getTotalModifications();
@@ -672,16 +673,16 @@ class ControllerExtensionModification extends Controller {
 
 		foreach ($results as $result) {
 			$data['modifications'][] = array(
-				'modification_id' => $result['modification_id'],
-				'name'            => $result['name'],
-				'author'          => $result['author'],
-				'version'         => $result['version'],
-				'status'          => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-				'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'link'            => $result['link'],
-				'enable'          => $this->url->link('extension/modification/enable', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
-				'disable'         => $this->url->link('extension/modification/disable', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
-				'enabled'         => $result['status']
+				'modification_id'	 => $result['modification_id'],
+				'name'						 => $result['name'],
+				'author'					 => $result['author'],
+				'version'					 => $result['version'],
+				'status'					 => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+				'date_added'			 => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'link'						 => $result['link'],
+				'enable'					 => $this->url->link('extension/modification/enable', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
+				'disable'					 => $this->url->link('extension/modification/disable', 'token=' . $this->session->data['token'] . '&modification_id=' . $result['modification_id'], true),
+				'enabled'					 => $result['status']
 			);
 		}
 
@@ -797,4 +798,5 @@ class ControllerExtensionModification extends Controller {
 
 		return !$this->error;
 	}
+
 }

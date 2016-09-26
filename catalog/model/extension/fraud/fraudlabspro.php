@@ -1,8 +1,9 @@
 <?php
 class ModelExtensionFraudFraudLabsPro extends Model {
+
 	public function check($data) {
 		// Do not perform fraud check if FraudLabs Pro is disabled or API key is not provided.
-		if (!$this->config->get('fraudlabspro_status') ||!$this->config->get('fraudlabspro_key')) {
+		if (!$this->config->get('fraudlabspro_status') || !$this->config->get('fraudlabspro_key')) {
 			return;
 		}
 
@@ -18,12 +19,12 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		$ip = $data['ip'];
 
 		// Detect client IP is store is behind CloudFlare protection.
-		if(isset($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)){
+		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)) {
 			$ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
 		}
 
 		// Get real client IP is they are behind proxy server.
-		if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && filter_var($_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP)){
+		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && filter_var($_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP)) {
 			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 		}
 
@@ -50,7 +51,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 			$request['ship_zip_code'] = $data['shipping_postcode'];
 			$request['ship_country'] = $data['shipping_iso_code_2'];
 		}
-		
+
 		$request['email'] = $data['email'];
 		$request['email_hash'] = $this->hashIt($data['email']);
 		$request['amount'] = $this->currency->format($data['total'], $data['currency_code'], $data['currency_value'], false);
@@ -121,9 +122,9 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 				fraudlabspro_id = '" . $this->db->escape($json->fraudlabspro_id) . "',
 				fraudlabspro_error = '" . $this->db->escape($json->fraudlabspro_error_code) . "',
 				fraudlabspro_message = '" . $this->db->escape($json->fraudlabspro_message) . "',
-				fraudlabspro_credits = '" .  $this->db->escape($json->fraudlabspro_credits) . "',
-				api_key = '" .  $this->config->get('fraudlabspro_key') . "',
-				ip_address = '" .  $ip . "'"
+				fraudlabspro_credits = '" . $this->db->escape($json->fraudlabspro_credits) . "',
+				api_key = '" . $this->config->get('fraudlabspro_key') . "',
+				ip_address = '" . $ip . "'"
 			);
 
 			$risk_score = (int)$json->fraudlabspro_score;
@@ -159,4 +160,5 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 
 		return $hash;
 	}
+
 }

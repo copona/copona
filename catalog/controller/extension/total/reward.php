@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionTotalReward extends Controller {
+
 	public function index() {
 		$points = $this->customer->getRewardPoints();
 
@@ -67,11 +68,12 @@ class ControllerExtensionTotalReward extends Controller {
 			if (isset($this->request->post['redirect'])) {
 				$json['redirect'] = $this->url->link($this->request->post['redirect']);
 			} else {
-				$json['redirect'] = $this->url->link('checkout/cart');	
+				$json['redirect'] = $this->url->link('checkout/cart');
 			}
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionModulePilibabaButton extends Controller {
+
 	public function index() {
 		$status = true;
 
@@ -13,4 +14,5 @@ class ControllerExtensionModulePilibabaButton extends Controller {
 			return $this->load->view('extension/module/pilibaba_button', $data);
 		}
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionModulePPButton extends Controller {
+
 	public function index() {
 		$status = true;
 
@@ -21,4 +22,5 @@ class ControllerExtensionModulePPButton extends Controller {
 			return $this->load->view('extension/module/pp_button', $data);
 		}
 	}
+
 }

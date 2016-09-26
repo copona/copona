@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionShippingParcelforce48 extends Model {
+
 	function getQuote($address) {
 		$this->load->language('extension/shipping/parcelforce_48');
 
@@ -66,23 +67,24 @@ class ModelExtensionShippingParcelforce48 extends Model {
 				}
 
 				$quote_data['parcelforce_48'] = array(
-					'code'         => 'parcelforce_48.parcelforce_48',
-					'title'        => $text,
-					'cost'         => $cost,
+					'code'				 => 'parcelforce_48.parcelforce_48',
+					'title'				 => $text,
+					'cost'				 => $cost,
 					'tax_class_id' => $this->config->get('parcelforce_48_tax_class_id'),
-					'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('parcelforce_48_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+					'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('parcelforce_48_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 				);
 
 				$method_data = array(
-					'code'       => 'parcelforce_48',
-					'title'      => $this->language->get('text_title'),
-					'quote'      => $quote_data,
+					'code'			 => 'parcelforce_48',
+					'title'			 => $this->language->get('text_title'),
+					'quote'			 => $quote_data,
 					'sort_order' => $this->config->get('parcelforce_48_sort_order'),
-					'error'      => false
+					'error'			 => false
 				);
 			}
 		}
 
 		return $method_data;
 	}
+
 }

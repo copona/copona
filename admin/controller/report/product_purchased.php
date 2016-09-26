@@ -1,5 +1,6 @@
 <?php
 class ControllerReportProductPurchased extends Controller {
+
 	public function index() {
 		$this->load->language('report/product_purchased');
 
@@ -64,11 +65,11 @@ class ControllerReportProductPurchased extends Controller {
 		$data['products'] = array();
 
 		$filter_data = array(
-			'filter_date_start'	     => $filter_date_start,
-			'filter_date_end'	     => $filter_date_end,
+			'filter_date_start'			 => $filter_date_start,
+			'filter_date_end'				 => $filter_date_end,
 			'filter_order_status_id' => $filter_order_status_id,
-			'start'                  => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'                  => $this->config->get('config_limit_admin')
+			'start'									 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'									 => $this->config->get('config_limit_admin')
 		);
 
 		$product_total = $this->model_report_product->getTotalPurchased($filter_data);
@@ -77,10 +78,10 @@ class ControllerReportProductPurchased extends Controller {
 
 		foreach ($results as $result) {
 			$data['products'][] = array(
-				'name'       => $result['name'],
-				'model'      => $result['model'],
-				'quantity'   => $result['quantity'],
-				'total'      => $this->currency->format($result['total'], $this->config->get('config_currency'))
+				'name'		 => $result['name'],
+				'model'		 => $result['model'],
+				'quantity' => $result['quantity'],
+				'total'		 => $this->currency->format($result['total'], $this->config->get('config_currency'))
 			);
 		}
 
@@ -142,4 +143,5 @@ class ControllerReportProductPurchased extends Controller {
 
 		$this->response->setOutput($this->load->view('report/product_purchased', $data));
 	}
+
 }

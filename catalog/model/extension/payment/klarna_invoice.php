@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentKlarnaInvoice extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/klarna_invoice');
 
@@ -28,12 +29,12 @@ class ModelExtensionPaymentKlarnaInvoice extends Model {
 
 			// Maps countries to currencies
 			$country_to_currency = array(
-				'NOR' => 'NOK',
-				'SWE' => 'SEK',
-				'FIN' => 'EUR',
-				'DNK' => 'DKK',
-				'DEU' => 'EUR',
-				'NLD' => 'EUR',
+				'NOR'	 => 'NOK',
+				'SWE'	 => 'SEK',
+				'FIN'	 => 'EUR',
+				'DNK'	 => 'DKK',
+				'DEU'	 => 'EUR',
+				'NLD'	 => 'EUR',
 			);
 
 			if (!isset($country_to_currency[$address['iso_code_3']]) || !$this->currency->has($country_to_currency[$address['iso_code_3']])) {
@@ -53,13 +54,14 @@ class ModelExtensionPaymentKlarnaInvoice extends Model {
 			}
 
 			$method = array(
-				'code'       => 'klarna_invoice',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => $terms,
+				'code'			 => 'klarna_invoice',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => $terms,
 				'sort_order' => $klarna_invoice[$address['iso_code_3']]['sort_order']
 			);
 		}
 
 		return $method;
 	}
+
 }

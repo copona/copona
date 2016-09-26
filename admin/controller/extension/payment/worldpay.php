@@ -357,4 +357,5 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 		return !$this->error;
 	}
+
 }

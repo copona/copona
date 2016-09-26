@@ -1,5 +1,6 @@
 <?php
 class ModelAccountCustomer extends Model {
+
 	public function addCustomer($data) {
 		if (isset($data['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($data['customer_group_id'], $this->config->get('config_customer_group_display'))) {
 			$customer_group_id = $data['customer_group_id'];
@@ -56,12 +57,12 @@ class ModelAccountCustomer extends Model {
 
 		// Send to main admin email if new account email is enabled
 		if (in_array('account', (array)$this->config->get('config_mail_alert'))) {
-			$message  = $this->language->get('text_signup') . "\n\n";
+			$message = $this->language->get('text_signup') . "\n\n";
 			$message .= $this->language->get('text_website') . ' ' . html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8') . "\n";
 			$message .= $this->language->get('text_firstname') . ' ' . $data['firstname'] . "\n";
 			$message .= $this->language->get('text_lastname') . ' ' . $data['lastname'] . "\n";
 			$message .= $this->language->get('text_customer_group') . ' ' . $customer_group_info['name'] . "\n";
-			$message .= $this->language->get('text_email') . ' '  .  $data['email'] . "\n";
+			$message .= $this->language->get('text_email') . ' ' . $data['email'] . "\n";
 			$message .= $this->language->get('text_telephone') . ' ' . $data['telephone'] . "\n";
 
 			$mail = new Mail();
@@ -175,4 +176,5 @@ class ModelAccountCustomer extends Model {
 	public function deleteLoginAttempts($email) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE email = '" . $this->db->escape(utf8_strtolower($email)) . "'");
 	}
+
 }

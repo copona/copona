@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionEvent extends Controller {
 	private $error = array();
-	
+
 	public function index() {
 		$this->load->language('extension/event');
 
@@ -75,7 +75,7 @@ class ControllerExtensionEvent extends Controller {
 
 		$this->getList();
 	}
-	
+
 	public function getList() {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -124,10 +124,10 @@ class ControllerExtensionEvent extends Controller {
 		$data['events'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$event_total = $this->model_extension_event->getTotalEvents();
@@ -136,15 +136,15 @@ class ControllerExtensionEvent extends Controller {
 
 		foreach ($results as $result) {
 			$data['events'][] = array(
-				'event_id'   => $result['event_id'],
-				'code'       => $result['code'],
-				'trigger'    => $result['trigger'],
-				'action'     => $result['action'],
-				'status'     => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+				'event_id'	 => $result['event_id'],
+				'code'			 => $result['code'],
+				'trigger'		 => $result['trigger'],
+				'action'		 => $result['action'],
+				'status'		 => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'enable'     => $this->url->link('extension/event/enable', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'], true),
-				'disable'    => $this->url->link('extension/event/disable', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'], true),
-				'enabled'    => $result['status']
+				'enable'		 => $this->url->link('extension/event/enable', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'], true),
+				'disable'		 => $this->url->link('extension/event/disable', 'token=' . $this->session->data['token'] . '&event_id=' . $result['event_id'], true),
+				'enabled'		 => $result['status']
 			);
 		}
 
@@ -239,4 +239,5 @@ class ControllerExtensionEvent extends Controller {
 
 		return !$this->error;
 	}
+
 }

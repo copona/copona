@@ -376,15 +376,15 @@ class ControllerMarketingAffiliate extends Controller {
 		$data['affiliates'] = array();
 
 		$filter_data = array(
-			'filter_name'       => $filter_name,
-			'filter_email'      => $filter_email,
-			'filter_status'     => $filter_status,
-			'filter_approved'   => $filter_approved,
-			'filter_date_added' => $filter_date_added,
-			'sort'              => $sort,
-			'order'             => $order,
-			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'             => $this->config->get('config_limit_admin')
+			'filter_name'				 => $filter_name,
+			'filter_email'			 => $filter_email,
+			'filter_status'			 => $filter_status,
+			'filter_approved'		 => $filter_approved,
+			'filter_date_added'	 => $filter_date_added,
+			'sort'							 => $sort,
+			'order'							 => $order,
+			'start'							 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'							 => $this->config->get('config_limit_admin')
 		);
 
 		$affiliate_total = $this->model_marketing_affiliate->getTotalAffiliates($filter_data);
@@ -408,14 +408,14 @@ class ControllerMarketingAffiliate extends Controller {
 
 			$data['affiliates'][] = array(
 				'affiliate_id' => $result['affiliate_id'],
-				'name'         => $result['name'],
-				'email'        => $result['email'],
-				'balance'      => $this->currency->format($result['balance'], $this->config->get('config_currency')),
-				'status'       => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
-				'date_added'   => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'approve'      => $approve,
-				'unlock'       => $unlock,
-				'edit'         => $this->url->link('marketing/affiliate/edit', 'token=' . $this->session->data['token'] . '&affiliate_id=' . $result['affiliate_id'] . $url, true)
+				'name'				 => $result['name'],
+				'email'				 => $result['email'],
+				'balance'			 => $this->currency->format($result['balance'], $this->config->get('config_currency')),
+				'status'			 => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'date_added'	 => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'approve'			 => $approve,
+				'unlock'			 => $unlock,
+				'edit'				 => $this->url->link('marketing/affiliate/edit', 'token=' . $this->session->data['token'] . '&affiliate_id=' . $result['affiliate_id'] . $url, true)
 			);
 		}
 
@@ -449,7 +449,7 @@ class ControllerMarketingAffiliate extends Controller {
 		$data['button_delete'] = $this->language->get('button_delete');
 		$data['button_filter'] = $this->language->get('button_filter');
 		$data['button_unlock'] = $this->language->get('button_unlock');
-		
+
 		$data['token'] = $this->session->data['token'];
 
 		if (isset($this->error['warning'])) {
@@ -1169,9 +1169,9 @@ class ControllerMarketingAffiliate extends Controller {
 
 		foreach ($results as $result) {
 			$data['transactions'][] = array(
-				'amount'      => $this->currency->format($result['amount'], $this->config->get('config_currency')),
-				'description' => $result['description'],
-				'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+				'amount'			 => $this->currency->format($result['amount'], $this->config->get('config_currency')),
+				'description'	 => $result['description'],
+				'date_added'	 => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
 
@@ -1230,10 +1230,10 @@ class ControllerMarketingAffiliate extends Controller {
 			$this->load->model('marketing/affiliate');
 
 			$filter_data = array(
-				'filter_name'  => $filter_name,
+				'filter_name'	 => $filter_name,
 				'filter_email' => $filter_email,
-				'start'        => 0,
-				'limit'        => 5
+				'start'				 => 0,
+				'limit'				 => 5
 			);
 
 			$results = $this->model_marketing_affiliate->getAffiliates($filter_data);
@@ -1241,8 +1241,8 @@ class ControllerMarketingAffiliate extends Controller {
 			foreach ($results as $result) {
 				$affiliate_data[] = array(
 					'affiliate_id' => $result['affiliate_id'],
-					'name'         => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
-					'email'        => $result['email']
+					'name'				 => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
+					'email'				 => $result['email']
 				);
 			}
 		}
@@ -1250,4 +1250,5 @@ class ControllerMarketingAffiliate extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($affiliate_data));
 	}
+
 }

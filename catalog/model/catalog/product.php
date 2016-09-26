@@ -1,5 +1,6 @@
 <?php
 class ModelCatalogProduct extends Model {
+
 	public function updateViewed($product_id) {
 		$this->db->query("UPDATE " . DB_PREFIX . "product SET viewed = (viewed + 1) WHERE product_id = '" . (int)$product_id . "'");
 	}
@@ -9,47 +10,47 @@ class ModelCatalogProduct extends Model {
 
 		if ($query->num_rows) {
 			return array(
-				'product_id'       => $query->row['product_id'],
-				'name'             => $query->row['name'],
-				'description'      => $query->row['description'],
-				'meta_title'       => $query->row['meta_title'],
+				'product_id'			 => $query->row['product_id'],
+				'name'						 => $query->row['name'],
+				'description'			 => $query->row['description'],
+				'meta_title'			 => $query->row['meta_title'],
 				'meta_description' => $query->row['meta_description'],
-				'meta_keyword'     => $query->row['meta_keyword'],
-				'tag'              => $query->row['tag'],
-				'model'            => $query->row['model'],
-				'sku'              => $query->row['sku'],
-				'upc'              => $query->row['upc'],
-				'ean'              => $query->row['ean'],
-				'jan'              => $query->row['jan'],
-				'isbn'             => $query->row['isbn'],
-				'mpn'              => $query->row['mpn'],
-				'location'         => $query->row['location'],
-				'quantity'         => $query->row['quantity'],
-				'stock_status'     => $query->row['stock_status'],
-				'image'            => $query->row['image'],
-				'manufacturer_id'  => $query->row['manufacturer_id'],
-				'manufacturer'     => $query->row['manufacturer'],
-				'price'            => ($query->row['discount'] ? $query->row['discount'] : $query->row['price']),
-				'special'          => $query->row['special'],
-				'reward'           => $query->row['reward'],
-				'points'           => $query->row['points'],
-				'tax_class_id'     => $query->row['tax_class_id'],
-				'date_available'   => $query->row['date_available'],
-				'weight'           => $query->row['weight'],
-				'weight_class_id'  => $query->row['weight_class_id'],
-				'length'           => $query->row['length'],
-				'width'            => $query->row['width'],
-				'height'           => $query->row['height'],
-				'length_class_id'  => $query->row['length_class_id'],
-				'subtract'         => $query->row['subtract'],
-				'rating'           => round($query->row['rating']),
-				'reviews'          => $query->row['reviews'] ? $query->row['reviews'] : 0,
-				'minimum'          => $query->row['minimum'],
-				'sort_order'       => $query->row['sort_order'],
-				'status'           => $query->row['status'],
-				'date_added'       => $query->row['date_added'],
-				'date_modified'    => $query->row['date_modified'],
-				'viewed'           => $query->row['viewed']
+				'meta_keyword'		 => $query->row['meta_keyword'],
+				'tag'							 => $query->row['tag'],
+				'model'						 => $query->row['model'],
+				'sku'							 => $query->row['sku'],
+				'upc'							 => $query->row['upc'],
+				'ean'							 => $query->row['ean'],
+				'jan'							 => $query->row['jan'],
+				'isbn'						 => $query->row['isbn'],
+				'mpn'							 => $query->row['mpn'],
+				'location'				 => $query->row['location'],
+				'quantity'				 => $query->row['quantity'],
+				'stock_status'		 => $query->row['stock_status'],
+				'image'						 => $query->row['image'],
+				'manufacturer_id'	 => $query->row['manufacturer_id'],
+				'manufacturer'		 => $query->row['manufacturer'],
+				'price'						 => ($query->row['discount'] ? $query->row['discount'] : $query->row['price']),
+				'special'					 => $query->row['special'],
+				'reward'					 => $query->row['reward'],
+				'points'					 => $query->row['points'],
+				'tax_class_id'		 => $query->row['tax_class_id'],
+				'date_available'	 => $query->row['date_available'],
+				'weight'					 => $query->row['weight'],
+				'weight_class_id'	 => $query->row['weight_class_id'],
+				'length'					 => $query->row['length'],
+				'width'						 => $query->row['width'],
+				'height'					 => $query->row['height'],
+				'length_class_id'	 => $query->row['length_class_id'],
+				'subtract'				 => $query->row['subtract'],
+				'rating'					 => round($query->row['rating']),
+				'reviews'					 => $query->row['reviews'] ? $query->row['reviews'] : 0,
+				'minimum'					 => $query->row['minimum'],
+				'sort_order'			 => $query->row['sort_order'],
+				'status'					 => $query->row['status'],
+				'date_added'			 => $query->row['date_added'],
+				'date_modified'		 => $query->row['date_modified'],
+				'viewed'					 => $query->row['viewed']
 			);
 		} else {
 			return false;
@@ -274,17 +275,17 @@ class ModelCatalogProduct extends Model {
 
 	public function getPopularProducts($limit) {
 		$product_data = $this->cache->get('product.popular.' . (int)$this->config->get('config_language_id') . '.' . (int)$this->config->get('config_store_id') . '.' . $this->config->get('config_customer_group_id') . '.' . (int)$limit);
-	
+
 		if (!$product_data) {
 			$query = $this->db->query("SELECT p.product_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY p.viewed DESC, p.date_added DESC LIMIT " . (int)$limit);
-	
+
 			foreach ($query->rows as $result) {
 				$product_data[$result['product_id']] = $this->getProduct($result['product_id']);
 			}
-			
+
 			$this->cache->set('product.popular.' . (int)$this->config->get('config_language_id') . '.' . (int)$this->config->get('config_store_id') . '.' . $this->config->get('config_customer_group_id') . '.' . (int)$limit, $product_data);
 		}
-		
+
 		return $product_data;
 	}
 
@@ -319,15 +320,15 @@ class ModelCatalogProduct extends Model {
 			foreach ($product_attribute_query->rows as $product_attribute) {
 				$product_attribute_data[] = array(
 					'attribute_id' => $product_attribute['attribute_id'],
-					'name'         => $product_attribute['name'],
-					'text'         => $product_attribute['text']
+					'name'				 => $product_attribute['name'],
+					'text'				 => $product_attribute['text']
 				);
 			}
 
 			$product_attribute_group_data[] = array(
 				'attribute_group_id' => $product_attribute_group['attribute_group_id'],
-				'name'               => $product_attribute_group['name'],
-				'attribute'          => $product_attribute_data
+				'name'							 => $product_attribute_group['name'],
+				'attribute'					 => $product_attribute_data
 			);
 		}
 
@@ -346,27 +347,27 @@ class ModelCatalogProduct extends Model {
 
 			foreach ($product_option_value_query->rows as $product_option_value) {
 				$product_option_value_data[] = array(
-					'product_option_value_id' => $product_option_value['product_option_value_id'],
-					'option_value_id'         => $product_option_value['option_value_id'],
-					'name'                    => $product_option_value['name'],
-					'image'                   => $product_option_value['image'],
-					'quantity'                => $product_option_value['quantity'],
-					'subtract'                => $product_option_value['subtract'],
-					'price'                   => $product_option_value['price'],
-					'price_prefix'            => $product_option_value['price_prefix'],
-					'weight'                  => $product_option_value['weight'],
-					'weight_prefix'           => $product_option_value['weight_prefix']
+					'product_option_value_id'	 => $product_option_value['product_option_value_id'],
+					'option_value_id'					 => $product_option_value['option_value_id'],
+					'name'										 => $product_option_value['name'],
+					'image'										 => $product_option_value['image'],
+					'quantity'								 => $product_option_value['quantity'],
+					'subtract'								 => $product_option_value['subtract'],
+					'price'										 => $product_option_value['price'],
+					'price_prefix'						 => $product_option_value['price_prefix'],
+					'weight'									 => $product_option_value['weight'],
+					'weight_prefix'						 => $product_option_value['weight_prefix']
 				);
 			}
 
 			$product_option_data[] = array(
-				'product_option_id'    => $product_option['product_option_id'],
+				'product_option_id'		 => $product_option['product_option_id'],
 				'product_option_value' => $product_option_value_data,
-				'option_id'            => $product_option['option_id'],
-				'name'                 => $product_option['name'],
-				'type'                 => $product_option['type'],
-				'value'                => $product_option['value'],
-				'required'             => $product_option['required']
+				'option_id'						 => $product_option['option_id'],
+				'name'								 => $product_option['name'],
+				'type'								 => $product_option['type'],
+				'value'								 => $product_option['value'],
+				'required'						 => $product_option['required']
 			);
 		}
 
@@ -536,4 +537,5 @@ class ModelCatalogProduct extends Model {
 			return 0;
 		}
 	}
+
 }

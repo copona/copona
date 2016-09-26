@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentSecureTradingWs extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/securetrading_ws');
 
@@ -19,9 +20,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'securetrading_ws',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'securetrading_ws',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('securetrading_ws_sort_order')
 			);
 		}
@@ -33,20 +34,20 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		$ch = curl_init();
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
+			CURLOPT_POST					 => 1,
+			CURLOPT_HEADER				 => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_URL => 'https://webservices.securetrading.net/xml/',
-			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_URL						 => 'https://webservices.securetrading.net/xml/',
+			CURLOPT_FRESH_CONNECT	 => 1,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 15,
-			CURLOPT_HTTPHEADER => array(
+			CURLOPT_FORBID_REUSE	 => 1,
+			CURLOPT_TIMEOUT				 => 15,
+			CURLOPT_HTTPHEADER		 => array(
 				'User-Agent: OpenCart - Secure Trading WS',
 				'Content-Length: ' . strlen($data),
 				'Authorization: Basic ' . base64_encode($this->config->get('securetrading_ws_username') . ':' . $this->config->get('securetrading_ws_password')),
 			),
-			CURLOPT_POSTFIELDS => $data,
+			CURLOPT_POSTFIELDS		 => $data,
 		);
 
 		curl_setopt_array($ch, $defaults);
@@ -107,7 +108,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
 		$amount = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
 
-		switch($this->config->get('securetrading_ws_settle_status')){
+		switch ($this->config->get('securetrading_ws_settle_status')) {
 			case 0:
 				$trans_type = 'auth';
 				break;
@@ -132,7 +133,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false) {
 		$this->load->model('checkout/order');
 
-		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = " . (int)$order_status_id . " WHERE order_id = "  . (int)$order_id);
+		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = " . (int)$order_status_id . " WHERE order_id = " . (int)$order_id);
 
 		$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
 	}
@@ -141,4 +142,5 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		$log = new Log('secure.log');
 		$log->write($message);
 	}
+
 }

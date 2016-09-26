@@ -1,5 +1,6 @@
 <?php
 class ControllerReportSaleReturn extends Controller {
+
 	public function index() {
 		$this->load->language('report/sale_return');
 
@@ -74,12 +75,12 @@ class ControllerReportSaleReturn extends Controller {
 		$data['returns'] = array();
 
 		$filter_data = array(
-			'filter_date_start'	      => $filter_date_start,
-			'filter_date_end'	      => $filter_date_end,
-			'filter_group'            => $filter_group,
-			'filter_return_status_id' => $filter_return_status_id,
-			'start'                   => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'                   => $this->config->get('config_limit_admin')
+			'filter_date_start'				 => $filter_date_start,
+			'filter_date_end'					 => $filter_date_end,
+			'filter_group'						 => $filter_group,
+			'filter_return_status_id'	 => $filter_return_status_id,
+			'start'										 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'										 => $this->config->get('config_limit_admin')
 		);
 
 		$return_total = $this->model_report_return->getTotalReturns($filter_data);
@@ -89,8 +90,8 @@ class ControllerReportSaleReturn extends Controller {
 		foreach ($results as $result) {
 			$data['returns'][] = array(
 				'date_start' => date($this->language->get('date_format_short'), strtotime($result['date_start'])),
-				'date_end'   => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
-				'returns'    => $result['returns']
+				'date_end'	 => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
+				'returns'		 => $result['returns']
 			);
 		}
 
@@ -122,23 +123,23 @@ class ControllerReportSaleReturn extends Controller {
 		$data['groups'] = array();
 
 		$data['groups'][] = array(
-			'text'  => $this->language->get('text_year'),
-			'value' => 'year',
+			'text'	 => $this->language->get('text_year'),
+			'value'	 => 'year',
 		);
 
 		$data['groups'][] = array(
-			'text'  => $this->language->get('text_month'),
-			'value' => 'month',
+			'text'	 => $this->language->get('text_month'),
+			'value'	 => 'month',
 		);
 
 		$data['groups'][] = array(
-			'text'  => $this->language->get('text_week'),
-			'value' => 'week',
+			'text'	 => $this->language->get('text_week'),
+			'value'	 => 'week',
 		);
 
 		$data['groups'][] = array(
-			'text'  => $this->language->get('text_day'),
-			'value' => 'day',
+			'text'	 => $this->language->get('text_day'),
+			'value'	 => 'day',
 		);
 
 		$url = '';
@@ -180,4 +181,5 @@ class ControllerReportSaleReturn extends Controller {
 
 		$this->response->setOutput($this->load->view('report/sale_return', $data));
 	}
+
 }

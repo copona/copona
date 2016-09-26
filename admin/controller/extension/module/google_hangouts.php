@@ -94,4 +94,5 @@ class ControllerExtensionModuleGoogleHangouts extends Controller {
 
 		return !$this->error;
 	}
+
 }

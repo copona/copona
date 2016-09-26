@@ -1,5 +1,6 @@
 <?php
 class ControllerAffiliateTransaction extends Controller {
+
 	public function index() {
 		if (!$this->affiliate->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('affiliate/transaction', '', true);
@@ -50,10 +51,10 @@ class ControllerAffiliateTransaction extends Controller {
 		$data['transactions'] = array();
 
 		$filter_data = array(
-			'sort'  => 't.date_added',
-			'order' => 'DESC',
-			'start' => ($page - 1) * 10,
-			'limit' => 10
+			'sort'	 => 't.date_added',
+			'order'	 => 'DESC',
+			'start'	 => ($page - 1) * 10,
+			'limit'	 => 10
 		);
 
 		$transaction_total = $this->model_affiliate_transaction->getTotalTransactions();
@@ -62,9 +63,9 @@ class ControllerAffiliateTransaction extends Controller {
 
 		foreach ($results as $result) {
 			$data['transactions'][] = array(
-				'amount'      => $this->currency->format($result['amount'], $this->config->get('config_currency')),
-				'description' => $result['description'],
-				'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+				'amount'			 => $this->currency->format($result['amount'], $this->config->get('config_currency')),
+				'description'	 => $result['description'],
+				'date_added'	 => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
 
@@ -91,4 +92,5 @@ class ControllerAffiliateTransaction extends Controller {
 
 		$this->response->setOutput($this->load->view('affiliate/transaction', $data));
 	}
+
 }

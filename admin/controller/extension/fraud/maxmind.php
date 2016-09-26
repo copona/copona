@@ -446,4 +446,5 @@ class ControllerExtensionFraudMaxMind extends Controller {
 			return $this->load->view('extension/fraud/maxmind_info', $data);
 		}
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionShippingFree extends Model {
+
 	function getQuote($address) {
 		$this->load->language('extension/shipping/free');
 
@@ -23,22 +24,23 @@ class ModelExtensionShippingFree extends Model {
 			$quote_data = array();
 
 			$quote_data['free'] = array(
-				'code'         => 'free.free',
-				'title'        => $this->language->get('text_description'),
-				'cost'         => 0.00,
+				'code'				 => 'free.free',
+				'title'				 => $this->language->get('text_description'),
+				'cost'				 => 0.00,
 				'tax_class_id' => 0,
-				'text'         => $this->currency->format(0.00, $this->session->data['currency'])
+				'text'				 => $this->currency->format(0.00, $this->session->data['currency'])
 			);
 
 			$method_data = array(
-				'code'       => 'free',
-				'title'      => $this->language->get('text_title'),
-				'quote'      => $quote_data,
+				'code'			 => 'free',
+				'title'			 => $this->language->get('text_title'),
+				'quote'			 => $quote_data,
 				'sort_order' => $this->config->get('free_sort_order'),
-				'error'      => false
+				'error'			 => false
 			);
 		}
 
 		return $method_data;
 	}
+
 }

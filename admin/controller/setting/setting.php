@@ -50,7 +50,7 @@ class ControllerSettingSetting extends Controller {
 		$data['text_mail_alert'] = $this->language->get('text_mail_alert');
 		$data['text_mail_account'] = $this->language->get('text_mail_account');
 		$data['text_mail_affiliate'] = $this->language->get('text_mail_affiliate');
-		$data['text_mail_order']  = $this->language->get('text_mail_order');
+		$data['text_mail_order'] = $this->language->get('text_mail_order');
 		$data['text_mail_review'] = $this->language->get('text_mail_review');
 		$data['text_general'] = $this->language->get('text_general');
 		$data['text_security'] = $this->language->get('text_security');
@@ -426,13 +426,13 @@ class ControllerSettingSetting extends Controller {
 
 		foreach ($extensions as $code) {
 			$this->load->language('extension/theme/' . $code);
-			
+
 			$data['themes'][] = array(
-				'text'  => $this->language->get('heading_title'),
-				'value' => $code
+				'text'	 => $this->language->get('heading_title'),
+				'value'	 => $code
 			);
 		}
-			
+
 		if (isset($this->request->post['config_layout_id'])) {
 			$data['config_layout_id'] = $this->request->post['config_layout_id'];
 		} else {
@@ -859,8 +859,8 @@ class ControllerSettingSetting extends Controller {
 
 			if ($this->config->get($code . '_status')) {
 				$data['captchas'][] = array(
-					'text'  => $this->language->get('heading_title'),
-					'value' => $code
+					'text'	 => $this->language->get('heading_title'),
+					'value'	 => $code
 				);
 			}
 		}
@@ -868,7 +868,7 @@ class ControllerSettingSetting extends Controller {
 		if (isset($this->request->post['config_captcha_page'])) {
 			$data['config_captcha_page'] = $this->request->post['config_captcha_page'];
 		} elseif ($this->config->has('config_captcha_page')) {
-		   	$data['config_captcha_page'] = $this->config->get('config_captcha_page');
+			$data['config_captcha_page'] = $this->config->get('config_captcha_page');
 		} else {
 			$data['config_captcha_page'] = array();
 		}
@@ -876,28 +876,28 @@ class ControllerSettingSetting extends Controller {
 		$data['captcha_pages'] = array();
 
 		$data['captcha_pages'][] = array(
-			'text'  => $this->language->get('text_register'),
-			'value' => 'register'
-		);
-		
-		$data['captcha_pages'][] = array(
-			'text'  => $this->language->get('text_guest'),
-			'value' => 'guest'
-		);
-		
-		$data['captcha_pages'][] = array(
-			'text'  => $this->language->get('text_review'),
-			'value' => 'review'
+			'text'	 => $this->language->get('text_register'),
+			'value'	 => 'register'
 		);
 
 		$data['captcha_pages'][] = array(
-			'text'  => $this->language->get('text_return'),
-			'value' => 'return'
+			'text'	 => $this->language->get('text_guest'),
+			'value'	 => 'guest'
 		);
 
 		$data['captcha_pages'][] = array(
-			'text'  => $this->language->get('text_contact'),
-			'value' => 'contact'
+			'text'	 => $this->language->get('text_review'),
+			'value'	 => 'review'
+		);
+
+		$data['captcha_pages'][] = array(
+			'text'	 => $this->language->get('text_return'),
+			'value'	 => 'return'
+		);
+
+		$data['captcha_pages'][] = array(
+			'text'	 => $this->language->get('text_contact'),
+			'value'	 => 'contact'
 		);
 
 		if (isset($this->request->post['config_logo'])) {
@@ -1017,7 +1017,7 @@ class ControllerSettingSetting extends Controller {
 		if (isset($this->request->post['config_mail_alert'])) {
 			$data['config_mail_alert'] = $this->request->post['config_mail_alert'];
 		} elseif ($this->config->has('config_mail_alert')) {
-		   	$data['config_mail_alert'] = $this->config->get('config_mail_alert');
+			$data['config_mail_alert'] = $this->config->get('config_mail_alert');
 		} else {
 			$data['config_mail_alert'] = array();
 		}
@@ -1025,23 +1025,23 @@ class ControllerSettingSetting extends Controller {
 		$data['mail_alerts'] = array();
 
 		$data['mail_alerts'][] = array(
-			'text'  => $this->language->get('text_mail_account'),
-			'value' => 'account'
+			'text'	 => $this->language->get('text_mail_account'),
+			'value'	 => 'account'
 		);
 
 		$data['mail_alerts'][] = array(
-			'text'  => $this->language->get('text_mail_affiliate'),
-			'value' => 'affiliate'
+			'text'	 => $this->language->get('text_mail_affiliate'),
+			'value'	 => 'affiliate'
 		);
 
 		$data['mail_alerts'][] = array(
-			'text'  => $this->language->get('text_mail_order'),
-			'value' => 'order'
+			'text'	 => $this->language->get('text_mail_order'),
+			'value'	 => 'order'
 		);
 
 		$data['mail_alerts'][] = array(
-			'text'  => $this->language->get('text_mail_review'),
-			'value' => 'review'
+			'text'	 => $this->language->get('text_mail_review'),
+			'value'	 => 'review'
 		);
 
 		if (isset($this->request->post['config_alert_email'])) {
@@ -1236,25 +1236,26 @@ class ControllerSettingSetting extends Controller {
 
 		return !$this->error;
 	}
-	
+
 	public function theme() {
 		if ($this->request->server['HTTPS']) {
 			$server = HTTPS_CATALOG;
 		} else {
 			$server = HTTP_CATALOG;
 		}
-		
+
 		// This is only here for compatibility with old themes.
 		if ($this->request->get['theme'] == 'theme_default') {
 			$theme = $this->config->get('theme_default_directory');
 		} else {
 			$theme = basename($this->request->get['theme']);
 		}
-		
+
 		if (is_file(DIR_CATALOG . 'view/theme/' . $theme . '/image/' . $theme . '.png')) {
 			$this->response->setOutput($server . 'catalog/view/theme/' . $theme . '/image/' . $theme . '.png');
 		} else {
 			$this->response->setOutput($server . 'image/no_image.png');
 		}
-	}	
+	}
+
 }

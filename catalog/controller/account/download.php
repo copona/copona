@@ -1,5 +1,6 @@
 <?php
 class ControllerAccountDownload extends Controller {
+
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/download', '', true);
@@ -78,11 +79,11 @@ class ControllerAccountDownload extends Controller {
 				}
 
 				$data['downloads'][] = array(
-					'order_id'   => $result['order_id'],
+					'order_id'	 => $result['order_id'],
 					'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-					'name'       => $result['name'],
-					'size'       => round(substr($size, 0, strpos($size, '.') + 4), 2) . $suffix[$i],
-					'href'       => $this->url->link('account/download/download', 'download_id=' . $result['download_id'], true)
+					'name'			 => $result['name'],
+					'size'			 => round(substr($size, 0, strpos($size, '.') + 4), 2) . $suffix[$i],
+					'href'			 => $this->url->link('account/download/download', 'download_id=' . $result['download_id'], true)
 				);
 			}
 		}
@@ -156,4 +157,5 @@ class ControllerAccountDownload extends Controller {
 			$this->response->redirect($this->url->link('account/download', '', true));
 		}
 	}
+
 }

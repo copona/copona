@@ -1,5 +1,6 @@
 <?php
 class ControllerAffiliateSuccess extends Controller {
+
 	public function index() {
 		$this->load->language('affiliate/success');
 
@@ -43,4 +44,5 @@ class ControllerAffiliateSuccess extends Controller {
 
 		$this->response->setOutput($this->load->view('common/success', $data));
 	}
+
 }

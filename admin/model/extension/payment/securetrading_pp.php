@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentSecureTradingPp extends Model {
+
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "securetrading_pp_order` (
@@ -172,20 +173,20 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 		$ch = curl_init();
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
+			CURLOPT_POST					 => 1,
+			CURLOPT_HEADER				 => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_URL => 'https://webservices.securetrading.net/xml/',
-			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_URL						 => 'https://webservices.securetrading.net/xml/',
+			CURLOPT_FRESH_CONNECT	 => 1,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 15,
-			CURLOPT_HTTPHEADER => array(
+			CURLOPT_FORBID_REUSE	 => 1,
+			CURLOPT_TIMEOUT				 => 15,
+			CURLOPT_HTTPHEADER		 => array(
 				'User-Agent: OpenCart - Secure Trading PP',
 				'Content-Length: ' . strlen($data),
 				'Authorization: Basic ' . base64_encode($this->config->get('securetrading_pp_webservice_username') . ':' . $this->config->get('securetrading_pp_webservice_password')),
 			),
-			CURLOPT_POSTFIELDS => $data,
+			CURLOPT_POSTFIELDS		 => $data,
 		);
 
 		curl_setopt_array($ch, $defaults);
@@ -205,4 +206,5 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 		$log = new Log('securetrading_pp.log');
 		$log->write($message);
 	}
+
 }

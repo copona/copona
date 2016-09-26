@@ -1,5 +1,4 @@
 <?php
-
 class ModelExtensionPaymentWorldpay extends Model {
 
 	public function getMethod($address, $total) {
@@ -21,9 +20,9 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'worldpay',
-				'title' => $this->language->get('text_title'),
-				'terms' => '',
+				'code'			 => 'worldpay',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('worldpay_sort_order')
 			);
 		}
@@ -42,12 +41,12 @@ class ModelExtensionPaymentWorldpay extends Model {
 		foreach ($query->rows as $row) {
 
 			$card_data[] = array(
-				'card_id' => $row['card_id'],
-				'customer_id' => $row['customer_id'],
-				'token' => $row['token'],
-				'digits' => $row['digits'],
-				'expiry' => $row['expiry'],
-				'type' => $row['type'],
+				'card_id'			 => $row['card_id'],
+				'customer_id'	 => $row['customer_id'],
+				'token'				 => $row['token'],
+				'digits'			 => $row['digits'],
+				'expiry'			 => $row['expiry'],
+				'type'				 => $row['type'],
 			);
 		}
 		return $card_data;
@@ -127,13 +126,13 @@ class ModelExtensionPaymentWorldpay extends Model {
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		$order = array(
-			"token" => $token,
-			"orderType" => 'RECURRING',
-			"amount" => (int)($price * 100),
-			"currencyCode" => $order_info['currency_code'],
-			"name" => $order_info['firstname'] . ' ' . $order_info['lastname'],
-			"orderDescription" => $order_info['store_name'] . ' - ' . date('Y-m-d H:i:s'),
-			"customerOrderCode" => 'orderRecurring-' . $order_recurring_id
+			"token"							 => $token,
+			"orderType"					 => 'RECURRING',
+			"amount"						 => (int)($price * 100),
+			"currencyCode"			 => $order_info['currency_code'],
+			"name"							 => $order_info['firstname'] . ' ' . $order_info['lastname'],
+			"orderDescription"	 => $order_info['store_name'] . ' - ' . date('Y-m-d H:i:s'),
+			"customerOrderCode"	 => 'orderRecurring-' . $order_recurring_id
 		);
 
 		$this->model_extension_payment_worldpay->logger($order);
@@ -209,13 +208,13 @@ class ModelExtensionPaymentWorldpay extends Model {
 			}
 
 			$order = array(
-				"token" => $recurring_order['token'],
-				"orderType" => 'RECURRING',
-				"amount" => (int)($price * 100),
-				"currencyCode" => $order_info['currency_code'],
-				"name" => $order_info['firstname'] . ' ' . $order_info['lastname'],
-				"orderDescription" => $order_info['store_name'] . ' - ' . date('Y-m-d H:i:s'),
-				"customerOrderCode" => 'orderRecurring-' . $profile['order_recurring_id'] . '-repeat-' . $i++
+				"token"							 => $recurring_order['token'],
+				"orderType"					 => 'RECURRING',
+				"amount"						 => (int)($price * 100),
+				"currencyCode"			 => $order_info['currency_code'],
+				"name"							 => $order_info['firstname'] . ' ' . $order_info['lastname'],
+				"orderDescription"	 => $order_info['store_name'] . ' - ' . date('Y-m-d H:i:s'),
+				"customerOrderCode"	 => 'orderRecurring-' . $profile['order_recurring_id'] . '-repeat-' . $i++
 			);
 
 			$this->model_extension_payment_worldpay->logger($order);
@@ -342,11 +341,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 		curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 		curl_setopt($curl, CURLOPT_TIMEOUT, 10);
 		curl_setopt(
-				$curl, CURLOPT_HTTPHEADER, array(
+			$curl, CURLOPT_HTTPHEADER, array(
 			"Authorization: " . $this->config->get('worldpay_service_key'),
 			"Content-Type: application/json",
 			"Content-Length: " . $content_length
-				)
+			)
 		);
 
 		$result = json_decode(curl_exec($curl));

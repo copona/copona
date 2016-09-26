@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentSagePayDirect extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/sagepay_direct');
 
@@ -19,9 +20,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'sagepay_direct',
-				'title' => $this->language->get('text_title'),
-				'terms' => '',
+				'code'			 => 'sagepay_direct',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('sagepay_direct_sort_order')
 			);
 		}
@@ -40,12 +41,12 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		foreach ($query->rows as $row) {
 
 			$card_data[] = array(
-				'card_id' => $row['card_id'],
-				'customer_id' => $row['customer_id'],
-				'token' => $row['token'],
-				'digits' => '**** ' . $row['digits'],
-				'expiry' => $row['expiry'],
-				'type' => $row['type'],
+				'card_id'			 => $row['card_id'],
+				'customer_id'	 => $row['customer_id'],
+				'token'				 => $row['token'],
+				'digits'			 => '**** ' . $row['digits'],
+				'expiry'			 => $row['expiry'],
+				'type'				 => $row['type'],
 			);
 		}
 		return $card_data;
@@ -434,4 +435,5 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		 */
 		return true;
 	}
+
 }

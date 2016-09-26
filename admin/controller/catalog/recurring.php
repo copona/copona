@@ -196,10 +196,10 @@ class ControllerCatalogRecurring extends Controller {
 		$data['recurrings'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$recurring_total = $this->model_catalog_recurring->getTotalRecurrings();
@@ -209,9 +209,9 @@ class ControllerCatalogRecurring extends Controller {
 		foreach ($results as $result) {
 			$data['recurrings'][] = array(
 				'recurring_id' => $result['recurring_id'],
-				'name'         => $result['name'],
-				'sort_order'   => $result['sort_order'],
-				'edit'         => $this->url->link('catalog/recurring/edit', 'token=' . $this->session->data['token'] . '&recurring_id=' . $result['recurring_id'] . $url, true)
+				'name'				 => $result['name'],
+				'sort_order'	 => $result['sort_order'],
+				'edit'				 => $this->url->link('catalog/recurring/edit', 'token=' . $this->session->data['token'] . '&recurring_id=' . $result['recurring_id'] . $url, true)
 			);
 		}
 
@@ -396,28 +396,28 @@ class ControllerCatalogRecurring extends Controller {
 		$data['frequencies'] = array();
 
 		$data['frequencies'][] = array(
-			'text'  => $this->language->get('text_day'),
-			'value' => 'day'
+			'text'	 => $this->language->get('text_day'),
+			'value'	 => 'day'
 		);
 
 		$data['frequencies'][] = array(
-			'text'  => $this->language->get('text_week'),
-			'value' => 'week'
+			'text'	 => $this->language->get('text_week'),
+			'value'	 => 'week'
 		);
 
 		$data['frequencies'][] = array(
-			'text'  => $this->language->get('text_semi_month'),
-			'value' => 'semi_month'
+			'text'	 => $this->language->get('text_semi_month'),
+			'value'	 => 'semi_month'
 		);
 
 		$data['frequencies'][] = array(
-			'text'  => $this->language->get('text_month'),
-			'value' => 'month'
+			'text'	 => $this->language->get('text_month'),
+			'value'	 => 'month'
 		);
 
 		$data['frequencies'][] = array(
-			'text'  => $this->language->get('text_year'),
-			'value' => 'year'
+			'text'	 => $this->language->get('text_year'),
+			'value'	 => 'year'
 		);
 
 		if (isset($this->request->post['frequency'])) {
@@ -549,4 +549,5 @@ class ControllerCatalogRecurring extends Controller {
 
 		return !$this->error;
 	}
+
 }

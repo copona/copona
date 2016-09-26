@@ -161,10 +161,10 @@ class ControllerLocalisationStockStatus extends Controller {
 		$data['stock_statuses'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$stock_status_total = $this->model_localisation_stock_status->getTotalStockStatuses();
@@ -173,9 +173,9 @@ class ControllerLocalisationStockStatus extends Controller {
 
 		foreach ($results as $result) {
 			$data['stock_statuses'][] = array(
-				'stock_status_id' => $result['stock_status_id'],
-				'name'            => $result['name'],
-				'edit'            => $this->url->link('localisation/stock_status/edit', 'token=' . $this->session->data['token'] . '&stock_status_id=' . $result['stock_status_id'] . $url, true)
+				'stock_status_id'	 => $result['stock_status_id'],
+				'name'						 => $result['name'],
+				'edit'						 => $this->url->link('localisation/stock_status/edit', 'token=' . $this->session->data['token'] . '&stock_status_id=' . $result['stock_status_id'] . $url, true)
 			);
 		}
 
@@ -364,4 +364,5 @@ class ControllerLocalisationStockStatus extends Controller {
 
 		return !$this->error;
 	}
+
 }

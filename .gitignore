@@ -41,3 +41,4 @@
 # Force ignore individual files
 *-gitignore*
 !.gitignore
+/nbproject/

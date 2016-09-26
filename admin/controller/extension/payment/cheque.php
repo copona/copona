@@ -131,4 +131,5 @@ class ControllerExtensionPaymentCheque extends Controller {
 
 		return !$this->error;
 	}
+
 }

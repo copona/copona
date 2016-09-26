@@ -4,7 +4,7 @@ class ControllerExtensionExtensionPayment extends Controller {
 
 	public function index() {
 		$this->load->language('extension/extension/payment');
-		
+
 		$this->load->model('extension/extension');
 
 		$this->getList();
@@ -109,14 +109,14 @@ class ControllerExtensionExtensionPayment extends Controller {
 				}
 
 				$data['extensions'][] = array(
-					'name'       => $this->language->get('heading_title'),
-					'link'       => $link,
-					'status'     => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+					'name'			 => $this->language->get('heading_title'),
+					'link'			 => $link,
+					'status'		 => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 					'sort_order' => $this->config->get($extension . '_sort_order'),
-					'install'   => $this->url->link('extension/extension/payment/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
-					'uninstall' => $this->url->link('extension/extension/payment/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
-					'installed' => in_array($extension, $extensions),
-					'edit'      => $this->url->link('extension/payment/' . $extension, 'token=' . $this->session->data['token'], true)
+					'install'		 => $this->url->link('extension/extension/payment/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
+					'uninstall'	 => $this->url->link('extension/extension/payment/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
+					'installed'	 => in_array($extension, $extensions),
+					'edit'			 => $this->url->link('extension/payment/' . $extension, 'token=' . $this->session->data['token'], true)
 				);
 			}
 		}
@@ -131,4 +131,5 @@ class ControllerExtensionExtensionPayment extends Controller {
 
 		return !$this->error;
 	}
+
 }

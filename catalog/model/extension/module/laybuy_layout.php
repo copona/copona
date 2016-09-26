@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionModuleLaybuyLayout extends Model {
+
 	public function getStatusLabel($id) {
 		$statuses = $this->getTransactionStatuses();
 
@@ -25,24 +26,24 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 
 		$transaction_statuses = array(
 			array(
-				'status_id'		=> 1,
-				'status_name'	=> $this->language->get('text_status_1')
+				'status_id'		 => 1,
+				'status_name'	 => $this->language->get('text_status_1')
 			),
 			array(
-				'status_id'		=> 5,
-				'status_name'	=> $this->language->get('text_status_5')
+				'status_id'		 => 5,
+				'status_name'	 => $this->language->get('text_status_5')
 			),
 			array(
-				'status_id'		=> 7,
-				'status_name'	=> $this->language->get('text_status_7')
+				'status_id'		 => 7,
+				'status_name'	 => $this->language->get('text_status_7')
 			),
 			array(
-				'status_id'		=> 50,
-				'status_name'	=> $this->language->get('text_status_50')
+				'status_id'		 => 50,
+				'status_name'	 => $this->language->get('text_status_50')
 			),
 			array(
-				'status_id'		=> 51,
-				'status_name'	=> $this->language->get('text_status_51')
+				'status_id'		 => 51,
+				'status_name'	 => $this->language->get('text_status_51')
 			)
 		);
 
@@ -58,4 +59,5 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 			return false;
 		}
 	}
+
 }

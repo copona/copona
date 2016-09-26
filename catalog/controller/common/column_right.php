@@ -1,5 +1,6 @@
 <?php
 class ControllerCommonColumnRight extends Controller {
+
 	public function index() {
 		$this->load->model('design/layout');
 
@@ -71,4 +72,5 @@ class ControllerCommonColumnRight extends Controller {
 
 		return $this->load->view('common/column_right', $data);
 	}
+
 }

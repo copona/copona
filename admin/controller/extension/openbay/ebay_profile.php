@@ -58,7 +58,6 @@ class ControllerExtensionOpenbayEbayProfile extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 
 		$this->response->setOutput($this->load->view('extension/openbay/ebay_profile_list', $data));
-
 	}
 
 	public function add() {
@@ -120,19 +119,19 @@ class ControllerExtensionOpenbayEbayProfile extends Controller {
 		$this->load->model('extension/openbay/ebay');
 		$this->load->model('extension/openbay/ebay_template');
 
-		$data['token']                            = $this->session->data['token'];
-		$data['shipping_international_zones']     = $this->model_extension_openbay_ebay->getShippingLocations();
-		$data['templates']                        = $this->model_extension_openbay_ebay_template->getAll();
-		$data['types']                            = $this->model_extension_openbay_ebay_profile->getTypes();
+		$data['token'] = $this->session->data['token'];
+		$data['shipping_international_zones'] = $this->model_extension_openbay_ebay->getShippingLocations();
+		$data['templates'] = $this->model_extension_openbay_ebay_template->getAll();
+		$data['types'] = $this->model_extension_openbay_ebay_profile->getTypes();
 
-		$setting                                  = array();
-		$setting['returns']                       = $this->openbay->ebay->getSetting('returns');
-		$setting['dispatch_times']                = $this->openbay->ebay->getSetting('dispatch_time_max');
-		$setting['countries']                     = $this->openbay->ebay->getSetting('countries');
-		$setting['shipping_types'] 				  = $this->openbay->ebay->getSetting('shipping_types');
-		$setting['listing_restrictions'] 		  = $this->openbay->ebay->getSetting('listing_restrictions');
+		$setting = array();
+		$setting['returns'] = $this->openbay->ebay->getSetting('returns');
+		$setting['dispatch_times'] = $this->openbay->ebay->getSetting('dispatch_time_max');
+		$setting['countries'] = $this->openbay->ebay->getSetting('countries');
+		$setting['shipping_types'] = $this->openbay->ebay->getSetting('shipping_types');
+		$setting['listing_restrictions'] = $this->openbay->ebay->getSetting('listing_restrictions');
 
-		if (empty($setting['dispatch_times']) || empty($setting['countries']) || empty($setting['returns'])){
+		if (empty($setting['dispatch_times']) || empty($setting['countries']) || empty($setting['returns'])) {
 			$this->session->data['warning'] = $this->language->get('error_missing_settings');
 			$this->response->redirect($this->url->link('extension/openbay/ebay/syncronise', 'token=' . $this->session->data['token'], true));
 		}
@@ -250,15 +249,15 @@ class ControllerExtensionOpenbayEbayProfile extends Controller {
 			$data['data']['national']['flat']['types'] = $this->model_extension_openbay_ebay->getShippingService(0, 'flat');
 			$data['data']['international']['flat']['types'] = $this->model_extension_openbay_ebay->getShippingService(1, 'flat');
 
-			$data['data']['national']['calculated']['count']	= isset($data['data']['national']['calculated']['service_id']) ? max(array_keys($data['data']['national']['calculated']['service_id']))+1 : 0;
-			$data['data']['national']['flat']['count']	= isset($data['data']['national']['flat']['service_id']) ? max(array_keys($data['data']['national']['flat']['service_id']))+1 : 0;
-			$data['data']['international']['calculated']['count']	= isset($data['data']['international']['calculated']['service_id']) ? max(array_keys($data['data']['international']['calculated']['service_id']))+1 : 0;
-			$data['data']['international']['flat']['count']	= isset($data['data']['international']['flat']['service_id']) ? max(array_keys($data['data']['international']['flat']['service_id']))+1 : 0;
+			$data['data']['national']['calculated']['count'] = isset($data['data']['national']['calculated']['service_id']) ? max(array_keys($data['data']['national']['calculated']['service_id'])) + 1 : 0;
+			$data['data']['national']['flat']['count'] = isset($data['data']['national']['flat']['service_id']) ? max(array_keys($data['data']['national']['flat']['service_id'])) + 1 : 0;
+			$data['data']['international']['calculated']['count'] = isset($data['data']['international']['calculated']['service_id']) ? max(array_keys($data['data']['international']['calculated']['service_id'])) + 1 : 0;
+			$data['data']['international']['flat']['count'] = isset($data['data']['international']['flat']['service_id']) ? max(array_keys($data['data']['international']['flat']['service_id'])) + 1 : 0;
 
 			$payment_types = $this->model_extension_openbay_ebay->getPaymentTypes();
 			$data['cod_surcharge'] = 0;
 
-			foreach($payment_types as $payment) {
+			foreach ($payment_types as $payment) {
 				if ($payment['ebay_name'] == 'COD') {
 					$data['cod_surcharge'] = 1;
 				}
@@ -272,10 +271,10 @@ class ControllerExtensionOpenbayEbayProfile extends Controller {
 				$data['data']['international']['shipping_type'] = 'flat';
 			}
 
-			$data['html_national_flat']         		= $this->load->view('extension/openbay/ebay_profile_shipping_national_flat', $data);
-			$data['html_international_flat']         	= $this->load->view('extension/openbay/ebay_profile_shipping_international_flat', $data);
-			$data['html_national_calculated']         	= $this->load->view('extension/openbay/ebay_profile_shipping_national_calculated', $data);
-			$data['html_international_calculated']		= $this->load->view('extension/openbay/ebay_profile_shipping_international_calculated', $data);
+			$data['html_national_flat'] = $this->load->view('extension/openbay/ebay_profile_shipping_national_flat', $data);
+			$data['html_international_flat'] = $this->load->view('extension/openbay/ebay_profile_shipping_international_flat', $data);
+			$data['html_national_calculated'] = $this->load->view('extension/openbay/ebay_profile_shipping_national_calculated', $data);
+			$data['html_international_calculated'] = $this->load->view('extension/openbay/ebay_profile_shipping_international_calculated', $data);
 		}
 
 		$data['cancel'] = $this->url->link('extension/openbay/ebay_profile/profileAll', 'token=' . $this->session->data['token'], true);
@@ -304,10 +303,10 @@ class ControllerExtensionOpenbayEbayProfile extends Controller {
 			$data['data']['national']['flat']['types'] = $this->model_extension_openbay_ebay->getShippingService(0, 'flat');
 			$data['data']['international']['flat']['types'] = $this->model_extension_openbay_ebay->getShippingService(1, 'flat');
 
-			$data['data']['national']['calculated']['count']	= isset($data['data']['national']['calculated']['service_id']) ? max(array_keys($data['data']['national']['calculated']['service_id']))+1 : 0;
-			$data['data']['national']['flat']['count']	= isset($data['data']['national']['flat']['service_id']) ? max(array_keys($data['data']['national']['flat']['service_id']))+1 : 0;
-			$data['data']['international']['calculated']['count']	= isset($data['data']['international']['calculated']['service_id']) ? max(array_keys($data['data']['international']['calculated']['service_id']))+1 : 0;
-			$data['data']['international']['flat']['count']	= isset($data['data']['international']['flat']['service_id']) ? max(array_keys($data['data']['international']['flat']['service_id']))+1 : 0;
+			$data['data']['national']['calculated']['count'] = isset($data['data']['national']['calculated']['service_id']) ? max(array_keys($data['data']['national']['calculated']['service_id'])) + 1 : 0;
+			$data['data']['national']['flat']['count'] = isset($data['data']['national']['flat']['service_id']) ? max(array_keys($data['data']['national']['flat']['service_id'])) + 1 : 0;
+			$data['data']['international']['calculated']['count'] = isset($data['data']['international']['calculated']['service_id']) ? max(array_keys($data['data']['international']['calculated']['service_id'])) + 1 : 0;
+			$data['data']['international']['flat']['count'] = isset($data['data']['international']['flat']['service_id']) ? max(array_keys($data['data']['international']['flat']['service_id'])) + 1 : 0;
 
 			$data['zones'] = $this->model_extension_openbay_ebay->getShippingLocations();
 
@@ -323,28 +322,28 @@ class ControllerExtensionOpenbayEbayProfile extends Controller {
 			$data['cod_surcharge'] = 0;
 
 			if (!empty($payment_types)) {
-				foreach($payment_types as $payment) {
+				foreach ($payment_types as $payment) {
 					if ($payment['ebay_name'] == 'COD') {
 						$data['cod_surcharge'] = 1;
 					}
 				}
 			}
-			$return['national']['type'] 				= $data['data']['national']['shipping_type'];
-			$return['international']['type'] 			= $data['data']['international']['shipping_type'];
+			$return['national']['type'] = $data['data']['national']['shipping_type'];
+			$return['international']['type'] = $data['data']['international']['shipping_type'];
 
-			$return['national_flat_count']   			= (int)$data['data']['national']['flat']['count'];
-			$return['national_flat']         			= $this->load->view('extension/openbay/ebay_profile_shipping_national_flat', $data);
+			$return['national_flat_count'] = (int)$data['data']['national']['flat']['count'];
+			$return['national_flat'] = $this->load->view('extension/openbay/ebay_profile_shipping_national_flat', $data);
 
-			$return['international_flat_count']   		= (int)$data['data']['international']['flat']['count'];
-			$return['international_flat']         		= $this->load->view('extension/openbay/ebay_profile_shipping_international_flat', $data);
+			$return['international_flat_count'] = (int)$data['data']['international']['flat']['count'];
+			$return['international_flat'] = $this->load->view('extension/openbay/ebay_profile_shipping_international_flat', $data);
 
-			$return['national_calculated_count']   		= (int)$data['data']['national']['calculated']['count'];
-			$return['national_calculated']         		= $this->load->view('extension/openbay/ebay_profile_shipping_national_calculated', $data);
+			$return['national_calculated_count'] = (int)$data['data']['national']['calculated']['count'];
+			$return['national_calculated'] = $this->load->view('extension/openbay/ebay_profile_shipping_national_calculated', $data);
 
-			$return['international_calculated_count']   = (int)$data['data']['international']['flat']['count'];
-			$return['international_calculated']         = $this->load->view('extension/openbay/ebay_profile_shipping_international_calculated', $data);
+			$return['international_calculated_count'] = (int)$data['data']['international']['flat']['count'];
+			$return['international_calculated'] = $this->load->view('extension/openbay/ebay_profile_shipping_international_calculated', $data);
 
-			$profile_info['html']           			= $return;
+			$profile_info['html'] = $return;
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -362,4 +361,5 @@ class ControllerExtensionOpenbayEbayProfile extends Controller {
 
 		return !$this->error;
 	}
+
 }

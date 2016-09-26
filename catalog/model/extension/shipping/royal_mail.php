@@ -1,246 +1,247 @@
 <?php
 /*
-List of Royal Mail support Countries
+  List of Royal Mail support Countries
 
-http://www.royalmail.com/sites/default/files/RoyalMail_International_TrackedCoverage_Jan2014.pdf
+  http://www.royalmail.com/sites/default/files/RoyalMail_International_TrackedCoverage_Jan2014.pdf
 
-Afghanistan = AF
-Aland Islands = NA
-Albania = AL
-Algeria = DZ
-Andorra = AD
-Angola = AO
-Anguilla = AI
-Antigua / Barbuda = AG
-Argentina = AR
-Armenia = AM
-Aruba = AW
-Ascension Island = XA
-Australia = AU
-Austria = AT
-Azerbaijan = AZ
-Bahamas = BS
-Bahrain = BH
-Bangladesh = BD
-Barbados = BB
-Belarus = BY
-Belgium = BE
-Belize = BZ
-Benin = BJ
-Bermuda = BM
-Bhutan = BT
-Bolivia = BO
-Bonaire = BX
-Bosnia Hertzegovina = BA
-Botswana = BW
-Brazil = BR
-British Indian Ocean Territory = IO
-British Virgin Islands = VG
-Brunei = BN
-Bulgaria = BG
-Burkina Faso = BF
-Burundi = BI
-Cambodia = KH
-Cameroon = CM
-Canada = CA
-Canary Islands = XC
-Cape Verde = CV
-Cayman Islands = KY
-Central African Republic = CF
-Ceuta = CE
-Chad = TD
-Chile = CL
-China (People's Republic of) = CN
-Christmas Island (Indian Ocean) = CX
-Christmas Island (Pacific Ocean) = CX
-Colombia = CO
-Comoros Islands = KM
-Congo ( Dem. Rep of) = CD
-Congo ( Rep of) = CG
-Cook Islands = CK
-Costa Rica = CR
-Croatia = HR
-Cuba = CU
-Curacao = CB
-Cyprus = CY
-Czech Republic = CZ
-Denmark = DK
-Djibouti = DJ
-Dominica = DM
-Dominican Republic = DO
-Ecuador = EC
-Egypt = EG
-El Salvador = SV
-Equatorial Guinea = GQ
-Eritrea = ER
-Estonia = EE
-Ethiopia = ET
-Falkland Islands = FK
-Faroe Islands = FO
-Fiji = FJ
-Finland = FI
-France = FR
-French Guiana = GF
-French Polynesia = PF
-French South Antarctic Territory = TF
-Gabon = GA
-Gambia = GM
-Georgia = GE
-Germany = DE
-Ghana = GH
-Gibraltar = GI
-Greece = GR
-Greenland = GL
-Grenada = GD
-Guadeloupe = GP
-Guatemala = GT
-Guinea = GN
-Guinea-Bissau = GW
-Guyana = GY
-Haiti = HT
-Honduras = HN
-Hong Kong = HK
-Hungary = HU
-Iceland = IS
-India = IN
-Indonesia = ID
-Iran (Islamic Republic of) = IR
-Iraq = IQ
-Ireland (Republic of) = IE
-Israel = IL
-Italy = IT
-Ivory Coast (Cote D'Ivoire) = CI
-Jamaica = JM
-Japan = JP
-Jordan = JO
-Kazakhstan = KZ
-Kenya = KE
-Kiribati = KI
-Kosovo = KV
-Kuwait = KW
-Kyrgyzstan = KG
-Laos (People's Democratic Republic of) = LA
-Latvia = LV
-Lebanon = LB
-Lesotho = LS
-Liberia = LR
-Libya = LY
-Liechtenstein = LI
-Lithuania = LT
-Luxembourg = LU
-Macau = MO
-Macedonia = MK
-Madagascar = MG
-Mahore (also known as Mayotte) = YT
-Malawi = MW
-Malaysia = MY
-Maldives = MV
-Mali = ML
-Malta = MT
-Martinique = MQ
-Mauritania = MR
-Mauritius = MU
-Melilla = XL
-Mexico = MX
-Moldova = MD
-Mongolia = MN
-Montenegro = CS
-Montserrat = MS
-Morocco = MA
-Mozambique = MZ
-Myanmar = MM
-Namibia = NA
-Nauru Island = NR
-Nepal = NP
-Netherlands = NL
-New Caledonia = NC
-New Zealand = NZ
-Nicaragua = NI
-Niger Republic = NE
-Nigeria = NG
-Niue Island = NU
-North Korea (People's Democratic Republic of ) = KP
-Norway = NO
-Oman = OM
-Pakistan = PK
-Palau (known also as Belau) = PW
-Panama = PA
-Papua New Guinea = PG
-Paraguay = PY
-Peru = PE
-Philippines = PH
-Pitcairn Island = PN
-Poland = PL
-Portugal = PT
-Puerto Rico = PR
-Qatar = QA
-Reunion Island = RE
-Romania = RO
-Russian Federation = RU
-Rwanda = RW
-San Marino = SM
-Sao Tome & Principe = ST
-Saudi Arabia = SA
-Senegal = SN
-Serbia = CS
-Seychelles = SC
-Sierra Leone = SL
-Singapore = SG
-Slovak Republic = SK
-Slovenia = SI
-Solomon Islands = SB
-Somalia = SO
-South Africa ( Republic of) = ZA
-South Korea (Republic of) = KR
-South Sudan = SD
-Spain = ES
-Sri Lanka = LK
-St Eustatius = SX
-St Helena = SH
-St Kitts & Nevis = KN
-St Lucia = LC
-St Maarten = SF
-St Vincent & The Grenadines = VC
-Sudan = SD
-Suriname = SR
-Swaziland = SZ
-Sweden = SE
-Switzerland = CH
-Syria = SY
-Taiwan = TW
-Tajikistan = TJ
-Tanzania = TZ
-Thailand = TH
-Timor-Leste = TP
-Togo = TG
-Tokelau Islands = TK
-Tonga = TO
-Trinidad & Tobago = TT
-Tristan de Cunha = XT
-Tunisia = TN
-Turkey = TR
-Turkish (Republic of Northern Cyprus) = CP
-Turkmenistan = TM
-Turks & Caicos Islands = TC
-Tuvalu = TV
-Uganda = UG
-Ukraine = UA
-United Arab Emirates = AE
-Uruguay = UY
-USA = US
-Uzbekistan = UZ
-Vanuatu = VU
-Vatican City State = VA
-Venezuela = VE
-Vietnam = VN
-Wallis & Futuna Islands = WF
-Western Sahara = EH
-Western Samoa = WS
-Yemen, Republic of = YE
-Zambia = ZM
-Zimbabwe = ZW
-*/
+  Afghanistan = AF
+  Aland Islands = NA
+  Albania = AL
+  Algeria = DZ
+  Andorra = AD
+  Angola = AO
+  Anguilla = AI
+  Antigua / Barbuda = AG
+  Argentina = AR
+  Armenia = AM
+  Aruba = AW
+  Ascension Island = XA
+  Australia = AU
+  Austria = AT
+  Azerbaijan = AZ
+  Bahamas = BS
+  Bahrain = BH
+  Bangladesh = BD
+  Barbados = BB
+  Belarus = BY
+  Belgium = BE
+  Belize = BZ
+  Benin = BJ
+  Bermuda = BM
+  Bhutan = BT
+  Bolivia = BO
+  Bonaire = BX
+  Bosnia Hertzegovina = BA
+  Botswana = BW
+  Brazil = BR
+  British Indian Ocean Territory = IO
+  British Virgin Islands = VG
+  Brunei = BN
+  Bulgaria = BG
+  Burkina Faso = BF
+  Burundi = BI
+  Cambodia = KH
+  Cameroon = CM
+  Canada = CA
+  Canary Islands = XC
+  Cape Verde = CV
+  Cayman Islands = KY
+  Central African Republic = CF
+  Ceuta = CE
+  Chad = TD
+  Chile = CL
+  China (People's Republic of) = CN
+  Christmas Island (Indian Ocean) = CX
+  Christmas Island (Pacific Ocean) = CX
+  Colombia = CO
+  Comoros Islands = KM
+  Congo ( Dem. Rep of) = CD
+  Congo ( Rep of) = CG
+  Cook Islands = CK
+  Costa Rica = CR
+  Croatia = HR
+  Cuba = CU
+  Curacao = CB
+  Cyprus = CY
+  Czech Republic = CZ
+  Denmark = DK
+  Djibouti = DJ
+  Dominica = DM
+  Dominican Republic = DO
+  Ecuador = EC
+  Egypt = EG
+  El Salvador = SV
+  Equatorial Guinea = GQ
+  Eritrea = ER
+  Estonia = EE
+  Ethiopia = ET
+  Falkland Islands = FK
+  Faroe Islands = FO
+  Fiji = FJ
+  Finland = FI
+  France = FR
+  French Guiana = GF
+  French Polynesia = PF
+  French South Antarctic Territory = TF
+  Gabon = GA
+  Gambia = GM
+  Georgia = GE
+  Germany = DE
+  Ghana = GH
+  Gibraltar = GI
+  Greece = GR
+  Greenland = GL
+  Grenada = GD
+  Guadeloupe = GP
+  Guatemala = GT
+  Guinea = GN
+  Guinea-Bissau = GW
+  Guyana = GY
+  Haiti = HT
+  Honduras = HN
+  Hong Kong = HK
+  Hungary = HU
+  Iceland = IS
+  India = IN
+  Indonesia = ID
+  Iran (Islamic Republic of) = IR
+  Iraq = IQ
+  Ireland (Republic of) = IE
+  Israel = IL
+  Italy = IT
+  Ivory Coast (Cote D'Ivoire) = CI
+  Jamaica = JM
+  Japan = JP
+  Jordan = JO
+  Kazakhstan = KZ
+  Kenya = KE
+  Kiribati = KI
+  Kosovo = KV
+  Kuwait = KW
+  Kyrgyzstan = KG
+  Laos (People's Democratic Republic of) = LA
+  Latvia = LV
+  Lebanon = LB
+  Lesotho = LS
+  Liberia = LR
+  Libya = LY
+  Liechtenstein = LI
+  Lithuania = LT
+  Luxembourg = LU
+  Macau = MO
+  Macedonia = MK
+  Madagascar = MG
+  Mahore (also known as Mayotte) = YT
+  Malawi = MW
+  Malaysia = MY
+  Maldives = MV
+  Mali = ML
+  Malta = MT
+  Martinique = MQ
+  Mauritania = MR
+  Mauritius = MU
+  Melilla = XL
+  Mexico = MX
+  Moldova = MD
+  Mongolia = MN
+  Montenegro = CS
+  Montserrat = MS
+  Morocco = MA
+  Mozambique = MZ
+  Myanmar = MM
+  Namibia = NA
+  Nauru Island = NR
+  Nepal = NP
+  Netherlands = NL
+  New Caledonia = NC
+  New Zealand = NZ
+  Nicaragua = NI
+  Niger Republic = NE
+  Nigeria = NG
+  Niue Island = NU
+  North Korea (People's Democratic Republic of ) = KP
+  Norway = NO
+  Oman = OM
+  Pakistan = PK
+  Palau (known also as Belau) = PW
+  Panama = PA
+  Papua New Guinea = PG
+  Paraguay = PY
+  Peru = PE
+  Philippines = PH
+  Pitcairn Island = PN
+  Poland = PL
+  Portugal = PT
+  Puerto Rico = PR
+  Qatar = QA
+  Reunion Island = RE
+  Romania = RO
+  Russian Federation = RU
+  Rwanda = RW
+  San Marino = SM
+  Sao Tome & Principe = ST
+  Saudi Arabia = SA
+  Senegal = SN
+  Serbia = CS
+  Seychelles = SC
+  Sierra Leone = SL
+  Singapore = SG
+  Slovak Republic = SK
+  Slovenia = SI
+  Solomon Islands = SB
+  Somalia = SO
+  South Africa ( Republic of) = ZA
+  South Korea (Republic of) = KR
+  South Sudan = SD
+  Spain = ES
+  Sri Lanka = LK
+  St Eustatius = SX
+  St Helena = SH
+  St Kitts & Nevis = KN
+  St Lucia = LC
+  St Maarten = SF
+  St Vincent & The Grenadines = VC
+  Sudan = SD
+  Suriname = SR
+  Swaziland = SZ
+  Sweden = SE
+  Switzerland = CH
+  Syria = SY
+  Taiwan = TW
+  Tajikistan = TJ
+  Tanzania = TZ
+  Thailand = TH
+  Timor-Leste = TP
+  Togo = TG
+  Tokelau Islands = TK
+  Tonga = TO
+  Trinidad & Tobago = TT
+  Tristan de Cunha = XT
+  Tunisia = TN
+  Turkey = TR
+  Turkish (Republic of Northern Cyprus) = CP
+  Turkmenistan = TM
+  Turks & Caicos Islands = TC
+  Tuvalu = TV
+  Uganda = UG
+  Ukraine = UA
+  United Arab Emirates = AE
+  Uruguay = UY
+  USA = US
+  Uzbekistan = UZ
+  Vanuatu = VU
+  Vatican City State = VA
+  Venezuela = VE
+  Vietnam = VN
+  Wallis & Futuna Islands = WF
+  Western Sahara = EH
+  Western Samoa = WS
+  Yemen, Republic of = YE
+  Zambia = ZM
+  Zimbabwe = ZW
+ */
 class ModelExtensionShippingRoyalMail extends Model {
+
 	function getQuote($address) {
 		$this->load->language('extension/shipping/royal_mail');
 
@@ -291,11 +292,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['special_delivery_500'] = array(
-						'code'         => 'royal_mail.special_delivery_500',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.special_delivery_500',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -328,15 +329,14 @@ class ModelExtensionShippingRoyalMail extends Model {
 
 					if ($this->config->get('royal_mail_display_insurance')) {
 						$title .= ' (' . $this->language->get('text_insurance') . ' ' . $this->currency->format(1000, $this->session->data['currency']) . ')';
-
 					}
 
 					$quote_data['special_delivery_1000'] = array(
-						'code'         => 'royal_mail.special_delivery_1000',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.special_delivery_1000',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -372,11 +372,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['special_delivery_2500'] = array(
-						'code'         => 'royal_mail.special_delivery_2500',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.special_delivery_2500',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -407,11 +407,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['1st_class_signed'] = array(
-						'code'         => 'royal_mail.1st_class_signed',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.1st_class_signed',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -442,11 +442,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['2nd_class_signed'] = array(
-						'code'         => 'royal_mail.2nd_class_signed',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.2nd_class_signed',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -477,11 +477,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['1st_class_standard'] = array(
-						'code'         => 'royal_mail.1st_class_standard',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.1st_class_standard',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -512,11 +512,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['2nd_class_standard'] = array(
-						'code'         => 'royal_mail.2nd_class_standard',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.2nd_class_standard',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -835,11 +835,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['international_standard'] = array(
-						'code'         => 'royal_mail.international_standard',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.international_standard',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -930,11 +930,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['international_tracked_signed'] = array(
-						'code'         => 'royal_mail.international_tracked_signed',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.international_tracked_signed',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -1021,11 +1021,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['international_tracked'] = array(
-						'code'         => 'royal_mail.international_tracked',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.international_tracked',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -1266,11 +1266,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['international_signed'] = array(
-						'code'         => 'royal_mail.international_signed',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.international_signed',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -1301,11 +1301,11 @@ class ModelExtensionShippingRoyalMail extends Model {
 					}
 
 					$quote_data['international_economy'] = array(
-						'code'         => 'royal_mail.international_economy',
-						'title'        => $title,
-						'cost'         => $cost,
+						'code'				 => 'royal_mail.international_economy',
+						'title'				 => $title,
+						'cost'				 => $cost,
 						'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+						'text'				 => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
 					);
 				}
 			}
@@ -1315,14 +1315,15 @@ class ModelExtensionShippingRoyalMail extends Model {
 
 		if ($quote_data) {
 			$method_data = array(
-				'code'       => 'royal_mail',
-				'title'      => $this->language->get('text_title'),
-				'quote'      => $quote_data,
+				'code'			 => 'royal_mail',
+				'title'			 => $this->language->get('text_title'),
+				'quote'			 => $quote_data,
 				'sort_order' => $this->config->get('royal_mail_sort_order'),
-				'error'      => false
+				'error'			 => false
 			);
 		}
 
 		return $method_data;
 	}
+
 }

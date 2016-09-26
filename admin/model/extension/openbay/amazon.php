@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionOpenBayAmazon extends Model {
+
 	public function install() {
 		$this->load->model('extension/event');
 
@@ -149,7 +150,7 @@ class ModelExtensionOpenBayAmazon extends Model {
 			$price = $data_array['fields']['price'];
 		} else if (isset($data_array['fields']['StandardPrice'])) {
 			$price = $data_array['fields']['StandardPrice'];
-		}   else {
+		} else {
 			$price = 0;
 		}
 
@@ -165,7 +166,7 @@ class ModelExtensionOpenBayAmazon extends Model {
 
 		$marketplaces = isset($data_array['marketplace_ids']) ? serialize($data_array['marketplace_ids']) : serialize(array());
 
-		$data_encoded = json_encode(array('fields' => $data_array['fields']));
+		$data_encoded = json_encode(array( 'fields' => $data_array['fields'] ));
 
 		$this->db->query("
 			REPLACE INTO `" . DB_PREFIX . "amazon_product`
@@ -313,10 +314,10 @@ class ModelExtensionOpenBayAmazon extends Model {
 		$insertion_rows = $this->db->query("SELECT `sku`, `insertion_id` FROM `" . DB_PREFIX . "amazon_product` WHERE `product_id` = '" . (int)$product_id . "' AND `version` = 2")->rows;
 
 		if (!empty($insertion_rows)) {
-			foreach($insertion_rows as $insertion_row) {
+			foreach ($insertion_rows as $insertion_row) {
 				$error_rows = $this->db->query("SELECT * FROM `" . DB_PREFIX . "amazon_product_error` WHERE `sku` = '" . $this->db->escape($insertion_row['sku']) . "' AND `insertion_id` = '" . $this->db->escape($insertion_row['insertion_id']) . "'")->rows;
 
-				foreach($error_rows as $error_row) {
+				foreach ($error_rows as $error_row) {
 					$result[] = $error_row;
 				}
 			}
@@ -338,7 +339,7 @@ class ModelExtensionOpenBayAmazon extends Model {
 
 	public function linkProduct($amazon_sku, $product_id, $var = '') {
 		$count = $this->db->query("SELECT COUNT(*) as `count` FROM `" . DB_PREFIX . "amazon_product_link` WHERE `product_id` = '" . (int)$product_id . "' AND `amazon_sku` = '" . $this->db->escape($amazon_sku) . "' AND `var` = '" . $this->db->escape($var) . "' LIMIT 1")->row;
-		
+
 		if ($count['count'] == 0) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "amazon_product_link` SET `product_id` = '" . (int)$product_id . "', `amazon_sku` = '" . $this->db->escape($amazon_sku) . "', `var` = '" . $this->db->escape($var) . "'");
 		}
@@ -392,7 +393,7 @@ class ModelExtensionOpenBayAmazon extends Model {
 				$variants = $this->model_extension_module_openstock->getVariants($product_link['product_id']);
 
 				if (!empty($variants)) {
-					foreach($variants as $variant) {
+					foreach ($variants as $variant) {
 						if ($variant['sku'] == $product_link['var']) {
 							$product_links[$key]['combination'] = $variant['combination'];
 							break;
@@ -419,10 +420,10 @@ class ModelExtensionOpenBayAmazon extends Model {
 			$result = array();
 			$this->load->model('extension/module/openstock');
 			$this->load->model('tool/image');
-			foreach($rows as $row) {
+			foreach ($rows as $row) {
 				if ($row['has_option'] == 1) {
 					$stock_opts = $this->model_extension_module_openstock->getVariants($row['product_id']);
-					foreach($stock_opts as $opt) {
+					foreach ($stock_opts as $opt) {
 						if ($this->productLinkExists($row['product_id'], $opt['sku'])) {
 							continue;
 						}
@@ -584,11 +585,11 @@ class ModelExtensionOpenBayAmazon extends Model {
 
 		foreach ($rows as $row) {
 			$results[] = array(
-				'product_id' => $row['product_id'],
-				'marketplace' => $row['marketplace'],
-				'status' => $row['status'],
-				'matches' => $row['matches'],
-				'data' => json_decode($row['data'], 1),
+				'product_id'	 => $row['product_id'],
+				'marketplace'	 => $row['marketplace'],
+				'status'			 => $row['status'],
+				'matches'			 => $row['matches'],
+				'data'				 => json_decode($row['data'], 1),
 			);
 		}
 
@@ -699,21 +700,21 @@ class ModelExtensionOpenBayAmazon extends Model {
 				$variants = (isset($row['pov_id']) ? $this->model_extension_module_openstock->getVariant($row['pov_id']) : '');
 
 				foreach ($variants as $variant) {
-					$combinations[] =  $variant['option_value_name'];
+					$combinations[] = $variant['option_value_name'];
 				}
 			}
 
 			$products[] = array(
-				'product_id' => $row['product_id'],
-				'name' => $row['name'],
-				'sku' => $row['sku'],
-				'var' => $row['var'],
-				'quantity' => $row['quantity'],
-				'amazon_sku' => $row['amazon_sku'],
-				'amazon_quantity' => $row['amazon_quantity'],
-				'amazon_price' => number_format($row['amazon_price'], 2, '.', ''),
-				'asin' => $row['asin'],
-				'combination' => implode(' > ', $combinations),
+				'product_id'			 => $row['product_id'],
+				'name'						 => $row['name'],
+				'sku'							 => $row['sku'],
+				'var'							 => $row['var'],
+				'quantity'				 => $row['quantity'],
+				'amazon_sku'			 => $row['amazon_sku'],
+				'amazon_quantity'	 => $row['amazon_quantity'],
+				'amazon_price'		 => number_format($row['amazon_price'], 2, '.', ''),
+				'asin'						 => $row['asin'],
+				'combination'			 => implode(' > ', $combinations),
 			);
 		}
 
@@ -741,4 +742,5 @@ class ModelExtensionOpenBayAmazon extends Model {
 
 		return $link;
 	}
+
 }

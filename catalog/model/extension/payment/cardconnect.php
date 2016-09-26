@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentCardConnect extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/cardconnect');
 
@@ -19,10 +20,10 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'			=> 'cardconnect',
-				'title'			=> $this->language->get('text_title'),
-				'terms'			=> '',
-				'sort_order'	=> $this->config->get('cardconnect_sort_order')
+				'code'			 => 'cardconnect',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
+				'sort_order' => $this->config->get('cardconnect_sort_order')
 			);
 		}
 
@@ -33,23 +34,23 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$cards = array();
 
 		$cards[] = array(
-			'text'  => 'Visa',
-			'value' => 'VISA'
+			'text'	 => 'Visa',
+			'value'	 => 'VISA'
 		);
 
 		$cards[] = array(
-			'text'  => 'MasterCard',
-			'value' => 'MASTERCARD'
+			'text'	 => 'MasterCard',
+			'value'	 => 'MASTERCARD'
 		);
 
 		$cards[] = array(
-			'text'  => 'Discover Card',
-			'value' => 'DISCOVER'
+			'text'	 => 'Discover Card',
+			'value'	 => 'DISCOVER'
 		);
 
 		$cards[] = array(
-			'text'  => 'American Express',
-			'value' => 'AMEX'
+			'text'	 => 'American Express',
+			'value'	 => 'AMEX'
 		);
 
 		return $cards;
@@ -60,8 +61,8 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$months[] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
-				'value' => sprintf('%02d', $i)
+				'text'	 => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+				'value'	 => sprintf('%02d', $i)
 			);
 		}
 
@@ -75,8 +76,8 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$years[] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -168,4 +169,5 @@ class ModelExtensionPaymentCardConnect extends Model {
 			$log->write($data);
 		}
 	}
+
 }

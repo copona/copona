@@ -1,5 +1,7 @@
 <?php
+
 namespace Cache;
+
 class APC {
 	private $expire;
 	private $active = false;
@@ -21,7 +23,7 @@ class APC {
 		if (!$this->active) {
 			return false;
 		}
-		
+
 		$cache_info = apc_cache_info('user');
 		$cache_list = $cache_info['cache_list'];
 		foreach ($cache_list as $entry) {
@@ -30,4 +32,5 @@ class APC {
 			}
 		}
 	}
+
 }

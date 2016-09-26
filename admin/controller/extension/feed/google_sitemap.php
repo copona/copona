@@ -80,4 +80,5 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
 
 		return !$this->error;
 	}
+
 }

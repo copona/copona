@@ -81,4 +81,5 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 			return false;
 		}
 	}
+
 }

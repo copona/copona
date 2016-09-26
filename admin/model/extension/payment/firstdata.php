@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentFirstdata extends Model {
+
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "firstdata_order` (
@@ -84,8 +85,8 @@ class ModelExtensionPaymentFirstdata extends Model {
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			$response = curl_exec ($ch);
-			curl_close ($ch);
+			$response = curl_exec($ch);
+			curl_close($ch);
 
 			return simplexml_load_string($response);
 		} else {
@@ -106,26 +107,26 @@ class ModelExtensionPaymentFirstdata extends Model {
 			$secret = $this->config->get('firstdata_secret');
 
 			if ($firstdata_order['settle_type'] == 2) {
-				$this->logger('Capture hash construct: ' . $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount*100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ');
+				$this->logger('Capture hash construct: ' . $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount * 100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ');
 
-				$tmp = $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount*100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ';
+				$tmp = $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount * 100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ';
 				$hash = sha1($tmp);
 				$tmp = $hash . ' . ' . $secret;
 				$hash = sha1($tmp);
 
 				$settle_type = 'multisettle';
-				$xml_amount = '<amount currency="' . (string)$firstdata_order['currency_code'] . '">' . (int)round($amount*100) . '</amount>';
+				$xml_amount = '<amount currency="' . (string)$firstdata_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
 			} else {
 				//$this->logger('Capture hash construct: ' . $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . . . ');
-				$this->logger('Capture hash construct: ' . $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount*100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ');
+				$this->logger('Capture hash construct: ' . $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount * 100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ');
 
-				$tmp = $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount*100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ';
+				$tmp = $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount * 100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ';
 				$hash = sha1($tmp);
 				$tmp = $hash . ' . ' . $secret;
 				$hash = sha1($tmp);
 
 				$settle_type = 'settle';
-				$xml_amount = '<amount currency="' . (string)$firstdata_order['currency_code'] . '">' . (int)round($amount*100) . '</amount>';
+				$xml_amount = '<amount currency="' . (string)$firstdata_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
 			}
 
 			$xml = '';
@@ -149,8 +150,8 @@ class ModelExtensionPaymentFirstdata extends Model {
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			$response = curl_exec ($ch);
-			curl_close ($ch);
+			$response = curl_exec($ch);
+			curl_close($ch);
 
 			return simplexml_load_string($response);
 		} else {
@@ -208,9 +209,9 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	public function mapCurrency($code) {
 		$currency = array(
-			'GBP' => 826,
-			'USD' => 840,
-			'EUR' => 978,
+			'GBP'	 => 826,
+			'USD'	 => 840,
+			'EUR'	 => 978,
 		);
 
 		if (array_key_exists($code, $currency)) {
@@ -219,4 +220,5 @@ class ModelExtensionPaymentFirstdata extends Model {
 			return false;
 		}
 	}
+
 }

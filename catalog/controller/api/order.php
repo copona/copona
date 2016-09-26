@@ -1,5 +1,6 @@
 <?php
 class ControllerApiOrder extends Controller {
+
 	public function add() {
 		$this->load->language('api/order');
 
@@ -95,7 +96,7 @@ class ControllerApiOrder extends Controller {
 
 			if (!$json) {
 				$json['success'] = $this->language->get('text_success');
-				
+
 				$order_data = array();
 
 				// Store Details
@@ -194,28 +195,28 @@ class ControllerApiOrder extends Controller {
 
 					foreach ($product['option'] as $option) {
 						$option_data[] = array(
-							'product_option_id'       => $option['product_option_id'],
-							'product_option_value_id' => $option['product_option_value_id'],
-							'option_id'               => $option['option_id'],
-							'option_value_id'         => $option['option_value_id'],
-							'name'                    => $option['name'],
-							'value'                   => $option['value'],
-							'type'                    => $option['type']
+							'product_option_id'				 => $option['product_option_id'],
+							'product_option_value_id'	 => $option['product_option_value_id'],
+							'option_id'								 => $option['option_id'],
+							'option_value_id'					 => $option['option_value_id'],
+							'name'										 => $option['name'],
+							'value'										 => $option['value'],
+							'type'										 => $option['type']
 						);
 					}
 
 					$order_data['products'][] = array(
 						'product_id' => $product['product_id'],
-						'name'       => $product['name'],
-						'model'      => $product['model'],
-						'option'     => $option_data,
-						'download'   => $product['download'],
-						'quantity'   => $product['quantity'],
-						'subtract'   => $product['subtract'],
-						'price'      => $product['price'],
-						'total'      => $product['total'],
-						'tax'        => $this->tax->getTax($product['price'], $product['tax_class_id']),
-						'reward'     => $product['reward']
+						'name'			 => $product['name'],
+						'model'			 => $product['model'],
+						'option'		 => $option_data,
+						'download'	 => $product['download'],
+						'quantity'	 => $product['quantity'],
+						'subtract'	 => $product['subtract'],
+						'price'			 => $product['price'],
+						'total'			 => $product['total'],
+						'tax'				 => $this->tax->getTax($product['price'], $product['tax_class_id']),
+						'reward'		 => $product['reward']
 					);
 				}
 
@@ -225,15 +226,15 @@ class ControllerApiOrder extends Controller {
 				if (!empty($this->session->data['vouchers'])) {
 					foreach ($this->session->data['vouchers'] as $voucher) {
 						$order_data['vouchers'][] = array(
-							'description'      => $voucher['description'],
-							'code'             => token(10),
-							'to_name'          => $voucher['to_name'],
-							'to_email'         => $voucher['to_email'],
-							'from_name'        => $voucher['from_name'],
-							'from_email'       => $voucher['from_email'],
+							'description'			 => $voucher['description'],
+							'code'						 => token(10),
+							'to_name'					 => $voucher['to_name'],
+							'to_email'				 => $voucher['to_email'],
+							'from_name'				 => $voucher['from_name'],
+							'from_email'			 => $voucher['from_email'],
 							'voucher_theme_id' => $voucher['voucher_theme_id'],
-							'message'          => $voucher['message'],
-							'amount'           => $voucher['amount']
+							'message'					 => $voucher['message'],
+							'amount'					 => $voucher['amount']
 						);
 					}
 				}
@@ -248,10 +249,10 @@ class ControllerApiOrder extends Controller {
 				// Because __call can not keep var references so we put them into an array.
 				$total_data = array(
 					'totals' => &$totals,
-					'taxes'  => &$taxes,
-					'total'  => &$total
+					'taxes'	 => &$taxes,
+					'total'	 => &$total
 				);
-			
+
 				$sort_order = array();
 
 				$results = $this->model_extension_extension->getExtensions('total');
@@ -265,7 +266,7 @@ class ControllerApiOrder extends Controller {
 				foreach ($results as $result) {
 					if ($this->config->get($result['code'] . '_status')) {
 						$this->load->model('extension/total/' . $result['code']);
-						
+
 						// We have to put the totals in an array so that they pass by reference.
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
@@ -351,7 +352,7 @@ class ControllerApiOrder extends Controller {
 				}
 
 				$this->model_checkout_order->addOrderHistory($json['order_id'], $order_status_id);
-				
+
 				// clear cart since the order has already been successfully stored.
 				//$this->cart->clear();
 			}
@@ -473,7 +474,7 @@ class ControllerApiOrder extends Controller {
 
 				if (!$json) {
 					$json['success'] = $this->language->get('text_success');
-					
+
 					$order_data = array();
 
 					// Store Details
@@ -572,28 +573,28 @@ class ControllerApiOrder extends Controller {
 
 						foreach ($product['option'] as $option) {
 							$option_data[] = array(
-								'product_option_id'       => $option['product_option_id'],
-								'product_option_value_id' => $option['product_option_value_id'],
-								'option_id'               => $option['option_id'],
-								'option_value_id'         => $option['option_value_id'],
-								'name'                    => $option['name'],
-								'value'                   => $option['value'],
-								'type'                    => $option['type']
+								'product_option_id'				 => $option['product_option_id'],
+								'product_option_value_id'	 => $option['product_option_value_id'],
+								'option_id'								 => $option['option_id'],
+								'option_value_id'					 => $option['option_value_id'],
+								'name'										 => $option['name'],
+								'value'										 => $option['value'],
+								'type'										 => $option['type']
 							);
 						}
 
 						$order_data['products'][] = array(
 							'product_id' => $product['product_id'],
-							'name'       => $product['name'],
-							'model'      => $product['model'],
-							'option'     => $option_data,
-							'download'   => $product['download'],
-							'quantity'   => $product['quantity'],
-							'subtract'   => $product['subtract'],
-							'price'      => $product['price'],
-							'total'      => $product['total'],
-							'tax'        => $this->tax->getTax($product['price'], $product['tax_class_id']),
-							'reward'     => $product['reward']
+							'name'			 => $product['name'],
+							'model'			 => $product['model'],
+							'option'		 => $option_data,
+							'download'	 => $product['download'],
+							'quantity'	 => $product['quantity'],
+							'subtract'	 => $product['subtract'],
+							'price'			 => $product['price'],
+							'total'			 => $product['total'],
+							'tax'				 => $this->tax->getTax($product['price'], $product['tax_class_id']),
+							'reward'		 => $product['reward']
 						);
 					}
 
@@ -603,15 +604,15 @@ class ControllerApiOrder extends Controller {
 					if (!empty($this->session->data['vouchers'])) {
 						foreach ($this->session->data['vouchers'] as $voucher) {
 							$order_data['vouchers'][] = array(
-								'description'      => $voucher['description'],
-								'code'             => token(10),
-								'to_name'          => $voucher['to_name'],
-								'to_email'         => $voucher['to_email'],
-								'from_name'        => $voucher['from_name'],
-								'from_email'       => $voucher['from_email'],
+								'description'			 => $voucher['description'],
+								'code'						 => token(10),
+								'to_name'					 => $voucher['to_name'],
+								'to_email'				 => $voucher['to_email'],
+								'from_name'				 => $voucher['from_name'],
+								'from_email'			 => $voucher['from_email'],
 								'voucher_theme_id' => $voucher['voucher_theme_id'],
-								'message'          => $voucher['message'],
-								'amount'           => $voucher['amount']
+								'message'					 => $voucher['message'],
+								'amount'					 => $voucher['amount']
 							);
 						}
 					}
@@ -622,14 +623,14 @@ class ControllerApiOrder extends Controller {
 					$totals = array();
 					$taxes = $this->cart->getTaxes();
 					$total = 0;
-					
-					// Because __call can not keep var references so we put them into an array. 
+
+					// Because __call can not keep var references so we put them into an array.
 					$total_data = array(
 						'totals' => &$totals,
-						'taxes'  => &$taxes,
-						'total'  => &$total
+						'taxes'	 => &$taxes,
+						'total'	 => &$total
 					);
-			
+
 					$sort_order = array();
 
 					$results = $this->model_extension_extension->getExtensions('total');
@@ -643,7 +644,7 @@ class ControllerApiOrder extends Controller {
 					foreach ($results as $result) {
 						if ($this->config->get($result['code'] . '_status')) {
 							$this->load->model('extension/total/' . $result['code']);
-							
+
 							// We have to put the totals in an array so that they pass by reference.
 							$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 						}
@@ -839,4 +840,5 @@ class ControllerApiOrder extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

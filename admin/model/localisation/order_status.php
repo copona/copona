@@ -1,5 +1,6 @@
 <?php
 class ModelLocalisationOrderStatus extends Model {
+
 	public function addOrderStatus($data) {
 		foreach ($data['order_status'] as $language_id => $value) {
 			if (isset($order_status_id)) {
@@ -12,7 +13,7 @@ class ModelLocalisationOrderStatus extends Model {
 		}
 
 		$this->cache->delete('order_status');
-		
+
 		return $order_status_id;
 	}
 
@@ -86,7 +87,7 @@ class ModelLocalisationOrderStatus extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "'");
 
 		foreach ($query->rows as $result) {
-			$order_status_data[$result['language_id']] = array('name' => $result['name']);
+			$order_status_data[$result['language_id']] = array( 'name' => $result['name'] );
 		}
 
 		return $order_status_data;
@@ -97,4 +98,5 @@ class ModelLocalisationOrderStatus extends Model {
 
 		return $query->row['total'];
 	}
+
 }

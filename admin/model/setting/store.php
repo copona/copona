@@ -1,5 +1,6 @@
 <?php
 class ModelSettingStore extends Model {
+
 	public function addStore($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "store SET name = '" . $this->db->escape($data['config_name']) . "', `url` = '" . $this->db->escape($data['config_url']) . "', `ssl` = '" . $this->db->escape($data['config_ssl']) . "'");
 
@@ -105,4 +106,5 @@ class ModelSettingStore extends Model {
 
 		return $query->row['total'];
 	}
+
 }

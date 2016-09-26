@@ -1,5 +1,6 @@
 <?php
 class ControllerReportSaleOrder extends Controller {
+
 	public function index() {
 		$this->load->language('report/sale_order');
 
@@ -74,12 +75,12 @@ class ControllerReportSaleOrder extends Controller {
 		$data['orders'] = array();
 
 		$filter_data = array(
-			'filter_date_start'	     => $filter_date_start,
-			'filter_date_end'	     => $filter_date_end,
-			'filter_group'           => $filter_group,
+			'filter_date_start'			 => $filter_date_start,
+			'filter_date_end'				 => $filter_date_end,
+			'filter_group'					 => $filter_group,
 			'filter_order_status_id' => $filter_order_status_id,
-			'start'                  => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'                  => $this->config->get('config_limit_admin')
+			'start'									 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'									 => $this->config->get('config_limit_admin')
 		);
 
 		$order_total = $this->model_report_sale->getTotalOrders($filter_data);
@@ -89,11 +90,11 @@ class ControllerReportSaleOrder extends Controller {
 		foreach ($results as $result) {
 			$data['orders'][] = array(
 				'date_start' => date($this->language->get('date_format_short'), strtotime($result['date_start'])),
-				'date_end'   => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
-				'orders'     => $result['orders'],
-				'products'   => $result['products'],
-				'tax'        => $this->currency->format($result['tax'], $this->config->get('config_currency')),
-				'total'      => $this->currency->format($result['total'], $this->config->get('config_currency'))
+				'date_end'	 => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
+				'orders'		 => $result['orders'],
+				'products'	 => $result['products'],
+				'tax'				 => $this->currency->format($result['tax'], $this->config->get('config_currency')),
+				'total'			 => $this->currency->format($result['total'], $this->config->get('config_currency'))
 			);
 		}
 
@@ -127,23 +128,23 @@ class ControllerReportSaleOrder extends Controller {
 		$data['groups'] = array();
 
 		$data['groups'][] = array(
-			'text'  => $this->language->get('text_year'),
-			'value' => 'year',
+			'text'	 => $this->language->get('text_year'),
+			'value'	 => 'year',
 		);
 
 		$data['groups'][] = array(
-			'text'  => $this->language->get('text_month'),
-			'value' => 'month',
+			'text'	 => $this->language->get('text_month'),
+			'value'	 => 'month',
 		);
 
 		$data['groups'][] = array(
-			'text'  => $this->language->get('text_week'),
-			'value' => 'week',
+			'text'	 => $this->language->get('text_week'),
+			'value'	 => 'week',
 		);
 
 		$data['groups'][] = array(
-			'text'  => $this->language->get('text_day'),
-			'value' => 'day',
+			'text'	 => $this->language->get('text_day'),
+			'value'	 => 'day',
 		);
 
 		$url = '';
@@ -185,4 +186,5 @@ class ControllerReportSaleOrder extends Controller {
 
 		$this->response->setOutput($this->load->view('report/sale_order', $data));
 	}
+
 }

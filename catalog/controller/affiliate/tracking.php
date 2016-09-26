@@ -1,5 +1,6 @@
 <?php
 class ControllerAffiliateTracking extends Controller {
+
 	public function index() {
 		if (!$this->affiliate->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('affiliate/tracking', '', true);
@@ -61,9 +62,9 @@ class ControllerAffiliateTracking extends Controller {
 			$this->load->model('catalog/product');
 
 			$filter_data = array(
-				'filter_name' => $this->request->get['filter_name'],
-				'start'       => 0,
-				'limit'       => 5
+				'filter_name'	 => $this->request->get['filter_name'],
+				'start'				 => 0,
+				'limit'				 => 5
 			);
 
 			$results = $this->model_catalog_product->getProducts($filter_data);
@@ -79,4 +80,5 @@ class ControllerAffiliateTracking extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

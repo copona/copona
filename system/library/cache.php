@@ -11,7 +11,7 @@ class Cache {
 			throw new \Exception('Error: Could not load cache adaptor ' . $adaptor . ' cache!');
 		}
 	}
-	
+
 	public function get($key) {
 		return $this->adaptor->get($key);
 	}
@@ -23,4 +23,5 @@ class Cache {
 	public function delete($key) {
 		return $this->adaptor->delete($key);
 	}
+
 }

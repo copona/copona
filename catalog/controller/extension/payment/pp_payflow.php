@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentPPPayflow extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/pp_payflow');
 
@@ -27,31 +28,31 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 		$data['cards'] = array();
 
 		$data['cards'][] = array(
-			'text'  => 'Visa',
-			'value' => '0'
+			'text'	 => 'Visa',
+			'value'	 => '0'
 		);
 
 		$data['cards'][] = array(
-			'text'  => 'MasterCard',
-			'value' => '1'
+			'text'	 => 'MasterCard',
+			'value'	 => '1'
 		);
 
 		$data['cards'][] = array(
-			'text'  => 'Maestro',
-			'value' => '9'
+			'text'	 => 'Maestro',
+			'value'	 => '9'
 		);
 
 		$data['cards'][] = array(
-			'text'  => 'Solo',
-			'value' => 'S'
+			'text'	 => 'Solo',
+			'value'	 => 'S'
 		);
 
 		$data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
-				'value' => sprintf('%02d', $i)
+				'text'	 => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+				'value'	 => sprintf('%02d', $i)
 			);
 		}
 
@@ -61,8 +62,8 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 
 		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {
 			$data['year_valid'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -70,8 +71,8 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -91,7 +92,7 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 			$payment_type = 'S';
 		}
 
-		$request  = 'USER=' . urlencode($this->config->get('pp_payflow_user'));
+		$request = 'USER=' . urlencode($this->config->get('pp_payflow_user'));
 		$request .= '&VENDOR=' . urlencode($this->config->get('pp_payflow_vendor'));
 		$request .= '&PARTNER=' . urlencode($this->config->get('pp_payflow_partner'));
 		$request .= '&PWD=' . urlencode($this->config->get('pp_payflow_password'));
@@ -129,7 +130,7 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
 		curl_setopt($curl, CURLOPT_POST, 1);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('X-VPS-REQUEST-ID: ' . md5($this->session->data['order_id'] . mt_rand())));
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array( 'X-VPS-REQUEST-ID: ' . md5($this->session->data['order_id'] . mt_rand()) ));
 
 		$response = curl_exec($curl);
 
@@ -188,4 +189,5 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

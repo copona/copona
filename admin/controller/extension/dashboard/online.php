@@ -18,7 +18,7 @@ class ControllerExtensionDashboardOnline extends Controller {
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -62,13 +62,13 @@ class ControllerExtensionDashboardOnline extends Controller {
 		} else {
 			$data['dashboard_online_width'] = $this->config->get('dashboard_online_width');
 		}
-	
+
 		$data['columns'] = array();
-		
+
 		for ($i = 3; $i <= 12; $i++) {
 			$data['columns'][] = $i;
 		}
-				
+
 		if (isset($this->request->post['dashboard_online_status'])) {
 			$data['dashboard_online_status'] = $this->request->post['dashboard_online_status'];
 		} else {
@@ -95,7 +95,7 @@ class ControllerExtensionDashboardOnline extends Controller {
 
 		return !$this->error;
 	}
-	
+
 	public function dashboard() {
 		$this->load->language('extension/dashboard/online');
 
@@ -127,4 +127,5 @@ class ControllerExtensionDashboardOnline extends Controller {
 
 		return $this->load->view('extension/dashboard/online_info', $data);
 	}
+
 }

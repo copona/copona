@@ -1,5 +1,6 @@
 <?php
 class ControllerApiVoucher extends Controller {
+
 	public function index() {
 		$this->load->language('api/voucher');
 
@@ -72,15 +73,15 @@ class ControllerApiVoucher extends Controller {
 				foreach ($this->request->post['voucher'] as $voucher) {
 					if (isset($voucher['code']) && isset($voucher['to_name']) && isset($voucher['to_email']) && isset($voucher['from_name']) && isset($voucher['from_email']) && isset($voucher['voucher_theme_id']) && isset($voucher['message']) && isset($voucher['amount'])) {
 						$this->session->data['vouchers'][$voucher['code']] = array(
-							'code'             => $voucher['code'],
-							'description'      => sprintf($this->language->get('text_for'), $this->currency->format($this->currency->convert($voucher['amount'], $this->session->data['currency'], $this->config->get('config_currency')), $this->session->data['currency']), $voucher['to_name']),
-							'to_name'          => $voucher['to_name'],
-							'to_email'         => $voucher['to_email'],
-							'from_name'        => $voucher['from_name'],
-							'from_email'       => $voucher['from_email'],
+							'code'						 => $voucher['code'],
+							'description'			 => sprintf($this->language->get('text_for'), $this->currency->format($this->currency->convert($voucher['amount'], $this->session->data['currency'], $this->config->get('config_currency')), $this->session->data['currency']), $voucher['to_name']),
+							'to_name'					 => $voucher['to_name'],
+							'to_email'				 => $voucher['to_email'],
+							'from_name'				 => $voucher['from_name'],
+							'from_email'			 => $voucher['from_email'],
 							'voucher_theme_id' => $voucher['voucher_theme_id'],
-							'message'          => $voucher['message'],
-							'amount'           => $this->currency->convert($voucher['amount'], $this->session->data['currency'], $this->config->get('config_currency'))
+							'message'					 => $voucher['message'],
+							'amount'					 => $this->currency->convert($voucher['amount'], $this->session->data['currency'], $this->config->get('config_currency'))
 						);
 					}
 				}
@@ -117,15 +118,15 @@ class ControllerApiVoucher extends Controller {
 					$code = mt_rand();
 
 					$this->session->data['vouchers'][$code] = array(
-						'code'             => $code,
-						'description'      => sprintf($this->language->get('text_for'), $this->currency->format($this->currency->convert($this->request->post['amount'], $this->session->data['currency'], $this->config->get('config_currency')), $this->session->data['currency']), $this->request->post['to_name']),
-						'to_name'          => $this->request->post['to_name'],
-						'to_email'         => $this->request->post['to_email'],
-						'from_name'        => $this->request->post['from_name'],
-						'from_email'       => $this->request->post['from_email'],
+						'code'						 => $code,
+						'description'			 => sprintf($this->language->get('text_for'), $this->currency->format($this->currency->convert($this->request->post['amount'], $this->session->data['currency'], $this->config->get('config_currency')), $this->session->data['currency']), $this->request->post['to_name']),
+						'to_name'					 => $this->request->post['to_name'],
+						'to_email'				 => $this->request->post['to_email'],
+						'from_name'				 => $this->request->post['from_name'],
+						'from_email'			 => $this->request->post['from_email'],
 						'voucher_theme_id' => $this->request->post['voucher_theme_id'],
-						'message'          => $this->request->post['message'],
-						'amount'           => $this->currency->convert($this->request->post['amount'], $this->session->data['currency'], $this->config->get('config_currency'))
+						'message'					 => $this->request->post['message'],
+						'amount'					 => $this->currency->convert($this->request->post['amount'], $this->session->data['currency'], $this->config->get('config_currency'))
 					);
 
 					$json['success'] = $this->language->get('text_cart');
@@ -148,4 +149,5 @@ class ControllerApiVoucher extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionModulePPButton extends Controller {
+
 	public function index() {
 		$this->load->language('extension/module/pp_button');
 
@@ -73,4 +74,5 @@ class ControllerExtensionModulePPButton extends Controller {
 
 		return !$this->error;
 	}
+
 }

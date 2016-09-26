@@ -94,7 +94,7 @@ class ControllerMarketingContact extends Controller {
 				} else {
 					$store_name = $this->config->get('config_name');
 				}
-				
+
 				$this->load->model('setting/setting');
 				$setting = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
 				$store_email = isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email');
@@ -120,9 +120,9 @@ class ControllerMarketingContact extends Controller {
 				switch ($this->request->post['to']) {
 					case 'newsletter':
 						$customer_data = array(
-							'filter_newsletter' => 1,
-							'start'             => ($page - 1) * 10,
-							'limit'             => 10
+							'filter_newsletter'	 => 1,
+							'start'							 => ($page - 1) * 10,
+							'limit'							 => 10
 						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
@@ -135,8 +135,8 @@ class ControllerMarketingContact extends Controller {
 						break;
 					case 'customer_all':
 						$customer_data = array(
-							'start' => ($page - 1) * 10,
-							'limit' => 10
+							'start'	 => ($page - 1) * 10,
+							'limit'	 => 10
 						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
@@ -150,8 +150,8 @@ class ControllerMarketingContact extends Controller {
 					case 'customer_group':
 						$customer_data = array(
 							'filter_customer_group_id' => $this->request->post['customer_group_id'],
-							'start'                    => ($page - 1) * 10,
-							'limit'                    => 10
+							'start'										 => ($page - 1) * 10,
+							'limit'										 => 10
 						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
@@ -175,8 +175,8 @@ class ControllerMarketingContact extends Controller {
 						break;
 					case 'affiliate_all':
 						$affiliate_data = array(
-							'start' => ($page - 1) * 10,
-							'limit' => 10
+							'start'	 => ($page - 1) * 10,
+							'limit'	 => 10
 						);
 
 						$email_total = $this->model_marketing_affiliate->getTotalAffiliates($affiliate_data);
@@ -227,7 +227,7 @@ class ControllerMarketingContact extends Controller {
 						$json['next'] = '';
 					}
 
-					$message  = '<html dir="ltr" lang="en">' . "\n";
+					$message = '<html dir="ltr" lang="en">' . "\n";
 					$message .= '  <head>' . "\n";
 					$message .= '    <title>' . $this->request->post['subject'] . '</title>' . "\n";
 					$message .= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
@@ -263,4 +263,5 @@ class ControllerMarketingContact extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

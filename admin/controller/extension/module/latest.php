@@ -164,4 +164,5 @@ class ControllerExtensionModuleLatest extends Controller {
 
 		return !$this->error;
 	}
+
 }

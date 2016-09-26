@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentAmazonLoginPay extends Model {
+
 	public function getCountry($iso2) {
 		return $this->db->query("SELECT `country_id`, `name`, `iso_code_2`, `iso_code_3`, `address_format` FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape(strtoupper($iso2)) . "' AND `status` = 1 LIMIT 1")->row;
 	}
@@ -60,12 +61,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 		// Send to main admin email if new account email is enabled
 		if (in_array('account', (array)$this->config->get('config_mail_alert'))) {
-			$message  = $this->language->get('text_signup') . "\n\n";
+			$message = $this->language->get('text_signup') . "\n\n";
 			$message .= $this->language->get('text_website') . ' ' . html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8') . "\n";
 			$message .= $this->language->get('text_firstname') . ' ' . $data['firstname'] . "\n";
 			$message .= $this->language->get('text_lastname') . ' ' . $data['lastname'] . "\n";
 			$message .= $this->language->get('text_customer_group') . ' ' . $customer_group_info['name'] . "\n";
-			$message .= $this->language->get('text_email') . ' '  .  $data['email'] . "\n";
+			$message .= $this->language->get('text_email') . ' ' . $data['email'] . "\n";
 			$message .= $this->language->get('text_telephone') . ' ' . $data['telephone'] . "\n";
 
 			$mail = new Mail();
@@ -350,7 +351,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			return;
 		}
 
-		curl_setopt($curl_profile, CURLOPT_HTTPHEADER, array('Authorization: bearer ' . $access_token));
+		curl_setopt($curl_profile, CURLOPT_HTTPHEADER, array( 'Authorization: bearer ' . $access_token ));
 		curl_setopt($curl_profile, CURLOPT_RETURNTRANSFER, true);
 
 		$response_profile = curl_exec($curl_profile);
@@ -448,7 +449,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 		list($protocol, $code, $text) = explode(' ', trim(array_shift($other)), 3);
 
-		return array('Status' => (int)$code, 'ResponseBody' => $responseBody);
+		return array( 'Status' => (int)$code, 'ResponseBody' => $responseBody );
 	}
 
 	private function getParametersAsString(array $parameters) {
@@ -469,7 +470,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		if (!isset($uri)) {
 			$uri = "/";
 		}
-		$uriencoded = implode("/", array_map(array($this, "urlencode"), explode("/", $uri)));
+		$uriencoded = implode("/", array_map(array( $this, "urlencode" ), explode("/", $uri)));
 		$data .= $uriencoded;
 		$data .= "\n";
 		uksort($parameters, 'strcmp');
@@ -494,8 +495,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 		if ($json_error != 0) {
 			$errorMsg = "Error with message - content is not in json format" .
-					$json_error . " " .
-					$json;
+				$json_error . " " .
+				$json;
 			$this->logger($errorMsg);
 		}
 		return $message;

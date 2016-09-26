@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentPPProIframe extends Model {
+
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_iframe_order` (
@@ -90,27 +91,27 @@ class ModelExtensionPaymentPPProIframe extends Model {
 		}
 
 		$settings = array(
-			'USER' => $this->config->get('pp_pro_iframe_user'),
-			'PWD' => $this->config->get('pp_pro_iframe_password'),
-			'SIGNATURE' => $this->config->get('pp_pro_iframe_sig'),
-			'VERSION' => '84',
+			'USER'				 => $this->config->get('pp_pro_iframe_user'),
+			'PWD'					 => $this->config->get('pp_pro_iframe_password'),
+			'SIGNATURE'		 => $this->config->get('pp_pro_iframe_sig'),
+			'VERSION'			 => '84',
 			'BUTTONSOURCE' => 'WM_PRO_OPENCART_UK_' . VERSION,
 		);
 
 		$this->log($data, 'Call data');
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
-			CURLOPT_URL => $api_endpoint,
-			CURLOPT_USERAGENT => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
-			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_POST					 => 1,
+			CURLOPT_HEADER				 => 0,
+			CURLOPT_URL						 => $api_endpoint,
+			CURLOPT_USERAGENT			 => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
+			CURLOPT_FRESH_CONNECT	 => 1,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FORBID_REUSE	 => 1,
+			CURLOPT_TIMEOUT				 => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_SSL_VERIFYHOST => 0,
-			CURLOPT_POSTFIELDS => http_build_query(array_merge($data, $settings), '', "&")
+			CURLOPT_POSTFIELDS		 => http_build_query(array_merge($data, $settings), '', "&")
 		);
 
 		$ch = curl_init();
@@ -189,8 +190,8 @@ class ModelExtensionPaymentPPProIframe extends Model {
 
 	public function getTransaction($transaction_id) {
 		$call_data = array(
-			'METHOD' => 'GetTransactionDetails',
-			'TRANSACTIONID' => $transaction_id,
+			'METHOD'				 => 'GetTransactionDetails',
+			'TRANSACTIONID'	 => $transaction_id,
 		);
 
 		return $this->call($call_data);
@@ -258,4 +259,5 @@ class ModelExtensionPaymentPPProIframe extends Model {
 
 		return $arr;
 	}
+
 }

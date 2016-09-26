@@ -2,13 +2,13 @@
 class ControllerToolLog extends Controller {
 	private $error = array();
 
-	public function index() {		
+	public function index() {
 		$this->load->language('tool/log');
-		
+
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_list'] = $this->language->get('text_list');
 		$data['text_confirm'] = $this->language->get('text_confirm');
 
@@ -108,7 +108,7 @@ class ControllerToolLog extends Controller {
 			$this->response->redirect($this->url->link('tool/log', 'token=' . $this->session->data['token'], true));
 		}
 	}
-	
+
 	public function clear() {
 		$this->load->language('tool/log');
 
@@ -126,4 +126,5 @@ class ControllerToolLog extends Controller {
 
 		$this->response->redirect($this->url->link('tool/log', 'token=' . $this->session->data['token'], true));
 	}
+
 }

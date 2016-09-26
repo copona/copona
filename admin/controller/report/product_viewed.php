@@ -1,5 +1,6 @@
 <?php
 class ControllerReportProductViewed extends Controller {
+
 	public function index() {
 		$this->load->language('report/product_viewed');
 
@@ -32,8 +33,8 @@ class ControllerReportProductViewed extends Controller {
 		$this->load->model('report/product');
 
 		$filter_data = array(
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$data['products'] = array();
@@ -52,10 +53,10 @@ class ControllerReportProductViewed extends Controller {
 			}
 
 			$data['products'][] = array(
-				'name'    => $result['name'],
-				'model'   => $result['model'],
-				'viewed'  => $result['viewed'],
-				'percent' => $percent . '%'
+				'name'		 => $result['name'],
+				'model'		 => $result['model'],
+				'viewed'	 => $result['viewed'],
+				'percent'	 => $percent . '%'
 			);
 		}
 
@@ -130,4 +131,5 @@ class ControllerReportProductViewed extends Controller {
 
 		$this->response->redirect($this->url->link('report/product_viewed', 'token=' . $this->session->data['token'], true));
 	}
+
 }

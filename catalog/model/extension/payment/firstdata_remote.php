@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentFirstdataRemote extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/firstdata_remote');
 
@@ -19,9 +20,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'firstdata_remote',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'firstdata_remote',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('firstdata_remote_sort_order')
 			);
 		}
@@ -52,71 +53,71 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 			if (isset($this->request->post['cc_choice']) && $this->request->post['cc_choice'] != 'new') {
 				$payment_token = $this->request->post['cc_choice'];
 			} elseif (isset($this->request->post['cc_store']) && $this->request->post['cc_store'] == 1) {
-				$token = sha1($this->customer->getId()  . '-' . date("Y-m-d-H-i-s") . rand(10, 500));
+				$token = sha1($this->customer->getId() . '-' . date("Y-m-d-H-i-s") . rand(10, 500));
 			}
 		}
 
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">';
-			$xml .= '<SOAP-ENV:Header />';
-				$xml .= '<SOAP-ENV:Body>';
-					$xml .= '<ipgapi:IPGApiOrderRequest xmlns:v1="http://ipg-online.com/ipgapi/schemas/v1" xmlns:ipgapi="http://ipg-online.com/ipgapi/schemas/ipgapi">';
-						$xml .= '<v1:Transaction>';
-							$xml .= '<v1:CreditCardTxType>';
-								$xml .= '<v1:Type>' . $type . '</v1:Type>';
-							$xml .= '</v1:CreditCardTxType>';
-							if (empty($payment_token)) {
-								$xml .= '<v1:CreditCardData>';
-									$xml .= '<v1:CardNumber>' . $data['cc_number'] . '</v1:CardNumber>';
-									$xml .= '<v1:ExpMonth>' . $data['cc_expire_date_month'] . '</v1:ExpMonth>';
-									$xml .= '<v1:ExpYear>' . $data['cc_expire_date_year'] . '</v1:ExpYear>';
-									$xml .= '<v1:CardCodeValue>' . $data['cc_cvv2'] . '</v1:CardCodeValue>';
-								$xml .= '</v1:CreditCardData>';
-							}
-							$xml .= '<v1:Payment>';
-								if (!empty($token)) {
-									$xml .= '<v1:HostedDataID>' . $token . '</v1:HostedDataID>';
-								}
-								if (!empty($payment_token)) {
-									$xml .= '<v1:HostedDataID>' . $payment_token . '</v1:HostedDataID>';
-								}
-								$xml .= '<v1:ChargeTotal>' . $amount . '</v1:ChargeTotal>';
-								$xml .= '<v1:Currency>' . $currency . '</v1:Currency>';
-							$xml .= '</v1:Payment>';
+		$xml .= '<SOAP-ENV:Header />';
+		$xml .= '<SOAP-ENV:Body>';
+		$xml .= '<ipgapi:IPGApiOrderRequest xmlns:v1="http://ipg-online.com/ipgapi/schemas/v1" xmlns:ipgapi="http://ipg-online.com/ipgapi/schemas/ipgapi">';
+		$xml .= '<v1:Transaction>';
+		$xml .= '<v1:CreditCardTxType>';
+		$xml .= '<v1:Type>' . $type . '</v1:Type>';
+		$xml .= '</v1:CreditCardTxType>';
+		if (empty($payment_token)) {
+			$xml .= '<v1:CreditCardData>';
+			$xml .= '<v1:CardNumber>' . $data['cc_number'] . '</v1:CardNumber>';
+			$xml .= '<v1:ExpMonth>' . $data['cc_expire_date_month'] . '</v1:ExpMonth>';
+			$xml .= '<v1:ExpYear>' . $data['cc_expire_date_year'] . '</v1:ExpYear>';
+			$xml .= '<v1:CardCodeValue>' . $data['cc_cvv2'] . '</v1:CardCodeValue>';
+			$xml .= '</v1:CreditCardData>';
+		}
+		$xml .= '<v1:Payment>';
+		if (!empty($token)) {
+			$xml .= '<v1:HostedDataID>' . $token . '</v1:HostedDataID>';
+		}
+		if (!empty($payment_token)) {
+			$xml .= '<v1:HostedDataID>' . $payment_token . '</v1:HostedDataID>';
+		}
+		$xml .= '<v1:ChargeTotal>' . $amount . '</v1:ChargeTotal>';
+		$xml .= '<v1:Currency>' . $currency . '</v1:Currency>';
+		$xml .= '</v1:Payment>';
 
-							$xml .= '<v1:TransactionDetails>';
-								$xml .= '<v1:OrderId>' . $order_ref . '</v1:OrderId>';
-								$xml .= '<v1:Ip>' . $order_info['ip'] . '</v1:Ip>';
-								$xml .= '<v1:TransactionOrigin>ECI</v1:TransactionOrigin>';
-								$xml .= '<v1:PONumber>OPENCART2.0' . VERSION . '</v1:PONumber>';
-							$xml .= '</v1:TransactionDetails>';
+		$xml .= '<v1:TransactionDetails>';
+		$xml .= '<v1:OrderId>' . $order_ref . '</v1:OrderId>';
+		$xml .= '<v1:Ip>' . $order_info['ip'] . '</v1:Ip>';
+		$xml .= '<v1:TransactionOrigin>ECI</v1:TransactionOrigin>';
+		$xml .= '<v1:PONumber>OPENCART2.0' . VERSION . '</v1:PONumber>';
+		$xml .= '</v1:TransactionDetails>';
 
-							$xml .= '<v1:Billing>';
-								$xml .= '<v1:CustomerID>' . (int)$this->customer->getId() . '</v1:CustomerID>';
-								$xml .= '<v1:Name>' . $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'] . '</v1:Name>';
-								$xml .= '<v1:Company>' . $order_info['payment_company'] . '</v1:Company>';
-								$xml .= '<v1:Address1>' . $order_info['payment_address_1'] . '</v1:Address1>';
-								$xml .= '<v1:Address2>' . $order_info['payment_address_2'] . '</v1:Address2>';
-								$xml .= '<v1:City>' . $order_info['payment_city'] . '</v1:City>';
-								$xml .= '<v1:State>' . $order_info['payment_zone'] . '</v1:State>';
-								$xml .= '<v1:Zip>' . $order_info['payment_postcode'] . '</v1:Zip>';
-								$xml .= '<v1:Country>' . $order_info['payment_iso_code_2'] . '</v1:Country>';
-								$xml .= '<v1:Email>' . $order_info['email'] . '</v1:Email>';
-							$xml .= '</v1:Billing>';
+		$xml .= '<v1:Billing>';
+		$xml .= '<v1:CustomerID>' . (int)$this->customer->getId() . '</v1:CustomerID>';
+		$xml .= '<v1:Name>' . $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'] . '</v1:Name>';
+		$xml .= '<v1:Company>' . $order_info['payment_company'] . '</v1:Company>';
+		$xml .= '<v1:Address1>' . $order_info['payment_address_1'] . '</v1:Address1>';
+		$xml .= '<v1:Address2>' . $order_info['payment_address_2'] . '</v1:Address2>';
+		$xml .= '<v1:City>' . $order_info['payment_city'] . '</v1:City>';
+		$xml .= '<v1:State>' . $order_info['payment_zone'] . '</v1:State>';
+		$xml .= '<v1:Zip>' . $order_info['payment_postcode'] . '</v1:Zip>';
+		$xml .= '<v1:Country>' . $order_info['payment_iso_code_2'] . '</v1:Country>';
+		$xml .= '<v1:Email>' . $order_info['email'] . '</v1:Email>';
+		$xml .= '</v1:Billing>';
 
-							$xml .= '<v1:Shipping>';
-								$xml .= '<v1:Name>' . $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'] . '</v1:Name>';
-								$xml .= '<v1:Address1>' . $order_info['shipping_address_1'] . '</v1:Address1>';
-								$xml .= '<v1:Address2>' . $order_info['shipping_address_2'] . '</v1:Address2>';
-								$xml .= '<v1:City>' . $order_info['shipping_city'] . '</v1:City>';
-								$xml .= '<v1:State>' . $order_info['shipping_zone'] . '</v1:State>';
-								$xml .= '<v1:Zip>' . $order_info['shipping_postcode'] . '</v1:Zip>';
-								$xml .= '<v1:Country>' . $order_info['shipping_iso_code_2'] . '</v1:Country>';
-							$xml .= '</v1:Shipping>';
+		$xml .= '<v1:Shipping>';
+		$xml .= '<v1:Name>' . $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'] . '</v1:Name>';
+		$xml .= '<v1:Address1>' . $order_info['shipping_address_1'] . '</v1:Address1>';
+		$xml .= '<v1:Address2>' . $order_info['shipping_address_2'] . '</v1:Address2>';
+		$xml .= '<v1:City>' . $order_info['shipping_city'] . '</v1:City>';
+		$xml .= '<v1:State>' . $order_info['shipping_zone'] . '</v1:State>';
+		$xml .= '<v1:Zip>' . $order_info['shipping_postcode'] . '</v1:Zip>';
+		$xml .= '<v1:Country>' . $order_info['shipping_iso_code_2'] . '</v1:Country>';
+		$xml .= '</v1:Shipping>';
 
-						$xml .= '</v1:Transaction>';
-					$xml .= '</ipgapi:IPGApiOrderRequest>';
-				$xml .= '</SOAP-ENV:Body>';
+		$xml .= '</v1:Transaction>';
+		$xml .= '</ipgapi:IPGApiOrderRequest>';
+		$xml .= '</SOAP-ENV:Body>';
 		$xml .= '</SOAP-ENV:Envelope>';
 
 		$xml = simplexml_load_string($this->call($xml));
@@ -197,7 +198,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, "https://test.ipg-online.com/ipgapi/services");
 		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: text/xml"));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array( "Content-Type: text/xml" ));
 		curl_setopt($ch, CURLOPT_HTTPAUTH, 'CURLAUTH_BASIC');
 		curl_setopt($ch, CURLOPT_USERPWD, $this->config->get('firstdata_remote_user_id') . ':' . $this->config->get('firstdata_remote_password'));
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
@@ -209,7 +210,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		//curl_setopt($ch, CURLOPT_STDERR, fopen(DIR_LOGS . "/headers.txt", "w+"));
 		curl_setopt($ch, CURLOPT_VERBOSE, true);
-		$response = curl_exec ($ch);
+		$response = curl_exec($ch);
 
 		$this->logger('Post data: ' . print_r($this->request->post, 1));
 		$this->logger('Request: ' . $xml);
@@ -218,7 +219,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		$this->logger('Curl response info: ' . print_r(curl_getinfo($ch), 1));
 		$this->logger('Curl response: ' . $response);
 
-		curl_close ($ch);
+		curl_close($ch);
 
 		return $response;
 	}
@@ -258,9 +259,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 
 	public function mapCurrency($code) {
 		$currency = array(
-			'GBP' => 826,
-			'USD' => 840,
-			'EUR' => 978,
+			'GBP'	 => 826,
+			'USD'	 => 840,
+			'EUR'	 => 978,
 		);
 
 		if (array_key_exists($code, $currency)) {
@@ -281,4 +282,5 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	public function storeCard($token, $customer_id, $type, $month, $year, $digits) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "firstdata_remote_card` SET `customer_id` = '" . (int)$customer_id . "', `date_added` = now(), `token` = '" . $this->db->escape($token) . "', `card_type` = '" . $this->db->escape($type) . "', `expire_month` = '" . $this->db->escape($month) . "', `expire_year` = '" . $this->db->escape($year) . "', `digits` = '" . $this->db->escape($digits) . "'");
 	}
+
 }

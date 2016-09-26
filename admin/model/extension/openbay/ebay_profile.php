@@ -1,5 +1,6 @@
 <?php
-class ModelExtensionOpenBayEbayProfile extends Model{
+class ModelExtensionOpenBayEbayProfile extends Model {
+
 	public function add($data) {
 		if ($data['default'] == 1) {
 			$this->clearDefault($data['type']);
@@ -32,10 +33,10 @@ class ModelExtensionOpenBayEbayProfile extends Model{
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "ebay_profile` WHERE `ebay_profile_id` = '" . (int)$id . "' LIMIT 1");
 
 		if ($qry->num_rows) {
-			$row                = $qry->row;
-			$row['link_edit']   = $this->url->link('extension/openbay/ebay_profile/edit', 'token=' . $this->session->data['token'] . '&ebay_profile_id=' . $row['ebay_profile_id'], true);
+			$row = $qry->row;
+			$row['link_edit'] = $this->url->link('extension/openbay/ebay_profile/edit', 'token=' . $this->session->data['token'] . '&ebay_profile_id=' . $row['ebay_profile_id'], true);
 			$row['link_delete'] = $this->url->link('extension/openbay/ebay_profile/delete', 'token=' . $this->session->data['token'] . '&ebay_profile_id=' . $row['ebay_profile_id'], true);
-			$row['data']        = unserialize($row['data']);
+			$row['data'] = unserialize($row['data']);
 
 			return $row;
 		} else {
@@ -55,10 +56,10 @@ class ModelExtensionOpenBayEbayProfile extends Model{
 		if ($qry->num_rows) {
 			$profiles = array();
 			foreach ($qry->rows as $row) {
-				$row['link_edit']   = $this->url->link('extension/openbay/ebay_profile/edit', 'token=' . $this->session->data['token'] . '&ebay_profile_id=' . $row['ebay_profile_id'], true);
+				$row['link_edit'] = $this->url->link('extension/openbay/ebay_profile/edit', 'token=' . $this->session->data['token'] . '&ebay_profile_id=' . $row['ebay_profile_id'], true);
 				$row['link_delete'] = $this->url->link('extension/openbay/ebay_profile/delete', 'token=' . $this->session->data['token'] . '&ebay_profile_id=' . $row['ebay_profile_id'], true);
-				$row['data']        = !empty($row['data']) ? unserialize($row['data']) : array();
-				$profiles[]         = $row;
+				$row['data'] = !empty($row['data']) ? unserialize($row['data']) : array();
+				$profiles[] = $row;
 			}
 
 			return $profiles;
@@ -69,21 +70,21 @@ class ModelExtensionOpenBayEbayProfile extends Model{
 
 	public function getTypes() {
 		$types = array(
-			0 => array(
-				'name'          => $this->language->get('text_type_shipping'),
-				'template'      => 'extension/openbay/ebay_profile_form_shipping'
+			0	 => array(
+				'name'		 => $this->language->get('text_type_shipping'),
+				'template' => 'extension/openbay/ebay_profile_form_shipping'
 			),
-			1 => array(
-				'name'          => $this->language->get('text_type_returns'),
-				'template'      => 'extension/openbay/ebay_profile_form_returns'
+			1	 => array(
+				'name'		 => $this->language->get('text_type_returns'),
+				'template' => 'extension/openbay/ebay_profile_form_returns'
 			),
-			2 => array(
-				'name'          => $this->language->get('text_type_template'),
-				'template'      => 'extension/openbay/ebay_profile_form_template'
+			2	 => array(
+				'name'		 => $this->language->get('text_type_template'),
+				'template' => 'extension/openbay/ebay_profile_form_template'
 			),
-			3 => array(
-				'name'          => $this->language->get('text_type_general'),
-				'template'      => 'extension/openbay/ebay_profile_form_generic'
+			3	 => array(
+				'name'		 => $this->language->get('text_type_general'),
+				'template' => 'extension/openbay/ebay_profile_form_generic'
 			)
 		);
 
@@ -103,4 +104,5 @@ class ModelExtensionOpenBayEbayProfile extends Model{
 	private function clearDefault($type) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "ebay_profile` SET `default` = '0' WHERE `type` = '" . (int)$type . "'");
 	}
+
 }

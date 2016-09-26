@@ -1,13 +1,14 @@
 <?php
 class ModelExtensionTotalLowOrderFee extends Model {
+
 	public function getTotal($total) {
 		if ($this->cart->getSubTotal() && ($this->cart->getSubTotal() < $this->config->get('low_order_fee_total'))) {
 			$this->load->language('extension/total/low_order_fee');
 
 			$total['totals'][] = array(
-				'code'       => 'low_order_fee',
-				'title'      => $this->language->get('text_low_order_fee'),
-				'value'      => $this->config->get('low_order_fee_fee'),
+				'code'			 => 'low_order_fee',
+				'title'			 => $this->language->get('text_low_order_fee'),
+				'value'			 => $this->config->get('low_order_fee_fee'),
 				'sort_order' => $this->config->get('low_order_fee_sort_order')
 			);
 
@@ -26,4 +27,5 @@ class ModelExtensionTotalLowOrderFee extends Model {
 			$total['total'] += $this->config->get('low_order_fee_fee');
 		}
 	}
+
 }

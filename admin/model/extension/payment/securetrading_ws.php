@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentSecureTradingWs extends Model {
+
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "securetrading_ws_order` (
@@ -259,19 +260,19 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		}
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
+			CURLOPT_POST					 => 1,
+			CURLOPT_HEADER				 => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_URL => 'https://myst.securetrading.net/auto/transactions/transactionsearch',
-			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_URL						 => 'https://myst.securetrading.net/auto/transactions/transactionsearch',
+			CURLOPT_FRESH_CONNECT	 => 1,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 15,
-			CURLOPT_HTTPHEADER => array(
+			CURLOPT_FORBID_REUSE	 => 1,
+			CURLOPT_TIMEOUT				 => 15,
+			CURLOPT_HTTPHEADER		 => array(
 				'User-Agent: OpenCart - Secure Trading WS',
 				'Authorization: Basic ' . base64_encode($this->config->get('securetrading_ws_csv_username') . ':' . $this->config->get('securetrading_ws_csv_password')),
 			),
-			CURLOPT_POSTFIELDS => $this->encodePost($post_data),
+			CURLOPT_POSTFIELDS		 => $this->encodePost($post_data),
 		);
 
 		curl_setopt_array($ch, $defaults);
@@ -315,20 +316,20 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		$ch = curl_init();
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
+			CURLOPT_POST					 => 1,
+			CURLOPT_HEADER				 => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_URL => 'https://webservices.securetrading.net/xml/',
-			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_URL						 => 'https://webservices.securetrading.net/xml/',
+			CURLOPT_FRESH_CONNECT	 => 1,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 15,
-			CURLOPT_HTTPHEADER => array(
+			CURLOPT_FORBID_REUSE	 => 1,
+			CURLOPT_TIMEOUT				 => 15,
+			CURLOPT_HTTPHEADER		 => array(
 				'User-Agent: OpenCart - Secure Trading WS',
 				'Content-Length: ' . strlen($data),
 				'Authorization: Basic ' . base64_encode($this->config->get('securetrading_ws_username') . ':' . $this->config->get('securetrading_ws_password')),
 			),
-			CURLOPT_POSTFIELDS => $data,
+			CURLOPT_POSTFIELDS		 => $data,
 		);
 
 		curl_setopt_array($ch, $defaults);
@@ -348,4 +349,5 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		$log = new Log('securetrading_ws.log');
 		$log->write($message);
 	}
+
 }

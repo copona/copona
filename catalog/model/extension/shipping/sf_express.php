@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionShippingSFExpress extends Model {
+
 	function getQuote($address) {
 		$this->load->language('extension/shipping/sf_express');
 
@@ -28,43 +29,43 @@ class ModelExtensionShippingSFExpress extends Model {
 			$length_code = strtolower($this->length->getUnit($this->config->get('sf_express_length_class_id')));
 
 			$address_from = array(
-				'country'      => $this->config->get('sf_express_city'),
+				'country'			 => $this->config->get('sf_express_city'),
 				'contact_name' => $this->config->get('config_owner'),
-				'phone'        => $this->config->get('config_telephone'),
-				'fax'          => $this->config->get('config_fax'),
-				'email'        => $this->config->get('config_email'),
+				'phone'				 => $this->config->get('config_telephone'),
+				'fax'					 => $this->config->get('config_fax'),
+				'email'				 => $this->config->get('config_email'),
 				'company_name' => $this->config->get('config_name'),
-				'street1'      => '',
-				'street2'      => '',
-				'street3'      => '',
-				'city'         => $this->config->get('sf_express_city'), 
-				'state'        => $this->config->get('sf_express_state'),
-				'postal_code'  => $this->config->get('sf_express_postcode'),
-				'type'         => 'business',
-				'tax_id'       => ''
-			); 
-			
+				'street1'			 => '',
+				'street2'			 => '',
+				'street3'			 => '',
+				'city'				 => $this->config->get('sf_express_city'),
+				'state'				 => $this->config->get('sf_express_state'),
+				'postal_code'	 => $this->config->get('sf_express_postcode'),
+				'type'				 => 'business',
+				'tax_id'			 => ''
+			);
+
 			if ($address['company']) {
 				$type = 'business';
 			} else {
 				$type = 'residential';
 			}
-		
+
 			$address_to = array(
-				'country'      => $address['iso_code_3'],
+				'country'			 => $address['iso_code_3'],
 				'contact_name' => $address['firstname'] . ' ' . $address['lastname'],
-				'phone'        => $address['iso_code_3'],
-				'fax'          => $address['iso_code_3'],
-				'email'        => $address['iso_code_3'],
+				'phone'				 => $address['iso_code_3'],
+				'fax'					 => $address['iso_code_3'],
+				'email'				 => $address['iso_code_3'],
 				'company_name' => $address['company'],
-				'street1'      => $address['address_1'],
-				'street2'      => $address['address_2'],
-				'street3'      => '',
-				'city'         => $address['city'],
-				'state'        => $address['iso_code_3'],
-				'postal_code'  => $address['postcode'],
-				'type'         => $type,
-				'tax_id'       => $address['iso_code_3']
+				'street1'			 => $address['address_1'],
+				'street2'			 => $address['address_2'],
+				'street3'			 => '',
+				'city'				 => $address['city'],
+				'state'				 => $address['iso_code_3'],
+				'postal_code'	 => $address['postcode'],
+				'type'				 => $type,
+				'tax_id'			 => $address['iso_code_3']
 			);
 
 			$payment_method = array(
@@ -75,51 +76,51 @@ class ModelExtensionShippingSFExpress extends Model {
 			);
 
 			$billing = array(
-				'paid_by' => 'shipper',
-				'method'  => $payment_method
+				'paid_by'	 => 'shipper',
+				'method'	 => $payment_method
 			);
 
 			$customs = array(
-				'purpose'          => 'merchandise',
-				'terms_of_trade'   => 'ddp',
-				'billing'          => $billing,
+				'purpose'					 => 'merchandise',
+				'terms_of_trade'	 => 'ddp',
+				'billing'					 => $billing,
 				'importer_address' => $address_to
 			);
 
-			
+
 
 
 			$parcels = array();
-			
+
 			$weight = array(
-				'unit'  => $weight_code,
-				'value' => $weight
-			);			
-			
-			$parcels[] = array(
-				'box_type'    =>,
-				'dimension'   =>,
-				'items'       => array of item,
-				'description' =>,
-				'weight'      => $weight
+				'unit'	 => $weight_code,
+				'value'	 => $weight
 			);
 
-				Item
+			$parcels[] = array(
+			'box_type' =>,
+			'dimension' =>,
+			'items' => array of item,
+			'description' =>,
+			'weight' => $weight
+			);
 
-			
-			
+			Item
+
+
+
 
 
 			$request = array(
-				'ship_from' => $address_from,
-				'ship_to'   => $address_to,
-				'parcels'   => $parcel
+				'ship_from'	 => $address_from,
+				'ship_to'		 => $address_to,
+				'parcels'		 => $parcel
 			);
 
 
 
 
-			$xml  = '<?xml version="1.0"?>';
+			$xml = '<?xml version="1.0"?>';
 			$xml .= '<AccessRequest xml:lang="en-US">';
 			$xml .= '	<AccessLicenseNumber>' . $this->config->get('sf_express_key') . '</AccessLicenseNumber>';
 			$xml .= '	<UserId>' . $this->config->get('sf_express_username') . '</UserId>';
@@ -154,8 +155,8 @@ class ModelExtensionShippingSFExpress extends Model {
 			$xml .= '				<PostalCode>' . $this->config->get('sf_express_postcode') . '</PostalCode>';
 			$xml .= '			</Address>';
 			$xml .= '		</Shipper>';
-			
-			
+
+
 			$xml .= '		<ShipTo>';
 			$xml .= '			<Address>';
 			$xml .= ' 				<City>' . $address['city'] . '</City>';
@@ -218,7 +219,7 @@ class ModelExtensionShippingSFExpress extends Model {
 				'content-type: application/json',
 				'postmen-api-key: 8fc7966b-679b-4a57-911d-c5a663229c9e'
 			);
-			
+
 			$curl = curl_init('https://sandbox-api.postmen.com/v3/labels/da1bf857-3c46-44a1-929e-ab644037f22f');
 
 			curl_setopt($curl, CURLOPT_HEADER, $headers);
@@ -235,39 +236,40 @@ class ModelExtensionShippingSFExpress extends Model {
 
 			$json = json_decode($repsonse, true);
 
-			if ($json) 
+			if ($json)
 				$error = '';
-	
-				$quote_data = array();
-	
-				if ($this->config->get('sf_express_' . strtolower($this->config->get('sf_express_origin')) . '_' . $code)) {
-					$quote_data[$code] = array(
-						'code'         => 'ups.' . $code,
-						'title'        => $service_code[$this->config->get('sf_express_origin')][$code],
-						'cost'         => $this->currency->convert($cost, $currency, $this->config->get('config_currency')),
-						'tax_class_id' => $this->config->get('sf_express_tax_class_id'),
-						'text'         => $this->currency->format($this->tax->calculate($this->currency->convert($cost, $currency, $this->session->data['currency']), $this->config->get('sf_express_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000)
-					);
-				}
-	
-				$title = $this->language->get('text_title');
-	
-				if ($this->config->get('sf_express_display_weight')) {
-					$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('sf_express_weight_class_id')) . ')';
-				}
-	
-				if ($quote_data || $error) {
-					$method_data = array(
-						'code'       => 'ups',
-						'title'      => $title,
-						'quote'      => $quote_data,
-						'sort_order' => $this->config->get('sf_express_sort_order'),
-						'error'      => $error
-					);
-				}
+
+			$quote_data = array();
+
+			if ($this->config->get('sf_express_' . strtolower($this->config->get('sf_express_origin')) . '_' . $code)) {
+				$quote_data[$code] = array(
+					'code'				 => 'ups.' . $code,
+					'title'				 => $service_code[$this->config->get('sf_express_origin')][$code],
+					'cost'				 => $this->currency->convert($cost, $currency, $this->config->get('config_currency')),
+					'tax_class_id' => $this->config->get('sf_express_tax_class_id'),
+					'text'				 => $this->currency->format($this->tax->calculate($this->currency->convert($cost, $currency, $this->session->data['currency']), $this->config->get('sf_express_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000)
+				);
 			}
+
+			$title = $this->language->get('text_title');
+
+			if ($this->config->get('sf_express_display_weight')) {
+				$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('sf_express_weight_class_id')) . ')';
+			}
+
+			if ($quote_data || $error) {
+				$method_data = array(
+					'code'			 => 'ups',
+					'title'			 => $title,
+					'quote'			 => $quote_data,
+					'sort_order' => $this->config->get('sf_express_sort_order'),
+					'error'			 => $error
+				);
+			}
+		}
 		}
 
 		return $method_data;
 	}
+
 }

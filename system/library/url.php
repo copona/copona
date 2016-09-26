@@ -8,7 +8,7 @@ class Url {
 		$this->url = $url;
 		$this->ssl = $ssl;
 	}
-	
+
 	public function addRewrite($rewrite) {
 		$this->rewrite[] = $rewrite;
 	}
@@ -19,7 +19,7 @@ class Url {
 		} else {
 			$url = $this->url . 'index.php?route=' . $route;
 		}
-		
+
 		if ($args) {
 			if (is_array($args)) {
 				$url .= '&amp;' . http_build_query($args);
@@ -27,11 +27,12 @@ class Url {
 				$url .= str_replace('&', '&amp;', '&' . ltrim($args, '&'));
 			}
 		}
-		
+
 		foreach ($this->rewrite as $rewrite) {
 			$url = $rewrite->rewrite($url);
 		}
-		
-		return $url; 
+
+		return $url;
 	}
+
 }

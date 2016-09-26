@@ -1,9 +1,11 @@
 <?php
+
 use Cardinity\Client;
 use Cardinity\Method\Payment;
 use Cardinity\Exception as CardinityException;
 
 class ModelExtensionPaymentCardinity extends Model {
+
 	public function addOrder($data) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "cardinity_order` SET `order_id` = '" . (int)$data['order_id'] . "', `payment_id` = '" . $this->db->escape($data['payment_id']) . "'");
 	}
@@ -16,8 +18,8 @@ class ModelExtensionPaymentCardinity extends Model {
 
 	public function createPayment($key, $secret, $payment_data) {
 		$client = Client::create(array(
-			'consumerKey'    => $key,
-			'consumerSecret' => $secret,
+				'consumerKey'		 => $key,
+				'consumerSecret' => $secret,
 		));
 
 		$method = new Payment\Create($payment_data);
@@ -35,8 +37,8 @@ class ModelExtensionPaymentCardinity extends Model {
 
 	public function finalizePayment($key, $secret, $payment_id, $pares) {
 		$client = Client::create(array(
-			'consumerKey'    => $key,
-			'consumerSecret' => $secret,
+				'consumerKey'		 => $key,
+				'consumerSecret' => $secret,
 		));
 
 		$method = new Payment\Finalize($payment_id, $pares);
@@ -75,9 +77,9 @@ class ModelExtensionPaymentCardinity extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'		 => 'cardinity',
-				'title'		 => $this->language->get('text_title'),
-				'terms'		 => '',
+				'code'			 => 'cardinity',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('cardinity_sort_order')
 			);
 		}
@@ -119,4 +121,5 @@ class ModelExtensionPaymentCardinity extends Model {
 				break;
 		}
 	}
+
 }

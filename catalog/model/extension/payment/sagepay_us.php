@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentSagePayUS extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/sagepay_us');
 
@@ -19,13 +20,14 @@ class ModelExtensionPaymentSagePayUS extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'sagepay_us',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'sagepay_us',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('sagepay_us_sort_order')
 			);
 		}
 
 		return $method_data;
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionOpenBayAmazonusOrder extends Model {
+
 	public function acknowledgeOrder($order_id) {
 		$amazonus_order_id = $this->getAmazonusOrderId($order_id);
 
@@ -119,6 +120,7 @@ class ModelExtensionOpenBayAmazonusOrder extends Model {
 	}
 
 	/* $data = array(PRODUCT_SKU => ORDER_ITEM_ID) */
+
 	public function addAmazonusOrderProducts($order_id, $data) {
 		foreach ($data as $sku => $order_item_id) {
 
@@ -189,11 +191,11 @@ class ModelExtensionOpenBayAmazonusOrder extends Model {
 
 			if (!empty($option_details_row)) {
 				$options[] = array(
-					'product_option_id' => (int)$option_details_row['product_option_id'],
-					'product_option_value_id' => (int)$option_details_row['product_option_value_id'],
-					'name' => $option_details_row['name'],
-					'value' => $option_details_row['value'],
-					'type' => $option_details_row['type']
+					'product_option_id'				 => (int)$option_details_row['product_option_id'],
+					'product_option_value_id'	 => (int)$option_details_row['product_option_value_id'],
+					'name'										 => $option_details_row['name'],
+					'value'										 => $option_details_row['value'],
+					'type'										 => $option_details_row['type']
 				);
 			}
 		}
@@ -211,7 +213,7 @@ class ModelExtensionOpenBayAmazonusOrder extends Model {
 		}
 
 		$order_products = $this->openbay->getOrderProducts($order_id);
-		
+
 		$logger->write($order_products);
 
 		if (!empty($order_products)) {
@@ -224,4 +226,5 @@ class ModelExtensionOpenBayAmazonusOrder extends Model {
 
 		$logger->write('addOrder() exiting');
 	}
+
 }

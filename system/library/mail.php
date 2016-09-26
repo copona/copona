@@ -93,24 +93,24 @@ class Mail {
 
 		$header .= 'Date: ' . date('D, d M Y H:i:s O') . PHP_EOL;
 		$header .= 'From: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . PHP_EOL;
-		
+
 		if (!$this->reply_to) {
 			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . PHP_EOL;
 		} else {
 			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->reply_to) . '?= <' . $this->reply_to . '>' . PHP_EOL;
 		}
-		
+
 		$header .= 'Return-Path: ' . $this->from . PHP_EOL;
 		$header .= 'X-Mailer: PHP/' . phpversion() . PHP_EOL;
 		$header .= 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . PHP_EOL . PHP_EOL;
 
 		if (!$this->html) {
-			$message  = '--' . $boundary . PHP_EOL;
+			$message = '--' . $boundary . PHP_EOL;
 			$message .= 'Content-Type: text/plain; charset="utf-8"' . PHP_EOL;
 			$message .= 'Content-Transfer-Encoding: 8bit' . PHP_EOL . PHP_EOL;
 			$message .= $this->text . PHP_EOL;
 		} else {
-			$message  = '--' . $boundary . PHP_EOL;
+			$message = '--' . $boundary . PHP_EOL;
 			$message .= 'Content-Type: multipart/alternative; boundary="' . $boundary . '_alt"' . PHP_EOL . PHP_EOL;
 			$message .= '--' . $boundary . '_alt' . PHP_EOL;
 			$message .= 'Content-Type: text/plain; charset="utf-8"' . PHP_EOL;
@@ -172,8 +172,8 @@ class Mail {
 				if (substr(PHP_OS, 0, 3) != 'WIN') {
 					socket_set_timeout($handle, $this->smtp_timeout, 0);
 				}
-	
-		
+
+
 				while ($line = fgets($handle, 515)) {
 					if (substr($line, 3, 1) == ' ') {
 						break;
@@ -191,8 +191,7 @@ class Mail {
 					if (substr($reply, 0, 3) == 220 && substr($line, 3, 1) == ' ') {
 						$reply = '';
 						continue;
-					}
-					else if (substr($line, 3, 1) == ' ') {
+					} else if (substr($line, 3, 1) == ' ') {
 						break;
 					}
 				}
@@ -221,7 +220,7 @@ class Mail {
 					stream_socket_enable_crypto($handle, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
 				}
 
-				if (!empty($this->smtp_username)  && !empty($this->smtp_password)) {
+				if (!empty($this->smtp_username) && !empty($this->smtp_password)) {
 					fputs($handle, 'EHLO ' . getenv('SERVER_NAME') . "\r\n");
 
 					$reply = '';
@@ -429,4 +428,5 @@ class Mail {
 			}
 		}
 	}
+
 }

@@ -161,10 +161,10 @@ class ControllerSaleVoucherTheme extends Controller {
 		$data['voucher_themes'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$voucher_theme_total = $this->model_sale_voucher_theme->getTotalVoucherThemes();
@@ -174,8 +174,8 @@ class ControllerSaleVoucherTheme extends Controller {
 		foreach ($results as $result) {
 			$data['voucher_themes'][] = array(
 				'voucher_theme_id' => $result['voucher_theme_id'],
-				'name'             => $result['name'],
-				'edit'             => $this->url->link('sale/voucher_theme/edit', 'token=' . $this->session->data['token'] . '&voucher_theme_id=' . $result['voucher_theme_id'] . $url, true)
+				'name'						 => $result['name'],
+				'edit'						 => $this->url->link('sale/voucher_theme/edit', 'token=' . $this->session->data['token'] . '&voucher_theme_id=' . $result['voucher_theme_id'] . $url, true)
 			);
 		}
 
@@ -399,4 +399,5 @@ class ControllerSaleVoucherTheme extends Controller {
 
 		return !$this->error;
 	}
+
 }

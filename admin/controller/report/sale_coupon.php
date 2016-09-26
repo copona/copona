@@ -1,5 +1,6 @@
 <?php
 class ControllerReportSaleCoupon extends Controller {
+
 	public function index() {
 		$this->load->language('report/sale_coupon');
 
@@ -54,10 +55,10 @@ class ControllerReportSaleCoupon extends Controller {
 		$data['coupons'] = array();
 
 		$filter_data = array(
-			'filter_date_start'	=> $filter_date_start,
-			'filter_date_end'	=> $filter_date_end,
-			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'             => $this->config->get('config_limit_admin')
+			'filter_date_start'	 => $filter_date_start,
+			'filter_date_end'		 => $filter_date_end,
+			'start'							 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'							 => $this->config->get('config_limit_admin')
 		);
 
 		$coupon_total = $this->model_report_coupon->getTotalCoupons($filter_data);
@@ -66,11 +67,11 @@ class ControllerReportSaleCoupon extends Controller {
 
 		foreach ($results as $result) {
 			$data['coupons'][] = array(
-				'name'   => $result['name'],
-				'code'   => $result['code'],
+				'name'	 => $result['name'],
+				'code'	 => $result['code'],
 				'orders' => $result['orders'],
-				'total'  => $this->currency->format($result['total'], $this->config->get('config_currency')),
-				'edit'   => $this->url->link('marketing/coupon/edit', 'token=' . $this->session->data['token'] . '&coupon_id=' . $result['coupon_id'] . $url, true)
+				'total'	 => $this->currency->format($result['total'], $this->config->get('config_currency')),
+				'edit'	 => $this->url->link('marketing/coupon/edit', 'token=' . $this->session->data['token'] . '&coupon_id=' . $result['coupon_id'] . $url, true)
 			);
 		}
 
@@ -123,4 +124,5 @@ class ControllerReportSaleCoupon extends Controller {
 
 		$this->response->setOutput($this->load->view('report/sale_coupon', $data));
 	}
+
 }

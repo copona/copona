@@ -1,5 +1,6 @@
 <?php
 class ModelCatalogOption extends Model {
+
 	public function addOption($data) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "option` SET type = '" . $this->db->escape($data['type']) . "', sort_order = '" . (int)$data['sort_order'] . "'");
 
@@ -50,7 +51,6 @@ class ModelCatalogOption extends Model {
 					$this->db->query("INSERT INTO " . DB_PREFIX . "option_value_description SET option_value_id = '" . (int)$option_value_id . "', language_id = '" . (int)$language_id . "', option_id = '" . (int)$option_id . "', name = '" . $this->db->escape($option_value_description['name']) . "'");
 				}
 			}
-
 		}
 	}
 
@@ -115,7 +115,7 @@ class ModelCatalogOption extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_description WHERE option_id = '" . (int)$option_id . "'");
 
 		foreach ($query->rows as $result) {
-			$option_data[$result['language_id']] = array('name' => $result['name']);
+			$option_data[$result['language_id']] = array( 'name' => $result['name'] );
 		}
 
 		return $option_data;
@@ -134,10 +134,10 @@ class ModelCatalogOption extends Model {
 
 		foreach ($option_value_query->rows as $option_value) {
 			$option_value_data[] = array(
-				'option_value_id' => $option_value['option_value_id'],
-				'name'            => $option_value['name'],
-				'image'           => $option_value['image'],
-				'sort_order'      => $option_value['sort_order']
+				'option_value_id'	 => $option_value['option_value_id'],
+				'name'						 => $option_value['name'],
+				'image'						 => $option_value['image'],
+				'sort_order'			 => $option_value['sort_order']
 			);
 		}
 
@@ -155,14 +155,15 @@ class ModelCatalogOption extends Model {
 			$option_value_description_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_value_description WHERE option_value_id = '" . (int)$option_value['option_value_id'] . "'");
 
 			foreach ($option_value_description_query->rows as $option_value_description) {
-				$option_value_description_data[$option_value_description['language_id']] = array('name' => $option_value_description['name']);
+				$option_value_description_data[$option_value_description['language_id']] = array(
+					'name' => $option_value_description['name'] );
 			}
 
 			$option_value_data[] = array(
-				'option_value_id'          => $option_value['option_value_id'],
+				'option_value_id'					 => $option_value['option_value_id'],
 				'option_value_description' => $option_value_description_data,
-				'image'                    => $option_value['image'],
-				'sort_order'               => $option_value['sort_order']
+				'image'										 => $option_value['image'],
+				'sort_order'							 => $option_value['sort_order']
 			);
 		}
 
@@ -174,4 +175,5 @@ class ModelCatalogOption extends Model {
 
 		return $query->row['total'];
 	}
+
 }

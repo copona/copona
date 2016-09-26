@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionModuleInformation extends Controller {
+
 	public function index() {
 		$this->load->language('extension/module/information');
 
@@ -14,8 +15,8 @@ class ControllerExtensionModuleInformation extends Controller {
 
 		foreach ($this->model_catalog_information->getInformations() as $result) {
 			$data['informations'][] = array(
-				'title' => $result['title'],
-				'href'  => $this->url->link('information/information', 'information_id=' . $result['information_id'])
+				'title'	 => $result['title'],
+				'href'	 => $this->url->link('information/information', 'information_id=' . $result['information_id'])
 			);
 		}
 
@@ -24,4 +25,5 @@ class ControllerExtensionModuleInformation extends Controller {
 
 		return $this->load->view('extension/module/information', $data);
 	}
+
 }

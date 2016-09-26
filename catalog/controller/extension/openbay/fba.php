@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionOpenbayFba extends Controller {
+
 	public function eventAddOrderHistory($route, $data) {
 		$this->openbay->fba->log('eventAddOrderHistory Event fired: ' . $route);
 
@@ -27,13 +28,13 @@ class ControllerExtensionOpenbayFba extends Controller {
 
 						if ($product['location'] == 'FBA') {
 							$fulfillment_items[] = array(
-									'seller_sku' => $product['sku'],
-									'quantity' => $order_product['quantity'],
-									'seller_fulfillment_order_item_id' => $this->config->get('openbay_fba_order_prefix') . $fba_fulfillment_id . '-' . $order_product['order_product_id'],
-									'per_unit_declared_value' => array(
-											'currency_code' => $order['currency_code'],
-											'value' => number_format($order_product['price'], 2)
-									),
+								'seller_sku'											 => $product['sku'],
+								'quantity'												 => $order_product['quantity'],
+								'seller_fulfillment_order_item_id' => $this->config->get('openbay_fba_order_prefix') . $fba_fulfillment_id . '-' . $order_product['order_product_id'],
+								'per_unit_declared_value'					 => array(
+									'currency_code'	 => $order['currency_code'],
+									'value'					 => number_format($order_product['price'], 2)
+								),
 							);
 						}
 					}
@@ -55,14 +56,14 @@ class ControllerExtensionOpenbayFba extends Controller {
 							$request['fulfillment_policy'] = $this->config->get('openbay_fba_fulfill_policy');
 
 							$request['destination_address'] = array(
-									'name' => $order['shipping_firstname'] . ' ' . $order['shipping_lastname'],
-									'line_1' => (!empty($order['shipping_company']) ? $order['shipping_company'] : $order['shipping_address_1']),
-									'line_2' => (!empty($order['shipping_company']) ? $order['shipping_address_1'] : $order['shipping_address_2']),
-									'line_3' => (!empty($order['shipping_company']) ? $order['shipping_address_2'] : ''),
-									'state_or_province_code' => $order['shipping_zone'],
-									'city' => $order['shipping_city'],
-									'country_code' => $order['shipping_iso_code_2'],
-									'postal_code' => $order['shipping_postcode'],
+								'name'									 => $order['shipping_firstname'] . ' ' . $order['shipping_lastname'],
+								'line_1'								 => (!empty($order['shipping_company']) ? $order['shipping_company'] : $order['shipping_address_1']),
+								'line_2'								 => (!empty($order['shipping_company']) ? $order['shipping_address_1'] : $order['shipping_address_2']),
+								'line_3'								 => (!empty($order['shipping_company']) ? $order['shipping_address_2'] : ''),
+								'state_or_province_code' => $order['shipping_zone'],
+								'city'									 => $order['shipping_city'],
+								'country_code'					 => $order['shipping_iso_code_2'],
+								'postal_code'						 => $order['shipping_postcode'],
 							);
 
 							$request['items'] = $fulfillment_items;
@@ -116,4 +117,5 @@ class ControllerExtensionOpenbayFba extends Controller {
 			}
 		}
 	}
+
 }

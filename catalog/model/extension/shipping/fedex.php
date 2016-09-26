@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionShippingFedex extends Model {
+
 	function getQuote($address) {
 		$this->load->language('extension/shipping/fedex');
 
@@ -54,7 +55,7 @@ class ModelExtensionShippingFedex extends Model {
 			}
 
 			// Whoever introduced xml to shipping companies should be flogged
-			$xml  = '<?xml version="1.0"?>';
+			$xml = '<?xml version="1.0"?>';
 			$xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://fedex.com/ws/rate/v10">';
 			$xml .= '	<SOAP-ENV:Body>';
 			$xml .= '		<ns1:RateRequest>';
@@ -87,7 +88,7 @@ class ModelExtensionShippingFedex extends Model {
 			$xml .= '					</ns1:Contact>';
 			$xml .= '					<ns1:Address>';
 
-			if (in_array($country_info['iso_code_2'], array('US', 'CA'))) {
+			if (in_array($country_info['iso_code_2'], array( 'US', 'CA' ))) {
 				$xml .= '						<ns1:StateOrProvinceCode>' . ($zone_info ? $zone_info['code'] : '') . '</ns1:StateOrProvinceCode>';
 			} else {
 				$xml .= '						<ns1:StateOrProvinceCode></ns1:StateOrProvinceCode>';
@@ -108,7 +109,7 @@ class ModelExtensionShippingFedex extends Model {
 			$xml .= '						<ns1:StreetLines>' . $address['address_1'] . '</ns1:StreetLines>';
 			$xml .= '						<ns1:City>' . $address['city'] . '</ns1:City>';
 
-			if (in_array($address['iso_code_2'], array('US', 'CA'))) {
+			if (in_array($address['iso_code_2'], array( 'US', 'CA' ))) {
 				$xml .= '						<ns1:StateOrProvinceCode>' . $address['zone_code'] . '</ns1:StateOrProvinceCode>';
 			} else {
 				$xml .= '						<ns1:StateOrProvinceCode></ns1:StateOrProvinceCode>';
@@ -157,16 +158,16 @@ class ModelExtensionShippingFedex extends Model {
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
 			$response = curl_exec($curl);
-			
+
 			curl_close($curl);
 
 			$dom = new DOMDocument('1.0', 'UTF-8');
 			$dom->loadXml($response);
 
 			if ($dom->getElementsByTagName('faultcode')->length > 0) {
-    			$error = $dom->getElementsByTagName('cause')->item(0)->nodeValue;
+				$error = $dom->getElementsByTagName('cause')->item(0)->nodeValue;
 
-    			$this->log->write('FEDEX :: ' . $response);
+				$this->log->write('FEDEX :: ' . $response);
 			} elseif ($dom->getElementsByTagName('HighestSeverity')->item(0)->nodeValue == 'FAILURE' || $dom->getElementsByTagName('HighestSeverity')->item(0)->nodeValue == 'ERROR') {
 				$error = $dom->getElementsByTagName('HighestSeverity')->item(0)->nodeValue;
 
@@ -181,7 +182,7 @@ class ModelExtensionShippingFedex extends Model {
 						$title = $this->language->get('text_' . $code);
 
 						$delivery_time_stamp = $rate_reply_detail->getElementsByTagName('DeliveryTimestamp');
-						
+
 						if ($this->config->get('fedex_display_time') && $delivery_time_stamp->length) {
 							$title .= ' (' . $this->language->get('text_eta') . ' ' . date($this->language->get('date_format_short') . ' ' . $this->language->get('time_format'), strtotime($delivery_time_stamp->item(0)->nodeValue)) . ')';
 						}
@@ -204,11 +205,11 @@ class ModelExtensionShippingFedex extends Model {
 						$currency = $total_net_charge->getElementsByTagName('Currency')->item(0)->nodeValue;
 
 						$quote_data[$code] = array(
-							'code'         => 'fedex.' . $code,
-							'title'        => $title,
-							'cost'         => $this->currency->convert($cost, $currency, $this->config->get('config_currency')),
+							'code'				 => 'fedex.' . $code,
+							'title'				 => $title,
+							'cost'				 => $this->currency->convert($cost, $currency, $this->config->get('config_currency')),
 							'tax_class_id' => $this->config->get('fedex_tax_class_id'),
-							'text'         => $this->currency->format($this->tax->calculate($this->currency->convert($cost, $currency, $this->session->data['currency']), $this->config->get('fedex_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000)
+							'text'				 => $this->currency->format($this->tax->calculate($this->currency->convert($cost, $currency, $this->session->data['currency']), $this->config->get('fedex_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000)
 						);
 					}
 				}
@@ -225,14 +226,15 @@ class ModelExtensionShippingFedex extends Model {
 			}
 
 			$method_data = array(
-				'code'       => 'fedex',
-				'title'      => $title,
-				'quote'      => $quote_data,
+				'code'			 => 'fedex',
+				'title'			 => $title,
+				'quote'			 => $quote_data,
 				'sort_order' => $this->config->get('fedex_sort_order'),
-				'error'      => $error
+				'error'			 => $error
 			);
 		}
 
 		return $method_data;
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
+
 	public function address() {
 		$this->load->language('extension/payment/amazon_login_pay');
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -177,8 +178,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		// Because __call can not keep var references so we put them into an array.
 		$total_data = array(
 			'totals' => &$totals,
-			'taxes' => &$taxes,
-			'total' => &$total
+			'taxes'	 => &$taxes,
+			'total'	 => &$total
 		);
 
 		$old_taxes = $taxes;
@@ -354,28 +355,28 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				}
 
 				$option_data[] = array(
-					'product_option_id' => $option['product_option_id'],
-					'product_option_value_id' => $option['product_option_value_id'],
-					'option_id' => $option['option_id'],
-					'option_value_id' => $option['option_value_id'],
-					'name' => $option['name'],
-					'value' => $value,
-					'type' => $option['type']
+					'product_option_id'				 => $option['product_option_id'],
+					'product_option_value_id'	 => $option['product_option_value_id'],
+					'option_id'								 => $option['option_id'],
+					'option_value_id'					 => $option['option_value_id'],
+					'name'										 => $option['name'],
+					'value'										 => $value,
+					'type'										 => $option['type']
 				);
 			}
 
 			$product_data[] = array(
 				'product_id' => $product['product_id'],
-				'name' => $product['name'],
-				'model' => $product['model'],
-				'option' => $option_data,
-				'download' => $product['download'],
-				'quantity' => $product['quantity'],
-				'subtract' => $product['subtract'],
-				'price' => $product['price'],
-				'total' => $product['total'],
-				'tax' => $this->tax->getTax($product['price'], $product['tax_class_id']),
-				'reward' => $product['reward']
+				'name'			 => $product['name'],
+				'model'			 => $product['model'],
+				'option'		 => $option_data,
+				'download'	 => $product['download'],
+				'quantity'	 => $product['quantity'],
+				'subtract'	 => $product['subtract'],
+				'price'			 => $product['price'],
+				'total'			 => $product['total'],
+				'tax'				 => $this->tax->getTax($product['price'], $product['tax_class_id']),
+				'reward'		 => $product['reward']
 			);
 		}
 
@@ -471,19 +472,19 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				}
 
 				$option_data[] = array(
-					'name' => $option['name'],
-					'value' => ((utf8_strlen($value) > 20) ? utf8_substr($value, 0, 20) . '..' : $value)
+					'name'	 => $option['name'],
+					'value'	 => ((utf8_strlen($value) > 20) ? utf8_substr($value, 0, 20) . '..' : $value)
 				);
 			}
 
 			$data['products'][] = array(
 				'product_id' => $product['product_id'],
-				'name' => $product['name'],
-				'model' => $product['model'],
-				'option' => $option_data,
-				'quantity' => $product['quantity'],
-				'price' => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
-				'total' => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'], $this->session->data['currency'])
+				'name'			 => $product['name'],
+				'model'			 => $product['model'],
+				'option'		 => $option_data,
+				'quantity'	 => $product['quantity'],
+				'price'			 => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
+				'total'			 => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'], $this->session->data['currency'])
 			);
 		}
 
@@ -493,8 +494,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 		foreach ($totals as $total) {
 			$data['totals'][] = array(
-				'title' => $total['title'],
-				'text' => $this->currency->format($total['value'], $this->session->data['currency'])
+				'title'	 => $total['title'],
+				'text'	 => $this->currency->format($total['value'], $this->session->data['currency'])
 			);
 		}
 
@@ -697,23 +698,23 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			$first_name = implode(' ', $full_name);
 
 			$address = array(
-				'firstname' => $first_name,
-				'lastname' => $last_name,
-				'company' => '',
-				'company_id' => '',
-				'tax_id' => '',
-				'telephone' => (string)$address_xml->Phone,
-				'address_1' => $address_1,
-				'address_2' => $address_2,
-				'postcode' => (string)$address_xml->PostalCode,
-				'city' => (string)$address_xml->City,
-				'zone_id' => $zone_id,
-				'zone' => (string)$address_xml->StateOrRegion,
-				'zone_code' => $zone_code,
-				'country_id' => $country_id,
-				'country' => $country_name,
-				'iso_code_2' => $iso_code2,
-				'iso_code_3' => $iso_code3,
+				'firstname'			 => $first_name,
+				'lastname'			 => $last_name,
+				'company'				 => '',
+				'company_id'		 => '',
+				'tax_id'				 => '',
+				'telephone'			 => (string)$address_xml->Phone,
+				'address_1'			 => $address_1,
+				'address_2'			 => $address_2,
+				'postcode'			 => (string)$address_xml->PostalCode,
+				'city'					 => (string)$address_xml->City,
+				'zone_id'				 => $zone_id,
+				'zone'					 => (string)$address_xml->StateOrRegion,
+				'zone_code'			 => $zone_code,
+				'country_id'		 => $country_id,
+				'country'				 => $country_name,
+				'iso_code_2'		 => $iso_code2,
+				'iso_code_3'		 => $iso_code3,
 				'address_format' => $address_format
 			);
 
@@ -736,10 +737,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 					if ($quote && empty($quote['error'])) {
 						$quotes[$code] = array(
-							'title' => $quote['title'],
-							'quote' => $quote['quote'],
+							'title'			 => $quote['title'],
+							'quote'			 => $quote['quote'],
 							'sort_order' => $quote['sort_order'],
-							'error' => $quote['error']
+							'error'			 => $quote['error']
 						);
 					}
 				}

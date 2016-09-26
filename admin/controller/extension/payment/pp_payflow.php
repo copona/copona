@@ -208,4 +208,5 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 
 		return !$this->error;
 	}
+
 }

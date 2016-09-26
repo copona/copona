@@ -1,41 +1,42 @@
 <?php
-class ModelExtensionOpenBayEbay extends Model{
+class ModelExtensionOpenBayEbay extends Model {
+
 	public function install() {
 		$this->load->model('extension/event');
 
 		$this->model_extension_event->addEvent('openbay_ebay_add_order', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/openbay/ebay/eventAddOrderHistory');
 
-		$value                                  = array();
-		$value["ebay_token"]              = '';
-		$value["ebay_secret"]             = '';
-		$value["ebay_string1"]            = '';
-		$value["ebay_string2"]            = '';
-		$value["ebay_enditems"]           = '0';
-		$value["ebay_logging"]            = '1';
-		$value["ebay_payment_instruction"]     = '';
-		$value["entry_payment_paypal_address"]  = '';
-		$value["field_payment_paypal"]          = '0';
-		$value["field_payment_cheque"]          = '0';
-		$value["field_payment_card"]            = '0';
-		$value["tax"]                           = '0';
-		$value["postcode"]                      = '';
-		$value["dispatch_time"]                 = '1';
-		$value["ebay_status_import_id"]            = '1';
-		$value["ebay_status_shipped_id"]           = '3';
-		$value["ebay_status_paid_id"]              = '2';
-		$value["ebay_status_cancelled_id"]         = '7';
-		$value["ebay_status_refunded_id"]          = '11';
-		$value["ebay_def_currency"]          = 'GBP';
-		$value["openbay_admin_directory"]       = 'admin';
-		$value["ebay_stock_allocate"]     = '0';
-		$value["ebay_update_notify"]      = '1';
-		$value["ebay_confirm_notify"]     = '1';
-		$value["ebay_confirmadmin_notify"]= '1';
-		$value["ebay_created_hours"]      = '48';
-		$value["ebay_create_date"]        = '0';
-		$value["ebay_itm_link"]      = 'http://www.ebay.com/itm/';
-		$value["ebay_relistitems"]        = 0;
-		$value["ebay_time_offset"]        = 0;
+		$value = array();
+		$value["ebay_token"] = '';
+		$value["ebay_secret"] = '';
+		$value["ebay_string1"] = '';
+		$value["ebay_string2"] = '';
+		$value["ebay_enditems"] = '0';
+		$value["ebay_logging"] = '1';
+		$value["ebay_payment_instruction"] = '';
+		$value["entry_payment_paypal_address"] = '';
+		$value["field_payment_paypal"] = '0';
+		$value["field_payment_cheque"] = '0';
+		$value["field_payment_card"] = '0';
+		$value["tax"] = '0';
+		$value["postcode"] = '';
+		$value["dispatch_time"] = '1';
+		$value["ebay_status_import_id"] = '1';
+		$value["ebay_status_shipped_id"] = '3';
+		$value["ebay_status_paid_id"] = '2';
+		$value["ebay_status_cancelled_id"] = '7';
+		$value["ebay_status_refunded_id"] = '11';
+		$value["ebay_def_currency"] = 'GBP';
+		$value["openbay_admin_directory"] = 'admin';
+		$value["ebay_stock_allocate"] = '0';
+		$value["ebay_update_notify"] = '1';
+		$value["ebay_confirm_notify"] = '1';
+		$value["ebay_confirmadmin_notify"] = '1';
+		$value["ebay_created_hours"] = '48';
+		$value["ebay_create_date"] = '0';
+		$value["ebay_itm_link"] = 'http://www.ebay.com/itm/';
+		$value["ebay_relistitems"] = 0;
+		$value["ebay_time_offset"] = 0;
 		$value["ebay_default_addressformat"] = '{firstname} {lastname}
 {company}
 {address_1}
@@ -264,7 +265,7 @@ class ModelExtensionOpenBayEbay extends Model{
 		$start = $limit * ($page - 1);
 
 		$has_option = '';
-		if ($this->openbay->addonLoad('openstock') ) {
+		if ($this->openbay->addonLoad('openstock')) {
 			$this->load->model('extension/module/openstock');
 			$has_option = '`p`.`has_option`, ';
 		}
@@ -294,14 +295,14 @@ class ModelExtensionOpenBayEbay extends Model{
 		if ($qry->num_rows) {
 			foreach ($qry->rows as $row) {
 				$data[$row['ebay_item_id']] = array(
-					'product_id'    => $row['product_id'],
-					'sku'           => $row['sku'],
-					'model'         => $row['model'],
-					'qty'           => $row['quantity'],
-					'name'          => $row['name'],
-					'link_edit'     => $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $row['product_id'], true),
-					'link_ebay'     => $this->config->get('ebay_itm_link') . $row['ebay_item_id'],
-					'reserve'       => (int)$row['reserve'],
+					'product_id' => $row['product_id'],
+					'sku'				 => $row['sku'],
+					'model'			 => $row['model'],
+					'qty'				 => $row['quantity'],
+					'name'			 => $row['name'],
+					'link_edit'	 => $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $row['product_id'], true),
+					'link_ebay'	 => $this->config->get('ebay_itm_link') . $row['ebay_item_id'],
+					'reserve'		 => (int)$row['reserve'],
 				);
 
 				$data[$row['ebay_item_id']]['options'] = 0;
@@ -324,7 +325,7 @@ class ModelExtensionOpenBayEbay extends Model{
 
 	public function loadLinkedStatus($item_ids) {
 		$this->openbay->ebay->log('loadLinkedStatus() - Get item status from ebay for multiple IDs');
-		return $this->openbay->ebay->call('item/getItemsById/', array('item_ids' => $item_ids));
+		return $this->openbay->ebay->call('item/getItemsById/', array( 'item_ids' => $item_ids ));
 	}
 
 	public function loadUnlinked($limit = 200, $page = 1, $filter = array()) {
@@ -332,7 +333,7 @@ class ModelExtensionOpenBayEbay extends Model{
 		$current = 1;
 		$stop_flag = 0;
 
-		while(count($unlinked) < 5) {
+		while (count($unlinked) < 5) {
 			if ($current > 5) {
 				$stop_flag = 1;
 				break;
@@ -364,20 +365,20 @@ class ModelExtensionOpenBayEbay extends Model{
 		}
 
 		return array(
-			'items' => $unlinked,
-			'break' => $stop_flag,
-			'next_page' => $response['page']+1,
-			'max_page' => $response['max_page']
+			'items'			 => $unlinked,
+			'break'			 => $stop_flag,
+			'next_page'	 => $response['page'] + 1,
+			'max_page'	 => $response['max_page']
 		);
 	}
 
 	public function loadItemLinks() {
-		$local      = $this->openbay->ebay->getLiveListingArray();
-		$response   = $this->openbay->ebay->getEbayActiveListings();
+		$local = $this->openbay->ebay->getLiveListingArray();
+		$response = $this->openbay->ebay->getEbayActiveListings();
 
 		$data = array(
-			'unlinked'  => array(),
-			'linked'    => array()
+			'unlinked' => array(),
+			'linked'	 => array()
 		);
 
 		if (!empty($response)) {
@@ -403,7 +404,7 @@ class ModelExtensionOpenBayEbay extends Model{
 			$this->openbay->ebay->productUpdateListen($data['pid'], $this->model_catalog_product->getProduct($data['pid']));
 		} else {
 			$this->openbay->ebay->log('Qty on eBay is the same as our stock, no update needed');
-			return array('msg' => 'ok', 'error' => false);
+			return array( 'msg' => 'ok', 'error' => false );
 		}
 	}
 
@@ -426,10 +427,10 @@ class ModelExtensionOpenBayEbay extends Model{
 
 							if ($qry3->num_rows) {
 								foreach ($qry3->rows as $row3) {
-									$cats[$row3['CategoryID']] = $lev1  . ' > ' . $row2['CategoryName']  . ' > ' . $row3['CategoryName'];
+									$cats[$row3['CategoryID']] = $lev1 . ' > ' . $row2['CategoryName'] . ' > ' . $row3['CategoryName'];
 								}
 							} else {
-								$cats[$row2['CategoryID']] = $lev1  . ' > ' . $row2['CategoryName'];
+								$cats[$row2['CategoryID']] = $lev1 . ' > ' . $row2['CategoryName'];
 							}
 						}
 					} else {
@@ -463,7 +464,6 @@ class ModelExtensionOpenBayEbay extends Model{
 				$json['cats'][] = $row;
 			}
 			$json['items'] = $cat_qry->num_rows;
-
 		} else {
 			if (empty($parent)) {
 				$json['error'] = $this->language->get('error_category_sync');
@@ -477,9 +477,10 @@ class ModelExtensionOpenBayEbay extends Model{
 
 	public function getSuggestedCategories($qry) {
 		$response = array(
-			'data' => $this->openbay->ebay->call('listing/getSuggestedCategories/', array('qry' => $qry)),
-			'error' => $this->openbay->ebay->lasterror,
-			'msg' => $this->openbay->ebay->lastmsg
+			'data'	 => $this->openbay->ebay->call('listing/getSuggestedCategories/', array(
+				'qry' => $qry )),
+			'error'	 => $this->openbay->ebay->lasterror,
+			'msg'		 => $this->openbay->ebay->lastmsg
 		);
 
 		return $response;
@@ -514,30 +515,32 @@ class ModelExtensionOpenBayEbay extends Model{
 	}
 
 	public function getEbayCategorySpecifics($category_id) {
-		$response['data']   = $this->openbay->ebay->call('listing/getEbayCategorySpecifics/', array('id' => $category_id));
-		$response['error']  = $this->openbay->ebay->lasterror;
-		$response['msg']    = $this->openbay->ebay->lastmsg;
+		$response['data'] = $this->openbay->ebay->call('listing/getEbayCategorySpecifics/', array(
+			'id' => $category_id ));
+		$response['error'] = $this->openbay->ebay->lasterror;
+		$response['msg'] = $this->openbay->ebay->lastmsg;
 		return $response;
 	}
 
 	public function getCategoryFeatures($category_id) {
-		$response['data']   = $this->openbay->ebay->call('listing/getCategoryFeatures/', array('id' => $category_id));
-		$response['error']  = $this->openbay->ebay->lasterror;
-		$response['msg']    = $this->openbay->ebay->lastmsg;
+		$response['data'] = $this->openbay->ebay->call('listing/getCategoryFeatures/', array(
+			'id' => $category_id ));
+		$response['error'] = $this->openbay->ebay->lasterror;
+		$response['msg'] = $this->openbay->ebay->lastmsg;
 		return $response;
 	}
 
 	public function getSellerSummary() {
-		$response['data']   = $this->openbay->ebay->call('account/getSellerSummary/');
-		$response['error']  = $this->openbay->ebay->lasterror;
-		$response['msg']    = $this->openbay->ebay->lastmsg;
+		$response['data'] = $this->openbay->ebay->call('account/getSellerSummary/');
+		$response['error'] = $this->openbay->ebay->lasterror;
+		$response['msg'] = $this->openbay->ebay->lastmsg;
 
 		return $response;
 	}
 
 	public function getPaymentTypes() {
-		$cat_payment    = $this->db->query("SELECT * FROM `" . DB_PREFIX . "ebay_payment_method`");
-		$payments       = array();
+		$cat_payment = $this->db->query("SELECT * FROM `" . DB_PREFIX . "ebay_payment_method`");
+		$payments = array();
 
 		foreach ($cat_payment->rows as $row) {
 			$payments[] = $row;
@@ -547,8 +550,8 @@ class ModelExtensionOpenBayEbay extends Model{
 	}
 
 	public function getPopularCategories() {
-		$res    = $this->db->query("SELECT * FROM `" . DB_PREFIX . "ebay_category_history` ORDER BY `used` DESC LIMIT 5");
-		$cats   = array();
+		$res = $this->db->query("SELECT * FROM `" . DB_PREFIX . "ebay_category_history` ORDER BY `used` DESC LIMIT 5");
+		$cats = array();
 
 		foreach ($res->rows as $row) {
 			$cats[] = $row;
@@ -569,8 +572,8 @@ class ModelExtensionOpenBayEbay extends Model{
 			$response['data'] = $this->openbay->ebay->call('listing/ebayVerifyAddItem/', $data);
 		}
 
-		$response['error']  = $this->openbay->ebay->lasterror;
-		$response['msg']    = $this->openbay->ebay->lastmsg;
+		$response['error'] = $this->openbay->ebay->lasterror;
+		$response['msg'] = $this->openbay->ebay->lastmsg;
 
 		return $response;
 	}
@@ -584,10 +587,10 @@ class ModelExtensionOpenBayEbay extends Model{
 			$variant = 0;
 		}
 
-		$data2           = array();
-		$data2['data']   = $response;
-		$data2['error']  = $this->openbay->ebay->lasterror;
-		$data2['msg']    = $this->openbay->ebay->lastmsg;
+		$data2 = array();
+		$data2['data'] = $response;
+		$data2['error'] = $this->openbay->ebay->lasterror;
+		$data2['msg'] = $this->openbay->ebay->lastmsg;
 
 		if (!empty($response['ItemID'])) {
 			$this->openbay->ebay->createLink($data['product_id'], $response['ItemID'], $variant);
@@ -596,14 +599,14 @@ class ModelExtensionOpenBayEbay extends Model{
 			$item_link = $this->config->get('ebay_itm_link');
 
 			if (!empty($item_link)) {
-				$data2['data']['view_link']  = html_entity_decode($this->config->get('ebay_itm_link') . $response['ItemID']);
+				$data2['data']['view_link'] = html_entity_decode($this->config->get('ebay_itm_link') . $response['ItemID']);
 			} else {
-				$data2['data']['view_link']  = '';
+				$data2['data']['view_link'] = '';
 			}
 		} else {
-			$data2['error']             = false;
-			$data2['msg']               = 'ok';
-			$data2['data']['Failed']    = true;
+			$data2['error'] = false;
+			$data2['msg'] = 'ok';
+			$data2['data']['Failed'] = true;
 		}
 
 		return $data2;
@@ -612,11 +615,11 @@ class ModelExtensionOpenBayEbay extends Model{
 	public function logCategoryUsed($category_id) {
 		$breadcrumb = array();
 		$original_id = $category_id;
-		$stop       = false;
-		$i          = 0; //fallback to stop infinate loop
-		$err 		= false;
+		$stop = false;
+		$i = 0; //fallback to stop infinate loop
+		$err = false;
 
-		while($stop == false && $i < 10) {
+		while ($stop == false && $i < 10) {
 			$cat = $this->getCategoryStructure($category_id);
 
 			if (!empty($cat)) {
@@ -642,7 +645,7 @@ class ModelExtensionOpenBayEbay extends Model{
 				$new = $res->row['used'] + 1;
 				$this->db->query("UPDATE `" . DB_PREFIX . "ebay_category_history` SET `used` = '" . $new . "' WHERE `CategoryID` = '" . $original_id . "' LIMIT 1");
 			} else {
-				$this->db->query("INSERT INTO `" . DB_PREFIX . "ebay_category_history` SET `CategoryID` = '" . $original_id . "', `breadcrumb` = '" .   $this->db->escape(implode(' > ', array_reverse($breadcrumb))) . "', `used` = '1'");
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "ebay_category_history` SET `CategoryID` = '" . $original_id . "', `breadcrumb` = '" . $this->db->escape(implode(' > ', array_reverse($breadcrumb))) . "', `used` = '1'");
 			}
 		}
 	}
@@ -663,10 +666,10 @@ class ModelExtensionOpenBayEbay extends Model{
 		}
 
 		return array(
-			'qty'           => $res->row['quantity'],
-			'subtract'      => (int)$res->row['subtract'],
-			'allocated'     => $this->openbay->ebay->getAllocatedStock($id),
-			'variant'       => $variant
+			'qty'				 => $res->row['quantity'],
+			'subtract'	 => (int)$res->row['subtract'],
+			'allocated'	 => $this->openbay->ebay->getAllocatedStock($id),
+			'variant'		 => $variant
 		);
 	}
 
@@ -702,14 +705,14 @@ class ModelExtensionOpenBayEbay extends Model{
 
 		if ($this->openbay->ebay->lasterror == true) {
 			return array(
-				'error'     => $this->openbay->ebay->lasterror,
-				'msg'       => $this->openbay->ebay->lastmsg
+				'error'	 => $this->openbay->ebay->lasterror,
+				'msg'		 => $this->openbay->ebay->lastmsg
 			);
 		} else {
 			return array(
-				'error'     => $this->openbay->ebay->lasterror,
-				'msg'       => $this->openbay->ebay->lastmsg,
-				'data'      => $data
+				'error'	 => $this->openbay->ebay->lasterror,
+				'msg'		 => $this->openbay->ebay->lastmsg,
+				'data'	 => $data
 			);
 		}
 	}
@@ -747,9 +750,9 @@ class ModelExtensionOpenBayEbay extends Model{
 
 			$variant_data['option_list'] = base64_encode(serialize($options[key($options)]['option_values']));
 
-			$variant_data['groups']      = $data['optGroupArray'];
-			$variant_data['related']     = $data['optGroupRelArray'];
-			$variant_data['id']          = $data['itemId'];
+			$variant_data['groups'] = $data['optGroupArray'];
+			$variant_data['related'] = $data['optGroupRelArray'];
+			$variant_data['id'] = $data['itemId'];
 
 			$stock_flag = false;
 
@@ -780,9 +783,9 @@ class ModelExtensionOpenBayEbay extends Model{
 					}
 				}
 
-				$variant_data['opt'][$k]['sku']     	= $opt['sku'];
-				$variant_data['opt'][$k]['qty']     	= $stock['quantity'];
-				$variant_data['opt'][$k]['price']   	= number_format($opt['price'], 2, '.', '');
+				$variant_data['opt'][$k]['sku'] = $opt['sku'];
+				$variant_data['opt'][$k]['qty'] = $stock['quantity'];
+				$variant_data['opt'][$k]['price'] = number_format($opt['price'], 2, '.', '');
 
 				// if any of the variants have 0 stock or no SKU set to inactive
 				if ($opt['sku'] == '' || $variant_data['opt'][$k]['qty'] < 1) {
@@ -795,7 +798,8 @@ class ModelExtensionOpenBayEbay extends Model{
 				$variant_option_values = $this->model_extension_module_openstock->getVariant($opt['product_option_variant_id']);
 
 				foreach ($variant_option_values as $variant_option_value) {
-					$variant_data['opt'][$k]['specifics'][] = array('name' => $variant_option_value['option_name'], 'value' => $variant_option_value['option_value_name']);
+					$variant_data['opt'][$k]['specifics'][] = array( 'name'	 => $variant_option_value['option_name'],
+						'value'	 => $variant_option_value['option_value_name'] );
 				}
 			}
 
@@ -826,18 +830,19 @@ class ModelExtensionOpenBayEbay extends Model{
 			foreach ($product_attribute_query->rows as $product_attribute) {
 				$product_attribute_data[] = array(
 					'attribute_id' => $product_attribute['attribute_id'],
-					'name'         => $product_attribute['name'],
-					'text'         => $product_attribute['text']
+					'name'				 => $product_attribute['name'],
+					'text'				 => $product_attribute['text']
 				);
 			}
 
 			$product_attribute_group_data[] = array(
 				'attribute_group_id' => $product_attribute_group['attribute_group_id'],
-				'name'               => $product_attribute_group['name'],
-				'attribute'          => $product_attribute_data
+				'name'							 => $product_attribute_group['name'],
+				'attribute'					 => $product_attribute_data
 			);
 		}
 
 		return $product_attribute_group_data;
 	}
+
 }

@@ -148,4 +148,5 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 
 		return !$this->error;
 	}
+
 }

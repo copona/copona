@@ -165,4 +165,5 @@ class ControllerExtensionModuleSpecial extends Controller {
 
 		return !$this->error;
 	}
+
 }

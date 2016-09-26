@@ -9,7 +9,8 @@ class Response {
 	}
 
 	public function redirect($url, $status = 302) {
-		header('Location: ' . str_replace(array('&amp;', "\n", "\r"), array('&', '', ''), $url), true, $status);
+		header('Location: ' . str_replace(array( '&amp;', "\n", "\r" ), array( '&', '',
+				'' ), $url), true, $status);
 		exit();
 	}
 
@@ -20,7 +21,7 @@ class Response {
 	public function getOutput() {
 		return $this->output;
 	}
-	
+
 	public function setOutput($output) {
 		$this->output = $output;
 	}
@@ -66,4 +67,5 @@ class Response {
 			echo $output;
 		}
 	}
+
 }

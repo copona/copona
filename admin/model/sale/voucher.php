@@ -1,5 +1,6 @@
 <?php
 class ModelSaleVoucher extends Model {
+
 	public function addVoucher($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "voucher SET code = '" . $this->db->escape($data['code']) . "', from_name = '" . $this->db->escape($data['from_name']) . "', from_email = '" . $this->db->escape($data['from_email']) . "', to_name = '" . $this->db->escape($data['to_name']) . "', to_email = '" . $this->db->escape($data['to_email']) . "', voucher_theme_id = '" . (int)$data['voucher_theme_id'] . "', message = '" . $this->db->escape($data['message']) . "', amount = '" . (float)$data['amount'] . "', status = '" . (int)$data['status'] . "', date_added = NOW()");
 
@@ -132,8 +133,8 @@ class ModelSaleVoucher extends Model {
 				$mail->setHtml($this->load->view('mail/voucher', $data));
 				$mail->send();
 
-			// If voucher does not belong to an order
-			}  else {
+				// If voucher does not belong to an order
+			} else {
 				$this->load->language('mail/voucher');
 
 				$data = array();
@@ -210,4 +211,5 @@ class ModelSaleVoucher extends Model {
 
 		return $query->row['total'];
 	}
+
 }

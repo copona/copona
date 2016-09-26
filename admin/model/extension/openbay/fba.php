@@ -1,12 +1,13 @@
 <?php
 class ModelExtensionOpenBayFba extends Model {
-    public function install() {
-        $this->load->model('extension/event');
+
+	public function install() {
+		$this->load->model('extension/event');
 
 		$this->model_extension_event->addEvent('openbay_fba_add_order', 'catalog/model/checkout/order/addOrder/after', 'extension/openbay/fba/eventAddOrder');
 		$this->model_extension_event->addEvent('openbay_fba_add_orderhistory', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/openbay/fba/eventAddOrderHistory');
 
-        $this->db->query("
+		$this->db->query("
 				CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "fba_order` (
 					`order_id` INT(11) NOT NULL,
 					`fba_order_fulfillment_id` INT(11) NOT NULL,
@@ -16,7 +17,7 @@ class ModelExtensionOpenBayFba extends Model {
   				    KEY `fba_order_id` (`order_id`)
 				) ENGINE=InnoDB  DEFAULT CHARSET=latin1;");
 
-        $this->db->query("
+		$this->db->query("
 				CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "fba_order_fulfillment` (
 					`fba_order_fulfillment_id` INT(11) NOT NULL AUTO_INCREMENT,
 					`order_id` INT(11) NOT NULL,
@@ -29,37 +30,38 @@ class ModelExtensionOpenBayFba extends Model {
   				    KEY `order_id` (`order_id`)
 				) ENGINE=InnoDB  DEFAULT CHARSET=latin1;");
 
-        // Default settings
-        $setting = array();
-        $setting["openbay_fba_status"] = 0;
-        $setting["openbay_fba_send_orders"] = 0;
-        $setting["openbay_fba_debug_log"] = 1;
-        $setting["openbay_fba_order_trigger_status"] = 15;
-        $setting["openbay_fba_cancel_order_trigger_status"] = 7;
-        $setting["openbay_fba_fulfill_policy"] = 'FillAllAvailable';
-        $setting["openbay_fba_shipping_speed"] = 'Standard';
-        $setting["openbay_fba_order_prefix"] = 'OC-';
+		// Default settings
+		$setting = array();
+		$setting["openbay_fba_status"] = 0;
+		$setting["openbay_fba_send_orders"] = 0;
+		$setting["openbay_fba_debug_log"] = 1;
+		$setting["openbay_fba_order_trigger_status"] = 15;
+		$setting["openbay_fba_cancel_order_trigger_status"] = 7;
+		$setting["openbay_fba_fulfill_policy"] = 'FillAllAvailable';
+		$setting["openbay_fba_shipping_speed"] = 'Standard';
+		$setting["openbay_fba_order_prefix"] = 'OC-';
 
 		$this->model_setting_setting->editSetting('openbay_fba', $setting);
-    }
+	}
 
-    public function uninstall() {
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'openbay_fba'");
+	public function uninstall() {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'openbay_fba'");
 
-        $this->load->model('extension/event');
-        $this->model_extension_event->deleteEvent('openbay_fba_add_order');
-        $this->model_extension_event->deleteEvent('openbay_fba_add_orderhistory');
-    }
+		$this->load->model('extension/event');
+		$this->model_extension_event->deleteEvent('openbay_fba_add_order');
+		$this->model_extension_event->deleteEvent('openbay_fba_add_orderhistory');
+	}
 
-    public function patch() {
-        if ($this->config->get('openbay_fba_status') == 1) {
+	public function patch() {
+		if ($this->config->get('openbay_fba_status') == 1) {
 
-        }
-    }
+		}
+	}
 
-    public function countFbaOrders() {
-        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "fba_order`");
+	public function countFbaOrders() {
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "fba_order`");
 
-        return (int)$query->row['total'];
-    }
+		return (int)$query->row['total'];
+	}
+
 }

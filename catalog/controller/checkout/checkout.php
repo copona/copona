@@ -1,5 +1,6 @@
 <?php
 class ControllerCheckoutCheckout extends Controller {
+
 	public function index() {
 		// Validate cart has products and has stock.
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
@@ -60,13 +61,13 @@ class ControllerCheckoutCheckout extends Controller {
 		$data['text_checkout_payment_address'] = sprintf($this->language->get('text_checkout_payment_address'), 2);
 		$data['text_checkout_shipping_address'] = sprintf($this->language->get('text_checkout_shipping_address'), 3);
 		$data['text_checkout_shipping_method'] = sprintf($this->language->get('text_checkout_shipping_method'), 4);
-		
+
 		if ($this->cart->hasShipping()) {
 			$data['text_checkout_payment_method'] = sprintf($this->language->get('text_checkout_payment_method'), 5);
 			$data['text_checkout_confirm'] = sprintf($this->language->get('text_checkout_confirm'), 6);
 		} else {
 			$data['text_checkout_payment_method'] = sprintf($this->language->get('text_checkout_payment_method'), 3);
-			$data['text_checkout_confirm'] = sprintf($this->language->get('text_checkout_confirm'), 4);	
+			$data['text_checkout_confirm'] = sprintf($this->language->get('text_checkout_confirm'), 4);
 		}
 
 		if (isset($this->session->data['error'])) {
@@ -107,14 +108,14 @@ class ControllerCheckoutCheckout extends Controller {
 			$this->load->model('localisation/zone');
 
 			$json = array(
-				'country_id'        => $country_info['country_id'],
-				'name'              => $country_info['name'],
-				'iso_code_2'        => $country_info['iso_code_2'],
-				'iso_code_3'        => $country_info['iso_code_3'],
-				'address_format'    => $country_info['address_format'],
-				'postcode_required' => $country_info['postcode_required'],
-				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-				'status'            => $country_info['status']
+				'country_id'				 => $country_info['country_id'],
+				'name'							 => $country_info['name'],
+				'iso_code_2'				 => $country_info['iso_code_2'],
+				'iso_code_3'				 => $country_info['iso_code_3'],
+				'address_format'		 => $country_info['address_format'],
+				'postcode_required'	 => $country_info['postcode_required'],
+				'zone'							 => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
+				'status'						 => $country_info['status']
 			);
 		}
 
@@ -138,12 +139,13 @@ class ControllerCheckoutCheckout extends Controller {
 
 		foreach ($custom_fields as $custom_field) {
 			$json[] = array(
-				'custom_field_id' => $custom_field['custom_field_id'],
-				'required'        => $custom_field['required']
+				'custom_field_id'	 => $custom_field['custom_field_id'],
+				'required'				 => $custom_field['required']
 			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

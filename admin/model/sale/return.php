@@ -1,8 +1,9 @@
 <?php
 class ModelSaleReturn extends Model {
+
 	public function addReturn($data) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "return` SET order_id = '" . (int)$data['order_id'] . "', product_id = '" . (int)$data['product_id'] . "', customer_id = '" . (int)$data['customer_id'] . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', email = '" . $this->db->escape($data['email']) . "', telephone = '" . $this->db->escape($data['telephone']) . "', product = '" . $this->db->escape($data['product']) . "', model = '" . $this->db->escape($data['model']) . "', quantity = '" . (int)$data['quantity'] . "', opened = '" . (int)$data['opened'] . "', return_reason_id = '" . (int)$data['return_reason_id'] . "', return_action_id = '" . (int)$data['return_action_id'] . "', return_status_id = '" . (int)$data['return_status_id'] . "', comment = '" . $this->db->escape($data['comment']) . "', date_ordered = '" . $this->db->escape($data['date_ordered']) . "', date_added = NOW(), date_modified = NOW()");
-	
+
 		return $this->db->getLastId();
 	}
 
@@ -179,7 +180,7 @@ class ModelSaleReturn extends Model {
 
 				$subject = sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'), $return_id);
 
-				$message  = $this->language->get('text_return_id') . ' ' . $return_id . "\n";
+				$message = $this->language->get('text_return_id') . ' ' . $return_id . "\n";
 				$message .= $this->language->get('text_date_added') . ' ' . date($this->language->get('date_format_short'), strtotime($return_query->row['date_added'])) . "\n\n";
 				$message .= $this->language->get('text_return_status') . "\n";
 				$message .= $return_query->row['status'] . "\n\n";
@@ -235,4 +236,5 @@ class ModelSaleReturn extends Model {
 
 		return $query->row['total'];
 	}
+
 }

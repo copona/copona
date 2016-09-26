@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentSagepayDirect extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/sagepay_direct');
 
@@ -35,56 +36,56 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		$data['cards'] = array();
 
 		$data['cards'][] = array(
-			'text' => 'Visa',
-			'value' => 'VISA'
+			'text'	 => 'Visa',
+			'value'	 => 'VISA'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'MasterCard',
-			'value' => 'MC'
+			'text'	 => 'MasterCard',
+			'value'	 => 'MC'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Visa Delta/Debit',
-			'value' => 'DELTA'
+			'text'	 => 'Visa Delta/Debit',
+			'value'	 => 'DELTA'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Solo',
-			'value' => 'SOLO'
+			'text'	 => 'Solo',
+			'value'	 => 'SOLO'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Maestro',
-			'value' => 'MAESTRO'
+			'text'	 => 'Maestro',
+			'value'	 => 'MAESTRO'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Visa Electron UK Debit',
-			'value' => 'UKE'
+			'text'	 => 'Visa Electron UK Debit',
+			'value'	 => 'UKE'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'American Express',
-			'value' => 'AMEX'
+			'text'	 => 'American Express',
+			'value'	 => 'AMEX'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Diners Club',
-			'value' => 'DC'
+			'text'	 => 'Diners Club',
+			'value'	 => 'DC'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Japan Credit Bureau',
-			'value' => 'JCB'
+			'text'	 => 'Japan Credit Bureau',
+			'value'	 => 'JCB'
 		);
 
 		$data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text' => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
-				'value' => sprintf('%02d', $i)
+				'text'	 => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+				'value'	 => sprintf('%02d', $i)
 			);
 		}
 
@@ -94,8 +95,8 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {
 			$data['year_valid'][] = array(
-				'text' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -103,8 +104,8 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
-				'text' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -231,12 +232,12 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		$str_basket = "";
 		foreach ($order_products as $product) {
 			$str_basket .=
-					":" . str_replace(":", " ", $product['name'] . " " . $product['model']) .
-					":" . $product['quantity'] .
-					":" . $this->currency->format($product['price'], $order_info['currency_code'], false, false) .
-					":" . $this->currency->format($product['tax'], $order_info['currency_code'], false, false) .
-					":" . $this->currency->format(($product['price'] + $product['tax']), $order_info['currency_code'], false, false) .
-					":" . $this->currency->format(($product['price'] + $product['tax']) * $product['quantity'], $order_info['currency_code'], false, false);
+				":" . str_replace(":", " ", $product['name'] . " " . $product['model']) .
+				":" . $product['quantity'] .
+				":" . $this->currency->format($product['price'], $order_info['currency_code'], false, false) .
+				":" . $this->currency->format($product['tax'], $order_info['currency_code'], false, false) .
+				":" . $this->currency->format(($product['price'] + $product['tax']), $order_info['currency_code'], false, false) .
+				":" . $this->currency->format(($product['price'] + $product['tax']) * $product['quantity'], $order_info['currency_code'], false, false);
 			$cart_rows++;
 		}
 

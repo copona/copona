@@ -1,8 +1,9 @@
 <?php
 class ControllerExtensionFeedGoogleBase extends Controller {
+
 	public function index() {
 		if ($this->config->get('google_base_status')) {
-			$output  = '<?xml version="1.0" encoding="UTF-8" ?>';
+			$output = '<?xml version="1.0" encoding="UTF-8" ?>';
 			$output .= '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">';
 			$output .= '  <channel>';
 			$output .= '  <title>' . $this->config->get('config_name') . '</title>';
@@ -22,7 +23,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 			foreach ($google_base_categories as $google_base_category) {
 				$filter_data = array(
 					'filter_category_id' => $google_base_category['category_id'],
-					'filter_filter'      => false
+					'filter_filter'			 => false
 				);
 
 				$products = $this->model_catalog_product->getProducts($filter_data);
@@ -46,7 +47,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 						$output .= '  <g:model_number>' . $product['model'] . '</g:model_number>';
 
 						if ($product['mpn']) {
-							$output .= '  <g:mpn><![CDATA[' . $product['mpn'] . ']]></g:mpn>' ;
+							$output .= '  <g:mpn><![CDATA[' . $product['mpn'] . ']]></g:mpn>';
 						} else {
 							$output .= '  <g:identifier_exists>false</g:identifier_exists>';
 						}
@@ -74,7 +75,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 						}
 
 						if ((float)$product['special']) {
-							$output .= '  <g:price>' .  $this->currency->format($this->tax->calculate($product['special'], $product['tax_class_id']), $currency_code, $currency_value, false) . '</g:price>';
+							$output .= '  <g:price>' . $this->currency->format($this->tax->calculate($product['special'], $product['tax_class_id']), $currency_code, $currency_value, false) . '</g:price>';
 						} else {
 							$output .= '  <g:price>' . $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id']), $currency_code, $currency_value, false) . '</g:price>';
 						}
@@ -140,4 +141,5 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 			}
 		}
 	}
+
 }

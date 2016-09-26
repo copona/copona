@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionCreditCardSagepayServer extends Controller {
+
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/account', '', true);
@@ -107,14 +108,14 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 			} else {
 				$url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
 			}
-			
+
 			$payment_data['VPSProtocol'] = '3.00';
 			$payment_data['Vendor'] = $this->config->get('sagepay_server_vendor');
 			$payment_data['TxType'] = 'REMOVETOKEN';
 			$payment_data['Token'] = $card['token'];
 
 			$response_data = $this->model_extension_payment_sagepay_server->sendCurl($url, $payment_data);
-			
+
 			if ($response_data['Status'] == 'OK') {
 				$this->model_extension_payment_sagepay_server->deleteCard($this->request->get['card_id']);
 				$this->session->data['success'] = $this->language->get('text_success_card');
@@ -129,7 +130,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
 	public function addCard() {
 		$this->load->language('extension/payment/sagepay_server');
-		
+
 		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/sagepay_server');
 
@@ -157,7 +158,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 			$json['redirect'] = $response_data['NextURL'];
 			$json['Status'] = $response_data['Status'];
 			$json['StatusDetail'] = $response_data['StatusDetail'];
-			
+
 			$order_info['order_id'] = -1;
 			$order_info['VPSTxId'] = substr($response_data['VPSTxId'], 1, -1);
 			$order_info['SecurityKey'] = $response_data['SecurityKey'];
@@ -282,4 +283,5 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 		$this->session->data['error_warning'] = 'Failure';
 		$this->response->redirect($this->url->link('extension/credit_card/sagepay_server', '', true));
 	}
+
 }

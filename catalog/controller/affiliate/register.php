@@ -17,7 +17,7 @@ class ControllerAffiliateRegister extends Controller {
 			$affiliate_id = $this->model_affiliate_affiliate->addAffiliate($this->request->post);
 
 			// Clear any previous login attempts in not registered.
-    		$this->load->model('account/customer');
+			$this->load->model('account/customer');
 			$this->model_account_customer->deleteLoginAttempts($this->request->post['email']);
 
 			$this->affiliate->login($this->request->post['email'], $this->request->post['password']);
@@ -28,7 +28,7 @@ class ControllerAffiliateRegister extends Controller {
 
 				$activity_data = array(
 					'affiliate_id' => $affiliate_id,
-					'name'         => $this->request->post['firstname'] . ' ' . $this->request->post['lastname']
+					'name'				 => $this->request->post['firstname'] . ' ' . $this->request->post['lastname']
 				);
 
 				$this->model_affiliate_activity->addActivity('register', $activity_data);
@@ -440,18 +440,19 @@ class ControllerAffiliateRegister extends Controller {
 			$this->load->model('localisation/zone');
 
 			$json = array(
-				'country_id'        => $country_info['country_id'],
-				'name'              => $country_info['name'],
-				'iso_code_2'        => $country_info['iso_code_2'],
-				'iso_code_3'        => $country_info['iso_code_3'],
-				'address_format'    => $country_info['address_format'],
-				'postcode_required' => $country_info['postcode_required'],
-				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-				'status'            => $country_info['status']
+				'country_id'				 => $country_info['country_id'],
+				'name'							 => $country_info['name'],
+				'iso_code_2'				 => $country_info['iso_code_2'],
+				'iso_code_3'				 => $country_info['iso_code_3'],
+				'address_format'		 => $country_info['address_format'],
+				'postcode_required'	 => $country_info['postcode_required'],
+				'zone'							 => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
+				'status'						 => $country_info['status']
 			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

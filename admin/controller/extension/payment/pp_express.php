@@ -137,9 +137,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		);
 
 		$data['action'] = $this->url->link('extension/payment/pp_express', 'token=' . $this->session->data['token'], true);
-		
+
 		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=payment', true);
-		
+
 		$data['search'] = $this->url->link('extension/payment/pp_express/search', 'token=' . $this->session->data['token'], true);
 
 		$this->load->model('localisation/country');
@@ -494,14 +494,14 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			foreach ($results as $result) {
 				$data['transactions'][] = array(
 					'transaction_id' => $result['transaction_id'],
-					'amount'         => $result['amount'],
-					'payment_type'   => $result['payment_type'],
+					'amount'				 => $result['amount'],
+					'payment_type'	 => $result['payment_type'],
 					'payment_status' => $result['payment_status'],
 					'pending_reason' => $result['pending_reason'],
-					'date_added'     => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
-					'view'           => $this->url->link('extension/payment/pp_express/info', 'token=' . $this->session->data['token'] . '&transaction_id=' . $result['transaction_id'], true),
-					'refund'         => $this->url->link('extension/payment/pp_express/refund', 'token=' . $this->session->data['token'] . '&transaction_id=' . $result['transaction_id'], true),
-					'resend'         => $this->url->link('extension/payment/pp_express/resend', 'token=' . $this->session->data['token'] . '&paypal_order_transaction_id=' . $result['paypal_order_transaction_id'], true)
+					'date_added'		 => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
+					'view'					 => $this->url->link('extension/payment/pp_express/info', 'token=' . $this->session->data['token'] . '&transaction_id=' . $result['transaction_id'], true),
+					'refund'				 => $this->url->link('extension/payment/pp_express/refund', 'token=' . $this->session->data['token'] . '&transaction_id=' . $result['transaction_id'], true),
+					'resend'				 => $this->url->link('extension/payment/pp_express/resend', 'token=' . $this->session->data['token'] . '&paypal_order_transaction_id=' . $result['paypal_order_transaction_id'], true)
 				);
 			}
 		}
@@ -538,30 +538,30 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				}
 
 				$request = array(
-					'METHOD'          => 'DoCapture',
-					'AUTHORIZATIONID' => $paypal_info['authorization_id'],
-					'AMT'             => number_format($this->request->post['amount'], 2),
-					'CURRENCYCODE'    => $paypal_info['currency_code'],
-					'COMPLETETYPE'    => $complete,
-					'MSGSUBID'        => uniqid(mt_rand(), true)
+					'METHOD'					 => 'DoCapture',
+					'AUTHORIZATIONID'	 => $paypal_info['authorization_id'],
+					'AMT'							 => number_format($this->request->post['amount'], 2),
+					'CURRENCYCODE'		 => $paypal_info['currency_code'],
+					'COMPLETETYPE'		 => $complete,
+					'MSGSUBID'				 => uniqid(mt_rand(), true)
 				);
 
 				$response = $this->model_extension_payment_pp_express->call($request);
 
 				if (isset($response['ACK']) && ($response['ACK'] != 'Failure') && ($response['ACK'] != 'FailureWithWarning')) {
 					$transaction_data = array(
-						'paypal_order_id'       => $paypal_info['paypal_order_id'],
-						'transaction_id'        => $response['TRANSACTIONID'],
-						'parent_id'             => $paypal_info['authorization_id'],
-						'note'                  => '',
-						'msgsubid'              => $response['MSGSUBID'],
-						'receipt_id'            => '',
-						'payment_type'          => $response['PAYMENTTYPE'],
-						'payment_status'        => $response['PAYMENTSTATUS'],
-						'pending_reason'        => (isset($response['PENDINGREASON']) ? $response['PENDINGREASON'] : ''),
-						'transaction_entity'    => 'payment',
-						'amount'                => $response['AMT'],
-						'debug_data'            => json_encode($response)
+						'paypal_order_id'		 => $paypal_info['paypal_order_id'],
+						'transaction_id'		 => $response['TRANSACTIONID'],
+						'parent_id'					 => $paypal_info['authorization_id'],
+						'note'							 => '',
+						'msgsubid'					 => $response['MSGSUBID'],
+						'receipt_id'				 => '',
+						'payment_type'			 => $response['PAYMENTTYPE'],
+						'payment_status'		 => $response['PAYMENTSTATUS'],
+						'pending_reason'		 => (isset($response['PENDINGREASON']) ? $response['PENDINGREASON'] : ''),
+						'transaction_entity' => 'payment',
+						'amount'						 => $response['AMT'],
+						'debug_data'				 => json_encode($response)
 					);
 
 					$this->model_extension_payment_pp_express->addTransaction($transaction_data);
@@ -698,18 +698,18 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					$result = $this->model_extension_payment_pp_express->call($call_data);
 
 					$transaction = array(
-						'paypal_order_id' => $paypal_order['paypal_order_id'],
-						'transaction_id' => '',
-						'parent_transaction_id' => $this->request->post['transaction_id'],
-						'note' => $this->request->post['refund_message'],
-						'msgsubid' => $call_data['MSGSUBID'],
-						'receipt_id' => '',
-						'payment_type' => '',
-						'payment_status' => 'Refunded',
-						'transaction_entity' => 'payment',
-						'pending_reason' => '',
-						'amount' => '-' . (isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount']),
-						'debug_data' => json_encode($result)
+						'paypal_order_id'				 => $paypal_order['paypal_order_id'],
+						'transaction_id'				 => '',
+						'parent_transaction_id'	 => $this->request->post['transaction_id'],
+						'note'									 => $this->request->post['refund_message'],
+						'msgsubid'							 => $call_data['MSGSUBID'],
+						'receipt_id'						 => '',
+						'payment_type'					 => '',
+						'payment_status'				 => 'Refunded',
+						'transaction_entity'		 => 'payment',
+						'pending_reason'				 => '',
+						'amount'								 => '-' . (isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount']),
+						'debug_data'						 => json_encode($result)
 					);
 
 					if ($result == false) {
@@ -770,27 +770,27 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		if ($paypal_info) {
 			$request = array(
-				'METHOD'          => 'DoVoid',
-				'AUTHORIZATIONID' => $paypal_info['authorization_id'],
-				'MSGSUBID'        => uniqid(mt_rand(), true)
+				'METHOD'					 => 'DoVoid',
+				'AUTHORIZATIONID'	 => $paypal_info['authorization_id'],
+				'MSGSUBID'				 => uniqid(mt_rand(), true)
 			);
 
 			$response_info = $this->model_extension_payment_pp_express->call($request);
 
 			if (isset($response_info['ACK']) && ($response_info['ACK'] != 'Failure') && ($response_info['ACK'] != 'FailureWithWarning')) {
 				$transaction = array(
-					'paypal_order_id'       => $paypal_info['paypal_order_id'],
-					'transaction_id'        => '',
-					'parent_id'             => $paypal_info['authorization_id'],
-					'note'                  => '',
-					'msgsubid'              => '',
-					'receipt_id'            => '',
-					'payment_type'          => 'void',
-					'payment_status'        => 'Void',
-					'pending_reason'        => '',
-					'transaction_entity'    => 'auth',
-					'amount'                => '',
-					'debug_data'            => json_encode($response_info)
+					'paypal_order_id'		 => $paypal_info['paypal_order_id'],
+					'transaction_id'		 => '',
+					'parent_id'					 => $paypal_info['authorization_id'],
+					'note'							 => '',
+					'msgsubid'					 => '',
+					'receipt_id'				 => '',
+					'payment_type'			 => 'void',
+					'payment_status'		 => 'Void',
+					'pending_reason'		 => '',
+					'transaction_entity' => 'auth',
+					'amount'						 => '',
+					'debug_data'				 => json_encode($response_info)
 				);
 
 				$this->model_extension_payment_pp_express->addTransaction($transaction);
@@ -842,15 +842,15 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			}
 
 			$request = array(
-				'USER'         => $api_username,
-				'PWD'          => $api_password,
-				'SIGNATURE'    => $api_signature,
-				'VERSION'      => '109.0',
+				'USER'				 => $api_username,
+				'PWD'					 => $api_password,
+				'SIGNATURE'		 => $api_signature,
+				'VERSION'			 => '109.0',
 				'BUTTONSOURCE' => 'OpenCart_2.0_EC',
-				'METHOD'       => 'SetExpressCheckout',
-				'METHOD'       => 'ManageRecurringPaymentsProfileStatus',
-				'PROFILEID'    => $recurring_info['reference'],
-				'ACTION'       => 'Cancel'
+				'METHOD'			 => 'SetExpressCheckout',
+				'METHOD'			 => 'ManageRecurringPaymentsProfileStatus',
+				'PROFILEID'		 => $recurring_info['reference'],
+				'ACTION'			 => 'Cancel'
 			);
 
 			$curl = curl_init($api_url);
@@ -960,7 +960,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
-
 
 	public function search() {
 		$this->load->language('extension/payment/pp_express_search');
@@ -1383,4 +1382,5 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		return $this->load->view('sale/recurring_button', $data);
 	}
+
 }

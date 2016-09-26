@@ -89,4 +89,5 @@ class ControllerExtensionTotalShipping extends Controller {
 
 		return !$this->error;
 	}
+
 }

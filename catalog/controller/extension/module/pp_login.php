@@ -110,20 +110,20 @@ class ControllerExtensionModulePPLogin extends Controller {
 				}
 
 				$data = array(
-					'customer_group_id' => (int)$customer_group_id,
-					'firstname'         => $user->given_name,
-					'lastname'          => $user->family_name,
-					'email'             => $user->email,
-					'telephone'         => $user->phone_number,
-					'fax'               => '',
-					'password'          => uniqid(rand(), true),
-					'company'           => '',
-					'address_1'         => $user->address->street_address,
-					'address_2'         => '',
-					'city'              => $user->address->locality,
-					'postcode'          => $user->address->postal_code,
-					'country_id'        => (int)$country_id,
-					'zone_id'           => (int)$zone_id,
+					'customer_group_id'	 => (int)$customer_group_id,
+					'firstname'					 => $user->given_name,
+					'lastname'					 => $user->family_name,
+					'email'							 => $user->email,
+					'telephone'					 => $user->phone_number,
+					'fax'								 => '',
+					'password'					 => uniqid(rand(), true),
+					'company'						 => '',
+					'address_1'					 => $user->address->street_address,
+					'address_2'					 => '',
+					'city'							 => $user->address->locality,
+					'postcode'					 => $user->address->postal_code,
+					'country_id'				 => (int)$country_id,
+					'zone_id'						 => (int)$zone_id,
 				);
 
 				$customer_id = $this->model_account_customer->addCustomer($data);
@@ -165,8 +165,8 @@ class ControllerExtensionModulePPLogin extends Controller {
 			$this->load->model('account/activity');
 
 			$activity_data = array(
-				'customer_id' => $this->customer->getId(),
-				'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+				'customer_id'	 => $this->customer->getId(),
+				'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
 			);
 
 			$this->model_account_activity->addActivity('login', $activity_data);
@@ -212,4 +212,5 @@ class ControllerExtensionModulePPLogin extends Controller {
 
 		return !$this->error;
 	}
+
 }

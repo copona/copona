@@ -1,5 +1,7 @@
 <?php
+
 namespace Cart;
+
 class Weight {
 	private $weights = array();
 
@@ -11,10 +13,10 @@ class Weight {
 
 		foreach ($weight_class_query->rows as $result) {
 			$this->weights[$result['weight_class_id']] = array(
-				'weight_class_id' => $result['weight_class_id'],
-				'title'           => $result['title'],
-				'unit'            => $result['unit'],
-				'value'           => $result['value']
+				'weight_class_id'	 => $result['weight_class_id'],
+				'title'						 => $result['title'],
+				'unit'						 => $result['unit'],
+				'value'						 => $result['value']
 			);
 		}
 	}
@@ -54,4 +56,5 @@ class Weight {
 			return '';
 		}
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerErrorPermission extends Controller {
+
 	public function index() {
 		$this->load->language('error/permission');
 
@@ -27,4 +28,5 @@ class ControllerErrorPermission extends Controller {
 
 		$this->response->setOutput($this->load->view('error/permission', $data));
 	}
+
 }

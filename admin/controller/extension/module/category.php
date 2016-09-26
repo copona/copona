@@ -75,4 +75,5 @@ class ControllerExtensionModuleCategory extends Controller {
 
 		return !$this->error;
 	}
+
 }

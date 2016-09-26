@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentEway extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/eway');
 
@@ -26,8 +27,8 @@ class ControllerExtensionPaymentEway extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text' => sprintf('%02d', $i),
-				'value' => sprintf('%02d', $i)
+				'text'	 => sprintf('%02d', $i),
+				'value'	 => sprintf('%02d', $i)
 			);
 		}
 
@@ -37,8 +38,8 @@ class ControllerExtensionPaymentEway extends Controller {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
-				'text' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -115,7 +116,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
 		$opt1 = new stdClass();
 		$opt1->Value = $order_info['order_id'];
-		$request->Options = array($opt1);
+		$request->Options = array( $opt1 );
 
 		$request->Payment = new stdClass();
 		$request->Payment->TotalAmount = number_format($amount, 2, '.', '') * 100;
@@ -236,11 +237,11 @@ class ControllerExtensionPaymentEway extends Controller {
 
 				$this->load->model('extension/payment/eway');
 				$eway_order_data = array(
-					'order_id' => $order_id,
+					'order_id'			 => $order_id,
 					'transaction_id' => $result->TransactionID,
-					'amount' => $result->TotalAmount / 100,
-					'currency_code' => $order_info['currency_code'],
-					'debug_data' => json_encode($result)
+					'amount'				 => $result->TotalAmount / 100,
+					'currency_code'	 => $order_info['currency_code'],
+					'debug_data'		 => json_encode($result)
 				);
 
 				$error_array = explode(", ", $result->ResponseMessage);

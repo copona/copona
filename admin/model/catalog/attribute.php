@@ -1,5 +1,6 @@
 <?php
 class ModelCatalogAttribute extends Model {
+
 	public function addAttribute($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "attribute SET attribute_group_id = '" . (int)$data['attribute_group_id'] . "', sort_order = '" . (int)$data['sort_order'] . "'");
 
@@ -85,7 +86,7 @@ class ModelCatalogAttribute extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "attribute_description WHERE attribute_id = '" . (int)$attribute_id . "'");
 
 		foreach ($query->rows as $result) {
-			$attribute_data[$result['language_id']] = array('name' => $result['name']);
+			$attribute_data[$result['language_id']] = array( 'name' => $result['name'] );
 		}
 
 		return $attribute_data;
@@ -102,4 +103,5 @@ class ModelCatalogAttribute extends Model {
 
 		return $query->row['total'];
 	}
+
 }

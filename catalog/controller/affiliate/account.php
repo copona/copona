@@ -1,5 +1,6 @@
 <?php
 class ControllerAffiliateAccount extends Controller {
+
 	public function index() {
 		if (!$this->affiliate->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('affiliate/account', '', true);
@@ -57,4 +58,5 @@ class ControllerAffiliateAccount extends Controller {
 
 		$this->response->setOutput($this->load->view('affiliate/account', $data));
 	}
+
 }

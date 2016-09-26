@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionModuleSagepayDirectCards extends Controller {
+
 	public function index() {
 		if ($this->config->get('sagepay_direct_cards_status') && $this->config->get('sagepay_direct_status') && $this->customer->isLogged()) {
 			$this->load->language('account/sagepay_direct_cards');

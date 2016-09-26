@@ -1,6 +1,5 @@
 <?php
 class ControllerExtensionPaymentEway extends Controller {
-
 	private $error = array();
 
 	public function index() {

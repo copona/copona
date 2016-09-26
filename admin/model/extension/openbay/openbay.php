@@ -13,9 +13,11 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		$this->openbay->log('Starting update test');
 
 		if (!function_exists("exception_error_handler")) {
-			function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+
+			function exception_error_handler($errno, $errstr, $errfile, $errline) {
 				throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 			}
+
 		}
 
 		set_error_handler('exception_error_handler');
@@ -29,7 +31,7 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		if (!is_dir(DIR_DOWNLOAD . '/tmp')) {
 			try {
 				mkdir(DIR_DOWNLOAD . '/tmp');
-			} catch(ErrorException $ex) {
+			} catch (ErrorException $ex) {
 				$this->error[] = $ex->getMessage();
 			}
 		}
@@ -37,35 +39,34 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		// create tmp file
 		try {
 			$tmp_file = fopen(DIR_DOWNLOAD . '/tmp/test_file.php', 'w+');
-		} catch(ErrorException $ex) {
+		} catch (ErrorException $ex) {
 			$this->error[] = $ex->getMessage();
 		}
 
 		// open and write over tmp file
 		try {
-			$output  = '<?php' . "\n";
-			$output  .= '$test = \'12345\';' . "\n";
-			$output  .= 'echo $test;' . "\n";
+			$output = '<?php' . "\n";
+			$output .= '$test = \'12345\';' . "\n";
+			$output .= 'echo $test;' . "\n";
 
 			fwrite($tmp_file, $output);
 			fclose($tmp_file);
-		} catch(ErrorException $ex) {
+		} catch (ErrorException $ex) {
 			$this->error[] = $ex->getMessage();
 		}
 
 		// try and read the file
-
 		// remove tmp file
 		try {
 			unlink(DIR_DOWNLOAD . '/tmp/test_file.php');
-		} catch(ErrorException $ex) {
+		} catch (ErrorException $ex) {
 			$this->error[] = $ex->getMessage();
 		}
 
 		// delete tmp folder
 		try {
 			rmdir(DIR_DOWNLOAD . '/tmp');
-		} catch(ErrorException $ex) {
+		} catch (ErrorException $ex) {
 			$this->error[] = $ex->getMessage();
 		}
 
@@ -76,10 +77,10 @@ class ModelExtensionOpenBayOpenbay extends Model {
 
 		if (!$this->error) {
 			$this->openbay->log('Finished update test - no errors');
-			return array('error' => 0, 'response' => '', 'percent_complete' => 20, 'status_message' => $this->language->get('text_check_new'));
+			return array( 'error' => 0, 'response' => '', 'percent_complete' => 20, 'status_message' => $this->language->get('text_check_new') );
 		} else {
 			$this->openbay->log('Finished update test - errors: ' . print_r($this->error));
-			return array('error' => 1, 'response' => $this->error);
+			return array( 'error' => 1, 'response' => $this->error );
 		}
 	}
 
@@ -88,21 +89,22 @@ class ModelExtensionOpenBayOpenbay extends Model {
 
 		$this->openbay->log('Start check version, beta: ' . $beta . ', current: ' . $current_version);
 
-		$post = array('version' => 4, 'beta' => $beta);
+		$post = array( 'version' => 4, 'beta' => $beta );
 
 		$data = $this->call('update/version/', $post);
 
 		if ($this->lasterror == true) {
 			$this->openbay->log('Check version error: ' . $this->lastmsg);
 
-			return array('error' => 1, 'response' => $this->lastmsg . ' (' . VERSION . ')');
+			return array( 'error' => 1, 'response' => $this->lastmsg . ' (' . VERSION . ')' );
 		} else {
 			if ($data['version'] > $current_version) {
 				$this->openbay->log('Check version new available: ' . $data['version']);
-				return array('error' => 0, 'response' => $data['version'], 'percent_complete' => 40, 'status_message' => $this->language->get('text_downloading'));
+				return array( 'error'						 => 0, 'response'				 => $data['version'], 'percent_complete' => 40,
+					'status_message'	 => $this->language->get('text_downloading') );
 			} else {
 				$this->openbay->log('Check version - already latest');
-				return array('error' => 1, 'response' => $this->language->get('text_version_ok') . $current_version);
+				return array( 'error' => 1, 'response' => $this->language->get('text_version_ok') . $current_version );
 			}
 		}
 	}
@@ -113,34 +115,35 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		$local_file = DIR_DOWNLOAD . '/openbaypro_update.zip';
 		$handle = fopen($local_file, "w+");
 
-		$post = array('version' => 4, 'beta' => $beta);
+		$post = array( 'version' => 4, 'beta' => $beta );
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
-			CURLOPT_URL => $this->url . 'update/download/',
-			CURLOPT_USERAGENT => 'OpenBay Pro update script',
-			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_POST					 => 1,
+			CURLOPT_HEADER				 => 0,
+			CURLOPT_URL						 => $this->url . 'update/download/',
+			CURLOPT_USERAGENT			 => 'OpenBay Pro update script',
+			CURLOPT_FRESH_CONNECT	 => 1,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FORBID_REUSE	 => 1,
+			CURLOPT_TIMEOUT				 => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_SSL_VERIFYHOST => 0,
-			CURLOPT_POSTFIELDS => http_build_query($post, '', "&"),
-			CURLOPT_FILE => $handle
+			CURLOPT_POSTFIELDS		 => http_build_query($post, '', "&"),
+			CURLOPT_FILE					 => $handle
 		);
 
 		$ch = curl_init();
 		curl_setopt_array($ch, $defaults);
 		curl_exec($ch);
 
-		$curl_error = curl_error ($ch);
+		$curl_error = curl_error($ch);
 
 		$this->openbay->log('Download errors: ' . $curl_error);
 
 		curl_close($ch);
 
-		return array('error' => 0, 'response' => $curl_error, 'percent_complete' => 60, 'status_message' => $this->language->get('text_extracting'));
+		return array( 'error'						 => 0, 'response'				 => $curl_error, 'percent_complete' => 60,
+			'status_message'	 => $this->language->get('text_extracting') );
 	}
 
 	public function updateV2Extract() {
@@ -149,9 +152,11 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		$web_root = preg_replace('/system\/$/', '', DIR_SYSTEM);
 
 		if (!function_exists("exception_error_handler")) {
-			function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+
+			function exception_error_handler($errno, $errstr, $errfile, $errline) {
 				throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 			}
+
 		}
 
 		set_error_handler('exception_error_handler');
@@ -167,7 +172,7 @@ class ModelExtensionOpenBayOpenbay extends Model {
 
 				$this->error[] = $this->language->get('text_fail_patch');
 			}
-		} catch(ErrorException $ex) {
+		} catch (ErrorException $ex) {
 			$this->openbay->log('Unable to extract update files');
 			$this->error[] = $ex->getMessage();
 		}
@@ -176,9 +181,9 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		restore_error_handler();
 
 		if (!$this->error) {
-			return array('error' => 0, 'response' => '', 'percent_complete' => 80, 'status_message' => $this->language->get('text_remove_files'));
+			return array( 'error' => 0, 'response' => '', 'percent_complete' => 80, 'status_message' => $this->language->get('text_remove_files') );
 		} else {
-			return array('error' => 1, 'response' => $this->error);
+			return array( 'error' => 1, 'response' => $this->error );
 		}
 	}
 
@@ -188,27 +193,29 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		$web_root = preg_replace('/system\/$/', '', DIR_SYSTEM);
 
 		if (!function_exists("exception_error_handler")) {
-			function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+
+			function exception_error_handler($errno, $errstr, $errfile, $errline) {
 				throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 			}
+
 		}
 
 		$this->openbay->log('Get files to remove, beta: ' . $beta);
 
-		$post = array('beta' => $beta);
+		$post = array( 'beta' => $beta );
 
 		$files = $this->call('update/getRemoveList/', $post);
 
 		$this->openbay->log("Remove Files: " . print_r($files, 1));
 
 		if (!empty($files['asset']) && is_array($files['asset'])) {
-			foreach($files['asset'] as $file) {
+			foreach ($files['asset'] as $file) {
 				$filename = $web_root . implode('/', $file['locations']['location']) . '/' . $file['name'];
 
 				if (file_exists($filename)) {
 					try {
 						unlink($filename);
-					} catch(ErrorException $ex) {
+					} catch (ErrorException $ex) {
 						$this->openbay->log('Unable to remove file: ' . $filename . ', ' . $ex->getMessage());
 						$this->error[] = $filename;
 					}
@@ -220,35 +227,37 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		restore_error_handler();
 
 		if (!$this->error) {
-			return array('error' => 0, 'response' => '', 'percent_complete' => 90, 'status_message' => $this->language->get('text_running_patch'));
+			return array( 'error' => 0, 'response' => '', 'percent_complete' => 90, 'status_message' => $this->language->get('text_running_patch') );
 		} else {
 			$response_error = '<p>' . $this->language->get('error_file_delete') . '</p>';
 			$response_error .= '<ul>';
 
-			foreach($this->error as $error_file) {
+			foreach ($this->error as $error_file) {
 				$response_error .= '<li>' . $error_file . '</li>';
 			}
 
 			$response_error .= '</ul>';
 
-			return array('error' => 1, 'response' => $response_error, 'percent_complete' => 90, 'status_message' => $this->language->get('text_running_patch'));
+			return array( 'error'						 => 1, 'response'				 => $response_error, 'percent_complete' => 90,
+				'status_message'	 => $this->language->get('text_running_patch') );
 		}
 	}
 
 	public function updateV2UpdateVersion($beta = 0) {
-		$post = array('version' => 4, 'beta' => $beta);
+		$post = array( 'version' => 4, 'beta' => $beta );
 
 		$data = $this->call('update/version/', $post);
 
 		if ($this->lasterror == true) {
 			$this->openbay->log('Update version: ' . $this->lastmsg);
 
-			return array('error' => 1, 'response' => $this->lastmsg . ' (' . VERSION . ')');
+			return array( 'error' => 1, 'response' => $this->lastmsg . ' (' . VERSION . ')' );
 		} else {
 			$settings = $this->model_setting_setting->getSetting('openbay');
 			$settings['openbay_version'] = $data['version'];
 			$this->model_setting_setting->editSetting('openbay', $settings);
-			return array('error' => 0, 'response' => $data['version'], 'percent_complete' => 100, 'status_message' => $this->language->get('text_updated_ok') . $data['version']);
+			return array( 'error'						 => 0, 'response'				 => $data['version'], 'percent_complete' => 100,
+				'status_message'	 => $this->language->get('text_updated_ok') . $data['version'] );
 		}
 	}
 
@@ -266,13 +275,13 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		$data['rootpath'] = $data['openbay_ftp_rootpath'];
 
 		if (empty($data['user'])) {
-			return array('connection' => false, 'msg' => $this->language->get('error_username'));
+			return array( 'connection' => false, 'msg' => $this->language->get('error_username') );
 		}
 		if (empty($data['pw'])) {
-			return array('connection' => false, 'msg' => $this->language->get('error_password'));
+			return array( 'connection' => false, 'msg' => $this->language->get('error_password') );
 		}
 		if (empty($data['server'])) {
-			return array('connection' => false, 'msg' => $this->language->get('error_server'));
+			return array( 'connection' => false, 'msg' => $this->language->get('error_server') );
 		}
 
 		$connection = @ftp_connect($data['server']);
@@ -310,19 +319,20 @@ class ModelExtensionOpenBayOpenbay extends Model {
 				ftp_close($connection);
 
 				if ($folder_error_admin == true) {
-					return array('connection' => false, 'msg' => $this->language->get('error_no_admin'));
+					return array( 'connection' => false, 'msg' => $this->language->get('error_no_admin') );
 				} else {
 					if ($folder_error == true) {
-						return array('connection' => false, 'msg' => $this->language->get('error_no_files'), 'dir' => json_encode($directory_list));
+						return array( 'connection' => false, 'msg'				 => $this->language->get('error_no_files'),
+							'dir'				 => json_encode($directory_list) );
 					} else {
-						return array('connection' => true, 'msg' => $this->language->get('text_connection_ok'));
+						return array( 'connection' => true, 'msg' => $this->language->get('text_connection_ok') );
 					}
 				}
 			} else {
-				return array('connection' => false, 'msg' => $this->language->get('error_ftp_login'));
+				return array( 'connection' => false, 'msg' => $this->language->get('error_ftp_login') );
 			}
 		} else {
-			return array('connection' => false, 'msg' => $this->language->get('error_ftp_connect'));
+			return array( 'connection' => false, 'msg' => $this->language->get('error_ftp_connect') );
 		}
 	}
 
@@ -347,16 +357,16 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		$data['beta'] = ((isset($data['openbay_ftp_beta']) && $data['openbay_ftp_beta'] == 1) ? 1 : 0);
 
 		if (empty($data['user'])) {
-			return array('connection' => false, 'msg' => $this->language->get('error_username'));
+			return array( 'connection' => false, 'msg' => $this->language->get('error_username') );
 		}
 		if (empty($data['pw'])) {
-			return array('connection' => false, 'msg' => $this->language->get('error_password'));
+			return array( 'connection' => false, 'msg' => $this->language->get('error_password') );
 		}
 		if (empty($data['server'])) {
-			return array('connection' => false, 'msg' => $this->language->get('error_server'));
+			return array( 'connection' => false, 'msg' => $this->language->get('error_server') );
 		}
 		if (empty($data['adminDir'])) {
-			return array('connection' => false, 'msg' => $this->language->get('error_admin'));
+			return array( 'connection' => false, 'msg' => $this->language->get('error_admin') );
 		}
 
 		$connection = @ftp_connect($data['server']);
@@ -382,14 +392,14 @@ class ModelExtensionOpenBayOpenbay extends Model {
 
 				$current_version = $this->config->get('openbay_version');
 
-				$send = array('version' => $current_version, 'ocversion' => VERSION, 'beta' => $data['beta']);
+				$send = array( 'version' => $current_version, 'ocversion' => VERSION, 'beta' => $data['beta'] );
 
 				$files = $this->call('update/getList/', $send);
 				$updatelog .= "Requesting file list\n";
 
 				if ($this->lasterror == true) {
 					$updatelog .= $this->lastmsg;
-					return array('connection' => true, 'msg' => $this->lastmsg);
+					return array( 'connection' => true, 'msg' => $this->lastmsg );
 				} else {
 					$updatelog .= "Received list of files\n";
 
@@ -424,7 +434,8 @@ class ModelExtensionOpenBayOpenbay extends Model {
 							}
 						}
 
-						$filedata = base64_decode($this->call('update/getFileContent/', array('file' => implode('/', $file['locations']['location']) . '/' . $file['name'], 'beta' => $data['beta'])));
+						$filedata = base64_decode($this->call('update/getFileContent/', array( 'file' => implode('/', $file['locations']['location']) . '/' . $file['name'],
+								'beta' => $data['beta'] )));
 
 						$tmp_file = DIR_CACHE . 'openbay.tmp';
 
@@ -538,12 +549,13 @@ class ModelExtensionOpenBayOpenbay extends Model {
 
 				$this->writeUpdateLog($updatelog . "\n\n\nErrors:\n" . $output);
 
-				return array('connection' => true, 'msg' => sprintf($this->language->get('text_updated'), $files_update['version']), 'version' => $files_update['version']);
+				return array( 'connection' => true, 'msg'				 => sprintf($this->language->get('text_updated'), $files_update['version']),
+					'version'		 => $files_update['version'] );
 			} else {
-				return array('connection' => false, 'msg' => $this->language->get('error_ftp_login'));
+				return array( 'connection' => false, 'msg' => $this->language->get('error_ftp_login') );
 			}
 		} else {
-			return array('connection' => false, 'msg' => $this->language->get('error_ftp_connect'));
+			return array( 'connection' => false, 'msg' => $this->language->get('error_ftp_connect') );
 		}
 	}
 
@@ -557,8 +569,8 @@ class ModelExtensionOpenBayOpenbay extends Model {
 
 		if ($this->lasterror == true) {
 			$data = array(
-				'error' => true,
-				'msg' => $this->lastmsg . ' (' . VERSION . ')',
+				'error'	 => true,
+				'msg'		 => $this->lastmsg . ' (' . VERSION . ')',
 			);
 
 			return $data;
@@ -569,7 +581,7 @@ class ModelExtensionOpenBayOpenbay extends Model {
 
 	public function faqGet($route) {
 		if ($this->faqIsDismissed($route) != true) {
-			$data = $this->call('faq/get/', array('route' => $route));
+			$data = $this->call('faq/get/', array( 'route' => $route ));
 			return $data;
 		} else {
 			return false;
@@ -648,29 +660,29 @@ class ModelExtensionOpenBayOpenbay extends Model {
 		}
 
 		$data = array(
-			'language' => $this->config->get('openbay_language'),
-			'server' => 1,
-			'domain' => $domain,
-			'openbay_version' => (int)$this->config->get('openbay_version'),
-			'data' => $post,
-			'content_type' => $content_type,
-			'ocversion' => VERSION
+			'language'				 => $this->config->get('openbay_language'),
+			'server'					 => 1,
+			'domain'					 => $domain,
+			'openbay_version'	 => (int)$this->config->get('openbay_version'),
+			'data'						 => $post,
+			'content_type'		 => $content_type,
+			'ocversion'				 => VERSION
 		);
 
 		$useragent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1";
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
-			CURLOPT_URL => $this->url . $call,
-			CURLOPT_USERAGENT => $useragent,
-			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_POST					 => 1,
+			CURLOPT_HEADER				 => 0,
+			CURLOPT_URL						 => $this->url . $call,
+			CURLOPT_USERAGENT			 => $useragent,
+			CURLOPT_FRESH_CONNECT	 => 1,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FORBID_REUSE	 => 1,
+			CURLOPT_TIMEOUT				 => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_SSL_VERIFYHOST => 0,
-			CURLOPT_POSTFIELDS => http_build_query($data, '', "&")
+			CURLOPT_POSTFIELDS		 => http_build_query($data, '', "&")
 		);
 
 		$ch = curl_init();
@@ -741,12 +753,12 @@ class ModelExtensionOpenBayOpenbay extends Model {
 			}
 
 			$amazon_status = array(
-				1 => 'saved',
-				2 => 'uploaded',
-				3 => 'ok',
-				4 => 'error',
-				5 => 'amazon_linked',
-				6 => 'amazon_not_linked',
+				1	 => 'saved',
+				2	 => 'uploaded',
+				3	 => 'ok',
+				4	 => 'error',
+				5	 => 'amazon_linked',
+				6	 => 'amazon_not_linked',
 			);
 		}
 
@@ -848,10 +860,10 @@ class ModelExtensionOpenBayOpenbay extends Model {
 			}
 
 			$amazon_status = array(
-				1 => 'saved',
-				2 => 'uploaded',
-				3 => 'ok',
-				4 => 'error',
+				1	 => 'saved',
+				2	 => 'uploaded',
+				3	 => 'ok',
+				4	 => 'error',
 			);
 		}
 
@@ -863,10 +875,10 @@ class ModelExtensionOpenBayOpenbay extends Model {
 			}
 
 			$amazonus_status = array(
-				1 => 'saved',
-				2 => 'uploaded',
-				3 => 'ok',
-				4 => 'error',
+				1	 => 'saved',
+				2	 => 'uploaded',
+				3	 => 'ok',
+				4	 => 'error',
 			);
 		}
 
@@ -1032,4 +1044,5 @@ class ModelExtensionOpenBayOpenbay extends Model {
 
 		return $json;
 	}
+
 }

@@ -1,5 +1,7 @@
 <?php
+
 namespace Cart;
+
 class Currency {
 	private $currencies = array();
 
@@ -11,12 +13,12 @@ class Currency {
 
 		foreach ($query->rows as $result) {
 			$this->currencies[$result['code']] = array(
-				'currency_id'   => $result['currency_id'],
-				'title'         => $result['title'],
-				'symbol_left'   => $result['symbol_left'],
-				'symbol_right'  => $result['symbol_right'],
-				'decimal_place' => $result['decimal_place'],
-				'value'         => $result['value']
+				'currency_id'		 => $result['currency_id'],
+				'title'					 => $result['title'],
+				'symbol_left'		 => $result['symbol_left'],
+				'symbol_right'	 => $result['symbol_right'],
+				'decimal_place'	 => $result['decimal_place'],
+				'value'					 => $result['value']
 			);
 		}
 	}
@@ -31,9 +33,9 @@ class Currency {
 		}
 
 		$amount = $value ? (float)$number * $value : (float)$number;
-		
+
 		$amount = round($amount, (int)$decimal_place);
-		
+
 		if (!$format) {
 			return $amount;
 		}
@@ -68,7 +70,7 @@ class Currency {
 
 		return $value * ($to / $from);
 	}
-	
+
 	public function getId($currency) {
 		if (isset($this->currencies[$currency])) {
 			return $this->currencies[$currency]['currency_id'];
@@ -112,4 +114,5 @@ class Currency {
 	public function has($currency) {
 		return isset($this->currencies[$currency]);
 	}
+
 }

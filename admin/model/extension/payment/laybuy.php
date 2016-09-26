@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentLaybuy extends Model {
+
 	public function addRevisedTransaction($data = array()) {
 		$query = $this->db->query("INSERT INTO `" . DB_PREFIX . "laybuy_revise_request` SET `laybuy_transaction_id` = '" . (int)$data['transaction_id'] . "', `type` = '" . $this->db->escape($data['type']) . "', `order_id` = '" . (int)$data['order_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `address` = '" . $this->db->escape($data['address']) . "', `suburb` = '" . $this->db->escape($data['suburb']) . "', `state` = '" . $this->db->escape($data['state']) . "', `country` = '" . $this->db->escape($data['country']) . "', `postcode` = '" . $this->db->escape($data['postcode']) . "', `email` = '" . $this->db->escape($data['email']) . "', `amount` = '" . (float)$data['amount'] . "', `currency` = '" . $this->db->escape($data['currency']) . "', `downpayment` = '" . $this->db->escape($data['downpayment']) . "', `months` = '" . (int)$data['months'] . "', `downpayment_amount` = '" . (float)$data['downpayment_amount'] . "', `payment_amounts` = '" . (float)$data['payment_amounts'] . "', `first_payment_due` = '" . $this->db->escape($data['first_payment_due']) . "', `last_payment_due` = '" . $this->db->escape($data['last_payment_due']) . "', `store_id` = '" . (int)$data['store_id'] . "', `status` = '" . (int)$data['status'] . "', `report` = '" . $this->db->escape($data['report']) . "', `transaction` = '" . (int)$data['transaction'] . "', `paypal_profile_id` = '" . $this->db->escape($data['paypal_profile_id']) . "', `laybuy_ref_no` = '" . (int)$data['laybuy_ref_no'] . "', `payment_type` = '" . (int)$data['payment_type'] . "', `date_added` = NOW()");
 
@@ -47,8 +48,8 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		for ($i = 1; $i <= $max_months; $i++) {
 			$months[] = array(
-				'value' => $i,
-				'label' => $i . ' ' . (($i > 1) ? $this->language->get('text_months') : $this->language->get('text_month'))
+				'value'	 => $i,
+				'label'	 => $i . ' ' . (($i > 1) ? $this->language->get('text_months') : $this->language->get('text_month'))
 			);
 		}
 
@@ -231,24 +232,24 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		$transaction_statuses = array(
 			array(
-				'status_id'		=> 1,
-				'status_name'	=> $this->language->get('text_status_1')
+				'status_id'		 => 1,
+				'status_name'	 => $this->language->get('text_status_1')
 			),
 			array(
-				'status_id'		=> 5,
-				'status_name'	=> $this->language->get('text_status_5')
+				'status_id'		 => 5,
+				'status_name'	 => $this->language->get('text_status_5')
 			),
 			array(
-				'status_id'		=> 7,
-				'status_name'	=> $this->language->get('text_status_7')
+				'status_id'		 => 7,
+				'status_name'	 => $this->language->get('text_status_7')
 			),
 			array(
-				'status_id'		=> 50,
-				'status_name'	=> $this->language->get('text_status_50')
+				'status_id'		 => 50,
+				'status_name'	 => $this->language->get('text_status_50')
 			),
 			array(
-				'status_id'		=> 51,
-				'status_name'	=> $this->language->get('text_status_51')
+				'status_id'		 => 51,
+				'status_name'	 => $this->language->get('text_status_51')
 			)
 		);
 
@@ -359,4 +360,5 @@ class ModelExtensionPaymentLaybuy extends Model {
 	public function updateTransactionStatus($id, $status) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "laybuy_transaction` SET `status` = '" . (int)$status . "' WHERE `laybuy_transaction_id` = '" . (int)$id . "'");
 	}
+
 }

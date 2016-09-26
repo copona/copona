@@ -21,8 +21,8 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 			}
 
 			$klarna_data = array(
-				'klarna_invoice_pclasses' => $this->pclasses,
-				'klarna_invoice_status'   => $status
+				'klarna_invoice_pclasses'	 => $this->pclasses,
+				'klarna_invoice_status'		 => $status
 			);
 
 			$this->model_setting_setting->editSetting('klarna_invoice', array_merge($this->request->post, $klarna_data));
@@ -234,4 +234,5 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
 		$this->response->redirect($this->url->link('extension/payment/klarna_invoice', 'token=' . $this->session->data['token'], true));
 	}
+
 }

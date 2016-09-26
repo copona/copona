@@ -65,12 +65,12 @@ class ControllerAccountReturn extends Controller {
 
 		foreach ($results as $result) {
 			$data['returns'][] = array(
-				'return_id'  => $result['return_id'],
-				'order_id'   => $result['order_id'],
-				'name'       => $result['firstname'] . ' ' . $result['lastname'],
-				'status'     => $result['status'],
+				'return_id'	 => $result['return_id'],
+				'order_id'	 => $result['order_id'],
+				'name'			 => $result['firstname'] . ' ' . $result['lastname'],
+				'status'		 => $result['status'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'href'       => $this->url->link('account/return/info', 'return_id=' . $result['return_id'] . $url, true)
+				'href'			 => $this->url->link('account/return/info', 'return_id=' . $result['return_id'] . $url, true)
 			);
 		}
 
@@ -198,8 +198,8 @@ class ControllerAccountReturn extends Controller {
 			foreach ($results as $result) {
 				$data['histories'][] = array(
 					'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-					'status'     => $result['status'],
-					'comment'    => nl2br($result['comment'])
+					'status'		 => $result['status'],
+					'comment'		 => nl2br($result['comment'])
 				);
 			}
 
@@ -277,16 +277,16 @@ class ControllerAccountReturn extends Controller {
 
 				if ($this->customer->isLogged()) {
 					$activity_data = array(
-						'customer_id' => $this->customer->getId(),
-						'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName(),
-						'return_id'   => $return_id
+						'customer_id'	 => $this->customer->getId(),
+						'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName(),
+						'return_id'		 => $return_id
 					);
 
 					$this->model_account_activity->addActivity('return_account', $activity_data);
 				} else {
 					$activity_data = array(
-						'name'      => $this->request->post['firstname'] . ' ' . $this->request->post['lastname'],
-						'return_id' => $return_id
+						'name'			 => $this->request->post['firstname'] . ' ' . $this->request->post['lastname'],
+						'return_id'	 => $return_id
 					);
 
 					$this->model_account_activity->addActivity('return_guest', $activity_data);
@@ -629,4 +629,5 @@ class ControllerAccountReturn extends Controller {
 
 		$this->response->setOutput($this->load->view('common/success', $data));
 	}
+
 }

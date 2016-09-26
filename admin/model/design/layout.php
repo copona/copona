@@ -1,5 +1,6 @@
 <?php
 class ModelDesignLayout extends Model {
+
 	public function addLayout($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "layout SET name = '" . $this->db->escape($data['name']) . "'");
 
@@ -58,7 +59,7 @@ class ModelDesignLayout extends Model {
 	public function getLayouts($data = array()) {
 		$sql = "SELECT * FROM " . DB_PREFIX . "layout";
 
-		$sort_data = array('name');
+		$sort_data = array( 'name' );
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];
@@ -106,4 +107,5 @@ class ModelDesignLayout extends Model {
 
 		return $query->row['total'];
 	}
+
 }

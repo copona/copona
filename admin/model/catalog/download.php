@@ -1,5 +1,6 @@
 <?php
 class ModelCatalogDownload extends Model {
+
 	public function addDownload($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "download SET filename = '" . $this->db->escape($data['filename']) . "', mask = '" . $this->db->escape($data['mask']) . "', date_added = NOW()");
 
@@ -80,7 +81,7 @@ class ModelCatalogDownload extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "download_description WHERE download_id = '" . (int)$download_id . "'");
 
 		foreach ($query->rows as $result) {
-			$download_description_data[$result['language_id']] = array('name' => $result['name']);
+			$download_description_data[$result['language_id']] = array( 'name' => $result['name'] );
 		}
 
 		return $download_description_data;
@@ -91,4 +92,5 @@ class ModelCatalogDownload extends Model {
 
 		return $query->row['total'];
 	}
+
 }

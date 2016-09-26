@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionModulePilibabaButton extends Controller {
+
 	public function index() {
 		$this->load->language('extension/module/pilibaba_button');
 
@@ -73,4 +74,5 @@ class ControllerExtensionModulePilibabaButton extends Controller {
 
 		return !$this->error;
 	}
+
 }

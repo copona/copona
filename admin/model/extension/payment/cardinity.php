@@ -1,9 +1,11 @@
 <?php
+
 use Cardinity\Client;
 use Cardinity\Method\Payment;
 use Cardinity\Method\Refund;
 
 class ModelExtensionPaymentCardinity extends Model {
+
 	public function getOrder($order_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardinity_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
@@ -12,8 +14,8 @@ class ModelExtensionPaymentCardinity extends Model {
 
 	public function createClient($credentials) {
 		return Client::create(array(
-			'consumerKey'    => $credentials['key'],
-			'consumerSecret' => $credentials['secret'],
+				'consumerKey'		 => $credentials['key'],
+				'consumerSecret' => $credentials['secret'],
 		));
 	}
 
@@ -95,4 +97,5 @@ class ModelExtensionPaymentCardinity extends Model {
 	public function uninstall() {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardinity_order`;");
 	}
+
 }

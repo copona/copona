@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionTotalCoupon extends Model {
+
 	public function getCoupon($code) {
 		$status = true;
 
@@ -77,20 +78,20 @@ class ModelExtensionTotalCoupon extends Model {
 
 		if ($status) {
 			return array(
-				'coupon_id'     => $coupon_query->row['coupon_id'],
-				'code'          => $coupon_query->row['code'],
-				'name'          => $coupon_query->row['name'],
-				'type'          => $coupon_query->row['type'],
-				'discount'      => $coupon_query->row['discount'],
-				'shipping'      => $coupon_query->row['shipping'],
-				'total'         => $coupon_query->row['total'],
-				'product'       => $product_data,
-				'date_start'    => $coupon_query->row['date_start'],
-				'date_end'      => $coupon_query->row['date_end'],
-				'uses_total'    => $coupon_query->row['uses_total'],
-				'uses_customer' => $coupon_query->row['uses_customer'],
-				'status'        => $coupon_query->row['status'],
-				'date_added'    => $coupon_query->row['date_added']
+				'coupon_id'			 => $coupon_query->row['coupon_id'],
+				'code'					 => $coupon_query->row['code'],
+				'name'					 => $coupon_query->row['name'],
+				'type'					 => $coupon_query->row['type'],
+				'discount'			 => $coupon_query->row['discount'],
+				'shipping'			 => $coupon_query->row['shipping'],
+				'total'					 => $coupon_query->row['total'],
+				'product'				 => $product_data,
+				'date_start'		 => $coupon_query->row['date_start'],
+				'date_end'			 => $coupon_query->row['date_end'],
+				'uses_total'		 => $coupon_query->row['uses_total'],
+				'uses_customer'	 => $coupon_query->row['uses_customer'],
+				'status'				 => $coupon_query->row['status'],
+				'date_added'		 => $coupon_query->row['date_added']
 			);
 		}
 	}
@@ -171,9 +172,9 @@ class ModelExtensionTotalCoupon extends Model {
 
 				if ($discount_total > 0) {
 					$total['totals'][] = array(
-						'code'       => 'coupon',
-						'title'      => sprintf($this->language->get('text_coupon'), $this->session->data['coupon']),
-						'value'      => -$discount_total,
+						'code'			 => 'coupon',
+						'title'			 => sprintf($this->language->get('text_coupon'), $this->session->data['coupon']),
+						'value'			 => -$discount_total,
 						'sort_order' => $this->config->get('coupon_sort_order')
 					);
 
@@ -207,4 +208,5 @@ class ModelExtensionTotalCoupon extends Model {
 	public function unconfirm($order_id) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "coupon_history` WHERE order_id = '" . (int)$order_id . "'");
 	}
+
 }

@@ -171,4 +171,5 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 
 		return !$this->error;
 	}
+
 }

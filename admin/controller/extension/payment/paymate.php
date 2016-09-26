@@ -160,4 +160,5 @@ class ControllerExtensionPaymentPayMate extends Controller {
 
 		return !$this->error;
 	}
+
 }

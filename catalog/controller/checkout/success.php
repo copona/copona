@@ -1,5 +1,6 @@
 <?php
 class ControllerCheckoutSuccess extends Controller {
+
 	public function index() {
 		$this->load->language('checkout/success');
 
@@ -12,15 +13,15 @@ class ControllerCheckoutSuccess extends Controller {
 
 				if ($this->customer->isLogged()) {
 					$activity_data = array(
-						'customer_id' => $this->customer->getId(),
-						'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName(),
-						'order_id'    => $this->session->data['order_id']
+						'customer_id'	 => $this->customer->getId(),
+						'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName(),
+						'order_id'		 => $this->session->data['order_id']
 					);
 
 					$this->model_account_activity->addActivity('order_account', $activity_data);
 				} else {
 					$activity_data = array(
-						'name'     => $this->session->data['guest']['firstname'] . ' ' . $this->session->data['guest']['lastname'],
+						'name'		 => $this->session->data['guest']['firstname'] . ' ' . $this->session->data['guest']['lastname'],
 						'order_id' => $this->session->data['order_id']
 					);
 
@@ -87,4 +88,5 @@ class ControllerCheckoutSuccess extends Controller {
 
 		$this->response->setOutput($this->load->view('common/success', $data));
 	}
+
 }

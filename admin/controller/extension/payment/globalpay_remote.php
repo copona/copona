@@ -116,7 +116,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		);
 
 		$data['action'] = $this->url->link('extension/payment/globalpay_remote', 'token=' . $this->session->data['token'], true);
-		
+
 		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=payment', true);
 
 		if (isset($this->request->post['globalpay_remote_merchant_id'])) {
@@ -377,7 +377,6 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				$json['msg'] = isset($capture_response->message) && !empty($capture_response->message) ? (string)$capture_response->message : 'Unable to capture';
-
 			}
 		} else {
 			$json['error'] = true;
@@ -402,7 +401,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 			$this->model_extension_payment_globalpay_remote->logger('Rebate result:\r\n' . print_r($rebate_response, 1));
 
 			if (isset($rebate_response->result) && $rebate_response->result == '00') {
-				$this->model_extension_payment_globalpay_remote->addTransaction($globalpay_order['globalpay_remote_order_id'], 'rebate', $this->request->post['amount']*-1);
+				$this->model_extension_payment_globalpay_remote->addTransaction($globalpay_order['globalpay_remote_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
 				$total_rebated = $this->model_extension_payment_globalpay_remote->getTotalRebated($globalpay_order['globalpay_remote_order_id']);
 				$total_captured = $this->model_extension_payment_globalpay_remote->getTotalCaptured($globalpay_order['globalpay_remote_order_id']);
@@ -451,4 +450,5 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 		return !$this->error;
 	}
+
 }

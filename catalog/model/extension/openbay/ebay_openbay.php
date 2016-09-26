@@ -1,19 +1,20 @@
 <?php
-class ModelExtensionOpenBayEbayOpenbay extends Model{
-	public function importOrders($data) {
-		$this->default_shipped_id         = $this->config->get('ebay_status_shipped_id');
-		$this->default_paid_id            = $this->config->get('ebay_status_paid_id');
-		$this->default_refunded_id        = $this->config->get('ebay_status_refunded_id');
-		$this->default_pending_id         = $this->config->get('ebay_status_import_id');
+class ModelExtensionOpenBayEbayOpenbay extends Model {
 
-		$this->default_part_refunded_id   = $this->config->get('ebay_status_partial_refund_id');
+	public function importOrders($data) {
+		$this->default_shipped_id = $this->config->get('ebay_status_shipped_id');
+		$this->default_paid_id = $this->config->get('ebay_status_paid_id');
+		$this->default_refunded_id = $this->config->get('ebay_status_refunded_id');
+		$this->default_pending_id = $this->config->get('ebay_status_import_id');
+
+		$this->default_part_refunded_id = $this->config->get('ebay_status_partial_refund_id');
 		if ($this->default_part_refunded_id == null) {
 			$this->default_part_refunded_id = $this->default_paid_id;
 		}
 
-		$this->tax                        = ($this->config->get('ebay_tax') == '') ? '1' : (($this->config->get('ebay_tax') / 100) + 1);
-		$this->tax_type                   = $this->config->get('ebay_tax_listing');
-		$data                             = unserialize($data);
+		$this->tax = ($this->config->get('ebay_tax') == '') ? '1' : (($this->config->get('ebay_tax') / 100) + 1);
+		$this->tax_type = $this->config->get('ebay_tax_listing');
+		$data = unserialize($data);
 
 		if (isset($data->ordersV2)) {
 			if (!empty($data->ordersV2)) {
@@ -47,7 +48,7 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 		}
 
 		if (!is_array($order->txn)) {
-			$order->txn = array($order->txn);
+			$order->txn = array( $order->txn );
 		}
 
 		$ebay_order = $this->openbay->ebay->getOrderBySmpId($order->smpId);
@@ -63,12 +64,12 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 			$created_hours = 24;
 		}
 
-		$from = date("Y-m-d H:i:00", mktime(date("H")-(int)$created_hours, date("i"), date("s"), date("m"), date("d"), date("y")));
+		$from = date("Y-m-d H:i:00", mktime(date("H") - (int)$created_hours, date("i"), date("s"), date("m"), date("d"), date("y")));
 		$this->openbay->ebay->log('Accepting orders newer than: ' . $from);
 
 		if ($order_id != false) {
-			$order_loaded   = $this->model_checkout_order->getOrder($order_id);
-			$order_history  = $this->model_extension_openbay_ebay_order->getHistory($order_id);
+			$order_loaded = $this->model_checkout_order->getOrder($order_id);
+			$order_history = $this->model_extension_openbay_ebay_order->getHistory($order_id);
 
 			$this->openbay->ebay->log('Order ID: ' . $order_id . ' -> Updating');
 
@@ -94,8 +95,9 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 				if ($this->config->get('ebay_stock_allocate') == 1) {
 					$this->openbay->ebay->log('Stock allocation is set to allocate stock when an order is paid');
 					$this->model_extension_openbay_ebay_order->addOrderLines($order, $order_id);
-				
-					$this->event->trigger('model/checkout/order/addOrderHistory/after', array('model/checkout/order/addOrderHistory/after', array($order_id, $this->default_paid_id)));
+
+					$this->event->trigger('model/checkout/order/addOrderHistory/after', array( 'model/checkout/order/addOrderHistory/after',
+						array( $order_id, $this->default_paid_id ) ));
 				}
 
 				$this->openbay->ebay->log('Order ID: ' . $order_id . ' -> Paid');
@@ -103,8 +105,9 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 				$this->model_extension_openbay_ebay_order->update($order_id, $this->default_refunded_id);
 				$this->model_extension_openbay_ebay_order->cancel($order_id);
 				$this->openbay->ebay->log('Order ID: ' . $order_id . ' -> Refunded');
-				
-				$this->event->trigger('model/checkout/order/addOrderHistory/after', array('model/checkout/order/addOrderHistory/after', array($order_id, $this->default_refunded_id)));
+
+				$this->event->trigger('model/checkout/order/addOrderHistory/after', array( 'model/checkout/order/addOrderHistory/after',
+					array( $order_id, $this->default_refunded_id ) ));
 			} elseif ($order->payment->status == 'Part-Refunded' && ($order_loaded['order_status_id'] != $this->default_part_refunded_id) && in_array($this->default_paid_id, $order_history)) {
 				$this->model_extension_openbay_ebay_order->update($order_id, $this->default_part_refunded_id);
 				$this->openbay->ebay->log('Order ID: ' . $order_id . ' -> Part Refunded');
@@ -126,7 +129,6 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 			 * - single item order, not checked out but then marked as paid. i.e. user wants to pay by manual method such as cheque
 			 * - multi item order, same as above. Is this possible? i dont think the order will combine if checkout not done.
 			 */
-
 			if ($this->config->get('ebay_import_unpaid') == 1) {
 				$this->openbay->ebay->log('Set to import unpaid orders');
 			} else {
@@ -183,7 +185,8 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 					$this->openbay->ebay->log('Order ID: ' . $order_id . ' -> Refunded');
 					$order_status_id = $this->default_refunded_id;
 
-					$this->event->trigger('model/checkout/order/addOrderHistory/after', array('model/checkout/order/addOrderHistory/after', array($order_id, $order_status_id)));
+					$this->event->trigger('model/checkout/order/addOrderHistory/after', array( 'model/checkout/order/addOrderHistory/after',
+						array( $order_id, $order_status_id ) ));
 				}
 
 				//order is part refunded
@@ -217,7 +220,8 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 				$this->openbay->ebay->log('Stock allocation is set to allocate stock when an item is bought');
 				$this->model_extension_openbay_ebay_order->addOrderLines($order, $order_id);
 
-				$this->event->trigger('model/checkout/order/addOrderHistory/after', array('model/checkout/order/addOrderHistory/after', array($order_id, $order_status_id)));
+				$this->event->trigger('model/checkout/order/addOrderHistory/after', array( 'model/checkout/order/addOrderHistory/after',
+					array( $order_id, $order_status_id ) ));
 			}
 		}
 
@@ -330,10 +334,10 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 				$this->openbay->ebay->log('create() - Tax: ' . $tax);
 			}
 
-			$txn->item->name            = stripslashes($txn->item->name);
-			$txn->item->varianttitle    = stripslashes($txn->item->varianttitle);
-			$txn->item->sku             = stripslashes($txn->item->sku);
-			$txn->item->variantsku      = stripslashes($txn->item->variantsku);
+			$txn->item->name = stripslashes($txn->item->name);
+			$txn->item->varianttitle = stripslashes($txn->item->varianttitle);
+			$txn->item->sku = stripslashes($txn->item->sku);
+			$txn->item->variantsku = stripslashes($txn->item->variantsku);
 
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "order_product` SET
 					`order_id`            = '" . (int)$order_id . "',
@@ -378,11 +382,11 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 
 							if (!empty($option_qry->row)) {
 								$p_options[] = array(
-									'product_option_id'         => $option_qry->row['product_option_id'],
-									'product_option_value_id'   => $option_qry->row['product_option_value_id'],
-									'name'                      => $option_qry->row['name'],
-									'value'                     => $option_qry->row['value'],
-									'type'                      => $option_qry->row['type'],
+									'product_option_id'				 => $option_qry->row['product_option_id'],
+									'product_option_value_id'	 => $option_qry->row['product_option_value_id'],
+									'name'										 => $option_qry->row['name'],
+									'value'										 => $option_qry->row['value'],
+									'type'										 => $option_qry->row['type'],
 								);
 							}
 						}
@@ -416,10 +420,10 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 		$this->load->model('catalog/product');
 		$totals_language = $this->load->language('extension/openbay/ebay_order');
 
-		$name_parts     = $this->openbay->splitName((string)$order->address->name);
-		$user           = array();
-		$user['fname']  = $name_parts['firstname'];
-		$user['lname']  = $name_parts['surname'];
+		$name_parts = $this->openbay->splitName((string)$order->address->name);
+		$user = array();
+		$user['fname'] = $name_parts['firstname'];
+		$user['lname'] = $name_parts['surname'];
 
 		/** get the iso2 code from the data and pull out the correct country for the details. */
 		if (!empty($order->address->iso2)) {
@@ -427,18 +431,18 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 		}
 
 		if (!empty($country_qry->num_rows)) {
-			$user['country']      = $country_qry->row['name'];
-			$user['country_id']   = $country_qry->row['country_id'];
+			$user['country'] = $country_qry->row['name'];
+			$user['country_id'] = $country_qry->row['country_id'];
 		} else {
-			$user['country']      = (string)$order->address->iso2;
-			$user['country_id']   = '';
+			$user['country'] = (string)$order->address->iso2;
+			$user['country_id'] = '';
 		}
 
-		$user['email']  = (string)$order->user->email;
-		$user['id']     = $this->openbay->getUserByEmail($user['email']);
+		$user['email'] = (string)$order->user->email;
+		$user['id'] = $this->openbay->getUserByEmail($user['email']);
 
-		$currency           = $this->model_localisation_currency->getCurrencyByCode($this->config->get('ebay_def_currency'));
-		$address_format     = $this->model_extension_openbay_ebay_order->getCountryAddressFormat((string)$order->address->iso2);
+		$currency = $this->model_localisation_currency->getCurrencyByCode($this->config->get('ebay_def_currency'));
+		$address_format = $this->model_extension_openbay_ebay_order->getCountryAddressFormat((string)$order->address->iso2);
 
 		//try to get zone id - this will only work if the zone name and country id exist in the DB.
 		$zone_id = $this->openbay->getZoneId($order->address->state, $user['country_id']);
@@ -499,43 +503,43 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 
 		/* force array type */
 		if (!is_array($order->txn)) {
-			$order->txn = array($order->txn);
+			$order->txn = array( $order->txn );
 		}
 
 		foreach ($order->txn as $txn) {
-			$qty        = (int)$txn->item->qty;
-			$price      = (double)$txn->item->price;
+			$qty = (int)$txn->item->qty;
+			$price = (double)$txn->item->price;
 
 			if ($this->tax_type == 1) {
 				//calculate taxes that come in from eBay
 				$this->openbay->ebay->log('updateOrderWithConfirmedData() - Using tax rates from eBay');
 
-				$total_tax   += (double)$txn->item->tax->total;
-				$total_net   += $price * $qty;
+				$total_tax += (double)$txn->item->tax->total;
+				$total_net += $price * $qty;
 			} else {
 				//use the store pre-set tax-rate for everything
 				$this->openbay->ebay->log('updateOrderWithConfirmedData() - Using tax rates from store');
 
-				$item_net     = $price / $this->tax;
-				$item_tax     = $price - $item_net;
-				$line_net     = $item_net * $qty;
-				$line_tax     = $item_tax * $qty;
+				$item_net = $price / $this->tax;
+				$item_tax = $price - $item_net;
+				$line_net = $item_net * $qty;
+				$line_tax = $item_tax * $qty;
 
-				$total_tax   += number_format($line_tax, 4, '.', '');
-				$total_net   += $line_net;
+				$total_tax += number_format($line_tax, 4, '.', '');
+				$total_net += $line_net;
 			}
 		}
 
 		if ($this->tax_type == 1) {
-			$discount_net    = (double)$order->order->discount;
-			$shipping_net    = (double)$order->shipping->cost;
+			$discount_net = (double)$order->order->discount;
+			$shipping_net = (double)$order->shipping->cost;
 
 			$tax = number_format($total_tax, 4, '.', '');
 		} else {
-			$discount_net    = (double)$order->order->discount / $this->tax;
-			$discount_tax    = (double)$order->order->discount - $discount_net;
-			$shipping_net    = (double)$order->shipping->cost / $this->tax;
-			$shipping_tax    = (double)$order->shipping->cost - $shipping_net;
+			$discount_net = (double)$order->order->discount / $this->tax;
+			$discount_tax = (double)$order->order->discount - $discount_net;
+			$shipping_net = (double)$order->shipping->cost / $this->tax;
+			$shipping_tax = (double)$order->shipping->cost - $shipping_net;
 
 			$tax = number_format($shipping_tax + $total_tax + $discount_tax, 4, '.', '');
 		}
@@ -545,40 +549,40 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 		$data = array();
 
 		$data['totals'][0] = array(
-			'code'          => 'sub_total',
-			'title'         => $totals_language['text_total_sub'],
-			'value'         => number_format((double)$total_net, 4, '.', ''),
-			'sort_order'    => '1'
+			'code'			 => 'sub_total',
+			'title'			 => $totals_language['text_total_sub'],
+			'value'			 => number_format((double)$total_net, 4, '.', ''),
+			'sort_order' => '1'
 		);
 
 		$data['totals'][1] = array(
-			'code'          => 'shipping',
-			'title'         => $totals_language['text_total_shipping'],
-			'value'         => number_format((double)$shipping_net, 4, '.', ''),
-			'sort_order'    => '3'
+			'code'			 => 'shipping',
+			'title'			 => $totals_language['text_total_shipping'],
+			'value'			 => number_format((double)$shipping_net, 4, '.', ''),
+			'sort_order' => '3'
 		);
 
 		if ($discount_net != 0.00) {
 			$data['totals'][2] = array(
-				'code'          => 'coupon',
-				'title'         => $totals_language['text_total_discount'],
-				'value'         => number_format((double)$discount_net, 4, '.', ''),
-				'sort_order'    => '4'
+				'code'			 => 'coupon',
+				'title'			 => $totals_language['text_total_discount'],
+				'value'			 => number_format((double)$discount_net, 4, '.', ''),
+				'sort_order' => '4'
 			);
 		}
 
 		$data['totals'][3] = array(
-			'code'          => 'tax',
-			'title'         => $totals_language['text_total_tax'],
-			'value'         => number_format((double)$tax, 3, '.', ''),
-			'sort_order'    => '5'
+			'code'			 => 'tax',
+			'title'			 => $totals_language['text_total_tax'],
+			'value'			 => number_format((double)$tax, 3, '.', ''),
+			'sort_order' => '5'
 		);
 
 		$data['totals'][4] = array(
-			'code'          => 'total',
-			'title'         => $totals_language['text_total'],
-			'value'         => $totals,
-			'sort_order'    => '6'
+			'code'			 => 'total',
+			'title'			 => $totals_language['text_total'],
+			'value'			 => $totals,
+			'sort_order' => '6'
 		);
 
 		foreach ($data['totals'] as $total) {
@@ -613,4 +617,5 @@ class ModelExtensionOpenBayEbayOpenbay extends Model{
 		readfile(DIR_LOGS . "update.log");
 		exit();
 	}
+
 }

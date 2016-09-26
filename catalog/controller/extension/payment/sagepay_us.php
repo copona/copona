@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentSagepayUS extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/sagepay_us');
 
@@ -17,8 +18,8 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
-				'value' => sprintf('%02d', $i)
+				'text'	 => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+				'value'	 => sprintf('%02d', $i)
 			);
 		}
 
@@ -28,8 +29,8 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -43,7 +44,7 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 
 		$url = 'https://www.sagepayments.net/cgi-bin/eftbankcard.dll?transaction';
 
-		$data  = 'm_id=' . $this->config->get('sagepay_us_merchant_id');
+		$data = 'm_id=' . $this->config->get('sagepay_us_merchant_id');
 		$data .= '&m_key=' . $this->config->get('sagepay_us_merchant_key');
 		$data .= '&T_amt=' . urlencode($this->currency->format($order_info['total'], $order_info['currency_code'], 1.00000, false));
 		$data .= '&T_ordernum=' . $this->session->data['order_id'];
@@ -72,7 +73,7 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 		$json = array();
 
 		if ($response[1] == 'A') {
-			$message  = 'Approval Indicator: ' . $response[1] . "\n";
+			$message = 'Approval Indicator: ' . $response[1] . "\n";
 			$message .= 'Approval/Error Code: ' . substr($response, 2, 6) . "\n";
 			$message .= 'Approval/Error Message: ' . substr($response, 8, 32) . "\n";
 			$message .= 'Front-End Indicator: ' . substr($response, 40, 2) . "\n";
@@ -92,4 +93,5 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

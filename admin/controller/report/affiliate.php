@@ -1,5 +1,6 @@
 <?php
 class ControllerReportAffiliate extends Controller {
+
 	public function index() {
 		$this->load->language('report/affiliate');
 
@@ -54,10 +55,10 @@ class ControllerReportAffiliate extends Controller {
 		$data['affiliates'] = array();
 
 		$filter_data = array(
-			'filter_date_start'	=> $filter_date_start,
-			'filter_date_end'	=> $filter_date_end,
-			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'             => $this->config->get('config_limit_admin')
+			'filter_date_start'	 => $filter_date_start,
+			'filter_date_end'		 => $filter_date_end,
+			'start'							 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'							 => $this->config->get('config_limit_admin')
 		);
 
 		$affiliate_total = $this->model_report_affiliate->getTotalCommission($filter_data);
@@ -66,13 +67,13 @@ class ControllerReportAffiliate extends Controller {
 
 		foreach ($results as $result) {
 			$data['affiliates'][] = array(
-				'affiliate'  => $result['affiliate'],
-				'email'      => $result['email'],
-				'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'affiliate'	 => $result['affiliate'],
+				'email'			 => $result['email'],
+				'status'		 => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'commission' => $this->currency->format($result['commission'], $this->config->get('config_currency')),
-				'orders'     => $result['orders'],
-				'total'      => $this->currency->format($result['total'], $this->config->get('config_currency')),
-				'edit'       => $this->url->link('marketing/affiliate/edit', 'token=' . $this->session->data['token'] . '&affiliate_id=' . $result['affiliate_id'] . $url, true)
+				'orders'		 => $result['orders'],
+				'total'			 => $this->currency->format($result['total'], $this->config->get('config_currency')),
+				'edit'			 => $this->url->link('marketing/affiliate/edit', 'token=' . $this->session->data['token'] . '&affiliate_id=' . $result['affiliate_id'] . $url, true)
 			);
 		}
 
@@ -127,4 +128,5 @@ class ControllerReportAffiliate extends Controller {
 
 		$this->response->setOutput($this->load->view('report/affiliate', $data));
 	}
+
 }

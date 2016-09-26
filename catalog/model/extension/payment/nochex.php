@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentNOCHEX extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/nochex');
 
@@ -19,13 +20,14 @@ class ModelExtensionPaymentNOCHEX extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'nochex',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'nochex',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('nochex_sort_order')
 			);
 		}
 
 		return $method_data;
 	}
+
 }

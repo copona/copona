@@ -1,5 +1,6 @@
 <?php
 class ControllerApiReward extends Controller {
+
 	public function index() {
 		$this->load->language('api/reward');
 
@@ -100,4 +101,5 @@ class ControllerApiReward extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

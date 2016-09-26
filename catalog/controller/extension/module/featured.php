@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionModuleFeatured extends Controller {
+
 	public function index($setting) {
 		$this->load->language('extension/module/featured');
 
@@ -59,15 +60,15 @@ class ControllerExtensionModuleFeatured extends Controller {
 					}
 
 					$data['products'][] = array(
-						'product_id'  => $product_info['product_id'],
-						'thumb'       => $image,
-						'name'        => $product_info['name'],
-						'description' => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
-						'price'       => $price,
-						'special'     => $special,
-						'tax'         => $tax,
-						'rating'      => $rating,
-						'href'        => $this->url->link('product/product', 'product_id=' . $product_info['product_id'])
+						'product_id'	 => $product_info['product_id'],
+						'thumb'				 => $image,
+						'name'				 => $product_info['name'],
+						'description'	 => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
+						'price'				 => $price,
+						'special'			 => $special,
+						'tax'					 => $tax,
+						'rating'			 => $rating,
+						'href'				 => $this->url->link('product/product', 'product_id=' . $product_info['product_id'])
 					);
 				}
 			}
@@ -77,4 +78,5 @@ class ControllerExtensionModuleFeatured extends Controller {
 			return $this->load->view('extension/module/featured', $data);
 		}
 	}
+
 }

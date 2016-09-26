@@ -22,8 +22,8 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 			}
 
 			$klarna_data = array(
-				'klarna_account_pclasses' => $this->pclasses,
-				'klarna_account_status'   => $status
+				'klarna_account_pclasses'	 => $this->pclasses,
+				'klarna_account_status'		 => $status
 			);
 
 			$this->model_setting_setting->editSetting('klarna_account', array_merge($this->request->post, $klarna_data));
@@ -175,43 +175,43 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 		$log = new Log('klarna_account.log');
 
 		$country = array(
-			'NOR' => array(
+			'NOR'	 => array(
 				'currency' => 1,
-				'country'  => 164,
+				'country'	 => 164,
 				'language' => 97,
 			),
-			'SWE' => array(
+			'SWE'	 => array(
 				'currency' => 0,
-				'country'  => 209,
+				'country'	 => 209,
 				'language' => 138,
 			),
-			'FIN' => array(
+			'FIN'	 => array(
 				'currency' => 2,
-				'country'  => 73,
+				'country'	 => 73,
 				'language' => 101,
 			),
-			'DNK' => array(
+			'DNK'	 => array(
 				'currency' => 3,
-				'country'  => 59,
+				'country'	 => 59,
 				'language' => 27,
 			),
-			'DEU' => array(
+			'DEU'	 => array(
 				'currency' => 2,
-				'country'  => 81,
+				'country'	 => 81,
 				'language' => 28,
 			),
-			'NLD' => array(
+			'NLD'	 => array(
 				'currency' => 2,
-				'country'  => 154,
+				'country'	 => 154,
 				'language' => 101,
 			),
 		);
 
 		foreach ($this->request->post['klarna_account'] as $key => $klarna_account) {
 			if ($klarna_account['status']) {
-				$digest = base64_encode(pack("H*", hash('sha256', $klarna_account['merchant']  . ':' . $country[$key]['currency'] . ':' . $klarna_account['secret'])));
+				$digest = base64_encode(pack("H*", hash('sha256', $klarna_account['merchant'] . ':' . $country[$key]['currency'] . ':' . $klarna_account['secret'])));
 
-				$xml  = '<methodCall>';
+				$xml = '<methodCall>';
 				$xml .= '  <methodName>get_pclasses</methodName>';
 				$xml .= '  <params>';
 				$xml .= '    <param><value><string>4.1</string></value></param>';
@@ -281,16 +281,16 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 						array_unshift($pclass, $klarna_account['merchant']);
 
 						$this->pclasses[$key][] = array(
-							'eid'          => intval($pclass[0]),
-							'id'           => intval($pclass[1]),
-							'description'  => $pclass[2],
-							'months'       => intval($pclass[3]),
-							'startfee'     => floatval($pclass[4]),
-							'invoicefee'   => floatval($pclass[5]),
+							'eid'					 => intval($pclass[0]),
+							'id'					 => intval($pclass[1]),
+							'description'	 => $pclass[2],
+							'months'			 => intval($pclass[3]),
+							'startfee'		 => floatval($pclass[4]),
+							'invoicefee'	 => floatval($pclass[5]),
 							'interestrate' => floatval($pclass[6]),
-							'minamount'    => floatval($pclass[7]),
-							'country'      => intval($pclass[8]),
-							'type'         => intval($pclass[9]),
+							'minamount'		 => floatval($pclass[7]),
+							'country'			 => intval($pclass[8]),
+							'type'				 => intval($pclass[9]),
 						);
 					}
 				} else {
@@ -362,4 +362,5 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 		$this->response->redirect($this->url->link('extension/payment/klarna_account', 'token=' . $this->session->data['token'], true));
 	}
+
 }

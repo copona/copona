@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentPPProIframe extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/pp_pro_iframe');
 
@@ -12,16 +13,16 @@ class ModelExtensionPaymentPPProIframe extends Model {
 		} elseif ($query->num_rows) {
 			$status = true;
 		} else {
-		$status = false;
+			$status = false;
 		}
 
 		$method_data = array();
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'pp_pro_iframe',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'pp_pro_iframe',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('pp_pro_iframe_sort_order')
 			);
 		}
@@ -38,4 +39,5 @@ class ModelExtensionPaymentPPProIframe extends Model {
 	public function addTransaction($transaction_data) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_iframe_order_transaction` SET `paypal_iframe_order_id` = '" . (int)$transaction_data['paypal_iframe_order_id'] . "', `transaction_id` = '" . $this->db->escape($transaction_data['transaction_id']) . "', `parent_id` = '" . $this->db->escape($transaction_data['parent_id']) . "', `date_added` = NOW(), `note` = '" . $this->db->escape($transaction_data['note']) . "', `msgsubid` = '" . $this->db->escape($transaction_data['msgsubid']) . "', `receipt_id` = '" . $this->db->escape($transaction_data['receipt_id']) . "', `payment_type` = '" . $this->db->escape($transaction_data['payment_type']) . "', `payment_status` = '" . $this->db->escape($transaction_data['payment_status']) . "', `pending_reason` = '" . $this->db->escape($transaction_data['pending_reason']) . "', `transaction_entity` = '" . $this->db->escape($transaction_data['transaction_entity']) . "', `amount` = '" . (float)$transaction_data['amount'] . "', `debug_data` = '" . $this->db->escape($transaction_data['debug_data']) . "'");
 	}
+
 }

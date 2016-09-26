@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentSkrill extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/skrill');
 
@@ -19,13 +20,14 @@ class ModelExtensionPaymentSkrill extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'skrill',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'skrill',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('skrill_sort_order')
 			);
 		}
 
 		return $method_data;
 	}
+
 }

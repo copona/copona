@@ -1,5 +1,6 @@
 <?php
 class ControllerAccountOrder extends Controller {
+
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/order', '', true);
@@ -10,13 +11,13 @@ class ControllerAccountOrder extends Controller {
 		$this->load->language('account/order');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		
+
 		$url = '';
 
 		if (isset($this->request->get['page'])) {
 			$url .= '&page=' . $this->request->get['page'];
 		}
-		
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -28,7 +29,7 @@ class ControllerAccountOrder extends Controller {
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
 		);
-		
+
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('account/order', $url, true)
@@ -67,13 +68,13 @@ class ControllerAccountOrder extends Controller {
 			$voucher_total = $this->model_account_order->getTotalOrderVouchersByOrderId($result['order_id']);
 
 			$data['orders'][] = array(
-				'order_id'   => $result['order_id'],
-				'name'       => $result['firstname'] . ' ' . $result['lastname'],
-				'status'     => $result['status'],
+				'order_id'	 => $result['order_id'],
+				'name'			 => $result['firstname'] . ' ' . $result['lastname'],
+				'status'		 => $result['status'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'products'   => ($product_total + $voucher_total),
-				'total'      => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
-				'view'       => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], true),
+				'products'	 => ($product_total + $voucher_total),
+				'total'			 => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
+				'view'			 => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], true),
 			);
 		}
 
@@ -222,19 +223,20 @@ class ControllerAccountOrder extends Controller {
 			);
 
 			$replace = array(
-				'firstname' => $order_info['payment_firstname'],
-				'lastname'  => $order_info['payment_lastname'],
-				'company'   => $order_info['payment_company'],
-				'address_1' => $order_info['payment_address_1'],
-				'address_2' => $order_info['payment_address_2'],
-				'city'      => $order_info['payment_city'],
-				'postcode'  => $order_info['payment_postcode'],
-				'zone'      => $order_info['payment_zone'],
-				'zone_code' => $order_info['payment_zone_code'],
-				'country'   => $order_info['payment_country']
+				'firstname'	 => $order_info['payment_firstname'],
+				'lastname'	 => $order_info['payment_lastname'],
+				'company'		 => $order_info['payment_company'],
+				'address_1'	 => $order_info['payment_address_1'],
+				'address_2'	 => $order_info['payment_address_2'],
+				'city'			 => $order_info['payment_city'],
+				'postcode'	 => $order_info['payment_postcode'],
+				'zone'			 => $order_info['payment_zone'],
+				'zone_code'	 => $order_info['payment_zone_code'],
+				'country'		 => $order_info['payment_country']
 			);
 
-			$data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+			$data['payment_address'] = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
+				"/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
 
 			$data['payment_method'] = $order_info['payment_method'];
 
@@ -258,19 +260,20 @@ class ControllerAccountOrder extends Controller {
 			);
 
 			$replace = array(
-				'firstname' => $order_info['shipping_firstname'],
-				'lastname'  => $order_info['shipping_lastname'],
-				'company'   => $order_info['shipping_company'],
-				'address_1' => $order_info['shipping_address_1'],
-				'address_2' => $order_info['shipping_address_2'],
-				'city'      => $order_info['shipping_city'],
-				'postcode'  => $order_info['shipping_postcode'],
-				'zone'      => $order_info['shipping_zone'],
-				'zone_code' => $order_info['shipping_zone_code'],
-				'country'   => $order_info['shipping_country']
+				'firstname'	 => $order_info['shipping_firstname'],
+				'lastname'	 => $order_info['shipping_lastname'],
+				'company'		 => $order_info['shipping_company'],
+				'address_1'	 => $order_info['shipping_address_1'],
+				'address_2'	 => $order_info['shipping_address_2'],
+				'city'			 => $order_info['shipping_city'],
+				'postcode'	 => $order_info['shipping_postcode'],
+				'zone'			 => $order_info['shipping_zone'],
+				'zone_code'	 => $order_info['shipping_zone_code'],
+				'country'		 => $order_info['shipping_country']
 			);
 
-			$data['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+			$data['shipping_address'] = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
+				"/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
 
 			$data['shipping_method'] = $order_info['shipping_method'];
 
@@ -301,8 +304,8 @@ class ControllerAccountOrder extends Controller {
 					}
 
 					$option_data[] = array(
-						'name'  => $option['name'],
-						'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
+						'name'	 => $option['name'],
+						'value'	 => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
 					);
 				}
 
@@ -315,14 +318,14 @@ class ControllerAccountOrder extends Controller {
 				}
 
 				$data['products'][] = array(
-					'name'     => $product['name'],
-					'model'    => $product['model'],
-					'option'   => $option_data,
+					'name'		 => $product['name'],
+					'model'		 => $product['model'],
+					'option'	 => $option_data,
 					'quantity' => $product['quantity'],
-					'price'    => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
-					'total'    => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
-					'reorder'  => $reorder,
-					'return'   => $this->url->link('account/return/add', 'order_id=' . $order_info['order_id'] . '&product_id=' . $product['product_id'], true)
+					'price'		 => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
+					'total'		 => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
+					'reorder'	 => $reorder,
+					'return'	 => $this->url->link('account/return/add', 'order_id=' . $order_info['order_id'] . '&product_id=' . $product['product_id'], true)
 				);
 			}
 
@@ -333,8 +336,8 @@ class ControllerAccountOrder extends Controller {
 
 			foreach ($vouchers as $voucher) {
 				$data['vouchers'][] = array(
-					'description' => $voucher['description'],
-					'amount'      => $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value'])
+					'description'	 => $voucher['description'],
+					'amount'			 => $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value'])
 				);
 			}
 
@@ -345,8 +348,8 @@ class ControllerAccountOrder extends Controller {
 
 			foreach ($totals as $total) {
 				$data['totals'][] = array(
-					'title' => $total['title'],
-					'text'  => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value']),
+					'title'	 => $total['title'],
+					'text'	 => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value']),
 				);
 			}
 
@@ -360,8 +363,8 @@ class ControllerAccountOrder extends Controller {
 			foreach ($results as $result) {
 				$data['histories'][] = array(
 					'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-					'status'     => $result['status'],
-					'comment'    => $result['notify'] ? nl2br($result['comment']) : ''
+					'status'		 => $result['status'],
+					'comment'		 => $result['notify'] ? nl2br($result['comment']) : ''
 				);
 			}
 
@@ -479,4 +482,5 @@ class ControllerAccountOrder extends Controller {
 
 		$this->response->redirect($this->url->link('account/order/info', 'order_id=' . $order_id));
 	}
+
 }

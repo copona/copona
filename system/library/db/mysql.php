@@ -1,5 +1,7 @@
 <?php
+
 namespace DB;
+
 final class MySQL {
 	private $connection;
 
@@ -73,7 +75,7 @@ final class MySQL {
 			return mysql_insert_id($this->connection);
 		}
 	}
-	
+
 	public function isConnected() {
 		if ($this->connection) {
 			return true;
@@ -81,10 +83,11 @@ final class MySQL {
 			return false;
 		}
 	}
-	
+
 	public function __destruct() {
 		if ($this->connection) {
 			mysql_close($this->connection);
 		}
 	}
+
 }

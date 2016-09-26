@@ -1,16 +1,17 @@
 <?php
-class ModelExtensionOpenBayEtsy extends Model{
+class ModelExtensionOpenBayEtsy extends Model {
+
 	public function install() {
 		$this->load->model('extension/event');
 
 		$this->model_extension_event->addEvent('openbay_etsy_add_order', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/openbay/etsy/eventAddOrderHistory');
 
-		$settings                 = array();
-		$settings["etsy_token"]   = '';
-		$settings["etsy_secret"]  = '';
+		$settings = array();
+		$settings["etsy_token"] = '';
+		$settings["etsy_secret"] = '';
 		$settings["etsy_string1"] = '';
 		$settings["etsy_string2"] = '';
-		$settings["etsy_logging"]    = '1';
+		$settings["etsy_logging"] = '1';
 
 		$this->model_setting_setting->editSetting('etsy', $settings);
 
@@ -70,4 +71,5 @@ class ModelExtensionOpenBayEtsy extends Model{
 			return false;
 		}
 	}
+
 }

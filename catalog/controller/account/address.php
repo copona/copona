@@ -37,7 +37,7 @@ class ControllerAccountAddress extends Controller {
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			$this->model_account_address->addAddress($this->request->post);
-			
+
 			$this->session->data['success'] = $this->language->get('text_add');
 
 			// Add to activity log
@@ -45,8 +45,8 @@ class ControllerAccountAddress extends Controller {
 				$this->load->model('account/activity');
 
 				$activity_data = array(
-					'customer_id' => $this->customer->getId(),
-					'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+					'customer_id'	 => $this->customer->getId(),
+					'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
 				);
 
 				$this->model_account_activity->addActivity('address_add', $activity_data);
@@ -74,7 +74,7 @@ class ControllerAccountAddress extends Controller {
 		$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
 		$this->load->model('account/address');
-		
+
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			$this->model_account_address->editAddress($this->request->get['address_id'], $this->request->post);
 
@@ -101,8 +101,8 @@ class ControllerAccountAddress extends Controller {
 				$this->load->model('account/activity');
 
 				$activity_data = array(
-					'customer_id' => $this->customer->getId(),
-					'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+					'customer_id'	 => $this->customer->getId(),
+					'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
 				);
 
 				$this->model_account_activity->addActivity('address_edit', $activity_data);
@@ -151,10 +151,10 @@ class ControllerAccountAddress extends Controller {
 				$this->load->model('account/activity');
 
 				$activity_data = array(
-					'customer_id' => $this->customer->getId(),
-					'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+					'customer_id'	 => $this->customer->getId(),
+					'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
 				);
-				
+
 				$this->model_account_activity->addActivity('address_delete', $activity_data);
 			}
 
@@ -229,23 +229,24 @@ class ControllerAccountAddress extends Controller {
 			);
 
 			$replace = array(
-				'firstname' => $result['firstname'],
-				'lastname'  => $result['lastname'],
-				'company'   => $result['company'],
-				'address_1' => $result['address_1'],
-				'address_2' => $result['address_2'],
-				'city'      => $result['city'],
-				'postcode'  => $result['postcode'],
-				'zone'      => $result['zone'],
-				'zone_code' => $result['zone_code'],
-				'country'   => $result['country']
+				'firstname'	 => $result['firstname'],
+				'lastname'	 => $result['lastname'],
+				'company'		 => $result['company'],
+				'address_1'	 => $result['address_1'],
+				'address_2'	 => $result['address_2'],
+				'city'			 => $result['city'],
+				'postcode'	 => $result['postcode'],
+				'zone'			 => $result['zone'],
+				'zone_code'	 => $result['zone_code'],
+				'country'		 => $result['country']
 			);
 
 			$data['addresses'][] = array(
 				'address_id' => $result['address_id'],
-				'address'    => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),
-				'update'     => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'], true),
-				'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], true)
+				'address'		 => str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
+					"/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format)))),
+				'update'		 => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'], true),
+				'delete'		 => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], true)
 			);
 		}
 
@@ -363,7 +364,7 @@ class ControllerAccountAddress extends Controller {
 		} else {
 			$data['error_custom_field'] = array();
 		}
-		
+
 		if (!isset($this->request->get['address_id'])) {
 			$data['action'] = $this->url->link('account/address/add', '', true);
 		} else {
@@ -432,7 +433,7 @@ class ControllerAccountAddress extends Controller {
 
 		if (isset($this->request->post['country_id'])) {
 			$data['country_id'] = (int)$this->request->post['country_id'];
-		}  elseif (!empty($address_info)) {
+		} elseif (!empty($address_info)) {
 			$data['country_id'] = $address_info['country_id'];
 		} else {
 			$data['country_id'] = $this->config->get('config_country_id');
@@ -440,7 +441,7 @@ class ControllerAccountAddress extends Controller {
 
 		if (isset($this->request->post['zone_id'])) {
 			$data['zone_id'] = (int)$this->request->post['zone_id'];
-		}  elseif (!empty($address_info)) {
+		} elseif (!empty($address_info)) {
 			$data['zone_id'] = $address_info['zone_id'];
 		} else {
 			$data['zone_id'] = '';
@@ -525,9 +526,10 @@ class ControllerAccountAddress extends Controller {
 		foreach ($custom_fields as $custom_field) {
 			if (($custom_field['location'] == 'address') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 				$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-			} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
-                $this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-            }
+			} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array(
+					'options' => array( 'regexp' => $custom_field['validation'] ) ))) {
+				$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+			}
 		}
 
 		return !$this->error;
@@ -544,4 +546,5 @@ class ControllerAccountAddress extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/authorizenet_sim');
 
@@ -81,4 +82,5 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 			$this->response->redirect($this->url->link('checkout/failure'));
 		}
 	}
+
 }

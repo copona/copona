@@ -1,5 +1,7 @@
 <?php
+
 namespace Cart;
+
 class User {
 	private $user_id;
 	private $username;
@@ -91,4 +93,5 @@ class User {
 	public function getGroupId() {
 		return $this->user_group_id;
 	}
+
 }

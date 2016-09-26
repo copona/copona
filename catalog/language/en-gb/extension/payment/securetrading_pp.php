@@ -1,5 +1,4 @@
 <?php
-
 $_['text_title'] = 'Credit / Debit card';
 $_['button_confirm'] = 'Confirm';
 

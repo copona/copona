@@ -80,8 +80,8 @@ class ControllerAccountLogin extends Controller {
 				$this->load->model('account/activity');
 
 				$activity_data = array(
-					'customer_id' => $this->customer->getId(),
-					'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+					'customer_id'	 => $this->customer->getId(),
+					'name'				 => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
 				);
 
 				$this->model_account_activity->addActivity('login', $activity_data);
@@ -209,4 +209,5 @@ class ControllerAccountLogin extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -161,10 +161,10 @@ class ControllerCatalogAttributeGroup extends Controller {
 		$data['attribute_groups'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$attribute_group_total = $this->model_catalog_attribute_group->getTotalAttributeGroups();
@@ -174,9 +174,9 @@ class ControllerCatalogAttributeGroup extends Controller {
 		foreach ($results as $result) {
 			$data['attribute_groups'][] = array(
 				'attribute_group_id' => $result['attribute_group_id'],
-				'name'               => $result['name'],
-				'sort_order'         => $result['sort_order'],
-				'edit'               => $this->url->link('catalog/attribute_group/edit', 'token=' . $this->session->data['token'] . '&attribute_group_id=' . $result['attribute_group_id'] . $url, true)
+				'name'							 => $result['name'],
+				'sort_order'				 => $result['sort_order'],
+				'edit'							 => $this->url->link('catalog/attribute_group/edit', 'token=' . $this->session->data['token'] . '&attribute_group_id=' . $result['attribute_group_id'] . $url, true)
 			);
 		}
 
@@ -378,4 +378,5 @@ class ControllerCatalogAttributeGroup extends Controller {
 
 		return !$this->error;
 	}
+
 }

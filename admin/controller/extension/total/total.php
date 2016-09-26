@@ -82,4 +82,5 @@ class ControllerExtensionTotalTotal extends Controller {
 
 		return !$this->error;
 	}
+
 }

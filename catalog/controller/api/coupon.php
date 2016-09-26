@@ -1,5 +1,6 @@
 <?php
 class ControllerApiCoupon extends Controller {
+
 	public function index() {
 		$this->load->language('api/coupon');
 
@@ -40,4 +41,5 @@ class ControllerApiCoupon extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

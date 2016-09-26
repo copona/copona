@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentPaymate extends Controller {
+
 	public function index() {
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
@@ -108,4 +109,5 @@ class ControllerExtensionPaymentPaymate extends Controller {
 			$this->response->redirect($this->url->link('checkout/success'));
 		}
 	}
+
 }

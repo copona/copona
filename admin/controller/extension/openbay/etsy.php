@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionOpenbayEtsy extends Controller {
+
 	public function install() {
 		$this->load->language('extension/openbay/etsy');
 		$this->load->model('extension/openbay/etsy');
@@ -66,7 +67,7 @@ class ControllerExtensionOpenbayEtsy extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['validation'] 	= $this->openbay->etsy->validate();
+		$data['validation'] = $this->openbay->etsy->validate();
 		$data['links_settings'] = $this->url->link('extension/openbay/etsy/settings', 'token=' . $this->session->data['token'], true);
 		$data['links_products'] = $this->url->link('extension/openbay/etsy_product/links', 'token=' . $this->session->data['token'], true);
 		$data['links_listings'] = $this->url->link('extension/openbay/etsy_product/listings', 'token=' . $this->session->data['token'], true);
@@ -208,7 +209,7 @@ class ControllerExtensionOpenbayEtsy extends Controller {
 	public function settingsUpdate() {
 		$this->openbay->etsy->settingsUpdate();
 
-		$response = array('header_code' => 200);
+		$response = array( 'header_code' => 200 );
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($response));
@@ -228,4 +229,5 @@ class ControllerExtensionOpenbayEtsy extends Controller {
 
 		return !$this->error;
 	}
+
 }

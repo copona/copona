@@ -75,4 +75,5 @@ class ControllerExtensionModuleLaybuyLayout extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -1,7 +1,8 @@
 <?php
 class ModelExtensionOpenBayEbayProduct extends Model {
+
 	public function getRelistRule($id) {
-		return $this->openbay->ebay->call('item/getAutomationRule', array('id' => $id));
+		return $this->openbay->ebay->call('item/getAutomationRule', array( 'id' => $id ));
 	}
 
 	public function importItems($data) {
@@ -190,8 +191,8 @@ class ModelExtensionOpenBayEbayProduct extends Model {
 					$weight_class_id = $this->weightClassExists($item['advanced']['package']['weight']['major_unit']);
 				}
 
-				$tax            = $this->config->get('ebay_tax');
-				$net_price      = $item['priceGross'] / (($tax / 100) + 1);
+				$tax = $this->config->get('ebay_tax');
+				$net_price = $item['priceGross'] / (($tax / 100) + 1);
 
 				//openstock variant check
 				$openstock_sql = '';
@@ -340,10 +341,10 @@ class ModelExtensionOpenBayEbayProduct extends Model {
 	public function getDisplayProducts() {
 		$data = array();
 		$data['search_keyword'] = $this->config->get('ebaydisplay_module_keywords');
-		$data['seller_id']      = $this->config->get('ebaydisplay_module_username');
-		$data['limit']          = $this->config->get('ebaydisplay_module_limit');
-		$data['sort']           = $this->config->get('ebaydisplay_module_sort');
-		$data['search_desc']    = $this->config->get('ebaydisplay_module_description');
+		$data['seller_id'] = $this->config->get('ebaydisplay_module_username');
+		$data['limit'] = $this->config->get('ebaydisplay_module_limit');
+		$data['sort'] = $this->config->get('ebaydisplay_module_sort');
+		$data['search_desc'] = $this->config->get('ebaydisplay_module_description');
 
 		return $this->openbay->ebay->call('item/searchListingsForDisplay', $data);
 	}
@@ -390,7 +391,7 @@ class ModelExtensionOpenBayEbayProduct extends Model {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option` `o` LEFT JOIN `" . DB_PREFIX . "option_description` `od` ON (`od`.`option_id` = `o`.`option_id`) WHERE `od`.`name` = '" . $this->db->escape($name) . "'LIMIT 1");
 
 		if ($qry->num_rows) {
-			return array('id' => (int)$qry->row['option_id'], 'sort' => (int)$qry->row['sort_order']);
+			return array( 'id' => (int)$qry->row['option_id'], 'sort' => (int)$qry->row['sort_order'] );
 		} else {
 			return $this->createOption($name);
 		}
@@ -405,14 +406,14 @@ class ModelExtensionOpenBayEbayProduct extends Model {
 
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "option_description` SET `language_id` = '" . (int)$this->config->get('config_language_id') . "', `name` = '" . $this->db->escape($name) . "', `option_id` = '" . (int)$option_id . "'");
 
-		return array('id' => (int)$option_id, 'sort' => (int)$qry_sort->row['sort_order']);
+		return array( 'id' => (int)$option_id, 'sort' => (int)$qry_sort->row['sort_order'] );
 	}
 
 	private function getOptionValue($name, $option_id) {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_value` ov LEFT JOIN `" . DB_PREFIX . "option_value_description` `ovd` ON (`ovd`.`option_value_id` = `ov`.`option_value_id`) WHERE `ovd`.`name` = '" . $this->db->escape($name) . "' AND `ovd`.`option_id` = '" . (int)$option_id . "'LIMIT 1");
 
 		if ($qry->num_rows) {
-			return array('id' => (int)$qry->row['option_value_id'], 'sort' => (int)$qry->row['sort_order']);
+			return array( 'id' => (int)$qry->row['option_value_id'], 'sort' => (int)$qry->row['sort_order'] );
 		} else {
 			return $this->createOptionValue($name, $option_id);
 		}
@@ -425,7 +426,7 @@ class ModelExtensionOpenBayEbayProduct extends Model {
 
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "option_value_description` SET `language_id` = '" . (int)$this->config->get('config_language_id') . "', `name` = '" . $this->db->escape($name) . "', `option_id` = '" . (int)$option_id . "', `option_value_id` = '" . (int)$id . "'");
 
-		return array('id' => (int)$id);
+		return array( 'id' => (int)$id );
 	}
 
 	private function getProductOption($product_id, $option_id) {
@@ -597,7 +598,7 @@ class ModelExtensionOpenBayEbayProduct extends Model {
 		}
 
 		$image_old = DIR_IMAGE . 'catalog/' . md5($filename) . '.jpg';
-		$image_new = 'cache/ebaydisplay/' . md5($filename) . '-' . $width . 'x' . $height . $type  . '.jpg';
+		$image_new = 'cache/ebaydisplay/' . md5($filename) . '-' . $width . 'x' . $height . $type . '.jpg';
 
 		if (!file_exists(DIR_IMAGE . $image_new)) {
 			$path = '';
@@ -653,4 +654,5 @@ class ModelExtensionOpenBayEbayProduct extends Model {
 			$this->repairCategories($category['category_id']);
 		}
 	}
+
 }

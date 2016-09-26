@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentPayza extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/payza');
 
@@ -19,13 +20,14 @@ class ModelExtensionPaymentPayza extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'payza',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'payza',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('payza_sort_order')
 			);
 		}
 
 		return $method_data;
 	}
+
 }

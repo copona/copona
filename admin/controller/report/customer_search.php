@@ -1,5 +1,6 @@
 <?php
 class ControllerReportCustomerSearch extends Controller {
+
 	public function index() {
 		$this->load->language('report/customer_search');
 
@@ -85,13 +86,13 @@ class ControllerReportCustomerSearch extends Controller {
 		$data['searches'] = array();
 
 		$filter_data = array(
-			'filter_date_start'	=> $filter_date_start,
-			'filter_date_end'	=> $filter_date_end,
-			'filter_keyword'    => $filter_keyword,
-			'filter_customer'   => $filter_customer,
-			'filter_ip'         => $filter_ip,
-			'start'             => ($page - 1) * 20,
-			'limit'             => 20
+			'filter_date_start'	 => $filter_date_start,
+			'filter_date_end'		 => $filter_date_end,
+			'filter_keyword'		 => $filter_keyword,
+			'filter_customer'		 => $filter_customer,
+			'filter_ip'					 => $filter_ip,
+			'start'							 => ($page - 1) * 20,
+			'limit'							 => 20
 		);
 
 		$search_total = $this->model_report_customer->getTotalCustomerSearches($filter_data);
@@ -114,12 +115,12 @@ class ControllerReportCustomerSearch extends Controller {
 			}
 
 			$data['searches'][] = array(
-				'keyword'     => $result['keyword'],
-				'products'    => $result['products'],
-				'category'    => $category,
-				'customer'    => $customer,
-				'ip'          => $result['ip'],
-				'date_added'  => date($this->language->get('datetime_format'), strtotime($result['date_added']))
+				'keyword'		 => $result['keyword'],
+				'products'	 => $result['products'],
+				'category'	 => $category,
+				'customer'	 => $customer,
+				'ip'				 => $result['ip'],
+				'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
 			);
 		}
 
@@ -194,4 +195,5 @@ class ControllerReportCustomerSearch extends Controller {
 
 		$this->response->setOutput($this->load->view('report/customer_search', $data));
 	}
+
 }

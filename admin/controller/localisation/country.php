@@ -161,10 +161,10 @@ class ControllerLocalisationCountry extends Controller {
 		$data['countries'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$country_total = $this->model_localisation_country->getTotalCountries();
@@ -174,10 +174,10 @@ class ControllerLocalisationCountry extends Controller {
 		foreach ($results as $result) {
 			$data['countries'][] = array(
 				'country_id' => $result['country_id'],
-				'name'       => $result['name'] . (($result['country_id'] == $this->config->get('config_country_id')) ? $this->language->get('text_default') : null),
+				'name'			 => $result['name'] . (($result['country_id'] == $this->config->get('config_country_id')) ? $this->language->get('text_default') : null),
 				'iso_code_2' => $result['iso_code_2'],
 				'iso_code_3' => $result['iso_code_3'],
-				'edit'       => $this->url->link('localisation/country/edit', 'token=' . $this->session->data['token'] . '&country_id=' . $result['country_id'] . $url, true)
+				'edit'			 => $this->url->link('localisation/country/edit', 'token=' . $this->session->data['token'] . '&country_id=' . $result['country_id'] . $url, true)
 			);
 		}
 
@@ -449,7 +449,7 @@ class ControllerLocalisationCountry extends Controller {
 
 		return !$this->error;
 	}
-	
+
 	public function country() {
 		$json = array();
 
@@ -461,18 +461,19 @@ class ControllerLocalisationCountry extends Controller {
 			$this->load->model('localisation/zone');
 
 			$json = array(
-				'country_id'        => $country_info['country_id'],
-				'name'              => $country_info['name'],
-				'iso_code_2'        => $country_info['iso_code_2'],
-				'iso_code_3'        => $country_info['iso_code_3'],
-				'address_format'    => $country_info['address_format'],
-				'postcode_required' => $country_info['postcode_required'],
-				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-				'status'            => $country_info['status']
+				'country_id'				 => $country_info['country_id'],
+				'name'							 => $country_info['name'],
+				'iso_code_2'				 => $country_info['iso_code_2'],
+				'iso_code_3'				 => $country_info['iso_code_3'],
+				'address_format'		 => $country_info['address_format'],
+				'postcode_required'	 => $country_info['postcode_required'],
+				'zone'							 => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
+				'status'						 => $country_info['status']
 			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
-	}	
+	}
+
 }

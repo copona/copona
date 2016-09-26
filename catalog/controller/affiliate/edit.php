@@ -26,7 +26,7 @@ class ControllerAffiliateEdit extends Controller {
 
 				$activity_data = array(
 					'affiliate_id' => $this->affiliate->getId(),
-					'name'         => $this->affiliate->getFirstName() . ' ' . $this->affiliate->getLastName()
+					'name'				 => $this->affiliate->getFirstName() . ' ' . $this->affiliate->getLastName()
 				);
 
 				$this->model_affiliate_activity->addActivity('edit', $activity_data);
@@ -319,18 +319,19 @@ class ControllerAffiliateEdit extends Controller {
 			$this->load->model('localisation/zone');
 
 			$json = array(
-				'country_id'        => $country_info['country_id'],
-				'name'              => $country_info['name'],
-				'iso_code_2'        => $country_info['iso_code_2'],
-				'iso_code_3'        => $country_info['iso_code_3'],
-				'address_format'    => $country_info['address_format'],
-				'postcode_required' => $country_info['postcode_required'],
-				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-				'status'            => $country_info['status']
+				'country_id'				 => $country_info['country_id'],
+				'name'							 => $country_info['name'],
+				'iso_code_2'				 => $country_info['iso_code_2'],
+				'iso_code_3'				 => $country_info['iso_code_3'],
+				'address_format'		 => $country_info['address_format'],
+				'postcode_required'	 => $country_info['postcode_required'],
+				'zone'							 => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
+				'status'						 => $country_info['status']
 			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

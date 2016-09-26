@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentPPStandard extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/pp_standard');
 
@@ -32,7 +33,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 						$value = $option['value'];
 					} else {
 						$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
-						
+
 						if ($upload_info) {
 							$value = $upload_info['name'];
 						} else {
@@ -41,18 +42,18 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 					}
 
 					$option_data[] = array(
-						'name'  => $option['name'],
-						'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
+						'name'	 => $option['name'],
+						'value'	 => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
 					);
 				}
 
 				$data['products'][] = array(
-					'name'     => htmlspecialchars($product['name']),
-					'model'    => htmlspecialchars($product['model']),
-					'price'    => $this->currency->format($product['price'], $order_info['currency_code'], false, false),
+					'name'		 => htmlspecialchars($product['name']),
+					'model'		 => htmlspecialchars($product['model']),
+					'price'		 => $this->currency->format($product['price'], $order_info['currency_code'], false, false),
 					'quantity' => $product['quantity'],
-					'option'   => $option_data,
-					'weight'   => $product['weight']
+					'option'	 => $option_data,
+					'weight'	 => $product['weight']
 				);
 			}
 
@@ -62,12 +63,12 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 
 			if ($total > 0) {
 				$data['products'][] = array(
-					'name'     => $this->language->get('text_total'),
-					'model'    => '',
-					'price'    => $total,
+					'name'		 => $this->language->get('text_total'),
+					'model'		 => '',
+					'price'		 => $total,
 					'quantity' => 1,
-					'option'   => array(),
-					'weight'   => 0
+					'option'	 => array(),
+					'weight'	 => 0
 				);
 			} else {
 				$data['discount_amount_cart'] -= $total;
@@ -145,7 +146,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 			if ((strcmp($response, 'VERIFIED') == 0 || strcmp($response, 'UNVERIFIED') == 0) && isset($this->request->post['payment_status'])) {
 				$order_status_id = $this->config->get('config_order_status_id');
 
-				switch($this->request->post['payment_status']) {
+				switch ($this->request->post['payment_status']) {
 					case 'Canceled_Reversal':
 						$order_status_id = $this->config->get('pp_standard_canceled_reversal_status_id');
 						break;
@@ -157,11 +158,11 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 						if ($receiver_match && $total_paid_match) {
 							$order_status_id = $this->config->get('pp_standard_completed_status_id');
 						}
-						
+
 						if (!$receiver_match) {
 							$this->log->write('PP_STANDARD :: RECEIVER EMAIL MISMATCH! ' . strtolower($this->request->post['receiver_email']));
 						}
-						
+
 						if (!$total_paid_match) {
 							$this->log->write('PP_STANDARD :: TOTAL PAID MISMATCH! ' . $this->request->post['mc_gross']);
 						}
@@ -200,4 +201,5 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 			curl_close($curl);
 		}
 	}
+
 }

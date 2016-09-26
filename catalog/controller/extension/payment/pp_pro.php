@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentPPPro extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/pp_pro');
 
@@ -23,41 +24,41 @@ class ControllerExtensionPaymentPPPro extends Controller {
 		$data['cards'] = array();
 
 		$data['cards'][] = array(
-			'text'  => 'Visa',
-			'value' => 'VISA'
+			'text'	 => 'Visa',
+			'value'	 => 'VISA'
 		);
 
 		$data['cards'][] = array(
-			'text'  => 'MasterCard',
-			'value' => 'MASTERCARD'
+			'text'	 => 'MasterCard',
+			'value'	 => 'MASTERCARD'
 		);
 
 		$data['cards'][] = array(
-			'text'  => 'Discover Card',
-			'value' => 'DISCOVER'
+			'text'	 => 'Discover Card',
+			'value'	 => 'DISCOVER'
 		);
 
 		$data['cards'][] = array(
-			'text'  => 'American Express',
-			'value' => 'AMEX'
+			'text'	 => 'American Express',
+			'value'	 => 'AMEX'
 		);
 
 		$data['cards'][] = array(
-			'text'  => 'Maestro',
-			'value' => 'SWITCH'
+			'text'	 => 'Maestro',
+			'value'	 => 'SWITCH'
 		);
 
 		$data['cards'][] = array(
-			'text'  => 'Solo',
-			'value' => 'SOLO'
+			'text'	 => 'Solo',
+			'value'	 => 'SOLO'
 		);
 
 		$data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
-				'value' => sprintf('%02d', $i)
+				'text'	 => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+				'value'	 => sprintf('%02d', $i)
 			);
 		}
 
@@ -67,8 +68,8 @@ class ControllerExtensionPaymentPPPro extends Controller {
 
 		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {
 			$data['year_valid'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -76,8 +77,8 @@ class ControllerExtensionPaymentPPPro extends Controller {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+				'text'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
+				'value'	 => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
 			);
 		}
 
@@ -95,7 +96,7 @@ class ControllerExtensionPaymentPPPro extends Controller {
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-		$request  = 'METHOD=DoDirectPayment';
+		$request = 'METHOD=DoDirectPayment';
 		$request .= '&VERSION=51.0';
 		$request .= '&USER=' . urlencode($this->config->get('pp_pro_username'));
 		$request .= '&PWD=' . urlencode($this->config->get('pp_pro_password'));
@@ -196,4 +197,5 @@ class ControllerExtensionPaymentPPPro extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

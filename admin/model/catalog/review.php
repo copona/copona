@@ -1,5 +1,6 @@
 <?php
 class ModelCatalogReview extends Model {
+
 	public function addReview($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "review SET author = '" . $this->db->escape($data['author']) . "', product_id = '" . (int)$data['product_id'] . "', text = '" . $this->db->escape(strip_tags($data['text'])) . "', rating = '" . (int)$data['rating'] . "', status = '" . (int)$data['status'] . "', date_added = '" . $this->db->escape($data['date_added']) . "'");
 
@@ -113,4 +114,5 @@ class ModelCatalogReview extends Model {
 
 		return $query->row['total'];
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ControllerApiPayment extends Controller {
+
 	public function address() {
 		$this->load->language('api/payment');
 
@@ -72,10 +73,10 @@ class ControllerApiPayment extends Controller {
 			foreach ($custom_fields as $custom_field) {
 				if (($custom_field['location'] == 'address') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 					$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-				} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
+				} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array(
+						'options' => array( 'regexp' => $custom_field['validation'] ) ))) {
 					$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 				}
-				
 			}
 
 			if (!$json) {
@@ -108,26 +109,26 @@ class ControllerApiPayment extends Controller {
 				}
 
 				$this->session->data['payment_address'] = array(
-					'firstname'      => $this->request->post['firstname'],
-					'lastname'       => $this->request->post['lastname'],
-					'company'        => $this->request->post['company'],
-					'address_1'      => $this->request->post['address_1'],
-					'address_2'      => $this->request->post['address_2'],
-					'postcode'       => $this->request->post['postcode'],
-					'city'           => $this->request->post['city'],
-					'zone_id'        => $this->request->post['zone_id'],
-					'zone'           => $zone,
-					'zone_code'      => $zone_code,
-					'country_id'     => $this->request->post['country_id'],
-					'country'        => $country,
-					'iso_code_2'     => $iso_code_2,
-					'iso_code_3'     => $iso_code_3,
+					'firstname'			 => $this->request->post['firstname'],
+					'lastname'			 => $this->request->post['lastname'],
+					'company'				 => $this->request->post['company'],
+					'address_1'			 => $this->request->post['address_1'],
+					'address_2'			 => $this->request->post['address_2'],
+					'postcode'			 => $this->request->post['postcode'],
+					'city'					 => $this->request->post['city'],
+					'zone_id'				 => $this->request->post['zone_id'],
+					'zone'					 => $zone,
+					'zone_code'			 => $zone_code,
+					'country_id'		 => $this->request->post['country_id'],
+					'country'				 => $country,
+					'iso_code_2'		 => $iso_code_2,
+					'iso_code_3'		 => $iso_code_3,
 					'address_format' => $address_format,
-					'custom_field'   => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : array()
+					'custom_field'	 => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : array()
 				);
 
 				$json['success'] = $this->language->get('text_address');
-				
+
 				unset($this->session->data['payment_method']);
 				unset($this->session->data['payment_methods']);
 			}
@@ -146,7 +147,7 @@ class ControllerApiPayment extends Controller {
 
 	public function methods() {
 		$this->load->language('api/payment');
-		
+
 		// Delete past shipping methods and method just in case there is an error
 		unset($this->session->data['payment_methods']);
 		unset($this->session->data['payment_method']);
@@ -160,18 +161,18 @@ class ControllerApiPayment extends Controller {
 			if (!isset($this->session->data['payment_address'])) {
 				$json['error'] = $this->language->get('error_address');
 			}
-			
+
 			if (!$json) {
 				// Totals
 				$totals = array();
 				$taxes = $this->cart->getTaxes();
 				$total = 0;
 
-				// Because __call can not keep var references so we put them into an array. 
+				// Because __call can not keep var references so we put them into an array.
 				$total_data = array(
 					'totals' => &$totals,
-					'taxes'  => &$taxes,
-					'total'  => &$total
+					'taxes'	 => &$taxes,
+					'total'	 => &$total
 				);
 
 				$this->load->model('extension/extension');
@@ -189,7 +190,7 @@ class ControllerApiPayment extends Controller {
 				foreach ($results as $result) {
 					if ($this->config->get($result['code'] . '_status')) {
 						$this->load->model('extension/total/' . $result['code']);
-						
+
 						// We have to put the totals in an array so that they pass by reference.
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
@@ -291,4 +292,5 @@ class ControllerApiPayment extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

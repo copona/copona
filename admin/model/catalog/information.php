@@ -1,5 +1,6 @@
 <?php
 class ModelCatalogInformation extends Model {
+
 	public function addInformation($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "information SET sort_order = '" . (int)$data['sort_order'] . "', bottom = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', status = '" . (int)$data['status'] . "'");
 
@@ -138,11 +139,11 @@ class ModelCatalogInformation extends Model {
 
 		foreach ($query->rows as $result) {
 			$information_description_data[$result['language_id']] = array(
-				'title'            => $result['title'],
-				'description'      => $result['description'],
-				'meta_title'       => $result['meta_title'],
+				'title'						 => $result['title'],
+				'description'			 => $result['description'],
+				'meta_title'			 => $result['meta_title'],
 				'meta_description' => $result['meta_description'],
-				'meta_keyword'     => $result['meta_keyword']
+				'meta_keyword'		 => $result['meta_keyword']
 			);
 		}
 
@@ -184,4 +185,5 @@ class ModelCatalogInformation extends Model {
 
 		return $query->row['total'];
 	}
+
 }

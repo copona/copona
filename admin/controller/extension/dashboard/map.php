@@ -18,7 +18,7 @@ class ControllerExtensionDashboardMap extends Controller {
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -64,11 +64,11 @@ class ControllerExtensionDashboardMap extends Controller {
 		}
 
 		$data['columns'] = array();
-		
+
 		for ($i = 3; $i <= 12; $i++) {
 			$data['columns'][] = $i;
 		}
-				
+
 		if (isset($this->request->post['dashboard_map_status'])) {
 			$data['dashboard_map_status'] = $this->request->post['dashboard_map_status'];
 		} else {
@@ -95,7 +95,7 @@ class ControllerExtensionDashboardMap extends Controller {
 
 		return !$this->error;
 	}
-		
+
 	public function dashboard() {
 		$this->load->language('extension/dashboard/map');
 
@@ -105,7 +105,7 @@ class ControllerExtensionDashboardMap extends Controller {
 		$data['text_sale'] = $this->language->get('text_sale');
 
 		$data['token'] = $this->session->data['token'];
-		
+
 		return $this->load->view('extension/dashboard/map_info', $data);
 	}
 
@@ -118,7 +118,7 @@ class ControllerExtensionDashboardMap extends Controller {
 
 		foreach ($results as $result) {
 			$json[strtolower($result['iso_code_2'])] = array(
-				'total'  => $result['total'],
+				'total'	 => $result['total'],
 				'amount' => $this->currency->format($result['amount'], $this->config->get('config_currency'))
 			);
 		}
@@ -126,4 +126,5 @@ class ControllerExtensionDashboardMap extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

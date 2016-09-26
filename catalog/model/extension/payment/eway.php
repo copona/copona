@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentEway extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/eway');
 
@@ -20,9 +21,9 @@ class ModelExtensionPaymentEway extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'eway',
-				'title' => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'eway',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('eway_sort_order')
 			);
 		}
@@ -58,12 +59,12 @@ class ModelExtensionPaymentEway extends Model {
 		foreach ($query->rows as $row) {
 
 			$card_data[] = array(
-				'card_id' => $row['card_id'],
-				'customer_id' => $row['customer_id'],
-				'token' => $row['token'],
-				'digits' => '**** ' . $row['digits'],
-				'expiry' => $row['expiry'],
-				'type' => $row['type'],
+				'card_id'			 => $row['card_id'],
+				'customer_id'	 => $row['customer_id'],
+				'token'				 => $row['token'],
+				'digits'			 => '**** ' . $row['digits'],
+				'expiry'			 => $row['expiry'],
+				'type'				 => $row['type'],
 			);
 		}
 		return $card_data;
@@ -133,16 +134,16 @@ class ModelExtensionPaymentEway extends Model {
 		return $response;
 	}
 
-	public function sendCurl($url, $data, $is_post=true) {
+	public function sendCurl($url, $data, $is_post = true) {
 		$ch = curl_init($url);
 
 		$eway_username = html_entity_decode($this->config->get('eway_username'), ENT_QUOTES, 'UTF-8');
 		$eway_password = html_entity_decode($this->config->get('eway_password'), ENT_QUOTES, 'UTF-8');
 
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" ));
 		curl_setopt($ch, CURLOPT_USERPWD, $eway_username . ":" . $eway_password);
 		if ($is_post) {
-		curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 		} else {
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
@@ -158,7 +159,7 @@ class ModelExtensionPaymentEway extends Model {
 		if (curl_errno($ch) != CURLE_OK) {
 			$response = new stdClass();
 			$response->Errors = "POST Error: " . curl_error($ch) . " URL: $url";
-			$this->log(array('error' => curl_error($ch), 'errno' => curl_errno($ch)), 'cURL failed');
+			$this->log(array( 'error' => curl_error($ch), 'errno' => curl_errno($ch) ), 'cURL failed');
 			$response = json_encode($response);
 		} else {
 			$info = curl_getinfo($ch);

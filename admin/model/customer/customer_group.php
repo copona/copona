@@ -1,5 +1,6 @@
 <?php
 class ModelCustomerCustomerGroup extends Model {
+
 	public function addCustomerGroup($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_group SET approval = '" . (int)$data['approval'] . "', sort_order = '" . (int)$data['sort_order'] . "'");
 
@@ -8,7 +9,7 @@ class ModelCustomerCustomerGroup extends Model {
 		foreach ($data['customer_group_description'] as $language_id => $value) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "customer_group_description SET customer_group_id = '" . (int)$customer_group_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', description = '" . $this->db->escape($value['description']) . "'");
 		}
-		
+
 		return $customer_group_id;
 	}
 
@@ -81,8 +82,8 @@ class ModelCustomerCustomerGroup extends Model {
 
 		foreach ($query->rows as $result) {
 			$customer_group_data[$result['language_id']] = array(
-				'name'        => $result['name'],
-				'description' => $result['description']
+				'name'				 => $result['name'],
+				'description'	 => $result['description']
 			);
 		}
 
@@ -94,4 +95,5 @@ class ModelCustomerCustomerGroup extends Model {
 
 		return $query->row['total'];
 	}
+
 }

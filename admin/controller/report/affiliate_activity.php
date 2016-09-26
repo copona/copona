@@ -1,5 +1,6 @@
 <?php
 class ControllerReportAffiliateActivity extends Controller {
+
 	public function index() {
 		$this->load->language('report/affiliate_activity');
 
@@ -74,12 +75,12 @@ class ControllerReportAffiliateActivity extends Controller {
 		$data['activities'] = array();
 
 		$filter_data = array(
-			'filter_affiliate'   => $filter_affiliate,
-			'filter_ip'         => $filter_ip,
-			'filter_date_start'	=> $filter_date_start,
-			'filter_date_end'	=> $filter_date_end,
-			'start'             => ($page - 1) * 20,
-			'limit'             => 20
+			'filter_affiliate'	 => $filter_affiliate,
+			'filter_ip'					 => $filter_ip,
+			'filter_date_start'	 => $filter_date_start,
+			'filter_date_end'		 => $filter_date_end,
+			'start'							 => ($page - 1) * 20,
+			'limit'							 => 20
 		);
 
 		$activity_total = $this->model_report_affiliate->getTotalAffiliateActivities($filter_data);
@@ -90,8 +91,8 @@ class ControllerReportAffiliateActivity extends Controller {
 			$comment = vsprintf($this->language->get('text_' . $result['key']), json_decode($result['data'], true));
 
 			$data['activities'][] = array(
-				'comment'    => str_replace('affiliate_id=', $this->url->link('marketing/affiliate/edit', 'token=' . $this->session->data['token'] . '&affiliate_id=', true), $comment),
-				'ip'         => $result['ip'],
+				'comment'		 => str_replace('affiliate_id=', $this->url->link('marketing/affiliate/edit', 'token=' . $this->session->data['token'] . '&affiliate_id=', true), $comment),
+				'ip'				 => $result['ip'],
 				'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
 			);
 		}
@@ -154,4 +155,5 @@ class ControllerReportAffiliateActivity extends Controller {
 
 		$this->response->setOutput($this->load->view('report/affiliate_activity', $data));
 	}
+
 }

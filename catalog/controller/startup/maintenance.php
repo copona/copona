@@ -1,5 +1,6 @@
 <?php
 class ControllerStartupMaintenance extends Controller {
+
 	public function index() {
 		if ($this->config->get('config_maintenance')) {
 			// Route
@@ -7,13 +8,13 @@ class ControllerStartupMaintenance extends Controller {
 				$route = $this->request->get['route'];
 			} else {
 				$route = $this->config->get('action_default');
-			}			
-			
+			}
+
 			$ignore = array(
 				'common/language/language',
 				'common/currency/currency'
 			);
-			
+
 			// Show site if logged in as admin
 			$this->user = new Cart\User($this->registry);
 
@@ -22,4 +23,5 @@ class ControllerStartupMaintenance extends Controller {
 			}
 		}
 	}
+
 }

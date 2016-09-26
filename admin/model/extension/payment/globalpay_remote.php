@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentGlobalpayRemote extends Model {
+
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "globalpay_remote_order` (
@@ -67,8 +68,8 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			$response = curl_exec ($ch);
-			curl_close ($ch);
+			$response = curl_exec($ch);
+			curl_close($ch);
 
 			return simplexml_load_string($response);
 		} else {
@@ -89,26 +90,26 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			$secret = $this->config->get('globalpay_remote_secret');
 
 			if ($globalpay_order['settle_type'] == 2) {
-				$this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount*100) . '.' . (string)$globalpay_order['currency_code'] . '.');
+				$this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$globalpay_order['currency_code'] . '.');
 
-				$tmp = $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount*100) . '.' . (string)$globalpay_order['currency_code'] . '.';
+				$tmp = $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$globalpay_order['currency_code'] . '.';
 				$hash = sha1($tmp);
 				$tmp = $hash . '.' . $secret;
 				$hash = sha1($tmp);
 
 				$settle_type = 'multisettle';
-				$xml_amount = '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount*100) . '</amount>';
+				$xml_amount = '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
 			} else {
 				//$this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '...');
-				$this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount*100) . '.' . (string)$globalpay_order['currency_code'] . '.');
+				$this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$globalpay_order['currency_code'] . '.');
 
-				$tmp = $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount*100) . '.' . (string)$globalpay_order['currency_code'] . '.';
+				$tmp = $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$globalpay_order['currency_code'] . '.';
 				$hash = sha1($tmp);
 				$tmp = $hash . '.' . $secret;
 				$hash = sha1($tmp);
 
 				$settle_type = 'settle';
-				$xml_amount = '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount*100) . '</amount>';
+				$xml_amount = '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
 			}
 
 			$xml = '';
@@ -131,8 +132,8 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			$response = curl_exec ($ch);
-			curl_close ($ch);
+			$response = curl_exec($ch);
+			curl_close($ch);
 
 			return simplexml_load_string($response);
 		} else {
@@ -169,9 +170,9 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 				$pas_ref = $globalpay_order['pasref'];
 			}
 
-			$this->logger('Rebate hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . (int)round($amount*100) . '.' . $globalpay_order['currency_code'] . '.');
+			$this->logger('Rebate hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . (int)round($amount * 100) . '.' . $globalpay_order['currency_code'] . '.');
 
-			$tmp = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . (int)round($amount*100) . '.' . $globalpay_order['currency_code'] . '.';
+			$tmp = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . (int)round($amount * 100) . '.' . $globalpay_order['currency_code'] . '.';
 			$hash = sha1($tmp);
 			$tmp = $hash . '.' . $secret;
 			$hash = sha1($tmp);
@@ -185,7 +186,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			$xml .= '<orderid>' . $order_ref . '</orderid>';
 			$xml .= '<pasref>' . $pas_ref . '</pasref>';
 			$xml .= '<authcode>' . $globalpay_order['authcode'] . '</authcode>';
-			$xml .= '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount*100) . '</amount>';
+			$xml .= '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
 			$xml .= '<refundhash>' . $rebatehash . '</refundhash>';
 			$xml .= '<sha1hash>' . $hash . '</sha1hash>';
 			$xml .= '</request>';
@@ -199,8 +200,8 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			$response = curl_exec ($ch);
-			curl_close ($ch);
+			$response = curl_exec($ch);
+			curl_close($ch);
 
 			return simplexml_load_string($response);
 		} else {
@@ -257,4 +258,5 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 		return (double)$query->row['total'];
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ModelLocalisationLanguage extends Model {
+
 	public function addLanguage($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "language SET name = '" . $this->db->escape($data['name']) . "', code = '" . $this->db->escape($data['code']) . "', locale = '" . $this->db->escape($data['locale']) . "', sort_order = '" . $this->db->escape($data['sort_order']) . "', status = '" . (int)$data['status'] . "'");
 
@@ -197,7 +198,7 @@ class ModelLocalisationLanguage extends Model {
 
 		// Banner Image
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "banner_image WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'");
-		
+
 		foreach ($query->rows as $banner_image) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "banner_image SET banner_id = '" . (int)$banner_image['banner_id'] . "', language_id = '" . (int)$language_id . "', title = '" . $this->db->escape($banner_image['title']) . "', link = '" . $this->db->escape($banner_image['link']) . "', image = '" . $this->db->escape($banner_image['image']) . "', sort_order = '" . (int)$banner_image['sort_order'] . "'");
 		}
@@ -207,17 +208,17 @@ class ModelLocalisationLanguage extends Model {
 
 	public function editLanguage($language_id, $data) {
 		$language_query = $this->db->query("SELECT `code` FROM " . DB_PREFIX . "language WHERE language_id = '" . (int)$language_id . "'");
-		
+
 		$this->db->query("UPDATE " . DB_PREFIX . "language SET name = '" . $this->db->escape($data['name']) . "', code = '" . $this->db->escape($data['code']) . "', locale = '" . $this->db->escape($data['locale']) . "', sort_order = '" . $this->db->escape($data['sort_order']) . "', status = '" . (int)$data['status'] . "' WHERE language_id = '" . (int)$language_id . "'");
 
 		if ($language_query->row['code'] != $data['code']) {
 			$this->db->query("UPDATE " . DB_PREFIX . "setting SET value = '" . $this->db->escape($data['code']) . "' WHERE `key` = 'config_language' AND value = '" . $this->db->escape($language_query->row['code']) . "'");
 			$this->db->query("UPDATE " . DB_PREFIX . "setting SET value = '" . $this->db->escape($data['code']) . "' WHERE `key` = 'config_admin_language' AND value = '" . $this->db->escape($language_query->row['code']) . "'");
 		}
-		
+
 		$this->cache->delete('language');
 	}
-	
+
 	public function deleteLanguage($language_id) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "language WHERE language_id = '" . (int)$language_id . "'");
 
@@ -334,14 +335,14 @@ class ModelLocalisationLanguage extends Model {
 
 				foreach ($query->rows as $result) {
 					$language_data[$result['code']] = array(
-						'language_id' => $result['language_id'],
-						'name'        => $result['name'],
-						'code'        => $result['code'],
-						'locale'      => $result['locale'],
-						'image'       => $result['image'],
-						'directory'   => $result['directory'],
-						'sort_order'  => $result['sort_order'],
-						'status'      => $result['status']
+						'language_id'	 => $result['language_id'],
+						'name'				 => $result['name'],
+						'code'				 => $result['code'],
+						'locale'			 => $result['locale'],
+						'image'				 => $result['image'],
+						'directory'		 => $result['directory'],
+						'sort_order'	 => $result['sort_order'],
+						'status'			 => $result['status']
 					);
 				}
 
@@ -363,4 +364,5 @@ class ModelLocalisationLanguage extends Model {
 
 		return $query->row['total'];
 	}
+
 }

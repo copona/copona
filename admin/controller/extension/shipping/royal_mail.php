@@ -64,7 +64,7 @@ class ControllerExtensionShippingRoyalMail extends Controller {
 		$data['tab_international_signed'] = $this->language->get('tab_international_signed');
 		$data['tab_international_economy'] = $this->language->get('tab_international_economy');
 
-		if (isset($this->error['warning']))  {
+		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
 			$data['error_warning'] = '';
@@ -447,4 +447,5 @@ class ControllerExtensionShippingRoyalMail extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -129,4 +129,5 @@ class ControllerExtensionModuleHTML extends Controller {
 
 		return !$this->error;
 	}
+
 }

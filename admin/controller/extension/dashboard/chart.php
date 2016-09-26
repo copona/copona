@@ -18,7 +18,7 @@ class ControllerExtensionDashboardChart extends Controller {
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -62,13 +62,13 @@ class ControllerExtensionDashboardChart extends Controller {
 		} else {
 			$data['dashboard_chart_width'] = $this->config->get('dashboardchart_width');
 		}
-	
+
 		$data['columns'] = array();
-		
+
 		for ($i = 3; $i <= 12; $i++) {
 			$data['columns'][] = $i;
 		}
-				
+
 		if (isset($this->request->post['dashboard_chart_status'])) {
 			$data['dashboard_chart_status'] = $this->request->post['dashboard_chart_status'];
 		} else {
@@ -94,8 +94,8 @@ class ControllerExtensionDashboardChart extends Controller {
 		}
 
 		return !$this->error;
-	}	
-	
+	}
+
 	public function dashboard() {
 		$this->load->language('extension/dashboard/chart');
 
@@ -141,30 +141,30 @@ class ControllerExtensionDashboardChart extends Controller {
 				$results = $this->model_report_sale->getTotalOrdersByDay();
 
 				foreach ($results as $key => $value) {
-					$json['order']['data'][] = array($key, $value['total']);
+					$json['order']['data'][] = array( $key, $value['total'] );
 				}
 
 				$results = $this->model_report_customer->getTotalCustomersByDay();
 
 				foreach ($results as $key => $value) {
-					$json['customer']['data'][] = array($key, $value['total']);
+					$json['customer']['data'][] = array( $key, $value['total'] );
 				}
 
 				for ($i = 0; $i < 24; $i++) {
-					$json['xaxis'][] = array($i, $i);
+					$json['xaxis'][] = array( $i, $i );
 				}
 				break;
 			case 'week':
 				$results = $this->model_report_sale->getTotalOrdersByWeek();
 
 				foreach ($results as $key => $value) {
-					$json['order']['data'][] = array($key, $value['total']);
+					$json['order']['data'][] = array( $key, $value['total'] );
 				}
 
 				$results = $this->model_report_customer->getTotalCustomersByWeek();
 
 				foreach ($results as $key => $value) {
-					$json['customer']['data'][] = array($key, $value['total']);
+					$json['customer']['data'][] = array( $key, $value['total'] );
 				}
 
 				$date_start = strtotime('-' . date('w') . ' days');
@@ -172,43 +172,43 @@ class ControllerExtensionDashboardChart extends Controller {
 				for ($i = 0; $i < 7; $i++) {
 					$date = date('Y-m-d', $date_start + ($i * 86400));
 
-					$json['xaxis'][] = array(date('w', strtotime($date)), date('D', strtotime($date)));
+					$json['xaxis'][] = array( date('w', strtotime($date)), date('D', strtotime($date)) );
 				}
 				break;
 			case 'month':
 				$results = $this->model_report_sale->getTotalOrdersByMonth();
 
 				foreach ($results as $key => $value) {
-					$json['order']['data'][] = array($key, $value['total']);
+					$json['order']['data'][] = array( $key, $value['total'] );
 				}
 
 				$results = $this->model_report_customer->getTotalCustomersByMonth();
 
 				foreach ($results as $key => $value) {
-					$json['customer']['data'][] = array($key, $value['total']);
+					$json['customer']['data'][] = array( $key, $value['total'] );
 				}
 
 				for ($i = 1; $i <= date('t'); $i++) {
 					$date = date('Y') . '-' . date('m') . '-' . $i;
 
-					$json['xaxis'][] = array(date('j', strtotime($date)), date('d', strtotime($date)));
+					$json['xaxis'][] = array( date('j', strtotime($date)), date('d', strtotime($date)) );
 				}
 				break;
 			case 'year':
 				$results = $this->model_report_sale->getTotalOrdersByYear();
 
 				foreach ($results as $key => $value) {
-					$json['order']['data'][] = array($key, $value['total']);
+					$json['order']['data'][] = array( $key, $value['total'] );
 				}
 
 				$results = $this->model_report_customer->getTotalCustomersByYear();
 
 				foreach ($results as $key => $value) {
-					$json['customer']['data'][] = array($key, $value['total']);
+					$json['customer']['data'][] = array( $key, $value['total'] );
 				}
 
 				for ($i = 1; $i <= 12; $i++) {
-					$json['xaxis'][] = array($i, date('M', mktime(0, 0, 0, $i)));
+					$json['xaxis'][] = array( $i, date('M', mktime(0, 0, 0, $i)) );
 				}
 				break;
 		}
@@ -216,4 +216,5 @@ class ControllerExtensionDashboardChart extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }
