@@ -24,11 +24,11 @@
 /system/storage/*
 /system/storage/logs/*
 
-# Force ignore individual files
-*-gitignore*
-!.gitignore
-
 # Not files
 !/system/storage/**/index.html
 !/image/cache/index.html
 !/image/no_image.jpg
+
+# Force ignore individual files
+*-gitignore*
+!.gitignore
