@@ -173,4 +173,5 @@ class ControllerExtensionPaymentNOCHEX extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -161,10 +161,10 @@ class ControllerLocalisationReturnAction extends Controller {
 		$data['return_actions'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$return_action_total = $this->model_localisation_return_action->getTotalReturnActions();
@@ -174,8 +174,8 @@ class ControllerLocalisationReturnAction extends Controller {
 		foreach ($results as $result) {
 			$data['return_actions'][] = array(
 				'return_action_id' => $result['return_action_id'],
-				'name'             => $result['name'],
-				'edit'             => $this->url->link('localisation/return_action/edit', 'token=' . $this->session->data['token'] . '&return_action_id=' . $result['return_action_id'] . $url, true)
+				'name'						 => $result['name'],
+				'edit'						 => $this->url->link('localisation/return_action/edit', 'token=' . $this->session->data['token'] . '&return_action_id=' . $result['return_action_id'] . $url, true)
 			);
 		}
 
@@ -362,4 +362,5 @@ class ControllerLocalisationReturnAction extends Controller {
 
 		return !$this->error;
 	}
+
 }

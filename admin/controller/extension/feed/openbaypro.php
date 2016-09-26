@@ -75,4 +75,5 @@ class ControllerExtensionFeedOpenbaypro extends Controller {
 		$this->model_extension_event->deleteEvent('openbay_product_edit_after');
 		$this->model_extension_event->deleteEvent('openbay_menu');
 	}
+
 }

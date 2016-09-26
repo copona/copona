@@ -165,4 +165,5 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 
 		return !$this->error;
 	}
+
 }

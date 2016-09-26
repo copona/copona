@@ -161,10 +161,10 @@ class ControllerLocalisationGeoZone extends Controller {
 		$data['geo_zones'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$geo_zone_total = $this->model_localisation_geo_zone->getTotalGeoZones();
@@ -173,10 +173,10 @@ class ControllerLocalisationGeoZone extends Controller {
 
 		foreach ($results as $result) {
 			$data['geo_zones'][] = array(
-				'geo_zone_id' => $result['geo_zone_id'],
-				'name'        => $result['name'],
-				'description' => $result['description'],
-				'edit'        => $this->url->link('localisation/geo_zone/edit', 'token=' . $this->session->data['token'] . '&geo_zone_id=' . $result['geo_zone_id'] . $url, true)
+				'geo_zone_id'	 => $result['geo_zone_id'],
+				'name'				 => $result['name'],
+				'description'	 => $result['description'],
+				'edit'				 => $this->url->link('localisation/geo_zone/edit', 'token=' . $this->session->data['token'] . '&geo_zone_id=' . $result['geo_zone_id'] . $url, true)
 			);
 		}
 
@@ -401,4 +401,5 @@ class ControllerLocalisationGeoZone extends Controller {
 
 		return !$this->error;
 	}
+
 }

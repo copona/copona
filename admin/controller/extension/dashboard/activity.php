@@ -18,7 +18,7 @@ class ControllerExtensionDashboardActivity extends Controller {
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -62,13 +62,13 @@ class ControllerExtensionDashboardActivity extends Controller {
 		} else {
 			$data['dashboard_activity_width'] = $this->config->get('dashboard_activity_width');
 		}
-		
+
 		$data['columns'] = array();
-		
+
 		for ($i = 3; $i <= 12; $i++) {
 			$data['columns'][] = $i;
 		}
-		
+
 		if (isset($this->request->post['dashboard_activity_status'])) {
 			$data['dashboard_activity_status'] = $this->request->post['dashboard_activity_status'];
 		} else {
@@ -95,7 +95,7 @@ class ControllerExtensionDashboardActivity extends Controller {
 
 		return !$this->error;
 	}
-	
+
 	public function dashboard() {
 		$this->load->language('extension/dashboard/activity');
 
@@ -129,11 +129,12 @@ class ControllerExtensionDashboardActivity extends Controller {
 			);
 
 			$data['activities'][] = array(
-				'comment'    => str_replace($find, $replace, $comment),
+				'comment'		 => str_replace($find, $replace, $comment),
 				'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
 			);
 		}
 
 		return $this->load->view('extension/dashboard/activity_info', $data);
 	}
+
 }

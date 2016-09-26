@@ -175,7 +175,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$data['token'] = $this->session->data['token'];
 
 		$client = $this->model_extension_payment_cardinity->createClient(array(
-			'key'    => $this->config->get('cardinity_key'),
+			'key'		 => $this->config->get('cardinity_key'),
 			'secret' => $this->config->get('cardinity_secret')
 		));
 
@@ -215,10 +215,10 @@ class ControllerExtensionPaymentCardinity extends Controller {
 					}
 
 					$data['refunds'][] = array(
-						'date_added'  => date($this->language->get('datetime_format'), strtotime($refund->getCreated())),
-						'amount'	  => $this->currency->format($refund->getAmount(), $refund->getCurrency(), '1.00000000', true),
-						'status'	  => $refund->getStatus(),
-						'description' => $refund->getDescription()
+						'date_added'	 => date($this->language->get('datetime_format'), strtotime($refund->getCreated())),
+						'amount'			 => $this->currency->format($refund->getAmount(), $refund->getCurrency(), '1.00000000', true),
+						'status'			 => $refund->getStatus(),
+						'description'	 => $refund->getDescription()
 					);
 				}
 			}
@@ -247,7 +247,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$success = $error = '';
 
 		$client = $this->model_extension_payment_cardinity->createClient(array(
-			'key'    => $this->config->get('cardinity_key'),
+			'key'		 => $this->config->get('cardinity_key'),
 			'secret' => $this->config->get('cardinity_secret')
 		));
 
@@ -301,7 +301,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		if ($check_credentials) {
 			$client = $this->model_extension_payment_cardinity->createClient(array(
-				'key'    => $this->request->post['cardinity_key'],
+				'key'		 => $this->request->post['cardinity_key'],
 				'secret' => $this->request->post['cardinity_secret']
 			));
 
@@ -330,4 +330,5 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		$this->model_extension_payment_cardinity->uninstall();
 	}
+
 }

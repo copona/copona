@@ -6,7 +6,7 @@ class ControllerDesignLayout extends Controller {
 		$this->load->language('design/layout');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		
+
 		$this->load->model('design/layout');
 
 		$this->getList();
@@ -161,10 +161,10 @@ class ControllerDesignLayout extends Controller {
 		$data['layouts'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$layout_total = $this->model_design_layout->getTotalLayouts();
@@ -173,9 +173,9 @@ class ControllerDesignLayout extends Controller {
 
 		foreach ($results as $result) {
 			$data['layouts'][] = array(
-				'layout_id' => $result['layout_id'],
-				'name'      => $result['name'],
-				'edit'      => $this->url->link('design/layout/edit', 'token=' . $this->session->data['token'] . '&layout_id=' . $result['layout_id'] . $url, true)
+				'layout_id'	 => $result['layout_id'],
+				'name'			 => $result['name'],
+				'edit'			 => $this->url->link('design/layout/edit', 'token=' . $this->session->data['token'] . '&layout_id=' . $result['layout_id'] . $url, true)
 			);
 		}
 
@@ -269,7 +269,7 @@ class ControllerDesignLayout extends Controller {
 		$data['text_column_right'] = $this->language->get('text_column_right');
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_remove'] = $this->language->get('text_remove');
-		
+
 		$data['entry_name'] = $this->language->get('entry_name');
 		$data['entry_store'] = $this->language->get('entry_store');
 		$data['entry_route'] = $this->language->get('entry_route');
@@ -374,14 +374,14 @@ class ControllerDesignLayout extends Controller {
 			foreach ($modules as $module) {
 				$module_data[] = array(
 					'name' => strip_tags($module['name']),
-					'code' => $code . '.' .  $module['module_id']
+					'code' => $code . '.' . $module['module_id']
 				);
 			}
 
 			if ($this->config->has($code . '_status') || $module_data) {
 				$data['extensions'][] = array(
-					'name'   => strip_tags($this->language->get('heading_title')),
-					'code'   => $code,
+					'name'	 => strip_tags($this->language->get('heading_title')),
+					'code'	 => $code,
 					'module' => $module_data
 				);
 			}
@@ -397,36 +397,36 @@ class ControllerDesignLayout extends Controller {
 		}
 
 		$data['layout_modules'] = array();
-		
+
 		// Add all the modules which have multiple settings for each module
 		foreach ($layout_modules as $layout_module) {
 			$part = explode('.', $layout_module['code']);
-		
+
 			$this->load->language('extension/module/' . $part[0]);
 
 			if (!isset($part[1])) {
 				$data['layout_modules'][] = array(
-					'name'       => strip_tags($this->language->get('heading_title')),
-					'code'       => $layout_module['code'],
-					'edit'       => $this->url->link('extension/module/' . $part[0], 'token=' . $this->session->data['token'], true),
-					'position'   => $layout_module['position'],
+					'name'			 => strip_tags($this->language->get('heading_title')),
+					'code'			 => $layout_module['code'],
+					'edit'			 => $this->url->link('extension/module/' . $part[0], 'token=' . $this->session->data['token'], true),
+					'position'	 => $layout_module['position'],
 					'sort_order' => $layout_module['sort_order']
 				);
 			} else {
 				$module_info = $this->model_extension_module->getModule($part[1]);
-				
+
 				if ($module_info) {
 					$data['layout_modules'][] = array(
-						'name'       => strip_tags($module_info['name']),
-						'code'       => $layout_module['code'],
-						'edit'       => $this->url->link('extension/module/' . $part[0], 'token=' . $this->session->data['token'] . '&module_id=' . $part[1], true),
-						'position'   => $layout_module['position'],
+						'name'			 => strip_tags($module_info['name']),
+						'code'			 => $layout_module['code'],
+						'edit'			 => $this->url->link('extension/module/' . $part[0], 'token=' . $this->session->data['token'] . '&module_id=' . $part[1], true),
+						'position'	 => $layout_module['position'],
 						'sort_order' => $layout_module['sort_order']
 					);
-				}				
+				}
 			}
-		}		
-		
+		}
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -488,4 +488,5 @@ class ControllerDesignLayout extends Controller {
 
 		return !$this->error;
 	}
+
 }

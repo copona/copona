@@ -80,7 +80,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 		if (isset($this->request->post['securetrading_pp_order_status_id'])) {
 			$data['securetrading_pp_order_status_id'] = $this->request->post['securetrading_pp_order_status_id'];
-		} elseif($this->config->get('securetrading_pp_order_status_id') != '') {
+		} elseif ($this->config->get('securetrading_pp_order_status_id') != '') {
 			$data['securetrading_pp_order_status_id'] = $this->config->get('securetrading_pp_order_status_id');
 		} else {
 			$data['securetrading_pp_order_status_id'] = 1;
@@ -88,7 +88,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 		if (isset($this->request->post['securetrading_pp_declined_order_status_id'])) {
 			$data['securetrading_pp_declined_order_status_id'] = $this->request->post['securetrading_pp_declined_order_status_id'];
-		} elseif($this->config->get('securetrading_pp_declined_order_status_id') != '') {
+		} elseif ($this->config->get('securetrading_pp_declined_order_status_id') != '') {
 			$data['securetrading_pp_declined_order_status_id'] = $this->config->get('securetrading_pp_declined_order_status_id');
 		} else {
 			$data['securetrading_pp_declined_order_status_id'] = 8;
@@ -96,7 +96,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 		if (isset($this->request->post['securetrading_pp_refunded_order_status_id'])) {
 			$data['securetrading_pp_refunded_order_status_id'] = $this->request->post['securetrading_pp_refunded_order_status_id'];
-		} elseif($this->config->get('securetrading_pp_refunded_order_status_id') != '') {
+		} elseif ($this->config->get('securetrading_pp_refunded_order_status_id') != '') {
 			$data['securetrading_pp_refunded_order_status_id'] = $this->config->get('securetrading_pp_refunded_order_status_id');
 		} else {
 			$data['securetrading_pp_refunded_order_status_id'] = 11;
@@ -104,7 +104,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 		if (isset($this->request->post['securetrading_pp_authorisation_reversed_order_status_id'])) {
 			$data['securetrading_pp_authorisation_reversed_order_status_id'] = $this->request->post['securetrading_pp_authorisation_reversed_order_status_id'];
-		} elseif($this->config->get('securetrading_pp_authorisation_reversed_order_status_id') != '') {
+		} elseif ($this->config->get('securetrading_pp_authorisation_reversed_order_status_id') != '') {
 			$data['securetrading_pp_authorisation_reversed_order_status_id'] = $this->config->get('securetrading_pp_authorisation_reversed_order_status_id');
 		} else {
 			$data['securetrading_pp_authorisation_reversed_order_status_id'] = 12;
@@ -253,23 +253,23 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 		$data['cards'] = array(
-			'AMEX' => 'American Express',
-			'VISA' => 'Visa',
-			'DELTA' => 'Visa Debit',
-			'ELECTRON' => 'Visa Electron',
-			'PURCHASING' => 'Visa Purchasing',
-			'VPAY' => 'V Pay',
-			'MASTERCARD' => 'MasterCard',
-			'MASTERCARDDEBIT' => 'MasterCard Debit',
-			'MAESTRO' => 'Maestro',
-			'PAYPAL' => 'PayPal',
+			'AMEX'						 => 'American Express',
+			'VISA'						 => 'Visa',
+			'DELTA'						 => 'Visa Debit',
+			'ELECTRON'				 => 'Visa Electron',
+			'PURCHASING'			 => 'Visa Purchasing',
+			'VPAY'						 => 'V Pay',
+			'MASTERCARD'			 => 'MasterCard',
+			'MASTERCARDDEBIT'	 => 'MasterCard Debit',
+			'MAESTRO'					 => 'Maestro',
+			'PAYPAL'					 => 'PayPal',
 		);
 
 		$data['settlement_statuses'] = array(
-			'0' => $this->language->get('text_pending_settlement'),
-			'1' => $this->language->get('text_pending_settlement_manually_overriden'),
-			'2' => $this->language->get('text_pending_suspended'),
-			'100' => $this->language->get('text_pending_settled'),
+			'0'		 => $this->language->get('text_pending_settlement'),
+			'1'		 => $this->language->get('text_pending_settlement_manually_overriden'),
+			'2'		 => $this->language->get('text_pending_suspended'),
+			'100'	 => $this->language->get('text_pending_settled'),
 		);
 
 		$data['action'] = $this->url->link('extension/payment/securetrading_pp', 'token=' . $this->session->data['token'], true);
@@ -365,9 +365,9 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 					$this->model_extension_payment_securetrading_pp->updateVoidStatus($securetrading_pp_order['securetrading_pp_order_id'], 1);
 
 					$this->data = array(
-						'order_status_id' => $this->config->get('securetrading_pp_authorisation_reversed_order_status_id'),
-						'notify' => false,
-						'comment' => '',
+						'order_status_id'	 => $this->config->get('securetrading_pp_authorisation_reversed_order_status_id'),
+						'notify'					 => false,
+						'comment'					 => '',
 					);
 
 					$this->load->model('sale/order');
@@ -543,4 +543,5 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -161,10 +161,10 @@ class ControllerCatalogInformation extends Controller {
 		$data['informations'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$information_total = $this->model_catalog_information->getTotalInformations();
@@ -174,9 +174,9 @@ class ControllerCatalogInformation extends Controller {
 		foreach ($results as $result) {
 			$data['informations'][] = array(
 				'information_id' => $result['information_id'],
-				'title'          => $result['title'],
-				'sort_order'     => $result['sort_order'],
-				'edit'           => $this->url->link('catalog/information/edit', 'token=' . $this->session->data['token'] . '&information_id=' . $result['information_id'] . $url, true)
+				'title'					 => $result['title'],
+				'sort_order'		 => $result['sort_order'],
+				'edit'					 => $this->url->link('catalog/information/edit', 'token=' . $this->session->data['token'] . '&information_id=' . $result['information_id'] . $url, true)
 			);
 		}
 
@@ -380,7 +380,7 @@ class ControllerCatalogInformation extends Controller {
 		} elseif (isset($this->request->get['information_id'])) {
 			$data['information_store'] = $this->model_catalog_information->getInformationStores($this->request->get['information_id']);
 		} else {
-			$data['information_store'] = array(0);
+			$data['information_store'] = array( 0 );
 		}
 
 		if (isset($this->request->post['keyword'])) {
@@ -507,4 +507,5 @@ class ControllerCatalogInformation extends Controller {
 
 		return !$this->error;
 	}
+
 }

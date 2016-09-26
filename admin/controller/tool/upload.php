@@ -131,12 +131,12 @@ class ControllerToolUpload extends Controller {
 		$data['uploads'] = array();
 
 		$filter_data = array(
-			'filter_name'	    => $filter_name,
-			'filter_date_added'	=> $filter_date_added,
-			'sort'              => $sort,
-			'order'             => $order,
-			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'             => $this->config->get('config_limit_admin')
+			'filter_name'				 => $filter_name,
+			'filter_date_added'	 => $filter_date_added,
+			'sort'							 => $sort,
+			'order'							 => $order,
+			'start'							 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'							 => $this->config->get('config_limit_admin')
 		);
 
 		$upload_total = $this->model_tool_upload->getTotalUploads($filter_data);
@@ -145,16 +145,16 @@ class ControllerToolUpload extends Controller {
 
 		foreach ($results as $result) {
 			$data['uploads'][] = array(
-				'upload_id'  => $result['upload_id'],
-				'name'       => $result['name'],
-				'filename'   => $result['filename'],
+				'upload_id'	 => $result['upload_id'],
+				'name'			 => $result['name'],
+				'filename'	 => $result['filename'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'download'   => $this->url->link('tool/upload/download', 'token=' . $this->session->data['token'] . '&code=' . $result['code'] . $url, true)
+				'download'	 => $this->url->link('tool/upload/download', 'token=' . $this->session->data['token'] . '&code=' . $result['code'] . $url, true)
 			);
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_list'] = $this->language->get('text_list');
 		$data['text_no_results'] = $this->language->get('text_no_results');
 		$data['text_confirm'] = $this->language->get('text_confirm');
@@ -410,4 +410,5 @@ class ControllerToolUpload extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

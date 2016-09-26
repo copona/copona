@@ -20,7 +20,8 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
 				}
 			}
 
-			$this->model_setting_setting->editSetting('klarna_fee', array_merge($this->request->post, array('klarna_fee_status' => $status)));
+			$this->model_setting_setting->editSetting('klarna_fee', array_merge($this->request->post, array(
+				'klarna_fee_status' => $status )));
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -126,4 +127,5 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
 
 		return !$this->error;
 	}
+
 }

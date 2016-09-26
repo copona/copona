@@ -161,10 +161,10 @@ class ControllerCatalogAttribute extends Controller {
 		$data['attributes'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$attribute_total = $this->model_catalog_attribute->getTotalAttributes();
@@ -173,11 +173,11 @@ class ControllerCatalogAttribute extends Controller {
 
 		foreach ($results as $result) {
 			$data['attributes'][] = array(
-				'attribute_id'    => $result['attribute_id'],
-				'name'            => $result['name'],
-				'attribute_group' => $result['attribute_group'],
-				'sort_order'      => $result['sort_order'],
-				'edit'            => $this->url->link('catalog/attribute/edit', 'token=' . $this->session->data['token'] . '&attribute_id=' . $result['attribute_id'] . $url, true)
+				'attribute_id'		 => $result['attribute_id'],
+				'name'						 => $result['name'],
+				'attribute_group'	 => $result['attribute_group'],
+				'sort_order'			 => $result['sort_order'],
+				'edit'						 => $this->url->link('catalog/attribute/edit', 'token=' . $this->session->data['token'] . '&attribute_id=' . $result['attribute_id'] . $url, true)
 			);
 		}
 
@@ -412,18 +412,18 @@ class ControllerCatalogAttribute extends Controller {
 			$this->load->model('catalog/attribute');
 
 			$filter_data = array(
-				'filter_name' => $this->request->get['filter_name'],
-				'start'       => 0,
-				'limit'       => 5
+				'filter_name'	 => $this->request->get['filter_name'],
+				'start'				 => 0,
+				'limit'				 => 5
 			);
 
 			$results = $this->model_catalog_attribute->getAttributes($filter_data);
 
 			foreach ($results as $result) {
 				$json[] = array(
-					'attribute_id'    => $result['attribute_id'],
-					'name'            => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
-					'attribute_group' => $result['attribute_group']
+					'attribute_id'		 => $result['attribute_id'],
+					'name'						 => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
+					'attribute_group'	 => $result['attribute_group']
 				);
 			}
 		}
@@ -439,4 +439,5 @@ class ControllerCatalogAttribute extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

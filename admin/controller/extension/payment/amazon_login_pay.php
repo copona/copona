@@ -1,6 +1,5 @@
 <?php
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
-
 	private $error = array();
 
 	public function index() {
@@ -225,7 +224,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			$data['amazon_login_pay_payment_region'] = $this->request->post['amazon_login_pay_payment_region'];
 		} elseif ($this->config->get('amazon_login_pay_payment_region')) {
 			$data['amazon_login_pay_payment_region'] = $this->config->get('amazon_login_pay_payment_region');
-		} elseif (in_array($this->config->get('config_currency'), array('EUR', 'GBP', 'USD'))) {
+		} elseif (in_array($this->config->get('config_currency'), array( 'EUR', 'GBP',
+				'USD' ))) {
 			$data['amazon_login_pay_payment_region'] = $this->config->get('config_currency');
 		} else {
 			$data['amazon_login_pay_payment_region'] = 'USD';
@@ -336,7 +336,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
-		$data['declined_codes'] = array($this->language->get('text_amazon_invalid'), $this->language->get('text_amazon_rejected'), $this->language->get('text_amazon_timeout'));
+		$data['declined_codes'] = array( $this->language->get('text_amazon_invalid'), $this->language->get('text_amazon_rejected'),
+			$this->language->get('text_amazon_timeout') );
 
 		//SIMPLE PATH
 
@@ -356,18 +357,18 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			$data['registration_url'] = "https://sellercentral-europe.amazon.com/hz/me/sp/redirect?ld=" . $ld;
 
 			$data['languages'] = array(
-				'de-DE' => $this->language->get('text_de'),
-				'es-ES' => $this->language->get('text_es'),
-				'fr-FR' => $this->language->get('text_fr'),
-				'it-IT' => $this->language->get('text_it'),
-				'en-GB' => $this->language->get('text_uk')
+				'de-DE'	 => $this->language->get('text_de'),
+				'es-ES'	 => $this->language->get('text_es'),
+				'fr-FR'	 => $this->language->get('text_fr'),
+				'it-IT'	 => $this->language->get('text_it'),
+				'en-GB'	 => $this->language->get('text_uk')
 			);
 		}
 
 		$data['payment_regions'] = array(
-			'EUR' => $this->language->get('text_eu_region'),
-			'GBP' => $this->language->get('text_uk_region'),
-			'USD' => $this->language->get('text_us_region')
+			'EUR'	 => $this->language->get('text_eu_region'),
+			'GBP'	 => $this->language->get('text_uk_region'),
+			'USD'	 => $this->language->get('text_us_region')
 		);
 
 		$data['header'] = $this->load->controller('common/header');

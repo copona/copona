@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionOpenbayAmazonProduct extends Controller {
+
 	public function index() {
 		$this->load->language('catalog/product');
 		$this->load->language('extension/openbay/amazon_listing');
@@ -123,7 +124,7 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 					$this->session->data['success'] = $this->language->get('text_uploaded');
 					$this->response->redirect($this->url->link('extension/openbay/items', 'token=' . $this->session->data['token'] . $url, true));
 				} else {
-					$data['errors'][] = Array('message' => $upload_result['error_message']);
+					$data['errors'][] = Array( 'message' => $upload_result['error_message'] );
 				}
 			} else {
 				$this->session->data['success'] = $this->language->get('text_saved_local');
@@ -146,8 +147,8 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 		}
 
 		$errors = $this->model_extension_openbay_amazon->getProductErrors($product_id);
-		foreach($errors as $error) {
-			$error['message'] =  'Error for SKU: "' . $error['sku'] . '" - ' . $this->formatUrlsInText($error['message']);
+		foreach ($errors as $error) {
+			$error['message'] = 'Error for SKU: "' . $error['sku'] . '" - ' . $this->formatUrlsInText($error['message']);
 			$data['errors'][] = $error;
 		}
 		if (!empty($errors)) {
@@ -171,12 +172,12 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 
 		$amazon_templates = $this->openbay->amazon->getCategoryTemplates();
 
-		foreach($amazon_templates as $template) {
+		foreach ($amazon_templates as $template) {
 			$template = (array)$template;
 			$category_data = array(
-				'friendly_name' => $template['friendly_name'],
-				'name' => $template['name'],
-				'template' => $template['xml']
+				'friendly_name'	 => $template['friendly_name'],
+				'name'					 => $template['name'],
+				'template'			 => $template['xml']
 			);
 			$data['amazon_categories'][] = $category_data;
 		}
@@ -202,11 +203,16 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 		}
 
 		$data['marketplaces'] = array(
-			array('name' => $this->language->get('text_germany'), 'id' => 'A1PA6795UKMFR9', 'code' => 'de'),
-			array('name' => $this->language->get('text_france'), 'id' => 'A13V1IB3VIYZZH', 'code' => 'fr'),
-			array('name' => $this->language->get('text_italy'), 'id' => 'APJ6JRA9NG5V4', 'code' => 'it'),
-			array('name' => $this->language->get('text_spain'), 'id' => 'A1RKKUPIHCS9HS', 'code' => 'es'),
-			array('name' => $this->language->get('text_united_kingdom'), 'id' => 'A1F83G8C2ARO7P', 'code' => 'uk'),
+			array( 'name' => $this->language->get('text_germany'), 'id'	 => 'A1PA6795UKMFR9',
+				'code' => 'de' ),
+			array( 'name' => $this->language->get('text_france'), 'id'	 => 'A13V1IB3VIYZZH',
+				'code' => 'fr' ),
+			array( 'name' => $this->language->get('text_italy'), 'id'	 => 'APJ6JRA9NG5V4',
+				'code' => 'it' ),
+			array( 'name' => $this->language->get('text_spain'), 'id'	 => 'A1RKKUPIHCS9HS',
+				'code' => 'es' ),
+			array( 'name' => $this->language->get('text_united_kingdom'), 'id'	 => 'A1F83G8C2ARO7P',
+				'code' => 'uk' ),
 		);
 
 		$marketplace_mapping = array(
@@ -218,7 +224,7 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 		);
 
 		if ($this->config->get('openbay_amazon_default_listing_marketplace')) {
-			$data['default_marketplaces'] = array($marketplace_mapping[$this->config->get('openbay_amazon_default_listing_marketplace')]);
+			$data['default_marketplaces'] = array( $marketplace_mapping[$this->config->get('openbay_amazon_default_listing_marketplace')] );
 		} else {
 			$data['default_marketplaces'] = array();
 		}
@@ -336,16 +342,16 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 			return $result;
 		}
 
-		foreach($saved_products as $saved_product) {
+		foreach ($saved_products as $saved_product) {
 			$product_data_decoded = (array)json_decode($saved_product['data']);
 
 			$catalog = defined(HTTPS_CATALOG) ? HTTPS_CATALOG : HTTP_CATALOG;
-			$response_data = array("response_url" => $catalog . 'index.php?route=extension/openbay/amazon/product');
-			$category_data = array('category' => (string)$saved_product['category']);
-			$fields_data = array('fields' => (array)$product_data_decoded['fields']);
+			$response_data = array( "response_url" => $catalog . 'index.php?route=extension/openbay/amazon/product' );
+			$category_data = array( 'category' => (string)$saved_product['category'] );
+			$fields_data = array( 'fields' => (array)$product_data_decoded['fields'] );
 
 			$mp_array = !empty($saved_product['marketplaces']) ? (array)unserialize($saved_product['marketplaces']) : array();
-			$marketplaces_data = array('marketplaces' => $mp_array);
+			$marketplaces_data = array( 'marketplaces' => $mp_array );
 
 			$product_data = array_merge($category_data, $fields_data, $response_data, $marketplaces_data);
 			$insertion_response = $this->openbay->amazon->insertProduct($product_data);
@@ -374,13 +380,13 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 
 	public function parseTemplateAjax() {
 		$this->load->model('tool/image');
-		
+
 		$log = new Log('amazon_product.log');
 
 		$json = array();
 
 		if (isset($this->request->get['xml'])) {
-			$request = array('template' => $this->request->get['xml'], 'version' => 2);
+			$request = array( 'template' => $this->request->get['xml'], 'version' => 2 );
 			$response = $this->openbay->amazon->call("productv2/GetTemplateXml", $request);
 			if ($response) {
 				$template = $this->openbay->amazon->parseCategoryTemplate($response);
@@ -393,7 +399,7 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 						$template['fields'] = $this->fillSavedValues($this->request->get['edit_id'], $template['fields'], $variation);
 					}
 
-					foreach($template['fields'] as $key => $field) {
+					foreach ($template['fields'] as $key => $field) {
 						if ($field['accepted']['type'] == 'image') {
 							if (empty($field['value'])) {
 								$template['fields'][$key]['thumb'] = '';
@@ -405,15 +411,15 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 
 					$result = array(
 						"category" => $template['category'],
-						"fields" => $template['fields'],
-						"tabs" => $template['tabs']
+						"fields"	 => $template['fields'],
+						"tabs"		 => $template['tabs']
 					);
 				} else {
 					$json_decoded = json_decode($response);
 					if ($json_decoded) {
 						$result = $json_decoded;
 					} else {
-						$result = array('status' => 'error');
+						$result = array( 'status' => 'error' );
 						$log->write("admin/openbay/amazon_product/parseTemplateAjax failed to parse template response: " . $response);
 					}
 				}
@@ -438,19 +444,19 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 		$product_info['image'] = HTTPS_CATALOG . 'image/' . $product_info['image'];
 
 		$tax_added = isset($openbay_settings['openbay_amazon_listing_tax_added']) ? $openbay_settings['openbay_amazon_listing_tax_added'] : 0;
-		$default_condition =  isset($openbay_settings['openbay_amazon_listing_default_condition']) ? $openbay_settings['openbay_amazon_listing_default_condition'] : '';
+		$default_condition = isset($openbay_settings['openbay_amazon_listing_default_condition']) ? $openbay_settings['openbay_amazon_listing_default_condition'] : '';
 		$product_info['price'] = number_format($product_info['price'] + $tax_added / 100 * $product_info['price'], 2, '.', '');
 
 		$defaults = array(
-			'sku' => $product_info['sku'],
-			'title' => $product_info['name'],
-			'quantity' => $product_info['quantity'],
-			'standardprice' => $product_info['price'],
-			'description' => $product_info['description'],
-			'mainimage' => $product_info['image'],
-			'currency' => $this->config->get('config_currency'),
+			'sku'						 => $product_info['sku'],
+			'title'					 => $product_info['name'],
+			'quantity'			 => $product_info['quantity'],
+			'standardprice'	 => $product_info['price'],
+			'description'		 => $product_info['description'],
+			'mainimage'			 => $product_info['image'],
+			'currency'			 => $this->config->get('config_currency'),
 			'shippingweight' => number_format($product_info['weight'], 2, '.', ''),
-			'conditiontype' => $default_condition,
+			'conditiontype'	 => $default_condition,
 		);
 
 		$this->load->model('localisation/weight_class');
@@ -468,7 +474,7 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 
 		$product_images = $this->model_catalog_product->getProductImages($product_id);
 		$image_index = 1;
-		foreach($product_images as $product_image) {
+		foreach ($product_images as $product_image) {
 			$defaults['pt' . $image_index] = HTTPS_CATALOG . 'image/' . $product_image['image'];
 			$image_index ++;
 		}
@@ -518,12 +524,12 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 
 		$filled_array = array();
 
-		foreach($fields_array as $field) {
+		foreach ($fields_array as $field) {
 
-			$value_array = array('value' => '');
+			$value_array = array( 'value' => '' );
 
 			if (isset($defaults[strtolower($field['name'])])) {
-				$value_array = array('value' => $defaults[strtolower($field['name'])]);
+				$value_array = array( 'value' => $defaults[strtolower($field['name'])] );
 			}
 
 			$filled_item = array_merge($field, $value_array);
@@ -546,11 +552,11 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 
 		$filled_array = array();
 
-		foreach($fields_array as $field) {
-			$value_array = array('value' => '');
+		foreach ($fields_array as $field) {
+			$value_array = array( 'value' => '' );
 
 			if (isset($saved_fields[$field['name']])) {
-				$value_array = array('value' => $saved_fields[$field['name']]);
+				$value_array = array( 'value' => $saved_fields[$field['name']] );
 			}
 
 			$filled_item = array_merge($field, $value_array);
@@ -573,12 +579,13 @@ class ControllerExtensionOpenbayAmazonProduct extends Controller {
 		$regex_url = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
 		preg_match_all($regex_url, $text, $matches);
 		$used_patterns = array();
-		foreach($matches[0] as $pattern) {
+		foreach ($matches[0] as $pattern) {
 			if (!array_key_exists($pattern, $used_patterns)) {
-				$used_patterns[$pattern]=true;
+				$used_patterns[$pattern] = true;
 				$text = str_replace($pattern, "<a target='_blank' href=" . $pattern . ">" . $pattern . "</a>", $text);
 			}
 		}
 		return $text;
 	}
+
 }

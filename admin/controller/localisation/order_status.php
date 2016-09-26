@@ -161,10 +161,10 @@ class ControllerLocalisationOrderStatus extends Controller {
 		$data['order_statuses'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$order_status_total = $this->model_localisation_order_status->getTotalOrderStatuses();
@@ -173,9 +173,9 @@ class ControllerLocalisationOrderStatus extends Controller {
 
 		foreach ($results as $result) {
 			$data['order_statuses'][] = array(
-				'order_status_id' => $result['order_status_id'],
-				'name'            => $result['name'] . (($result['order_status_id'] == $this->config->get('config_order_status_id')) ? $this->language->get('text_default') : null),
-				'edit'            => $this->url->link('localisation/order_status/edit', 'token=' . $this->session->data['token'] . '&order_status_id=' . $result['order_status_id'] . $url, true)
+				'order_status_id'	 => $result['order_status_id'],
+				'name'						 => $result['name'] . (($result['order_status_id'] == $this->config->get('config_order_status_id')) ? $this->language->get('text_default') : null),
+				'edit'						 => $this->url->link('localisation/order_status/edit', 'token=' . $this->session->data['token'] . '&order_status_id=' . $result['order_status_id'] . $url, true)
 			);
 		}
 
@@ -383,4 +383,5 @@ class ControllerLocalisationOrderStatus extends Controller {
 
 		return !$this->error;
 	}
+
 }

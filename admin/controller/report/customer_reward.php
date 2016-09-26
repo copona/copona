@@ -1,5 +1,6 @@
 <?php
 class ControllerReportCustomerReward extends Controller {
+
 	public function index() {
 		$this->load->language('report/customer_reward');
 
@@ -64,11 +65,11 @@ class ControllerReportCustomerReward extends Controller {
 		$data['customers'] = array();
 
 		$filter_data = array(
-			'filter_date_start'	=> $filter_date_start,
-			'filter_date_end'	=> $filter_date_end,
-			'filter_customer'	=> $filter_customer,
-			'start'				=> ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'				=> $this->config->get('config_limit_admin')
+			'filter_date_start'	 => $filter_date_start,
+			'filter_date_end'		 => $filter_date_end,
+			'filter_customer'		 => $filter_customer,
+			'start'							 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'							 => $this->config->get('config_limit_admin')
 		);
 
 		$customer_total = $this->model_report_customer->getTotalRewardPoints($filter_data);
@@ -77,14 +78,14 @@ class ControllerReportCustomerReward extends Controller {
 
 		foreach ($results as $result) {
 			$data['customers'][] = array(
-				'customer'       => $result['customer'],
-				'email'          => $result['email'],
+				'customer'			 => $result['customer'],
+				'email'					 => $result['email'],
 				'customer_group' => $result['customer_group'],
-				'status'         => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
-				'points'         => $result['points'],
-				'orders'         => $result['orders'],
-				'total'          => $this->currency->format($result['total'], $this->config->get('config_currency')),
-				'edit'           => $this->url->link('customer/customer/edit', 'token=' . $this->session->data['token'] . '&customer_id=' . $result['customer_id'] . $url, true)
+				'status'				 => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'points'				 => $result['points'],
+				'orders'				 => $result['orders'],
+				'total'					 => $this->currency->format($result['total'], $this->config->get('config_currency')),
+				'edit'					 => $this->url->link('customer/customer/edit', 'token=' . $this->session->data['token'] . '&customer_id=' . $result['customer_id'] . $url, true)
 			);
 		}
 
@@ -146,4 +147,5 @@ class ControllerReportCustomerReward extends Controller {
 
 		$this->response->setOutput($this->load->view('report/customer_reward', $data));
 	}
+
 }

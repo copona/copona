@@ -75,4 +75,5 @@ class ControllerExtensionCaptchaBasicCaptcha extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -82,4 +82,5 @@ class ControllerExtensionTotalCredit extends Controller {
 
 		return !$this->error;
 	}
+
 }

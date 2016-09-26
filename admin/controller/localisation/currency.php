@@ -194,10 +194,10 @@ class ControllerLocalisationCurrency extends Controller {
 		$data['currencies'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$currency_total = $this->model_localisation_currency->getTotalCurrencies();
@@ -206,12 +206,12 @@ class ControllerLocalisationCurrency extends Controller {
 
 		foreach ($results as $result) {
 			$data['currencies'][] = array(
-				'currency_id'   => $result['currency_id'],
-				'title'         => $result['title'] . (($result['code'] == $this->config->get('config_currency')) ? $this->language->get('text_default') : null),
-				'code'          => $result['code'],
-				'value'         => $result['value'],
-				'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
-				'edit'          => $this->url->link('localisation/currency/edit', 'token=' . $this->session->data['token'] . '&currency_id=' . $result['currency_id'] . $url, true)
+				'currency_id'		 => $result['currency_id'],
+				'title'					 => $result['title'] . (($result['code'] == $this->config->get('config_currency')) ? $this->language->get('text_default') : null),
+				'code'					 => $result['code'],
+				'value'					 => $result['value'],
+				'date_modified'	 => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
+				'edit'					 => $this->url->link('localisation/currency/edit', 'token=' . $this->session->data['token'] . '&currency_id=' . $result['currency_id'] . $url, true)
 			);
 		}
 
@@ -306,7 +306,7 @@ class ControllerLocalisationCurrency extends Controller {
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
 		$data['text_iso'] = $this->language->get('text_iso');
-		
+
 		$data['entry_title'] = $this->language->get('entry_title');
 		$data['entry_code'] = $this->language->get('entry_code');
 		$data['entry_value'] = $this->language->get('entry_value');
@@ -314,7 +314,7 @@ class ControllerLocalisationCurrency extends Controller {
 		$data['entry_symbol_right'] = $this->language->get('entry_symbol_right');
 		$data['entry_decimal_place'] = $this->language->get('entry_decimal_place');
 		$data['entry_status'] = $this->language->get('entry_status');
-		
+
 		$data['help_code'] = $this->language->get('help_code');
 		$data['help_value'] = $this->language->get('help_value');
 
@@ -498,4 +498,5 @@ class ControllerLocalisationCurrency extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -143,16 +143,16 @@ class ControllerLocalisationLocation extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] =   array();
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] =   array(
-			'text' =>  $this->language->get('text_home'),
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true)
 		);
 
-		$data['breadcrumbs'][] =   array(
-			'text' =>  $this->language->get('heading_title'),
-			'href' =>  $this->url->link('localisation/location', 'token=' . $this->session->data['token'] . $url, true)
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('localisation/location', 'token=' . $this->session->data['token'] . $url, true)
 		);
 
 		$data['add'] = $this->url->link('localisation/location/add', 'token=' . $this->session->data['token'] . $url, true);
@@ -161,10 +161,10 @@ class ControllerLocalisationLocation extends Controller {
 		$data['location'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$location_total = $this->model_localisation_location->getTotalLocations();
@@ -172,11 +172,11 @@ class ControllerLocalisationLocation extends Controller {
 		$results = $this->model_localisation_location->getLocations($filter_data);
 
 		foreach ($results as $result) {
-			$data['location'][] =   array(
-				'location_id' => $result['location_id'],
-				'name'        => $result['name'],
-				'address'     => $result['address'],
-				'edit'        => $this->url->link('localisation/location/edit', 'token=' . $this->session->data['token'] . '&location_id=' . $result['location_id'] . $url, true)
+			$data['location'][] = array(
+				'location_id'	 => $result['location_id'],
+				'name'				 => $result['name'],
+				'address'			 => $result['address'],
+				'edit'				 => $this->url->link('localisation/location/edit', 'token=' . $this->session->data['token'] . '&location_id=' . $result['location_id'] . $url, true)
 			);
 		}
 
@@ -337,7 +337,7 @@ class ControllerLocalisationLocation extends Controller {
 		if (!isset($this->request->get['location_id'])) {
 			$data['action'] = $this->url->link('localisation/location/add', 'token=' . $this->session->data['token'] . $url, true);
 		} else {
-			$data['action'] = $this->url->link('localisation/location/edit', 'token=' . $this->session->data['token'] .  '&location_id=' . $this->request->get['location_id'] . $url, true);
+			$data['action'] = $this->url->link('localisation/location/edit', 'token=' . $this->session->data['token'] . '&location_id=' . $this->request->get['location_id'] . $url, true);
 		}
 
 		$data['cancel'] = $this->url->link('localisation/location', 'token=' . $this->session->data['token'] . $url, true);
@@ -355,7 +355,7 @@ class ControllerLocalisationLocation extends Controller {
 		} elseif (!empty($location_info)) {
 			$data['name'] = $location_info['name'];
 		} else {
-			$data['name'] =   '';
+			$data['name'] = '';
 		}
 
 		if (isset($this->request->post['address'])) {
@@ -460,4 +460,5 @@ class ControllerLocalisationLocation extends Controller {
 
 		return !$this->error;
 	}
+
 }

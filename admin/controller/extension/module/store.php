@@ -84,4 +84,5 @@ class ControllerExtensionModuleStore extends Controller {
 
 		return !$this->error;
 	}
+
 }

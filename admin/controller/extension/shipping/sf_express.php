@@ -18,7 +18,7 @@ class ControllerExtensionShippingUPS extends Controller {
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -199,38 +199,38 @@ class ControllerExtensionShippingUPS extends Controller {
 		$data['pickups'] = array();
 
 		$data['pickups'][] = array(
-			'value' => '01',
-			'text'  => $this->language->get('text_daily_pickup')
+			'value'	 => '01',
+			'text'	 => $this->language->get('text_daily_pickup')
 		);
 
 		$data['pickups'][] = array(
-			'value' => '03',
-			'text'  => $this->language->get('text_customer_counter')
+			'value'	 => '03',
+			'text'	 => $this->language->get('text_customer_counter')
 		);
 
 		$data['pickups'][] = array(
-			'value' => '06',
-			'text'  => $this->language->get('text_one_time_pickup')
+			'value'	 => '06',
+			'text'	 => $this->language->get('text_one_time_pickup')
 		);
 
 		$data['pickups'][] = array(
-			'value' => '07',
-			'text'  => $this->language->get('text_on_call_air_pickup')
+			'value'	 => '07',
+			'text'	 => $this->language->get('text_on_call_air_pickup')
 		);
 
 		$data['pickups'][] = array(
-			'value' => '19',
-			'text'  => $this->language->get('text_letter_center')
+			'value'	 => '19',
+			'text'	 => $this->language->get('text_letter_center')
 		);
 
 		$data['pickups'][] = array(
-			'value' => '20',
-			'text'  => $this->language->get('text_air_service_center')
+			'value'	 => '20',
+			'text'	 => $this->language->get('text_air_service_center')
 		);
 
 		$data['pickups'][] = array(
-			'value' => '11',
-			'text'  => $this->language->get('text_suggested_retail_rates')
+			'value'	 => '11',
+			'text'	 => $this->language->get('text_suggested_retail_rates')
 		);
 
 		if (isset($this->request->post['ups_packaging'])) {
@@ -242,38 +242,38 @@ class ControllerExtensionShippingUPS extends Controller {
 		$data['packages'] = array();
 
 		$data['packages'][] = array(
-			'value' => '02',
-			'text'  => $this->language->get('text_package')
+			'value'	 => '02',
+			'text'	 => $this->language->get('text_package')
 		);
 
 		$data['packages'][] = array(
-			'value' => '01',
-			'text'  => $this->language->get('text_ups_letter')
+			'value'	 => '01',
+			'text'	 => $this->language->get('text_ups_letter')
 		);
 
 		$data['packages'][] = array(
-			'value' => '03',
-			'text'  => $this->language->get('text_ups_tube')
+			'value'	 => '03',
+			'text'	 => $this->language->get('text_ups_tube')
 		);
 
 		$data['packages'][] = array(
-			'value' => '04',
-			'text'  => $this->language->get('text_ups_pak')
+			'value'	 => '04',
+			'text'	 => $this->language->get('text_ups_pak')
 		);
 
 		$data['packages'][] = array(
-			'value' => '21',
-			'text'  => $this->language->get('text_ups_express_box')
+			'value'	 => '21',
+			'text'	 => $this->language->get('text_ups_express_box')
 		);
 
 		$data['packages'][] = array(
-			'value' => '24',
-			'text'  => $this->language->get('text_ups_25kg_box')
+			'value'	 => '24',
+			'text'	 => $this->language->get('text_ups_25kg_box')
 		);
 
 		$data['packages'][] = array(
-			'value' => '25',
-			'text'  => $this->language->get('text_ups_10kg_box')
+			'value'	 => '25',
+			'text'	 => $this->language->get('text_ups_10kg_box')
 		);
 
 		if (isset($this->request->post['ups_classification'])) {
@@ -283,18 +283,18 @@ class ControllerExtensionShippingUPS extends Controller {
 		}
 
 		$data['classifications'][] = array(
-			'value' => '01',
-			'text'  => '01'
+			'value'	 => '01',
+			'text'	 => '01'
 		);
 
 		$data['classifications'][] = array(
-			'value' => '03',
-			'text'  => '03'
+			'value'	 => '03',
+			'text'	 => '03'
 		);
 
 		$data['classifications'][] = array(
-			'value' => '04',
-			'text'  => '04'
+			'value'	 => '04',
+			'text'	 => '04'
 		);
 
 		if (isset($this->request->post['ups_origin'])) {
@@ -306,33 +306,33 @@ class ControllerExtensionShippingUPS extends Controller {
 		$data['origins'] = array();
 
 		$data['origins'][] = array(
-			'value' => 'US',
-			'text'  => $this->language->get('text_us')
+			'value'	 => 'US',
+			'text'	 => $this->language->get('text_us')
 		);
 
 		$data['origins'][] = array(
-			'value' => 'CA',
-			'text'  => $this->language->get('text_ca')
+			'value'	 => 'CA',
+			'text'	 => $this->language->get('text_ca')
 		);
 
 		$data['origins'][] = array(
-			'value' => 'EU',
-			'text'  => $this->language->get('text_eu')
+			'value'	 => 'EU',
+			'text'	 => $this->language->get('text_eu')
 		);
 
 		$data['origins'][] = array(
-			'value' => 'PR',
-			'text'  => $this->language->get('text_pr')
+			'value'	 => 'PR',
+			'text'	 => $this->language->get('text_pr')
 		);
 
 		$data['origins'][] = array(
-			'value' => 'MX',
-			'text'  => $this->language->get('text_mx')
+			'value'	 => 'MX',
+			'text'	 => $this->language->get('text_mx')
 		);
 
 		$data['origins'][] = array(
-			'value' => 'other',
-			'text'  => $this->language->get('text_other')
+			'value'	 => 'other',
+			'text'	 => $this->language->get('text_other')
 		);
 
 		if (isset($this->request->post['ups_city'])) {
@@ -374,13 +374,13 @@ class ControllerExtensionShippingUPS extends Controller {
 		$data['quote_types'] = array();
 
 		$data['quote_types'][] = array(
-			'value' => 'residential',
-			'text'  => $this->language->get('text_residential')
+			'value'	 => 'residential',
+			'text'	 => $this->language->get('text_residential')
 		);
 
 		$data['quote_types'][] = array(
-			'value' => 'commercial',
-			'text'  => $this->language->get('text_commercial')
+			'value'	 => 'commercial',
+			'text'	 => $this->language->get('text_commercial')
 		);
 
 		// US
@@ -827,4 +827,5 @@ class ControllerExtensionShippingUPS extends Controller {
 
 		return !$this->error;
 	}
+
 }

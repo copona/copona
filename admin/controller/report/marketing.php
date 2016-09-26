@@ -1,5 +1,6 @@
 <?php
 class ControllerReportMarketing extends Controller {
+
 	public function index() {
 		$this->load->language('report/marketing');
 
@@ -64,11 +65,11 @@ class ControllerReportMarketing extends Controller {
 		$data['marketings'] = array();
 
 		$filter_data = array(
-			'filter_date_start'	     => $filter_date_start,
-			'filter_date_end'	     => $filter_date_end,
+			'filter_date_start'			 => $filter_date_start,
+			'filter_date_end'				 => $filter_date_end,
 			'filter_order_status_id' => $filter_order_status_id,
-			'start'                  => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'                  => $this->config->get('config_limit_admin')
+			'start'									 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'									 => $this->config->get('config_limit_admin')
 		);
 
 		$marketing_total = $this->model_report_marketing->getTotalMarketing($filter_data);
@@ -85,11 +86,11 @@ class ControllerReportMarketing extends Controller {
 
 			$data['marketings'][] = array(
 				'campaign' => $result['campaign'],
-				'code'     => $result['code'],
-				'clicks'   => $result['clicks'],
-				'orders'   => $result['orders'],
-				'total'    => $this->currency->format($result['total'], $this->config->get('config_currency')),
-				'action'   => $action
+				'code'		 => $result['code'],
+				'clicks'	 => $result['clicks'],
+				'orders'	 => $result['orders'],
+				'total'		 => $this->currency->format($result['total'], $this->config->get('config_currency')),
+				'action'	 => $action
 			);
 		}
 
@@ -153,4 +154,5 @@ class ControllerReportMarketing extends Controller {
 
 		$this->response->setOutput($this->load->view('report/marketing', $data));
 	}
+
 }

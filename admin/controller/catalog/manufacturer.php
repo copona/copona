@@ -161,10 +161,10 @@ class ControllerCatalogManufacturer extends Controller {
 		$data['manufacturers'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$manufacturer_total = $this->model_catalog_manufacturer->getTotalManufacturers();
@@ -173,10 +173,10 @@ class ControllerCatalogManufacturer extends Controller {
 
 		foreach ($results as $result) {
 			$data['manufacturers'][] = array(
-				'manufacturer_id' => $result['manufacturer_id'],
-				'name'            => $result['name'],
-				'sort_order'      => $result['sort_order'],
-				'edit'            => $this->url->link('catalog/manufacturer/edit', 'token=' . $this->session->data['token'] . '&manufacturer_id=' . $result['manufacturer_id'] . $url, true)
+				'manufacturer_id'	 => $result['manufacturer_id'],
+				'name'						 => $result['name'],
+				'sort_order'			 => $result['sort_order'],
+				'edit'						 => $this->url->link('catalog/manufacturer/edit', 'token=' . $this->session->data['token'] . '&manufacturer_id=' . $result['manufacturer_id'] . $url, true)
 			);
 		}
 
@@ -356,7 +356,7 @@ class ControllerCatalogManufacturer extends Controller {
 		} elseif (isset($this->request->get['manufacturer_id'])) {
 			$data['manufacturer_store'] = $this->model_catalog_manufacturer->getManufacturerStores($this->request->get['manufacturer_id']);
 		} else {
-			$data['manufacturer_store'] = array(0);
+			$data['manufacturer_store'] = array( 0 );
 		}
 
 		if (isset($this->request->post['keyword'])) {
@@ -453,17 +453,17 @@ class ControllerCatalogManufacturer extends Controller {
 			$this->load->model('catalog/manufacturer');
 
 			$filter_data = array(
-				'filter_name' => $this->request->get['filter_name'],
-				'start'       => 0,
-				'limit'       => 5
+				'filter_name'	 => $this->request->get['filter_name'],
+				'start'				 => 0,
+				'limit'				 => 5
 			);
 
 			$results = $this->model_catalog_manufacturer->getManufacturers($filter_data);
 
 			foreach ($results as $result) {
 				$json[] = array(
-					'manufacturer_id' => $result['manufacturer_id'],
-					'name'            => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
+					'manufacturer_id'	 => $result['manufacturer_id'],
+					'name'						 => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
 				);
 			}
 		}
@@ -479,4 +479,5 @@ class ControllerCatalogManufacturer extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

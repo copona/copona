@@ -376,7 +376,6 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				$json['msg'] = isset($capture_response->message) && !empty($capture_response->message) ? (string)$capture_response->message : 'Unable to capture';
-
 			}
 		} else {
 			$json['error'] = true;
@@ -401,7 +400,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 			$this->model_extension_payment_realex_remote->logger('Rebate result:\r\n' . print_r($rebate_response, 1));
 
 			if (isset($rebate_response->result) && $rebate_response->result == '00') {
-				$this->model_extension_payment_realex_remote->addTransaction($realex_order['realex_remote_order_id'], 'rebate', $this->request->post['amount']*-1);
+				$this->model_extension_payment_realex_remote->addTransaction($realex_order['realex_remote_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
 				$total_rebated = $this->model_extension_payment_realex_remote->getTotalRebated($realex_order['realex_remote_order_id']);
 				$total_captured = $this->model_extension_payment_realex_remote->getTotalCaptured($realex_order['realex_remote_order_id']);
@@ -450,4 +449,5 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 		return !$this->error;
 	}
+
 }

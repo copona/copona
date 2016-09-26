@@ -94,4 +94,5 @@ class ControllerExtensionPaymentFreeCheckout extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -110,4 +110,5 @@ class ControllerExtensionCaptchaGoogleCaptcha extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -25,21 +25,21 @@ class ControllerDesignTranslation extends Controller {
 			'href' => $this->url->link('design/translation', 'token=' . $this->session->data['token'], true)
 		);
 
-		$data['heading_title']    = $this->language->get('heading_title');
+		$data['heading_title'] = $this->language->get('heading_title');
 
-		$data['text_edit']        = $this->language->get('text_edit');
-        $data['text_list']        = $this->language->get('text_list');
-		$data['text_no_results']  = $this->language->get('text_no_results');
-		$data['text_confirm']     = $this->language->get('text_confirm');
+		$data['text_edit'] = $this->language->get('text_edit');
+		$data['text_list'] = $this->language->get('text_list');
+		$data['text_no_results'] = $this->language->get('text_no_results');
+		$data['text_confirm'] = $this->language->get('text_confirm');
 
-		$data['column_flag']      = $this->language->get('column_flag');
-		$data['column_country']   = $this->language->get('column_country');
-		$data['column_progress']  = $this->language->get('column_progress');
-        $data['column_action']    = $this->language->get('column_action');
+		$data['column_flag'] = $this->language->get('column_flag');
+		$data['column_country'] = $this->language->get('column_country');
+		$data['column_progress'] = $this->language->get('column_progress');
+		$data['column_action'] = $this->language->get('column_action');
 
-		$data['button_install']   = $this->language->get('button_install');
+		$data['button_install'] = $this->language->get('button_install');
 		$data['button_uninstall'] = $this->language->get('button_uninstall');
-		$data['button_refresh']   = $this->language->get('button_refresh');
+		$data['button_refresh'] = $this->language->get('button_refresh');
 
 		$data['token'] = $this->session->data['token'];
 
@@ -61,13 +61,13 @@ class ControllerDesignTranslation extends Controller {
 
 		foreach ($translations as $translation) {
 			$data['translations'][] = array(
-				'name'      => $translation['name'],
-				'code'      => $translation['code'],
-				'progress'  => $translation['progress'],
-				'image'     => 'https://d1ztvzf22lmr1j.cloudfront.net/images/flags/' . $translation['code'] . '.png',
-				'install'   => $this->url->link('design/translation/install', 'token=' . $this->session->data['token'] . '&code=' . $translation['code'], true),
-				'uninstall' => $this->url->link('design/translation/uninstall', 'token=' . $this->session->data['token'] . '&code=' . $translation['code'], true),
-				'installed' => '',
+				'name'			 => $translation['name'],
+				'code'			 => $translation['code'],
+				'progress'	 => $translation['progress'],
+				'image'			 => 'https://d1ztvzf22lmr1j.cloudfront.net/images/flags/' . $translation['code'] . '.png',
+				'install'		 => $this->url->link('design/translation/install', 'token=' . $this->session->data['token'] . '&code=' . $translation['code'], true),
+				'uninstall'	 => $this->url->link('design/translation/uninstall', 'token=' . $this->session->data['token'] . '&code=' . $translation['code'], true),
+				'installed'	 => '',
 			);
 		}
 
@@ -90,36 +90,36 @@ class ControllerDesignTranslation extends Controller {
 		$this->response->setOutput($this->load->view('design/translation', $data));
 	}
 
-    public function refresh(){
+	public function refresh() {
 		$request = 'json=true';
 		//$curl = curl_init('https://api.crowdin.com/api/project/opencart/download/zh-CN.zip?key=a00e7b58c0790df4126273119b318db5');
 
-        $curl = curl_init('https://api.crowdin.com/api/project/opencart/status?key=a00e7b58c0790df4126273119b318db5');
+		$curl = curl_init('https://api.crowdin.com/api/project/opencart/status?key=a00e7b58c0790df4126273119b318db5');
 
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HEADER, false);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($curl, CURLOPT_POST, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_HEADER, false);
+		curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-        $response = curl_exec($curl);
+		$response = curl_exec($curl);
 
-        if (!$response) {
-            $this->log->write('API ERROR :: CURL failed ' . curl_error($curl) . '(' . curl_errno($curl) . ')');
-        }
+		if (!$response) {
+			$this->log->write('API ERROR :: CURL failed ' . curl_error($curl) . '(' . curl_errno($curl) . ')');
+		}
 
-        $translations = json_decode($response, true);
+		$translations = json_decode($response, true);
 
 		curl_close($curl);
 
 		$this->session->data['translation'] = array();
 
-		foreach ($translations as $translation){
+		foreach ($translations as $translation) {
 			$this->session->data['translation'][] = array(
-				'name'     => $translation['name'],
-				'code'     => $translation['code'],
-				'image'     => 'https://d1ztvzf22lmr1j.cloudfront.net/images/flags/' . $translation['code'] . '.png',
+				'name'		 => $translation['name'],
+				'code'		 => $translation['code'],
+				'image'		 => 'https://d1ztvzf22lmr1j.cloudfront.net/images/flags/' . $translation['code'] . '.png',
 				'progress' => $translation['translated_progress']
 			);
 		}
@@ -127,13 +127,13 @@ class ControllerDesignTranslation extends Controller {
 	}
 
 	public function install() {
-	ini_set('max_execution_time', 300);
-	ini_set('auto_detect_line_endings', 1);
-	ini_set('default_socket_timeout', 5); // socket timeout, just in case
+		ini_set('max_execution_time', 300);
+		ini_set('auto_detect_line_endings', 1);
+		ini_set('default_socket_timeout', 5); // socket timeout, just in case
 
-	file_put_contents("translations.zip", file_get_contents("https://api.crowdin.com/api/project/opencart/download/" . $this->request->get['code'] . ".zip?key=a00e7b58c0790df4126273119b318db5"));
+		file_put_contents("translations.zip", file_get_contents("https://api.crowdin.com/api/project/opencart/download/" . $this->request->get['code'] . ".zip?key=a00e7b58c0790df4126273119b318db5"));
 
-	$this->unzip();
+		$this->unzip();
 	}
 
 	public function unzip() {
@@ -165,7 +165,6 @@ class ControllerDesignTranslation extends Controller {
 
 			// Remove Zip
 			unlink($file);
-
 		}
 		$this->ftp();
 	}
@@ -194,7 +193,7 @@ class ControllerDesignTranslation extends Controller {
 			// Get a list of files ready to upload
 			$files = array();
 
-			$path = array($directory . '*');
+			$path = array( $directory . '*' );
 
 			while (count($path) != 0) {
 				$next = array_shift($path);
@@ -239,12 +238,11 @@ class ControllerDesignTranslation extends Controller {
 							// Many people rename their admin folder for security purposes which I believe should be an option during installation just like setting the db prefix.
 							// the following code would allow you to change the name of the following directories and any extensions installed will still go to the right directory.
 							if (substr($destination, 0, 5) == 'admin') {
-								$destination = basename(DIR_APPLICATION). "/" . $language_path . substr($destination, 5);
-
+								$destination = basename(DIR_APPLICATION) . "/" . $language_path . substr($destination, 5);
 							}
 
 							if (substr($destination, 0, 7) == 'catalog') {
-								$destination = basename(DIR_CATALOG). "/" . $language_path . substr($destination, 7);
+								$destination = basename(DIR_CATALOG) . "/" . $language_path . substr($destination, 7);
 							}
 
 							if (substr($destination, 0, 5) == 'image') {
@@ -291,7 +289,7 @@ class ControllerDesignTranslation extends Controller {
 			}
 		}
 
-	echo "download success";
+		echo "download success";
 
 		$this->remove();
 	}
@@ -315,13 +313,13 @@ class ControllerDesignTranslation extends Controller {
 			// Get a list of files ready to upload
 			$files = array();
 
-			$path = array($directory);
+			$path = array( $directory );
 
 			while (count($path) != 0) {
 				$next = array_shift($path);
 
 				// We have to use scandir function because glob will not pick up dot files.
-				foreach (array_diff(scandir($next), array('.', '..')) as $file) {
+				foreach (array_diff(scandir($next), array( '.', '..' )) as $file) {
 					$file = $next . '/' . $file;
 
 					if (is_dir($file)) {
@@ -337,7 +335,6 @@ class ControllerDesignTranslation extends Controller {
 			foreach ($files as $file) {
 				if (is_file($file)) {
 					unlink($file);
-
 				} elseif (is_dir($file)) {
 					rmdir($file);
 				}
@@ -349,7 +346,6 @@ class ControllerDesignTranslation extends Controller {
 			$this->response->redirect($this->url->link(!empty($data['redirect']) ? $data['redirect'] : 'design/translation', 'token=' . $this->session->data['token'], true));
 			$json['success'] = $this->language->get('text_success');
 		}
-
 	}
 
 }

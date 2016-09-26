@@ -161,10 +161,10 @@ class ControllerLocalisationReturnStatus extends Controller {
 		$data['return_statuses'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$return_status_total = $this->model_localisation_return_status->getTotalReturnStatuses();
@@ -174,8 +174,8 @@ class ControllerLocalisationReturnStatus extends Controller {
 		foreach ($results as $result) {
 			$data['return_statuses'][] = array(
 				'return_status_id' => $result['return_status_id'],
-				'name'             => $result['name'] . (($result['return_status_id'] == $this->config->get('config_return_status_id')) ? $this->language->get('text_default') : null),
-				'edit'             => $this->url->link('localisation/return_status/edit', 'token=' . $this->session->data['token'] . '&return_status_id=' . $result['return_status_id'] . $url, true)
+				'name'						 => $result['name'] . (($result['return_status_id'] == $this->config->get('config_return_status_id')) ? $this->language->get('text_default') : null),
+				'edit'						 => $this->url->link('localisation/return_status/edit', 'token=' . $this->session->data['token'] . '&return_status_id=' . $result['return_status_id'] . $url, true)
 			);
 		}
 
@@ -372,4 +372,5 @@ class ControllerLocalisationReturnStatus extends Controller {
 
 		return !$this->error;
 	}
+
 }

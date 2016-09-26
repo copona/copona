@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionOpenbayAmazonus extends Controller {
+
 	public function install() {
 		$this->load->model('extension/openbay/amazonus');
 		$this->load->model('setting/setting');
@@ -38,16 +39,16 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$data['breadcrumbs'] = array();
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_home'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_openbay'),
+			'href' => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_openbay'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_dashboard'),
+			'href' => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_dashboard'),
 		);
 
 		if (isset($this->session->data['success'])) {
@@ -83,20 +84,20 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$data['breadcrumbs'] = array();
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_home'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_openbay'),
+			'href' => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_openbay'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_amazon'),
+			'href' => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_amazon'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus/stockUpdates', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('heading_title'),
+			'href' => $this->url->link('extension/openbay/amazonus/stockUpdates', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('heading_title'),
 		);
 
 		$data['link_overview'] = $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true);
@@ -125,19 +126,19 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 		if ($simple_xml_obj !== false) {
 			$table_data = array();
 
-			foreach($simple_xml_obj->update as $update_node) {
+			foreach ($simple_xml_obj->update as $update_node) {
 				$row = array(
 					'date_requested' => (string)$update_node->date_requested,
-					'date_updated' 	 => (string)$update_node->date_updated,
-					'status' 		 => (string)$update_node->status,
+					'date_updated'	 => (string)$update_node->date_updated,
+					'status'				 => (string)$update_node->status,
 				);
 
 				$data_items = array();
 
-				foreach($update_node->data->product as $product_node) {
+				foreach ($update_node->data->product as $product_node) {
 					$data_items[] = array(
-						'sku' 	=> (string)$product_node->sku,
-						'stock' => (int)$product_node->stock
+						'sku'		 => (string)$product_node->sku,
+						'stock'	 => (int)$product_node->stock
 					);
 				}
 
@@ -169,20 +170,20 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$data['breadcrumbs'] = array();
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_home'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_openbay'),
+			'href' => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_openbay'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_amazon'),
+			'href' => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_amazon'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus/subscription', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('heading_title'),
+			'href' => $this->url->link('extension/openbay/amazonus/subscription', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('heading_title'),
 		);
 
 		$data['link_overview'] = $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true);
@@ -194,12 +195,12 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 		if ($response) {
 			foreach ($response->Plan as $plan) {
 				$data['plans'][] = array(
-					'title' => (string)$plan->Title,
-					'description' => (string)$plan->Description,
-					'order_frequency' => (string)$plan->OrderFrequency,
+					'title'						 => (string)$plan->Title,
+					'description'			 => (string)$plan->Description,
+					'order_frequency'	 => (string)$plan->OrderFrequency,
 					'product_listings' => (string)$plan->ProductListings,
-					'bulk_listing' => (string)$plan->BulkListing,
-					'price' => (string)$plan->Price,
+					'bulk_listing'		 => (string)$plan->BulkListing,
+					'price'						 => (string)$plan->Price,
 				);
 			}
 		}
@@ -210,16 +211,16 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		if ($response) {
 			$plan = array(
-				'merchant_id' => (string)$response->MerchantId,
-				'user_status' => (string)$response->UserStatus,
-				'title' => (string)$response->Title,
-				'description' => (string)$response->Description,
-				'price' => (string)$response->Price,
-				'order_frequency' => (string)$response->OrderFrequency,
-				'product_listings' => (string)$response->ProductListings,
-				'listings_remain' => (string)$response->ListingsRemain,
-				'listings_reserved' => (string)$response->ListingsReserved,
-				'bulk_listing' => (string)$response->BulkListing,
+				'merchant_id'				 => (string)$response->MerchantId,
+				'user_status'				 => (string)$response->UserStatus,
+				'title'							 => (string)$response->Title,
+				'description'				 => (string)$response->Description,
+				'price'							 => (string)$response->Price,
+				'order_frequency'		 => (string)$response->OrderFrequency,
+				'product_listings'	 => (string)$response->ProductListings,
+				'listings_remain'		 => (string)$response->ListingsRemain,
+				'listings_reserved'	 => (string)$response->ListingsReserved,
+				'bulk_listing'			 => (string)$response->BulkListing,
 			);
 		}
 
@@ -277,45 +278,45 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$data['breadcrumbs'] = array();
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_home'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_openbay'),
+			'href' => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_openbay'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_amazon'),
+			'href' => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_amazon'),
 		);
 
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus/settings', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('heading_title'),
+			'href' => $this->url->link('extension/openbay/amazonus/settings', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('heading_title'),
 		);
 
-		$data['marketplace_ids']                  = (isset($settings['openbay_amazonus_orders_marketplace_ids'])) ? (array)$settings['openbay_amazonus_orders_marketplace_ids'] : array();
-		$data['default_listing_marketplace_ids']  = (isset($settings['openbay_amazonus_default_listing_marketplace_ids'])) ? (array)$settings['openbay_amazonus_default_listing_marketplace_ids'] : array();
+		$data['marketplace_ids'] = (isset($settings['openbay_amazonus_orders_marketplace_ids'])) ? (array)$settings['openbay_amazonus_orders_marketplace_ids'] : array();
+		$data['default_listing_marketplace_ids'] = (isset($settings['openbay_amazonus_default_listing_marketplace_ids'])) ? (array)$settings['openbay_amazonus_default_listing_marketplace_ids'] : array();
 
 		$data['marketplaces'] = array(
-			array('name' => $this->language->get('text_de'), 'id' => 'A1PA6795UKMFR9', 'code' => 'de'),
-			array('name' => $this->language->get('text_fr'), 'id' => 'A13V1IB3VIYZZH', 'code' => 'fr'),
-			array('name' => $this->language->get('text_it'), 'id' => 'APJ6JRA9NG5V4', 'code' => 'it'),
-			array('name' => $this->language->get('text_es'), 'id' => 'A1RKKUPIHCS9HS', 'code' => 'es'),
-			array('name' => $this->language->get('text_uk'), 'id' => 'A1F83G8C2ARO7P', 'code' => 'uk'),
+			array( 'name' => $this->language->get('text_de'), 'id' => 'A1PA6795UKMFR9', 'code' => 'de' ),
+			array( 'name' => $this->language->get('text_fr'), 'id' => 'A13V1IB3VIYZZH', 'code' => 'fr' ),
+			array( 'name' => $this->language->get('text_it'), 'id' => 'APJ6JRA9NG5V4', 'code' => 'it' ),
+			array( 'name' => $this->language->get('text_es'), 'id' => 'A1RKKUPIHCS9HS', 'code' => 'es' ),
+			array( 'name' => $this->language->get('text_uk'), 'id' => 'A1F83G8C2ARO7P', 'code' => 'uk' ),
 		);
 
 		$data['conditions'] = array(
-			'New' => $this->language->get('text_new'),
-			'UsedLikeNew' => $this->language->get('text_used_like_new'),
-			'UsedVeryGood' => $this->language->get('text_used_very_good'),
-			'UsedGood' => $this->language->get('text_used_good'),
-			'UsedAcceptable' => $this->language->get('text_used_acceptable'),
-			'CollectibleLikeNew' => $this->language->get('text_collectible_like_new'),
-			'CollectibleVeryGood' => $this->language->get('text_collectible_very_good'),
-			'CollectibleGood' => $this->language->get('text_collectible_good'),
-			'CollectibleAcceptable' => $this->language->get('text_collectible_acceptable'),
-			'Refurbished' => $this->language->get('text_refurbished'),
+			'New'										 => $this->language->get('text_new'),
+			'UsedLikeNew'						 => $this->language->get('text_used_like_new'),
+			'UsedVeryGood'					 => $this->language->get('text_used_very_good'),
+			'UsedGood'							 => $this->language->get('text_used_good'),
+			'UsedAcceptable'				 => $this->language->get('text_used_acceptable'),
+			'CollectibleLikeNew'		 => $this->language->get('text_collectible_like_new'),
+			'CollectibleVeryGood'		 => $this->language->get('text_collectible_very_good'),
+			'CollectibleGood'				 => $this->language->get('text_collectible_good'),
+			'CollectibleAcceptable'	 => $this->language->get('text_collectible_acceptable'),
+			'Refurbished'						 => $this->language->get('text_refurbished'),
 		);
 
 		$data['openbay_amazonus_status'] = isset($settings['openbay_amazonus_status']) ? $settings['openbay_amazonus_status'] : '';
@@ -336,10 +337,11 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 		$canceled_status_id = isset($settings['openbay_amazonus_order_status_canceled']) ? $settings['openbay_amazonus_order_status_canceled'] : '';
 
 		$amazonus_order_statuses = array(
-			'unshipped' => array('name' => $this->language->get('text_unshipped'), 'order_status_id' => $unshipped_status_id),
-			'partially_shipped' => array('name' => $this->language->get('text_partially_shipped'), 'order_status_id' => $partially_shipped_status_id),
-			'shipped' => array('name' => $this->language->get('text_shipped'), 'order_status_id' => $shipped_status_id),
-			'canceled' => array('name' => $this->language->get('text_canceled'), 'order_status_id' => $canceled_status_id),
+			'unshipped'					 => array( 'name' => $this->language->get('text_unshipped'), 'order_status_id' => $unshipped_status_id ),
+			'partially_shipped'	 => array( 'name'						 => $this->language->get('text_partially_shipped'),
+				'order_status_id'	 => $partially_shipped_status_id ),
+			'shipped'						 => array( 'name' => $this->language->get('text_shipped'), 'order_status_id' => $shipped_status_id ),
+			'canceled'					 => array( 'name' => $this->language->get('text_canceled'), 'order_status_id' => $canceled_status_id ),
 		);
 
 		$data['openbay_amazonus_order_customer_group'] = isset($settings['openbay_amazonus_order_customer_group']) ? $settings['openbay_amazonus_order_customer_group'] : '';
@@ -381,21 +383,21 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$data['breadcrumbs'] = array();
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_home'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_openbay'),
+			'href' => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_openbay'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_amazon'),
+			'href' => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_amazon'),
 		);
 
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus/itemLinks', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('heading_title'),
+			'href' => $this->url->link('extension/openbay/amazonus/itemLinks', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('heading_title'),
 		);
 
 		$data['token'] = $this->session->data['token'];
@@ -427,21 +429,21 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$data['breadcrumbs'] = array();
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_home'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_openbay'),
+			'href' => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_openbay'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_amazon'),
+			'href' => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_amazon'),
 		);
 
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus/savedListings', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('heading_title'),
+			'href' => $this->url->link('extension/openbay/amazonus/savedListings', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('heading_title'),
 		);
 
 		$data['token'] = $this->session->data['token'];
@@ -450,15 +452,15 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$data['saved_products'] = array();
 
-		foreach($saved_products as $saved_product) {
+		foreach ($saved_products as $saved_product) {
 			$data['saved_products'][] = array(
-				'product_id' => $saved_product['product_id'],
-				'product_name' => $saved_product['product_name'],
-				'product_model' => $saved_product['product_model'],
-				'product_sku' => $saved_product['product_sku'],
-				'amazon_sku' => $saved_product['amazonus_sku'],
-				'var' => $saved_product['var'],
-				'edit_link' => $this->url->link('extension/openbay/amazonus_product', 'token=' . $this->session->data['token'] . '&product_id=' . $saved_product['product_id'] . '&sku=' . $saved_product['var'], true),
+				'product_id'		 => $saved_product['product_id'],
+				'product_name'	 => $saved_product['product_name'],
+				'product_model'	 => $saved_product['product_model'],
+				'product_sku'		 => $saved_product['product_sku'],
+				'amazon_sku'		 => $saved_product['amazonus_sku'],
+				'var'						 => $saved_product['var'],
+				'edit_link'			 => $this->url->link('extension/openbay/amazonus_product', 'token=' . $this->session->data['token'] . '&product_id=' . $saved_product['product_id'] . '&sku=' . $saved_product['var'], true),
 			);
 		}
 
@@ -528,7 +530,7 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 				$quantity_data = array();
 
-				foreach($option_stocks as $option_stock) {
+				foreach ($option_stocks as $option_stock) {
 					if (isset($option_stock['sku']) && $option_stock['sku'] == $var) {
 						$quantity_data[$amazon_sku] = $option_stock['stock'];
 						break;
@@ -542,7 +544,7 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 					$logger->write('No quantity data will be posted . ');
 				}
 			} else {
-				$this->openbay->amazonus->putStockUpdateBulk(array($product_id));
+				$this->openbay->amazonus->putStockUpdateBulk(array( $product_id ));
 			}
 
 			$json = json_encode('ok');
@@ -645,8 +647,8 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 			}
 
 			$json = array(
-				'status' => $status,
-				'message' => $message,
+				'status'	 => $status,
+				'message'	 => $message,
 			);
 		}
 
@@ -674,7 +676,7 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 				$key = '';
 
-				$id_types = array('isbn', 'upc', 'ean', 'jan', 'sku');
+				$id_types = array( 'isbn', 'upc', 'ean', 'jan', 'sku' );
 
 				foreach ($id_types as $id_type) {
 					if (!empty($product[$id_type])) {
@@ -692,7 +694,7 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 				if (!isset($json[$product_id])) {
 					$search_data[$key][] = array(
 						'product_id' => $product['product_id'],
-						'value' => trim($product[$id_type]),
+						'value'			 => trim($product[$id_type]),
 					);
 
 					$json[$product_id] = array(
@@ -724,21 +726,21 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$data['breadcrumbs'] = array();
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_home'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_openbay'),
+			'href' => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_openbay'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_amazon'),
+			'href' => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_amazon'),
 		);
 
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus/bulkListProducts', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('heading_title'),
+			'href' => $this->url->link('extension/openbay/amazonus/bulkListProducts', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('heading_title'),
 		);
 
 		$ping_info = simplexml_load_string($this->openbay->amazonus->call('ping/info'));
@@ -758,16 +760,16 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 			$data['default_condition'] = $this->config->get('openbay_amazonus_listing_default_condition');
 			$data['conditions'] = array(
-				'New' => $this->language->get('text_new'),
-				'UsedLikeNew' => $this->language->get('text_used_like_new'),
-				'UsedVeryGood' => $this->language->get('text_used_very_good'),
-				'UsedGood' => $this->language->get('text_used_good'),
-				'UsedAcceptable' => $this->language->get('text_used_acceptable'),
-				'CollectibleLikeNew' => $this->language->get('text_collectible_like_new'),
-				'CollectibleVeryGood' => $this->language->get('text_collectible_very_good'),
-				'CollectibleGood' => $this->language->get('text_collectible_good'),
-				'CollectibleAcceptable' => $this->language->get('text_collectible_acceptable'),
-				'Refurbished' => $this->language->get('text_refurbished'),
+				'New'										 => $this->language->get('text_new'),
+				'UsedLikeNew'						 => $this->language->get('text_used_like_new'),
+				'UsedVeryGood'					 => $this->language->get('text_used_very_good'),
+				'UsedGood'							 => $this->language->get('text_used_good'),
+				'UsedAcceptable'				 => $this->language->get('text_used_acceptable'),
+				'CollectibleLikeNew'		 => $this->language->get('text_collectible_like_new'),
+				'CollectibleVeryGood'		 => $this->language->get('text_collectible_very_good'),
+				'CollectibleGood'				 => $this->language->get('text_collectible_good'),
+				'CollectibleAcceptable'	 => $this->language->get('text_collectible_acceptable'),
+				'Refurbished'						 => $this->language->get('text_refurbished'),
 			);
 
 			if (!empty($this->request->get['page'])) {
@@ -813,21 +815,21 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 						$link = 'https://www.amazon.com/dp/' . $search_result['asin'] . '/';
 
 						$search_results[] = array(
-							'title' => $search_result['title'],
-							'asin' => $search_result['asin'],
-							'href' => $link,
+							'title'	 => $search_result['title'],
+							'asin'	 => $search_result['asin'],
+							'href'	 => $link,
 						);
 					}
 				}
 
 				$data['products'][] = array(
-					'product_id' => $product['product_id'],
-					'href' => $href,
-					'name' => $product['name'],
-					'model' => $product['model'],
-					'image' => $image,
-					'matches' => $result['matches'],
-					'search_status' => $search_status,
+					'product_id'		 => $product['product_id'],
+					'href'					 => $href,
+					'name'					 => $product['name'],
+					'model'					 => $product['model'],
+					'image'					 => $image,
+					'matches'				 => $result['matches'],
+					'search_status'	 => $search_status,
 					'search_results' => $search_results,
 				);
 			}
@@ -862,21 +864,21 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$data['breadcrumbs'] = array();
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_home'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_openbay'),
+			'href' => $this->url->link('extension/openbay', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_openbay'),
 		);
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('text_amazon'),
+			'href' => $this->url->link('extension/openbay/amazonus', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('text_amazon'),
 		);
 
 		$data['breadcrumbs'][] = array(
-			'href'      => $this->url->link('extension/openbay/amazonus/bulkLinking', 'token=' . $this->session->data['token'], true),
-			'text'      => $this->language->get('heading_title'),
+			'href' => $this->url->link('extension/openbay/amazonus/bulkLinking', 'token=' . $this->session->data['token'], true),
+			'text' => $this->language->get('heading_title'),
 		);
 
 		$ping_info = simplexml_load_string($this->openbay->amazonus->call('ping/info'));
@@ -890,13 +892,13 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$total_linked = $this->model_extension_openbay_amazonus->getTotalUnlinkedItemsFromReport();
 
-		if (isset($this->request->get['linked_item_page'])){
+		if (isset($this->request->get['linked_item_page'])) {
 			$linked_item_page = (int)$this->request->get['linked_item_page'];
 		} else {
 			$linked_item_page = 1;
 		}
 
-		if (isset($this->request->get['linked_item_limit'])){
+		if (isset($this->request->get['linked_item_limit'])) {
 			$linked_item_limit = (int)$this->request->get['linked_item_limit'];
 		} else {
 			$linked_item_limit = 25;
@@ -918,18 +920,18 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		foreach ($results as $result) {
 			$products[] = array(
-				'asin' => $result['asin'],
-				'href_amazon' => 'https://www.amazon.com/dp/' . $result['asin'] . '/',
-				'amazon_sku' => $result['amazon_sku'],
-				'amazon_quantity' => $result['amazon_quantity'],
-				'amazon_price' => $result['amazon_price'],
-				'name' => $result['name'],
-				'sku' => $result['sku'],
-				'quantity' => $result['quantity'],
-				'combination' => $result['combination'],
-				'product_id' => $result['product_id'],
-				'var' => $result['sku'],
-				'href_product' => $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $result['product_id'], true),
+				'asin'						 => $result['asin'],
+				'href_amazon'			 => 'https://www.amazon.com/dp/' . $result['asin'] . '/',
+				'amazon_sku'			 => $result['amazon_sku'],
+				'amazon_quantity'	 => $result['amazon_quantity'],
+				'amazon_price'		 => $result['amazon_price'],
+				'name'						 => $result['name'],
+				'sku'							 => $result['sku'],
+				'quantity'				 => $result['quantity'],
+				'combination'			 => $result['combination'],
+				'product_id'			 => $result['product_id'],
+				'var'							 => $result['sku'],
+				'href_product'		 => $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $result['product_id'], true),
 			);
 		}
 
@@ -955,7 +957,7 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$this->model_extension_openbay_amazonus->deleteListingReports();
 
-		$request_data = array('response_url' => HTTPS_CATALOG . 'index.php?route=extension/openbay/amazonus/listingreport');
+		$request_data = array( 'response_url' => HTTPS_CATALOG . 'index.php?route=extension/openbay/amazonus/listingreport' );
 
 		$response = $this->openbay->amazonus->call('report/listing', $request_data);
 
@@ -1003,7 +1005,7 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode(array('ok')));
+		$this->response->setOutput(json_encode(array( 'ok' )));
 	}
 
 	public function doFullStockSync() {
@@ -1026,4 +1028,5 @@ class ControllerExtensionOpenbayAmazonus extends Controller {
 
 		$this->openbay->amazonus->putStockUpdateBulk($bulk_array);
 	}
+
 }

@@ -161,10 +161,10 @@ class ControllerUserUser extends Controller {
 		$data['users'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$user_total = $this->model_user_user->getTotalUsers();
@@ -173,16 +173,16 @@ class ControllerUserUser extends Controller {
 
 		foreach ($results as $result) {
 			$data['users'][] = array(
-				'user_id'    => $result['user_id'],
-				'username'   => $result['username'],
-				'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'user_id'		 => $result['user_id'],
+				'username'	 => $result['username'],
+				'status'		 => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'edit'       => $this->url->link('user/user/edit', 'token=' . $this->session->data['token'] . '&user_id=' . $result['user_id'] . $url, true)
+				'edit'			 => $this->url->link('user/user/edit', 'token=' . $this->session->data['token'] . '&user_id=' . $result['user_id'] . $url, true)
 			);
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_list'] = $this->language->get('text_list');
 		$data['text_no_results'] = $this->language->get('text_no_results');
 		$data['text_confirm'] = $this->language->get('text_confirm');
@@ -264,7 +264,7 @@ class ControllerUserUser extends Controller {
 
 	protected function getForm() {
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_form'] = !isset($this->request->get['user_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -435,7 +435,7 @@ class ControllerUserUser extends Controller {
 		} else {
 			$data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 		}
-		
+
 		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
 		if (isset($this->request->post['status'])) {
@@ -524,4 +524,5 @@ class ControllerUserUser extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -161,10 +161,10 @@ class ControllerDesignBanner extends Controller {
 		$data['banners'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$banner_total = $this->model_design_banner->getTotalBanners();
@@ -173,10 +173,10 @@ class ControllerDesignBanner extends Controller {
 
 		foreach ($results as $result) {
 			$data['banners'][] = array(
-				'banner_id' => $result['banner_id'],
-				'name'      => $result['name'],
-				'status'    => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
-				'edit'      => $this->url->link('design/banner/edit', 'token=' . $this->session->data['token'] . '&banner_id=' . $result['banner_id'] . $url, true)
+				'banner_id'	 => $result['banner_id'],
+				'name'			 => $result['name'],
+				'status'		 => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'edit'			 => $this->url->link('design/banner/edit', 'token=' . $this->session->data['token'] . '&banner_id=' . $result['banner_id'] . $url, true)
 			);
 		}
 
@@ -378,12 +378,12 @@ class ControllerDesignBanner extends Controller {
 					$image = '';
 					$thumb = 'no_image.png';
 				}
-				
+
 				$data['banner_images'][$key][] = array(
-					'title'      => $banner_image['title'],
-					'link'       => $banner_image['link'],
-					'image'      => $image,
-					'thumb'      => $this->model_tool_image->resize($thumb, 100, 100),
+					'title'			 => $banner_image['title'],
+					'link'			 => $banner_image['link'],
+					'image'			 => $image,
+					'thumb'			 => $this->model_tool_image->resize($thumb, 100, 100),
 					'sort_order' => $banner_image['sort_order']
 				);
 			}
@@ -427,4 +427,5 @@ class ControllerDesignBanner extends Controller {
 
 		return !$this->error;
 	}
+
 }

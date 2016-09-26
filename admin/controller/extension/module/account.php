@@ -75,4 +75,5 @@ class ControllerExtensionModuleAccount extends Controller {
 
 		return !$this->error;
 	}
+
 }

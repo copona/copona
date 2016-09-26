@@ -105,4 +105,5 @@ class ControllerToolBackup extends Controller {
 			$this->response->redirect($this->url->link('tool/backup', 'token=' . $this->session->data['token'], true));
 		}
 	}
+
 }

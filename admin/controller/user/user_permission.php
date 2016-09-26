@@ -161,10 +161,10 @@ class ControllerUserUserPermission extends Controller {
 		$data['user_groups'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$user_group_total = $this->model_user_user_group->getTotalUserGroups();
@@ -173,14 +173,14 @@ class ControllerUserUserPermission extends Controller {
 
 		foreach ($results as $result) {
 			$data['user_groups'][] = array(
-				'user_group_id' => $result['user_group_id'],
-				'name'          => $result['name'],
-				'edit'          => $this->url->link('user/user_permission/edit', 'token=' . $this->session->data['token'] . '&user_group_id=' . $result['user_group_id'] . $url, true)
+				'user_group_id'	 => $result['user_group_id'],
+				'name'					 => $result['name'],
+				'edit'					 => $this->url->link('user/user_permission/edit', 'token=' . $this->session->data['token'] . '&user_group_id=' . $result['user_group_id'] . $url, true)
 			);
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_list'] = $this->language->get('text_list');
 		$data['text_no_results'] = $this->language->get('text_no_results');
 		$data['text_confirm'] = $this->language->get('text_confirm');
@@ -258,7 +258,7 @@ class ControllerUserUserPermission extends Controller {
 
 	protected function getForm() {
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_form'] = !isset($this->request->get['user_group_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 		$data['text_select_all'] = $this->language->get('text_select_all');
 		$data['text_unselect_all'] = $this->language->get('text_unselect_all');
@@ -334,7 +334,7 @@ class ControllerUserUserPermission extends Controller {
 			'common/login',
 			'common/logout',
 			'common/forgotten',
-			'common/reset',			
+			'common/reset',
 			'common/footer',
 			'common/header',
 			'error/not_found',
@@ -346,7 +346,7 @@ class ControllerUserUserPermission extends Controller {
 		$files = array();
 
 		// Make path into an array
-		$path = array(DIR_APPLICATION . 'controller/*');
+		$path = array( DIR_APPLICATION . 'controller/*' );
 
 		// While the path array is still populated keep looping through
 		while (count($path) != 0) {
@@ -367,7 +367,7 @@ class ControllerUserUserPermission extends Controller {
 
 		// Sort the file array
 		sort($files);
-					
+
 		foreach ($files as $file) {
 			$controller = substr($file, strlen(DIR_APPLICATION . 'controller/'));
 
@@ -430,4 +430,5 @@ class ControllerUserUserPermission extends Controller {
 
 		return !$this->error;
 	}
+
 }

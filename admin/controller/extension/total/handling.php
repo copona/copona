@@ -110,4 +110,5 @@ class ControllerExtensionTotalHandling extends Controller {
 
 		return !$this->error;
 	}
+
 }

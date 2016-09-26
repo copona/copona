@@ -1,5 +1,6 @@
 <?php
 class ControllerReportCustomerActivity extends Controller {
+
 	public function index() {
 		$this->load->language('report/customer_activity');
 
@@ -74,12 +75,12 @@ class ControllerReportCustomerActivity extends Controller {
 		$data['activities'] = array();
 
 		$filter_data = array(
-			'filter_customer'   => $filter_customer,
-			'filter_ip'         => $filter_ip,
-			'filter_date_start'	=> $filter_date_start,
-			'filter_date_end'	=> $filter_date_end,
-			'start'             => ($page - 1) * 20,
-			'limit'             => 20
+			'filter_customer'		 => $filter_customer,
+			'filter_ip'					 => $filter_ip,
+			'filter_date_start'	 => $filter_date_start,
+			'filter_date_end'		 => $filter_date_end,
+			'start'							 => ($page - 1) * 20,
+			'limit'							 => 20
 		);
 
 		$activity_total = $this->model_report_customer->getTotalCustomerActivities($filter_data);
@@ -100,8 +101,8 @@ class ControllerReportCustomerActivity extends Controller {
 			);
 
 			$data['activities'][] = array(
-				'comment'    => str_replace($find, $replace, $comment),
-				'ip'         => $result['ip'],
+				'comment'		 => str_replace($find, $replace, $comment),
+				'ip'				 => $result['ip'],
 				'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
 			);
 		}
@@ -164,4 +165,5 @@ class ControllerReportCustomerActivity extends Controller {
 
 		$this->response->setOutput($this->load->view('report/customer_activity', $data));
 	}
+
 }

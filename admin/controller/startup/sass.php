@@ -1,5 +1,6 @@
 <?php
 class ControllerStartupSass extends Controller {
+
 	public function index() {
 		$file = DIR_APPLICATION . 'view/stylesheet/bootstrap.css';
 
@@ -22,4 +23,5 @@ class ControllerStartupSass extends Controller {
 			fclose($handle);
 		}
 	}
+
 }

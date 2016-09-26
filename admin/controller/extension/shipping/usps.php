@@ -18,7 +18,7 @@ class ControllerExtensionShippingUsps extends Controller {
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -390,13 +390,13 @@ class ControllerExtensionShippingUsps extends Controller {
 		$data['sizes'] = array();
 
 		$data['sizes'][] = array(
-			'text'  => $this->language->get('text_regular'),
-			'value' => 'REGULAR'
+			'text'	 => $this->language->get('text_regular'),
+			'value'	 => 'REGULAR'
 		);
 
 		$data['sizes'][] = array(
-			'text'  => $this->language->get('text_large'),
-			'value' => 'LARGE'
+			'text'	 => $this->language->get('text_large'),
+			'value'	 => 'LARGE'
 		);
 
 		if (isset($this->request->post['usps_container'])) {
@@ -408,18 +408,18 @@ class ControllerExtensionShippingUsps extends Controller {
 		$data['containers'] = array();
 
 		$data['containers'][] = array(
-			'text'  => $this->language->get('text_rectangular'),
-			'value' => 'RECTANGULAR'
+			'text'	 => $this->language->get('text_rectangular'),
+			'value'	 => 'RECTANGULAR'
 		);
 
 		$data['containers'][] = array(
-			'text'  => $this->language->get('text_non_rectangular'),
-			'value' => 'NONRECTANGULAR'
+			'text'	 => $this->language->get('text_non_rectangular'),
+			'value'	 => 'NONRECTANGULAR'
 		);
 
 		$data['containers'][] = array(
-			'text'  => $this->language->get('text_variable'),
-			'value' => 'VARIABLE'
+			'text'	 => $this->language->get('text_variable'),
+			'value'	 => 'VARIABLE'
 		);
 
 		if (isset($this->request->post['usps_machinable'])) {
@@ -546,4 +546,5 @@ class ControllerExtensionShippingUsps extends Controller {
 
 		return !$this->error;
 	}
+
 }

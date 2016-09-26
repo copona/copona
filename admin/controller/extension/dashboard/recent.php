@@ -18,7 +18,7 @@ class ControllerExtensionDashboardRecent extends Controller {
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -64,11 +64,11 @@ class ControllerExtensionDashboardRecent extends Controller {
 		}
 
 		$data['columns'] = array();
-		
+
 		for ($i = 3; $i <= 12; $i++) {
 			$data['columns'][] = $i;
 		}
-				
+
 		if (isset($this->request->post['dashboard_recent_status'])) {
 			$data['dashboard_recent_status'] = $this->request->post['dashboard_recent_status'];
 		} else {
@@ -95,7 +95,7 @@ class ControllerExtensionDashboardRecent extends Controller {
 
 		return !$this->error;
 	}
-	
+
 	public function dashboard() {
 		$this->load->language('extension/dashboard/recent');
 
@@ -118,27 +118,28 @@ class ControllerExtensionDashboardRecent extends Controller {
 		$data['orders'] = array();
 
 		$filter_data = array(
-			'sort'  => 'o.date_added',
-			'order' => 'DESC',
-			'start' => 0,
-			'limit' => 5
+			'sort'	 => 'o.date_added',
+			'order'	 => 'DESC',
+			'start'	 => 0,
+			'limit'	 => 5
 		);
 
 		$this->load->model('sale/order');
-		
+
 		$results = $this->model_sale_order->getOrders($filter_data);
 
 		foreach ($results as $result) {
 			$data['orders'][] = array(
-				'order_id'   => $result['order_id'],
-				'customer'   => $result['customer'],
-				'status'     => $result['order_status'],
+				'order_id'	 => $result['order_id'],
+				'customer'	 => $result['customer'],
+				'status'		 => $result['order_status'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'total'      => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
-				'view'       => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'], true),
+				'total'			 => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
+				'view'			 => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'], true),
 			);
 		}
 
 		return $this->load->view('extension/dashboard/recent_info', $data);
 	}
+
 }

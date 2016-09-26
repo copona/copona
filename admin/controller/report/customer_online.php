@@ -1,5 +1,6 @@
 <?php
 class ControllerReportCustomerOnline extends Controller {
+
 	public function index() {
 		$this->load->language('report/customer_online');
 
@@ -55,10 +56,10 @@ class ControllerReportCustomerOnline extends Controller {
 		$data['customers'] = array();
 
 		$filter_data = array(
-			'filter_ip'       => $filter_ip,
-			'filter_customer' => $filter_customer,
-			'start'           => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'           => $this->config->get('config_limit_admin')
+			'filter_ip'				 => $filter_ip,
+			'filter_customer'	 => $filter_customer,
+			'start'						 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'						 => $this->config->get('config_limit_admin')
 		);
 
 		$customer_total = $this->model_report_customer->getTotalCustomersOnline($filter_data);
@@ -75,13 +76,13 @@ class ControllerReportCustomerOnline extends Controller {
 			}
 
 			$data['customers'][] = array(
-				'customer_id' => $result['customer_id'],
-				'ip'          => $result['ip'],
-				'customer'    => $customer,
-				'url'         => $result['url'],
-				'referer'     => $result['referer'],
-				'date_added'  => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
-				'edit'        => $this->url->link('customer/customer/edit', 'token=' . $this->session->data['token'] . '&customer_id=' . $result['customer_id'], true)
+				'customer_id'	 => $result['customer_id'],
+				'ip'					 => $result['ip'],
+				'customer'		 => $customer,
+				'url'					 => $result['url'],
+				'referer'			 => $result['referer'],
+				'date_added'	 => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
+				'edit'				 => $this->url->link('customer/customer/edit', 'token=' . $this->session->data['token'] . '&customer_id=' . $result['customer_id'], true)
 			);
 		}
 
@@ -135,4 +136,5 @@ class ControllerReportCustomerOnline extends Controller {
 
 		$this->response->setOutput($this->load->view('report/customer_online', $data));
 	}
+
 }

@@ -151,4 +151,5 @@ class ControllerExtensionPaymentPayPoint extends Controller {
 
 		return !$this->error;
 	}
+
 }

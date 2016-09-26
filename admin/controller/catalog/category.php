@@ -194,10 +194,10 @@ class ControllerCatalogCategory extends Controller {
 		$data['categories'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$category_total = $this->model_catalog_category->getTotalCategories();
@@ -206,11 +206,11 @@ class ControllerCatalogCategory extends Controller {
 
 		foreach ($results as $result) {
 			$data['categories'][] = array(
-				'category_id' => $result['category_id'],
-				'name'        => $result['name'],
-				'sort_order'  => $result['sort_order'],
-				'edit'        => $this->url->link('catalog/category/edit', 'token=' . $this->session->data['token'] . '&category_id=' . $result['category_id'] . $url, true),
-				'delete'      => $this->url->link('catalog/category/delete', 'token=' . $this->session->data['token'] . '&category_id=' . $result['category_id'] . $url, true)
+				'category_id'	 => $result['category_id'],
+				'name'				 => $result['name'],
+				'sort_order'	 => $result['sort_order'],
+				'edit'				 => $this->url->link('catalog/category/edit', 'token=' . $this->session->data['token'] . '&category_id=' . $result['category_id'] . $url, true),
+				'delete'			 => $this->url->link('catalog/category/delete', 'token=' . $this->session->data['token'] . '&category_id=' . $result['category_id'] . $url, true)
 			);
 		}
 
@@ -360,7 +360,7 @@ class ControllerCatalogCategory extends Controller {
 		} else {
 			$data['error_parent'] = '';
 		}
-		
+
 		$url = '';
 
 		if (isset($this->request->get['sort'])) {
@@ -446,8 +446,8 @@ class ControllerCatalogCategory extends Controller {
 
 			if ($filter_info) {
 				$data['category_filters'][] = array(
-					'filter_id' => $filter_info['filter_id'],
-					'name'      => $filter_info['group'] . ' &gt; ' . $filter_info['name']
+					'filter_id'	 => $filter_info['filter_id'],
+					'name'			 => $filter_info['group'] . ' &gt; ' . $filter_info['name']
 				);
 			}
 		}
@@ -461,7 +461,7 @@ class ControllerCatalogCategory extends Controller {
 		} elseif (isset($this->request->get['category_id'])) {
 			$data['category_store'] = $this->model_catalog_category->getCategoryStores($this->request->get['category_id']);
 		} else {
-			$data['category_store'] = array(0);
+			$data['category_store'] = array( 0 );
 		}
 
 		if (isset($this->request->post['keyword'])) {
@@ -560,11 +560,11 @@ class ControllerCatalogCategory extends Controller {
 
 		if (isset($this->request->get['category_id']) && $this->request->post['parent_id']) {
 			$results = $this->model_catalog_category->getCategoryPath($this->request->post['parent_id']);
-			
+
 			foreach ($results as $result) {
 				if ($result['path_id'] == $this->request->get['category_id']) {
 					$this->error['parent'] = $this->language->get('error_parent');
-					
+
 					break;
 				}
 			}
@@ -583,11 +583,11 @@ class ControllerCatalogCategory extends Controller {
 				$this->error['keyword'] = sprintf($this->language->get('error_keyword'));
 			}
 		}
-		
+
 		if ($this->error && !isset($this->error['warning'])) {
 			$this->error['warning'] = $this->language->get('error_warning');
 		}
-		
+
 		return !$this->error;
 	}
 
@@ -614,19 +614,19 @@ class ControllerCatalogCategory extends Controller {
 			$this->load->model('catalog/category');
 
 			$filter_data = array(
-				'filter_name' => $this->request->get['filter_name'],
-				'sort'        => 'name',
-				'order'       => 'ASC',
-				'start'       => 0,
-				'limit'       => 5
+				'filter_name'	 => $this->request->get['filter_name'],
+				'sort'				 => 'name',
+				'order'				 => 'ASC',
+				'start'				 => 0,
+				'limit'				 => 5
 			);
 
 			$results = $this->model_catalog_category->getCategories($filter_data);
 
 			foreach ($results as $result) {
 				$json[] = array(
-					'category_id' => $result['category_id'],
-					'name'        => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
+					'category_id'	 => $result['category_id'],
+					'name'				 => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
 				);
 			}
 		}
@@ -642,4 +642,5 @@ class ControllerCatalogCategory extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

@@ -127,7 +127,7 @@ class ControllerExtensionModuleFeatured extends Controller {
 			if ($product_info) {
 				$data['products'][] = array(
 					'product_id' => $product_info['product_id'],
-					'name'       => $product_info['name']
+					'name'			 => $product_info['name']
 				);
 			}
 		}
@@ -190,4 +190,5 @@ class ControllerExtensionModuleFeatured extends Controller {
 
 		return !$this->error;
 	}
+
 }

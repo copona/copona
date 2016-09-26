@@ -75,4 +75,5 @@ class ControllerExtensionModuleAffiliate extends Controller {
 
 		return !$this->error;
 	}
+
 }

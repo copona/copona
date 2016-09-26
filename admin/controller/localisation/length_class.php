@@ -161,10 +161,10 @@ class ControllerLocalisationLengthClass extends Controller {
 		$data['length_classes'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$length_class_total = $this->model_localisation_length_class->getTotalLengthClasses();
@@ -173,11 +173,11 @@ class ControllerLocalisationLengthClass extends Controller {
 
 		foreach ($results as $result) {
 			$data['length_classes'][] = array(
-				'length_class_id' => $result['length_class_id'],
-				'title'           => $result['title'] . (($result['length_class_id'] == $this->config->get('config_length_class_id')) ? $this->language->get('text_default') : null),
-				'unit'            => $result['unit'],
-				'value'           => $result['value'],
-				'edit'            => $this->url->link('localisation/length_class/edit', 'token=' . $this->session->data['token'] . '&length_class_id=' . $result['length_class_id'] . $url, true)
+				'length_class_id'	 => $result['length_class_id'],
+				'title'						 => $result['title'] . (($result['length_class_id'] == $this->config->get('config_length_class_id')) ? $this->language->get('text_default') : null),
+				'unit'						 => $result['unit'],
+				'value'						 => $result['value'],
+				'edit'						 => $this->url->link('localisation/length_class/edit', 'token=' . $this->session->data['token'] . '&length_class_id=' . $result['length_class_id'] . $url, true)
 			);
 		}
 
@@ -253,7 +253,8 @@ class ControllerLocalisationLengthClass extends Controller {
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($length_class_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($length_class_total - $this->config->get('config_limit_admin'))) ? $length_class_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $length_class_total, ceil($length_class_total / $this->config->get('config_limit_admin')));
 
 		$data['sort'] = $sort;
-		$data['order'] = $order;		$data['header'] = $this->load->controller('common/header');
+		$data['order'] = $order;
+		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
@@ -396,4 +397,5 @@ class ControllerLocalisationLengthClass extends Controller {
 
 		return !$this->error;
 	}
+
 }

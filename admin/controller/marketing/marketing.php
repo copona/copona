@@ -231,13 +231,13 @@ class ControllerMarketingMarketing extends Controller {
 		$data['marketings'] = array();
 
 		$filter_data = array(
-			'filter_name'       => $filter_name,
-			'filter_code'       => $filter_code,
-			'filter_date_added' => $filter_date_added,
-			'sort'              => $sort,
-			'order'             => $order,
-			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'             => $this->config->get('config_limit_admin')
+			'filter_name'				 => $filter_name,
+			'filter_code'				 => $filter_code,
+			'filter_date_added'	 => $filter_date_added,
+			'sort'							 => $sort,
+			'order'							 => $order,
+			'start'							 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'							 => $this->config->get('config_limit_admin')
 		);
 
 		$marketing_total = $this->model_marketing_marketing->getTotalMarketings($filter_data);
@@ -247,12 +247,12 @@ class ControllerMarketingMarketing extends Controller {
 		foreach ($results as $result) {
 			$data['marketings'][] = array(
 				'marketing_id' => $result['marketing_id'],
-				'name'         => $result['name'],
-				'code'         => $result['code'],
-				'clicks'       => $result['clicks'],
-				'orders'       => $result['orders'],
-				'date_added'   => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'edit'         => $this->url->link('marketing/marketing/edit', 'token=' . $this->session->data['token'] . '&marketing_id=' . $result['marketing_id'] . $url, true)
+				'name'				 => $result['name'],
+				'code'				 => $result['code'],
+				'clicks'			 => $result['clicks'],
+				'orders'			 => $result['orders'],
+				'date_added'	 => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'edit'				 => $this->url->link('marketing/marketing/edit', 'token=' . $this->session->data['token'] . '&marketing_id=' . $result['marketing_id'] . $url, true)
 			);
 		}
 
@@ -528,4 +528,5 @@ class ControllerMarketingMarketing extends Controller {
 
 		return !$this->error;
 	}
+
 }

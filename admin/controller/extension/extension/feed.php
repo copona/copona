@@ -45,7 +45,7 @@ class ControllerExtensionExtensionFeed extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_success');
 		}
-		
+
 		$this->getList();
 	}
 
@@ -98,12 +98,12 @@ class ControllerExtensionExtensionFeed extends Controller {
 				$this->load->language('extension/feed/' . $extension);
 
 				$data['extensions'][] = array(
-					'name'      => $this->language->get('heading_title'),
-					'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-					'install'   => $this->url->link('extension/extension/feed/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
-					'uninstall' => $this->url->link('extension/extension/feed/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
-					'installed' => in_array($extension, $extensions),
-					'edit'      => $this->url->link('extension/feed/' . $extension, 'token=' . $this->session->data['token'], true)
+					'name'			 => $this->language->get('heading_title'),
+					'status'		 => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+					'install'		 => $this->url->link('extension/extension/feed/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
+					'uninstall'	 => $this->url->link('extension/extension/feed/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
+					'installed'	 => in_array($extension, $extensions),
+					'edit'			 => $this->url->link('extension/feed/' . $extension, 'token=' . $this->session->data['token'], true)
 				);
 			}
 		}
@@ -118,4 +118,5 @@ class ControllerExtensionExtensionFeed extends Controller {
 
 		return !$this->error;
 	}
+
 }

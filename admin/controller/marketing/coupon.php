@@ -161,10 +161,10 @@ class ControllerMarketingCoupon extends Controller {
 		$data['coupons'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$coupon_total = $this->model_marketing_coupon->getTotalCoupons();
@@ -173,14 +173,14 @@ class ControllerMarketingCoupon extends Controller {
 
 		foreach ($results as $result) {
 			$data['coupons'][] = array(
-				'coupon_id'  => $result['coupon_id'],
-				'name'       => $result['name'],
-				'code'       => $result['code'],
-				'discount'   => $result['discount'],
+				'coupon_id'	 => $result['coupon_id'],
+				'name'			 => $result['name'],
+				'code'			 => $result['code'],
+				'discount'	 => $result['discount'],
 				'date_start' => date($this->language->get('date_format_short'), strtotime($result['date_start'])),
-				'date_end'   => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
-				'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
-				'edit'       => $this->url->link('marketing/coupon/edit', 'token=' . $this->session->data['token'] . '&coupon_id=' . $result['coupon_id'] . $url, true)
+				'date_end'	 => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
+				'status'		 => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'edit'			 => $this->url->link('marketing/coupon/edit', 'token=' . $this->session->data['token'] . '&coupon_id=' . $result['coupon_id'] . $url, true)
 			);
 		}
 
@@ -463,7 +463,7 @@ class ControllerMarketingCoupon extends Controller {
 			if ($product_info) {
 				$data['coupon_product'][] = array(
 					'product_id' => $product_info['product_id'],
-					'name'       => $product_info['name']
+					'name'			 => $product_info['name']
 				);
 			}
 		}
@@ -485,8 +485,8 @@ class ControllerMarketingCoupon extends Controller {
 
 			if ($category_info) {
 				$data['coupon_category'][] = array(
-					'category_id' => $category_info['category_id'],
-					'name'        => ($category_info['path'] ? $category_info['path'] . ' &gt; ' : '') . $category_info['name']
+					'category_id'	 => $category_info['category_id'],
+					'name'				 => ($category_info['path'] ? $category_info['path'] . ' &gt; ' : '') . $category_info['name']
 				);
 			}
 		}
@@ -596,9 +596,9 @@ class ControllerMarketingCoupon extends Controller {
 
 		foreach ($results as $result) {
 			$data['histories'][] = array(
-				'order_id'   => $result['order_id'],
-				'customer'   => $result['customer'],
-				'amount'     => $result['amount'],
+				'order_id'	 => $result['order_id'],
+				'customer'	 => $result['customer'],
+				'amount'		 => $result['amount'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
@@ -617,4 +617,5 @@ class ControllerMarketingCoupon extends Controller {
 
 		$this->response->setOutput($this->load->view('marketing/coupon_history', $data));
 	}
+
 }

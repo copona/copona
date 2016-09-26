@@ -161,10 +161,10 @@ class ControllerLocalisationWeightClass extends Controller {
 		$data['weight_classes'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$weight_class_total = $this->model_localisation_weight_class->getTotalWeightClasses();
@@ -173,11 +173,11 @@ class ControllerLocalisationWeightClass extends Controller {
 
 		foreach ($results as $result) {
 			$data['weight_classes'][] = array(
-				'weight_class_id' => $result['weight_class_id'],
-				'title'           => $result['title'] . (($result['weight_class_id'] == $this->config->get('config_weight_class_id')) ? $this->language->get('text_default') : null),
-				'unit'            => $result['unit'],
-				'value'           => $result['value'],
-				'edit'            => $this->url->link('localisation/weight_class/edit', 'token=' . $this->session->data['token'] . '&weight_class_id=' . $result['weight_class_id'] . $url, true)
+				'weight_class_id'	 => $result['weight_class_id'],
+				'title'						 => $result['title'] . (($result['weight_class_id'] == $this->config->get('config_weight_class_id')) ? $this->language->get('text_default') : null),
+				'unit'						 => $result['unit'],
+				'value'						 => $result['value'],
+				'edit'						 => $this->url->link('localisation/weight_class/edit', 'token=' . $this->session->data['token'] . '&weight_class_id=' . $result['weight_class_id'] . $url, true)
 			);
 		}
 
@@ -398,4 +398,5 @@ class ControllerLocalisationWeightClass extends Controller {
 
 		return !$this->error;
 	}
+
 }

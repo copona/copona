@@ -161,10 +161,10 @@ class ControllerSaleVoucher extends Controller {
 		$data['vouchers'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$voucher_total = $this->model_sale_voucher->getTotalVouchers();
@@ -172,23 +172,23 @@ class ControllerSaleVoucher extends Controller {
 		$results = $this->model_sale_voucher->getVouchers($filter_data);
 
 		foreach ($results as $result) {
-			if ($result['order_id']) {	
+			if ($result['order_id']) {
 				$order_href = $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, true);
 			} else {
 				$order_href = '';
 			}
-			
+
 			$data['vouchers'][] = array(
 				'voucher_id' => $result['voucher_id'],
-				'code'       => $result['code'],
-				'from'       => $result['from_name'],
-				'to'         => $result['to_name'],
-				'theme'      => $result['theme'],
-				'amount'     => $this->currency->format($result['amount'], $this->config->get('config_currency')),
-				'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'code'			 => $result['code'],
+				'from'			 => $result['from_name'],
+				'to'				 => $result['to_name'],
+				'theme'			 => $result['theme'],
+				'amount'		 => $this->currency->format($result['amount'], $this->config->get('config_currency')),
+				'status'		 => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'edit'       => $this->url->link('sale/voucher/edit', 'token=' . $this->session->data['token'] . '&voucher_id=' . $result['voucher_id'] . $url, true),
-				'order'      => $order_href
+				'edit'			 => $this->url->link('sale/voucher/edit', 'token=' . $this->session->data['token'] . '&voucher_id=' . $result['voucher_id'] . $url, true),
+				'order'			 => $order_href
 			);
 		}
 
@@ -496,7 +496,7 @@ class ControllerSaleVoucher extends Controller {
 		if ($voucher_info) {
 			if (!isset($this->request->get['voucher_id'])) {
 				$this->error['warning'] = $this->language->get('error_exists');
-			} elseif ($voucher_info['voucher_id'] != $this->request->get['voucher_id'])  {
+			} elseif ($voucher_info['voucher_id'] != $this->request->get['voucher_id']) {
 				$this->error['warning'] = $this->language->get('error_exists');
 			}
 		}
@@ -568,9 +568,9 @@ class ControllerSaleVoucher extends Controller {
 
 		foreach ($results as $result) {
 			$data['histories'][] = array(
-				'order_id'   => $result['order_id'],
-				'customer'   => $result['customer'],
-				'amount'     => $this->currency->format($result['amount'], $this->config->get('config_currency')),
+				'order_id'	 => $result['order_id'],
+				'customer'	 => $result['customer'],
+				'amount'		 => $this->currency->format($result['amount'], $this->config->get('config_currency')),
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
@@ -624,4 +624,5 @@ class ControllerSaleVoucher extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

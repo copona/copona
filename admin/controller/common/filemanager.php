@@ -1,5 +1,6 @@
 <?php
 class ControllerCommonFileManager extends Controller {
+
 	public function index() {
 		$this->load->language('common/filemanager');
 
@@ -76,19 +77,19 @@ class ControllerCommonFileManager extends Controller {
 				}
 
 				$data['images'][] = array(
-					'thumb' => '',
-					'name'  => implode(' ', $name),
-					'type'  => 'directory',
-					'path'  => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
-					'href'  => $this->url->link('common/filemanager', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_substr($image, utf8_strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
+					'thumb'	 => '',
+					'name'	 => implode(' ', $name),
+					'type'	 => 'directory',
+					'path'	 => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
+					'href'	 => $this->url->link('common/filemanager', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_substr($image, utf8_strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
 				);
 			} elseif (is_file($image)) {
 				$data['images'][] = array(
-					'thumb' => $this->model_tool_image->resize(utf8_substr($image, utf8_strlen(DIR_IMAGE)), 100, 100),
-					'name'  => implode(' ', $name),
-					'type'  => 'image',
-					'path'  => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
-					'href'  => $server . 'image/' . utf8_substr($image, utf8_strlen(DIR_IMAGE))
+					'thumb'	 => $this->model_tool_image->resize(utf8_substr($image, utf8_strlen(DIR_IMAGE)), 100, 100),
+					'name'	 => implode(' ', $name),
+					'type'	 => 'image',
+					'path'	 => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
+					'href'	 => $server . 'image/' . utf8_substr($image, utf8_strlen(DIR_IMAGE))
 				);
 			}
 		}
@@ -232,11 +233,11 @@ class ControllerCommonFileManager extends Controller {
 			if (!empty($this->request->files['file']['name']) && is_array($this->request->files['file']['name'])) {
 				foreach (array_keys($this->request->files['file']['name']) as $key) {
 					$files[] = array(
-						'name'     => $this->request->files['file']['name'][$key],
-						'type'     => $this->request->files['file']['type'][$key],
+						'name'		 => $this->request->files['file']['name'][$key],
+						'type'		 => $this->request->files['file']['type'][$key],
 						'tmp_name' => $this->request->files['file']['tmp_name'][$key],
-						'error'    => $this->request->files['file']['error'][$key],
-						'size'     => $this->request->files['file']['size'][$key]
+						'error'		 => $this->request->files['file']['error'][$key],
+						'size'		 => $this->request->files['file']['size'][$key]
 					);
 				}
 			}
@@ -250,7 +251,7 @@ class ControllerCommonFileManager extends Controller {
 					if ((utf8_strlen($filename) < 3) || (utf8_strlen($filename) > 255)) {
 						$json['error'] = $this->language->get('error_filename');
 					}
-					
+
 					// Allowed file extension types
 					$allowed = array(
 						'jpg',
@@ -258,11 +259,11 @@ class ControllerCommonFileManager extends Controller {
 						'gif',
 						'png'
 					);
-	
+
 					if (!in_array(utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)), $allowed)) {
 						$json['error'] = $this->language->get('error_filetype');
 					}
-					
+
 					// Allowed file mime types
 					$allowed = array(
 						'image/jpeg',
@@ -271,7 +272,7 @@ class ControllerCommonFileManager extends Controller {
 						'image/x-png',
 						'image/gif'
 					);
-	
+
 					if (!in_array($file['type'], $allowed)) {
 						$json['error'] = $this->language->get('error_filetype');
 					}
@@ -383,12 +384,12 @@ class ControllerCommonFileManager extends Controller {
 				if (is_file($path)) {
 					unlink($path);
 
-				// If path is a directory beging deleting each file and sub folder
+					// If path is a directory beging deleting each file and sub folder
 				} elseif (is_dir($path)) {
 					$files = array();
 
 					// Make path into an array
-					$path = array($path . '*');
+					$path = array( $path . '*' );
 
 					// While the path array is still populated keep looping through
 					while (count($path) != 0) {
@@ -413,7 +414,7 @@ class ControllerCommonFileManager extends Controller {
 						if (is_file($file)) {
 							unlink($file);
 
-						// If directory use the remove directory function
+							// If directory use the remove directory function
 						} elseif (is_dir($file)) {
 							rmdir($file);
 						}
@@ -427,4 +428,5 @@ class ControllerCommonFileManager extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

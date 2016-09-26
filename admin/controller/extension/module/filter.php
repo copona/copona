@@ -75,4 +75,5 @@ class ControllerExtensionModulefilter extends Controller {
 
 		return !$this->error;
 	}
+
 }

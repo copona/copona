@@ -161,10 +161,10 @@ class ControllerCustomerCustomerGroup extends Controller {
 		$data['customer_groups'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$customer_group_total = $this->model_customer_customer_group->getTotalCustomerGroups();
@@ -173,10 +173,10 @@ class ControllerCustomerCustomerGroup extends Controller {
 
 		foreach ($results as $result) {
 			$data['customer_groups'][] = array(
-				'customer_group_id' => $result['customer_group_id'],
-				'name'              => $result['name'] . (($result['customer_group_id'] == $this->config->get('config_customer_group_id')) ? $this->language->get('text_default') : null),
-				'sort_order'        => $result['sort_order'],
-				'edit'              => $this->url->link('customer/customer_group/edit', 'token=' . $this->session->data['token'] . '&customer_group_id=' . $result['customer_group_id'] . $url, true)
+				'customer_group_id'	 => $result['customer_group_id'],
+				'name'							 => $result['name'] . (($result['customer_group_id'] == $this->config->get('config_customer_group_id')) ? $this->language->get('text_default') : null),
+				'sort_order'				 => $result['sort_order'],
+				'edit'							 => $this->url->link('customer/customer_group/edit', 'token=' . $this->session->data['token'] . '&customer_group_id=' . $result['customer_group_id'] . $url, true)
 			);
 		}
 
@@ -403,4 +403,5 @@ class ControllerCustomerCustomerGroup extends Controller {
 
 		return !$this->error;
 	}
+
 }

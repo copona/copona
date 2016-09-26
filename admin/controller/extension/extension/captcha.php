@@ -49,7 +49,7 @@ class ControllerExtensionExtensionCaptcha extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_success');
 		}
-		
+
 		$this->getList();
 	}
 
@@ -102,12 +102,12 @@ class ControllerExtensionExtensionCaptcha extends Controller {
 				$this->load->language('extension/captcha/' . $extension);
 
 				$data['extensions'][] = array(
-					'name'      => $this->language->get('heading_title') . (($extension == $this->config->get('config_captcha')) ? $this->language->get('text_default') : null),
-					'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-					'install'   => $this->url->link('extension/extension/captcha/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
-					'uninstall' => $this->url->link('extension/extension/captcha/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
-					'installed' => in_array($extension, $extensions),
-					'edit'      => $this->url->link('extension/captcha/' . $extension, 'token=' . $this->session->data['token'], true)
+					'name'			 => $this->language->get('heading_title') . (($extension == $this->config->get('config_captcha')) ? $this->language->get('text_default') : null),
+					'status'		 => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+					'install'		 => $this->url->link('extension/extension/captcha/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
+					'uninstall'	 => $this->url->link('extension/extension/captcha/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
+					'installed'	 => in_array($extension, $extensions),
+					'edit'			 => $this->url->link('extension/captcha/' . $extension, 'token=' . $this->session->data['token'], true)
 				);
 			}
 		}
@@ -122,4 +122,5 @@ class ControllerExtensionExtensionCaptcha extends Controller {
 
 		return !$this->error;
 	}
+
 }

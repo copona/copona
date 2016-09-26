@@ -1,5 +1,6 @@
 <?php
 class ControllerCommonHeader extends Controller {
+
 	public function index() {
 		$data['title'] = $this->document->getTitle();
 
@@ -55,17 +56,19 @@ class ControllerCommonHeader extends Controller {
 			$this->load->model('sale/order');
 
 			// Processing Orders
-			$data['processing_status_total'] = $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $this->config->get('config_processing_status'))));
+			$data['processing_status_total'] = $this->model_sale_order->getTotalOrders(array(
+				'filter_order_status' => implode(',', $this->config->get('config_processing_status')) ));
 			$data['processing_status'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&filter_order_status=' . implode(',', $this->config->get('config_processing_status')), true);
 
 			// Complete Orders
-			$data['complete_status_total'] = $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $this->config->get('config_complete_status'))));
+			$data['complete_status_total'] = $this->model_sale_order->getTotalOrders(array(
+				'filter_order_status' => implode(',', $this->config->get('config_complete_status')) ));
 			$data['complete_status'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&filter_order_status=' . implode(',', $this->config->get('config_complete_status')), true);
 
 			// Returns
 			$this->load->model('sale/return');
 
-			$return_total = $this->model_sale_return->getTotalReturns(array('filter_return_status_id' => $this->config->get('config_return_status_id')));
+			$return_total = $this->model_sale_return->getTotalReturns(array( 'filter_return_status_id' => $this->config->get('config_return_status_id') ));
 
 			$data['return_total'] = $return_total;
 
@@ -80,7 +83,7 @@ class ControllerCommonHeader extends Controller {
 
 			$this->load->model('customer/customer');
 
-			$customer_total = $this->model_customer_customer->getTotalCustomers(array('filter_approved' => false));
+			$customer_total = $this->model_customer_customer->getTotalCustomers(array( 'filter_approved' => false ));
 
 			$data['customer_total'] = $customer_total;
 			$data['customer_approval'] = $this->url->link('customer/customer', 'token=' . $this->session->data['token'] . '&filter_approved=0', true);
@@ -88,7 +91,7 @@ class ControllerCommonHeader extends Controller {
 			// Products
 			$this->load->model('catalog/product');
 
-			$product_total = $this->model_catalog_product->getTotalProducts(array('filter_quantity' => 0));
+			$product_total = $this->model_catalog_product->getTotalProducts(array( 'filter_quantity' => 0 ));
 
 			$data['product_total'] = $product_total;
 
@@ -97,7 +100,7 @@ class ControllerCommonHeader extends Controller {
 			// Reviews
 			$this->load->model('catalog/review');
 
-			$review_total = $this->model_catalog_review->getTotalReviews(array('filter_status' => 0));
+			$review_total = $this->model_catalog_review->getTotalReviews(array( 'filter_status' => 0 ));
 
 			$data['review_total'] = $review_total;
 
@@ -106,7 +109,8 @@ class ControllerCommonHeader extends Controller {
 			// Affliate
 			$this->load->model('marketing/affiliate');
 
-			$affiliate_total = $this->model_marketing_affiliate->getTotalAffiliates(array('filter_approved' => false));
+			$affiliate_total = $this->model_marketing_affiliate->getTotalAffiliates(array(
+				'filter_approved' => false ));
 
 			$data['affiliate_total'] = $affiliate_total;
 			$data['affiliate_approval'] = $this->url->link('marketing/affiliate', 'token=' . $this->session->data['token'] . '&filter_approved=1', true);
@@ -135,4 +139,5 @@ class ControllerCommonHeader extends Controller {
 
 		return $this->load->view('common/header', $data);
 	}
+
 }

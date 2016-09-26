@@ -108,9 +108,9 @@ class ControllerSettingStore extends Controller {
 
 		$data['stores'][] = array(
 			'store_id' => 0,
-			'name'     => $this->config->get('config_name') . $this->language->get('text_default'),
-			'url'      => HTTP_CATALOG,
-			'edit'     => $this->url->link('setting/setting', 'token=' . $this->session->data['token'], true)
+			'name'		 => $this->config->get('config_name') . $this->language->get('text_default'),
+			'url'			 => HTTP_CATALOG,
+			'edit'		 => $this->url->link('setting/setting', 'token=' . $this->session->data['token'], true)
 		);
 
 		$store_total = $this->model_setting_store->getTotalStores();
@@ -120,9 +120,9 @@ class ControllerSettingStore extends Controller {
 		foreach ($results as $result) {
 			$data['stores'][] = array(
 				'store_id' => $result['store_id'],
-				'name'     => $result['name'],
-				'url'      => $result['url'],
-				'edit'     => $this->url->link('setting/store/edit', 'token=' . $this->session->data['token'] . '&store_id=' . $result['store_id'], true)
+				'name'		 => $result['name'],
+				'url'			 => $result['url'],
+				'edit'		 => $this->url->link('setting/store/edit', 'token=' . $this->session->data['token'] . '&store_id=' . $result['store_id'], true)
 			);
 		}
 
@@ -413,8 +413,8 @@ class ControllerSettingStore extends Controller {
 			$this->load->language('extension/theme/' . $code);
 
 			$data['themes'][] = array(
-				'text'  => $this->language->get('heading_title'),
-				'value' => $code
+				'text'	 => $this->language->get('heading_title'),
+				'value'	 => $code
 			);
 		}
 
@@ -808,4 +808,5 @@ class ControllerSettingStore extends Controller {
 
 		return !$this->error;
 	}
+
 }

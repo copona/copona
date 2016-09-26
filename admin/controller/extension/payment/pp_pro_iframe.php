@@ -332,15 +332,15 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 			foreach ($paypal_order['transactions'] as $transaction) {
 				$data['transactions'][] = array(
 					'paypal_iframe_order_transaction_id' => $transaction['paypal_iframe_order_transaction_id'],
-					'transaction_id' => $transaction['transaction_id'],
-					'amount' => $transaction['amount'],
-					'date_added' => $transaction['date_added'],
-					'payment_type' => $transaction['payment_type'],
-					'payment_status' => $transaction['payment_status'],
-					'pending_reason' => $transaction['pending_reason'],
-					'view' => $this->url->link('extension/payment/pp_pro_iframe/info', 'token=' . $this->session->data['token'] . "&transaction_id=" . $transaction['transaction_id'] . '&order_id=' . $this->request->get['order_id'], true),
-					'refund' => $this->url->link('extension/payment/pp_pro_iframe/refund', 'token=' . $this->session->data['token'] . "&transaction_id=" . $transaction['transaction_id'] . "&order_id=" . $this->request->get['order_id'], true),
-					'resend' => $this->url->link('extension/payment/pp_pro_iframe/resend', 'token=' . $this->session->data['token'] . "&paypal_iframe_order_transaction_id=" . $transaction['paypal_iframe_order_transaction_id'], true),
+					'transaction_id'										 => $transaction['transaction_id'],
+					'amount'														 => $transaction['amount'],
+					'date_added'												 => $transaction['date_added'],
+					'payment_type'											 => $transaction['payment_type'],
+					'payment_status'										 => $transaction['payment_status'],
+					'pending_reason'										 => $transaction['pending_reason'],
+					'view'															 => $this->url->link('extension/payment/pp_pro_iframe/info', 'token=' . $this->session->data['token'] . "&transaction_id=" . $transaction['transaction_id'] . '&order_id=' . $this->request->get['order_id'], true),
+					'refund'														 => $this->url->link('extension/payment/pp_pro_iframe/refund', 'token=' . $this->session->data['token'] . "&transaction_id=" . $transaction['transaction_id'] . "&order_id=" . $this->request->get['order_id'], true),
+					'resend'														 => $this->url->link('extension/payment/pp_pro_iframe/resend', 'token=' . $this->session->data['token'] . "&paypal_iframe_order_transaction_id=" . $transaction['paypal_iframe_order_transaction_id'], true),
 				);
 			}
 
@@ -466,17 +466,17 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 					$transaction = array(
 						'paypal_iframe_order_id' => $paypal_order['paypal_iframe_order_id'],
-						'transaction_id' => '',
-						'parent_id' => $this->request->post['transaction_id'],
-						'note' => $this->request->post['refund_message'],
-						'msgsubid' => $call_data['MSGSUBID'],
-						'receipt_id' => '',
-						'payment_type' => '',
-						'payment_status' => 'Refunded',
-						'transaction_entity' => 'payment',
-						'pending_reason' => '',
-						'amount' => '-' . (isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount']),
-						'debug_data' => json_encode($result)
+						'transaction_id'				 => '',
+						'parent_id'							 => $this->request->post['transaction_id'],
+						'note'									 => $this->request->post['refund_message'],
+						'msgsubid'							 => $call_data['MSGSUBID'],
+						'receipt_id'						 => '',
+						'payment_type'					 => '',
+						'payment_status'				 => 'Refunded',
+						'transaction_entity'		 => 'payment',
+						'pending_reason'				 => '',
+						'amount'								 => '-' . (isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount']),
+						'debug_data'						 => json_encode($result)
 					);
 
 					if ($result == false) {
@@ -542,17 +542,17 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 				$transaction = array(
 					'paypal_iframe_order_id' => $paypal_order['paypal_iframe_order_id'],
-					'transaction_id' => '',
-					'parent_id' => $paypal_order['authorization_id'],
-					'note' => '',
-					'msgsubid' => '',
-					'receipt_id' => '',
-					'payment_type' => 'instant',
-					'payment_status' => $result['PAYMENTSTATUS'],
-					'transaction_entity' => 'auth',
-					'pending_reason' => $result['PENDINGREASON'],
-					'amount' => '-' . '',
-					'debug_data' => json_encode($result)
+					'transaction_id'				 => '',
+					'parent_id'							 => $paypal_order['authorization_id'],
+					'note'									 => '',
+					'msgsubid'							 => '',
+					'receipt_id'						 => '',
+					'payment_type'					 => 'instant',
+					'payment_status'				 => $result['PAYMENTSTATUS'],
+					'transaction_entity'		 => 'auth',
+					'pending_reason'				 => $result['PENDINGREASON'],
+					'amount'								 => '-' . '',
+					'debug_data'						 => json_encode($result)
 				);
 
 				$this->model_extension_payment_pp_pro_iframe->addTransaction($transaction);
@@ -730,17 +730,17 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 			$transaction = array(
 				'paypal_iframe_order_id' => $paypal_order['paypal_iframe_order_id'],
-				'transaction_id' => '',
-				'parent_id' => $paypal_order['authorization_id'],
-				'note' => '',
-				'msgsubid' => $call_data['MSGSUBID'],
-				'receipt_id' => '',
-				'payment_type' => '',
-				'payment_status' => '',
-				'pending_reason' => '',
-				'transaction_entity' => 'payment',
-				'amount' => '',
-				'debug_data' => json_encode($result)
+				'transaction_id'				 => '',
+				'parent_id'							 => $paypal_order['authorization_id'],
+				'note'									 => '',
+				'msgsubid'							 => $call_data['MSGSUBID'],
+				'receipt_id'						 => '',
+				'payment_type'					 => '',
+				'payment_status'				 => '',
+				'pending_reason'				 => '',
+				'transaction_entity'		 => 'payment',
+				'amount'								 => '',
+				'debug_data'						 => json_encode($result)
 			);
 
 			if ($result == false) {
@@ -784,17 +784,17 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 				if ($this->request->post['complete'] == 1 && $transaction['remaining'] > 0) {
 					$transaction['void'] = array(
 						'paypal_iframe_order_id' => $paypal_order['paypal_iframe_order_id'],
-						'transaction_id' => '',
-						'parent_id' => $paypal_order['authorization_id'],
-						'note' => '',
-						'msgsubid' => '',
-						'receipt_id' => '',
-						'payment_type' => '',
-						'payment_status' => 'Void',
-						'pending_reason' => '',
-						'amount' => '',
-						'debug_data' => 'Voided after capture',
-						'transaction_entity' => 'auth',
+						'transaction_id'				 => '',
+						'parent_id'							 => $paypal_order['authorization_id'],
+						'note'									 => '',
+						'msgsubid'							 => '',
+						'receipt_id'						 => '',
+						'payment_type'					 => '',
+						'payment_status'				 => 'Void',
+						'pending_reason'				 => '',
+						'amount'								 => '',
+						'debug_data'						 => 'Voided after capture',
+						'transaction_entity'		 => 'auth',
 					);
 
 					$this->model_extension_payment_pp_pro_iframe->addTransaction($transaction['void']);
@@ -836,17 +836,17 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 			if ($result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
 				$transaction = array(
 					'paypal_iframe_order_id' => $paypal_order['paypal_iframe_order_id'],
-					'transaction_id' => '',
-					'parent_id' => $paypal_order['authorization_id'],
-					'note' => '',
-					'msgsubid' => '',
-					'receipt_id' => '',
-					'payment_type' => 'void',
-					'payment_status' => 'Void',
-					'pending_reason' => '',
-					'transaction_entity' => 'auth',
-					'amount' => '',
-					'debug_data' => json_encode($result)
+					'transaction_id'				 => '',
+					'parent_id'							 => $paypal_order['authorization_id'],
+					'note'									 => '',
+					'msgsubid'							 => '',
+					'receipt_id'						 => '',
+					'payment_type'					 => 'void',
+					'payment_status'				 => 'Void',
+					'pending_reason'				 => '',
+					'transaction_entity'		 => 'auth',
+					'amount'								 => '',
+					'debug_data'						 => json_encode($result)
 				);
 
 				$this->model_extension_payment_pp_pro_iframe->addTransaction($transaction);
@@ -936,4 +936,5 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

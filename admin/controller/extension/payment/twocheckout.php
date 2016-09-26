@@ -165,4 +165,5 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
 
 		return !$this->error;
 	}
+
 }

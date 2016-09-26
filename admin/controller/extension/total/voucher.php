@@ -96,4 +96,5 @@ class ControllerExtensionTotalVoucher extends Controller {
 
 		$this->model_extension_event->deleteEvent('voucher');
 	}
+
 }

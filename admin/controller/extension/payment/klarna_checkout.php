@@ -299,7 +299,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$data['column_customer_details'] = $this->language->get('column_customer_details');
 		$data['column_billing_address'] = $this->language->get('column_billing_address');
 		$data['column_shipping_address'] = $this->language->get('column_shipping_address');
-		$data['column_order_lines']	= $this->language->get('column_order_lines');
+		$data['column_order_lines'] = $this->language->get('column_order_lines');
 		$data['column_amount'] = $this->language->get('column_amount');
 		$data['column_authorization_remaining'] = $this->language->get('column_authorization_remaining');
 		$data['column_authorization_expiry'] = $this->language->get('column_authorization_expiry');
@@ -415,67 +415,69 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		);
 
 		$replace = array(
-			'title'           => $klarna_order['billing_address']['title'],
-			'given_name'      => $klarna_order['billing_address']['given_name'],
-			'family_name'     => $klarna_order['billing_address']['family_name'],
-			'street_address'  => $klarna_order['billing_address']['street_address'],
-			'street_address2' => $klarna_order['billing_address']['street_address2'],
-			'city'            => $klarna_order['billing_address']['city'],
-			'postcode'        => $klarna_order['billing_address']['postal_code'],
-			'region'          => $klarna_order['billing_address']['region'],
-			'country'         => $klarna_order['billing_address']['country'],
-			'email'           => $klarna_order['billing_address']['email'],
-			'phone'           => $klarna_order['billing_address']['phone']
+			'title'						 => $klarna_order['billing_address']['title'],
+			'given_name'			 => $klarna_order['billing_address']['given_name'],
+			'family_name'			 => $klarna_order['billing_address']['family_name'],
+			'street_address'	 => $klarna_order['billing_address']['street_address'],
+			'street_address2'	 => $klarna_order['billing_address']['street_address2'],
+			'city'						 => $klarna_order['billing_address']['city'],
+			'postcode'				 => $klarna_order['billing_address']['postal_code'],
+			'region'					 => $klarna_order['billing_address']['region'],
+			'country'					 => $klarna_order['billing_address']['country'],
+			'email'						 => $klarna_order['billing_address']['email'],
+			'phone'						 => $klarna_order['billing_address']['phone']
 		);
 
-		$billing_address_formatted = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+		$billing_address_formatted = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
+			"/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
 
 		$replace = array(
-			'title'           => $klarna_order['shipping_address']['title'],
-			'given_name'      => $klarna_order['shipping_address']['given_name'],
-			'family_name'     => $klarna_order['shipping_address']['family_name'],
-			'street_address'  => $klarna_order['shipping_address']['street_address'],
-			'street_address2' => $klarna_order['shipping_address']['street_address2'],
-			'city'            => $klarna_order['shipping_address']['city'],
-			'postcode'        => $klarna_order['shipping_address']['postal_code'],
-			'region'          => $klarna_order['shipping_address']['region'],
-			'country'         => $klarna_order['shipping_address']['country'],
-			'email'           => $klarna_order['shipping_address']['email'],
-			'phone'           => $klarna_order['shipping_address']['phone']
+			'title'						 => $klarna_order['shipping_address']['title'],
+			'given_name'			 => $klarna_order['shipping_address']['given_name'],
+			'family_name'			 => $klarna_order['shipping_address']['family_name'],
+			'street_address'	 => $klarna_order['shipping_address']['street_address'],
+			'street_address2'	 => $klarna_order['shipping_address']['street_address2'],
+			'city'						 => $klarna_order['shipping_address']['city'],
+			'postcode'				 => $klarna_order['shipping_address']['postal_code'],
+			'region'					 => $klarna_order['shipping_address']['region'],
+			'country'					 => $klarna_order['shipping_address']['country'],
+			'email'						 => $klarna_order['shipping_address']['email'],
+			'phone'						 => $klarna_order['shipping_address']['phone']
 		);
 
-		$shipping_address_formatted = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+		$shipping_address_formatted = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
+			"/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
 
 		$order_lines = array();
 
 		foreach ($klarna_order['order_lines'] as $order_line) {
 			$order_lines[] = array(
-				'reference'				=> $order_line['reference'],
-				'type'					=> $order_line['type'],
-				'quantity'				=> $order_line['quantity'],
-				'quantity_unit'			=> $order_line['quantity_unit'],
-				'name'					=> $order_line['name'],
-				'total_amount'			=> $this->currency->format($order_line['total_amount'] / 100, $order_info['currency_code'], '1.00000000'),
-				'unit_price'			=> $this->currency->format($order_line['unit_price'] / 100, $order_info['currency_code'], '1.00000000'),
-				'total_discount_amount'	=> $this->currency->format($order_line['total_discount_amount'] / 100, $order_info['currency_code'], '1.00000000'),
-				'tax_rate'				=> ($order_line['tax_rate'] / 100) . '%',
-				'total_tax_amount'		=> $this->currency->format($order_line['total_tax_amount'] / 100, $order_info['currency_code'], '1.00000000')
+				'reference'							 => $order_line['reference'],
+				'type'									 => $order_line['type'],
+				'quantity'							 => $order_line['quantity'],
+				'quantity_unit'					 => $order_line['quantity_unit'],
+				'name'									 => $order_line['name'],
+				'total_amount'					 => $this->currency->format($order_line['total_amount'] / 100, $order_info['currency_code'], '1.00000000'),
+				'unit_price'						 => $this->currency->format($order_line['unit_price'] / 100, $order_info['currency_code'], '1.00000000'),
+				'total_discount_amount'	 => $this->currency->format($order_line['total_discount_amount'] / 100, $order_info['currency_code'], '1.00000000'),
+				'tax_rate'							 => ($order_line['tax_rate'] / 100) . '%',
+				'total_tax_amount'			 => $this->currency->format($order_line['total_tax_amount'] / 100, $order_info['currency_code'], '1.00000000')
 			);
 		}
 
 		$data['transaction'] = array(
-			'order_id'					 => $klarna_order['order_id'],
-			'reference'					 => $klarna_order['klarna_reference'],
-			'status'					 => $klarna_order['status'],
-			'merchant_reference_1'		 => $klarna_order['merchant_reference1'],
-			'billing_address'			 => $klarna_order['billing_address'],
-			'shipping_address'			 => $klarna_order['shipping_address'],
+			'order_id'									 => $klarna_order['order_id'],
+			'reference'									 => $klarna_order['klarna_reference'],
+			'status'										 => $klarna_order['status'],
+			'merchant_reference_1'			 => $klarna_order['merchant_reference1'],
+			'billing_address'						 => $klarna_order['billing_address'],
+			'shipping_address'					 => $klarna_order['shipping_address'],
 			'billing_address_formatted'	 => $billing_address_formatted,
 			'shipping_address_formatted' => $shipping_address_formatted,
-			'order_lines'				 => $order_lines,
-			'amount'					 => $this->currency->format($klarna_order['order_amount'] / 100, $order_info['currency_code'], '1.00000000'),
-			'authorization_expiry'		 => isset($klarna_order['expires_at']) ? date($this->language->get('date_format_short'), strtotime($klarna_order['expires_at'])) : '',
-			'authorization_remaining'	 => $this->currency->format($klarna_order['remaining_authorized_amount'] / 100, $order_info['currency_code'], '1.00000000'),
+			'order_lines'								 => $order_lines,
+			'amount'										 => $this->currency->format($klarna_order['order_amount'] / 100, $order_info['currency_code'], '1.00000000'),
+			'authorization_expiry'			 => isset($klarna_order['expires_at']) ? date($this->language->get('date_format_short'), strtotime($klarna_order['expires_at'])) : '',
+			'authorization_remaining'		 => $this->currency->format($klarna_order['remaining_authorized_amount'] / 100, $order_info['currency_code'], '1.00000000'),
 		);
 
 		$max_capture_amount = $klarna_order['remaining_authorized_amount'] / 100;
@@ -486,15 +488,15 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		foreach ($klarna_order['captures'] as $capture) {
 			$data['captures'][] = array(
-				'capture_id'		     => $capture['capture_id'],
-				'shipping_info_title'    => sprintf($this->language->get('text_capture_shipping_info_title'), $capture['capture_id']),
-				'billing_address_title'  => sprintf($this->language->get('text_capture_billing_address_title'), $capture['capture_id']),
-				'date_added'	         => date($this->language->get('datetime_format'), strtotime($capture['captured_at'])),
-				'amount'			     => $this->currency->format($capture['captured_amount'] / 100, $order_info['currency_code'], '1.00000000', true),
-				'reference'		         => $capture['klarna_reference'],
-				'shipping_info'	         => $capture['shipping_info'],
-				'billing_address'        => $capture['billing_address'],
-				'shipping_address'       => $capture['shipping_address']
+				'capture_id'						 => $capture['capture_id'],
+				'shipping_info_title'		 => sprintf($this->language->get('text_capture_shipping_info_title'), $capture['capture_id']),
+				'billing_address_title'	 => sprintf($this->language->get('text_capture_billing_address_title'), $capture['capture_id']),
+				'date_added'						 => date($this->language->get('datetime_format'), strtotime($capture['captured_at'])),
+				'amount'								 => $this->currency->format($capture['captured_amount'] / 100, $order_info['currency_code'], '1.00000000', true),
+				'reference'							 => $capture['klarna_reference'],
+				'shipping_info'					 => $capture['shipping_info'],
+				'billing_address'				 => $capture['billing_address'],
+				'shipping_address'			 => $capture['shipping_address']
 			);
 		}
 
@@ -505,7 +507,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 			$data['refunds'][] = array(
 				'date_added' => date($this->language->get('datetime_format'), strtotime($capture['refunded_at'])),
-				'amount'	 => $this->currency->format($capture['refunded_amount'] / 100, $order_info['currency_code'], '1.00000000', true)
+				'amount'		 => $this->currency->format($capture['refunded_amount'] / 100, $order_info['currency_code'], '1.00000000', true)
 			);
 		}
 
@@ -684,7 +686,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 					}
 
 					// Save all files to local
-					foreach (array_diff($files, array('.', '..')) as $file) {
+					foreach (array_diff($files, array( '.', '..' )) as $file) {
 						if (!ftp_get($connection, $klarna_checkout_directory . $file, $file, FTP_BINARY)) {
 							$error[] = 'There was a problem saving one or more files';
 						}
@@ -699,7 +701,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		if (!$error) {
 			// Loop local files and process
-			foreach (array_diff($files, array('.', '..')) as $file) {
+			foreach (array_diff($files, array( '.', '..' )) as $file) {
 				$handle = fopen($klarna_checkout_directory . $file, 'r');
 
 				// Skip first 2 lines, use third as headings
@@ -729,7 +731,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 
 		// Delete local files
-		foreach (array_diff($files, array('.', '..')) as $file) {
+		foreach (array_diff($files, array( '.', '..' )) as $file) {
 			if (!unlink($klarna_checkout_directory . $file)) {
 				$error[] = 'Cannot delete files';
 			}
@@ -796,4 +798,5 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		return !$this->error;
 	}
+
 }

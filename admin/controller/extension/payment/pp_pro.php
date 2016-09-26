@@ -184,4 +184,5 @@ class ControllerExtensionPaymentPPPro extends Controller {
 
 		return !$this->error;
 	}
+
 }

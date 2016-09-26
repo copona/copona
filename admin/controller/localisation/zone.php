@@ -161,10 +161,10 @@ class ControllerLocalisationZone extends Controller {
 		$data['zones'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$zone_total = $this->model_localisation_zone->getTotalZones();
@@ -173,11 +173,11 @@ class ControllerLocalisationZone extends Controller {
 
 		foreach ($results as $result) {
 			$data['zones'][] = array(
-				'zone_id' => $result['zone_id'],
-				'country' => $result['country'],
-				'name'    => $result['name'] . (($result['zone_id'] == $this->config->get('config_zone_id')) ? $this->language->get('text_default') : null),
-				'code'    => $result['code'],
-				'edit'    => $this->url->link('localisation/zone/edit', 'token=' . $this->session->data['token'] . '&zone_id=' . $result['zone_id'] . $url, true)
+				'zone_id'	 => $result['zone_id'],
+				'country'	 => $result['country'],
+				'name'		 => $result['name'] . (($result['zone_id'] == $this->config->get('config_zone_id')) ? $this->language->get('text_default') : null),
+				'code'		 => $result['code'],
+				'edit'		 => $this->url->link('localisation/zone/edit', 'token=' . $this->session->data['token'] . '&zone_id=' . $result['zone_id'] . $url, true)
 			);
 		}
 
@@ -425,4 +425,5 @@ class ControllerLocalisationZone extends Controller {
 
 		return !$this->error;
 	}
+
 }

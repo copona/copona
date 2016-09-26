@@ -161,10 +161,10 @@ class ControllerUserApi extends Controller {
 		$data['apis'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$user_total = $this->model_user_api->getTotalApis();
@@ -173,11 +173,11 @@ class ControllerUserApi extends Controller {
 
 		foreach ($results as $result) {
 			$data['apis'][] = array(
-				'api_id'     => $result['api_id'],
-				'name'       => $result['name'],
-				'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'api_id'		 => $result['api_id'],
+				'name'			 => $result['name'],
+				'status'		 => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'edit'       => $this->url->link('user/api/edit', 'token=' . $this->session->data['token'] . '&api_id=' . $result['api_id'] . $url, true)
+				'edit'			 => $this->url->link('user/api/edit', 'token=' . $this->session->data['token'] . '&api_id=' . $result['api_id'] . $url, true)
 			);
 		}
 
@@ -393,10 +393,10 @@ class ControllerUserApi extends Controller {
 			foreach ($results as $result) {
 				$data['api_sessions'][] = array(
 					'api_session_id' => $result['api_session_id'],
-					'token'          => $result['token'],
-					'ip'             => $result['ip'],
-					'date_added'     => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
-					'date_modified'  => date($this->language->get('datetime_format'), strtotime($result['date_modified']))
+					'token'					 => $result['token'],
+					'ip'						 => $result['ip'],
+					'date_added'		 => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
+					'date_modified'	 => date($this->language->get('datetime_format'), strtotime($result['date_modified']))
 				);
 			}
 		}
@@ -469,4 +469,5 @@ class ControllerUserApi extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

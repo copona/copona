@@ -166,4 +166,5 @@ class ControllerExtensionModuleBanner extends Controller {
 
 		return !$this->error;
 	}
+
 }

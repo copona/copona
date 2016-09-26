@@ -143,7 +143,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 		);
 
 		$data['action'] = $this->url->link('extension/payment/firstdata_remote', 'token=' . $this->session->data['token'], true);
-		
+
 		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=payment', true);
 
 		if (isset($this->request->post['firstdata_remote_merchant_id'])) {
@@ -276,28 +276,28 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 		$data['cards'] = array();
 
 		$data['cards'][] = array(
-			'text'  => $this->language->get('text_mastercard'),
-			'value' => 'mastercard'
+			'text'	 => $this->language->get('text_mastercard'),
+			'value'	 => 'mastercard'
 		);
 
 		$data['cards'][] = array(
-			'text'  => $this->language->get('text_visa'),
-			'value' => 'visa'
+			'text'	 => $this->language->get('text_visa'),
+			'value'	 => 'visa'
 		);
 
 		$data['cards'][] = array(
-			'text'  => $this->language->get('text_diners'),
-			'value' => 'diners'
+			'text'	 => $this->language->get('text_diners'),
+			'value'	 => 'diners'
 		);
 
 		$data['cards'][] = array(
-			'text'  => $this->language->get('text_amex'),
-			'value' => 'amex'
+			'text'	 => $this->language->get('text_amex'),
+			'value'	 => 'amex'
 		);
 
 		$data['cards'][] = array(
-			'text'  => $this->language->get('text_maestro'),
-			'value' => 'maestro'
+			'text'	 => $this->language->get('text_maestro'),
+			'value'	 => 'maestro'
 		);
 
 		if (isset($this->request->post['firstdata_remote_cards_accepted'])) {
@@ -436,7 +436,6 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				$json['msg'] = isset($capture_response['error']) && !empty($capture_response['error']) ? (string)$capture_response['error'] : 'Unable to capture';
-
 			}
 		} else {
 			$json['error'] = true;
@@ -531,4 +530,5 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 		return !$this->error;
 	}
+
 }

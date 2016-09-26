@@ -180,4 +180,5 @@ class ControllerExtensionPaymentSkrill extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -249,14 +249,14 @@ class ControllerCatalogReview extends Controller {
 		$data['reviews'] = array();
 
 		$filter_data = array(
-			'filter_product'    => $filter_product,
-			'filter_author'     => $filter_author,
-			'filter_status'     => $filter_status,
-			'filter_date_added' => $filter_date_added,
-			'sort'              => $sort,
-			'order'             => $order,
-			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'             => $this->config->get('config_limit_admin')
+			'filter_product'		 => $filter_product,
+			'filter_author'			 => $filter_author,
+			'filter_status'			 => $filter_status,
+			'filter_date_added'	 => $filter_date_added,
+			'sort'							 => $sort,
+			'order'							 => $order,
+			'start'							 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'							 => $this->config->get('config_limit_admin')
 		);
 
 		$review_total = $this->model_catalog_review->getTotalReviews($filter_data);
@@ -265,13 +265,13 @@ class ControllerCatalogReview extends Controller {
 
 		foreach ($results as $result) {
 			$data['reviews'][] = array(
-				'review_id'  => $result['review_id'],
-				'name'       => $result['name'],
-				'author'     => $result['author'],
-				'rating'     => $result['rating'],
-				'status'     => ($result['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+				'review_id'	 => $result['review_id'],
+				'name'			 => $result['name'],
+				'author'		 => $result['author'],
+				'rating'		 => $result['rating'],
+				'status'		 => ($result['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'edit'       => $this->url->link('catalog/review/edit', 'token=' . $this->session->data['token'] . '&review_id=' . $result['review_id'] . $url, true)
+				'edit'			 => $this->url->link('catalog/review/edit', 'token=' . $this->session->data['token'] . '&review_id=' . $result['review_id'] . $url, true)
 			);
 		}
 
@@ -609,4 +609,5 @@ class ControllerCatalogReview extends Controller {
 
 		return !$this->error;
 	}
+
 }

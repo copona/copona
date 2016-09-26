@@ -164,4 +164,5 @@ class ControllerExtensionModuleBestSeller extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -110,4 +110,5 @@ class ControllerExtensionTotalLowOrderFee extends Controller {
 
 		return !$this->error;
 	}
+
 }

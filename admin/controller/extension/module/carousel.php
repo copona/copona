@@ -170,4 +170,5 @@ class ControllerExtensionModuleCarousel extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -161,10 +161,10 @@ class ControllerCatalogFilter extends Controller {
 		$data['filters'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$filter_total = $this->model_catalog_filter->getTotalFilterGroups();
@@ -173,10 +173,10 @@ class ControllerCatalogFilter extends Controller {
 
 		foreach ($results as $result) {
 			$data['filters'][] = array(
-				'filter_group_id' => $result['filter_group_id'],
-				'name'            => $result['name'],
-				'sort_order'      => $result['sort_order'],
-				'edit'            => $this->url->link('catalog/filter/edit', 'token=' . $this->session->data['token'] . '&filter_group_id=' . $result['filter_group_id'] . $url, true)
+				'filter_group_id'	 => $result['filter_group_id'],
+				'name'						 => $result['name'],
+				'sort_order'			 => $result['sort_order'],
+				'edit'						 => $this->url->link('catalog/filter/edit', 'token=' . $this->session->data['token'] . '&filter_group_id=' . $result['filter_group_id'] . $url, true)
 			);
 		}
 
@@ -405,17 +405,17 @@ class ControllerCatalogFilter extends Controller {
 			$this->load->model('catalog/filter');
 
 			$filter_data = array(
-				'filter_name' => $this->request->get['filter_name'],
-				'start'       => 0,
-				'limit'       => 5
+				'filter_name'	 => $this->request->get['filter_name'],
+				'start'				 => 0,
+				'limit'				 => 5
 			);
 
 			$filters = $this->model_catalog_filter->getFilters($filter_data);
 
 			foreach ($filters as $filter) {
 				$json[] = array(
-					'filter_id' => $filter['filter_id'],
-					'name'      => strip_tags(html_entity_decode($filter['group'] . ' &gt; ' . $filter['name'], ENT_QUOTES, 'UTF-8'))
+					'filter_id'	 => $filter['filter_id'],
+					'name'			 => strip_tags(html_entity_decode($filter['group'] . ' &gt; ' . $filter['name'], ENT_QUOTES, 'UTF-8'))
 				);
 			}
 		}
@@ -431,4 +431,5 @@ class ControllerCatalogFilter extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

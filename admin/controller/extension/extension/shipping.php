@@ -101,13 +101,13 @@ class ControllerExtensionExtensionShipping extends Controller {
 				$this->load->language('extension/shipping/' . $extension);
 
 				$data['extensions'][] = array(
-					'name'       => $this->language->get('heading_title'),
-					'status'     => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+					'name'			 => $this->language->get('heading_title'),
+					'status'		 => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 					'sort_order' => $this->config->get($extension . '_sort_order'),
-					'install'    => $this->url->link('extension/extension/shipping/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
-					'uninstall'  => $this->url->link('extension/extension/shipping/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
-					'installed'  => in_array($extension, $extensions),
-					'edit'       => $this->url->link('extension/shipping/' . $extension, 'token=' . $this->session->data['token'], true)
+					'install'		 => $this->url->link('extension/extension/shipping/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
+					'uninstall'	 => $this->url->link('extension/extension/shipping/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
+					'installed'	 => in_array($extension, $extensions),
+					'edit'			 => $this->url->link('extension/shipping/' . $extension, 'token=' . $this->session->data['token'], true)
 				);
 			}
 		}
@@ -122,4 +122,5 @@ class ControllerExtensionExtensionShipping extends Controller {
 
 		return !$this->error;
 	}
+
 }

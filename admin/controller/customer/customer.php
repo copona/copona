@@ -443,17 +443,17 @@ class ControllerCustomerCustomer extends Controller {
 		$data['customers'] = array();
 
 		$filter_data = array(
-			'filter_name'              => $filter_name,
-			'filter_email'             => $filter_email,
+			'filter_name'							 => $filter_name,
+			'filter_email'						 => $filter_email,
 			'filter_customer_group_id' => $filter_customer_group_id,
-			'filter_status'            => $filter_status,
-			'filter_approved'          => $filter_approved,
-			'filter_date_added'        => $filter_date_added,
-			'filter_ip'                => $filter_ip,
-			'sort'                     => $sort,
-			'order'                    => $order,
-			'start'                    => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'                    => $this->config->get('config_limit_admin')
+			'filter_status'						 => $filter_status,
+			'filter_approved'					 => $filter_approved,
+			'filter_date_added'				 => $filter_date_added,
+			'filter_ip'								 => $filter_ip,
+			'sort'										 => $sort,
+			'order'										 => $order,
+			'start'										 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'										 => $this->config->get('config_limit_admin')
 		);
 
 		$customer_total = $this->model_customer_customer->getTotalCustomers($filter_data);
@@ -476,16 +476,16 @@ class ControllerCustomerCustomer extends Controller {
 			}
 
 			$data['customers'][] = array(
-				'customer_id'    => $result['customer_id'],
-				'name'           => $result['name'],
-				'email'          => $result['email'],
+				'customer_id'		 => $result['customer_id'],
+				'name'					 => $result['name'],
+				'email'					 => $result['email'],
 				'customer_group' => $result['customer_group'],
-				'status'         => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
-				'ip'             => $result['ip'],
-				'date_added'     => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'approve'        => $approve,
-				'unlock'         => $unlock,
-				'edit'           => $this->url->link('customer/customer/edit', 'token=' . $this->session->data['token'] . '&customer_id=' . $result['customer_id'] . $url, true)
+				'status'				 => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'ip'						 => $result['ip'],
+				'date_added'		 => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'approve'				 => $approve,
+				'unlock'				 => $unlock,
+				'edit'					 => $this->url->link('customer/customer/edit', 'token=' . $this->session->data['token'] . '&customer_id=' . $result['customer_id'] . $url, true)
 			);
 		}
 
@@ -809,11 +809,11 @@ class ControllerCustomerCustomer extends Controller {
 		if (isset($this->request->get['filter_approved'])) {
 			$url .= '&filter_approved=' . $this->request->get['filter_approved'];
 		}
-		
+
 		if (isset($this->request->get['filter_ip'])) {
 			$url .= '&filter_ip=' . $this->request->get['filter_ip'];
 		}
-		
+
 		if (isset($this->request->get['filter_date_added'])) {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
 		}
@@ -912,21 +912,21 @@ class ControllerCustomerCustomer extends Controller {
 		$data['custom_fields'] = array();
 
 		$filter_data = array(
-			'sort'  => 'cf.sort_order',
-			'order' => 'ASC'
+			'sort'	 => 'cf.sort_order',
+			'order'	 => 'ASC'
 		);
 
 		$custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
 		foreach ($custom_fields as $custom_field) {
 			$data['custom_fields'][] = array(
-				'custom_field_id'    => $custom_field['custom_field_id'],
+				'custom_field_id'		 => $custom_field['custom_field_id'],
 				'custom_field_value' => $this->model_customer_custom_field->getCustomFieldValues($custom_field['custom_field_id']),
-				'name'               => $custom_field['name'],
-				'value'              => $custom_field['value'],
-				'type'               => $custom_field['type'],
-				'location'           => $custom_field['location'],
-				'sort_order'         => $custom_field['sort_order']
+				'name'							 => $custom_field['name'],
+				'value'							 => $custom_field['value'],
+				'type'							 => $custom_field['type'],
+				'location'					 => $custom_field['location'],
+				'sort_order'				 => $custom_field['sort_order']
 			);
 		}
 
@@ -1045,12 +1045,13 @@ class ControllerCustomerCustomer extends Controller {
 		// Custom field validation
 		$this->load->model('customer/custom_field');
 
-		$custom_fields = $this->model_customer_custom_field->getCustomFields(array('filter_customer_group_id' => $this->request->post['customer_group_id']));
+		$custom_fields = $this->model_customer_custom_field->getCustomFields(array( 'filter_customer_group_id' => $this->request->post['customer_group_id'] ));
 
 		foreach ($custom_fields as $custom_field) {
 			if (($custom_field['location'] == 'account') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 				$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-			} elseif (($custom_field['location'] == 'account') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
+			} elseif (($custom_field['location'] == 'account') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array(
+					'options' => array( 'regexp' => $custom_field['validation'] ) ))) {
 				$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 			}
 		}
@@ -1102,9 +1103,10 @@ class ControllerCustomerCustomer extends Controller {
 				foreach ($custom_fields as $custom_field) {
 					if (($custom_field['location'] == 'address') && $custom_field['required'] && empty($value['custom_field'][$custom_field['custom_field_id']])) {
 						$this->error['address'][$key]['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-					} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($value['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
+					} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($value['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array(
+							'options' => array( 'regexp' => $custom_field['validation'] ) ))) {
 						$this->error['address'][$key]['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-                    }
+					}
 				}
 			}
 		}
@@ -1223,7 +1225,7 @@ class ControllerCustomerCustomer extends Controller {
 
 		foreach ($results as $result) {
 			$data['histories'][] = array(
-				'comment'    => $result['comment'],
+				'comment'		 => $result['comment'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
@@ -1286,9 +1288,9 @@ class ControllerCustomerCustomer extends Controller {
 
 		foreach ($results as $result) {
 			$data['transactions'][] = array(
-				'amount'      => $this->currency->format($result['amount'], $this->config->get('config_currency')),
-				'description' => $result['description'],
-				'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+				'amount'			 => $this->currency->format($result['amount'], $this->config->get('config_currency')),
+				'description'	 => $result['description'],
+				'date_added'	 => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
 
@@ -1352,9 +1354,9 @@ class ControllerCustomerCustomer extends Controller {
 
 		foreach ($results as $result) {
 			$data['rewards'][] = array(
-				'points'      => $result['points'],
-				'description' => $result['description'],
-				'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+				'points'			 => $result['points'],
+				'description'	 => $result['description'],
+				'date_added'	 => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
 
@@ -1417,10 +1419,10 @@ class ControllerCustomerCustomer extends Controller {
 
 		foreach ($results as $result) {
 			$data['ips'][] = array(
-				'ip'         => $result['ip'],
-				'total'      => $this->model_customer_customer->getTotalCustomersByIp($result['ip']),
+				'ip'				 => $result['ip'],
+				'total'			 => $this->model_customer_customer->getTotalCustomersByIp($result['ip']),
 				'date_added' => date('d/m/y', strtotime($result['date_added'])),
-				'filter_ip'  => $this->url->link('customer/customer', 'token=' . $this->session->data['token'] . '&filter_ip=' . $result['ip'], true)
+				'filter_ip'	 => $this->url->link('customer/customer', 'token=' . $this->session->data['token'] . '&filter_ip=' . $result['ip'], true)
 			);
 		}
 
@@ -1458,27 +1460,27 @@ class ControllerCustomerCustomer extends Controller {
 			$this->load->model('customer/customer');
 
 			$filter_data = array(
-				'filter_name'  => $filter_name,
+				'filter_name'	 => $filter_name,
 				'filter_email' => $filter_email,
-				'start'        => 0,
-				'limit'        => 5
+				'start'				 => 0,
+				'limit'				 => 5
 			);
 
 			$results = $this->model_customer_customer->getCustomers($filter_data);
 
 			foreach ($results as $result) {
 				$json[] = array(
-					'customer_id'       => $result['customer_id'],
-					'customer_group_id' => $result['customer_group_id'],
-					'name'              => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
-					'customer_group'    => $result['customer_group'],
-					'firstname'         => $result['firstname'],
-					'lastname'          => $result['lastname'],
-					'email'             => $result['email'],
-					'telephone'         => $result['telephone'],
-					'fax'               => $result['fax'],
-					'custom_field'      => json_decode($result['custom_field'], true),
-					'address'           => $this->model_customer_customer->getAddresses($result['customer_id'])
+					'customer_id'				 => $result['customer_id'],
+					'customer_group_id'	 => $result['customer_group_id'],
+					'name'							 => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
+					'customer_group'		 => $result['customer_group'],
+					'firstname'					 => $result['firstname'],
+					'lastname'					 => $result['lastname'],
+					'email'							 => $result['email'],
+					'telephone'					 => $result['telephone'],
+					'fax'								 => $result['fax'],
+					'custom_field'			 => json_decode($result['custom_field'], true),
+					'address'						 => $this->model_customer_customer->getAddresses($result['customer_id'])
 				);
 			}
 		}
@@ -1507,12 +1509,12 @@ class ControllerCustomerCustomer extends Controller {
 			$customer_group_id = $this->config->get('config_customer_group_id');
 		}
 
-		$custom_fields = $this->model_customer_custom_field->getCustomFields(array('filter_customer_group_id' => $customer_group_id));
+		$custom_fields = $this->model_customer_custom_field->getCustomFields(array( 'filter_customer_group_id' => $customer_group_id ));
 
 		foreach ($custom_fields as $custom_field) {
 			$json[] = array(
-				'custom_field_id' => $custom_field['custom_field_id'],
-				'required'        => empty($custom_field['required']) || $custom_field['required'] == 0 ? false : true
+				'custom_field_id'	 => $custom_field['custom_field_id'],
+				'required'				 => empty($custom_field['required']) || $custom_field['required'] == 0 ? false : true
 			);
 		}
 
@@ -1532,4 +1534,5 @@ class ControllerCustomerCustomer extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }

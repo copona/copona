@@ -18,7 +18,7 @@ class ControllerExtensionDashboardOrder extends Controller {
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -62,13 +62,13 @@ class ControllerExtensionDashboardOrder extends Controller {
 		} else {
 			$data['dashboard_order_width'] = $this->config->get('dashboard_order_width');
 		}
-		
+
 		$data['columns'] = array();
-		
+
 		for ($i = 3; $i <= 12; $i++) {
 			$data['columns'][] = $i;
 		}
-				
+
 		if (isset($this->request->post['dashboard_order_status'])) {
 			$data['dashboard_order_status'] = $this->request->post['dashboard_order_status'];
 		} else {
@@ -95,7 +95,7 @@ class ControllerExtensionDashboardOrder extends Controller {
 
 		return !$this->error;
 	}
-	
+
 	public function dashboard() {
 		$this->load->language('extension/dashboard/order');
 
@@ -108,9 +108,9 @@ class ControllerExtensionDashboardOrder extends Controller {
 		// Total Orders
 		$this->load->model('sale/order');
 
-		$today = $this->model_sale_order->getTotalOrders(array('filter_date_added' => date('Y-m-d', strtotime('-1 day'))));
+		$today = $this->model_sale_order->getTotalOrders(array( 'filter_date_added' => date('Y-m-d', strtotime('-1 day')) ));
 
-		$yesterday = $this->model_sale_order->getTotalOrders(array('filter_date_added' => date('Y-m-d', strtotime('-2 day'))));
+		$yesterday = $this->model_sale_order->getTotalOrders(array( 'filter_date_added' => date('Y-m-d', strtotime('-2 day')) ));
 
 		$difference = $today - $yesterday;
 
@@ -138,4 +138,5 @@ class ControllerExtensionDashboardOrder extends Controller {
 
 		return $this->load->view('extension/dashboard/order_info', $data);
 	}
+
 }

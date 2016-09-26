@@ -144,137 +144,137 @@ class ControllerExtensionModulePPLogin extends Controller {
 		$data['locales'] = array();
 
 		$data['locales'][] = array(
-			'value' => 'en-gb',
-			'text' => 'English (Great Britain)'
+			'value'	 => 'en-gb',
+			'text'	 => 'English (Great Britain)'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'zh-cn',
-			'text' => 'Chinese (People\'s Republic of China)'
+			'value'	 => 'zh-cn',
+			'text'	 => 'Chinese (People\'s Republic of China)'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'zh-hk',
-			'text' => 'Chinese (Hong Kong)',
+			'value'	 => 'zh-hk',
+			'text'	 => 'Chinese (Hong Kong)',
 		);
 
 		$data['locales'][] = array(
-			'value' => 'zh-tw',
-			'text' => 'Chinese (Taiwan)'
+			'value'	 => 'zh-tw',
+			'text'	 => 'Chinese (Taiwan)'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'zh-xc',
-			'text' => 'Chinese (US)'
+			'value'	 => 'zh-xc',
+			'text'	 => 'Chinese (US)'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'da-dk',
-			'text' => 'Danish'
+			'value'	 => 'da-dk',
+			'text'	 => 'Danish'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'nl-nl',
-			'text' => 'Dutch'
+			'value'	 => 'nl-nl',
+			'text'	 => 'Dutch'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'en-au',
-			'text' => 'English (Australia)'
+			'value'	 => 'en-au',
+			'text'	 => 'English (Australia)'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'en-us',
-			'text' => 'English (US)',
+			'value'	 => 'en-us',
+			'text'	 => 'English (US)',
 		);
 
 		$data['locales'][] = array(
-			'value' => 'fr-fr',
-			'text' => 'French'
+			'value'	 => 'fr-fr',
+			'text'	 => 'French'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'fr-ca',
-			'text' => 'French (Canada)'
+			'value'	 => 'fr-ca',
+			'text'	 => 'French (Canada)'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'fr-xc',
-			'text' => 'French (international)'
+			'value'	 => 'fr-xc',
+			'text'	 => 'French (international)'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'de-de',
-			'text' => 'German'
+			'value'	 => 'de-de',
+			'text'	 => 'German'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'he-il',
-			'text' => 'Hebrew (Israel)'
+			'value'	 => 'he-il',
+			'text'	 => 'Hebrew (Israel)'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'id-id',
-			'text' => 'Indonesian'
+			'value'	 => 'id-id',
+			'text'	 => 'Indonesian'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'it-il',
-			'text' => 'Italian'
+			'value'	 => 'it-il',
+			'text'	 => 'Italian'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'ja-jp' ,
-			'text' => 'Japanese'
+			'value'	 => 'ja-jp',
+			'text'	 => 'Japanese'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'no-no',
-			'text' => 'Norwegian'
+			'value'	 => 'no-no',
+			'text'	 => 'Norwegian'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'pl-pl',
-			'text' => 'Polish');
+			'value'	 => 'pl-pl',
+			'text'	 => 'Polish' );
 
 		$data['locales'][] = array(
-			'value' => 'pt-pt',
-			'text' => 'Portuguese'
+			'value'	 => 'pt-pt',
+			'text'	 => 'Portuguese'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'pt-br',
-			'text' => 'Portuguese (Brazil)'
+			'value'	 => 'pt-br',
+			'text'	 => 'Portuguese (Brazil)'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'ru-ru',
-			'text' => 'Russian'
+			'value'	 => 'ru-ru',
+			'text'	 => 'Russian'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'es-es',
-			'text'  => 'Spanish'
+			'value'	 => 'es-es',
+			'text'	 => 'Spanish'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'es-xc',
-			'text'  => 'Spanish (Mexico)'
+			'value'	 => 'es-xc',
+			'text'	 => 'Spanish (Mexico)'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'sv-se',
-			'text'  => 'Swedish'
+			'value'	 => 'sv-se',
+			'text'	 => 'Swedish'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'th-th',
-			'text'  => 'Thai'
+			'value'	 => 'th-th',
+			'text'	 => 'Thai'
 		);
 
 		$data['locales'][] = array(
-			'value' => 'tr-tr',
-			'text'  => 'Turkish'
+			'value'	 => 'tr-tr',
+			'text'	 => 'Turkish'
 		);
 
 		if (isset($this->request->post['pp_login_locale'])) {
@@ -325,4 +325,5 @@ class ControllerExtensionModulePPLogin extends Controller {
 
 		$this->model_extension_event->deleteEvent('pp_login');
 	}
+
 }

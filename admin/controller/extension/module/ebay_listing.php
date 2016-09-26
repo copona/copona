@@ -143,63 +143,63 @@ class ControllerExtensionModuleEbayListing extends Controller {
 		$data['sites'] = array();
 
 		$data['sites'][] = array(
-			'text'  => 'USA',
-			'value' => 0
+			'text'	 => 'USA',
+			'value'	 => 0
 		);
 
 		$data['sites'][] = array(
-			'text'  => 'UK',
-			'value' => 3
+			'text'	 => 'UK',
+			'value'	 => 3
 		);
 		$data['sites'][] = array(
-			'text'  => 'Australia',
-			'value' => 15
-		);
-
-		$data['sites'][] = array(
-			'text'  => 'Canada (English)',
-			'value' => 2
+			'text'	 => 'Australia',
+			'value'	 => 15
 		);
 
 		$data['sites'][] = array(
-			'text'  => 'France',
-			'value' => 71
-		);
-		$data['sites'][] = array(
-			'text'  => 'Germany',
-			'value' => 77
-		);
-		$data['sites'][] = array(
-			'text'  => 'Italy',
-			'value' => 101
-		);
-		$data['sites'][] = array(
-			'text'  => 'Spain',
-			'value' => 186
-		);
-		$data['sites'][] = array(
-			'text'  => 'Ireland',
-			'value' => 205
+			'text'	 => 'Canada (English)',
+			'value'	 => 2
 		);
 
 		$data['sites'][] = array(
-			'text'  => 'Austria',
-			'value' => 16
+			'text'	 => 'France',
+			'value'	 => 71
+		);
+		$data['sites'][] = array(
+			'text'	 => 'Germany',
+			'value'	 => 77
+		);
+		$data['sites'][] = array(
+			'text'	 => 'Italy',
+			'value'	 => 101
+		);
+		$data['sites'][] = array(
+			'text'	 => 'Spain',
+			'value'	 => 186
+		);
+		$data['sites'][] = array(
+			'text'	 => 'Ireland',
+			'value'	 => 205
 		);
 
 		$data['sites'][] = array(
-			'text'  => 'Netherlands',
-			'value' => 146
+			'text'	 => 'Austria',
+			'value'	 => 16
 		);
 
 		$data['sites'][] = array(
-			'text'  => 'Belgium (French)',
-			'value' => 23
+			'text'	 => 'Netherlands',
+			'value'	 => 146
 		);
 
 		$data['sites'][] = array(
-			'text'  => 'Belgium (Dutch)',
-			'value' => 123
+			'text'	 => 'Belgium (French)',
+			'value'	 => 23
+		);
+
+		$data['sites'][] = array(
+			'text'	 => 'Belgium (Dutch)',
+			'value'	 => 123
 		);
 
 		if (isset($this->request->post['ebay_listing_status'])) {
@@ -230,4 +230,5 @@ class ControllerExtensionModuleEbayListing extends Controller {
 
 		return !$this->error;
 	}
+
 }

@@ -337,18 +337,18 @@ class ControllerSaleReturn extends Controller {
 		$data['returns'] = array();
 
 		$filter_data = array(
-			'filter_return_id'        => $filter_return_id,
-			'filter_order_id'         => $filter_order_id,
-			'filter_customer'         => $filter_customer,
-			'filter_product'          => $filter_product,
-			'filter_model'            => $filter_model,
-			'filter_return_status_id' => $filter_return_status_id,
-			'filter_date_added'       => $filter_date_added,
-			'filter_date_modified'    => $filter_date_modified,
-			'sort'                    => $sort,
-			'order'                   => $order,
-			'start'                   => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'                   => $this->config->get('config_limit_admin')
+			'filter_return_id'				 => $filter_return_id,
+			'filter_order_id'					 => $filter_order_id,
+			'filter_customer'					 => $filter_customer,
+			'filter_product'					 => $filter_product,
+			'filter_model'						 => $filter_model,
+			'filter_return_status_id'	 => $filter_return_status_id,
+			'filter_date_added'				 => $filter_date_added,
+			'filter_date_modified'		 => $filter_date_modified,
+			'sort'										 => $sort,
+			'order'										 => $order,
+			'start'										 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'										 => $this->config->get('config_limit_admin')
 		);
 
 		$return_total = $this->model_sale_return->getTotalReturns($filter_data);
@@ -357,15 +357,15 @@ class ControllerSaleReturn extends Controller {
 
 		foreach ($results as $result) {
 			$data['returns'][] = array(
-				'return_id'     => $result['return_id'],
-				'order_id'      => $result['order_id'],
-				'customer'      => $result['customer'],
-				'product'       => $result['product'],
-				'model'         => $result['model'],
-				'status'        => $result['status'],
-				'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
-				'edit'          => $this->url->link('sale/return/edit', 'token=' . $this->session->data['token'] . '&return_id=' . $result['return_id'] . $url, true)
+				'return_id'			 => $result['return_id'],
+				'order_id'			 => $result['order_id'],
+				'customer'			 => $result['customer'],
+				'product'				 => $result['product'],
+				'model'					 => $result['model'],
+				'status'				 => $result['status'],
+				'date_added'		 => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'date_modified'	 => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
+				'edit'					 => $this->url->link('sale/return/edit', 'token=' . $this->session->data['token'] . '&return_id=' . $result['return_id'] . $url, true)
 			);
 		}
 
@@ -964,9 +964,9 @@ class ControllerSaleReturn extends Controller {
 
 		foreach ($results as $result) {
 			$data['histories'][] = array(
-				'notify'     => $result['notify'] ? $this->language->get('text_yes') : $this->language->get('text_no'),
-				'status'     => $result['status'],
-				'comment'    => nl2br($result['comment']),
+				'notify'		 => $result['notify'] ? $this->language->get('text_yes') : $this->language->get('text_no'),
+				'status'		 => $result['status'],
+				'comment'		 => nl2br($result['comment']),
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
@@ -985,4 +985,5 @@ class ControllerSaleReturn extends Controller {
 
 		$this->response->setOutput($this->load->view('sale/return_history', $data));
 	}
+
 }

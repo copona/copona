@@ -161,10 +161,10 @@ class ControllerLocalisationTaxClass extends Controller {
 		$data['tax_classes'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$tax_class_total = $this->model_localisation_tax_class->getTotalTaxClasses();
@@ -174,8 +174,8 @@ class ControllerLocalisationTaxClass extends Controller {
 		foreach ($results as $result) {
 			$data['tax_classes'][] = array(
 				'tax_class_id' => $result['tax_class_id'],
-				'title'        => $result['title'],
-				'edit'         => $this->url->link('localisation/tax_class/edit', 'token=' . $this->session->data['token'] . '&tax_class_id=' . $result['tax_class_id'] . $url, true)
+				'title'				 => $result['title'],
+				'edit'				 => $this->url->link('localisation/tax_class/edit', 'token=' . $this->session->data['token'] . '&tax_class_id=' . $result['tax_class_id'] . $url, true)
 			);
 		}
 
@@ -399,4 +399,5 @@ class ControllerLocalisationTaxClass extends Controller {
 
 		return !$this->error;
 	}
+
 }

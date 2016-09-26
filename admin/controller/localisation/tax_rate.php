@@ -161,10 +161,10 @@ class ControllerLocalisationTaxRate extends Controller {
 		$data['tax_rates'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$tax_rate_total = $this->model_localisation_tax_rate->getTotalTaxRates();
@@ -173,14 +173,14 @@ class ControllerLocalisationTaxRate extends Controller {
 
 		foreach ($results as $result) {
 			$data['tax_rates'][] = array(
-				'tax_rate_id'   => $result['tax_rate_id'],
-				'name'          => $result['name'],
-				'rate'          => $result['rate'],
-				'type'          => ($result['type'] == 'F' ? $this->language->get('text_amount') : $this->language->get('text_percent')),
-				'geo_zone'      => $result['geo_zone'],
-				'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
-				'edit'          => $this->url->link('localisation/tax_rate/edit', 'token=' . $this->session->data['token'] . '&tax_rate_id=' . $result['tax_rate_id'] . $url, true)
+				'tax_rate_id'		 => $result['tax_rate_id'],
+				'name'					 => $result['name'],
+				'rate'					 => $result['rate'],
+				'type'					 => ($result['type'] == 'F' ? $this->language->get('text_amount') : $this->language->get('text_percent')),
+				'geo_zone'			 => $result['geo_zone'],
+				'date_added'		 => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'date_modified'	 => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
+				'edit'					 => $this->url->link('localisation/tax_rate/edit', 'token=' . $this->session->data['token'] . '&tax_rate_id=' . $result['tax_rate_id'] . $url, true)
 			);
 		}
 
@@ -372,7 +372,7 @@ class ControllerLocalisationTaxRate extends Controller {
 		} elseif (isset($this->request->get['tax_rate_id'])) {
 			$data['tax_rate_customer_group'] = $this->model_localisation_tax_rate->getTaxRateCustomerGroups($this->request->get['tax_rate_id']);
 		} else {
-			$data['tax_rate_customer_group'] = array($this->config->get('config_customer_group_id'));
+			$data['tax_rate_customer_group'] = array( $this->config->get('config_customer_group_id') );
 		}
 
 		$this->load->model('customer/customer_group');
@@ -431,4 +431,5 @@ class ControllerLocalisationTaxRate extends Controller {
 
 		return !$this->error;
 	}
+
 }

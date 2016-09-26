@@ -381,4 +381,5 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 		return !$this->error;
 	}
+
 }

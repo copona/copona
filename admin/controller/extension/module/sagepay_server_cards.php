@@ -75,4 +75,5 @@ class ControllerExtensionModuleSagepayServerCards extends Controller {
 
 		return !$this->error;
 	}
+
 }

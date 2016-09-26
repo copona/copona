@@ -158,4 +158,5 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 
 		return !$this->error;
 	}
+
 }

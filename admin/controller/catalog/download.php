@@ -161,10 +161,10 @@ class ControllerCatalogDownload extends Controller {
 		$data['downloads'] = array();
 
 		$filter_data = array(
-			'sort'  => $sort,
-			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit' => $this->config->get('config_limit_admin')
+			'sort'	 => $sort,
+			'order'	 => $order,
+			'start'	 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'	 => $this->config->get('config_limit_admin')
 		);
 
 		$download_total = $this->model_catalog_download->getTotalDownloads();
@@ -173,10 +173,10 @@ class ControllerCatalogDownload extends Controller {
 
 		foreach ($results as $result) {
 			$data['downloads'][] = array(
-				'download_id' => $result['download_id'],
-				'name'        => $result['name'],
-				'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'edit'        => $this->url->link('catalog/download/edit', 'token=' . $this->session->data['token'] . '&download_id=' . $result['download_id'] . $url, true)
+				'download_id'	 => $result['download_id'],
+				'name'				 => $result['name'],
+				'date_added'	 => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'edit'				 => $this->url->link('catalog/download/edit', 'token=' . $this->session->data['token'] . '&download_id=' . $result['download_id'] . $url, true)
 			);
 		}
 
@@ -513,17 +513,17 @@ class ControllerCatalogDownload extends Controller {
 			$this->load->model('catalog/download');
 
 			$filter_data = array(
-				'filter_name' => $this->request->get['filter_name'],
-				'start'       => 0,
-				'limit'       => 5
+				'filter_name'	 => $this->request->get['filter_name'],
+				'start'				 => 0,
+				'limit'				 => 5
 			);
 
 			$results = $this->model_catalog_download->getDownloads($filter_data);
 
 			foreach ($results as $result) {
 				$json[] = array(
-					'download_id' => $result['download_id'],
-					'name'        => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
+					'download_id'	 => $result['download_id'],
+					'name'				 => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
 				);
 			}
 		}
@@ -539,4 +539,5 @@ class ControllerCatalogDownload extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 }
