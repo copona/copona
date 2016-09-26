@@ -24,6 +24,10 @@
 /system/storage/*
 /system/storage/logs/*
 
+# Templates
+/catalog/view/theme/*
+!/catalog/view/theme/default/
+
 # Not files
 !/system/storage/**/index.html
 !/image/cache/index.html
