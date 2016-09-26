@@ -18,11 +18,12 @@ class ControllerStartupStartup extends Controller {
 
 		if ($query->num_rows) {
 			$this->config->set('config_language_id', $query->row['language_id']);
+			$this->config->set('config_admin_language_locale', $query->row['locale']);
 		}
 
 		// Language
-		$language = new Language($this->config->get('config_admin_language'));
-		$language->load($this->config->get('config_admin_language'));
+		$language = new Language($this->config->get('config_admin_language_locale'));
+		$language->load($this->config->get('config_admin_language_locale'));
 		$this->registry->set('language', $language);
 
 		// Customer
