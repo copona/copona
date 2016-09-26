@@ -2,6 +2,9 @@
 // Error Reporting
 error_reporting(E_ALL);
 
+// DEBUG functions
+require_once(DIR_SYSTEM . 'helper/debug.php');
+
 // Check Version
 if (version_compare(phpversion(), '5.4.0', '<') == true) {
 	exit('PHP5.4+ Required');
@@ -9,13 +12,14 @@ if (version_compare(phpversion(), '5.4.0', '<') == true) {
 
 // Magic Quotes Fix
 if (ini_get('magic_quotes_gpc')) {
+
 	function clean($data) {
-   		if (is_array($data)) {
-  			foreach ($data as $key => $value) {
-    			$data[clean($key)] = clean($value);
-  			}
+		if (is_array($data)) {
+			foreach ($data as $key => $value) {
+				$data[clean($key)] = clean($value);
+			}
 		} else {
-  			$data = stripslashes($data);
+			$data = stripslashes($data);
 		}
 
 		return $data;
@@ -67,9 +71,9 @@ if ((isset($_SERVER['HTTPS']) && (($_SERVER['HTTPS'] == 'on') || ($_SERVER['HTTP
 // Modification Override
 function modification($filename) {
 	if (defined('DIR_CATALOG')) {
-		$file = DIR_MODIFICATION . 'admin/' .  substr($filename, strlen(DIR_APPLICATION));
+		$file = DIR_MODIFICATION . 'admin/' . substr($filename, strlen(DIR_APPLICATION));
 	} elseif (defined('DIR_OPENCART')) {
-		$file = DIR_MODIFICATION . 'install/' .  substr($filename, strlen(DIR_APPLICATION));
+		$file = DIR_MODIFICATION . 'install/' . substr($filename, strlen(DIR_APPLICATION));
 	} else {
 		$file = DIR_MODIFICATION . 'catalog/' . substr($filename, strlen(DIR_APPLICATION));
 	}
@@ -121,5 +125,5 @@ require_once(DIR_SYSTEM . 'helper/utf8.php');
 require_once(DIR_SYSTEM . 'helper/json.php');
 
 function start($application_config) {
-	require_once(DIR_SYSTEM . 'framework.php');	
+	require_once(DIR_SYSTEM . 'framework.php');
 }
