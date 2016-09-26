@@ -22,8 +22,10 @@ $_['entry_status'] = 'Status';
 $_['entry_sort_order'] = 'Sort Order';
 
 // Help
-$_['help_locale'] = 'Example: en_US.UTF-8,en_US,en-gb,en_gb,english';
+//$_['help_locale'] = 'Example: en_US.UTF-8,en_US,en-gb,en_gb,english';
+$_['help_locale'] = 'Select from Available folders. Folder MUST exist under \'admin/languages\' and named after language LOCALE';
 $_['help_status'] = 'Hide/Show it in language dropdown';
+$_['help_code'] = 'This will be an indicator, and part of SEO link.';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify languages!';

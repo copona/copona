@@ -8,16 +8,16 @@
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
 				<?php foreach ($breadcrumbs as $breadcrumb) { ?>
-	        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+					<li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
 				<?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
 		<?php if ($error_warning) { ?>
-	    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-	      <button type="button" class="close" data-dismiss="alert">&times;</button>
-	    </div>
+			<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
 		<?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -30,33 +30,36 @@
             <div class="col-sm-10">
               <input type="text" name="name" value="<?php echo $name; ?>" placeholder="<?php echo $entry_name; ?>" id="input-name" class="form-control" />
 							<?php if ($error_name) { ?>
-	              <div class="text-danger"><?php echo $error_name; ?></div>
+								<div class="text-danger"><?php echo $error_name; ?></div>
 							<?php } ?>
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-code"><?php echo $entry_code; ?></label>
+            <label class="col-sm-2 control-label" for="input-locale">
+							<span data-toggle="tooltip" title="<?php echo $help_locale; ?>"><?php echo $entry_locale; ?></span>
+						</label>
+
             <div class="col-sm-10">
-              <select name="code" id="input-code" class="form-control">
+              <select name="locale" id="input-locale" class="form-control">
 								<?php foreach ($languages as $language) { ?>
-									<?php if ($language == $code) { ?>
-		                <option value="<?php echo $language; ?>" selected="selected"><?php echo $language; ?></option>
+									<?php if ($language == $locale) { ?>
+										<option value="<?php echo $language; ?>" selected="selected"><?php echo $language; ?></option>
 									<?php } else { ?>
-		                <option value="<?php echo $language; ?>"><?php echo $language; ?></option>
+										<option value="<?php echo $language; ?>"><?php echo $language; ?></option>
 									<?php } ?>
 								<?php } ?>
               </select>
-							<?php if ($error_code) { ?>
-	              <div class="text-danger"><?php echo $error_code; ?></div>
+							<?php if ($error_locale) { ?>
+								<div class="text-danger"><?php echo $error_locale; ?></div>
 							<?php } ?>
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label required" for="input-locale"><span data-toggle="tooltip" title="<?php echo $help_locale; ?>"><?php echo $entry_locale; ?></span></label>
+            <label class="col-sm-2 control-label required" for="input-code"><span data-toggle="tooltip" title="<?php echo $help_code; ?>"><?php echo $entry_code; ?></span></label>
             <div class="col-sm-10">
-              <input type="text" name="locale" value="<?php echo $locale; ?>" placeholder="<?php echo $entry_locale; ?>" id="input-locale" class="form-control" />
-							<?php if ($error_locale) { ?>
-	              <div class="text-danger"><?php echo $error_locale; ?></div>
+              <input type="text" name="code" value="<?php echo $code; ?>" placeholder="<?php echo $entry_code; ?>" id="input-code" class="form-control" />
+							<?php if ($error_code) { ?>
+								<div class="text-danger"><?php echo $error_code; ?></div>
 							<?php } ?>
             </div>
           </div>
@@ -65,11 +68,11 @@
             <div class="col-sm-10">
               <select name="status" id="input-status" class="form-control">
 								<?php if ($status) { ?>
-	                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-	                <option value="0"><?php echo $text_disabled; ?></option>
+									<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+									<option value="0"><?php echo $text_disabled; ?></option>
 								<?php } else { ?>
-	                <option value="1"><?php echo $text_enabled; ?></option>
-	                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+									<option value="1"><?php echo $text_enabled; ?></option>
+									<option value="0" selected="selected"><?php echo $text_disabled; ?></option>
 								<?php } ?>
               </select>
             </div>
