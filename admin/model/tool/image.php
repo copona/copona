@@ -1,5 +1,6 @@
 <?php
 class ModelToolImage extends Model {
+
 	public function resize($filename, $width, $height) {
 		if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != DIR_IMAGE) {
 			return;
@@ -12,11 +13,11 @@ class ModelToolImage extends Model {
 
 		if (!is_file(DIR_IMAGE . $image_new) || (filectime(DIR_IMAGE . $image_old) > filectime(DIR_IMAGE . $image_new))) {
 			list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
-				 
-			if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) { 
+
+			if (!in_array($image_type, array( IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF ))) {
 				return DIR_IMAGE . $image_old;
 			}
- 
+
 			$path = '';
 
 			$directories = explode('/', dirname($image_new));
@@ -44,4 +45,5 @@ class ModelToolImage extends Model {
 			return HTTP_CATALOG . 'image/' . $image_new;
 		}
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentLiqPay extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/liqpay');
 
@@ -19,13 +20,14 @@ class ModelExtensionPaymentLiqPay extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'liqpay',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'liqpay',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('liqpay_sort_order')
 			);
 		}
 
 		return $method_data;
 	}
+
 }

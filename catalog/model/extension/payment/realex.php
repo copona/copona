@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentRealex extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/realex');
 
@@ -19,9 +20,9 @@ class ModelExtensionPaymentRealex extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'realex',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'realex',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('realex_sort_order')
 			);
 		}
@@ -55,4 +56,5 @@ class ModelExtensionPaymentRealex extends Model {
 			$log->write($message);
 		}
 	}
+
 }

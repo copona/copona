@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentPilibaba extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/pilibaba');
 
@@ -13,10 +14,10 @@ class ModelExtensionPaymentPilibaba extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'			=> 'pilibaba',
-				'title'			=> $this->language->get('text_title'),
-				'terms'			=> '',
-				'sort_order'	=> $this->config->get('pilibaba_sort_order')
+				'code'			 => 'pilibaba',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
+				'sort_order' => $this->config->get('pilibaba_sort_order')
 			);
 		}
 
@@ -85,4 +86,5 @@ class ModelExtensionPaymentPilibaba extends Model {
 			$log->write($data);
 		}
 	}
+
 }

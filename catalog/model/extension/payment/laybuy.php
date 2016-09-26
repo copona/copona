@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentLaybuy extends Model {
+
 	public function addTransaction($data = array(), $status) {
 		$this->log('Report: ' . print_r($data, true), '1');
 
@@ -101,10 +102,10 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'			=> 'laybuy',
-				'title'			=> $this->language->get('text_title'),
-				'terms'			=> '',
-				'sort_order'	=> $this->config->get('laybuy_sort_order')
+				'code'			 => 'laybuy',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
+				'sort_order' => $this->config->get('laybuy_sort_order')
 			);
 		}
 
@@ -128,8 +129,8 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		for ($i = 1; $i <= $max_months; $i++) {
 			$months[] = array(
-				'value' => $i,
-				'label' => $i . ' ' . (($i > 1) ? $this->language->get('text_months') : $this->language->get('text_month'))
+				'value'	 => $i,
+				'label'	 => $i . ' ' . (($i > 1) ? $this->language->get('text_months') : $this->language->get('text_month'))
 			);
 		}
 
@@ -196,23 +197,23 @@ class ModelExtensionPaymentLaybuy extends Model {
 		$report_content = array();
 
 		$report_content[] = array(
-			'instalment'	=> 0,
-			'amount'		=> $this->currency->format($data['downpayment_amount'], $data['currency']),
-			'date'			=> $date_added,
-			'pp_trans_id'	=> $data['dp_paypal_txn_id'],
-			'status'		=> 'Completed'
+			'instalment'	 => 0,
+			'amount'			 => $this->currency->format($data['downpayment_amount'], $data['currency']),
+			'date'				 => $date_added,
+			'pp_trans_id'	 => $data['dp_paypal_txn_id'],
+			'status'			 => 'Completed'
 		);
 
 		for ($month = 1; $month <= $months; $month++) {
-			$date = date("Y-m-d h:i:s", strtotime($data['first_payment_due'] . " +" . ($month -1) . " month"));
+			$date = date("Y-m-d h:i:s", strtotime($data['first_payment_due'] . " +" . ($month - 1) . " month"));
 			$date = date($this->language->get('date_format_short'), strtotime($date));
 
 			$report_content[] = array(
-			'instalment'	=> $month,
-			'amount'		=> $this->currency->format($data['payment_amounts'], $data['currency']),
-			'date'			=> $date,
-			'pp_trans_id'	=> '',
-			'status'		=> 'Pending'
+				'instalment'	 => $month,
+				'amount'			 => $this->currency->format($data['payment_amounts'], $data['currency']),
+				'date'				 => $date,
+				'pp_trans_id'	 => '',
+				'status'			 => 'Pending'
 			);
 		}
 
@@ -230,4 +231,5 @@ class ModelExtensionPaymentLaybuy extends Model {
 	public function updateTransaction($id, $status, $report, $transaction) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "laybuy_transaction` SET `status` = '" . (int)$status . "', `report` = '" . $this->db->escape($report) . "', `transaction` = '" . (int)$transaction . "' WHERE `laybuy_transaction_id` = '" . (int)$id . "'");
 	}
+
 }

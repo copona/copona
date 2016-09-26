@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionModulePPLogin extends Model {
+
 	public function getTokens($code) {
 		if ($this->config->get('pp_login_sandbox')) {
 			$endpoint = 'https://api.sandbox.paypal.com/v1/identity/openidconnect/tokenservice';
@@ -7,14 +8,14 @@ class ModelExtensionModulePPLogin extends Model {
 			$endpoint = 'https://api.paypal.com/v1/identity/openidconnect/tokenservice';
 		}
 
-		$request  = '';
+		$request = '';
 		$request .= 'grant_type=authorization_code';
 		$request .= '&code=' . $code;
 		$request .= '&redirect_uri=' . urlencode($this->url->link('extension/module/pp_login/login', '', true));
 
 		$additional_opts = array(
-			CURLOPT_USERPWD    => $this->config->get('pp_login_client_id') . ':' . $this->config->get('pp_login_secret'),
-			CURLOPT_POST       => true,
+			CURLOPT_USERPWD		 => $this->config->get('pp_login_client_id') . ':' . $this->config->get('pp_login_secret'),
+			CURLOPT_POST			 => true,
 			CURLOPT_POSTFIELDS => $request
 		);
 
@@ -32,7 +33,7 @@ class ModelExtensionModulePPLogin extends Model {
 			$endpoint = 'https://api.paypal.com/v1/identity/openidconnect/userinfo/?schema=openid';
 		}
 
-		$header   = array();
+		$header = array();
 		$header[] = 'Content-Type: application/json';
 		$header[] = 'Authorization: Bearer ' . $access_token;
 
@@ -49,13 +50,13 @@ class ModelExtensionModulePPLogin extends Model {
 
 	private function curl($endpoint, $additional_opts = array()) {
 		$default_opts = array(
-			CURLOPT_PORT           => 443,
-			CURLOPT_HEADER         => 0,
+			CURLOPT_PORT					 => 443,
+			CURLOPT_HEADER				 => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE   => 1,
-			CURLOPT_FRESH_CONNECT  => 1,
-			CURLOPT_URL            => $endpoint,
+			CURLOPT_FORBID_REUSE	 => 1,
+			CURLOPT_FRESH_CONNECT	 => 1,
+			CURLOPT_URL						 => $endpoint,
 		);
 
 		$ch = curl_init($endpoint);
@@ -77,4 +78,5 @@ class ModelExtensionModulePPLogin extends Model {
 			$this->log->write('Log In with PayPal debug (' . $backtrace[$class_step]['class'] . '::' . $backtrace[6]['function'] . ') - ' . $data);
 		}
 	}
+
 }

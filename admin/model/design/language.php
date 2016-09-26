@@ -1,5 +1,6 @@
 <?php
 class ModelDesignLanguage extends Model {
+
 	public function editTranslation($store_id, $language_id, $route, $data) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "translation  WHERE route = '" . $this->db->escape($route) . "'");
 
@@ -15,10 +16,11 @@ class ModelDesignLanguage extends Model {
 
 		return $query->rows;
 	}
-	
+
 	public function getTotalTranslations($store_id, $language_id, $route) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "translation WHERE store_id = '" . (int)$store_id . "' AND language_id = '" . (int)$language_id . "' AND route = '" . $this->db->escape($route) . "'");
 
 		return $query->row['total'];
 	}
+
 }

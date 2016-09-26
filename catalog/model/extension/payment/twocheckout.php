@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentTwoCheckout extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/twocheckout');
 
@@ -19,13 +20,14 @@ class ModelExtensionPaymentTwoCheckout extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'twocheckout',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'twocheckout',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('twocheckout_sort_order')
 			);
 		}
 
 		return $method_data;
 	}
+
 }

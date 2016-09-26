@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionTotalCredit extends Model {
+
 	public function getTotal($total) {
 		$this->load->language('extension/total/credit');
 
@@ -10,9 +11,9 @@ class ModelExtensionTotalCredit extends Model {
 
 			if ($credit > 0) {
 				$total['totals'][] = array(
-					'code'       => 'credit',
-					'title'      => $this->language->get('text_credit'),
-					'value'      => -$credit,
+					'code'			 => 'credit',
+					'title'			 => $this->language->get('text_credit'),
+					'value'			 => -$credit,
 					'sort_order' => $this->config->get('credit_sort_order')
 				);
 
@@ -32,4 +33,5 @@ class ModelExtensionTotalCredit extends Model {
 	public function unconfirm($order_id) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "customer_transaction WHERE order_id = '" . (int)$order_id . "'");
 	}
+
 }

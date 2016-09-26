@@ -1,5 +1,6 @@
 <?php
 class ModelCatalogRecurring extends Model {
+
 	public function addRecurring($data) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "recurring` SET `sort_order` = " . (int)$data['sort_order'] . ", `status` = " . (int)$data['status'] . ", `price` = " . (float)$data['price'] . ", `frequency` = '" . $this->db->escape($data['frequency']) . "', `duration` = " . (int)$data['duration'] . ", `cycle` = " . (int)$data['cycle'] . ", `trial_status` = " . (int)$data['trial_status'] . ", `trial_price` = " . (float)$data['trial_price'] . ", `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_duration` = " . (int)$data['trial_duration'] . ", `trial_cycle` = '" . (int)$data['trial_cycle'] . "'");
 
@@ -53,7 +54,7 @@ class ModelCatalogRecurring extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "recurring_description` WHERE `recurring_id` = '" . (int)$recurring_id . "'");
 
 		foreach ($query->rows as $result) {
-			$recurring_description_data[$result['language_id']] = array('name' => $result['name']);
+			$recurring_description_data[$result['language_id']] = array( 'name' => $result['name'] );
 		}
 
 		return $recurring_description_data;
@@ -105,4 +106,5 @@ class ModelCatalogRecurring extends Model {
 
 		return $query->row['total'];
 	}
+
 }

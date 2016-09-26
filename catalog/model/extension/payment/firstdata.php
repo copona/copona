@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentFirstdata extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/firstdata');
 
@@ -19,9 +20,9 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'firstdata',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'firstdata',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('firstdata_sort_order')
 			);
 		}
@@ -70,9 +71,9 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	public function mapCurrency($code) {
 		$currency = array(
-			'GBP' => 826,
-			'USD' => 840,
-			'EUR' => 978,
+			'GBP'	 => 826,
+			'USD'	 => 840,
+			'EUR'	 => 978,
 		);
 
 		if (array_key_exists($code, $currency)) {
@@ -115,4 +116,5 @@ class ModelExtensionPaymentFirstdata extends Model {
 	public function updateCaptureStatus($order_id, $status) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "firstdata_order` SET `capture_status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
 	}
+
 }

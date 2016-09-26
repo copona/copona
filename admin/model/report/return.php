@@ -1,5 +1,6 @@
 <?php
 class ModelReportReturn extends Model {
+
 	public function getReturns($data = array()) {
 		$sql = "SELECT MIN(r.date_added) AS date_start, MAX(r.date_added) AS date_end, COUNT(r.return_id) AS `returns` FROM `" . DB_PREFIX . "return` r";
 
@@ -23,7 +24,7 @@ class ModelReportReturn extends Model {
 			$group = 'week';
 		}
 
-		switch($group) {
+		switch ($group) {
 			case 'day';
 				$sql .= " GROUP BY YEAR(r.date_added), MONTH(r.date_added), DAY(r.date_added)";
 				break;
@@ -63,7 +64,7 @@ class ModelReportReturn extends Model {
 			$group = 'week';
 		}
 
-		switch($group) {
+		switch ($group) {
 			case 'day';
 				$sql = "SELECT COUNT(DISTINCT YEAR(date_added), MONTH(date_added), DAY(date_added)) AS total FROM `" . DB_PREFIX . "return`";
 				break;
@@ -97,4 +98,5 @@ class ModelReportReturn extends Model {
 
 		return $query->row['total'];
 	}
+
 }

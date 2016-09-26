@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionFraudMaxMind extends Model {
+
 	public function check($order_info) {
 		$risk_score = 0;
 
@@ -9,12 +10,12 @@ class ModelExtensionFraudMaxMind extends Model {
 			$risk_score = $query->row['risk_score'];
 		} else {
 			/*
-			maxmind api
-			http://www.maxmind.com/app/ccv
+			  maxmind api
+			  http://www.maxmind.com/app/ccv
 
-			paypal api
-			https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
-			*/
+			  paypal api
+			  https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
+			 */
 
 			$request = 'i=' . urlencode($order_info['ip']);
 			$request .= '&city=' . urlencode($order_info['payment_city']);
@@ -37,7 +38,7 @@ class ModelExtensionFraudMaxMind extends Model {
 			$request .= '&forwardedIP=' . urlencode($order_info['forwarded_ip']);
 			$request .= '&emailMD5=' . urlencode(md5(utf8_strtolower($order_info['email'])));
 			//$request .= '&passwordMD5=' . urlencode($order_info['password']);
-			$request .= '&accept_language=' .  urlencode($order_info['accept_language']);
+			$request .= '&accept_language=' . urlencode($order_info['accept_language']);
 			$request .= '&order_amount=' . urlencode($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false));
 			$request .= '&order_currency=' . urlencode($order_info['currency_code']);
 
@@ -377,4 +378,5 @@ class ModelExtensionFraudMaxMind extends Model {
 			return $this->config->get('maxmind_order_status_id');
 		}
 	}
+
 }

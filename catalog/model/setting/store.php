@@ -1,5 +1,6 @@
 <?php
 class ModelSettingStore extends Model {
+
 	public function getStores($data = array()) {
 		$store_data = $this->cache->get('store');
 
@@ -13,4 +14,5 @@ class ModelSettingStore extends Model {
 
 		return $store_data;
 	}
+
 }

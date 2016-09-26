@@ -1,5 +1,6 @@
 <?php
 class ModelCatalogFilter extends Model {
+
 	public function addFilter($data) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "filter_group` SET sort_order = '" . (int)$data['sort_order'] . "'");
 
@@ -109,7 +110,7 @@ class ModelCatalogFilter extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "filter_group_description WHERE filter_group_id = '" . (int)$filter_group_id . "'");
 
 		foreach ($query->rows as $result) {
-			$filter_group_data[$result['language_id']] = array('name' => $result['name']);
+			$filter_group_data[$result['language_id']] = array( 'name' => $result['name'] );
 		}
 
 		return $filter_group_data;
@@ -158,13 +159,13 @@ class ModelCatalogFilter extends Model {
 			$filter_description_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "filter_description WHERE filter_id = '" . (int)$filter['filter_id'] . "'");
 
 			foreach ($filter_description_query->rows as $filter_description) {
-				$filter_description_data[$filter_description['language_id']] = array('name' => $filter_description['name']);
+				$filter_description_data[$filter_description['language_id']] = array( 'name' => $filter_description['name'] );
 			}
 
 			$filter_data[] = array(
-				'filter_id'          => $filter['filter_id'],
+				'filter_id'					 => $filter['filter_id'],
 				'filter_description' => $filter_description_data,
-				'sort_order'         => $filter['sort_order']
+				'sort_order'				 => $filter['sort_order']
 			);
 		}
 
@@ -176,4 +177,5 @@ class ModelCatalogFilter extends Model {
 
 		return $query->row['total'];
 	}
+
 }

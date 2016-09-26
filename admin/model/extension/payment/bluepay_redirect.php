@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentBluepayredirect extends Model {
+
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "bluepay_redirect_order` (
@@ -225,4 +226,5 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 			$log->write($message);
 		}
 	}
+
 }

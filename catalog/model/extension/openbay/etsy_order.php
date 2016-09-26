@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionOpenBayEtsyOrder extends Model {
+
 	public function inbound($orders) {
 		$this->openbay->etsy->log("Model inbound, Orders count: " . count($orders));
 
@@ -130,11 +131,11 @@ class ModelExtensionOpenBayEtsyOrder extends Model {
 
 		$customer_name = $this->openbay->splitName($order->name);
 
-		if (!empty($order->country->iso)){
+		if (!empty($order->country->iso)) {
 			$country_qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($order->country->iso) . "'");
 		}
 
-		if (!empty($country_qry->num_rows)){
+		if (!empty($country_qry->num_rows)) {
 			$country_name = $country_qry->row['name'];
 			$country_id = $country_qry->row['country_id'];
 			$zone_id = $this->openbay->getZoneId($order->address_state, $country_id);
@@ -245,40 +246,40 @@ class ModelExtensionOpenBayEtsyOrder extends Model {
 		$totals = array();
 
 		$totals[0] = array(
-			'code'          => 'sub_total',
-			'title'         => $this->language->get('text_total_sub'),
-			'value'         => number_format($order->price_total, 4, '.', ''),
-			'sort_order'    => '1'
+			'code'			 => 'sub_total',
+			'title'			 => $this->language->get('text_total_sub'),
+			'value'			 => number_format($order->price_total, 4, '.', ''),
+			'sort_order' => '1'
 		);
 
 		$totals[1] = array(
-			'code'          => 'shipping',
-			'title'         => $this->language->get('text_total_shipping'),
-			'value'         => number_format($order->price_shipping, 4, '.', ''),
-			'sort_order'    => '3'
+			'code'			 => 'shipping',
+			'title'			 => $this->language->get('text_total_shipping'),
+			'value'			 => number_format($order->price_shipping, 4, '.', ''),
+			'sort_order' => '3'
 		);
 
 		if ($order->amount_discount != 0.00) {
 			$totals[2] = array(
-				'code'          => 'coupon',
-				'title'         => $this->language->get('text_total_discount'),
-				'value'         => number_format($order->amount_discount, 4, '.', ''),
-				'sort_order'    => '4'
+				'code'			 => 'coupon',
+				'title'			 => $this->language->get('text_total_discount'),
+				'value'			 => number_format($order->amount_discount, 4, '.', ''),
+				'sort_order' => '4'
 			);
 		}
 
 		$totals[3] = array(
-			'code'          => 'tax',
-			'title'         => $this->language->get('text_total_tax'),
-			'value'         => number_format($order->price_tax, 3, '.', ''),
-			'sort_order'    => '5'
+			'code'			 => 'tax',
+			'title'			 => $this->language->get('text_total_tax'),
+			'value'			 => number_format($order->price_tax, 3, '.', ''),
+			'sort_order' => '5'
 		);
 
 		$totals[4] = array(
-			'code'          => 'total',
-			'title'         => $this->language->get('text_total'),
-			'value'         => $order->amount_total,
-			'sort_order'    => '6'
+			'code'			 => 'total',
+			'title'			 => $this->language->get('text_total'),
+			'value'			 => $order->amount_total,
+			'sort_order' => '6'
 		);
 
 		foreach ($totals as $total) {
@@ -286,10 +287,11 @@ class ModelExtensionOpenBayEtsyOrder extends Model {
 		}
 
 		$this->openbay->etsy->log("Setting order to new order status ID: " . $this->config->get('etsy_order_status_new'));
-		
+
 		$this->updateOrderStatus($order_id, $this->config->get('etsy_order_status_new'));
 
-		$this->event->trigger('model/checkout/order/addOrderHistory/after', array('model/checkout/order/addOrderHistory/after', array($order_id, $this->config->get('etsy_order_status_new'))));
+		$this->event->trigger('model/checkout/order/addOrderHistory/after', array( 'model/checkout/order/addOrderHistory/after',
+			array( $order_id, $this->config->get('etsy_order_status_new') ) ));
 
 		return $order_id;
 	}
@@ -297,7 +299,7 @@ class ModelExtensionOpenBayEtsyOrder extends Model {
 	public function addOrderHistory($order_id) {
 		$this->openbay->etsy->log("Model addOrderHistory, Order ID: " . $order_id);
 
-		if(!$this->openbay->etsy->orderFind($order_id)) {
+		if (!$this->openbay->etsy->orderFind($order_id)) {
 			$order_products = $this->openbay->getOrderProducts($order_id);
 
 			foreach ($order_products as $order_product) {
@@ -309,4 +311,5 @@ class ModelExtensionOpenBayEtsyOrder extends Model {
 			$this->openbay->etsy->log("Model addOrderHistory - Etsy order");
 		}
 	}
+
 }

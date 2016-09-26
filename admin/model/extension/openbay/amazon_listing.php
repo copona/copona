@@ -4,8 +4,8 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 
 	public function search($search_string, $marketplace) {
 		$search_params = array(
-			'search_string' => $search_string,
-			'marketplace' => $marketplace,
+			'search_string'	 => $search_string,
+			'marketplace'		 => $marketplace,
 		);
 
 		$results = json_decode($this->openbay->amazon->call('productv3/search', $search_params), 1);
@@ -41,11 +41,11 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 				}
 
 				$products[] = array(
-					'name' => $result['name'],
-					'asin' => $result['asin'],
-					'image' => $result['image'],
-					'price' => $price,
-					'link' => $link,
+					'name'	 => $result['name'],
+					'asin'	 => $result['asin'],
+					'image'	 => $result['image'],
+					'price'	 => $price,
+					'link'	 => $link,
 				);
 			}
 		}
@@ -55,8 +55,8 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 
 	public function getProductByAsin($asin, $market) {
 		$data = array(
-			'asin' => $asin,
-			'marketplace' => $market,
+			'asin'				 => $asin,
+			'marketplace'	 => $market,
 		);
 
 		$results = json_decode($this->openbay->amazon->call('productv3/getProduct', $data), 1);
@@ -66,9 +66,9 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 
 	public function getBestPrice($asin, $condition, $marketplace) {
 		$search_params = array(
-			'asin' => $asin,
-			'condition' => $condition,
-			'marketplace' => $marketplace,
+			'asin'				 => $asin,
+			'condition'		 => $condition,
+			'marketplace'	 => $marketplace,
 		);
 
 		$best_price = '';
@@ -86,22 +86,22 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 
 	public function simpleListing($data) {
 		$request = array(
-			'asin' => $data['asin'],
-			'sku' => $data['sku'],
-			'quantity' => $data['quantity'],
-			'price' => $data['price'],
-			'sale' => array(
-				'price' => $data['sale_price'],
-				'from' => $data['sale_from'],
-				'to' => $data['sale_to'],
+			'asin'					 => $data['asin'],
+			'sku'						 => $data['sku'],
+			'quantity'			 => $data['quantity'],
+			'price'					 => $data['price'],
+			'sale'					 => array(
+				'price'	 => $data['sale_price'],
+				'from'	 => $data['sale_from'],
+				'to'		 => $data['sale_to'],
 			),
-			'condition' => $data['condition'],
+			'condition'			 => $data['condition'],
 			'condition_note' => $data['condition_note'],
-			'start_selling' => $data['start_selling'],
-			'restock_date' => $data['restock_date'],
-			'marketplace' => $data['marketplace'],
-			'response_url' => HTTPS_CATALOG . 'index.php?route=extension/openbay/amazon/listing',
-			'product_id' => $data['product_id'],
+			'start_selling'	 => $data['start_selling'],
+			'restock_date'	 => $data['restock_date'],
+			'marketplace'		 => $data['marketplace'],
+			'response_url'	 => HTTPS_CATALOG . 'index.php?route=extension/openbay/amazon/listing',
+			'product_id'		 => $data['product_id'],
 		);
 
 		$response = $this->openbay->amazon->call('productv3/simpleListing', $request);
@@ -109,14 +109,14 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 
 		if (empty($response)) {
 			return array(
-				'status' => 0,
-				'message' => 'Problem connecting OpenBay: API'
+				'status'	 => 0,
+				'message'	 => 'Problem connecting OpenBay: API'
 			);
 		}
 
 		$response = (array)$response;
 
-	if (($response['status'] === 1)) {
+		if (($response['status'] === 1)) {
 			$this->db->query("
 				REPLACE INTO `" . DB_PREFIX . "amazon_product`
 				SET `product_id` = " . (int)$data['product_id'] . ",
@@ -144,7 +144,7 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 		}
 
 		$request_data = array(
-			'search' => $search_data,
+			'search'			 => $search_data,
 			'response_url' => HTTPS_CATALOG . 'index.php?route=extension/openbay/amazon/search'
 		);
 
@@ -161,7 +161,7 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 		$imploded_ids = implode(',', $imploded_ids);
 
 		$this->db->query("
-			DELETE FROM " . DB_PREFIX .  "amazon_product_search
+			DELETE FROM " . DB_PREFIX . "amazon_product_search
 			WHERE marketplace = '" . $this->db->escape($marketplace) . "' AND product_id IN ($imploded_ids)
 		");
 	}
@@ -178,7 +178,7 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 			'es' => 'A1RKKUPIHCS9HS',
 		);
 
-		foreach($data['products'] as $product_id => $asin) {
+		foreach ($data['products'] as $product_id => $asin) {
 			$product = $this->model_catalog_product->getProduct($product_id);
 
 			if ($product) {
@@ -189,18 +189,18 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 				}
 
 				$request[] = array(
-					'asin' => $asin,
-					'sku' => $product['sku'],
-					'quantity' => $product['quantity'],
-					'price' => number_format($price, 2, '.', ''),
-					'sale' => array(),
-					'condition' => (isset($data['condition']) ? $data['condition'] : ''),
+					'asin'					 => $asin,
+					'sku'						 => $product['sku'],
+					'quantity'			 => $product['quantity'],
+					'price'					 => number_format($price, 2, '.', ''),
+					'sale'					 => array(),
+					'condition'			 => (isset($data['condition']) ? $data['condition'] : ''),
 					'condition_note' => (isset($data['condition_note']) ? $data['condition_note'] : ''),
-					'start_selling' => (isset($data['start_selling']) ? $data['start_selling'] : ''),
-					'restock_date' => '',
-					'marketplace' => $data['marketplace'],
-					'response_url' => HTTPS_CATALOG . 'index.php?route=extension/openbay/amazon/listing',
-					'product_id' => $product['product_id'],
+					'start_selling'	 => (isset($data['start_selling']) ? $data['start_selling'] : ''),
+					'restock_date'	 => '',
+					'marketplace'		 => $data['marketplace'],
+					'response_url'	 => HTTPS_CATALOG . 'index.php?route=extension/openbay/amazon/listing',
+					'product_id'		 => $product['product_id'],
 				);
 			}
 		}
@@ -228,4 +228,5 @@ class ModelExtensionOpenBayAmazonListing extends Model {
 
 		return false;
 	}
+
 }

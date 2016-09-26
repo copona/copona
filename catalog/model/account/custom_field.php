@@ -1,5 +1,6 @@
 <?php
 class ModelAccountCustomField extends Model {
+
 	public function getCustomField($custom_field_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field` cf LEFT JOIN `" . DB_PREFIX . "custom_field_description` cfd ON (cf.custom_field_id = cfd.custom_field_id) WHERE cf.status = '1' AND cf.custom_field_id = '" . (int)$custom_field_id . "' AND cfd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
@@ -23,25 +24,26 @@ class ModelAccountCustomField extends Model {
 
 				foreach ($custom_field_value_query->rows as $custom_field_value) {
 					$custom_field_value_data[] = array(
-						'custom_field_value_id' => $custom_field_value['custom_field_value_id'],
-						'name'                  => $custom_field_value['name']
+						'custom_field_value_id'	 => $custom_field_value['custom_field_value_id'],
+						'name'									 => $custom_field_value['name']
 					);
 				}
 			}
 
 			$custom_field_data[] = array(
-				'custom_field_id'    => $custom_field['custom_field_id'],
+				'custom_field_id'		 => $custom_field['custom_field_id'],
 				'custom_field_value' => $custom_field_value_data,
-				'name'               => $custom_field['name'],
-				'type'               => $custom_field['type'],
-				'value'              => $custom_field['value'],
-				'validation'         => $custom_field['validation'],
-				'location'           => $custom_field['location'],
-				'required'           => empty($custom_field['required']) || $custom_field['required'] == 0 ? false : true,
-				'sort_order'         => $custom_field['sort_order']
+				'name'							 => $custom_field['name'],
+				'type'							 => $custom_field['type'],
+				'value'							 => $custom_field['value'],
+				'validation'				 => $custom_field['validation'],
+				'location'					 => $custom_field['location'],
+				'required'					 => empty($custom_field['required']) || $custom_field['required'] == 0 ? false : true,
+				'sort_order'				 => $custom_field['sort_order']
 			);
 		}
 
 		return $custom_field_data;
 	}
+
 }

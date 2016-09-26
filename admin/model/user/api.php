@@ -1,5 +1,6 @@
 <?php
 class ModelUserApi extends Model {
+
 	public function addApi($data) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "api` SET name = '" . $this->db->escape($data['name']) . "', `key` = '" . $this->db->escape($data['key']) . "', status = '" . (int)$data['status'] . "', date_added = NOW(), date_modified = NOW()");
 
@@ -12,7 +13,7 @@ class ModelUserApi extends Model {
 				}
 			}
 		}
-		
+
 		return $api_id;
 	}
 
@@ -108,4 +109,5 @@ class ModelUserApi extends Model {
 	public function deleteApiSession($api_session_id) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE api_session_id = '" . (int)$api_session_id . "'");
 	}
+
 }

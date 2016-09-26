@@ -1,5 +1,6 @@
 <?php
 class ModelAccountApi extends Model {
+
 	public function getApiByKey($key) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api` WHERE `key` = '" . $this->db->escape($key) . "' AND status = '1'");
 
@@ -19,4 +20,5 @@ class ModelAccountApi extends Model {
 
 		return $query->rows;
 	}
+
 }

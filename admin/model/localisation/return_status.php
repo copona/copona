@@ -1,5 +1,6 @@
 <?php
 class ModelLocalisationReturnStatus extends Model {
+
 	public function addReturnStatus($data) {
 		foreach ($data['return_status'] as $language_id => $value) {
 			if (isset($return_status_id)) {
@@ -12,7 +13,7 @@ class ModelLocalisationReturnStatus extends Model {
 		}
 
 		$this->cache->delete('return_status');
-		
+
 		return $return_status_id;
 	}
 
@@ -86,7 +87,7 @@ class ModelLocalisationReturnStatus extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "return_status WHERE return_status_id = '" . (int)$return_status_id . "'");
 
 		foreach ($query->rows as $result) {
-			$return_status_data[$result['language_id']] = array('name' => $result['name']);
+			$return_status_data[$result['language_id']] = array( 'name' => $result['name'] );
 		}
 
 		return $return_status_data;
@@ -97,4 +98,5 @@ class ModelLocalisationReturnStatus extends Model {
 
 		return $query->row['total'];
 	}
+
 }

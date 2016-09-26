@@ -1,5 +1,6 @@
 <?php
 class ModelReportSale extends Model {
+
 	public function getTotalSales($data = array()) {
 		$sql = "SELECT SUM(total) AS total FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0'";
 
@@ -29,8 +30,8 @@ class ModelReportSale extends Model {
 
 		for ($i = 0; $i < 24; $i++) {
 			$order_data[$i] = array(
-				'hour'  => $i,
-				'total' => 0
+				'hour'	 => $i,
+				'total'	 => 0
 			);
 		}
 
@@ -38,8 +39,8 @@ class ModelReportSale extends Model {
 
 		foreach ($query->rows as $result) {
 			$order_data[$result['hour']] = array(
-				'hour'  => $result['hour'],
-				'total' => $result['total']
+				'hour'	 => $result['hour'],
+				'total'	 => $result['total']
 			);
 		}
 
@@ -61,8 +62,8 @@ class ModelReportSale extends Model {
 			$date = date('Y-m-d', $date_start + ($i * 86400));
 
 			$order_data[date('w', strtotime($date))] = array(
-				'day'   => date('D', strtotime($date)),
-				'total' => 0
+				'day'		 => date('D', strtotime($date)),
+				'total'	 => 0
 			);
 		}
 
@@ -70,8 +71,8 @@ class ModelReportSale extends Model {
 
 		foreach ($query->rows as $result) {
 			$order_data[date('w', strtotime($result['date_added']))] = array(
-				'day'   => date('D', strtotime($result['date_added'])),
-				'total' => $result['total']
+				'day'		 => date('D', strtotime($result['date_added'])),
+				'total'	 => $result['total']
 			);
 		}
 
@@ -91,8 +92,8 @@ class ModelReportSale extends Model {
 			$date = date('Y') . '-' . date('m') . '-' . $i;
 
 			$order_data[date('j', strtotime($date))] = array(
-				'day'   => date('d', strtotime($date)),
-				'total' => 0
+				'day'		 => date('d', strtotime($date)),
+				'total'	 => 0
 			);
 		}
 
@@ -100,8 +101,8 @@ class ModelReportSale extends Model {
 
 		foreach ($query->rows as $result) {
 			$order_data[date('j', strtotime($result['date_added']))] = array(
-				'day'   => date('d', strtotime($result['date_added'])),
-				'total' => $result['total']
+				'day'		 => date('d', strtotime($result['date_added'])),
+				'total'	 => $result['total']
 			);
 		}
 
@@ -119,8 +120,8 @@ class ModelReportSale extends Model {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$order_data[$i] = array(
-				'month' => date('M', mktime(0, 0, 0, $i)),
-				'total' => 0
+				'month'	 => date('M', mktime(0, 0, 0, $i)),
+				'total'	 => 0
 			);
 		}
 
@@ -128,8 +129,8 @@ class ModelReportSale extends Model {
 
 		foreach ($query->rows as $result) {
 			$order_data[date('n', strtotime($result['date_added']))] = array(
-				'month' => date('M', strtotime($result['date_added'])),
-				'total' => $result['total']
+				'month'	 => date('M', strtotime($result['date_added'])),
+				'total'	 => $result['total']
 			);
 		}
 
@@ -159,7 +160,7 @@ class ModelReportSale extends Model {
 			$group = 'week';
 		}
 
-		switch($group) {
+		switch ($group) {
 			case 'day';
 				$sql .= " GROUP BY YEAR(o.date_added), MONTH(o.date_added), DAY(o.date_added)";
 				break;
@@ -201,7 +202,7 @@ class ModelReportSale extends Model {
 			$group = 'week';
 		}
 
-		switch($group) {
+		switch ($group) {
 			case 'day';
 				$sql = "SELECT COUNT(DISTINCT YEAR(date_added), MONTH(date_added), DAY(date_added)) AS total FROM `" . DB_PREFIX . "order`";
 				break;
@@ -259,7 +260,7 @@ class ModelReportSale extends Model {
 			$group = 'week';
 		}
 
-		switch($group) {
+		switch ($group) {
 			case 'day';
 				$sql .= " GROUP BY YEAR(o.date_added), MONTH(o.date_added), DAY(o.date_added), ot.title";
 				break;
@@ -299,7 +300,7 @@ class ModelReportSale extends Model {
 			$group = 'week';
 		}
 
-		switch($group) {
+		switch ($group) {
 			case 'day';
 				$sql = "SELECT COUNT(DISTINCT YEAR(o.date_added), MONTH(o.date_added), DAY(o.date_added), ot.title) AS total FROM `" . DB_PREFIX . "order` o";
 				break;
@@ -359,7 +360,7 @@ class ModelReportSale extends Model {
 			$group = 'week';
 		}
 
-		switch($group) {
+		switch ($group) {
 			case 'day';
 				$sql .= " GROUP BY YEAR(o.date_added), MONTH(o.date_added), DAY(o.date_added), ot.title";
 				break;
@@ -399,7 +400,7 @@ class ModelReportSale extends Model {
 			$group = 'week';
 		}
 
-		switch($group) {
+		switch ($group) {
 			case 'day';
 				$sql = "SELECT COUNT(DISTINCT YEAR(o.date_added), MONTH(o.date_added), DAY(o.date_added), ot.title) AS total FROM `" . DB_PREFIX . "order` o";
 				break;
@@ -435,4 +436,5 @@ class ModelReportSale extends Model {
 
 		return $query->row['total'];
 	}
+
 }

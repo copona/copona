@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionOpenBayAmazonusProduct extends Model {
+
 	public function setStatus($insertion_id, $status_string) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "amazonus_product` SET `status` = '" . $status_string . "' WHERE `insertion_id` = '" . $this->db->escape($insertion_id) . "'");
 	}
@@ -35,9 +36,9 @@ class ModelExtensionOpenBayAmazonusProduct extends Model {
 
 		foreach ($sku_rows as $sku_row) {
 			$data = array(
-				'sku' => $sku_row['sku'],
-				'error_code' => '0',
-				'message' => $message,
+				'sku'					 => $sku_row['sku'],
+				'error_code'	 => '0',
+				'message'			 => $message,
 				'insertion_id' => $insertion_id
 			);
 			$this->insertError($data);
@@ -110,4 +111,5 @@ class ModelExtensionOpenBayAmazonusProduct extends Model {
 
 		$this->db->query("UPDATE " . DB_PREFIX . "setting SET `value` = '0', serialized = 0 WHERE `key` = 'openbay_amazonus_processing_listing_reports'");
 	}
+
 }

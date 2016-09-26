@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentPPPayflowIframe extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 
@@ -19,9 +20,9 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'pp_payflow_iframe',
-				'title' => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'pp_payflow_iframe',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('pp_payflow_iframe_sort_order')
 			);
 		}
@@ -57,10 +58,10 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 
 	public function call($data) {
 		$default_parameters = array(
-			'USER' => $this->config->get('pp_payflow_iframe_user'),
-			'VENDOR' => $this->config->get('pp_payflow_iframe_vendor'),
-			'PWD' => $this->config->get('pp_payflow_iframe_password'),
-			'PARTNER' => $this->config->get('pp_payflow_iframe_partner'),
+			'USER'				 => $this->config->get('pp_payflow_iframe_user'),
+			'VENDOR'			 => $this->config->get('pp_payflow_iframe_vendor'),
+			'PWD'					 => $this->config->get('pp_payflow_iframe_password'),
+			'PARTNER'			 => $this->config->get('pp_payflow_iframe_partner'),
 			'BUTTONSOURCE' => 'OpenCart_Cart_PFP',
 		);
 
@@ -106,7 +107,7 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 				transaction_reference = '" . $this->db->escape($data['transaction_reference']) . "',
 				transaction_type = '" . $this->db->escape($data['type']) . "',
 				`time` = NOW(),
-				`amount` = '" . $this->db->escape($data['amount']) .  "'
+				`amount` = '" . $this->db->escape($data['amount']) . "'
 		");
 	}
 
@@ -116,4 +117,5 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 			$log->write($message);
 		}
 	}
+
 }

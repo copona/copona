@@ -1,5 +1,4 @@
 <?php
-
 class ModelExtensionPaymentG2aPay extends Model {
 
 	public function install() {
@@ -70,7 +69,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 			$fields = array(
 				'action' => 'refund',
 				'amount' => $refunded_amount,
-				'hash' => $hash,
+				'hash'	 => $hash,
 			);
 
 			return $this->sendCurl($url, $fields);
@@ -118,9 +117,9 @@ class ModelExtensionPaymentG2aPay extends Model {
 		$auth_hash = hash('sha256', $this->config->get('g2apay_api_hash') . $this->config->get('g2apay_username') . html_entity_decode($this->config->get('g2apay_secret')));
 		$authorization = $this->config->get('g2apay_api_hash') . ";" . $auth_hash;
 		curl_setopt(
-				$curl, CURLOPT_HTTPHEADER, array(
+			$curl, CURLOPT_HTTPHEADER, array(
 			"Authorization: " . $authorization
-				)
+			)
 		);
 
 		$response = json_decode(curl_exec($curl));

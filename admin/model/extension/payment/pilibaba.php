@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentPilibaba extends Model {
+
 	public function install() {
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "pilibaba_order` (
 			`pilibaba_order_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -80,18 +81,18 @@ class ModelExtensionPaymentPilibaba extends Model {
 		$app_secret = strtoupper(md5((($warehouse) ? $warehouse : $country) . '0210000574' . '0b8l3ww5' . $currency . $email . md5($password)));
 
 		$data = array(
-			'platformNo'  => '0210000574',
-			'appSecret'   => $app_secret,
-			'email'       => $email,
-			'password'    => md5($password),
-			'currency'    => $currency,
-			'logistics'   => $warehouse,
-			'countryCode' => $country
+			'platformNo'	 => '0210000574',
+			'appSecret'		 => $app_secret,
+			'email'				 => $email,
+			'password'		 => md5($password),
+			'currency'		 => $currency,
+			'logistics'		 => $warehouse,
+			'countryCode'	 => $country
 		);
 
 		$this->log('Data: ' . print_r($data, true));
 
-		$headers = array('Accept: application/json','Content-Type: application/json');
+		$headers = array( 'Accept: application/json', 'Content-Type: application/json' );
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -162,4 +163,5 @@ class ModelExtensionPaymentPilibaba extends Model {
 			$log->write($data);
 		}
 	}
+
 }

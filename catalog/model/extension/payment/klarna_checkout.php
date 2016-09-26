@@ -1,9 +1,11 @@
 <?php
+
 use Klarna\Rest\Transport\Connector as KCConnector;
 use Klarna\Rest\Transport\ConnectorInterface as KCConnectorInterface;
 use Klarna\Rest\Checkout\Order as KCOrder;
 
 class ModelExtensionPaymentKlarnaCheckout extends Model {
+
 	public function orderCreate(KCConnector $connector, $order_data) {
 		try {
 			$checkout = new KCOrder($connector);
@@ -69,22 +71,20 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 					if ($account['environment'] == 'test') {
 						if ($account['api'] == 'NA') {
 							$base_url = KCConnectorInterface::NA_TEST_BASE_URL;
-						} elseif ($account['api'] == 'EU')  {
+						} elseif ($account['api'] == 'EU') {
 							$base_url = KCConnectorInterface::EU_TEST_BASE_URL;
 						}
 					} elseif ($account['environment'] == 'live') {
 						if ($account['api'] == 'NA') {
 							$base_url = KCConnectorInterface::NA_BASE_URL;
-						} elseif ($account['api'] == 'EU')  {
+						} elseif ($account['api'] == 'EU') {
 							$base_url = KCConnectorInterface::EU_BASE_URL;
 						}
 					}
 
 					$klarna_account = $account;
 					$connector = $this->connector(
-						$account['merchant_id'],
-						$account['secret'],
-						$base_url
+						$account['merchant_id'], $account['secret'], $base_url
 					);
 
 					break;
@@ -92,7 +92,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 			}
 		}
 
-		return array($klarna_account, $connector);
+		return array( $klarna_account, $connector );
 	}
 
 	public function getOrder($order_ref) {
@@ -170,9 +170,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 	private function connector($merchant_id, $secret, $url) {
 		try {
 			$connector = KCConnector::create(
-				$merchant_id,
-				$secret,
-				$url
+					$merchant_id, $secret, $url
 			);
 
 			return $connector;
@@ -182,4 +180,5 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 			return false;
 		}
 	}
+
 }

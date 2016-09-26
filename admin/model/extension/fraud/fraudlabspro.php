@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionFraudFraudLabsPro extends Model {
+
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "fraudlabspro` (
@@ -58,7 +59,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		$status_fraud_id = $this->db->getLastId();
 
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` (`language_id`, `name`) VALUES (1, 'Fraud Review');");
-		
+
 		$status_fraud_review_id = $this->db->getLastId();
 
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_score', '80', '0');");
@@ -122,4 +123,5 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 
 		return $json;
 	}
+
 }

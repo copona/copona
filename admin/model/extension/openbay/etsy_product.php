@@ -1,5 +1,6 @@
 <?php
-class ModelExtensionOpenBayEtsyProduct extends Model{
+class ModelExtensionOpenBayEtsyProduct extends Model {
+
 	public function getStatus($product_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "etsy_listing` WHERE `product_id` = '" . (int)$product_id . "' AND `status` = 1 LIMIT 1");
 
@@ -54,22 +55,23 @@ class ModelExtensionOpenBayEtsyProduct extends Model{
 
 		$data = array();
 		if ($qry->num_rows) {
-			foreach($qry->rows as $row) {
+			foreach ($qry->rows as $row) {
 				$data[] = array(
-					'etsy_listing_id'	=> $row['etsy_listing_id'],
-					'product_id'    	=> $row['product_id'],
-					'sku'           	=> $row['sku'],
-					'model'         	=> $row['model'],
-					'quantity'      	=> $row['quantity'],
-					'name'          	=> $row['name'],
-					'status'        	=> $row['status'],
-					'etsy_item_id'  	=> $row['etsy_item_id'],
-					'link_edit'     	=> $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $row['product_id'], true),
-					'link_etsy'     	=> 'http://www.etsy.com/listing/' . $row['etsy_item_id'],
+					'etsy_listing_id'	 => $row['etsy_listing_id'],
+					'product_id'			 => $row['product_id'],
+					'sku'							 => $row['sku'],
+					'model'						 => $row['model'],
+					'quantity'				 => $row['quantity'],
+					'name'						 => $row['name'],
+					'status'					 => $row['status'],
+					'etsy_item_id'		 => $row['etsy_item_id'],
+					'link_edit'				 => $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $row['product_id'], true),
+					'link_etsy'				 => 'http://www.etsy.com/listing/' . $row['etsy_item_id'],
 				);
 			}
 		}
 
 		return $data;
 	}
+
 }

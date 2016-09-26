@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentPPStandard extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/pp_standard');
 
@@ -51,13 +52,14 @@ class ModelExtensionPaymentPPStandard extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'pp_standard',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'pp_standard',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('pp_standard_sort_order')
 			);
 		}
 
 		return $method_data;
 	}
+
 }

@@ -20,9 +20,9 @@ class ModelExtensionPaymentG2APay extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'g2apay',
-				'title' => $this->language->get('text_title'),
-				'terms' => '',
+				'code'			 => 'g2apay',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('g2apay_sort_order')
 			);
 		}
@@ -38,7 +38,6 @@ class ModelExtensionPaymentG2APay extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "g2apay_order` SET `g2apay_transaction_id` = '" . $this->db->escape($g2apay_transaction_id) . "', `modified` = now() WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
 
 		$this->addTransaction($g2apay_order_id, $type, $order_info);
-
 	}
 
 	public function addTransaction($g2apay_order_id, $type, $order_info) {
@@ -77,4 +76,5 @@ class ModelExtensionPaymentG2APay extends Model {
 			$log->write(print_r($message, 1));
 		}
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
 class ModelCatalogCategory extends Model {
+
 	public function addCategory($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "category SET parent_id = '" . (int)$data['parent_id'] . "', `top` = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', `column` = '" . (int)$data['column'] . "', sort_order = '" . (int)$data['sort_order'] . "', status = '" . (int)$data['status'] . "', date_modified = NOW(), date_added = NOW()");
 
@@ -252,23 +253,23 @@ class ModelCatalogCategory extends Model {
 
 		foreach ($query->rows as $result) {
 			$category_description_data[$result['language_id']] = array(
-				'name'             => $result['name'],
-				'meta_title'       => $result['meta_title'],
+				'name'						 => $result['name'],
+				'meta_title'			 => $result['meta_title'],
 				'meta_description' => $result['meta_description'],
-				'meta_keyword'     => $result['meta_keyword'],
-				'description'      => $result['description']
+				'meta_keyword'		 => $result['meta_keyword'],
+				'description'			 => $result['description']
 			);
 		}
 
 		return $category_description_data;
 	}
-	
+
 	public function getCategoryPath($category_id) {
 		$query = $this->db->query("SELECT category_id, path_id, level FROM " . DB_PREFIX . "category_path WHERE category_id = '" . (int)$category_id . "'");
 
 		return $query->rows;
 	}
-	
+
 	public function getCategoryFilters($category_id) {
 		$category_filter_data = array();
 
@@ -310,10 +311,11 @@ class ModelCatalogCategory extends Model {
 
 		return $query->row['total'];
 	}
-	
+
 	public function getTotalCategoriesByLayoutId($layout_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "category_to_layout WHERE layout_id = '" . (int)$layout_id . "'");
 
 		return $query->row['total'];
-	}	
+	}
+
 }

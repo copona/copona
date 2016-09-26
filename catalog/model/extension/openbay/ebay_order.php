@@ -1,5 +1,6 @@
 <?php
-class ModelExtensionOpenBayEbayOrder extends Model{
+class ModelExtensionOpenBayEbayOrder extends Model {
+
 	public function addOrderLine($data, $order_id, $created) {
 		$order_line = $this->getOrderLine($data['txn_id'], $data['item_id']);
 
@@ -7,7 +8,7 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 		if ($created_hours == 0 || $created_hours == '') {
 			$created_hours = 24;
 		}
-		$from = date("Y-m-d H:i:00", mktime(date("H")-$created_hours, date("i"), date("s"), date("m"), date("d"), date("y")));
+		$from = date("Y-m-d H:i:00", mktime(date("H") - $created_hours, date("i"), date("s"), date("m"), date("d"), date("y")));
 
 		if ($order_line === false) {
 			if ($created >= $from) {
@@ -66,14 +67,14 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 
 		foreach ($order->txn as $txn) {
 			$this->model_extension_openbay_ebay_order->addOrderLine(array(
-				'txn_id'                => (string)$txn->item->txn,
-				'item_id'               => (string)$txn->item->id,
-				'containing_order_id'   => (string)$order->order->id,
-				'order_line_id'         => (string)$txn->item->line,
-				'qty'                   => (int)$txn->item->qty,
-				'smp_id'                => (string)$order->smp->id,
-				'sku'                   => (string)$txn->item->variantsku
-			), (int)$order_id, $order->order->created);
+				'txn_id'							 => (string)$txn->item->txn,
+				'item_id'							 => (string)$txn->item->id,
+				'containing_order_id'	 => (string)$order->order->id,
+				'order_line_id'				 => (string)$txn->item->line,
+				'qty'									 => (int)$txn->item->qty,
+				'smp_id'							 => (string)$order->smp->id,
+				'sku'									 => (string)$txn->item->variantsku
+				), (int)$order_id, $order->order->created);
 		}
 	}
 
@@ -188,7 +189,7 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 
 				$subject = sprintf($language->get('text_update_subject'), html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'), $order_id);
 
-				$message  = $language->get('text_update_order') . ' ' . $order_id . "\n";
+				$message = $language->get('text_update_order') . ' ' . $order_id . "\n";
 				$message .= $language->get('text_update_date_added') . ' ' . date($language->get('date_format_short'), strtotime($order_info['date_added'])) . "\n\n";
 
 				$order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "' AND language_id = '" . (int)$order_info['language_id'] . "'");
@@ -240,7 +241,7 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 			$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = '" . (int)$order_status_id . "', date_modified = NOW() WHERE order_id = '" . (int)$order_id . "'");
 			$this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '" . (int)$order_status_id . "', notify = '" . (int)$notify . "', comment = '" . $this->db->escape($comment) . "', date_added = NOW()");
 
-			if (isset($order_info['email']) && !empty($order_info['email']) && $notify == 1){
+			if (isset($order_info['email']) && !empty($order_info['email']) && $notify == 1) {
 				$order_product_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
 
 				$this->cache->delete('product');
@@ -262,7 +263,7 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 				} else {
 					$language_code = $order_info['language_directory'];
 				}
-				
+
 				$language = new Language($language_code);
 				$language->load($language_code);
 				$language->load('mail/order');
@@ -352,19 +353,20 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 				);
 
 				$replace = array(
-					'firstname' => $order_info['payment_firstname'],
-					'lastname'  => $order_info['payment_lastname'],
-					'company'   => $order_info['payment_company'],
-					'address_1' => $order_info['payment_address_1'],
-					'address_2' => $order_info['payment_address_2'],
-					'city'      => $order_info['payment_city'],
-					'postcode'  => $order_info['payment_postcode'],
-					'zone'      => $order_info['payment_zone'],
-					'zone_code' => $order_info['payment_zone_code'],
-					'country'   => $order_info['payment_country']
+					'firstname'	 => $order_info['payment_firstname'],
+					'lastname'	 => $order_info['payment_lastname'],
+					'company'		 => $order_info['payment_company'],
+					'address_1'	 => $order_info['payment_address_1'],
+					'address_2'	 => $order_info['payment_address_2'],
+					'city'			 => $order_info['payment_city'],
+					'postcode'	 => $order_info['payment_postcode'],
+					'zone'			 => $order_info['payment_zone'],
+					'zone_code'	 => $order_info['payment_zone_code'],
+					'country'		 => $order_info['payment_country']
 				);
 
-				$data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+				$data['payment_address'] = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
+					"/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
 
 				if ($order_info['shipping_address_format']) {
 					$format = $order_info['shipping_address_format'];
@@ -386,20 +388,21 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 				);
 
 				$replace = array(
-					'firstname' => $order_info['shipping_firstname'],
-					'lastname'  => $order_info['shipping_lastname'],
-					'company'   => $order_info['shipping_company'],
-					'address_1' => $order_info['shipping_address_1'],
-					'address_2' => $order_info['shipping_address_2'],
-					'city'      => $order_info['shipping_city'],
-					'postcode'  => $order_info['shipping_postcode'],
-					'zone'      => $order_info['shipping_zone'],
-					'zone_code' => $order_info['shipping_zone_code'],
-					'country'   => $order_info['shipping_country']
+					'firstname'	 => $order_info['shipping_firstname'],
+					'lastname'	 => $order_info['shipping_lastname'],
+					'company'		 => $order_info['shipping_company'],
+					'address_1'	 => $order_info['shipping_address_1'],
+					'address_2'	 => $order_info['shipping_address_2'],
+					'city'			 => $order_info['shipping_city'],
+					'postcode'	 => $order_info['shipping_postcode'],
+					'zone'			 => $order_info['shipping_zone'],
+					'zone_code'	 => $order_info['shipping_zone_code'],
+					'country'		 => $order_info['shipping_country']
 				);
 
-				$data['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
-				$data['products']         = array();
+				$data['shipping_address'] = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
+					"/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
+				$data['products'] = array();
 
 				foreach ($order_product_query->rows as $product) {
 					$option_data = array();
@@ -414,18 +417,18 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 						}
 
 						$option_data[] = array(
-							'name'  => $option['name'],
-							'value' => (utf8_strlen($value) > 20) ? utf8_substr($value, 0, 20) . '..' : $value
+							'name'	 => $option['name'],
+							'value'	 => (utf8_strlen($value) > 20) ? utf8_substr($value, 0, 20) . '..' : $value
 						);
 					}
 
 					$data['products'][] = array(
-						'name'     => $product['name'],
-						'model'    => $product['model'],
-						'option'   => $option_data,
+						'name'		 => $product['name'],
+						'model'		 => $product['model'],
+						'option'	 => $option_data,
 						'quantity' => $product['quantity'],
-						'price'    => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
-						'total'    => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value'])
+						'price'		 => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
+						'total'		 => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value'])
 					);
 				}
 
@@ -433,13 +436,13 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 
 				foreach ($order_total_query->rows as $total) {
 					$data['totals'][] = array(
-						'title' => $total['title'],
-						'text'  => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value']),
+						'title'	 => $total['title'],
+						'text'	 => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value']),
 					);
 				}
 
 				// Text Mail
-				$text  = sprintf($language->get('text_new_greeting'), html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8')) . "\n\n";
+				$text = sprintf($language->get('text_new_greeting'), html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8')) . "\n\n";
 				$text .= $language->get('text_new_order_id') . ' ' . $order_id . "\n";
 				$text .= $language->get('text_new_date_added') . ' ' . date($language->get('date_format_short'), strtotime($order_info['date_added'])) . "\n";
 				$text .= $language->get('text_new_order_status') . ' ' . $order_status . "\n\n";
@@ -589,7 +592,7 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 		if (!$this->openbay->ebay->getOrder($order_id)) {
 			$order_products = $this->openbay->getOrderProducts($order_id);
 
-			foreach($order_products as $order_product) {
+			foreach ($order_products as $order_product) {
 				$product = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product` WHERE `product_id` = '" . (int)$order_product['product_id'] . "' LIMIT 1")->row;
 
 				if ($this->openbay->addonLoad('openstock') && (isset($product['has_option']) && $product['has_option'] == 1)) {
@@ -604,4 +607,5 @@ class ModelExtensionOpenBayEbayOrder extends Model{
 			}
 		}
 	}
+
 }

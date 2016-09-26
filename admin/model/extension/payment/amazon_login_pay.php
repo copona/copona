@@ -252,13 +252,13 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		$validate_paramter_data['AmazonOrderReferenceId'] = 'validate details';
 		$validate_details = $this->offAmazon('GetOrderReferenceDetails', $validate_paramter_data);
 		$validate_response = $this->validateResponse('GetOrderReferenceDetails', $validate_details);
-		if($validate_response['error_code'] && $validate_response['error_code'] != 'InvalidOrderReferenceId'){
+		if ($validate_response['error_code'] && $validate_response['error_code'] != 'InvalidOrderReferenceId') {
 			return $validate_response;
 		}
 	}
 
 	public function offAmazon($Action, $parameter_data, $post_data = array()) {
-		if(!empty($post_data)){
+		if (!empty($post_data)) {
 			$merchant_id = $post_data['amazon_login_pay_merchant_id'];
 			$access_key = $post_data['amazon_login_pay_access_key'];
 			$access_secret = $post_data['amazon_login_pay_access_secret'];
@@ -270,7 +270,6 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			$access_secret = $this->config->get('amazon_login_pay_access_secret');
 			$test = $this->config->get('amazon_login_pay_test');
 			$payment_region = $this->config->get('amazon_login_pay_payment_region');
-
 		}
 
 		if ($test == 'sandbox') {
@@ -369,7 +368,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		$other = preg_split("/\r\n|\n|\r/", $other);
 
 		list($protocol, $code, $text) = explode(' ', trim(array_shift($other)), 3);
-		return array('status' => (int)$code, 'ResponseBody' => $responseBody);
+		return array( 'status' => (int)$code, 'ResponseBody' => $responseBody );
 	}
 
 	private function getParametersAsString(array $parameters) {
@@ -390,7 +389,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		if (!isset($uri)) {
 			$uri = "/";
 		}
-		$uriencoded = implode("/", array_map(array($this, "urlencode"), explode("/", $uri)));
+		$uriencoded = implode("/", array_map(array( $this, "urlencode" ), explode("/", $uri)));
 		$data .= $uriencoded;
 		$data .= "\n";
 		uksort($parameters, 'strcmp');
@@ -410,4 +409,5 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			$log->write(print_r($message, 1));
 		}
 	}
+
 }

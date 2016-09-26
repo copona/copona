@@ -1,5 +1,6 @@
 <?php
 class ModelCustomerCustomer extends Model {
+
 	public function addCustomer($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "customer SET customer_group_id = '" . (int)$data['customer_group_id'] . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', email = '" . $this->db->escape($data['email']) . "', telephone = '" . $this->db->escape($data['telephone']) . "', fax = '" . $this->db->escape($data['fax']) . "', custom_field = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', newsletter = '" . (int)$data['newsletter'] . "', salt = '" . $this->db->escape($salt = token(9)) . "', password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', status = '" . (int)$data['status'] . "', approved = '" . (int)$data['approved'] . "', safe = '" . (int)$data['safe'] . "', date_added = NOW()");
 
@@ -16,7 +17,7 @@ class ModelCustomerCustomer extends Model {
 				}
 			}
 		}
-		
+
 		return $customer_id;
 	}
 
@@ -174,7 +175,7 @@ class ModelCustomerCustomer extends Model {
 			}
 
 			$this->load->model('localisation/language');
-			
+
 			$language_info = $this->model_localisation_language->getLanguage($customer_info['language_id']);
 
 			if ($language_info) {
@@ -186,8 +187,8 @@ class ModelCustomerCustomer extends Model {
 			$language = new Language($language_code);
 			$language->load($language_code);
 			$language->load('mail/customer');
-				
-			$message  = sprintf($language->get('text_approve_welcome'), html_entity_decode($store_name, ENT_QUOTES, 'UTF-8')) . "\n\n";
+
+			$message = sprintf($language->get('text_approve_welcome'), html_entity_decode($store_name, ENT_QUOTES, 'UTF-8')) . "\n\n";
 			$message .= $language->get('text_approve_login') . "\n";
 			$message .= $store_url . "\n\n";
 			$message .= $language->get('text_approve_services') . "\n\n";
@@ -241,24 +242,24 @@ class ModelCustomerCustomer extends Model {
 			}
 
 			return array(
-				'address_id'     => $address_query->row['address_id'],
-				'customer_id'    => $address_query->row['customer_id'],
-				'firstname'      => $address_query->row['firstname'],
-				'lastname'       => $address_query->row['lastname'],
-				'company'        => $address_query->row['company'],
-				'address_1'      => $address_query->row['address_1'],
-				'address_2'      => $address_query->row['address_2'],
-				'postcode'       => $address_query->row['postcode'],
-				'city'           => $address_query->row['city'],
-				'zone_id'        => $address_query->row['zone_id'],
-				'zone'           => $zone,
-				'zone_code'      => $zone_code,
-				'country_id'     => $address_query->row['country_id'],
-				'country'        => $country,
-				'iso_code_2'     => $iso_code_2,
-				'iso_code_3'     => $iso_code_3,
+				'address_id'		 => $address_query->row['address_id'],
+				'customer_id'		 => $address_query->row['customer_id'],
+				'firstname'			 => $address_query->row['firstname'],
+				'lastname'			 => $address_query->row['lastname'],
+				'company'				 => $address_query->row['company'],
+				'address_1'			 => $address_query->row['address_1'],
+				'address_2'			 => $address_query->row['address_2'],
+				'postcode'			 => $address_query->row['postcode'],
+				'city'					 => $address_query->row['city'],
+				'zone_id'				 => $address_query->row['zone_id'],
+				'zone'					 => $zone,
+				'zone_code'			 => $zone_code,
+				'country_id'		 => $address_query->row['country_id'],
+				'country'				 => $country,
+				'iso_code_2'		 => $iso_code_2,
+				'iso_code_3'		 => $iso_code_3,
 				'address_format' => $address_format,
-				'custom_field'   => json_decode($address_query->row['custom_field'], true)
+				'custom_field'	 => json_decode($address_query->row['custom_field'], true)
 			);
 		}
 	}
@@ -397,7 +398,7 @@ class ModelCustomerCustomer extends Model {
 				$store_name = $this->config->get('config_name');
 			}
 
-			$message  = sprintf($this->language->get('text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
+			$message = sprintf($this->language->get('text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency'))) . "\n\n";
 			$message .= sprintf($this->language->get('text_transaction_total'), $this->currency->format($this->getTransactionTotal($customer_id), $this->session->data['currency']));
 
 			$mail = new Mail();
@@ -472,7 +473,7 @@ class ModelCustomerCustomer extends Model {
 				$store_name = $this->config->get('config_name');
 			}
 
-			$message  = sprintf($this->language->get('text_reward_received'), $points) . "\n\n";
+			$message = sprintf($this->language->get('text_reward_received'), $points) . "\n\n";
 			$message .= sprintf($this->language->get('text_reward_total'), $this->getRewardTotal($customer_id));
 
 			$mail = new Mail();
@@ -530,7 +531,7 @@ class ModelCustomerCustomer extends Model {
 		}
 
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_ip WHERE customer_id = '" . (int)$customer_id . "' ORDER BY date_added DESC LIMIT " . (int)$start . "," . (int)$limit);
-		
+
 		return $query->rows;
 	}
 
@@ -555,4 +556,5 @@ class ModelCustomerCustomer extends Model {
 	public function deleteLoginAttempts($email) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE `email` = '" . $this->db->escape($email) . "'");
 	}
+
 }

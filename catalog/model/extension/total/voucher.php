@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionTotalVoucher extends Model {
+
 	public function addVoucher($order_id, $data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "voucher SET order_id = '" . (int)$order_id . "', code = '" . $this->db->escape($data['code']) . "', from_name = '" . $this->db->escape($data['from_name']) . "', from_email = '" . $this->db->escape($data['from_email']) . "', to_name = '" . $this->db->escape($data['to_name']) . "', to_email = '" . $this->db->escape($data['to_email']) . "', voucher_theme_id = '" . (int)$data['voucher_theme_id'] . "', message = '" . $this->db->escape($data['message']) . "', amount = '" . (float)$data['amount'] . "', status = '1', date_added = NOW()");
 
@@ -53,19 +54,19 @@ class ModelExtensionTotalVoucher extends Model {
 
 		if ($status) {
 			return array(
-				'voucher_id'       => $voucher_query->row['voucher_id'],
-				'code'             => $voucher_query->row['code'],
-				'from_name'        => $voucher_query->row['from_name'],
-				'from_email'       => $voucher_query->row['from_email'],
-				'to_name'          => $voucher_query->row['to_name'],
-				'to_email'         => $voucher_query->row['to_email'],
+				'voucher_id'			 => $voucher_query->row['voucher_id'],
+				'code'						 => $voucher_query->row['code'],
+				'from_name'				 => $voucher_query->row['from_name'],
+				'from_email'			 => $voucher_query->row['from_email'],
+				'to_name'					 => $voucher_query->row['to_name'],
+				'to_email'				 => $voucher_query->row['to_email'],
 				'voucher_theme_id' => $voucher_query->row['voucher_theme_id'],
-				'theme'            => $voucher_query->row['theme'],
-				'message'          => $voucher_query->row['message'],
-				'image'            => $voucher_query->row['image'],
-				'amount'           => $amount,
-				'status'           => $voucher_query->row['status'],
-				'date_added'       => $voucher_query->row['date_added']
+				'theme'						 => $voucher_query->row['theme'],
+				'message'					 => $voucher_query->row['message'],
+				'image'						 => $voucher_query->row['image'],
+				'amount'					 => $amount,
+				'status'					 => $voucher_query->row['status'],
+				'date_added'			 => $voucher_query->row['date_added']
 			);
 		}
 	}
@@ -78,12 +79,12 @@ class ModelExtensionTotalVoucher extends Model {
 
 			if ($voucher_info) {
 				$amount = min($voucher_info['amount'], $total['total']);
-				
+
 				if ($amount > 0) {
 					$total['totals'][] = array(
-						'code'       => 'voucher',
-						'title'      => sprintf($this->language->get('text_voucher'), $this->session->data['voucher']),
-						'value'      => -$amount,
+						'code'			 => 'voucher',
+						'title'			 => sprintf($this->language->get('text_voucher'), $this->session->data['voucher']),
+						'value'			 => -$amount,
 						'sort_order' => $this->config->get('voucher_sort_order')
 					);
 
@@ -121,4 +122,5 @@ class ModelExtensionTotalVoucher extends Model {
 	public function unconfirm($order_id) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "voucher_history` WHERE order_id = '" . (int)$order_id . "'");
 	}
+
 }

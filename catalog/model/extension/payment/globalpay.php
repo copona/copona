@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionPaymentGlobalpay extends Model {
+
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/globalpay');
 
@@ -19,9 +20,9 @@ class ModelExtensionPaymentGlobalpay extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code'       => 'globalpay',
-				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
+				'code'			 => 'globalpay',
+				'title'			 => $this->language->get('text_title'),
+				'terms'			 => '',
 				'sort_order' => $this->config->get('globalpay_sort_order')
 			);
 		}
@@ -55,4 +56,5 @@ class ModelExtensionPaymentGlobalpay extends Model {
 			$log->write($message);
 		}
 	}
+
 }

@@ -1,12 +1,13 @@
 <?php
 class ModelReportCustomer extends Model {
+
 	public function getTotalCustomersByDay() {
 		$customer_data = array();
 
 		for ($i = 0; $i < 24; $i++) {
 			$customer_data[$i] = array(
-				'hour'  => $i,
-				'total' => 0
+				'hour'	 => $i,
+				'total'	 => 0
 			);
 		}
 
@@ -14,8 +15,8 @@ class ModelReportCustomer extends Model {
 
 		foreach ($query->rows as $result) {
 			$customer_data[$result['hour']] = array(
-				'hour'  => $result['hour'],
-				'total' => $result['total']
+				'hour'	 => $result['hour'],
+				'total'	 => $result['total']
 			);
 		}
 
@@ -31,8 +32,8 @@ class ModelReportCustomer extends Model {
 			$date = date('Y-m-d', $date_start + ($i * 86400));
 
 			$customer_data[date('w', strtotime($date))] = array(
-				'day'   => date('D', strtotime($date)),
-				'total' => 0
+				'day'		 => date('D', strtotime($date)),
+				'total'	 => 0
 			);
 		}
 
@@ -40,8 +41,8 @@ class ModelReportCustomer extends Model {
 
 		foreach ($query->rows as $result) {
 			$customer_data[date('w', strtotime($result['date_added']))] = array(
-				'day'   => date('D', strtotime($result['date_added'])),
-				'total' => $result['total']
+				'day'		 => date('D', strtotime($result['date_added'])),
+				'total'	 => $result['total']
 			);
 		}
 
@@ -55,8 +56,8 @@ class ModelReportCustomer extends Model {
 			$date = date('Y') . '-' . date('m') . '-' . $i;
 
 			$customer_data[date('j', strtotime($date))] = array(
-				'day'   => date('d', strtotime($date)),
-				'total' => 0
+				'day'		 => date('d', strtotime($date)),
+				'total'	 => 0
 			);
 		}
 
@@ -64,8 +65,8 @@ class ModelReportCustomer extends Model {
 
 		foreach ($query->rows as $result) {
 			$customer_data[date('j', strtotime($result['date_added']))] = array(
-				'day'   => date('d', strtotime($result['date_added'])),
-				'total' => $result['total']
+				'day'		 => date('d', strtotime($result['date_added'])),
+				'total'	 => $result['total']
 			);
 		}
 
@@ -77,8 +78,8 @@ class ModelReportCustomer extends Model {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$customer_data[$i] = array(
-				'month' => date('M', mktime(0, 0, 0, $i)),
-				'total' => 0
+				'month'	 => date('M', mktime(0, 0, 0, $i)),
+				'total'	 => 0
 			);
 		}
 
@@ -86,8 +87,8 @@ class ModelReportCustomer extends Model {
 
 		foreach ($query->rows as $result) {
 			$customer_data[date('n', strtotime($result['date_added']))] = array(
-				'month' => date('M', strtotime($result['date_added'])),
-				'total' => $result['total']
+				'month'	 => date('M', strtotime($result['date_added'])),
+				'total'	 => $result['total']
 			);
 		}
 
@@ -495,4 +496,5 @@ class ModelReportCustomer extends Model {
 
 		return $query->row['total'];
 	}
+
 }

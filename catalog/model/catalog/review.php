@@ -1,5 +1,6 @@
 <?php
 class ModelCatalogReview extends Model {
+
 	public function addReview($product_id, $data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "review SET author = '" . $this->db->escape($data['name']) . "', customer_id = '" . (int)$this->customer->getId() . "', product_id = '" . (int)$product_id . "', text = '" . $this->db->escape($data['text']) . "', rating = '" . (int)$data['rating'] . "', date_added = NOW()");
 
@@ -8,12 +9,12 @@ class ModelCatalogReview extends Model {
 		if (in_array('review', (array)$this->config->get('config_mail_alert'))) {
 			$this->load->language('mail/review');
 			$this->load->model('catalog/product');
-			
+
 			$product_info = $this->model_catalog_product->getProduct($product_id);
 
 			$subject = sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 
-			$message  = $this->language->get('text_waiting') . "\n";
+			$message = $this->language->get('text_waiting') . "\n";
 			$message .= sprintf($this->language->get('text_product'), html_entity_decode($product_info['name'], ENT_QUOTES, 'UTF-8')) . "\n";
 			$message .= sprintf($this->language->get('text_reviewer'), html_entity_decode($data['name'], ENT_QUOTES, 'UTF-8')) . "\n";
 			$message .= sprintf($this->language->get('text_rating'), $data['rating']) . "\n";
@@ -67,4 +68,5 @@ class ModelCatalogReview extends Model {
 
 		return $query->row['total'];
 	}
+
 }
