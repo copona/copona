@@ -28,6 +28,11 @@
 /catalog/view/theme/*
 !/catalog/view/theme/default/
 
+# Templates
+/catalog/language/*
+!/catalog/language/en-gb/
+
+
 # Not files
 !/system/storage/**/index.html
 !/image/cache/index.html
