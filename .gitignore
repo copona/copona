@@ -33,9 +33,11 @@
 /catalog/view/theme/*
 !/catalog/view/theme/default/
 
-# Templates
+# Languages
 /catalog/language/*
 !/catalog/language/en-gb/
+/admin/language/*
+!/admin/language/en-gb/
 
 
 # Not files
