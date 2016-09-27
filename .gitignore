@@ -10,6 +10,11 @@
 # System Cache Files
 /system/storage/cache/*
 
+# Vqmod
+/vqmod/vqcache/*
+/vqmod/logs/*
+/vqmod/*.cache
+
 # Modification Files
 /system/storage/modification/*
 
