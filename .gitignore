@@ -4,8 +4,14 @@
 /config.php
 /admin/config.php
 
+# Versioning .zip files
+# git archive --format=zip HEAD `git diff HEAD^ HEAD --name-only` > $(pwgen 20 1).zip
+/*.zip
+/versioning.sh
+
 # Image Cache Files
 /image/cache/*
+/image/catalog/*
 
 # System Cache Files
 /system/storage/cache/*
