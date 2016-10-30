@@ -1,4 +1,6 @@
 <?php
+!defined('DEBUG') ? define('DEBUG', true) : '';
+
 if (!function_exists('pr')) {
 
 	function pr($data = 'w/o variable') {
