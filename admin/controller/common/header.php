@@ -10,6 +10,7 @@ class ControllerCommonHeader extends Controller {
 			$data['base'] = HTTP_SERVER;
 		}
 
+		$this->document->addStyle('view/stylesheet/additional.css');
 		$data['description'] = $this->document->getDescription();
 		$data['keywords'] = $this->document->getKeywords();
 		$data['links'] = $this->document->getLinks();
