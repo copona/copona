@@ -3,6 +3,7 @@
 /.htpasswd
 /config.php
 /admin/config.php
+/catalog/controller/xml
 
 # Versioning .zip files
 # git archive --format=zip HEAD `git diff HEAD^ HEAD --name-only` > $(pwgen 20 1).zip
@@ -10,6 +11,7 @@
 /versioning.sh
 
 # Image Cache Files
+/image/data/
 /image/cache/*
 /image/catalog/*
 
