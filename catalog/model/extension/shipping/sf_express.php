@@ -98,18 +98,12 @@ class ModelExtensionShippingSFExpress extends Model {
 			);
 
 			$parcels[] = array(
-			'box_type' =>,
-			'dimension' =>,
-			'items' => array of item,
-			'description' =>,
-			'weight' => $weight
+				'box_type'		 => '',
+				'dimension'		 => '',
+				'items'				 => array(),
+				'description'	 => '',
+				'weight'			 => $weight
 			);
-
-			Item
-
-
-
-
 
 			$request = array(
 				'ship_from'	 => $address_from,
@@ -267,8 +261,6 @@ class ModelExtensionShippingSFExpress extends Model {
 				);
 			}
 		}
-		}
-
 		return $method_data;
 	}
 
