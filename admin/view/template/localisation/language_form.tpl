@@ -25,7 +25,7 @@
       </div>
       <div class="panel-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-language" class="form-horizontal">
-          <div class="form-group required">
+					<div class="form-group required">
             <label class="col-sm-2 control-label" for="input-name"><?php echo $entry_name; ?></label>
             <div class="col-sm-10">
               <input type="text" name="name" value="<?php echo $name; ?>" placeholder="<?php echo $entry_name; ?>" id="input-name" class="form-control" />
@@ -34,21 +34,32 @@
 							<?php } ?>
             </div>
           </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-locale">
-							<span data-toggle="tooltip" title="<?php echo $help_locale; ?>"><?php echo $entry_locale; ?></span>
-						</label>
 
+					<div class="form-group required">
+            <label class="col-sm-2 control-label required" for="input-directory"><span data-toggle="tooltip" title="<?php echo $help_directory; ?>"><?php echo $text_directory; ?></span></label>
             <div class="col-sm-10">
-              <select name="locale" id="input-locale" class="form-control">
-								<?php foreach ($languages as $language) { ?>
-									<?php if ($language == $locale) { ?>
+              <select name="directory" id="input-locale" class="form-control">
+								<?php foreach ($directories as $language) { ?>
+									<?php if ($language == $directory) { ?>
 										<option value="<?php echo $language; ?>" selected="selected"><?php echo $language; ?></option>
 									<?php } else { ?>
 										<option value="<?php echo $language; ?>"><?php echo $language; ?></option>
 									<?php } ?>
 								<?php } ?>
               </select>
+            </div>
+          </div>
+
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="input-locale">
+							<span data-toggle="tooltip" title="<?php echo $help_locale; ?>"><?php echo $entry_locale; ?></span>
+						</label>
+
+            <div class="col-sm-10">
+
+							<input type="text" name="locale" value="<?php echo $locale; ?>" placeholder="<?php echo $entry_locale; ?>"
+										 id="input-name" class="form-control" />
+
 							<?php if ($error_locale) { ?>
 								<div class="text-danger"><?php echo $error_locale; ?></div>
 							<?php } ?>
@@ -63,6 +74,7 @@
 							<?php } ?>
             </div>
           </div>
+
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status"><span data-toggle="tooltip" title="<?php echo $help_status; ?>"><?php echo $entry_status; ?></span></label>
             <div class="col-sm-10">

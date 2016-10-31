@@ -111,37 +111,16 @@ class ControllerLocalisationLanguage extends Controller {
 	}
 
 	protected function getList() {
-		if (isset($this->request->get['sort'])) {
-			$sort = $this->request->get['sort'];
-		} else {
-			$sort = 'name';
-		}
 
-		if (isset($this->request->get['order'])) {
-			$order = $this->request->get['order'];
-		} else {
-			$order = 'ASC';
-		}
-
-		if (isset($this->request->get['page'])) {
-			$page = $this->request->get['page'];
-		} else {
-			$page = 1;
-		}
+		isset($this->request->get['sort']) ? $sort = $this->request->get['sort'] : $sort = 'name';
+		isset($this->request->get['order']) ? $order = $this->request->get['order'] : $order = 'ASC';
+		isset($this->request->get['page']) ? $page = $this->request->get['page'] : $page = 1;
 
 		$url = '';
 
-		if (isset($this->request->get['sort'])) {
-			$url .= '&sort=' . $this->request->get['sort'];
-		}
-
-		if (isset($this->request->get['order'])) {
-			$url .= '&order=' . $this->request->get['order'];
-		}
-
-		if (isset($this->request->get['page'])) {
-			$url .= '&page=' . $this->request->get['page'];
-		}
+		isset($this->request->get['sort']) ? $url .= '&sort=' . $this->request->get['sort'] : '';
+		isset($this->request->get['order']) ? $url .= '&order=' . $this->request->get['order'] : '';
+		isset($this->request->get['page']) ? $url .= '&page=' . $this->request->get['page'] : '';
 
 		$data['breadcrumbs'] = array();
 
@@ -263,49 +242,35 @@ class ControllerLocalisationLanguage extends Controller {
 
 	protected function getForm() {
 
-		$data = array_merge($data = array(), $this->language->load('localisation/language'));
+		//$data = array_merge($data = array(), $this->language->load('localisation/language'));
+		$data = $this->language->load('localisation/language');
+
+		//pr($data);
+		//pr($data);
 
 		$data['heading_title'] = $this->language->get('heading_title');
 
 		$data['text_form'] = !isset($this->request->get['language_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
+
+		foreach (array( 'name', 'locale', 'code', 'warning', 'directory' ) as $val) {
+			if (isset($this->error[$val]) && $this->error[$val]) {
+				$data['error_' . $val] = $this->error[$val];
+			} else {
+				//pr($this->error[$val]);
+				$data['error_' . $val] = '';
+			}
 		}
 
-		if (isset($this->error['name'])) {
-			$data['error_name'] = $this->error['name'];
-		} else {
-			$data['error_name'] = '';
-		}
 
-		if (isset($this->error['code'])) {
-			$data['error_code'] = $this->error['code'];
-		} else {
-			$data['error_code'] = '';
-		}
+		//pr($data);
 
-		if (isset($this->error['locale'])) {
-			$data['error_locale'] = $this->error['locale'];
-		} else {
-			$data['error_locale'] = '';
-		}
 
 		$url = '';
 
-		if (isset($this->request->get['sort'])) {
-			$url .= '&sort=' . $this->request->get['sort'];
-		}
-
-		if (isset($this->request->get['order'])) {
-			$url .= '&order=' . $this->request->get['order'];
-		}
-
-		if (isset($this->request->get['page'])) {
-			$url .= '&page=' . $this->request->get['page'];
-		}
+		isset($this->request->get['sort']) ? $url .= '&sort=' . $this->request->get['sort'] : '';
+		isset($this->request->get['order']) ? $url .= '&order=' . $this->request->get['order'] : '';
+		isset($this->request->get['page']) ? $url .= '&page=' . $this->request->get['page'] : '';
 
 		$data['breadcrumbs'] = array();
 
@@ -347,36 +312,38 @@ class ControllerLocalisationLanguage extends Controller {
 			$data['code'] = '';
 		}
 
+		if (isset($this->request->post['directory'])) {
+			$data['directory'] = $this->request->post['directory'];
+		} elseif (!empty($language_info)) {
+			$data['directory'] = $language_info['directory'];
+		} else {
+			$data['directory'] = '';
+		}
+
 		$data['languages'] = array();
 
-		$folders = glob(DIR_LANGUAGE . '*', GLOB_ONLYDIR);
+		//prd(DIR_CATALOG . 'language' . '*');
+
+		$folders = glob(DIR_CATALOG . 'language/' . '*', GLOB_ONLYDIR);
+
+		//pr($folders);
+
+		$data['directories'] = array();
 
 		foreach ($folders as $folder) {
 			$data['languages'][] = basename($folder);
+			$data['directories'][] = basename($folder);
 		}
 
-		if (isset($this->request->post['locale'])) {
-			$data['locale'] = $this->request->post['locale'];
-		} elseif (!empty($language_info)) {
-			$data['locale'] = $language_info['locale'];
-		} else {
-			$data['locale'] = '';
-		}
 
-		if (isset($this->request->post['sort_order'])) {
-			$data['sort_order'] = $this->request->post['sort_order'];
-		} elseif (!empty($language_info)) {
-			$data['sort_order'] = $language_info['sort_order'];
-		} else {
-			$data['sort_order'] = 1;
-		}
-
-		if (isset($this->request->post['status'])) {
-			$data['status'] = $this->request->post['status'];
-		} elseif (!empty($language_info)) {
-			$data['status'] = $language_info['status'];
-		} else {
-			$data['status'] = true;
+		foreach (array( 'locale', 'sort_order', 'status' ) as $val) {
+			if (isset($this->request->post[$val])) {
+				$data[$val] = $this->request->post[$val];
+			} elseif (!empty($language_info)) {
+				$data[$val] = $language_info[$val];
+			} else {
+				$data[$val] = '';
+			}
 		}
 
 		$data['header'] = $this->load->controller('common/header');
@@ -401,6 +368,10 @@ class ControllerLocalisationLanguage extends Controller {
 
 		if (!$this->request->post['locale']) {
 			$this->error['locale'] = $this->language->get('error_locale');
+		}
+
+		if (!$this->request->post['directory']) {
+			$this->error['directory'] = $this->language->get('error_directory');
 		}
 
 		$language_info = $this->model_localisation_language->getLanguageByCode($this->request->post['code']);

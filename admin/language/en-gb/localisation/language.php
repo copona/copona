@@ -21,6 +21,9 @@ $_['entry_locale'] = 'Locale';
 $_['entry_status'] = 'Status';
 $_['entry_sort_order'] = 'Sort Order';
 
+// Correct
+$_['text_directory'] = 'Directory';
+
 // Help
 //$_['help_locale'] = 'Example: en_US.UTF-8,en_US,en-gb,en_gb,english';
 $_['help_locale'] = 'Select from Available folders. Folder MUST exist under \'admin/languages\' and named after language LOCALE';
@@ -37,3 +40,4 @@ $_['error_default'] = 'Warning: This language cannot be deleted as it is current
 $_['error_admin'] = 'Warning: This Language cannot be deleted as it is currently assigned as the administration language!';
 $_['error_store'] = 'Warning: This language cannot be deleted as it is currently assigned to %s stores!';
 $_['error_order'] = 'Warning: This language cannot be deleted as it is currently assigned to %s orders!';
+$_['error_directory'] = 'Please, select the Language directory!';

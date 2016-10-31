@@ -98,8 +98,8 @@ class ControllerStartupStartup extends Controller {
 		}
 
 		// Overwrite the default language object
-		$language = new Language($code);
-		$language->load($code);
+		$language = new Language($languages[$code]['directory']);
+		$language->load($languages[$code]['directory']);
 
 		$this->registry->set('language', $language);
 
