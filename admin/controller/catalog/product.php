@@ -542,118 +542,16 @@ class ControllerCatalogProduct extends Controller {
 	}
 
 	protected function getForm() {
+
+		$data = array();
+		$data = array_merge($data, $this->load->language('catalog/product'));
 		$data['heading_title'] = $this->language->get('heading_title');
 
 		$data['text_form'] = !isset($this->request->get['product_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
-		$data['text_enabled'] = $this->language->get('text_enabled');
-		$data['text_disabled'] = $this->language->get('text_disabled');
-		$data['text_none'] = $this->language->get('text_none');
-		$data['text_yes'] = $this->language->get('text_yes');
-		$data['text_no'] = $this->language->get('text_no');
-		$data['text_plus'] = $this->language->get('text_plus');
-		$data['text_minus'] = $this->language->get('text_minus');
-		$data['text_default'] = $this->language->get('text_default');
-		$data['text_option'] = $this->language->get('text_option');
-		$data['text_option_value'] = $this->language->get('text_option_value');
-		$data['text_select'] = $this->language->get('text_select');
-		$data['text_percent'] = $this->language->get('text_percent');
-		$data['text_amount'] = $this->language->get('text_amount');
 
-		$data['entry_name'] = $this->language->get('entry_name');
-		$data['entry_description'] = $this->language->get('entry_description');
-		$data['entry_meta_title'] = $this->language->get('entry_meta_title');
-		$data['entry_meta_description'] = $this->language->get('entry_meta_description');
-		$data['entry_meta_keyword'] = $this->language->get('entry_meta_keyword');
-		$data['entry_keyword'] = $this->language->get('entry_keyword');
-		$data['entry_model'] = $this->language->get('entry_model');
-		$data['entry_sku'] = $this->language->get('entry_sku');
-		$data['entry_upc'] = $this->language->get('entry_upc');
-		$data['entry_ean'] = $this->language->get('entry_ean');
-		$data['entry_jan'] = $this->language->get('entry_jan');
-		$data['entry_isbn'] = $this->language->get('entry_isbn');
-		$data['entry_mpn'] = $this->language->get('entry_mpn');
-		$data['entry_location'] = $this->language->get('entry_location');
-		$data['entry_minimum'] = $this->language->get('entry_minimum');
-		$data['entry_shipping'] = $this->language->get('entry_shipping');
-		$data['entry_date_available'] = $this->language->get('entry_date_available');
-		$data['entry_quantity'] = $this->language->get('entry_quantity');
-		$data['entry_stock_status'] = $this->language->get('entry_stock_status');
-		$data['entry_price'] = $this->language->get('entry_price');
-		$data['entry_tax_class'] = $this->language->get('entry_tax_class');
-		$data['entry_points'] = $this->language->get('entry_points');
-		$data['entry_option_points'] = $this->language->get('entry_option_points');
-		$data['entry_subtract'] = $this->language->get('entry_subtract');
-		$data['entry_weight_class'] = $this->language->get('entry_weight_class');
-		$data['entry_weight'] = $this->language->get('entry_weight');
-		$data['entry_dimension'] = $this->language->get('entry_dimension');
-		$data['entry_length_class'] = $this->language->get('entry_length_class');
-		$data['entry_length'] = $this->language->get('entry_length');
-		$data['entry_width'] = $this->language->get('entry_width');
-		$data['entry_height'] = $this->language->get('entry_height');
-		$data['entry_image'] = $this->language->get('entry_image');
-		$data['entry_additional_image'] = $this->language->get('entry_additional_image');
-		$data['entry_store'] = $this->language->get('entry_store');
-		$data['entry_manufacturer'] = $this->language->get('entry_manufacturer');
-		$data['entry_download'] = $this->language->get('entry_download');
-		$data['entry_category'] = $this->language->get('entry_category');
-		$data['entry_filter'] = $this->language->get('entry_filter');
-		$data['entry_related'] = $this->language->get('entry_related');
-		$data['entry_attribute'] = $this->language->get('entry_attribute');
-		$data['entry_text'] = $this->language->get('entry_text');
-		$data['entry_option'] = $this->language->get('entry_option');
-		$data['entry_option_value'] = $this->language->get('entry_option_value');
-		$data['entry_required'] = $this->language->get('entry_required');
-		$data['entry_sort_order'] = $this->language->get('entry_sort_order');
-		$data['entry_status'] = $this->language->get('entry_status');
-		$data['entry_date_start'] = $this->language->get('entry_date_start');
-		$data['entry_date_end'] = $this->language->get('entry_date_end');
-		$data['entry_priority'] = $this->language->get('entry_priority');
-		$data['entry_tag'] = $this->language->get('entry_tag');
-		$data['entry_customer_group'] = $this->language->get('entry_customer_group');
-		$data['entry_reward'] = $this->language->get('entry_reward');
-		$data['entry_layout'] = $this->language->get('entry_layout');
-		$data['entry_recurring'] = $this->language->get('entry_recurring');
 
-		$data['help_keyword'] = $this->language->get('help_keyword');
-		$data['help_sku'] = $this->language->get('help_sku');
-		$data['help_upc'] = $this->language->get('help_upc');
-		$data['help_ean'] = $this->language->get('help_ean');
-		$data['help_jan'] = $this->language->get('help_jan');
-		$data['help_isbn'] = $this->language->get('help_isbn');
-		$data['help_mpn'] = $this->language->get('help_mpn');
-		$data['help_minimum'] = $this->language->get('help_minimum');
-		$data['help_manufacturer'] = $this->language->get('help_manufacturer');
-		$data['help_stock_status'] = $this->language->get('help_stock_status');
-		$data['help_points'] = $this->language->get('help_points');
-		$data['help_category'] = $this->language->get('help_category');
-		$data['help_filter'] = $this->language->get('help_filter');
-		$data['help_download'] = $this->language->get('help_download');
-		$data['help_related'] = $this->language->get('help_related');
-		$data['help_tag'] = $this->language->get('help_tag');
 
-		$data['button_save'] = $this->language->get('button_save');
-		$data['button_cancel'] = $this->language->get('button_cancel');
-		$data['button_attribute_add'] = $this->language->get('button_attribute_add');
-		$data['button_option_add'] = $this->language->get('button_option_add');
-		$data['button_option_value_add'] = $this->language->get('button_option_value_add');
-		$data['button_discount_add'] = $this->language->get('button_discount_add');
-		$data['button_special_add'] = $this->language->get('button_special_add');
-		$data['button_image_add'] = $this->language->get('button_image_add');
-		$data['button_remove'] = $this->language->get('button_remove');
-		$data['button_recurring_add'] = $this->language->get('button_recurring_add');
 
-		$data['tab_general'] = $this->language->get('tab_general');
-		$data['tab_data'] = $this->language->get('tab_data');
-		$data['tab_attribute'] = $this->language->get('tab_attribute');
-		$data['tab_option'] = $this->language->get('tab_option');
-		$data['tab_recurring'] = $this->language->get('tab_recurring');
-		$data['tab_discount'] = $this->language->get('tab_discount');
-		$data['tab_special'] = $this->language->get('tab_special');
-		$data['tab_image'] = $this->language->get('tab_image');
-		$data['tab_links'] = $this->language->get('tab_links');
-		$data['tab_reward'] = $this->language->get('tab_reward');
-		$data['tab_design'] = $this->language->get('tab_design');
-		$data['tab_openbay'] = $this->language->get('tab_openbay');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -665,18 +563,6 @@ class ControllerCatalogProduct extends Controller {
 			$data['error_name'] = $this->error['name'];
 		} else {
 			$data['error_name'] = array();
-		}
-
-		if (isset($this->error['meta_title'])) {
-			$data['error_meta_title'] = $this->error['meta_title'];
-		} else {
-			$data['error_meta_title'] = array();
-		}
-
-		if (isset($this->error['model'])) {
-			$data['error_model'] = $this->error['model'];
-		} else {
-			$data['error_model'] = '';
 		}
 
 		if (isset($this->error['keyword'])) {
@@ -1007,6 +893,14 @@ class ControllerCatalogProduct extends Controller {
 			$data['manufacturer_id'] = 0;
 		}
 
+		if (isset($this->request->post['admin_description'])) {
+			$data['admin_description'] = $this->request->post['admin_description'];
+		} elseif (!empty($product_info)) {
+			$data['admin_description'] = $product_info['admin_description'];
+		} else {
+			$data['admin_description'] = '';
+		}
+
 		if (isset($this->request->post['manufacturer'])) {
 			$data['manufacturer'] = $this->request->post['manufacturer'];
 		} elseif (!empty($product_info)) {
@@ -1330,14 +1224,6 @@ class ControllerCatalogProduct extends Controller {
 			if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 255)) {
 				$this->error['name'][$language_id] = $this->language->get('error_name');
 			}
-
-			if ((utf8_strlen($value['meta_title']) < 3) || (utf8_strlen($value['meta_title']) > 255)) {
-				$this->error['meta_title'][$language_id] = $this->language->get('error_meta_title');
-			}
-		}
-
-		if ((utf8_strlen($this->request->post['model']) < 1) || (utf8_strlen($this->request->post['model']) > 64)) {
-			$this->error['model'] = $this->language->get('error_model');
 		}
 
 		if (utf8_strlen($this->request->post['keyword']) > 0) {
