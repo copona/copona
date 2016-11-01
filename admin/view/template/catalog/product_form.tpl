@@ -1,5 +1,5 @@
 <?php echo $header; ?><?php echo $column_left; ?>
-<?php // prd($product_description)            ?>
+<?php // prd($product_description)             ?>
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
