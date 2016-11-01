@@ -1,3 +1,5 @@
-#language img {
+#language img,
+.lng-image img
+{
 	max-width: 16px;
 }
