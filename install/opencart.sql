@@ -348,6 +348,20 @@ INSERT INTO `oc_banner_image` (`banner_image_id`, `banner_id`, `language_id`, `t
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `oc_banner_image_description`
+-- TODO: Implement Banner Image Description
+
+CREATE TABLE `oc_banner_image_description` (
+  `banner_image_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `banner_id` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `description` text NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
 -- Table structure for table `oc_cart`
 --
 
@@ -2422,6 +2436,9 @@ CREATE TABLE `oc_product` (
   `viewed` int(5) NOT NULL DEFAULT '0',
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
+	`youtube` text NOT NULL,
+  `youtube_code` text NOT NULL,
+  `price_inshop` decimal(15,4) NOT NULL DEFAULT '0.0000',
   PRIMARY KEY (`product_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -2493,6 +2510,9 @@ CREATE TABLE `oc_product_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   `meta_keyword` varchar(255) NOT NULL,
+	`subtitle` varchar(55) NOT NULL,
+  `language_status` tinyint(1) NOT NULL DEFAULT '1',
+  `external_link` text
   PRIMARY KEY (`product_id`,`language_id`),
   KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -2578,6 +2598,18 @@ CREATE TABLE `oc_product_image` (
   `sort_order` int(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`product_image_id`),
   KEY `product_id` (`product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Table structure for table `oc_product_image`
+-- TODO: implement Image Description
+
+CREATE TABLE `oc_product_image_description` (
+  `id` int(11) NOT NULL,
+  `product_image_id` int(11) NOT NULL,
+  `language_id` text NOT NULL,
+  `description` text CHARACTER SET utf8 NOT NULL,
+  `product_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -3124,6 +3156,40 @@ CREATE TABLE `oc_review` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `oc_searchRegister`
+-- TODO: implement Search Register statistics
+
+CREATE TABLE `oc_search_register` (
+  `search_id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `tag` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `result` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Table structure for table `oc_search_table`
+--
+
+CREATE TABLE `oc_search_table` (
+  `text` text NOT NULL,
+  `name` varchar(254) NOT NULL,
+  `type_id` tinyint(4) NOT NULL,
+  `content_id` int(11) NOT NULL,
+  `language_id` tinyint(4) NOT NULL,
+  `status` tinyint(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Table structure for table `oc_search_types`
+--
+
+CREATE TABLE `oc_search_types` (
+  `type_id` tinyint(4) NOT NULL,
+  `name` varchar(254) CHARACTER SET latin1 NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `oc_setting`
@@ -3724,6 +3790,27 @@ INSERT INTO `oc_voucher_theme_description` (`voucher_theme_id`, `language_id`, `
 (8, 1, 'General');
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `oc_webform`
+-- TODO: implement Webform
+
+CREATE TABLE `oc_webform` (
+  `id` int(11) NOT NULL,
+  `firstname` varchar(254) NOT NULL,
+  `lastname` varchar(254) NOT NULL,
+  `phone` varchar(254) NOT NULL,
+  `address` varchar(254) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `month` varchar(254) NOT NULL,
+  `model` varchar(255) NOT NULL,
+  `form_id` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `code` varchar(55) NOT NULL,
+  `language_code` varchar(11) NOT NULL,
+  `registration_ip` varchar(40) NOT NULL,
+  `language_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Table structure for table `oc_weight_class`
@@ -8035,3 +8122,33 @@ INSERT INTO `oc_zone_to_geo_zone` (`zone_to_geo_zone_id`, `country_id`, `zone_id
 (107, 222, 3954, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (108, 222, 3955, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (109, 222, 3972, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+--
+-- Indexes for table `oc_banner_image_description`
+--
+ALTER TABLE `oc_banner_image_description`
+  ADD PRIMARY KEY (`banner_image_id`,`language_id`);
+
+--
+-- Indexes for table `oc_product_image_description`
+--
+ALTER TABLE `oc_product_image_description`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `oc_searchRegister`
+--
+ALTER TABLE `oc_search_register`
+  ADD PRIMARY KEY (`search_id`);
+
+--
+-- Indexes for table `oc_webform`
+--
+ALTER TABLE `oc_webform`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `oc_search_types`
+--
+ALTER TABLE `oc_search_types`
+  ADD PRIMARY KEY (`type_id`);

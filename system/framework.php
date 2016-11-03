@@ -34,6 +34,10 @@ $registry->set('response', $response);
 // Database
 if ($config->get('db_autostart')) {
 	$registry->set('db', new DB($config->get('db_type'), $config->get('db_hostname'), $config->get('db_username'), $config->get('db_password'), $config->get('db_database'), $config->get('db_port')));
+	if (!$registry->get('db')->query('SHOW TABLES LIKE \'' . DB_PREFIX . 'setting\'')->rows) {
+		//no table setting.
+		die('Check Config file for correct Database connection!');
+	}
 }
 
 // Session
