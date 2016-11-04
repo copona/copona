@@ -384,7 +384,7 @@ CREATE TABLE `oc_cart` (
 
 --
 -- Table structure for table `oc_category`
---
+-- TODO: external_link
 
 DROP TABLE IF EXISTS `oc_category`;
 CREATE TABLE `oc_category` (
@@ -392,6 +392,7 @@ CREATE TABLE `oc_category` (
   `image` varchar(255) DEFAULT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `top` tinyint(1) NOT NULL,
+  `external_link` text NOT NULL,
   `column` int(3) NOT NULL,
   `sort_order` int(3) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL,
@@ -460,6 +461,8 @@ CREATE TABLE `oc_category_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   `meta_keyword` varchar(255) NOT NULL,
+	`language_status` tinyint(1) NOT NULL DEFAULT '1',
+  `external_link` text,
   PRIMARY KEY (`category_id`,`language_id`),
   KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -2512,7 +2515,7 @@ CREATE TABLE `oc_product_description` (
   `meta_keyword` varchar(255) NOT NULL,
 	`subtitle` varchar(55) NOT NULL,
   `language_status` tinyint(1) NOT NULL DEFAULT '1',
-  `external_link` text
+  `external_link` text,
   PRIMARY KEY (`product_id`,`language_id`),
   KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
