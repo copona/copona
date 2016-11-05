@@ -1,5 +1,5 @@
 <?php echo $header; ?><?php echo $column_left; ?>
-<?php // prd($product_description)              ?>
+<?php // prd($product_description)                                     ?>
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
@@ -410,10 +410,21 @@
                 <label class="col-sm-2 control-label" for="input-related"><span data-toggle="tooltip" title="<?php echo $help_related; ?>"><?php echo $entry_related; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="related" value="" placeholder="<?php echo $entry_related; ?>" id="input-related" class="form-control" />
-                  <div id="product-related" class="well well-sm" style="height: 150px; overflow: auto;">
+
+
+                  <div id="product-related" class="well well-sm col-sm-6" style="height: 150px; overflow: auto;">
+										<strong>Products, which will show up as "related" to this: </strong><br />
 										<?php foreach ($product_relateds as $product_related) { ?>
 											<div id="product-related<?php echo $product_related['product_id']; ?>"><i class="fa fa-minus-circle"></i> <?php echo $product_related['name']; ?>
 												<input type="hidden" name="product_related[]" value="<?php echo $product_related['product_id']; ?>" />
+											</div>
+										<?php } ?>
+                  </div>
+									<div id="product-backway" class="well well-sm col-sm-6" style="height: 150px; overflow: auto;">
+										<strong>Products, which will show THIS product as related:</strong><br />
+										<?php foreach ($product_backways as $product_backway) { ?>
+											<div id="product-backway<?php echo $product_backway['product_id']; ?>"><i class="fa fa-minus-circle"></i> <?php echo $product_backway['name']; ?>
+												<input type="hidden" name="product_backway[]" value="<?php echo $product_backway['product_id']; ?>" />
 											</div>
 										<?php } ?>
                   </div>
@@ -927,6 +938,11 @@
             </div>
           </div>
         </form>
+
+				<div class="pull-right">
+					<button type="submit" form="form-product" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+					<a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+
       </div>
     </div>
   </div>
@@ -934,7 +950,7 @@
   <link href="view/javascript/summernote/summernote.css" rel="stylesheet" />
   <script type="text/javascript" src="view/javascript/summernote/opencart.js"></script>
   <script type="text/javascript"><!--
-// Manufacturer
+		// Manufacturer
 		$('input[name=\'manufacturer\']').autocomplete({
 			'source': function (request, response) {
 				$.ajax({
@@ -961,7 +977,7 @@
 			}
 		});
 
-// Category
+		// Category
 		$('input[name=\'category\']').autocomplete({
 			'source': function (request, response) {
 				$.ajax({
@@ -990,7 +1006,7 @@
 			$(this).parent().remove();
 		});
 
-// Filter
+		// Filter
 		$('input[name=\'filter\']').autocomplete({
 			'source': function (request, response) {
 				$.ajax({
@@ -1019,7 +1035,7 @@
 			$(this).parent().remove();
 		});
 
-// Downloads
+		// Downloads
 		$('input[name=\'download\']').autocomplete({
 			'source': function (request, response) {
 				$.ajax({
@@ -1068,16 +1084,18 @@
 				$('input[name=\'related\']').val('');
 
 				$('#product-related' + item['value']).remove();
+				$('#product-backway' + item['value']).remove();
 
 				$('#product-related').append('<div id="product-related' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_related[]" value="' + item['value'] + '" /></div>');
+				$('#product-backway').append('<div id="product-backway' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_backway[]" value="' + item['value'] + '" /></div>');
 			}
 		});
 
-		$('#product-related').delegate('.fa-minus-circle', 'click', function () {
+		$('#product-related, #product-backway').delegate('.fa-minus-circle', 'click', function () {
 			$(this).parent().remove();
 		});
-//--></script>
-  <script type="text/javascript"><!--
+
+		// Attribute rows
 		var attribute_row = <?php echo $attribute_row; ?>;
 
 		function addAttribute() {
@@ -1125,8 +1143,8 @@
 		$('#attribute tbody tr').each(function (index, element) {
 			attributeautocomplete(index);
 		});
-//--></script>
-  <script type="text/javascript"><!--
+
+		// Options rows
 		var option_row = <?php echo $option_row; ?>;
 
 		$('input[name=\'option\']').autocomplete({
@@ -1266,8 +1284,8 @@
 				option_row++;
 			}
 		});
-//--></script>
-  <script type="text/javascript"><!--
+
+		// Options Values
 		var option_value_row = <?php echo $option_value_row; ?>;
 
 		function addOptionValue(option_row) {
@@ -1303,8 +1321,8 @@
 
 			option_value_row++;
 		}
-//--></script>
-  <script type="text/javascript"><!--
+
+		// Discount rows
 		var discount_row = <?php echo $discount_row; ?>;
 
 		function addDiscount() {
@@ -1330,8 +1348,8 @@
 
 			discount_row++;
 		}
-//--></script>
-  <script type="text/javascript"><!--
+
+		// Special Rows
 		var special_row = <?php echo $special_row; ?>;
 
 		function addSpecial() {
@@ -1356,8 +1374,8 @@
 
 			special_row++;
 		}
-//--></script>
-  <script type="text/javascript"><!--
+
+		// Images
 		var image_row = <?php echo $image_row; ?>;
 
 		function addImage() {
@@ -1371,8 +1389,8 @@
 
 			image_row++;
 		}
-//--></script>
-  <script type="text/javascript"><!--
+
+		// Recurring
 		var recurring_row = <?php echo $recurring_row; ?>;
 
 		function addRecurring() {
@@ -1400,23 +1418,5 @@
 
 			recurring_row++;
 		}
-//--></script>
-  <script type="text/javascript"><!--
-		$('.date').datetimepicker({
-			pickTime: false
-		});
-
-		$('.time').datetimepicker({
-			pickDate: false
-		});
-
-		$('.datetime').datetimepicker({
-			pickDate: true,
-			pickTime: true
-		});
-//--></script>
-  <script type="text/javascript"><!--
-		$('#language a:first').tab('show');
-		$('#option a:first').tab('show');
 //--></script></div>
 <?php echo $footer; ?>
