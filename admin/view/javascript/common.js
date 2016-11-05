@@ -22,6 +22,36 @@ function getURLVar(key) {
 	}
 }
 
+// Cookie functions
+// Credit to: http://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
+function setCookie(name, value, days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		var expires = "; expires=" + date.toGMTString();
+	} else
+		var expires = "";
+	document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function getCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ')
+			c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) == 0)
+			return c.substring(nameEQ.length, c.length);
+	}
+	return null;
+}
+
+function deleteCookie(name) {
+	createCookie(name, "", -1);
+}
+
+
 $(document).ready(function () {
 	//Form Submit for IE Browser
 	$('button[type=\'submit\']').on('click', function () {
@@ -49,10 +79,8 @@ $(document).ready(function () {
 		$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').addClass('active open');
 	}
 
-	if (localStorage.getItem('column-left') == 'active') {
-		$('#button-menu i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
 
-		$('#column-left').addClass('active');
+	if (localStorage.getItem('column-left') == 'active') {
 
 		// Slide Down Menu
 		$('#menu li.active').has('ul').children('ul').addClass('collapse in');
@@ -67,6 +95,23 @@ $(document).ready(function () {
 	// Menu button
 	$('#button-menu').on('click', function () {
 		// Checks if the left column is active or not.
+
+		if (getCookie('mfold') == 'active') {
+			setCookie('mfold', '');
+			$('#button-menu i').replaceWith('<i class="fa fa-indent fa-lg"></i>');
+			$('#column-left').removeClass('active');
+			$('#menu > li > ul').removeClass('in collapse');
+			$('#menu > li > ul').removeAttr('style');
+		} else {
+			setCookie('mfold', 'active');
+			$('#button-menu i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
+			$('#column-left').addClass('active');
+			// Add the slide down to open menu items
+			$('#menu li.open').has('ul').children('ul').addClass('collapse in');
+			$('#menu li').not('.open').has('ul').children('ul').addClass('collapse');
+		}
+		return;
+
 		if ($('#column-left').hasClass('active')) {
 			localStorage.setItem('column-left', '');
 
@@ -209,6 +254,27 @@ $(document).ready(function () {
 	$('[data-toggle=\'tooltip\']').on('remove', function () {
 		$(this).tooltip('destroy');
 	});
+
+	//TODO:  moved from product_form,
+	// DateTime calendar
+	$('.date').datetimepicker({
+		pickTime: false
+	});
+
+	$('.time').datetimepicker({
+		pickDate: false
+	});
+
+	$('.datetime').datetimepicker({
+		pickDate: true,
+		pickTime: true
+	});
+
+	// Tab actions
+	$('#language a:first').tab('show');
+	console.log();
+	$('#option a:first').tab('show');
+
 });
 
 // Autocomplete */

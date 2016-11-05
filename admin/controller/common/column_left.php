@@ -11,6 +11,9 @@ class ControllerCommonColumnLeft extends Controller {
 
 			$user_info = $this->model_user_user->getUser($this->user->getId());
 
+			//set admin left menu
+			$this->request->cookie['mfold'] == 'active' ? $data['mfold'] = 'active' : $data['mfold'] = '';
+
 			if ($user_info) {
 				$data['firstname'] = $user_info['firstname'];
 				$data['lastname'] = $user_info['lastname'];
@@ -260,6 +263,55 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 
+			// Sales
+			$sale = array();
+			/* TODO: Replace junky manual menus with method or function to generate admin menu.
+			 * with pluggability in mind.
+			  $menu_items = array(
+			  'sale' => array(
+			  'name'	 => $this->language->get('text_sale'),
+			  'id'		 => 'menu-sale',
+			  'icon'	 => 'fa-shopping-cart',
+			  'class'	 => '',
+			  'items'	 => array(
+			  array(
+			  'route'	 => 'sale/order',
+			  'name'	 => 'text_order',
+			  ),
+			  array(
+			  'route'	 => 'sale/recurring',
+			  'name'	 => 'text_recurring',
+			  ),
+			  array(
+			  'route'	 => 'sale/return',
+			  'name'	 => 'text_return',
+			  ),
+			  ),
+			  ),
+			  );
+
+			  foreach ($menu_items as $key => $menu) {
+			  foreach ($menu['items'] as $val) {
+			  if ($this->user->hasPermission('access', $val['route'])) {
+			  ${$key}[] = array(
+			  'name'		 => $this->language->get($val['name']),
+			  'href'		 => $this->url->link($val['route'], 'token=' . $this->session->data['token'], true),
+			  'children' => array()
+			  );
+			  }
+			  }
+			  if (${$key}) {
+			  $data['menus'][] = array(
+			  'id'			 => $menu['id'],
+			  'icon'		 => $menu['icon'],
+			  'name'		 => $menu['name'],
+			  'href'		 => '',
+			  'children' => ${$key},
+			  );
+			  }
+			  }
+
+			 */
 			// Sales
 			$sale = array();
 
