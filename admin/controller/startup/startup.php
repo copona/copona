@@ -14,7 +14,7 @@ class ControllerStartupStartup extends Controller {
 		}
 
 		// Language
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE code = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE directory = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
 
 		if ($query->num_rows) {
 			$this->config->set('config_language_id', $query->row['language_id']);
@@ -24,6 +24,7 @@ class ControllerStartupStartup extends Controller {
 			$language_directory = $this->config->get('config_admin_language');
 		}
 
+		//pr($this->config->get('config_admin_language'));
 		// Language
 		$language = new Language($language_directory);
 

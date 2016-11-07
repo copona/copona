@@ -40,6 +40,8 @@ class ModelLocalisationOrderStatus extends Model {
 	}
 
 	public function getOrderStatuses($data = array()) {
+		//prd($this->config->get('config_language_id'));
+
 		if ($data) {
 			$sql = "SELECT * FROM " . DB_PREFIX . "order_status WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'";
 

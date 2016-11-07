@@ -171,6 +171,9 @@ class ControllerLocalisationOrderStatus extends Controller {
 
 		$results = $this->model_localisation_order_status->getOrderStatuses($filter_data);
 
+		pr($filter_data);
+
+
 		foreach ($results as $result) {
 			$data['order_statuses'][] = array(
 				'order_status_id'	 => $result['order_status_id'],

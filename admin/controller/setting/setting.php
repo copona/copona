@@ -10,6 +10,8 @@ class ControllerSettingSetting extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			//prd($this->request->post);
+
 			$this->model_setting_setting->editSetting('config', $this->request->post);
 
 			if ($this->config->get('config_currency_auto')) {
@@ -1233,7 +1235,7 @@ class ControllerSettingSetting extends Controller {
 		if ($this->error && !isset($this->error['warning'])) {
 			$this->error['warning'] = $this->language->get('error_warning');
 		}
-
+		//pr($this->error);
 		return !$this->error;
 	}
 

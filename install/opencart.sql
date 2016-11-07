@@ -1656,7 +1656,7 @@ DROP TABLE IF EXISTS `oc_language`;
 CREATE TABLE `oc_language` (
   `language_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
-  `code` varchar(5) NOT NULL,
+  `code` varchar(25) NOT NULL,
   `locale` varchar(255) NOT NULL,
   `image` varchar(64) NOT NULL,
   `directory` varchar(32) NOT NULL,

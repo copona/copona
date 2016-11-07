@@ -12,7 +12,7 @@ class ControllerCommonColumnLeft extends Controller {
 			$user_info = $this->model_user_user->getUser($this->user->getId());
 
 			//set admin left menu
-			$this->request->cookie['mfold'] == 'active' ? $data['mfold'] = 'active' : $data['mfold'] = '';
+			isset($this->request->cookie['mfold']) && $this->request->cookie['mfold'] == 'active' ? $data['mfold'] = 'active' : $data['mfold'] = '';
 
 			if ($user_info) {
 				$data['firstname'] = $user_info['firstname'];
