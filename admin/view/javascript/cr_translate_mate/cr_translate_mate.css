@@ -1,0 +1,19 @@
+#helpDiv{ margin-bottom:5px; }
+.keyCol { width:200px; }
+.pageCol { width:250px; }
+.translationCol { cursor:pointer; }
+#searchRow td{ font-weight:normal; }
+#transTable thead { background-color:#fff; }
+#loadInfoDiv { text-align: center; }
+#loadingTextsWait { font-size:3em; }
+#loadMoreBtn, #noTextsFound, #scrollToTopBtn, #notTranslatedTemplate { display:none; }
+.transTextArea { width:100%; }
+#layer { position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: #fff; display: none; }
+.controls { padding-top: 10px !important; }
+.controls a { font-size: 15px; margin: 0 0 0 10px; color: #000; }
+.controls a.active { background: #000; color: #fff; text-decoration: none; padding: 2px 5px; }
+.controls span { font-weight: 700; }
+#ctrls-holder { margin-top: 14px; margin-left: -54px; position: absolute; float: right; background: #fff; border: 1px solid #ccc; border-bottom: none; z-index: 1; padding: 2px; }
+#ctrls-holder a { margin:2px 5px; }
+.transTextArea { width: 100%; padding: 2%; border: 1px solid #ccc; margin-top: 18px; position: relative; z-index: 1; }
+.link-disabled{ pointer-events: none; }
