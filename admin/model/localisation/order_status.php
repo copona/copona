@@ -4,7 +4,7 @@ class ModelLocalisationOrderStatus extends Model {
 	public function addOrderStatus($data) {
 		foreach ($data['order_status'] as $language_id => $value) {
 			if (isset($order_status_id)) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "order_status SET order_status_id = '" . (int)$order_status_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "order_status SET order_status_id = '" . (int)$order_status_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', description = '" . $this->db->escape($value['description']) . "', send_invoice = '" . (int)$data['send_invoice'] . "'");
 			} else {
 				$this->db->query("INSERT INTO " . DB_PREFIX . "order_status SET language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
 
@@ -18,10 +18,11 @@ class ModelLocalisationOrderStatus extends Model {
 	}
 
 	public function editOrderStatus($order_status_id, $data) {
+
 		$this->db->query("DELETE FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "'");
 
 		foreach ($data['order_status'] as $language_id => $value) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "order_status SET order_status_id = '" . (int)$order_status_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "order_status SET order_status_id = '" . (int)$order_status_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', description = '" . $this->db->escape($value['description']) . "', send_invoice = '" . (int)$data['send_invoice'] . "'");
 		}
 
 		$this->cache->delete('order_status');
@@ -89,7 +90,10 @@ class ModelLocalisationOrderStatus extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "'");
 
 		foreach ($query->rows as $result) {
-			$order_status_data[$result['language_id']] = array( 'name' => $result['name'] );
+			$order_status_data[$result['language_id']] = array(
+				'name'				 => $result['name'],
+				'description'	 => $result['description']
+			);
 		}
 
 		return $order_status_data;

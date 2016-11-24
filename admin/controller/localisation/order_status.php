@@ -3,8 +3,7 @@ class ControllerLocalisationOrderStatus extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->load->language('localisation/order_status');
-
+		$data = array_merge(array(), $this->language->load('localisation/order_status'));
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('localisation/order_status');
@@ -52,6 +51,7 @@ class ControllerLocalisationOrderStatus extends Controller {
 		$this->load->model('localisation/order_status');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+			//prd($this->request->post);
 			$this->model_localisation_order_status->editOrderStatus($this->request->get['order_status_id'], $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -260,14 +260,9 @@ class ControllerLocalisationOrderStatus extends Controller {
 	}
 
 	protected function getForm() {
-		$data['heading_title'] = $this->language->get('heading_title');
+		$data = array_merge(array(), $this->language->load('localisation/order_status'));
 
 		$data['text_form'] = !isset($this->request->get['order_status_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
-
-		$data['entry_name'] = $this->language->get('entry_name');
-
-		$data['button_save'] = $this->language->get('button_save');
-		$data['button_cancel'] = $this->language->get('button_cancel');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -325,6 +320,14 @@ class ControllerLocalisationOrderStatus extends Controller {
 			$data['order_status'] = $this->model_localisation_order_status->getOrderStatusDescriptions($this->request->get['order_status_id']);
 		} else {
 			$data['order_status'] = array();
+		}
+
+		if (isset($this->request->post['send_invoice'])) {
+			$data['send_invoice'] = $this->request->post['send_invoice'];
+		} elseif (isset($this->request->get['order_status_id'])) {
+			$data['send_invoice'] = $this->model_localisation_order_status->getOrderStatus($this->request->get['order_status_id'])['send_invoice'];
+		} else {
+			$data['send_invoice'] = '';
 		}
 
 		$data['header'] = $this->load->controller('common/header');
