@@ -25,7 +25,6 @@
       </div>
       <div class="panel-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-order-status" class="form-horizontal">
-
 					<ul class="nav nav-tabs" id="language">
 						<?php foreach ($languages as $language) { ?>
 							<li>
@@ -50,7 +49,7 @@
 										<?php } ?>
 									</div>
 								</div>
-								<div class="form-group required">
+								<div class="form-group">
 									<label class="col-sm-2 control-label"><?php echo $entry_description; ?></label>
 									<div class="col-sm-10">
 										<div class="input-group"><span class="input-group-addon"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
