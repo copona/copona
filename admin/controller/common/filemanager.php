@@ -76,6 +76,10 @@ class ControllerCommonFileManager extends Controller {
 					$url .= '&thumb=' . $this->request->get['thumb'];
 				}
 
+				if (isset($this->request->get['ckedialog'])) {
+					$url .= '&ckedialog=' . $this->request->get['ckedialog'];
+				}
+
 				$data['images'][] = array(
 					'thumb'	 => '',
 					'name'	 => implode(' ', $name),
@@ -135,6 +139,19 @@ class ControllerCommonFileManager extends Controller {
 			$data['thumb'] = $this->request->get['thumb'];
 		} else {
 			$data['thumb'] = '';
+		}
+
+		if (isset($this->request->get['ckedialog'])) {
+			$data['ckedialog'] = $this->request->get['ckedialog'];
+		} else {
+			$data['ckedialog'] = '';
+		}
+
+		// ckeditor
+		if (isset($this->request->get['ckedialog'])) {
+			$data['ckedialog'] = $this->request->get['ckedialog'];
+		} else {
+			$data['ckedialog'] = '';
 		}
 
 		// Parent
