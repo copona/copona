@@ -5,6 +5,13 @@ namespace Template;
 final class PHP {
 	private $data = array();
 
+	public function __construct($registry) {
+		$this->config = $registry->get('config');
+		//$this->db = $registry->get('db');
+		//$this->request = $registry->get('request');
+		$this->session = $registry->get('session');
+	}
+
 	public function set($key, $value) {
 		$this->data[$key] = $value;
 	}
