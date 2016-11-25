@@ -171,9 +171,6 @@ class ControllerLocalisationOrderStatus extends Controller {
 
 		$results = $this->model_localisation_order_status->getOrderStatuses($filter_data);
 
-		pr($filter_data);
-
-
 		foreach ($results as $result) {
 			$data['order_statuses'][] = array(
 				'order_status_id'	 => $result['order_status_id'],
@@ -261,6 +258,7 @@ class ControllerLocalisationOrderStatus extends Controller {
 
 	protected function getForm() {
 		$data = array_merge(array(), $this->language->load('localisation/order_status'));
+		$data['token'] = $this->session->data['token'];
 
 		$data['text_form'] = !isset($this->request->get['order_status_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
