@@ -2339,7 +2339,7 @@ CREATE TABLE `oc_order_status` (
   `language_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   `description` text NOT NULL,
-	`send_invoice` TINYINT NOT NULL DEFAULT '0'
+	`send_invoice` TINYINT NOT NULL DEFAULT '0',
   PRIMARY KEY (`order_status_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
