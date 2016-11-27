@@ -53,7 +53,7 @@
 									<label class="col-sm-2 control-label"><?php echo $entry_description; ?></label>
 									<div class="col-sm-10">
 										<div class="input-group"><span class="input-group-addon"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
-											<textarea name="order_status[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="form-control "><?php echo isset($order_status[$language['language_id']]) ? $order_status[$language['language_id']]['description'] : ''; ?></textarea>
+											<textarea name="order_status[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="ck-basic form-control "><?php echo isset($order_status[$language['language_id']]) ? $order_status[$language['language_id']]['description'] : ''; ?></textarea>
 										</div>
 									</div>
 								</div>
@@ -88,44 +88,4 @@
 		</div>
 	</div>
 </div>
-<script>
-<?php foreach ($languages as $language) { ?>
-		CKEDITOR.replace('order_status[<?php echo $language['language_id']; ?>][description]', {
-			filebrowserBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
-			filebrowserImageBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
-			filebrowserFlashBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
-			//	filebrowserUploadUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
-			//	filebrowserImageUploadUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
-			//	filebrowserFlashUploadUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>'
-		});
-
-		CKEDITOR.on('dialogDefinition', function (event)
-		{
-			var editor = event.editor;
-			var dialogDefinition = event.data.definition;
-			var dialogName = event.data.name;
-
-			var tabCount = dialogDefinition.contents.length;
-			for (var i = 0; i < tabCount; i++) {
-				var browseButton = dialogDefinition.contents[i].get('browse');
-
-				if (browseButton !== null) {
-					browseButton.hidden = false;
-					browseButton.onClick = function () {
-						$('#modal-image').remove();
-						$.ajax({
-							url: 'index.php?route=common/filemanager&token=<?php echo $token; ?>&ckedialog=' + this.filebrowser.target,
-							dataType: 'html',
-							success: function (html) {
-								$('body').append('<div id="modal-image" style="z-index: 10020;" class="modal">' + html + '</div>');
-								$('#modal-image').modal('show');
-							}
-						});
-					}
-				}
-			}
-		});
-<?php } ?>
-</script>
-
 <?php echo $footer; ?>

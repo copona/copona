@@ -263,7 +263,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label"><?php echo $entry_description; ?></label>
                 <div class="col-sm-10">
-                  <textarea name="description" id="description-field" class="form-control summernote"><?php echo $product['description']; ?></textarea>
+                  <textarea name="description" id="description-field" class="ck-full form-control"><?php echo $product['description']; ?></textarea>
                 </div>
               </div>
             </div>
@@ -1038,9 +1038,6 @@
     </div>
   </div>
 </div>
-<script type="text/javascript" src="view/javascript/summernote/summernote.js"></script>
-<link href="view/javascript/summernote/summernote.css" rel="stylesheet" />
-<script type="text/javascript" src="view/javascript/summernote/opencart.js"></script> 
 <script type="text/javascript"><!--
   function updateReserveMessage(elementId, total) {
       var reserve = total - $('#qty_'+elementId).val();
@@ -2417,8 +2414,6 @@
         $('#profile-theme-input').val(<?php echo $product['profiles_theme_def']; ?>);
         profileThemeUpdate();
     <?php } ?>
-
-   // $('#description-field').summernote({height: 300});
   });
 
   $('#measure-unit').bind('change', function() {
