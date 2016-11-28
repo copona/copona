@@ -68,6 +68,11 @@ if ((isset($_SERVER['HTTPS']) && (($_SERVER['HTTPS'] == 'on') || ($_SERVER['HTTP
 	$_SERVER['HTTPS'] = false;
 }
 
+// Universal Host redirect to correct hostname
+if ($_SERVER['HTTP_HOST'] != parse_url(HTTP_SERVER)['host'] && $_SERVER['HTTP_HOST'] != parse_url(HTTP_SERVER)['host']) {
+	header("Location: ". ($_SERVER['HTTPS'] ? HTTPS_SERVER : HTTP_SERVER) . $_SERVER['REQUEST_URI'] ); 	
+}
+
 // Modification Override
 function modification($filename) {
 	if (defined('DIR_CATALOG')) {
