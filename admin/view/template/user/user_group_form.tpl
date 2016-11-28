@@ -52,7 +52,8 @@
                 </div>
                 <?php } ?>
               </div>
-              <a onclick="$(this).parent().find(':checkbox').prop('checked', true);"><?php echo $text_select_all; ?></a> / <a onclick="$(this).parent().find(':checkbox').prop('checked', false);"><?php echo $text_unselect_all; ?></a></div>
+              <a class="pointer" onclick="$(this).parent().find(':checkbox').prop('checked', true);"><?php echo $text_select_all; ?></a> / 
+							<a class="pointer" onclick="$(this).parent().find(':checkbox').prop('checked', false);"><?php echo $text_unselect_all; ?></a></div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label"><?php echo $entry_modify; ?></label>
@@ -72,7 +73,8 @@
                 </div>
                 <?php } ?>
               </div>
-              <a onclick="$(this).parent().find(':checkbox').prop('checked', true);"><?php echo $text_select_all; ?></a> / <a onclick="$(this).parent().find(':checkbox').prop('checked', false);"><?php echo $text_unselect_all; ?></a></div>
+              <a class="pointer" onclick="$(this).parent().find(':checkbox').prop('checked', true);"><?php echo $text_select_all; ?></a> / 
+							<a class="pointer" onclick="$(this).parent().find(':checkbox').prop('checked', false);"><?php echo $text_unselect_all; ?></a></div>
           </div>
         </form>
       </div>
