@@ -44,7 +44,7 @@ if (!function_exists('pr')) {
 
 if (!function_exists('prd')) {
 
-	function prd($data = 'w/o variable') {
+	function prd($data = 'w/o variable', $vardump = false) {
 		if (defined('DEBUG') && DEBUG == true) {
 			echo "\n\n";
 			echo "<div style='border: 1px solid grey; padding: 5px;'>";
@@ -64,7 +64,7 @@ if (!function_exists('prd')) {
 			elseif (gettype($data) == 'string') {
 				print_r(htmlentities($data));
 			} else {
-				print_r($data);
+				$vardump ? var_dump($data) : print_r($data);
 			}
 			echo "\n</pre>\n";
 
