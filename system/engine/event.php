@@ -1,9 +1,9 @@
 <?php
 /*
-* Event System Userguide
-* 
-* https://github.com/opencart/opencart/wiki/Events-(script-notifications)-2.2.x.x
-*/
+ * Event System Userguide
+ *
+ * https://github.com/opencart/opencart/wiki/Events-(script-notifications)-2.2.x.x
+ */
 class Event {
 	protected $registry;
 	protected $data = array();
@@ -15,10 +15,10 @@ class Event {
 	public function register($trigger, Action $action) {
 		$this->data[$trigger][] = $action;
 	}
-	
+
 	public function trigger($event, array $args = array()) {
 		foreach ($this->data as $trigger => $actions) {
-			if (preg_match('/^' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($trigger, '/')) . '/', $event)) {
+			if (preg_match('/^' . str_replace(array( '\*', '\?' ), array( '.*', '.' ), preg_quote($trigger, '/')) . '/', $event)) {
 				foreach ($actions as $action) {
 					$result = $action->execute($this->registry, $args);
 
@@ -49,4 +49,5 @@ class Event {
 			}
 		}
 	}
+
 }
