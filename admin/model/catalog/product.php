@@ -195,12 +195,15 @@ class ModelCatalogProduct extends Model {
 						SET product_group_id = '" . (int)$product_group_id . "',
 						product_id = '" . (int)$product_group['product_id'] . "',
 						default_id = '" . (int)(isset($data['main_product_id']) && $data['main_product_id'] == $product_group['product_id'] ? 1 : 0) . "'");
+				isset($data['main_product_id']) && $data['main_product_id'] ? $main_product_id = 1 : '';
 			}
+
 			// Add the current product itself to the product group:
+			// And - if there was NO main product - set this one as Main.
 			$this->db->query("REPLACE INTO " . DB_PREFIX . "product_to_product
 						SET product_group_id = '" . (int)$product_group_id . "',
 						product_id = '" . (int)$product_id . "',
-						default_id = '" . (int)(isset($data['main_product_id']) == $product_id ? 1 : 0) . "'");
+						default_id = '" . (!empty($main_product_id) ? '0' : '1') . "'");
 		} else {
 			// if there is NO product group, then just remove THIS product from any group
 			$this->db->query("DELETE FROM " . DB_PREFIX . "product_to_product WHERE product_id = '" . (int)$product_id . "'");
