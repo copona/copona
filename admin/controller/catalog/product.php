@@ -355,8 +355,8 @@ class ControllerCatalogProduct extends Controller {
 		$filter = array(
 			'default_product' => true
 		);
-		$results = $this->model_catalog_product->getProductGroups($filter);
 
+		$results = $this->model_catalog_product->getProducts($filter);
 
 		foreach ($results as $result) {
 			if (is_file(DIR_IMAGE . $result['image'])) {
@@ -550,14 +550,12 @@ class ControllerCatalogProduct extends Controller {
 
 		$data = array();
 		$data = array_merge($data, $this->load->language('catalog/product'));
+
+		//prd($this->language);
+		//prd($data);
+
 		$data['heading_title'] = $this->language->get('heading_title');
-
 		$data['text_form'] = !isset($this->request->get['product_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
-
-
-
-
-
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
@@ -652,7 +650,7 @@ class ControllerCatalogProduct extends Controller {
 		}
 		$data['product_group_products'] = array();
 		if ($product_info['product_group_id']) {
-			$product_group_products = $this->model_catalog_product->getProductGroups($filter);
+			$product_group_products = $this->model_catalog_product->getProducts($filter);
 
 			foreach ($product_group_products as $product_group_product) {
 				$data['product_group_products'][] = array(

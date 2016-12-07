@@ -402,7 +402,7 @@ class ModelCatalogProduct extends Model {
 
 	public function getProduct($product_id) {
 		$query = $this->db->query("SELECT DISTINCT *, (SELECT keyword FROM " . DB_PREFIX . "url_alias "
-			. "WHERE query = 'product_id=" . (int)$product_id . "') AS keyword FROM " . DB_PREFIX . "product p "
+			. "WHERE query = 'product_id=" . (int)$product_id . "' limit 1) AS keyword FROM " . DB_PREFIX . "product p "
 			. "LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) "
 			. "LEFT JOIN " . DB_PREFIX . "product_to_product p2p ON (p.product_id = p2p.product_id) "
 			. "WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
@@ -438,6 +438,14 @@ class ModelCatalogProduct extends Model {
 
 		if (isset($data['filter_added']) && $data['filter_added']) {
 			$sql .= " AND p.product_id NOT IN (" . $data['filter_added'] . ")";
+		}
+
+		if (isset($data['product_group_id']) && $data['product_group_id']) {
+			$sql .= " AND p2p.product_group_id=" . (int)$data['product_group_id'];
+		}
+
+		if (isset($data['default_product'])) {
+			$sql .= " AND (p2p.default_id IS NULL OR p2p.default_id > 0  )";
 		}
 
 		if (isset($data['filter_image']) && !is_null($data['filter_image'])) {
@@ -482,42 +490,21 @@ class ModelCatalogProduct extends Model {
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
-		$query = $this->db->query($sql);
 		//prd($sql);
+		$query = $this->db->query($sql);
 		return $query->rows;
 	}
 
 	/* Product groups */
 
 	public function getProductGroup($product_id) {
-		$sql = "SELECT p.*, (SELECT keyword FROM " . DB_PREFIX . "url_alias WHERE query = 'product_id=" . (int)$product_id . "') AS keyword, p2p.product_group_id, p2p.default_id FROM " . DB_PREFIX . "product p";
+		$sql = "SELECT p.*, (SELECT keyword FROM " . DB_PREFIX . "url_alias WHERE query = 'product_id=" . (int)$product_id . "' limit 1) AS keyword, p2p.product_group_id, p2p.default_id FROM " . DB_PREFIX . "product p";
 		$sql .= " LEFT JOIN " . DB_PREFIX . "product_to_product p2p ON (p.product_id = p2p.product_id) ";
 		$sql .= " WHERE p.product_id=" . $product_id;
 		$query = $this->db->query($sql);
 
 		return $query->row;
 	}
-
-	public function getProductGroups($filter = array()) {
-		$sql = "SELECT p.*, pd.*, p2p.product_group_id, p2p.default_id FROM " . DB_PREFIX . "product p
-			LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id)";
-		$sql .= " LEFT JOIN " . DB_PREFIX . "product_to_product p2p ON (p.product_id = p2p.product_id) ";
-
-		$sql .= "WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
-		if (isset($filter['product_group_id'])) {
-			$sql .= " AND p2p.product_group_id=" . (int)$filter['product_group_id'];
-		}
-		if (isset($filter['default_product'])) {
-			$sql .= " AND (p2p.default_id IS NULL OR p2p.default_id > 0  )";
-		}
-
-		$sql .= " ORDER BY `p2p`.`default_id`  DESC";
-		$query = $this->db->query($sql);
-
-		return $query->rows;
-	}
-
-	/* Product groups */
 
 	public function getProductsByCategoryId($category_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p2c.category_id = '" . (int)$category_id . "' ORDER BY pd.name ASC");
