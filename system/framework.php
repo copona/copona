@@ -57,6 +57,11 @@ if ($config->get('url_autostart')) {
 	$registry->set('url', new Url($config->get('site_base'), $config->get('site_ssl')));
 }
 
+// Copona seo urls
+if ($config->get('url_autostart')) {
+	$registry->set('seourl', new seoUrl($registry));
+}
+
 // Language
 $language = new Language($config->get('language_default'));
 $language->load($config->get('language_default'));
