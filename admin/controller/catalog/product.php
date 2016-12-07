@@ -1437,8 +1437,9 @@ class ControllerCatalogProduct extends Controller {
 			$filter_name = '';
 		}
 		$filter_data = array(
-			'filter_name'	 => $filter_name,
-			'filter_added' => $added_products,
+			'filter_name'				 => $filter_name,
+			'filter_added'			 => $added_products,
+			'filter_not_grouped' => true,
 		);
 		$results = $this->model_catalog_product->getProducts($filter_data);
 

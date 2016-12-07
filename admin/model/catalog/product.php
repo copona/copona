@@ -178,8 +178,8 @@ class ModelCatalogProduct extends Model {
 			}
 		}
 
-		//prd($data['product_group_id']);
-		// Product Group
+		// Product Group - add, edit, update, fix empties. - START
+
 		if (isset($data['product_group_id']) && $data['product_group_id']) {
 			$this->db->query("DELETE FROM " . DB_PREFIX . "product_to_product WHERE product_group_id = '" . (int)$data['product_group_id'] . "'");
 			$product_group_id = $data['product_group_id'];
@@ -195,9 +195,11 @@ class ModelCatalogProduct extends Model {
 						SET product_group_id = '" . (int)$product_group_id . "',
 						product_id = '" . (int)$product_group['product_id'] . "',
 						default_id = '" . (int)(isset($data['main_product_id']) && $data['main_product_id'] == $product_group['product_id'] ? 1 : 0) . "'");
-				isset($data['main_product_id']) && $data['main_product_id'] ? $main_product_id = 1 : '';
+				isset($data['main_product_id']) && $data['main_product_id'] == $product_group['product_id'] ? $main_product_id = 1 : '';
 			}
 
+			//pr($main_product_id);
+			//prd($data['main_product_id']);
 			// Add the current product itself to the product group:
 			// And - if there was NO main product - set this one as Main.
 			$this->db->query("REPLACE INTO " . DB_PREFIX . "product_to_product
@@ -207,7 +209,17 @@ class ModelCatalogProduct extends Model {
 		} else {
 			// if there is NO product group, then just remove THIS product from any group
 			$this->db->query("DELETE FROM " . DB_PREFIX . "product_to_product WHERE product_id = '" . (int)$product_id . "'");
+			// AND - fix DEFAULT product - set at least ONE
+			// TODO: write it shorter :)
+			$sql = "update " . DB_PREFIX . "product_to_product p2p1, (select * from "
+				. DB_PREFIX . "product_to_product p2p1 "
+				. "where not exists (select * from " . DB_PREFIX . "product_to_product p2p2 "
+				. "where `default_id` > 0 and p2p2.product_group_id = p2p1.product_group_id ) "
+				. "group by p2p1.product_group_id) p2p3 set p2p1.default_id=1 "
+				. "where p2p3.product_id = p2p1.product_id";
+			$this->db->query($sql);
 		}
+		// Product Group - add, edit, update, fix empties. END
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "product_attribute WHERE product_id = '" . (int)$product_id . "'");
 
@@ -454,7 +466,12 @@ class ModelCatalogProduct extends Model {
 			$sql .= " AND p2p.product_group_id=" . (int)$data['product_group_id'];
 		}
 
-		if (isset($data['default_product'])) {
+		if (isset($data['filter_not_grouped']) && $data['filter_not_grouped']) {
+			$sql .= " AND p2p.product_group_id is null";
+		}
+
+
+		if (isset($data['default_product']) && empty($data['filter_name'])) {
 			$sql .= " AND (p2p.default_id IS NULL OR p2p.default_id > 0  )";
 		}
 
@@ -502,6 +519,7 @@ class ModelCatalogProduct extends Model {
 		}
 		//prd($sql);
 		$query = $this->db->query($sql);
+		//prd($query->rows);
 		return $query->rows;
 	}
 
