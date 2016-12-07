@@ -41,6 +41,22 @@
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
+
+							<div class="form-group">
+                <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+                <div class="col-sm-10">
+                  <select name="status" id="input-status" class="form-control">
+										<?php if ($status) { ?>
+											<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+											<option value="0"><?php echo $text_disabled; ?></option>
+										<?php } else { ?>
+											<option value="1"><?php echo $text_enabled; ?></option>
+											<option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+										<?php } ?>
+                  </select>
+                </div>
+              </div>
+
               <ul class="nav nav-tabs" id="language">
 								<?php foreach ($languages as $language) { ?>
 									<li>
@@ -354,20 +370,6 @@
 											<?php } else { ?>
 												<option value="<?php echo $weight_class['weight_class_id']; ?>"><?php echo $weight_class['title']; ?></option>
 											<?php } ?>
-										<?php } ?>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
-                <div class="col-sm-10">
-                  <select name="status" id="input-status" class="form-control">
-										<?php if ($status) { ?>
-											<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-											<option value="0"><?php echo $text_disabled; ?></option>
-										<?php } else { ?>
-											<option value="1"><?php echo $text_enabled; ?></option>
-											<option value="0" selected="selected"><?php echo $text_disabled; ?></option>
 										<?php } ?>
                   </select>
                 </div>
