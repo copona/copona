@@ -352,7 +352,11 @@ class ControllerCatalogProduct extends Controller {
 
 		$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
-		$results = $this->model_catalog_product->getProducts($filter_data);
+		$filter = array(
+			'default_product' => true
+		);
+		$results = $this->model_catalog_product->getProductGroups($filter);
+
 
 		foreach ($results as $result) {
 			if (is_file(DIR_IMAGE . $result['image'])) {
@@ -374,15 +378,16 @@ class ControllerCatalogProduct extends Controller {
 			}
 
 			$data['products'][] = array(
-				'product_id' => $result['product_id'],
-				'image'			 => $image,
-				'name'			 => $result['name'],
-				'model'			 => $result['model'],
-				'price'			 => $result['price'],
-				'special'		 => $special,
-				'quantity'	 => $result['quantity'],
-				'status'		 => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-				'edit'			 => $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $result['product_id'] . $url, true)
+				'product_id'			 => $result['product_id'],
+				'image'						 => $image,
+				'name'						 => $result['name'],
+				'model'						 => $result['model'],
+				'price'						 => $result['price'],
+				'special'					 => $special,
+				'quantity'				 => $result['quantity'],
+				'product_group_id' => $result['product_group_id'],
+				'status'					 => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+				'edit'						 => $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $result['product_id'] . $url, true)
 			);
 		}
 
@@ -625,9 +630,47 @@ class ControllerCatalogProduct extends Controller {
 
 		$data['cancel'] = $this->url->link('catalog/product', 'token=' . $this->session->data['token'] . $url, true);
 
+
+		// product group
+
 		if (isset($this->request->get['product_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$product_info = $this->model_catalog_product->getProduct($this->request->get['product_id']);
+		} else {
+			$product_info = array();
 		}
+
+		$filter = array();
+
+		if ($product_info['product_group_id']) {
+			$filter['product_group_id'] = $product_info['product_group_id'];
+		}
+
+		if ($product_info['product_group_id']) {
+			$data['product_group_id'] = $product_info['product_group_id'];
+		} else {
+			$data['product_group_id'] = '';
+		}
+		$data['product_group_products'] = array();
+		if ($product_info['product_group_id']) {
+			$product_group_products = $this->model_catalog_product->getProductGroups($filter);
+
+			foreach ($product_group_products as $product_group_product) {
+				$data['product_group_products'][] = array(
+					'product_id'			 => $product_group_product['product_id'],
+					'name'						 => $product_group_product['name'],
+					'model'						 => $product_group_product['model'],
+					'price'						 => $product_group_product['price'],
+					'quantity'				 => $product_group_product['quantity'],
+					'product_group_id' => $product_group_product['product_group_id'],
+					'main_product_id'	 => $product_group_product['default_id'],
+					'href'						 => $this->url->link('catalog/product/edit', 'product_id=' . $product_group_product['product_id'] . '&token=' . $this->session->data['token'] . $url, true),
+					'status'					 => $product_group_product['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+					'edit'						 => $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $product_group_product['product_id'])
+				);
+			}
+		}
+
+		// Product group
 
 		$data['token'] = $this->session->data['token'];
 
@@ -718,6 +761,17 @@ class ControllerCatalogProduct extends Controller {
 		} else {
 			$data['product_store'] = array( 0 );
 		}
+
+
+// SEO KEYWORD
+		if (isset($this->request->post['seo_keywords'])) {
+			$data['seo_keywords'] = $this->request->post['seo_keywords'];
+		} elseif (isset($this->request->get['product_id'])) {
+			$data['seo_keywords'] = $this->seourl->getSeoUrls('product_id=' . $this->request->get['product_id']);
+		} else {
+			$data['seo_keywords'] = '';
+		}
+// SEO KEYWORD END
 
 		if (isset($this->request->post['keyword'])) {
 			$data['keyword'] = $this->request->post['keyword'];
@@ -1365,6 +1419,41 @@ class ControllerCatalogProduct extends Controller {
 			}
 		}
 
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function product_group_autocomplete() {
+		$json = array();
+		$this->load->model('catalog/product');
+
+		if (isset($this->request->get['products'])) {
+			$added_products = $this->request->get['products'];
+		} else {
+			$added_products = '';
+		}
+
+		if (isset($this->request->get['filter_name'])) {
+			$filter_name = $this->request->get['filter_name'];
+		} else {
+			$filter_name = '';
+		}
+		$filter_data = array(
+			'filter_name'	 => $filter_name,
+			'filter_added' => $added_products,
+		);
+		$results = $this->model_catalog_product->getProducts($filter_data);
+
+		//pr($results);
+
+		foreach ($results as $result) {
+			$json[] = array(
+				'product_id' => $result['product_id'],
+				'name'			 => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
+				'model'			 => $result['model'],
+				'price'			 => $result['price']
+			);
+		}
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}

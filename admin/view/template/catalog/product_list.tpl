@@ -127,7 +127,7 @@
               <tbody>
 								<?php if ($products) { ?>
 									<?php foreach ($products as $product) { ?>
-										<tr>
+										<tr <?= ($product['product_group_id'] ? 'style="background:#d9f7d9"' : '') ?>>
 											<td class="text-center"><?php if (in_array($product['product_id'], $selected)) { ?>
 													<input type="checkbox" name="selected[]" value="<?php echo $product['product_id']; ?>" checked="checked" />
 												<?php } else { ?>
