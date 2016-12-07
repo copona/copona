@@ -345,6 +345,7 @@ class ControllerCatalogProduct extends Controller {
 			'sort'						 => $sort,
 			'order'						 => $order,
 			'start'						 => ($page - 1) * $this->config->get('config_limit_admin'),
+			'default_product'	 => true,
 			'limit'						 => $this->config->get('config_limit_admin')
 		);
 
@@ -352,11 +353,7 @@ class ControllerCatalogProduct extends Controller {
 
 		$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
-		$filter = array(
-			'default_product' => true
-		);
-
-		$results = $this->model_catalog_product->getProducts($filter);
+		$results = $this->model_catalog_product->getProducts($filter_data);
 
 		foreach ($results as $result) {
 			if (is_file(DIR_IMAGE . $result['image'])) {
@@ -556,6 +553,9 @@ class ControllerCatalogProduct extends Controller {
 
 		$data['heading_title'] = $this->language->get('heading_title');
 		$data['text_form'] = !isset($this->request->get['product_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+
+		$data['product_id'] = !isset($this->request->get['product_id']) ? 0 : (int)$this->request->get['product_id'];
+
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {

@@ -56,7 +56,6 @@
                   </select>
                 </div>
               </div>
-
               <ul class="nav nav-tabs" id="language">
 								<?php foreach ($languages as $language) { ?>
 									<li>
@@ -128,6 +127,15 @@
 									<div class="col-sm-10">
 										<input type="text" name="product_group_autocomplete" value="" placeholder="Products" id="input-product_autocomplete" class="form-control" />
 									</div>
+
+									<label class="col-sm-2 control-label" for="input-product_autocomplete"><?= $label_default; ?></label>
+									<div class="col-sm-10">
+										<label class="radio-inline">
+											<input checked="checked" name="main_product_id" type="radio" value="<?= $product_id ?>">
+											<?= (isset($product_description[$this->config->get('config_language_id')]['name']) ? $product_description[$this->config->get('config_language_id')]['name'] : '' ) ?>
+
+										</label>
+									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-12">
@@ -146,6 +154,7 @@
 											</li>
 											<?php if ($product_group_products) { ?>
 												<?php foreach ($product_group_products as $product_group_product) { ?>
+													<?php if ($product_group_product['product_id'] == $product_id) continue; ?>
 													<li class="list-group-item row">
 														<div class="col-sm-1">
 															<input <?= ($product_group_product['main_product_id'] ? 'checked="checked"' : '') ?> name="main_product_id" type="radio" value="<?= $product_group_product['product_id'] ?>">
@@ -1138,7 +1147,7 @@ require_once('product_form.tpl.js');
 			html += '  <td class="text-left" style="width: 20%;"><input type="text" name="product_attribute[' + attribute_row + '][name]" value="" placeholder="<?php echo $entry_attribute; ?>" class="form-control" /><input type="hidden" name="product_attribute[' + attribute_row + '][attribute_id]" value="" /></td>';
 			html += '  <td class="text-left">';
 <?php foreach ($languages as $language) { ?>
-					html += '<div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span><textarea name="product_attribute[' + attribute_row + '][product_attribute_description][<?php echo $language['language_id']; ?>][text]" rows="5" placeholder="<?php echo $entry_text; ?>" class="form-control"></textarea></div>';
+				html += '<div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span><textarea name="product_attribute[' + attribute_row + '][product_attribute_description][<?php echo $language['language_id']; ?>][text]" rows="5" placeholder="<?php echo $entry_text; ?>" class="form-control"></textarea></div>';
 <?php } ?>
 			html += '  </td>';
 			html += '  <td class="text-left"><button type="button" onclick="$(\'#attribute-row' + attribute_row + '\').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
@@ -1343,7 +1352,7 @@ require_once('product_form.tpl.js');
 			html = '<tr id="discount-row' + discount_row + '">';
 			html += '  <td class="text-left"><select name="product_discount[' + discount_row + '][customer_group_id]" class="form-control">';
 <?php foreach ($customer_groups as $customer_group) { ?>
-					html += '    <option value="<?php echo $customer_group['customer_group_id']; ?>"><?php echo addslashes($customer_group['name']); ?></option>';
+				html += '    <option value="<?php echo $customer_group['customer_group_id']; ?>"><?php echo addslashes($customer_group['name']); ?></option>';
 <?php } ?>
 			html += '  </select></td>';
 			html += '  <td class="text-right"><input type="text" name="product_discount[' + discount_row + '][quantity]" value="" placeholder="<?php echo $entry_quantity; ?>" class="form-control" /></td>';
@@ -1366,7 +1375,7 @@ require_once('product_form.tpl.js');
 			html = '<tr id="special-row' + special_row + '">';
 			html += '  <td class="text-left"><select name="product_special[' + special_row + '][customer_group_id]" class="form-control">';
 <?php foreach ($customer_groups as $customer_group) { ?>
-					html += '      <option value="<?php echo $customer_group['customer_group_id']; ?>"><?php echo addslashes($customer_group['name']); ?></option>';
+				html += '      <option value="<?php echo $customer_group['customer_group_id']; ?>"><?php echo addslashes($customer_group['name']); ?></option>';
 <?php } ?>
 			html += '  </select></td>';
 			html += '  <td class="text-right"><input type="text" name="product_special[' + special_row + '][priority]" value="" placeholder="<?php echo $entry_priority; ?>" class="form-control" /></td>';
@@ -1401,14 +1410,14 @@ require_once('product_form.tpl.js');
 			html += '  <td class="left">';
 			html += '    <select name="product_recurring[' + recurring_row + '][recurring_id]" class="form-control">>';
 <?php foreach ($recurrings as $recurring) { ?>
-					html += '      <option value="<?php echo $recurring['recurring_id']; ?>"><?php echo $recurring['name']; ?></option>';
+				html += '      <option value="<?php echo $recurring['recurring_id']; ?>"><?php echo $recurring['name']; ?></option>';
 <?php } ?>
 			html += '    </select>';
 			html += '  </td>';
 			html += '  <td class="left">';
 			html += '    <select name="product_recurring[' + recurring_row + '][customer_group_id]" class="form-control">>';
 <?php foreach ($customer_groups as $customer_group) { ?>
-					html += '      <option value="<?php echo $customer_group['customer_group_id']; ?>"><?php echo $customer_group['name']; ?></option>';
+				html += '      <option value="<?php echo $customer_group['customer_group_id']; ?>"><?php echo $customer_group['name']; ?></option>';
 <?php } ?>
 			html += '    <select>';
 			html += '  </td>';
