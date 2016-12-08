@@ -649,17 +649,16 @@ class ControllerCatalogProduct extends Controller {
 
 		$filter = array();
 
-		if ($product_info['product_group_id']) {
+		if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
 			$filter['product_group_id'] = $product_info['product_group_id'];
-		}
-
-		if ($product_info['product_group_id']) {
 			$data['product_group_id'] = $product_info['product_group_id'];
 		} else {
 			$data['product_group_id'] = '';
 		}
+
 		$data['product_group_products'] = array();
-		if ($product_info['product_group_id']) {
+
+		if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
 			$product_group_products = $this->model_catalog_product->getProducts($filter);
 
 			foreach ($product_group_products as $product_group_product) {
