@@ -1,13 +1,5 @@
-function saveAndContinue(e) {
-	e.preventDefault();
-
-	$('#form-product, #form-category').append('<input type="hidden" name="save_continue" value="1"  />');
-	$('#form-product, #form-category').submit();
-}
-
 function getURLVar(key) {
 	var value = [];
-//	console.log(document.location);
 	var query = String(location.href.replace(location.hash, "")).split('?');
 
 	if (query[1]) {
@@ -207,7 +199,6 @@ $(document).ready(function () {
 			var $icon = $button.find('> i');
 
 			$('#modal-image').remove();
-			console.log('index.php?route=common/filemanager&token=' + getURLVar('token') + '&target=' + $element.parent().find('input').attr('id') + '&thumb=' + $element.attr('id'));
 			$.ajax({
 				url: 'index.php?route=common/filemanager&token=' + getURLVar('token') + '&target=' + $element.parent().find('input').attr('id') + '&thumb=' + $element.attr('id'),
 				dataType: 'html',
@@ -225,7 +216,6 @@ $(document).ready(function () {
 				},
 				success: function (html) {
 					$('body').append('<div id="modal-image" class="modal">' + html + '</div>');
-					console.log(33);
 					$('#modal-image').modal('show');
 				}
 			});
