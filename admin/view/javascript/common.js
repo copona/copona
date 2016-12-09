@@ -1,7 +1,7 @@
 function getURLVar(key) {
 	var value = [];
-
-	var query = String(document.location).split('?');
+//	console.log(document.location);
+	var query = String(location.href.replace(location.hash, "")).split('?');
 
 	if (query[1]) {
 		var part = query[1].split('&');
@@ -170,6 +170,7 @@ $(document).ready(function () {
 
 	// Image Manager
 	$(document).on('click', 'a[data-toggle=\'image\']', function (e) {
+
 		var $element = $(this);
 		var $popover = $element.data('bs.popover'); // element has bs popover?
 
@@ -199,7 +200,7 @@ $(document).ready(function () {
 			var $icon = $button.find('> i');
 
 			$('#modal-image').remove();
-
+			console.log('index.php?route=common/filemanager&token=' + getURLVar('token') + '&target=' + $element.parent().find('input').attr('id') + '&thumb=' + $element.attr('id'));
 			$.ajax({
 				url: 'index.php?route=common/filemanager&token=' + getURLVar('token') + '&target=' + $element.parent().find('input').attr('id') + '&thumb=' + $element.attr('id'),
 				dataType: 'html',
@@ -217,7 +218,7 @@ $(document).ready(function () {
 				},
 				success: function (html) {
 					$('body').append('<div id="modal-image" class="modal">' + html + '</div>');
-
+					console.log(33);
 					$('#modal-image').modal('show');
 				}
 			});
@@ -226,6 +227,7 @@ $(document).ready(function () {
 		});
 
 		$('#button-clear').on('click', function () {
+
 			$element.find('img').attr('src', $element.find('img').attr('data-placeholder'));
 
 			$element.parent().find('input').val('');
