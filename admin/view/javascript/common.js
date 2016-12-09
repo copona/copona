@@ -1,3 +1,10 @@
+function saveAndContinue(e) {
+	e.preventDefault();
+
+	$('#form-product, #form-category').append('<input type="hidden" name="save_continue" value="1"  />');
+	$('#form-product, #form-category').submit();
+}
+
 function getURLVar(key) {
 	var value = [];
 	var query = String(location.href.replace(location.hash, "")).split('?');

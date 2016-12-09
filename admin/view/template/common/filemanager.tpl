@@ -49,7 +49,6 @@
 
 <?php if ($ckedialog) { ?>
 		$('a.thumbnail').on('click', function (e) {
-			alert();
 			e.preventDefault();
 			dialog = CKEDITOR.dialog.getCurrent();
 			var targetElement = '<?php echo $ckedialog; ?>' || null;
