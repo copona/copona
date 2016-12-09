@@ -138,6 +138,7 @@ $_['tab_activity'] = 'Recent Activity';
 $_['tab_recurring'] = 'Recurring';
 $_['tab_action'] = 'Action';
 $_['tab_google'] = 'Google';
+$_['tab_group'] = 'Group';
 
 // Error
 $_['error_exception'] = 'Error Code(%s): %s in %s on line %s';
@@ -150,3 +151,15 @@ $_['error_upload_7'] = 'Warning: Failed to write file to disk!';
 $_['error_upload_8'] = 'Warning: File upload stopped by extension!';
 $_['error_upload_999'] = 'Warning: No error code available!';
 $_['error_curl'] = 'CURL: Error Code(%s): %s';
+
+
+// Entries
+$_['label_remove'] = 'Remove';
+$_['label_default'] = 'Default';
+$_['label_save'] = 'Save';
+$_['label_cancel'] = 'Cancel';
+$_['label_name'] = 'Name';
+$_['label_model'] = 'Model';
+$_['label_price'] = 'Price';
+
+$_['button_save_continue'] = 'Save & Continue';

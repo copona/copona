@@ -20,7 +20,7 @@ class ControllerCatalogCategory extends Controller {
 		$this->load->model('catalog/category');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-			$this->model_catalog_category->addCategory($this->request->post);
+			$category_id = $this->model_catalog_category->addCategory($this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -38,7 +38,11 @@ class ControllerCatalogCategory extends Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
-			$this->response->redirect($this->url->link('catalog/category', 'token=' . $this->session->data['token'] . $url, true));
+			// $this->response->redirect($this->url->link('catalog/category', 'token=' . $this->session->data['token'] . $url, true));
+			if (isset($this->request->post['save_continue']) and $this->request->post['save_continue'])
+				$this->response->redirect($this->url->link('catalog/category/edit', 'category_id=' . $category_id . '&token=' . $this->session->data['token'] . $url, true));
+			else
+				$this->response->redirect($this->url->link('catalog/category', 'token=' . $this->session->data['token'] . $url, true));
 		}
 
 		$this->getForm();
@@ -52,6 +56,8 @@ class ControllerCatalogCategory extends Controller {
 		$this->load->model('catalog/category');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+			//prd($this->request->post);
+			$category_id = $this->request->get['category_id'];
 			$this->model_catalog_category->editCategory($this->request->get['category_id'], $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -70,7 +76,10 @@ class ControllerCatalogCategory extends Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
-			$this->response->redirect($this->url->link('catalog/category', 'token=' . $this->session->data['token'] . $url, true));
+			if (isset($this->request->post['save_continue']) and $this->request->post['save_continue'])
+				$this->response->redirect($this->url->link('catalog/category/edit', 'category_id=' . $category_id . '&token=' . $this->session->data['token'] . $url, true));
+			else
+				$this->response->redirect($this->url->link('catalog/category', 'token=' . $this->session->data['token'] . $url, true));
 		}
 
 		$this->getForm();
@@ -295,41 +304,10 @@ class ControllerCatalogCategory extends Controller {
 	}
 
 	protected function getForm() {
-		$data['heading_title'] = $this->language->get('heading_title');
+		$data = array_merge(array(), $this->load->language('catalog/category'));
 
 		$data['text_form'] = !isset($this->request->get['category_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
-		$data['text_none'] = $this->language->get('text_none');
-		$data['text_default'] = $this->language->get('text_default');
-		$data['text_enabled'] = $this->language->get('text_enabled');
-		$data['text_disabled'] = $this->language->get('text_disabled');
 
-		$data['entry_name'] = $this->language->get('entry_name');
-		$data['entry_description'] = $this->language->get('entry_description');
-		$data['entry_meta_title'] = $this->language->get('entry_meta_title');
-		$data['entry_meta_description'] = $this->language->get('entry_meta_description');
-		$data['entry_meta_keyword'] = $this->language->get('entry_meta_keyword');
-		$data['entry_keyword'] = $this->language->get('entry_keyword');
-		$data['entry_parent'] = $this->language->get('entry_parent');
-		$data['entry_filter'] = $this->language->get('entry_filter');
-		$data['entry_store'] = $this->language->get('entry_store');
-		$data['entry_image'] = $this->language->get('entry_image');
-		$data['entry_top'] = $this->language->get('entry_top');
-		$data['entry_column'] = $this->language->get('entry_column');
-		$data['entry_sort_order'] = $this->language->get('entry_sort_order');
-		$data['entry_status'] = $this->language->get('entry_status');
-		$data['entry_layout'] = $this->language->get('entry_layout');
-
-		$data['help_filter'] = $this->language->get('help_filter');
-		$data['help_keyword'] = $this->language->get('help_keyword');
-		$data['help_top'] = $this->language->get('help_top');
-		$data['help_column'] = $this->language->get('help_column');
-
-		$data['button_save'] = $this->language->get('button_save');
-		$data['button_cancel'] = $this->language->get('button_cancel');
-
-		$data['tab_general'] = $this->language->get('tab_general');
-		$data['tab_data'] = $this->language->get('tab_data');
-		$data['tab_design'] = $this->language->get('tab_design');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];

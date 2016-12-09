@@ -47,6 +47,10 @@ class ControllerCommonHeader extends Controller {
 			$data['logged'] = '';
 
 			$data['home'] = $this->url->link('common/dashboard', '', true);
+
+			// Only for Development environment - DB changes
+			$this->load->model('catalog/upgrade');
+			$this->model_catalog_upgrade->upgrade();
 		} else {
 			$data['logged'] = true;
 
