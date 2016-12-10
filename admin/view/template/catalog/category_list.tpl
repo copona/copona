@@ -57,7 +57,7 @@
 												<?php } else { ?>
 													<input type="checkbox" name="selected[]" value="<?php echo $category['category_id']; ?>" />
 												<?php } ?></td>
-											<td class="text-left"><?php echo $category['name']; ?></td>
+											<td class="text-left"><a href="<?php echo $category['edit']; ?>"><?php echo $category['name']; ?></a></td>
 											<td class="text-right"><?php echo $category['sort_order']; ?></td>
 											<td class="text-right"><a href="<?php echo $category['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
 										</tr>
