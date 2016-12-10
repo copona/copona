@@ -379,4 +379,39 @@ $(document).ready(function () {
 			$this.after($dropdown);
 		});
 	}
+
+// Warn, if user exits EDIT form without saveing
+// TODO: implement AreYouSure
+	var formSubmitting = false;
+	var somethingChanged = false;
+
+	$(document).ready(function () {
+
+		// pārbauda vai OC forma ir submitēta
+		$('form').on('submit', function (e) {
+			formSubmitting = true;
+		});
+
+		$('form').on('keyup', "input", function () {
+			somethingChanged = true;
+		});
+
+	});
+
+	window.onload = function () {
+		window.addEventListener("beforeunload", function (e) {
+			var confirmationMessage = 'It looks like you have been editing something. ';
+			confirmationMessage += 'If you leave before saving, your changes will be lost.';
+
+			if (formSubmitting == true) {
+				return undefined;
+			} else if (somethingChanged == false) {
+				return undefined;
+			}
+
+
+			(e || window.event).returnValue = confirmationMessage;
+			return confirmationMessage;
+		});
+	};
 })(window.jQuery);
