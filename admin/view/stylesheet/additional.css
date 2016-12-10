@@ -6,3 +6,7 @@
 .pointer{
 	cursor: pointer
 }
+
+.btn.savecontinue i {
+	padding-right: 10px;
+}
