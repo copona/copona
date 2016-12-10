@@ -10,3 +10,12 @@
 .btn.savecontinue i {
 	padding-right: 10px;
 }
+
+form#form-product tbody td.name a,
+form#form-category tbody td.name a
+{
+	padding-top: 16px;
+	padding-bottom: 16px;
+	display: block;
+	width: 100%;
+}
