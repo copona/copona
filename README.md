@@ -25,3 +25,11 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 * execute command: `git clone https://github.com/Copona/copona.git .`
 * navigate to WEB address `http://domain-OR-IPaddress/` or `http://domain-OR-IPaddress/subfolder-where-you-cloned`
 * If all the requirements have been met, fill the form and enjoy!
+
+## Update
+* if you have installed Copona with Git (recommended), then got to the folder where you have Copona:
+  * if you have not edited anything in files locally:
+    * `git pull`
+  * check the site, if there are problems - post them online, or you can always return to the previous version.
+
+  
