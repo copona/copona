@@ -22,7 +22,7 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
    * go to https://git-scm.com/downloads
     * download Git for Windows
     * execue the installation
-    * if you are not not sure: shoose `next > next > next > ... > next > install`
+    * if you are not sure: choose `next > next > next > ... > next > install`
 * open WEB directory where do you want to have Copona
 * execute command: `git clone https://github.com/Copona/copona.git .`
 * navigate to WEB address `http://domain-OR-IPaddress/` or `http://domain-OR-IPaddress/subfolder-where-you-cloned`
