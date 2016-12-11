@@ -98,6 +98,9 @@ $(document).ready(function () {
 		$('#menu li li').not('.active').has('ul').children('ul').addClass('collapse');
 	}
 
+	// open submenu left (copona)
+	$('#menu li.active').has('ul').children('ul').addClass('collapse in');
+
 	// Menu button
 	$('#button-menu').on('click', function () {
 		// Checks if the left column is active or not.
@@ -112,36 +115,6 @@ $(document).ready(function () {
 			setCookie('mfold', 'active');
 			$('#button-menu i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
 			$('#column-left').addClass('active');
-			// Add the slide down to open menu items
-			$('#menu li.open').has('ul').children('ul').addClass('collapse in');
-			$('#menu li').not('.open').has('ul').children('ul').addClass('collapse');
-		}
-		return;
-
-		if ($('#column-left').hasClass('active')) {
-			localStorage.setItem('column-left', '');
-
-			$('#button-menu i').replaceWith('<i class="fa fa-indent fa-lg"></i>');
-
-			$('#column-left').removeClass('active');
-
-			$('#menu > li > ul').removeClass('in collapse');
-			$('#menu > li > ul').removeAttr('style');
-		} else {
-			if (typeof localStorage === 'object') {
-				try {
-					localStorage.setItem('column-left', 'active');
-				} catch (e) {
-					Storage.prototype._setItem = Storage.prototype.setItem;
-					Storage.prototype.setItem = function () {};
-					alert('Your web browser does not support storing settings locally. In Safari, the most common cause of this is using "Private Browsing Mode". Some settings may not save or some features may not work properly for you.');
-				}
-			}
-
-			$('#button-menu i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
-
-			$('#column-left').addClass('active');
-
 			// Add the slide down to open menu items
 			$('#menu li.open').has('ul').children('ul').addClass('collapse in');
 			$('#menu li').not('.open').has('ul').children('ul').addClass('collapse');
@@ -406,4 +379,39 @@ $(document).ready(function () {
 			$this.after($dropdown);
 		});
 	}
+
+// Warn, if user exits EDIT form without saveing
+// TODO: implement AreYouSure
+	var formSubmitting = false;
+	var somethingChanged = false;
+
+	$(document).ready(function () {
+
+		// pārbauda vai OC forma ir submitēta
+		$('form').on('submit', function (e) {
+			formSubmitting = true;
+		});
+
+		$('form').on('keyup', "input", function () {
+			somethingChanged = true;
+		});
+
+	});
+
+	window.onload = function () {
+		window.addEventListener("beforeunload", function (e) {
+			var confirmationMessage = 'It looks like you have been editing something. ';
+			confirmationMessage += 'If you leave before saving, your changes will be lost.';
+
+			if (formSubmitting == true) {
+				return undefined;
+			} else if (somethingChanged == false) {
+				return undefined;
+			}
+
+
+			(e || window.event).returnValue = confirmationMessage;
+			return confirmationMessage;
+		});
+	};
 })(window.jQuery);

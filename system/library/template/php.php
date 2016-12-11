@@ -10,6 +10,7 @@ final class PHP {
 		//$this->db = $registry->get('db');
 		//$this->request = $registry->get('request');
 		$this->session = $registry->get('session');
+		$this->request = $registry->get('request');
 	}
 
 	public function set($key, $value) {
