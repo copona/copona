@@ -32,6 +32,7 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 * if you have installed Copona with Git (recommended), then got to the folder where you have Copona:
   * if you have not edited anything in files locally:
     * `git pull`
+  * if you have edited something locally - then you are a developer already - you will know, what to do! :)
   * check the site, if there are problems - post them online, or you can always return to the previous version.
 
   
