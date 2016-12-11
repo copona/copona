@@ -86,8 +86,7 @@ $(document).ready(function () {
 	}
 
 
-	if (localStorage.getItem('column-left') == 'active') {
-
+	if (getCookie('mfold') == 'active') {
 		// Slide Down Menu
 		$('#menu li.active').has('ul').children('ul').addClass('collapse in');
 		$('#menu li').not('.active').has('ul').children('ul').addClass('collapse');
@@ -96,6 +95,7 @@ $(document).ready(function () {
 
 		$('#menu li li.active').has('ul').children('ul').addClass('collapse in');
 		$('#menu li li').not('.active').has('ul').children('ul').addClass('collapse');
+		$('#menu > li > ul').removeClass('in collapse');
 	}
 
 	// open submenu left (copona)
