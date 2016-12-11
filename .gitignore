@@ -62,3 +62,4 @@ catalog/controller/xml/*.xml
 !.gitignore
 /nbproject/
 /.idea
+/vendor
