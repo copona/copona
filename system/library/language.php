@@ -29,6 +29,8 @@ class Language {
 	public function load($filename, &$data = array()) {
 		$_ = array();
 
+		//pr($this->directory);
+
 		$file = DIR_LANGUAGE . 'english/' . $filename . '.php';
 
 		// Compatibility code for old extension folders
@@ -55,6 +57,8 @@ class Language {
 
 		// Compatibility code for old extension folders
 		$old_file = DIR_LANGUAGE . $this->directory . '/' . str_replace('extension/', '', $filename) . '.php';
+
+		//pr($file);
 
 		if (is_file($file)) {
 			require($file);

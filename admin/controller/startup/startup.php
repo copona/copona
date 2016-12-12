@@ -15,22 +15,22 @@ class ControllerStartupStartup extends Controller {
 
 		// Language
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE directory = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
-		
-		//pr("SELECT * FROM `" . DB_PREFIX . "language` WHERE directory = '" . $this->db->escape($this->config->get('config_admin_language')) . "'"); 
+
+		//pr("SELECT * FROM `" . DB_PREFIX . "language` WHERE directory = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
 
 		if ($query->num_rows) {
 			$this->config->set('config_language_id', $query->row['language_id']);
 			$this->config->set('config_admin_language_locale', $query->row['locale']);
 			$language_directory = $query->row['directory'];
-			//prd(); 
+			//prd();
 		} else {
-			$language_directory = $this->config->get('config_admin_language');
+			$language_directory = 'en-gb'; // $this->config->get('config_admin_language');
 		}
 
 		//pr($this->config->get('config_admin_language'));
 		// Language
-		//pr($language_directory); 
-		
+		//prd($language_directory);
+
 		$language = new Language($language_directory);
 
 		//prd($language_directory);
