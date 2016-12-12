@@ -214,10 +214,10 @@
                 <div class="col-sm-10">
                   <select name="config_language" id="input-language" class="form-control">
 										<?php foreach ($languages as $language) { ?>
-											<?php if ($language['directory'] == $config_language) { ?>
-												<option value="<?php echo $language['directory']; ?>" selected="selected"><?php echo $language['name']; ?></option>
+											<?php if ($language['code'] == $config_language) { ?>
+												<option value="<?php echo $language['code']; ?>" selected="selected"><?php echo $language['name']; ?></option>
 											<?php } else { ?>
-												<option value="<?php echo $language['directory']; ?>"><?php echo $language['name']; ?></option>
+												<option value="<?php echo $language['code']; ?>"><?php echo $language['name']; ?></option>
 											<?php } ?>
 										<?php } ?>
                   </select>

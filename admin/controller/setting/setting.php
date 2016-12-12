@@ -270,7 +270,9 @@ class ControllerSettingSetting extends Controller {
 
 
 
-		$data['languages'] = $this->model_localisation_language->getLanguages();
+		$data['languages'] = $this->model_localisation_language->getLanguages(array( 'all' ));
+		//prd($data['languages']);
+
 
 		if (isset($this->request->post['config_admin_language'])) {
 			$data['config_admin_language'] = $this->request->post['config_admin_language'];
