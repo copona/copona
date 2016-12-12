@@ -21,21 +21,21 @@ class ControllerStartupStartup extends Controller {
 		if ($query->num_rows) {
 			$this->config->set('config_language_id', $query->row['language_id']);
 			$this->config->set('config_admin_language_locale', $query->row['locale']);
-			$language_directory = $query->row['directory'];
+			$code = $query->row['code'];
 			//prd();
 		} else {
-			$language_directory = 'en-gb'; // $this->config->get('config_admin_language');
+			$code = 'en'; // $this->config->get('config_admin_language');
 		}
 
 		//pr($this->config->get('config_admin_language'));
 		// Language
 		//prd($language_directory);
 
-		$language = new Language($language_directory);
+		$language = new Language($code, $this->registry);
 
 		//prd($language_directory);
 
-		$language->load($language_directory);
+		$language->load($code);
 		$this->registry->set('language', $language);
 
 		// Customer
