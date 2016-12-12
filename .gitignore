@@ -5,6 +5,7 @@
 /config.php
 /admin/config.php
 /catalog/controller/xml
+/catalog/controller/*/_*
 
 # XML filesimport
 catalog/controller/xml/*.xml
