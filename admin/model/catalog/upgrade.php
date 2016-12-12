@@ -11,7 +11,6 @@ class ModelCatalogUpgrade extends Model {
 		}
 
 		/* Table check */
-
 		$db_check = $this->db->query("SELECT * FROM information_schema.tables WHERE table_schema = '" . DB_DATABASE . "' "
 			. "AND table_name = '" . DB_PREFIX . "product_to_product' LIMIT 1");
 		if (!$db_check->num_rows) {
@@ -22,6 +21,10 @@ class ModelCatalogUpgrade extends Model {
 				PRIMARY KEY (`product_group_id`, `product_id`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;");
 		}
+
+		// Language settings to Code
+		$this->db->query("update " . DB_PREFIX . "setting set `value` =  LEFT(`value`, 2) where length(`value`) > 2 AND ( `key` = 'config_admin_language'"
+			. " OR `key` = 'config_language'  ");
 		return true;
 	}
 

@@ -14,7 +14,8 @@ class ControllerStartupStartup extends Controller {
 		}
 
 		// Language
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE directory = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE code = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
+
 
 		//pr("SELECT * FROM `" . DB_PREFIX . "language` WHERE directory = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
 
@@ -27,6 +28,8 @@ class ControllerStartupStartup extends Controller {
 			$code = 'en'; // $this->config->get('config_admin_language');
 		}
 
+		//pr($code);
+		//prd($query->rows);
 		//pr($this->config->get('config_admin_language'));
 		// Language
 		//prd($language_directory);

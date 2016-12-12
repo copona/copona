@@ -7,7 +7,6 @@ class Language extends Controller {
 	private $languages;
 
 	public function __construct($code = 'en', $registry) {
-		//pr($code);
 
 		$this->db = $registry->get('db');
 		$languages = $this->db->query("select * from `" . DB_PREFIX . "language` where `code` = '" . $code . "'");
@@ -21,7 +20,6 @@ class Language extends Controller {
 			$this->languages['en'] = 'en-gb';
 			$this->code = 'en';
 		}
-		//pr($code);
 
 		$this->directory = $this->languages[$this->code];
 		!$this->directory ? !pr($this->languages) && !pr($this->code) : false;
@@ -46,17 +44,10 @@ class Language extends Controller {
 	}
 
 	public function load($filename, &$data = array()) {
-		/* if ($filename == $this->code) {
-		  $filename = $this->directory;
-		  } */
+		if ($filename == $this->code) {
+			$filename = $this->languages[$this->code];
+		}
 		$_ = array();
-
-		//	pr($filename);
-		// $this->directory = $this->languages[]; // CODE!!!
-		// $file = DIR_LANGUAGE . 'english/' . $filename . '.php';
-		// Compatibility code for old extension folders
-		// $old_file = DIR_LANGUAGE . 'english/' . str_replace('extension/', '', $filename) . '.php';
-		// pr($filename);
 
 		$file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
 		if (is_file($file)) {
@@ -64,11 +55,6 @@ class Language extends Controller {
 		} else {
 			require( DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php' );
 		}
-
-
-		// pr($this->languages); 		pr($this->directory);
-
-
 
 		$this->data = array_merge($this->data, $_);
 
