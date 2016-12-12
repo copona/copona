@@ -23,8 +23,9 @@ class ModelCatalogUpgrade extends Model {
 		}
 
 		// Language settings to Code
-		$this->db->query("update " . DB_PREFIX . "setting set `value` =  LEFT(`value`, 2) where length(`value`) > 2 AND ( `key` = 'config_admin_language'"
-			. " OR `key` = 'config_language'  ");
+		$this->db->query("update " . DB_PREFIX . "setting set `value` =  LEFT(`value`, 2) "
+			. "where length(`value`) > 2 AND ( `key` = 'config_admin_language' "
+			. "OR `key` = 'config_language')  ");
 		return true;
 	}
 

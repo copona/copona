@@ -52,8 +52,14 @@ class Language extends Controller {
 		$file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
 		if (is_file($file)) {
 			require($file);
-		} else {
+		} elseif (is_file(DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php')) {
 			require( DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php' );
+		} elseif (is_file(DIR_LANGUAGE . $this->default . '/' . $filename . '.php')) {
+
+			require(DIR_LANGUAGE . $this->default . '/' . $filename . '.php' );
+		} else {
+			//pr($filename);
+			require(DIR_LANGUAGE . $this->default . '/' . $this->default . '.php' );
 		}
 
 		$this->data = array_merge($this->data, $_);
