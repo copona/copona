@@ -1,22 +1,3 @@
-a, a:visited{
-	color: #be1e2d;
-}
-#content{
-}
 #form-language img {
 	max-width: 16px;
-}
-
-.common-home h1,
-.common-home h2
-{
-	font-family: "Shrikhand", cursiva;
-}
-
-.common-home .c4 {
-	padding-top: 40px;
-}
-
-.column-right ul{
-	padding-left: 3px;
 }
