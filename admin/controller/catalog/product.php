@@ -20,7 +20,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->load->model('catalog/product');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-			// $this->model_catalog_product->addProduct($this->request->post);
+			//	prd($this->request->post);
 			$product_id = $this->model_catalog_product->addProduct($this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -643,12 +643,15 @@ class ControllerCatalogProduct extends Controller {
 
 		if (isset($this->request->get['product_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$product_info = $this->model_catalog_product->getProduct($this->request->get['product_id']);
+
+			$data['product_group_href'] = urldecode(html_entity_decode($this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . '&product=' . $this->request->get['product_id']), ENT_QUOTES, 'UTF-8'));
 		} else {
 			$product_info = array();
+			$data['product_group_href'] = '';
 		}
 
 		$filter = array();
-
+		// Ja ir izveidota produktu grupa
 		if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
 			$filter['product_group_id'] = $product_info['product_group_id'];
 			$data['product_group_id'] = $product_info['product_group_id'];
@@ -659,6 +662,8 @@ class ControllerCatalogProduct extends Controller {
 		$data['product_group_products'] = array();
 
 		if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
+			$data['product_group_href'] = urldecode(html_entity_decode($this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . '&product_group_id=' . $product_info['product_group_id']), ENT_QUOTES, 'UTF-8'));
+
 			$product_group_products = $this->model_catalog_product->getProducts($filter);
 
 			foreach ($product_group_products as $product_group_product) {
@@ -677,7 +682,7 @@ class ControllerCatalogProduct extends Controller {
 			}
 		}
 
-		// Product group
+// Product group
 
 		$data['token'] = $this->session->data['token'];
 

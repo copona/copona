@@ -2,6 +2,7 @@
 class ModelCatalogProduct extends Model {
 
 	public function addProduct($data) {
+
 		$this->db->query("INSERT INTO " . DB_PREFIX . "product SET model = '" . $this->db->escape($data['model']) . "', sku = '" . $this->db->escape($data['sku']) . "', upc = '" . $this->db->escape($data['upc']) . "', ean = '" . $this->db->escape($data['ean']) . "', jan = '" . $this->db->escape($data['jan']) . "', isbn = '" . $this->db->escape($data['isbn']) . "', mpn = '" . $this->db->escape($data['mpn']) . "', location = '" . $this->db->escape($data['location']) . "', quantity = '" . (int)$data['quantity'] . "', minimum = '" . (int)$data['minimum'] . "', subtract = '" . (int)$data['subtract'] . "', stock_status_id = '" . (int)$data['stock_status_id'] . "', date_available = '" . $this->db->escape($data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', points = '" . (int)$data['points'] . "', weight = '" . (float)$data['weight'] . "', weight_class_id = '" . (int)$data['weight_class_id'] . "', length = '" . (float)$data['length'] . "', width = '" . (float)$data['width'] . "', height = '" . (float)$data['height'] . "', length_class_id = '" . (int)$data['length_class_id'] . "', status = '" . (int)$data['status'] . "', tax_class_id = '" . (int)$data['tax_class_id'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_added = NOW()");
 
 		$product_id = $this->db->getLastId();
@@ -116,6 +117,27 @@ class ModelCatalogProduct extends Model {
 			}
 		}
 
+		if (isset($data['product_group_id'])) {
+			$sql = "INSERT INTO " . DB_PREFIX . "product_to_product "
+				. "SET product_group_id='" . (int)$data['product_group_id'] . "', "
+				. "product_id='" . (int)$product_id . "', "
+				. "default_id=0";
+			$this->db->query($sql);
+		} elseif (isset($data['product'])) {
+			$sql = "INSERT INTO " . DB_PREFIX . "product_to_product "
+				. "SET product_id='" . (int)$product_id . "', "
+				. "default_id=0";
+
+			$this->db->query($sql);
+
+			$product_group_id = $this->db->getLastId();
+
+			$sql = "INSERT INTO " . DB_PREFIX . "product_to_product "
+				. "SET product_group_id='" . (int)$product_group_id . "', "
+				. "product_id='" . (int)$data['product'] . "', "
+				. "default_id=1";
+			$this->db->query($sql);
+		}
 
 
 		if (isset($data['product_reward'])) {
