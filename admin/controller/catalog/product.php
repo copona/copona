@@ -387,7 +387,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['products'][] = array(
 				'product_id'			 => $result['product_id'],
 				'image'						 => $image,
-				'name'						 => $result['name'],
+				'name'						 => $result['name'] ? $result['name'] : '-- without a name -- ',
 				'model'						 => $result['model'],
 				'price'						 => $result['price'],
 				'special'					 => $special,
@@ -1302,11 +1302,13 @@ class ControllerCatalogProduct extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		foreach ($this->request->post['product_description'] as $language_id => $value) {
-			if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 255)) {
-				$this->error['name'][$language_id] = $this->language->get('error_name');
-			}
-		}
+		/*
+		  foreach ($this->request->post['product_description'] as $language_id => $value) {
+		  if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 255)) {
+		  $this->error['name'][$language_id] = $this->language->get('error_name');
+		  }
+		  }
+		 */
 
 		if (utf8_strlen($this->request->post['keyword']) > 0) {
 			$this->load->model('catalog/url_alias');
