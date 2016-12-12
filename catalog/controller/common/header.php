@@ -32,8 +32,10 @@ class ControllerCommonHeader extends Controller {
 		$data['title'] = $this->document->getTitle();
 
 		$data['base'] = $server;
-		//TODO: back compatibility :(
+		//Deprecated
 		$data['template_name'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
+		//Current
+		$data['theme_directory'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
 
 		$data['description'] = $this->document->getDescription();
 		$data['keywords'] = $this->document->getKeywords();
