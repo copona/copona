@@ -4,7 +4,7 @@
  *
  * Used to retrieve and save translations
  */
-class ModelModuleCrTranslateMate extends Model {
+class ModelExtensionCrTranslateMate extends Model {
 	protected $model; // instance of the model - used to avoid OpenCart's proxy system
 
 	public function __construct($registry) {
@@ -201,7 +201,7 @@ class CrTranslateMateModel extends model {
 
 		$files = $this->listFiles($opts['dirKey']);
 
-		//prd($files); 
+		//prd($files);
 
 		$texts = array();
 		$count = 0;

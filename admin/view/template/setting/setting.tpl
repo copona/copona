@@ -136,13 +136,10 @@
 									<?php } ?>
                 </div>
               </div>
-              <div class="form-group required">
+              <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-telephone"><?php echo $entry_telephone; ?></label>
                 <div class="col-sm-10">
                   <input type="text" name="config_telephone" value="<?php echo $config_telephone; ?>" placeholder="<?php echo $entry_telephone; ?>" id="input-telephone" class="form-control" />
-									<?php if ($error_telephone) { ?>
-										<div class="text-danger"><?php echo $error_telephone; ?></div>
-									<?php } ?>
                 </div>
               </div>
               <div class="form-group">
@@ -217,10 +214,10 @@
                 <div class="col-sm-10">
                   <select name="config_language" id="input-language" class="form-control">
 										<?php foreach ($languages as $language) { ?>
-											<?php if ($language['directory'] == $config_language) { ?>
-												<option value="<?php echo $language['directory']; ?>" selected="selected"><?php echo $language['name']; ?></option>
+											<?php if ($language['code'] == $config_language) { ?>
+												<option value="<?php echo $language['code']; ?>" selected="selected"><?php echo $language['name']; ?></option>
 											<?php } else { ?>
-												<option value="<?php echo $language['directory']; ?>"><?php echo $language['name']; ?></option>
+												<option value="<?php echo $language['code']; ?>"><?php echo $language['name']; ?></option>
 											<?php } ?>
 										<?php } ?>
                   </select>
@@ -231,10 +228,10 @@
                 <div class="col-sm-10">
                   <select name="config_admin_language" id="input-admin-language" class="form-control">
 										<?php foreach ($languages as $language) { ?>
-											<?php if ($language['directory'] == $config_admin_language) { ?>
-												<option value="<?php echo $language['directory']; ?>" selected="selected"><?php echo $language['name']; ?></option>
+											<?php if ($language['code'] == $config_admin_language) { ?>
+												<option value="<?php echo $language['code']; ?>" selected="selected"><?php echo $language['name']; ?></option>
 											<?php } else { ?>
-												<option value="<?php echo $language['directory']; ?>"><?php echo $language['name']; ?></option>
+												<option value="<?php echo $language['code']; ?>"><?php echo $language['name']; ?></option>
 											<?php } ?>
 										<?php } ?>
                   </select>

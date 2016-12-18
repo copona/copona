@@ -1,11 +1,28 @@
 <?php
-class Language {
+class Language extends Controller {
 	private $default = 'en-gb';
-	private $directory;
+	private $directory, $code;
 	private $data = array();
+	private $db;
+	private $languages;
 
-	public function __construct($directory = '') {
-		$this->directory = $directory;
+	public function __construct($code = 'en', $registry) {
+
+		$this->db = $registry->get('db');
+		$languages = $this->db->query("select * from `" . DB_PREFIX . "language` where `code` = '" . $code . "'");
+		if ($languages->num_rows) {
+			foreach ($languages->rows as $val) {
+				$this->languages[$val['code']] = $val['directory'];
+			}
+			$this->code = $code;
+		} else {
+			// Default language English gb eb-gb
+			$this->languages['en'] = 'en-gb';
+			$this->code = 'en';
+		}
+
+		$this->directory = $this->languages[$this->code];
+		!$this->directory ? !pr($this->languages) && !pr($this->code) : false;
 	}
 
 	public function get($key) {
@@ -27,39 +44,22 @@ class Language {
 	}
 
 	public function load($filename, &$data = array()) {
+		if ($filename == $this->code) {
+			$filename = $this->languages[$this->code];
+		}
 		$_ = array();
 
-		$file = DIR_LANGUAGE . 'english/' . $filename . '.php';
-
-		// Compatibility code for old extension folders
-		$old_file = DIR_LANGUAGE . 'english/' . str_replace('extension/', '', $filename) . '.php';
-
-		if (is_file($file)) {
-			require($file);
-		} elseif (is_file($old_file)) {
-			require($old_file);
-		}
-
-		$file = DIR_LANGUAGE . $this->default . '/' . $filename . '.php';
-
-		// Compatibility code for old extension folders
-		$old_file = DIR_LANGUAGE . $this->default . '/' . str_replace('extension/', '', $filename) . '.php';
-
-		if (is_file($file)) {
-			require($file);
-		} elseif (is_file($old_file)) {
-			require($old_file);
-		}
-
 		$file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
-
-		// Compatibility code for old extension folders
-		$old_file = DIR_LANGUAGE . $this->directory . '/' . str_replace('extension/', '', $filename) . '.php';
-
 		if (is_file($file)) {
 			require($file);
-		} elseif (is_file($old_file)) {
-			require($old_file);
+		} elseif (is_file(DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php')) {
+			require( DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php' );
+		} elseif (is_file(DIR_LANGUAGE . $this->default . '/' . $filename . '.php')) {
+
+			require(DIR_LANGUAGE . $this->default . '/' . $filename . '.php' );
+		} else {
+			//pr($filename);
+			require(DIR_LANGUAGE . $this->default . '/' . $this->default . '.php' );
 		}
 
 		$this->data = array_merge($this->data, $_);

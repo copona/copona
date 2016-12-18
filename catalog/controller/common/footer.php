@@ -11,7 +11,10 @@ class ControllerCommonFooter extends Controller {
 		}
 
 		$data['base'] = $server;
+		//Deprecated
 		$data['template_name'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
+		//Current
+		$data['theme_directory'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
 
 		$data['scripts'] = $this->document->getScripts('footer');
 

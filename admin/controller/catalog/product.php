@@ -19,7 +19,8 @@ class ControllerCatalogProduct extends Controller {
 
 		$this->load->model('catalog/product');
 
-		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {			
+
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			$product_id = $this->model_catalog_product->addProduct($this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -386,7 +387,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['products'][] = array(
 				'product_id'			 => $result['product_id'],
 				'image'						 => $image,
-				'name'						 => $result['name'],
+				'name'						 => $result['name'] ? $result['name'] : '-- without a name -- ',
 				'model'						 => $result['model'],
 				'price'						 => $result['price'],
 				'special'					 => $special,
@@ -642,12 +643,15 @@ class ControllerCatalogProduct extends Controller {
 
 		if (isset($this->request->get['product_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$product_info = $this->model_catalog_product->getProduct($this->request->get['product_id']);
+
+			$data['product_group_href'] = urldecode(html_entity_decode($this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . '&product=' . $this->request->get['product_id']), ENT_QUOTES, 'UTF-8'));
 		} else {
 			$product_info = array();
+			$data['product_group_href'] = '';
 		}
 
 		$filter = array();
-
+		// Ja ir izveidota produktu grupa
 		if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
 			$filter['product_group_id'] = $product_info['product_group_id'];
 			$data['product_group_id'] = $product_info['product_group_id'];
@@ -658,6 +662,8 @@ class ControllerCatalogProduct extends Controller {
 		$data['product_group_products'] = array();
 
 		if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
+			$data['product_group_href'] = urldecode(html_entity_decode($this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . '&product_group_id=' . $product_info['product_group_id']), ENT_QUOTES, 'UTF-8'));
+
 			$product_group_products = $this->model_catalog_product->getProducts($filter);
 
 			foreach ($product_group_products as $product_group_product) {
@@ -676,7 +682,7 @@ class ControllerCatalogProduct extends Controller {
 			}
 		}
 
-		// Product group
+// Product group
 
 		$data['token'] = $this->session->data['token'];
 
@@ -1301,11 +1307,13 @@ class ControllerCatalogProduct extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		foreach ($this->request->post['product_description'] as $language_id => $value) {
-			if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 255)) {
-				$this->error['name'][$language_id] = $this->language->get('error_name');
-			}
-		}
+		/*
+		  foreach ($this->request->post['product_description'] as $language_id => $value) {
+		  if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 255)) {
+		  $this->error['name'][$language_id] = $this->language->get('error_name');
+		  }
+		  }
+		 */
 
 		if (utf8_strlen($this->request->post['keyword']) > 0) {
 			$this->load->model('catalog/url_alias');

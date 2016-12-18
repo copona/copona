@@ -14,7 +14,7 @@ class ControllerProductProduct extends Controller {
 		);
 
 		$this->load->model('catalog/category');
-
+		$this->load->model('tool/image');
 		if (isset($this->request->get['path'])) {
 			$path = '';
 
@@ -158,6 +158,33 @@ class ControllerProductProduct extends Controller {
 		$this->load->model('catalog/product');
 
 		$product_info = $this->model_catalog_product->getProduct($product_id);
+		$data['group_products'] = array();
+		if ($product_info['product_group_id']) {
+
+			$filter = array(
+				'group_products'	 => true,
+				'product_group_id' => $product_info['product_group_id'],
+				'product_id'			 => $product_info['product_id']
+			);
+			$group_products = $this->model_catalog_product->getProducts($filter);
+			foreach ($group_products as $group_product) {
+
+				if ($group_product['image']) {
+					$image = $this->model_tool_image->resize($group_product['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+				} else {
+					$image = $this->model_tool_image->resize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+				}
+
+
+				$data['group_products'][] = array(
+					'product_id'			 => $group_product['product_id'],
+					'product_group_id' => $group_product['product_group_id'],
+					'name'						 => $group_product['name'],
+					'image'						 => $image,
+					'href'						 => $this->url->link('product/product', 'path=' . $this->request->get['path'] . '&product_id=' . $group_product['product_id'] . $url)
+				);
+			}
+		}
 
 		if ($product_info) {
 			$url = '';

@@ -138,7 +138,7 @@
 												<?php } else { ?>
 													<span class="img-thumbnail list"><i class="fa fa-camera fa-2x"></i></span>
 												<?php } ?></td>
-											<td class="text-left"><a href="<?= $product['edit'] ?>"><?php echo $product['name']; ?></a></td>
+											<td class="text-left name"><a href="<?= $product['edit'] ?>"><?php echo $product['name']; ?></a></td>
 											<td class="text-left"><?php echo $product['model']; ?></td>
 											<td class="text-right"><?php if ($product['special']) { ?>
 													<span style="text-decoration: line-through;"><?php echo $product['price']; ?></span><br/>

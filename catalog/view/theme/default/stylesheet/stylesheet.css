@@ -1,8 +1,11 @@
+html {
+	font-size: 16px;
+}
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
 	color: #666;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 20px;
 	width: 100%;
 }
@@ -305,7 +308,7 @@ div.required .control-label:before {
 }
 /* content */
 #content {
-	min-height: 600px;
+	min-height: 50vh;
 }
 /* footer */
 footer {
@@ -642,6 +645,18 @@ h2.price {
 	text-decoration: none;
 	cursor: pointer;
 }
+ul.product-group {
+	overflow: auto;
+}
+ul.product-group li{
+	float:left;
+	margin-right: 5px;
+
+}
+ul.product-group li.active{
+	border: 1px solid #ddd;
+}
+
 @media (max-width: 1200px) {
 	.product-thumb .button-group button, .product-thumb .button-group button + button {
 		width: 33.33%;
