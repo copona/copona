@@ -162,7 +162,7 @@ class ControllerApiCart extends Controller {
 			// Products
 			$json['products'] = array();
 
-			$products = $this->cart->getProducts();
+			$products = $this->cart->cartProducts;
 
 			foreach ($products as $product) {
 				$product_total = 0;

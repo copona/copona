@@ -75,7 +75,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 		$i = 0;
 		$item_total = 0;
 
-		foreach ($this->cart->getProducts() as $item) {
+		foreach ($this->cart->cartProducts as $item) {
 			$data['L_PAYMENTREQUEST_0_DESC' . $i] = '';
 
 			$option_count = 0;
