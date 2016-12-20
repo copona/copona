@@ -1,8 +1,5 @@
 <?php
-// Heading
 $_['heading_title'] = 'Settings';
-
-// Text
 $_['text_stores'] = 'Stores';
 $_['text_success'] = 'Success: You have modified settings!';
 $_['text_edit'] = 'Edit Setting';
@@ -32,8 +29,6 @@ $_['text_general'] = 'General';
 $_['text_security'] = 'Security';
 $_['text_upload'] = 'Uploads';
 $_['text_error'] = 'Error Handling';
-
-// Entry
 $_['entry_meta_title'] = 'Meta Title';
 $_['entry_meta_description'] = 'Meta Tag Description';
 $_['entry_meta_keyword'] = 'Meta Tag Keywords';
@@ -127,8 +122,6 @@ $_['entry_error_display'] = 'Display Errors';
 $_['entry_error_log'] = 'Log Errors';
 $_['entry_error_filename'] = 'Error Log Filename';
 $_['entry_status'] = 'Status';
-
-// Help
 $_['help_geocode'] = 'Please enter your store location geocode manually.';
 $_['help_open'] = 'Fill in your store\'s opening times.';
 $_['help_comment'] = 'This field is for any special notes you would like to tell the customer i.e. Store does not accept cheques.';
@@ -188,8 +181,6 @@ $_['help_maintenance'] = 'Prevents customers from browsing your store. They will
 $_['help_password'] = 'Allow forgotten password to be used for the admin. This will be disabled automatically if the system detects a hack attempt.';
 $_['help_encryption'] = 'Please provide a secret key that will be used to encrypt private information when processing orders.';
 $_['help_compression'] = 'GZIP for more efficient transfer to requesting clients. Compression level must be between 0 - 9.';
-
-// Error
 $_['error_warning'] = 'Warning: Please check the form carefully for errors!';
 $_['error_permission'] = 'Warning: You do not have permission to modify settings!';
 $_['error_meta_title'] = 'Title must be between 3 and 32 characters!';
@@ -212,3 +203,6 @@ $_['error_ftp_password'] = 'FTP Password required!';
 $_['error_error_filename'] = 'Error Log Filename required!';
 $_['error_malformed_filename'] = 'Error Malformed Log Filename!';
 $_['error_encryption'] = 'Encryption Key must be between 32 and 1024 characters!';
+$_['entry_timezone'] = 'Time Zone';
+$_['help_timezone'] = 'Select City for Time Zone';
+?>

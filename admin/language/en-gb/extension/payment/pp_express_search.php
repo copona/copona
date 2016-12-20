@@ -1,8 +1,5 @@
 <?php
-// Heading
 $_['heading_title'] = 'Search Transactions';
-
-// Text
 $_['text_pp_express'] = 'PayPal Express Checkout';
 $_['text_date_search'] = 'Search by date';
 $_['text_searching'] = 'Searching';
@@ -10,8 +7,6 @@ $_['text_name'] = 'Name';
 $_['text_buyer_info'] = 'Buyer information';
 $_['text_view'] = 'View';
 $_['text_format'] = 'Format';
-
-// Column
 $_['column_date'] = 'Date';
 $_['column_type'] = 'Type';
 $_['column_email'] = 'Email';
@@ -23,8 +18,6 @@ $_['column_amount'] = 'Amount';
 $_['column_fee'] = 'Fee';
 $_['column_netamt'] = 'Net Amount';
 $_['column_action'] = 'Action';
-
-// Entry
 $_['entry_trans_all'] = 'All';
 $_['entry_trans_sent'] = 'Sent';
 $_['entry_trans_received'] = 'Received';
@@ -71,3 +64,5 @@ $_['entry_status_processing'] = 'Processing';
 $_['entry_status_success'] = 'Success';
 $_['entry_status_denied'] = 'Denied';
 $_['entry_status_reversed'] = 'Reversed';
+$_['entry_date_по'] = 'from';
+?>
