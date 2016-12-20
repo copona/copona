@@ -1,16 +1,11 @@
 <?php
-// Heading
 $_['heading_title'] = 'Customers';
-
-// Text
 $_['text_success'] = 'Success: You have modified customers!';
 $_['text_list'] = 'Customer List';
 $_['text_add'] = 'Add Customer';
 $_['text_edit'] = 'Edit Customer';
 $_['text_default'] = 'Default';
 $_['text_balance'] = 'Balance';
-
-// Column
 $_['column_name'] = 'Customer Name';
 $_['column_email'] = 'E-Mail';
 $_['column_customer_group'] = 'Customer Group';
@@ -23,8 +18,6 @@ $_['column_points'] = 'Points';
 $_['column_ip'] = 'IP';
 $_['column_total'] = 'Total Accounts';
 $_['column_action'] = 'Action';
-
-// Entry
 $_['entry_customer_group'] = 'Customer Group';
 $_['entry_firstname'] = 'First Name';
 $_['entry_lastname'] = 'Last Name';
@@ -52,12 +45,8 @@ $_['entry_points'] = 'Points';
 $_['entry_name'] = 'Customer Name';
 $_['entry_ip'] = 'IP';
 $_['entry_date_added'] = 'Date Added';
-
-// Help
 $_['help_safe'] = 'Set to true to avoid this customer from being caught by the anti-fraud system';
 $_['help_points'] = 'Use minus to remove points';
-
-// Error
 $_['error_warning'] = 'Warning: Please check the form carefully for errors!';
 $_['error_permission'] = 'Warning: You do not have permission to modify customers!';
 $_['error_exists'] = 'Warning: E-Mail Address is already registered!';
@@ -73,3 +62,4 @@ $_['error_postcode'] = 'Postcode must be between 2 and 10 characters for this co
 $_['error_country'] = 'Please select a country!';
 $_['error_zone'] = 'Please select a region / state!';
 $_['error_custom_field'] = '%s required!';
+?>
