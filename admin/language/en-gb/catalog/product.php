@@ -1,8 +1,5 @@
 <?php
-// Heading
 $_['heading_title'] = 'Products';
-
-// Text
 $_['text_success'] = 'Success: You have modified products!';
 $_['text_list'] = 'Product List';
 $_['text_add'] = 'Add Product';
@@ -15,8 +12,6 @@ $_['text_option_value'] = 'Option Value';
 $_['text_percent'] = 'Percentage';
 $_['text_amount'] = 'Fixed Amount';
 $_['text_admin_description'] = 'Admin description';
-
-// Column
 $_['column_name'] = 'Product Name';
 $_['column_model'] = 'Model';
 $_['column_image'] = 'Image';
@@ -24,8 +19,6 @@ $_['column_price'] = 'Price';
 $_['column_quantity'] = 'Quantity';
 $_['column_status'] = 'Status';
 $_['column_action'] = 'Action';
-
-// Entry
 $_['entry_name'] = 'Product Name';
 $_['entry_description'] = 'Description';
 $_['entry_meta_title'] = 'Meta Tag Title';
@@ -81,8 +74,6 @@ $_['entry_tag'] = 'Product Tags';
 $_['entry_reward'] = 'Reward Points';
 $_['entry_layout'] = 'Layout Override';
 $_['entry_recurring'] = 'Recurring Profile';
-
-// Help
 $_['help_keyword'] = 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.';
 $_['help_sku'] = 'Stock Keeping Unit';
 $_['help_upc'] = 'Universal Product Code';
@@ -99,10 +90,10 @@ $_['help_filter'] = '(Autocomplete)';
 $_['help_download'] = '(Autocomplete)';
 $_['help_related'] = '(Autocomplete)';
 $_['help_tag'] = 'Comma separated';
-
-// Error
 $_['error_warning'] = 'Warning: Please check the form carefully for errors!';
 $_['error_permission'] = 'Warning: You do not have permission to modify products!';
 $_['error_name'] = 'Product Name must be greater than 3 and less than 255 characters!';
 $_['error_model'] = 'Product Model must be greater than 1 and less than 64 characters!';
 $_['error_keyword'] = 'SEO URL already in use!';
+$_['error_meta_title'] = 'Meta Title must be greater than 3 and less than 255 characters! (delete)';
+?>

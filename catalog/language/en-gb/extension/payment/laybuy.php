@@ -1,8 +1,5 @@
 <?php
-// Heading
 $_['heading_title'] = 'Please Choose Your Payment Plan';
-
-// Text
 $_['text_title'] = 'PUT IT ON LAY-BUY powered by PayPal';
 $_['text_plan_preview'] = 'Plan Preview';
 $_['text_payment'] = 'Payment';
@@ -20,10 +17,9 @@ $_['text_status_7'] = 'Canceled';
 $_['text_status_50'] = 'Revise Requested';
 $_['text_status_51'] = 'Revised';
 $_['text_comment'] = 'Updated by Lay-Buy';
-
-// Entry
 $_['entry_initial'] = 'Initial Payment';
 $_['entry_months'] = 'Months';
-
-// Button
 $_['button_confirm'] = 'Confirm Order';
+$_['help_customer_group'] = 'The customer must be in these customer groups before this payment method becomes active. Leave blank if there is no restriction. (delete)';
+$_['entry_customer_group'] = 'Allowed Customer Groups (delete)';
+?>
