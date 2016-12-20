@@ -4,6 +4,8 @@ namespace Cart;
 
 class Cart {
 	private $data = array();
+	private $dd_count = 0;
+	public $cartProducts = array(); 
 
 	public function __construct($registry) {
 		$this->config = $registry->get('config');
@@ -30,10 +32,15 @@ class Cart {
 				$this->add($cart['product_id'], $cart['quantity'], json_decode($cart['option']), $cart['recurring_id']);
 			}
 		}
+
+		$this->cartProducts = $this->getProducts();
+
 	}
 
 	public function getProducts() {
+
 		$product_data = array();
+		$this->dd_count++;
 
 		$cart_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
 
@@ -267,7 +274,7 @@ class Cart {
 				$this->remove($cart['cart_id']);
 			}
 		}
-
+		//pr($this->dd_count);
 		return $product_data;
 	}
 
@@ -279,6 +286,8 @@ class Cart {
 		} else {
 			$this->db->query("UPDATE " . DB_PREFIX . "cart SET quantity = (quantity + " . (int)$quantity . ") WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "' AND product_id = '" . (int)$product_id . "' AND recurring_id = '" . (int)$recurring_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 		}
+
+		$this->cartProducts = $this->getProducts();
 	}
 
 	public function update($cart_id, $quantity) {
@@ -287,6 +296,7 @@ class Cart {
 
 	public function remove($cart_id) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE cart_id = '" . (int)$cart_id . "' AND api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+		$this->cartProducts = $this->getProducts();
 	}
 
 	public function clear() {
@@ -296,7 +306,7 @@ class Cart {
 	public function getRecurringProducts() {
 		$product_data = array();
 
-		foreach ($this->getProducts() as $value) {
+		foreach ($this->cartProducts as $value) {
 			if ($value['recurring']) {
 				$product_data[] = $value;
 			}
@@ -308,7 +318,7 @@ class Cart {
 	public function getWeight() {
 		$weight = 0;
 
-		foreach ($this->getProducts() as $product) {
+		foreach ($this->cartProducts as $product) {
 			if ($product['shipping']) {
 				$weight += $this->weight->convert($product['weight'], $product['weight_class_id'], $this->config->get('config_weight_class_id'));
 			}
@@ -320,7 +330,7 @@ class Cart {
 	public function getSubTotal() {
 		$total = 0;
 
-		foreach ($this->getProducts() as $product) {
+		foreach ($this->cartProducts as $product) {
 			$total += $product['total'];
 		}
 
@@ -330,7 +340,7 @@ class Cart {
 	public function getTaxes() {
 		$tax_data = array();
 
-		foreach ($this->getProducts() as $product) {
+		foreach ($this->cartProducts as $product) {
 			if ($product['tax_class_id']) {
 				$tax_rates = $this->tax->getRates($product['price'], $product['tax_class_id']);
 
@@ -350,7 +360,8 @@ class Cart {
 	public function getTotal() {
 		$total = 0;
 
-		foreach ($this->getProducts() as $product) {
+		foreach ($this->cartProducts as $product) {
+			pr($this->dd_count); 
 			$total += $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'];
 		}
 
@@ -360,7 +371,7 @@ class Cart {
 	public function countProducts() {
 		$product_total = 0;
 
-		$products = $this->getProducts();
+		$products = $this->cartProducts;
 
 		foreach ($products as $product) {
 			$product_total += $product['quantity'];
@@ -370,7 +381,7 @@ class Cart {
 	}
 
 	public function hasProducts() {
-		return count($this->getProducts());
+		return count($this->cartProducts);
 	}
 
 	public function hasRecurringProducts() {
@@ -378,7 +389,7 @@ class Cart {
 	}
 
 	public function hasStock() {
-		foreach ($this->getProducts() as $product) {
+		foreach ($this->cartProducts as $product) {
 			if (!$product['stock']) {
 				return false;
 			}
@@ -388,7 +399,7 @@ class Cart {
 	}
 
 	public function hasShipping() {
-		foreach ($this->getProducts() as $product) {
+		foreach ($this->cartProducts as $product) {
 			if ($product['shipping']) {
 				return true;
 			}
@@ -398,7 +409,7 @@ class Cart {
 	}
 
 	public function hasDownload() {
-		foreach ($this->getProducts() as $product) {
+		foreach ($this->cartProducts as $product) {
 			if ($product['download']) {
 				return true;
 			}

@@ -22,4 +22,3 @@ $_['entry_months'] = 'Months';
 $_['button_confirm'] = 'Confirm Order';
 $_['help_customer_group'] = 'The customer must be in these customer groups before this payment method becomes active. Leave blank if there is no restriction. (delete)';
 $_['entry_customer_group'] = 'Allowed Customer Groups (delete)';
-?>

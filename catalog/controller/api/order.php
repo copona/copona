@@ -76,7 +76,7 @@ class ControllerApiOrder extends Controller {
 			}
 
 			// Validate minimum quantity requirements.
-			$products = $this->cart->getProducts();
+			$products = $this->cart->cartProducts;
 
 			foreach ($products as $product) {
 				$product_total = 0;
@@ -190,7 +190,7 @@ class ControllerApiOrder extends Controller {
 				// Products
 				$order_data['products'] = array();
 
-				foreach ($this->cart->getProducts() as $product) {
+				foreach ($this->cart->cartProducts as $product) {
 					$option_data = array();
 
 					foreach ($product['option'] as $option) {
@@ -454,7 +454,7 @@ class ControllerApiOrder extends Controller {
 				}
 
 				// Validate minimum quantity requirements.
-				$products = $this->cart->getProducts();
+				$products = $this->cart->cartProducts;
 
 				foreach ($products as $product) {
 					$product_total = 0;
@@ -568,7 +568,7 @@ class ControllerApiOrder extends Controller {
 					// Products
 					$order_data['products'] = array();
 
-					foreach ($this->cart->getProducts() as $product) {
+					foreach ($this->cart->cartProducts as $product) {
 						$option_data = array();
 
 						foreach ($product['option'] as $option) {
