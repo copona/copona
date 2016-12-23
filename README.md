@@ -16,7 +16,7 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 * install git
  * Ubuntu, Debian
    * `apt-get install git`
-   * pre-requisites
+   * Prerequisites
      * `apt-get install php-curl`
      * `apt-get install php-zip`
  * CentOS, RedHat
@@ -27,7 +27,13 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
     * execue the installation
     * if you are not sure: choose `next > next > next > ... > next > install`
 * open WEB directory where do you want to have Copona
-* execute command: `git clone https://github.com/Copona/copona.git .`
+* execute commands: 
+ * `git clone https://github.com/Copona/copona.git .`
+ * `git config user.name "Your Name"`
+ * `git config user.email youremail@yourdomain.org`
+ * `git config core.fileMode false`
+ 
+ 
 * navigate to WEB address `http://domain-OR-IPaddress/` or `http://domain-OR-IPaddress/subfolder-where-you-cloned`
 * If all the requirements have been met, fill the form and enjoy!
 
