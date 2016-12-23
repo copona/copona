@@ -9,8 +9,11 @@ class Language extends Controller {
 	public function __construct($code = 'en', $registry) {
 
 		$this->db = $registry->get('db');
-		$languages = $this->db->query("select * from `" . DB_PREFIX . "language` where `code` = '" . $code . "'");
-		if ($languages->num_rows) {
+
+		if ($this->db) {
+			$languages = $this->db->query("select * from `" . DB_PREFIX . "language` where `code` = '" . $code . "'");
+		}
+		if ($this->db && $languages->num_rows) {
 			foreach ($languages->rows as $val) {
 				$this->languages[$val['code']] = $val['directory'];
 			}
