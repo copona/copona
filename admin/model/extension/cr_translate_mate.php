@@ -88,7 +88,7 @@ class CrTranslateMateModel extends model {
 
 		$_ = array();
 		if (file_exists($filepath)) { include($filepath); } // this should fill $_ with the strings for this file
-		$_[$input['key']] = html_entity_decode($input['translation'], ENT_COMPAT, 'UTF-8');
+		$_[$input['key']] = $input['translation'];
 
 		// create the file content with the updated array of translation strings
 		// NOTE - this removes any comments in the file, but I've never really found the comments very helpful anyway
