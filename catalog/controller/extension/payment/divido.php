@@ -185,7 +185,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$postcode = $address['postcode'];
 
 		$products = array();
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			$products[] = array(
 				'type'		 => 'product',
 				'text'		 => $product['name'],

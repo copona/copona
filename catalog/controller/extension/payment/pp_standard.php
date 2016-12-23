@@ -25,7 +25,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 
 			$data['products'] = array();
 
-			foreach ($this->cart->getProducts() as $product) {
+			foreach ($this->cart->cartProducts as $product) {
 				$option_data = array();
 
 				foreach ($product['option'] as $option) {

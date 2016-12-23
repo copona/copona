@@ -150,7 +150,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$data['column_total'] = $this->language->get('column_total');
 		$data['text_confirm'] = $this->language->get('text_confirm');
 
-		$products = $this->cart->getProducts();
+		$products = $this->cart->cartProducts;
 
 		foreach ($products as $product) {
 			$product_total = 0;
@@ -344,7 +344,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 		$product_data = array();
 
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			$option_data = array();
 
 			foreach ($product['option'] as $option) {
@@ -459,7 +459,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$data['merchant_id'] = $this->config->get('amazon_login_pay_merchant_id');
 		$data['process_order'] = $this->url->link('extension/payment/amazon_login_pay/processorder', '', true);
 
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			$option_data = array();
 
 			foreach ($product['option'] as $option) {
