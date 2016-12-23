@@ -96,8 +96,7 @@ class CrTranslateMateModel extends model {
 		foreach ($_ as $key => $value) {
 			$fileContents .= '$_[\'' . $key . '\'] = \'' . addcslashes($value, "'\\") . "';\n";
 		}
-		$fileContents .= "?>";
-
+		//$fileContents .= "";
 		// check that the directory exists first. If not, create it
 		$fileDir = dirname($filepath);
 		$dirExists = is_dir($fileDir);
