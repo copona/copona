@@ -42,6 +42,7 @@
 	});
 
 	$('input[name=\'product_group_autocomplete\']').autocomplete({
+		'keepDropdown': true,
 		'source': function (request, response) {
 			var attribute = document.getElementById('input-product_autocomplete').getAttribute('data-id');
 			if (attribute == null) {
