@@ -365,6 +365,8 @@ class ControllerCatalogProduct extends Controller {
 
 		$results = $this->model_catalog_product->getProducts($filter_data);
 
+		//prd($results);
+
 		foreach ($results as $result) {
 			if (is_file(DIR_IMAGE . $result['image'])) {
 				$image = $this->model_tool_image->resize($result['image'], 40, 40);
@@ -643,7 +645,6 @@ class ControllerCatalogProduct extends Controller {
 
 		if (isset($this->request->get['product_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$product_info = $this->model_catalog_product->getProduct($this->request->get['product_id']);
-
 			$data['product_group_href'] = urldecode(html_entity_decode($this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . '&product=' . $this->request->get['product_id']), ENT_QUOTES, 'UTF-8'));
 		} else {
 			$product_info = array();
@@ -661,10 +662,15 @@ class ControllerCatalogProduct extends Controller {
 
 		$data['product_group_products'] = array();
 
+
+		// add self as "grouped" - you cannot choose product as group to itself 
+		$data['group_products'] = "," . (int)$this->request->get['product_id'] . ",";
+
 		if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
 			$data['product_group_href'] = urldecode(html_entity_decode($this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . '&product_group_id=' . $product_info['product_group_id']), ENT_QUOTES, 'UTF-8'));
 
 			$product_group_products = $this->model_catalog_product->getProducts($filter);
+
 
 			foreach ($product_group_products as $product_group_product) {
 				$data['product_group_products'][] = array(
@@ -679,6 +685,7 @@ class ControllerCatalogProduct extends Controller {
 					'status'					 => $product_group_product['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 					'edit'						 => $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $product_group_product['product_id'])
 				);
+				$data['group_products'] .=$product_group_product['product_id'] . ",";
 			}
 		}
 
@@ -1455,9 +1462,9 @@ class ControllerCatalogProduct extends Controller {
 			$filter_name = '';
 		}
 		$filter_data = array(
-			'filter_name'				 => $filter_name,
-			'filter_added'			 => $added_products,
-			'filter_not_grouped' => true,
+			'filter_name'	 => $filter_name,
+			'filter_added' => $added_products,
+			// 'filter_not_grouped' => true,
 		);
 		$results = $this->model_catalog_product->getProducts($filter_data);
 

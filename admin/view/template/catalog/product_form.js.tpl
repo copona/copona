@@ -40,7 +40,7 @@
 		$('input[type=radio]', this).prop('checked', 'checked');
 	});
 
-	$('#product-group').on('click', '.list-group-item.row a', function () {
+	$('#product-group').on('click', '.list-group-item.row a', function (e) {
 		e.stopPropagation();
 	});
 

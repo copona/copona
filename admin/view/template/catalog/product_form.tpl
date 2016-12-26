@@ -130,7 +130,7 @@
 									<div class="form-group">
 										<label class="col-sm-2 control-label" for="input-product_autocomplete">Products</label>
 										<div class="col-sm-10">
-											<input type="text" name="product_group_autocomplete" value="" placeholder="Products" id="input-product_autocomplete" class="form-control" />
+											<input type="text" name="product_group_autocomplete" value="" placeholder="Products" id="input-product_autocomplete" class="form-control" data-id="<?= $group_products ?>" />
 										</div>
 
 										<label class="col-sm-2 control-label" for="input-product_autocomplete"><?= $label_default; ?></label>
