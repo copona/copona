@@ -1,7 +1,28 @@
+/*$(document).mouseup(function (e)
+ {
+ var container = new Array();
+ container.push($('#input-product_autocomplete').parent());
+ //container.push($('#item_2'));
+ $.each(container, function (key, value) {
+
+ if (!$(value).is(e.target) // if the target of the click isn't the container...
+ && $(value).has(e.target).length === 0) // ... nor a descendant of the container
+ {
+ $(value).closest('.dropdown-menu').hide();
+ }
+ });
+ }); */
+
+function saveAndContinue(e) {
+	e.preventDefault();
+
+	$('#form-product, #form-category').append('<input type="hidden" name="save_continue" value="1"  />');
+	$('#form-product, #form-category').submit();
+}
+
 function getURLVar(key) {
 	var value = [];
-
-	var query = String(document.location).split('?');
+	var query = String(location.href.replace(location.hash, "")).split('?');
 
 	if (query[1]) {
 		var part = query[1].split('&');
@@ -80,8 +101,7 @@ $(document).ready(function () {
 	}
 
 
-	if (localStorage.getItem('column-left') == 'active') {
-
+	if (getCookie('mfold') == 'active') {
 		// Slide Down Menu
 		$('#menu li.active').has('ul').children('ul').addClass('collapse in');
 		$('#menu li').not('.active').has('ul').children('ul').addClass('collapse');
@@ -90,7 +110,11 @@ $(document).ready(function () {
 
 		$('#menu li li.active').has('ul').children('ul').addClass('collapse in');
 		$('#menu li li').not('.active').has('ul').children('ul').addClass('collapse');
+		$('#menu > li > ul').removeClass('in collapse');
 	}
+
+	// open submenu left (copona)
+	$('#menu li.active').has('ul').children('ul').addClass('collapse in');
 
 	// Menu button
 	$('#button-menu').on('click', function () {
@@ -106,36 +130,6 @@ $(document).ready(function () {
 			setCookie('mfold', 'active');
 			$('#button-menu i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
 			$('#column-left').addClass('active');
-			// Add the slide down to open menu items
-			$('#menu li.open').has('ul').children('ul').addClass('collapse in');
-			$('#menu li').not('.open').has('ul').children('ul').addClass('collapse');
-		}
-		return;
-
-		if ($('#column-left').hasClass('active')) {
-			localStorage.setItem('column-left', '');
-
-			$('#button-menu i').replaceWith('<i class="fa fa-indent fa-lg"></i>');
-
-			$('#column-left').removeClass('active');
-
-			$('#menu > li > ul').removeClass('in collapse');
-			$('#menu > li > ul').removeAttr('style');
-		} else {
-			if (typeof localStorage === 'object') {
-				try {
-					localStorage.setItem('column-left', 'active');
-				} catch (e) {
-					Storage.prototype._setItem = Storage.prototype.setItem;
-					Storage.prototype.setItem = function () {};
-					alert('Your web browser does not support storing settings locally. In Safari, the most common cause of this is using "Private Browsing Mode". Some settings may not save or some features may not work properly for you.');
-				}
-			}
-
-			$('#button-menu i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
-
-			$('#column-left').addClass('active');
-
 			// Add the slide down to open menu items
 			$('#menu li.open').has('ul').children('ul').addClass('collapse in');
 			$('#menu li').not('.open').has('ul').children('ul').addClass('collapse');
@@ -170,6 +164,7 @@ $(document).ready(function () {
 
 	// Image Manager
 	$(document).on('click', 'a[data-toggle=\'image\']', function (e) {
+
 		var $element = $(this);
 		var $popover = $element.data('bs.popover'); // element has bs popover?
 
@@ -199,7 +194,6 @@ $(document).ready(function () {
 			var $icon = $button.find('> i');
 
 			$('#modal-image').remove();
-
 			$.ajax({
 				url: 'index.php?route=common/filemanager&token=' + getURLVar('token') + '&target=' + $element.parent().find('input').attr('id') + '&thumb=' + $element.attr('id'),
 				dataType: 'html',
@@ -217,7 +211,6 @@ $(document).ready(function () {
 				},
 				success: function (html) {
 					$('body').append('<div id="modal-image" class="modal">' + html + '</div>');
-
 					$('#modal-image').modal('show');
 				}
 			});
@@ -226,6 +219,7 @@ $(document).ready(function () {
 		});
 
 		$('#button-clear').on('click', function () {
+
 			$element.find('img').attr('src', $element.find('img').attr('data-placeholder'));
 
 			$element.parent().find('input').val('');
@@ -296,12 +290,25 @@ $(document).ready(function () {
 				this.request();
 			});
 
-			// Blur
-			$this.on('blur', function () {
-				setTimeout(function (object) {
-					object.hide();
-				}, 200, this);
-			});
+			// Blur and keepDropdown
+			// http://stackoverflow.com/questions/1403615/use-jquery-to-hide-a-div-when-the-user-clicks-outside-of-it
+			if (this.keepDropdown === true) {
+				// if keepDropdown is true - then do not hide dropdown on internal clicks
+				$(document).mouseup(function (e) {
+					if (!$dropdown.is(e.target) && $dropdown.has(e.target).length === 0)
+					{
+						$dropdown.hide();
+					}
+				});
+			} else {
+				// otherwise - hide dropdown whenever click outside
+				$this.on('blur', function () {
+					setTimeout(function (object) {
+						object.hide();
+					}, 200, this);
+				});
+			}
+			;
 
 			// Keydown
 			$this.on('keydown', function (event) {
@@ -318,9 +325,11 @@ $(document).ready(function () {
 			// Click
 			this.click = function (event) {
 				event.preventDefault();
-
 				var value = $(event.target).parent().attr('data-value');
-
+				//remove LI
+				$(event.target).parent().remove();
+				//if no more LI left, hide UL
+				!$this.parent().find('ul li').length ? $this.parent().find('ul').hide() : '';
 				if (value && this.items[value]) {
 					this.select(this.items[value]);
 				}
@@ -400,4 +409,39 @@ $(document).ready(function () {
 			$this.after($dropdown);
 		});
 	}
+
+// Warn, if user exits EDIT form without saveing
+// TODO: implement AreYouSure
+	var formSubmitting = false;
+	var somethingChanged = false;
+
+	$(document).ready(function () {
+
+		// pārbauda vai OC forma ir submitēta
+		$('form').on('submit', function (e) {
+			formSubmitting = true;
+		});
+
+		$('form').on('keyup', "input", function () {
+			somethingChanged = true;
+		});
+
+	});
+
+	window.onload = function () {
+		window.addEventListener("beforeunload", function (e) {
+			var confirmationMessage = 'It looks like you have been editing something. ';
+			confirmationMessage += 'If you leave before saving, your changes will be lost.';
+
+			if (formSubmitting == true) {
+				return undefined;
+			} else if (somethingChanged == false) {
+				return undefined;
+			}
+
+
+			(e || window.event).returnValue = confirmationMessage;
+			return confirmationMessage;
+		});
+	};
 })(window.jQuery);

@@ -45,9 +45,9 @@
     <div class="modal-footer"><?php echo $pagination; ?></div>
   </div>
 </div>
-	<script type="text/javascript"><!--
+<script type="text/javascript"><!--
 
-		<?php if ($ckedialog) { ?>
+<?php if ($ckedialog) { ?>
 		$('a.thumbnail').on('click', function (e) {
 			e.preventDefault();
 			dialog = CKEDITOR.dialog.getCurrent();
@@ -56,9 +56,9 @@
 			dialog.setValueOf(target[ 0 ], target[ 1 ], this.getAttribute('href'));
 			$('#modal-image').modal('hide');
 		});
-		<?php } ?>
+<?php } ?>
 
-		<?php if ($ckedialog) { ?>
+<?php if ($ckedialog) { ?>
 		$('a.thumbnail').on('click', function (e) {
 			e.preventDefault();
 			dialog = CKEDITOR.dialog.getCurrent();
@@ -67,24 +67,22 @@
 			dialog.setValueOf(target[ 0 ], target[ 1 ], this.getAttribute('href'));
 			$('#modal-image').modal('hide');
 		});
-		<?php } ?>
+<?php } ?>
 
-		<?php if ($target) { ?>
-
-
+<?php if ($target) { ?>
 
 		$('a.thumbnail').on('click', function (e) {
 			e.preventDefault();
 
-			<?php if ($thumb) { ?>
+	<?php if ($thumb) { ?>
 				$('#<?php echo $thumb; ?>').find('img').attr('src', $(this).find('img').attr('src'));
-			<?php } ?>
+	<?php } ?>
 
 			$('#<?php echo $target; ?>').val($(this).parent().find('input').val());
 
 			$('#modal-image').modal('hide');
 		});
-		<?php } ?>
+<?php } ?>
 
 	$('a.directory').on('click', function (e) {
 		e.preventDefault();
@@ -125,13 +123,13 @@
 			url += '&filter_name=' + encodeURIComponent(filter_name);
 		}
 
-		<?php if ($thumb) { ?>
+<?php if ($thumb) { ?>
 			url += '&thumb=' + '<?php echo $thumb; ?>';
-		<?php } ?>
+<?php } ?>
 
-		<?php if ($target) { ?>
+<?php if ($target) { ?>
 			url += '&target=' + '<?php echo $target; ?>';
-		<?php } ?>
+<?php } ?>
 
 		$('#modal-image').load(url);
 	});

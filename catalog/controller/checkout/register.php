@@ -118,7 +118,7 @@ class ControllerCheckoutRegister extends Controller {
 		}
 
 		// Validate minimum quantity requirements.
-		$products = $this->cart->getProducts();
+		$products = $this->cart->cartProducts;
 
 		foreach ($products as $product) {
 			$product_total = 0;

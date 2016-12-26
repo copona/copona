@@ -16,7 +16,7 @@ class ControllerApiReward extends Controller {
 
 			$points_total = 0;
 
-			foreach ($this->cart->getProducts() as $product) {
+			foreach ($this->cart->cartProducts as $product) {
 				if ($product['points']) {
 					$points_total += $product['points'];
 				}
@@ -62,7 +62,7 @@ class ControllerApiReward extends Controller {
 		} else {
 			$json['maximum'] = 0;
 
-			foreach ($this->cart->getProducts() as $product) {
+			foreach ($this->cart->cartProducts as $product) {
 				if ($product['points']) {
 					$json['maximum'] += $product['points'];
 				}

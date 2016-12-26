@@ -34,7 +34,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 
 		// Validate minimum quantity requirements.
-		$products = $this->cart->getProducts();
+		$products = $this->cart->cartProducts;
 
 		foreach ($products as $product) {
 			$product_total = 0;
@@ -278,7 +278,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		$data['products'] = array();
 
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			if ($product['image']) {
 				$image = $this->model_tool_image->resize($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
 			} else {
@@ -868,7 +868,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			}
 
 			// Validate minimum quantity requirements.
-			$products = $this->cart->getProducts();
+			$products = $this->cart->cartProducts;
 
 			foreach ($products as $product) {
 				$product_total = 0;
@@ -1439,7 +1439,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		$order_data['products'] = array();
 
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			$option_data = array();
 
 			foreach ($product['option'] as $option) {
@@ -1696,10 +1696,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$average_product_tax_rate = array();
 
 		// Products (Add these last because we send encrypted session order_id)
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			$product_total = 0;
 
-			foreach ($this->cart->getProducts() as $product_2) {
+			foreach ($this->cart->cartProducts as $product_2) {
 				if ($product_2['product_id'] == $product['product_id']) {
 					$product_total += $product_2['quantity'];
 				}
@@ -1761,7 +1761,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			if ($result['code'] == 'coupon') {
 				$discount_total_price = 0;
 				$discount_sub_total_price = 0;
-				foreach ($this->cart->getProducts() as $product) {
+				foreach ($this->cart->cartProducts as $product) {
 					$discount_total_price += $this->tax->calculate($result['value'], $product['tax_class_id'], $include_taxes);
 					$discount_sub_total_price += $result['value'];
 				}

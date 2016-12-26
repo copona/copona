@@ -5,6 +5,7 @@
 /config.php
 /admin/config.php
 /catalog/controller/xml
+/catalog/controller/*/_*
 
 # XML filesimport
 catalog/controller/xml/*.xml
@@ -13,6 +14,7 @@ catalog/controller/xml/*.xml
 # git archive --format=zip HEAD `git diff HEAD^ HEAD --name-only` > $(pwgen 20 1).zip
 /*.zip
 /versioning.sh
+/*.sh
 
 # Image Cache Files
 /image/data/

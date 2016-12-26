@@ -15,6 +15,7 @@ $_['column_action'] = 'Action';
 // Entry
 $_['entry_name'] = 'Order Status Name';
 $_['entry_description'] = 'Order Status Description';
+$_['entry_send_invoice'] = 'Send invoice';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify order statuses!';

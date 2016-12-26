@@ -4,7 +4,7 @@
  *
  * Used to retrieve and save translations
  */
-class ModelModuleCrTranslateMate extends Model {
+class ModelExtensionCrTranslateMate extends Model {
 	protected $model; // instance of the model - used to avoid OpenCart's proxy system
 
 	public function __construct($registry) {
@@ -88,7 +88,7 @@ class CrTranslateMateModel extends model {
 
 		$_ = array();
 		if (file_exists($filepath)) { include($filepath); } // this should fill $_ with the strings for this file
-		$_[$input['key']] = html_entity_decode($input['translation'], ENT_COMPAT, 'UTF-8');
+		$_[$input['key']] = $input['translation'];
 
 		// create the file content with the updated array of translation strings
 		// NOTE - this removes any comments in the file, but I've never really found the comments very helpful anyway
@@ -96,8 +96,7 @@ class CrTranslateMateModel extends model {
 		foreach ($_ as $key => $value) {
 			$fileContents .= '$_[\'' . $key . '\'] = \'' . addcslashes($value, "'\\") . "';\n";
 		}
-		$fileContents .= "?>";
-
+		//$fileContents .= "";
 		// check that the directory exists first. If not, create it
 		$fileDir = dirname($filepath);
 		$dirExists = is_dir($fileDir);
@@ -201,7 +200,7 @@ class CrTranslateMateModel extends model {
 
 		$files = $this->listFiles($opts['dirKey']);
 
-		//prd($files); 
+		//prd($files);
 
 		$texts = array();
 		$count = 0;

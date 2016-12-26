@@ -85,7 +85,7 @@ class ControllerExtensionPaymentEway extends Controller {
 		$request->ShippingAddress->ShippingMethod = "Unknown";
 
 		$invoice_desc = '';
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			$item_price = $this->currency->format($product['price'], $order_info['currency_code'], false, false);
 			$item_total = $this->currency->format($product['total'], $order_info['currency_code'], false, false);
 			$item = new stdClass();

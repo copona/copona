@@ -375,7 +375,7 @@ class ModelCheckoutOrder extends Model {
 				}
 
 				// Load the language for any mails that might be required to be sent out
-				$language = new Language($order_info['language_code']);
+				$language = new Language($order_info['language_code'], $this->registry);
 				$language->load($order_info['language_code']);
 				$language->load('mail/order');
 

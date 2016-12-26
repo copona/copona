@@ -1,5 +1,4 @@
 <?php
-// Locale
 $_['code'] = 'en';
 $_['direction'] = 'ltr';
 $_['date_format_short'] = 'd/m/Y';
@@ -8,8 +7,6 @@ $_['time_format'] = 'h:i:s A';
 $_['datetime_format'] = 'd/m/Y H:i:s';
 $_['decimal_point'] = '.';
 $_['thousand_point'] = ',';
-
-// Text
 $_['text_yes'] = 'Yes';
 $_['text_no'] = 'No';
 $_['text_enabled'] = 'Enabled';
@@ -26,8 +23,6 @@ $_['text_loading'] = 'Loading...';
 $_['text_no_results'] = 'No results!';
 $_['text_confirm'] = 'Are you sure?';
 $_['text_home'] = 'Home';
-
-// Button
 $_['button_add'] = 'Add New';
 $_['button_delete'] = 'Delete';
 $_['button_save'] = 'Save';
@@ -99,8 +94,6 @@ $_['button_apply'] = 'Apply';
 $_['button_category_add'] = 'Add Category';
 $_['button_order'] = 'View Order';
 $_['button_order_recurring'] = 'View Recurring Order';
-
-// Tab
 $_['tab_address'] = 'Address';
 $_['tab_additional'] = 'Additional';
 $_['tab_admin'] = 'Admin';
@@ -138,8 +131,7 @@ $_['tab_activity'] = 'Recent Activity';
 $_['tab_recurring'] = 'Recurring';
 $_['tab_action'] = 'Action';
 $_['tab_google'] = 'Google';
-
-// Error
+$_['tab_group'] = 'Group';
 $_['error_exception'] = 'Error Code(%s): %s in %s on line %s';
 $_['error_upload_1'] = 'Warning: The uploaded file exceeds the upload_max_filesize directive in php.ini!';
 $_['error_upload_2'] = 'Warning: The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form!';
@@ -150,3 +142,12 @@ $_['error_upload_7'] = 'Warning: Failed to write file to disk!';
 $_['error_upload_8'] = 'Warning: File upload stopped by extension!';
 $_['error_upload_999'] = 'Warning: No error code available!';
 $_['error_curl'] = 'CURL: Error Code(%s): %s';
+$_['label_remove'] = 'Remove';
+$_['label_default'] = 'Default';
+$_['label_save'] = 'Save';
+$_['label_cancel'] = 'Cancel';
+$_['label_name'] = 'Name';
+$_['label_model'] = 'Model';
+$_['label_price'] = 'Price';
+$_['button_save_continue'] = 'Save & Continue';
+?>

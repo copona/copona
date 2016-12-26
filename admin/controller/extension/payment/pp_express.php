@@ -698,18 +698,18 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					$result = $this->model_extension_payment_pp_express->call($call_data);
 
 					$transaction = array(
-						'paypal_order_id'				 => $paypal_order['paypal_order_id'],
-						'transaction_id'				 => '',
-						'parent_transaction_id'	 => $this->request->post['transaction_id'],
-						'note'									 => $this->request->post['refund_message'],
-						'msgsubid'							 => $call_data['MSGSUBID'],
-						'receipt_id'						 => '',
-						'payment_type'					 => '',
-						'payment_status'				 => 'Refunded',
-						'transaction_entity'		 => 'payment',
-						'pending_reason'				 => '',
-						'amount'								 => '-' . (isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount']),
-						'debug_data'						 => json_encode($result)
+						'paypal_order_id'		 => $paypal_order['paypal_order_id'],
+						'transaction_id'		 => '',
+						'parent_id'					 => $this->request->post['transaction_id'],
+						'note'							 => $this->request->post['refund_message'],
+						'msgsubid'					 => $call_data['MSGSUBID'],
+						'receipt_id'				 => '',
+						'payment_type'			 => '',
+						'payment_status'		 => 'Refunded',
+						'transaction_entity' => 'payment',
+						'pending_reason'		 => '',
+						'amount'						 => '-' . (isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount']),
+						'debug_data'				 => json_encode($result)
 					);
 
 					if ($result == false) {
