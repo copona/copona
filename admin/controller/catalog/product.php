@@ -663,7 +663,7 @@ class ControllerCatalogProduct extends Controller {
 		$data['product_group_products'] = array();
 
 
-		// add self as "grouped" - you cannot choose product as group to itself 
+		// add self as "grouped" - you cannot choose product as group to itself
 		$data['group_products'] = "," . (int)$this->request->get['product_id'] . ",";
 
 		if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
@@ -1471,9 +1471,11 @@ class ControllerCatalogProduct extends Controller {
 		//pr($results);
 
 		foreach ($results as $result) {
+
+			$groups = $result['product_group_id'] > 0 ? " (group " . $result['product_group_id'] . ")" : '';
 			$json[] = array(
 				'product_id' => $result['product_id'],
-				'name'			 => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
+				'name'			 => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')) . $groups,
 				'model'			 => $result['model'],
 				'price'			 => $result['price']
 			);

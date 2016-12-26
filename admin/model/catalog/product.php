@@ -213,6 +213,9 @@ class ModelCatalogProduct extends Model {
 
 		if (!empty($data['product_group'])) {
 			foreach ($data['product_group'] as $product_group) {
+				$this->db->query("DELETE FROM " . DB_PREFIX . "product_to_product WHERE "
+					. "product_id = '" . (int)$product_group['product_id'] . "'");
+
 				$this->db->query("REPLACE INTO " . DB_PREFIX . "product_to_product
 						SET product_group_id = '" . (int)$product_group_id . "',
 						product_id = '" . (int)$product_group['product_id'] . "',
@@ -241,6 +244,18 @@ class ModelCatalogProduct extends Model {
 				. "where p2p3.product_id = p2p1.product_id";
 			$this->db->query($sql);
 		}
+
+		// after all group changes, we must  'fix' groups which does not have any "default" product:
+		$this->db->query("update " . DB_PREFIX . "product_to_product set default_id = 1 where product_id in
+			(select  product_id from ( SELECT distinct product_id  FROM `" . DB_PREFIX . "product_to_product` p
+				where not EXISTS (select * from  `" . DB_PREFIX . "product_to_product` where default_id = 1  and product_group_id = p.product_group_id  )
+				GROUP by product_group_id ) as temporaryName )");
+
+		// now, delete ALL product_to_product, which have only one product (so - pointing to itself:
+		$this->db->query("delete from `" . DB_PREFIX . "product_to_product` "
+			. "where product_id in  (select product_id from "
+			. "(SELECT product_id FROM `" . DB_PREFIX . "product_to_product` "
+			. "group by `product_group_id` having count(product_id) < 2) as temporaryName  )");
 		// Product Group - add, edit, update, fix empties. END
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "product_attribute WHERE product_id = '" . (int)$product_id . "'");
