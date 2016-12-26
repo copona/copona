@@ -1442,7 +1442,9 @@ class ControllerCatalogProduct extends Controller {
 		$this->load->model('catalog/product');
 
 		if (isset($this->request->get['products'])) {
-			$added_products = $this->request->get['products'];
+			$products = explode(',', trim($this->request->get['products'], ' ,'));
+
+			$added_products = implode(',', $products);
 		} else {
 			$added_products = '';
 		}

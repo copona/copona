@@ -28,6 +28,9 @@
 	function remove_product(e, product_id) {
 		//console.log($(e).closest('.list-group-item'));
 		$(e).closest('.list-group-item').remove();
+
+		a = $('#input-product_autocomplete');
+		a.attr('data-id', a.attr('data-id').replace(',' + product_id + ',', ','));
 	}
 
 // Product Group
@@ -87,9 +90,9 @@
 			// check, if this product has benn already added, and then display results
 			var attr = document.getElementById('input-product_autocomplete').getAttribute('data-id');
 			if (attr) {
-				attr = attr + ',' + item['value'];
+				attr = attr + item['value'] + ',';
 			} else {
-				attr = item['value'];
+				attr = "," + item['value'] + ",";
 			}
 			document.getElementById('input-product_autocomplete').setAttribute('data-id', attr);
 			product_group_row++;
