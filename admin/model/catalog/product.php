@@ -398,8 +398,15 @@ class ModelCatalogProduct extends Model {
 			$data['keyword'] = '';
 			$data['status'] = '0';
 
+
 			$data['product_attribute'] = $this->getProductAttributes($product_id);
 			$data['product_description'] = $this->getProductDescriptions($product_id);
+
+			foreach ($data['product_description'] as &$product) {
+				$product['name'] .= " (copy)";
+			}
+			//prd($data['product_description']);
+
 			$data['product_discount'] = $this->getProductDiscounts($product_id);
 			$data['product_filter'] = $this->getProductFilters($product_id);
 			$data['product_image'] = $this->getProductImages($product_id);
