@@ -64,4 +64,6 @@ catalog/controller/xml/*.xml
 !.gitignore
 /nbproject/
 /.idea
+
+# Ignore Composer Vendor Files
 /vendor
