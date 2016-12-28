@@ -403,7 +403,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$points_total = 0;
 
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			if ($product['points']) {
 				$points_total += $product['points'];
 			}
@@ -435,7 +435,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$this->load->model('tool/upload');
 
-		$products = $this->cart->getProducts();
+		$products = $this->cart->cartProducts;
 
 		foreach ($products as $product) {
 			$product_total = 0;
@@ -787,7 +787,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		}
 
 		// Validate minimum quantity requirements.
-		$products = $this->cart->getProducts();
+		$products = $this->cart->cartProducts;
 
 		foreach ($products as $product) {
 			$product_total = 0;
@@ -959,7 +959,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 			$product_data = array();
 
-			foreach ($this->cart->getProducts() as $product) {
+			foreach ($this->cart->cartProducts as $product) {
 				$option_data = array();
 
 				foreach ($product['option'] as $option) {
@@ -1909,7 +1909,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$points_total = 0;
 
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			if ($product['points']) {
 				$points_total += $product['points'];
 			}

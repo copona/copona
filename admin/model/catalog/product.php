@@ -2,6 +2,7 @@
 class ModelCatalogProduct extends Model {
 
 	public function addProduct($data) {
+
 		$this->db->query("INSERT INTO " . DB_PREFIX . "product SET model = '" . $this->db->escape($data['model']) . "', sku = '" . $this->db->escape($data['sku']) . "', upc = '" . $this->db->escape($data['upc']) . "', ean = '" . $this->db->escape($data['ean']) . "', jan = '" . $this->db->escape($data['jan']) . "', isbn = '" . $this->db->escape($data['isbn']) . "', mpn = '" . $this->db->escape($data['mpn']) . "', location = '" . $this->db->escape($data['location']) . "', quantity = '" . (int)$data['quantity'] . "', minimum = '" . (int)$data['minimum'] . "', subtract = '" . (int)$data['subtract'] . "', stock_status_id = '" . (int)$data['stock_status_id'] . "', date_available = '" . $this->db->escape($data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', points = '" . (int)$data['points'] . "', weight = '" . (float)$data['weight'] . "', weight_class_id = '" . (int)$data['weight_class_id'] . "', length = '" . (float)$data['length'] . "', width = '" . (float)$data['width'] . "', height = '" . (float)$data['height'] . "', length_class_id = '" . (int)$data['length_class_id'] . "', status = '" . (int)$data['status'] . "', tax_class_id = '" . (int)$data['tax_class_id'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_added = NOW()");
 
 		$product_id = $this->db->getLastId();
@@ -116,6 +117,27 @@ class ModelCatalogProduct extends Model {
 			}
 		}
 
+		if (isset($data['product_group_id'])) {
+			$sql = "INSERT INTO " . DB_PREFIX . "product_to_product "
+				. "SET product_group_id='" . (int)$data['product_group_id'] . "', "
+				. "product_id='" . (int)$product_id . "', "
+				. "default_id=0";
+			$this->db->query($sql);
+		} elseif (isset($data['product'])) {
+			$sql = "INSERT INTO " . DB_PREFIX . "product_to_product "
+				. "SET product_id='" . (int)$product_id . "', "
+				. "default_id=0";
+
+			$this->db->query($sql);
+
+			$product_group_id = $this->db->getLastId();
+
+			$sql = "INSERT INTO " . DB_PREFIX . "product_to_product "
+				. "SET product_group_id='" . (int)$product_group_id . "', "
+				. "product_id='" . (int)$data['product'] . "', "
+				. "default_id=1";
+			$this->db->query($sql);
+		}
 
 
 		if (isset($data['product_reward'])) {
@@ -191,6 +213,9 @@ class ModelCatalogProduct extends Model {
 
 		if (!empty($data['product_group'])) {
 			foreach ($data['product_group'] as $product_group) {
+				$this->db->query("DELETE FROM " . DB_PREFIX . "product_to_product WHERE "
+					. "product_id = '" . (int)$product_group['product_id'] . "'");
+
 				$this->db->query("REPLACE INTO " . DB_PREFIX . "product_to_product
 						SET product_group_id = '" . (int)$product_group_id . "',
 						product_id = '" . (int)$product_group['product_id'] . "',
@@ -219,6 +244,18 @@ class ModelCatalogProduct extends Model {
 				. "where p2p3.product_id = p2p1.product_id";
 			$this->db->query($sql);
 		}
+
+		// after all group changes, we must  'fix' groups which does not have any "default" product:
+		$this->db->query("update " . DB_PREFIX . "product_to_product set default_id = 1 where product_id in
+			(select  product_id from ( SELECT distinct product_id  FROM `" . DB_PREFIX . "product_to_product` p
+				where not EXISTS (select * from  `" . DB_PREFIX . "product_to_product` where default_id = 1  and product_group_id = p.product_group_id  )
+				GROUP by product_group_id ) as temporaryName )");
+
+		// now, delete ALL product_to_product, which have only one product (so - pointing to itself:
+		$this->db->query("delete from `" . DB_PREFIX . "product_to_product` "
+			. "where product_id in  (select product_id from "
+			. "(SELECT product_id FROM `" . DB_PREFIX . "product_to_product` "
+			. "group by `product_group_id` having count(product_id) < 2) as temporaryName  )");
 		// Product Group - add, edit, update, fix empties. END
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "product_attribute WHERE product_id = '" . (int)$product_id . "'");
@@ -376,8 +413,15 @@ class ModelCatalogProduct extends Model {
 			$data['keyword'] = '';
 			$data['status'] = '0';
 
+
 			$data['product_attribute'] = $this->getProductAttributes($product_id);
 			$data['product_description'] = $this->getProductDescriptions($product_id);
+
+			foreach ($data['product_description'] as &$product) {
+				$product['name'] .= " (copy)";
+			}
+			//prd($data['product_description']);
+
 			$data['product_discount'] = $this->getProductDiscounts($product_id);
 			$data['product_filter'] = $this->getProductFilters($product_id);
 			$data['product_image'] = $this->getProductImages($product_id);

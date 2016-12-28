@@ -6,7 +6,7 @@ class ControllerExtensionTotalReward extends Controller {
 
 		$points_total = 0;
 
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			if ($product['points']) {
 				$points_total += $product['points'];
 			}
@@ -42,7 +42,7 @@ class ControllerExtensionTotalReward extends Controller {
 
 		$points_total = 0;
 
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			if ($product['points']) {
 				$points_total += $product['points'];
 			}

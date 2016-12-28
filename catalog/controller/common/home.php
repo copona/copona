@@ -6,9 +6,15 @@ class ControllerCommonHome extends Controller {
 		$this->document->setDescription($this->config->get('config_meta_description'));
 		$this->document->setKeywords($this->config->get('config_meta_keyword'));
 
+
+
 		if (isset($this->request->get['route'])) {
 			$this->document->addLink($this->config->get('config_url'), 'canonical');
 		}
+
+		$data = $this->language->load('common/home');
+
+		//prd($this->language);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');

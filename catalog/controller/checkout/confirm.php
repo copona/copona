@@ -36,7 +36,7 @@ class ControllerCheckoutConfirm extends Controller {
 		}
 
 		// Validate minimum quantity requirements.
-		$products = $this->cart->getProducts();
+		$products = $this->cart->cartProducts;
 
 		foreach ($products as $product) {
 			$product_total = 0;
@@ -211,7 +211,7 @@ class ControllerCheckoutConfirm extends Controller {
 
 			$order_data['products'] = array();
 
-			foreach ($this->cart->getProducts() as $product) {
+			foreach ($this->cart->cartProducts as $product) {
 				$option_data = array();
 
 				foreach ($product['option'] as $option) {
@@ -341,7 +341,7 @@ class ControllerCheckoutConfirm extends Controller {
 
 			$data['products'] = array();
 
-			foreach ($this->cart->getProducts() as $product) {
+			foreach ($this->cart->cartProducts as $product) {
 				$option_data = array();
 
 				foreach ($product['option'] as $option) {

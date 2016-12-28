@@ -174,6 +174,7 @@ class ModelCheckoutOrder extends Model {
 				'store_name'							 => $order_query->row['store_name'],
 				'store_url'								 => $order_query->row['store_url'],
 				'customer_id'							 => $order_query->row['customer_id'],
+				'customer_group_id'				 => $order_query->row['customer_group_id'],
 				'firstname'								 => $order_query->row['firstname'],
 				'lastname'								 => $order_query->row['lastname'],
 				'email'										 => $order_query->row['email'],
@@ -374,7 +375,7 @@ class ModelCheckoutOrder extends Model {
 				}
 
 				// Load the language for any mails that might be required to be sent out
-				$language = new Language($order_info['language_code']);
+				$language = new Language($order_info['language_code'], $this->registry);
 				$language->load($order_info['language_code']);
 				$language->load('mail/order');
 

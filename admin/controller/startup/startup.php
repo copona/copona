@@ -14,28 +14,31 @@ class ControllerStartupStartup extends Controller {
 		}
 
 		// Language
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE directory = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
-		
-		//pr("SELECT * FROM `" . DB_PREFIX . "language` WHERE directory = '" . $this->db->escape($this->config->get('config_admin_language')) . "'"); 
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE code = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
+
+
+		//pr("SELECT * FROM `" . DB_PREFIX . "language` WHERE directory = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
 
 		if ($query->num_rows) {
 			$this->config->set('config_language_id', $query->row['language_id']);
 			$this->config->set('config_admin_language_locale', $query->row['locale']);
-			$language_directory = $query->row['directory'];
-			//prd(); 
+			$code = $query->row['code'];
+			//prd();
 		} else {
-			$language_directory = $this->config->get('config_admin_language');
+			$code = 'en'; // $this->config->get('config_admin_language');
 		}
 
+		//pr($code);
+		//prd($query->rows);
 		//pr($this->config->get('config_admin_language'));
 		// Language
-		//pr($language_directory); 
-		
-		$language = new Language($language_directory);
+		//prd($language_directory);
+
+		$language = new Language($code, $this->registry);
 
 		//prd($language_directory);
 
-		$language->load($language_directory);
+		$language->load($code);
 		$this->registry->set('language', $language);
 
 		// Customer

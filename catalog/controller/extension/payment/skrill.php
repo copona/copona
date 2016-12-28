@@ -37,7 +37,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 
 		$products = '';
 
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			$products .= $product['quantity'] . ' x ' . $product['name'] . ', ';
 		}
 

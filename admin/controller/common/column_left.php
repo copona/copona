@@ -459,6 +459,14 @@ class ControllerCommonColumnLeft extends Controller {
 			// Localisation
 			$localisation = array();
 
+			if ($this->user->hasPermission('access', 'extension/module/cr_translate_mate')) {
+				$localisation[] = array(
+					'name'		 => $this->language->get('text_text_translation'),
+					'href'		 => $this->url->link('extension/module/cr_translate_mate', 'token=' . $this->session->data['token'], true),
+					'children' => array()
+				);
+			}
+
 			if ($this->user->hasPermission('access', 'localisation/location')) {
 				$localisation[] = array(
 					'name'		 => $this->language->get('text_location'),

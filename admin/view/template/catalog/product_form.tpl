@@ -29,7 +29,9 @@
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>
-            <li><a href="#tab-group" data-toggle="tab"><?php echo $tab_group; ?></a></li>
+						<?php if (isset($this->request->get['product_id'])) { ?>
+							<li><a href="#tab-group" data-toggle="tab"><?php echo $tab_group; ?></a></li>
+						<?php } ?>
 						<li><a href="#tab-data" data-toggle="tab"><?php echo $tab_data; ?></a></li>
 						<li><a href="#tab-image" data-toggle="tab"><?php echo $tab_image; ?></a></li>
             <li><a href="#tab-links" data-toggle="tab"><?php echo $tab_links; ?></a></li>
@@ -122,67 +124,73 @@
 								<?php } ?>
               </div>
             </div>
-						<div class="tab-pane active" id="tab-group">
-              <div class="tab-content">
-								<div class="form-group">
-									<label class="col-sm-2 control-label" for="input-product_autocomplete">Products</label>
-									<div class="col-sm-10">
-										<input type="text" name="product_group_autocomplete" value="" placeholder="Products" id="input-product_autocomplete" class="form-control" />
+						<?php if (isset($this->request->get['product_id'])) { ?>
+							<div class="tab-pane active" id="tab-group">
+								<div class="tab-content">
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="input-product_autocomplete">Products</label>
+										<div class="col-sm-10">
+											<input type="text" name="product_group_autocomplete" value="" placeholder="Products" id="input-product_autocomplete" class="form-control" data-id="<?= $group_products ?>" />
+										</div>
+
+										<label class="col-sm-2 control-label" for="input-product_autocomplete"><?= $label_default; ?></label>
+										<div class="col-sm-10">
+											<label class="radio-inline">
+												<input checked="checked" name="main_product_id" type="radio" value="<?= $product_id ?>">
+												<?= (isset($product_description[$this->config->get('config_language_id')]['name']) ? $product_description[$this->config->get('config_language_id')]['name'] : '' ) ?>
+											</label>
+										</div>
 									</div>
-
-									<label class="col-sm-2 control-label" for="input-product_autocomplete"><?= $label_default; ?></label>
-									<div class="col-sm-10">
-										<label class="radio-inline">
-											<input checked="checked" name="main_product_id" type="radio" value="<?= $product_id ?>">
-											<?= (isset($product_description[$this->config->get('config_language_id')]['name']) ? $product_description[$this->config->get('config_language_id')]['name'] : '' ) ?>
-
-										</label>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-12">
-										<?php $product_group_row = 0; ?>
-										<?php if ($product_group_id) { ?>
-											<input type="hidden" name="product_group_id" value="<?= $product_group_id ?>">
-										<?php } ?>
-
-										<ul id="product-group" class="list-group">
-											<li class="list-group-item row">
-												<div class="col-sm-1"><strong><?= $label_default ?></strong></div>
-												<div class="col-sm-4"><strong><?= $label_name ?></strong></div>
-												<div class="col-sm-3"><strong><?= $label_model ?></strong></div>
-												<div class="col-sm-3"><strong><?= $label_price ?></strong></div>
-												<div class="col-sm-1"><strong><?= $label_remove ?></strong></div>
-											</li>
-											<?php if ($product_group_products) { ?>
-												<?php foreach ($product_group_products as $product_group_product) { ?>
-													<?php if ($product_group_product['product_id'] == $product_id) continue; ?>
-													<li class="list-group-item row">
-														<div class="col-sm-1">
-															<input <?= ($product_group_product['main_product_id'] ? 'checked="checked"' : '') ?> name="main_product_id" type="radio" value="<?= $product_group_product['product_id'] ?>">
-														</div>
-														<div class="col-sm-4"><a onclick="" href="<?= $product_group_product['href'] ?>" target="_blank">
-																<?= $product_group_product['name'] ?>
-															</a>
-														</div>
-														<div class="col-sm-3"><?= $product_group_product['model'] ?></div>
-														<div class="col-sm-3"><?= $product_group_product['price'] ?></div>
-														<input name="product_group[<?= $product_group_row ?>][product_id]" type="hidden" value="<?= $product_group_product['product_id'] ?>">
-														<div class="col-sm-1">
-															<button type="button" data-toggle="tooltip" onclick="remove_product(this,<?= $product_group_product['product_id'] ?>);" title="Remove" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button>
-														</div>
-													</li>
-													<?php
-													$product_group_row++;
-												}
-												?>
+									<div class="form-group">
+										<div class="col-sm-12">
+											<?php $product_group_row = 0; ?>
+											<?php if ($product_group_id) { ?>
+												<input type="hidden" name="product_group_id" value="<?= $product_group_id ?>">
 											<?php } ?>
-										</ul>
+
+											<ul id="product-group" class="list-group">
+												<li class="list-group-item row">
+													<div class="col-sm-1"><strong><?= $label_default ?></strong></div>
+													<div class="col-sm-4"><strong><?= $label_name ?></strong></div>
+													<div class="col-sm-3"><strong><?= $label_model ?></strong></div>
+													<div class="col-sm-3"><strong><?= $label_price ?></strong></div>
+													<div class="col-sm-1"><strong><?= $label_remove ?></strong></div>
+												</li>
+												<?php if ($product_group_products) { ?>
+													<?php foreach ($product_group_products as $product_group_product) { ?>
+														<?php if ($product_group_product['product_id'] == $product_id) continue; ?>
+														<li class="list-group-item row">
+															<div class="col-sm-1">
+																<input <?= ($product_group_product['main_product_id'] ? 'checked="checked"' : '') ?> name="main_product_id" type="radio" value="<?= $product_group_product['product_id'] ?>">
+															</div>
+															<div class="col-sm-4"><a onclick="" href="<?= $product_group_product['href'] ?>" target="_blank">
+																	<?= $product_group_product['name'] ?>
+																</a>
+															</div>
+															<div class="col-sm-3"><?= $product_group_product['model'] ?></div>
+															<div class="col-sm-3"><?= $product_group_product['price'] ?></div>
+															<input name="product_group[<?= $product_group_row ?>][product_id]" type="hidden" value="<?= $product_group_product['product_id'] ?>">
+															<div class="col-sm-1">
+																<button type="button" data-toggle="tooltip" onclick="remove_product(this,<?= $product_group_product['product_id'] ?>);" title="Remove" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button>
+															</div>
+														</li>
+														<?php
+														$product_group_row++;
+													}
+													?>
+												<?php } ?>
+											</ul>
+										</div>
 									</div>
 								</div>
-              </div>
-            </div>
-
+								<a href="<?php echo $product_group_href ?>" target="_blank" data-toggle="tooltip" title="add product" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></a>
+							</div>
+						<?php } ?>
+						<?php if (isset($this->request->get['product_group_id']) && $this->request->get['product_group_id']) { ?>
+							<input name="product_group_id" type="hidden" value="<?php echo $this->request->get['product_group_id'] ?>">
+						<?php } elseif (isset($this->request->get['product']) && $this->request->get['product']) { ?>
+							<input name="product" type="hidden" value="<?php echo $this->request->get['product'] ?>">
+						<?php } ?>
             <div class="tab-pane" id="tab-data">
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-model"><?php echo $entry_model; ?></label>

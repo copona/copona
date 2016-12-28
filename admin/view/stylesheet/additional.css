@@ -12,6 +12,9 @@
 }
 
 form#form-product tbody td.name a,
+form#form-information tbody td.name a,
+form#form-layout tbody td.name a,
+#extension tbody td.name a,
 form#form-category tbody td.name a
 {
 	padding-top: 16px;

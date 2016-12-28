@@ -75,7 +75,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 			$xproducts = explode(',', $this->config->get('laybuy_xproducts'));
 
-			$cart_products = $this->cart->getProducts();
+			$cart_products = $this->cart->cartProducts;
 
 			foreach ($cart_products as $cart_product) {
 				$product = array();

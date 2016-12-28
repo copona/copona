@@ -28,7 +28,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
 		$products = array();
 
-		foreach ($this->cart->getProducts() as $product) {
+		foreach ($this->cart->cartProducts as $product) {
 			// kilograms
 			if ($product['weight_class_id'] == '1') {
 				$weight = intval(round($product['weight'], 2) * 1000);
@@ -189,7 +189,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
 				$order_data['products'] = array();
 
-				foreach ($this->cart->getProducts() as $product) {
+				foreach ($this->cart->cartProducts as $product) {
 					$option_data = array();
 
 					foreach ($product['option'] as $option) {
@@ -325,7 +325,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
 				$products = array();
 
-				foreach ($this->cart->getProducts() as $product) {
+				foreach ($this->cart->cartProducts as $product) {
 					// kilograms
 					if ($product['weight_class_id'] == '1') {
 						$weight = intval(round($product['weight'], 2) * 1000);
