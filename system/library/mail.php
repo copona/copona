@@ -82,76 +82,86 @@ class Mail {
 			$to = $this->to;
 		}
 
-		$mail = new PHPMailer;
+		try {
 
-		if($this->protocol == 'smtp') {
+			$mail = new PHPMailer;
 
-			if (substr($this->smtp_hostname, 0, 3) == 'tls') {
-				$hostname = substr($this->smtp_hostname, 6);
+			if($this->protocol == 'smtp') {
+
+				if (substr($this->smtp_hostname, 0, 3) == 'tls') {
+					$hostname = substr($this->smtp_hostname, 6);
+				} else {
+					$hostname = $this->smtp_hostname;
+				}
+
+				$mail->isSMTP();                                      // Set mailer to use SMTP
+				$mail->Host = $hostname;  // Specify main and backup SMTP servers
+				$mail->Helo = getenv('SERVER_NAME');
+				$mail->Hostname = getenv('SERVER_NAME');
+
+				if (!empty($this->smtp_username)  && !empty($this->smtp_password)) {
+					$mail->SMTPAuth = true;                               // Enable SMTP authentication
+					$mail->Username = $this->smtp_username;                 // SMTP username
+					$mail->Password = $this->smtp_password;                           // SMTP password
+				}
+
+				if (substr($this->smtp_hostname, 0, 3) == 'tls') {
+					$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+				}
+				$mail->Port = $this->smtp_port;                                    // TCP port to connect to
+			}
+
+			$mail->setFrom($this->from, $this->sender);
+
+			if (!is_array($to)) {
+				$mail->addAddress((string)$this->to);     // Add a recipient
 			} else {
-				$hostname = $this->smtp_hostname;
+				foreach($to as $addy) {
+					$mail->addAddress((string)$addy);     // Add a recipient
+				}
 			}
 
-			$mail->isSMTP();                                      // Set mailer to use SMTP
-			$mail->Host = $hostname;  // Specify main and backup SMTP servers
-			$mail->Helo = getenv('SERVER_NAME');
-			$mail->Hostname = getenv('SERVER_NAME');
-
-			if (!empty($this->smtp_username)  && !empty($this->smtp_password)) {
-				$mail->SMTPAuth = true;                               // Enable SMTP authentication
-				$mail->Username = $this->smtp_username;                 // SMTP username
-				$mail->Password = $this->smtp_password;                           // SMTP password
-			}
-
-			if (substr($this->smtp_hostname, 0, 3) == 'tls') {
-				$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-			}
-			$mail->Port = $this->smtp_port;                                    // TCP port to connect to
-		}
-
-		$mail->setFrom($this->from, $this->sender);
-		$mail->addBCC($this->from, $this->sender);
-
-		if (!is_array($to)) {
-			$mail->addAddress((string)$this->to);     // Add a recipient
-		} else {
-			foreach($to as $addy) {
-				$mail->addAddress((string)$addy);     // Add a recipient
-			}
-		}
-
-		if (!$this->reply_to) {
-			$mail->addReplyTo($this->from);
-		} else {
-			$mail->addReplyTo($this->reply_to);
-		}
-
-		foreach ($this->attachments as $attachment) {
-			if (file_exists($attachment)) {
-				$mail->addAttachment($attachment);         // Add attachments
-			}
-		}
-
-		if (!$this->html) {
-			$mail->isHTML(false);
-			$mail->Body = $this->text . PHP_EOL;
-		} else {
-			$mail->isHTML(true);
-
-			if ($this->text) {
-				$altmessage = $this->text . PHP_EOL;
+			if (!$this->reply_to) {
+				$mail->addReplyTo($this->from);
 			} else {
-				$altmessage = 'This is a HTML email and your email client software does not support HTML email!' . PHP_EOL;
+				$mail->addReplyTo($this->reply_to);
 			}
 
-			$mail->Body    = $this->html . PHP_EOL;
-			$mail->AltBody = $altmessage;
-		}
+			foreach ($this->attachments as $attachment) {
+				if (file_exists($attachment)) {
+					$mail->addAttachment($attachment);         // Add attachments
+				}
+			}
 
-		$mail->Subject = $this->subject;
+			if (!$this->html) {
+				$mail->isHTML(false);
+				$mail->Body = $this->text . PHP_EOL;
+			} else {
+				$mail->isHTML(true);
 
-		if(!$mail->send()) {
-			throw new \Exception('Error: ' . $mail->ErrorInfo);
+				if ($this->text) {
+					$altmessage = $this->text . PHP_EOL;
+				} else {
+					$altmessage = 'This is a HTML email and your email client software does not support HTML email!' . PHP_EOL;
+				}
+
+				$mail->Body    = $this->html . PHP_EOL;
+				$mail->AltBody = $altmessage;
+			}
+
+			$mail->Subject = $this->subject;
+
+			if(!$mail->send()) {
+				echo "<h4>Mailer Error:</h4><p>" . $mail->ErrorInfo . ".<br><br>";
+				echo "Please check your mail configuration.</p>";
+				exit();
+			}
+
+		} catch (phpmailerException $e) {
+			throw new \Exception('Mail Configuration Error: ' . $e->errorMessage());
+		} catch (Exception $e) {
+			throw new \Exception('Error: ' . $e->getMessage());
+			echo $e->getMessage();
 		}
 	}
 }
