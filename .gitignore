@@ -64,6 +64,8 @@ catalog/controller/xml/*.xml
 !.gitignore
 /nbproject/
 
+# Ignore Composer Vendor Files
+/vendor
 
 ### SublimeText template
 # cache files for sublime text
@@ -136,4 +138,3 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
-
