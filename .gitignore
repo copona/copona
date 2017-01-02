@@ -63,3 +63,6 @@ catalog/controller/xml/*.xml
 *-gitignore*
 !.gitignore
 /nbproject/
+
+# Ignore Composer Vendor Files
+/vendor
