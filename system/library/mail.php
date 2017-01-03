@@ -85,6 +85,7 @@ class Mail {
 		try {
 
 			$mail = new PHPMailer;
+			$mail->CharSet = 'UTF-8';
 
 			if($this->protocol == 'smtp') {
 
@@ -161,7 +162,6 @@ class Mail {
 			throw new \Exception('Mail Configuration Error: ' . $e->errorMessage());
 		} catch (Exception $e) {
 			throw new \Exception('Error: ' . $e->getMessage());
-			echo $e->getMessage();
 		}
 	}
 }

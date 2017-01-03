@@ -8,11 +8,13 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 ## Requirements
 * MySQL 5.3
 * PHP 5.3
+* Composer [https://getcomposer.org/](https://getcomposer.org/)
 
 ## Installation with Git (recommended)
 * Install WEB server Apache, IIS, etc.
   * If You have problem, please, post the issues here: https://github.com/Copona/copona/issues 
 * Install PHP and MySQL 
+* Install Composer
 * install git
  * Ubuntu, Debian
    * `apt-get install git`
@@ -32,8 +34,8 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
  * `git config user.name "Your Name"`
  * `git config user.email youremail@yourdomain.org`
  * `git config core.fileMode false`
- 
- 
+* From the command prompt, execute:
+ * `composer update`
 * navigate to WEB address `http://domain-OR-IPaddress/` or `http://domain-OR-IPaddress/subfolder-where-you-cloned`
 * If all the requirements have been met, fill the form and enjoy!
 
