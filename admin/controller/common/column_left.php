@@ -159,15 +159,15 @@ class ControllerCommonColumnLeft extends Controller {
 
 			// Extension
 			$extension = array();
-			/*
-			  if ($this->user->hasPermission('access', 'extension/store')) {
-			  $extension[] = array(
-			  'name'	   => $this->language->get('text_store'),
-			  'href'     => $this->url->link('extension/store', 'token=' . $this->session->data['token'], true),
-			  'children' => array()
-			  );
-			  }
-			 */
+
+			if ($this->user->hasPermission('access', 'extension/store')) {
+				$extension[] = array(
+					'name'		 => $this->language->get('text_store'),
+					'href'		 => $this->url->link('extension/store', 'token=' . $this->session->data['token'], true),
+					'children' => array()
+				);
+			}
+
 			if ($this->user->hasPermission('access', 'extension/installer')) {
 				$extension[] = array(
 					'name'		 => $this->language->get('text_installer'),
@@ -886,7 +886,7 @@ class ControllerCommonColumnLeft extends Controller {
 
 			$other_total = $this->model_sale_order->getTotalOrders(array( 'filter_order_status' => implode(',', $order_status_data) ));
 
-			if ($other_total) {
+			if ($other_total && $order_total) {
 				$data['other_status'] = round(($other_total / $order_total) * 100);
 			} else {
 				$data['other_status'] = 0;
