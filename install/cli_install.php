@@ -28,7 +28,7 @@ error_reporting(E_ALL);
 $argv = $_SERVER['argv'];
 $script = array_shift($argv);
 $subcommand = array_shift($argv);
-$options = get_options($argv);
+$options = get_options($argv); 
 
 // DIR
 define('DIR_APPLICATION', str_replace('\\', '/', realpath(dirname(__FILE__))) . '/');
@@ -107,7 +107,7 @@ function get_options($argv) {
 }
 
 
-function valid($options) {
+function valid(&$options) {
 	$required = array(
 		'db_hostname',
 		'db_username',
