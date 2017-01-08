@@ -28,7 +28,7 @@ error_reporting(E_ALL);
 $argv = $_SERVER['argv'];
 $script = array_shift($argv);
 $subcommand = array_shift($argv);
-$options = get_options($argv); 
+$options = get_options($argv);
 
 // DIR
 define('DIR_APPLICATION', str_replace('\\', '/', realpath(dirname(__FILE__))) . '/');
@@ -149,7 +149,7 @@ function install($options) {
 
 function check_requirements() {
 	$error = null;
-	if (phpversion() < '5.0') {
+	if (phpversion() < '5.4') {
 		$error = 'Warning: You need to use PHP5 or above for OpenCart to work!';
 	}
 
