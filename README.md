@@ -7,7 +7,7 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 
 ## Requirements
 * MySQL 5.3
-* PHP 5.3
+* PHP 5.4
 * Composer [https://getcomposer.org/](https://getcomposer.org/)
 
 ## Installation with Git (recommended)
