@@ -14,7 +14,7 @@
 //                               --db_password pass \
 //                               --db_database opencart \
 //                               --db_driver mysqli \
-//								 --db_port 3306 \
+//                               --db_port 3306 \
 //                               --username admin \
 //                               --password admin \
 //                               --email youremail@example.com \
@@ -23,6 +23,12 @@
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+
+//get options for startup.php
+$argv = $_SERVER['argv'];
+$script = array_shift($argv);
+$subcommand = array_shift($argv);
+$options = get_options($argv);
 
 // DIR
 define('DIR_APPLICATION', str_replace('\\', '/', realpath(dirname(__FILE__))) . '/');
@@ -33,6 +39,8 @@ define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/template/');
 define('DIR_CONFIG', DIR_SYSTEM . 'config/');
 define('DIR_MODIFICATION', DIR_SYSTEM . 'modification/');
+
+define('HTTP_SERVER', $options['http_server'] ? $options['http_server'] : ''  );
 
 // Startup
 require_once(DIR_SYSTEM . 'startup.php');
@@ -178,6 +186,7 @@ function check_requirements() {
 
 
 function setup_db($data) {
+
 	$db = new DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
 
 	$file = DIR_APPLICATION . 'opencart.sql';
