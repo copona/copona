@@ -1,3 +1,0 @@
-<FilesMatch "\.(tpl|ini|log)">
-Require all denied
-</FilesMatch>

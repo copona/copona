@@ -1,0 +1,30 @@
+version: '2.0'
+services:
+
+  web:
+    build:
+      context: .
+    volumes:
+      - .:/app
+      - ~/.composer:/root/.composer
+      - ~/.ssh:/root/.ssh
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    links:
+      - "db:database"
+    environment:
+      PHP_DEBUGGER: "xdebug"
+#      XDEBUG_REMOTE_AUTOSTART: "true"
+#      XDEBUG_REMOTE_CONNECT_BACK: "true"
+#      XDEBUG_REMOTE_HOST: "192.168.99.100"
+#      XDEBUG_REMOTE_PORT: 9000
+
+  db:
+    ports:
+      - "3306:3306"
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: copona

@@ -1,0 +1,5 @@
+#form-language img {
+	max-width: 16px;
+}
+
+.alert.alert-cart{ position: fixed; top: 30px; z-index: 9999; right: 50px;}

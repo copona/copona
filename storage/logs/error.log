@@ -1,0 +1,301 @@
+2016-12-29 0:58:04 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:04 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:04 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/macbook_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2016-12-29 0:58:04 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/iphone_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2016-12-29 0:58:05 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/apple_cinema_30-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2016-12-29 0:58:05 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/canon_eos_5d_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:05 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:13 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:13 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/macbook_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2016-12-29 0:58:14 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/iphone_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2016-12-29 0:58:14 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/apple_cinema_30-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2016-12-29 0:58:14 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/canon_eos_5d_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/macbook_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2016-12-29 0:58:19 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/iphone_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2016-12-29 0:58:19 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/apple_cinema_30-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2016-12-29 0:58:19 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/canon_eos_5d_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:19 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:28 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:28 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:28 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:28 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:28 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:28 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:28 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:28 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:28 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:28 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:58:54 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:25 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:26 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2016-12-29 0:59:40 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:09 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:09 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:07:14 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:10 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:27 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/macbook_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:08:56 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/iphone_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:08:56 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/apple_cinema_30-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:08:56 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/canon_eos_5d_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:08:56 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/macbook_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:09:12 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/iphone_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:09:12 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/apple_cinema_30-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:09:12 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/canon_eos_5d_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:12 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/macbook_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:09:46 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/iphone_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:09:46 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/apple_cinema_30-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:09:46 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/canon_eos_5d_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:09:46 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/macbook_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:10:07 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/iphone_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:10:07 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/apple_cinema_30-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:10:07 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/canon_eos_5d_1-200x200.jpg): failed to open stream: No such file or directory in /app/system/library/image.php on line 64
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:07 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/macbook_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:32 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/iphone_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:32 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/apple_cinema_30-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:32 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/canon_eos_5d_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:32 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/macbook_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:45 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/iphone_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:45 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/apple_cinema_30-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:45 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/canon_eos_5d_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:45 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:49 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:49 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:49 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/macbook_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:49 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/iphone_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:49 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/apple_cinema_30-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:50 - PHP Warning:  imagejpeg(/app/image/cache/catalog/demo/canon_eos_5d_1-200x200.jpg): failed to open stream: Permission denied in /app/system/library/image.php on line 64
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:10:50 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: No such file or directory in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:17 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/iPhone6-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:17 - PHP Warning:  copy(/app/image/cache/catalog/demo/banners/MacBookAir-1140x380.jpg): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nfl-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/redbull-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/sony-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/cocacola-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/burgerking-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/canon-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/harley-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/dell-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/disney-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/starbucks-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-06 23:11:18 - PHP Warning:  copy(/app/image/cache/catalog/demo/manufacturer/nintendo-130x100.png): failed to open stream: Permission denied in /app/catalog/model/tool/image.php on line 38
+2017-01-07 1:49:28 - PHP Notice:  Error: Could not load template /app/core/catalog/view/theme/default/template/common/column_left.tpl! in /app/core/system/library/template/php.php on line 33
