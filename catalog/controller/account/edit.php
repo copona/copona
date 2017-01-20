@@ -110,7 +110,7 @@ class ControllerAccountEdit extends Controller {
 		}
 
 		$data['action'] = $this->url->link('account/edit', '', true);
-
+		$customer_info = array();
 		if ($this->request->server['REQUEST_METHOD'] != 'POST') {
 			$customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
 		}
