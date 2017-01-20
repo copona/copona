@@ -664,7 +664,7 @@ class ControllerCatalogProduct extends Controller {
 
 
 		// add self as "grouped" - you cannot choose product as group to itself
-		$data['group_products'] = "," . (int)$this->request->get['product_id'] . ",";
+		$data['group_products'] = "," . (isset($this->request->get['product_id']) ? (int)$this->request->get['product_id'] : "") . ",";
 
 		if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
 			$data['product_group_href'] = urldecode(html_entity_decode($this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . '&product_group_id=' . $product_info['product_group_id']), ENT_QUOTES, 'UTF-8'));
