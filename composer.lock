@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "901eefe204ef1f273e2bb9b241e96a83",
-    "content-hash": "1c4711fcce214e4f9a4e5aa5abbf3408",
+    "content-hash": "10bf846643eb731dc87d3531bc64897f",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -49,7 +48,7 @@
                 }
             ],
             "description": "Braintree PHP Client Library",
-            "time": "2015-07-15 15:07:13"
+            "time": "2015-07-15T15:07:13+00:00"
         },
         {
             "name": "cardinity/cardinity-sdk-php",
@@ -89,7 +88,100 @@
             ],
             "description": "Client library for Cardinity credit card processing API",
             "homepage": "http://cardinity.com",
-            "time": "2015-04-01 10:20:25"
+            "time": "2015-04-01T10:20:25+00:00"
+        },
+        {
+            "name": "copona/composer-installers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/copona/composer-installers.git",
+                "reference": "475ae29bee1e8f386d5131044d5adf8de8f28619"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/copona/composer-installers/zipball/475ae29bee1e8f386d5131044d5adf8de8f28619",
+                "reference": "475ae29bee1e8f386d5131044d5adf8de8f28619",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": [
+                    "Copona\\ComposerInstallers\\CoponaCoreInstallerPlugin",
+                    "Copona\\ComposerInstallers\\CoponaExtensionInstallerPlugin",
+                    "Copona\\ComposerInstallers\\CoponaThemeInstallerPlugin"
+                ]
+            },
+            "autoload": {
+                "psr-0": {
+                    "Copona\\ComposerInstallers": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kallef Alexandre",
+                    "email": "prhost@prhost.com.br"
+                }
+            ],
+            "description": "Package installers for Copona",
+            "support": {
+                "source": "https://github.com/copona/composer-installers/tree/master",
+                "issues": "https://github.com/copona/composer-installers/issues"
+            },
+            "time": "2017-01-20 11:30:02"
+        },
+        {
+            "name": "copona/core",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/copona/core.git",
+                "reference": "f26f852a2c7a961d241f9f29261f9d9a81731fd1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/copona/core/zipball/f26f852a2c7a961d241f9f29261f9d9a81731fd1",
+                "reference": "f26f852a2c7a961d241f9f29261f9d9a81731fd1",
+                "shasum": ""
+            },
+            "require": {
+                "braintree/braintree_php": "3.2.0",
+                "cardinity/cardinity-sdk-php": "^1.0",
+                "copona/composer-installers": "dev-master",
+                "divido/divido-php": ">=1.1.1",
+                "hassankhan/config": "^0.10",
+                "klarna/kco_rest": "^2.2",
+                "leafo/scssphp": "0.0.12",
+                "php": ">=5.4.0",
+                "phpmailer/phpmailer": "^5.2"
+            },
+            "type": "copona-core",
+            "autoload": {
+                "psr-4": {
+                    "Copona\\Extensions\\": "../extensions/",
+                    "Copona\\Themes\\": "../themes/",
+                    "Copona\\Admin\\": "admin/",
+                    "Copona\\Catalog\\": "catalog/",
+                    "Copona\\System\\": "system/"
+                }
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "support": {
+                "source": "https://github.com/copona/core/tree/master",
+                "issues": "https://github.com/copona/core/issues"
+            },
+            "time": "2017-01-21 01:38:06"
         },
         {
             "name": "divido/divido-php",
@@ -134,7 +226,7 @@
                 "instalments",
                 "payment processing"
             ],
-            "time": "2016-12-22 02:27:39"
+            "time": "2016-12-22T02:27:39+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -186,7 +278,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2016-07-15 19:28:39"
+            "time": "2016-07-15T19:28:39+00:00"
         },
         {
             "name": "guzzlehttp/log-subscriber",
@@ -239,7 +331,7 @@
                 "log",
                 "plugin"
             ],
-            "time": "2014-10-13 03:31:43"
+            "time": "2014-10-13T03:31:43+00:00"
         },
         {
             "name": "guzzlehttp/oauth-subscriber",
@@ -290,7 +382,7 @@
                 "Guzzle",
                 "oauth"
             ],
-            "time": "2014-10-23 22:19:02"
+            "time": "2014-10-23T22:19:02+00:00"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -341,7 +433,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2015-05-20 03:37:09"
+            "time": "2015-05-20T03:37:09+00:00"
         },
         {
             "name": "guzzlehttp/streams",
@@ -391,7 +483,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2014-10-12 19:18:40"
+            "time": "2014-10-12T19:18:40+00:00"
         },
         {
             "name": "hassankhan/config",
@@ -448,7 +540,7 @@
                 "yaml",
                 "yml"
             ],
-            "time": "2016-02-11 16:21:17"
+            "time": "2016-02-11T16:21:17+00:00"
         },
         {
             "name": "klarna/kco_rest",
@@ -496,7 +588,7 @@
             ],
             "description": "Klarna Checkout PHP SDK",
             "homepage": "http://developers.klarna.com",
-            "time": "2015-12-07 09:51:35"
+            "time": "2015-12-07T09:51:35+00:00"
         },
         {
             "name": "leafo/scssphp",
@@ -542,20 +634,20 @@
             ],
             "description": "scssphp is a compiler for SCSS written in PHP.",
             "homepage": "http://leafo.net/scssphp/",
-            "time": "2014-07-07 01:51:39"
+            "time": "2014-07-07T01:51:39+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v5.2.21",
+            "version": "v5.2.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "1d51856b76c06fc687fcd9180efa7a0bed0d761e"
+                "reference": "b18cb98131bd83103ccb26a888fdfe3177b8a663"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/1d51856b76c06fc687fcd9180efa7a0bed0d761e",
-                "reference": "1d51856b76c06fc687fcd9180efa7a0bed0d761e",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/b18cb98131bd83103ccb26a888fdfe3177b8a663",
+                "reference": "b18cb98131bd83103ccb26a888fdfe3177b8a663",
                 "shasum": ""
             },
             "require": {
@@ -602,7 +694,38 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2016-12-28 15:35:48"
+            "time": "2017-01-09T09:33:47+00:00"
+        },
+        {
+            "name": "prhost/example-extension-copona",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/prhost/example-extension-copona.git",
+                "reference": "ddfe74a74adcda964b0f92d5d72d6436f056a787"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prhost/example-extension-copona/zipball/ddfe74a74adcda964b0f92d5d72d6436f056a787",
+                "reference": "ddfe74a74adcda964b0f92d5d72d6436f056a787",
+                "shasum": ""
+            },
+            "type": "copona-extension",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kallef Alexandre",
+                    "email": "prhost@prhost.com.br"
+                }
+            ],
+            "description": "Example extension Copona",
+            "support": {
+                "source": "https://github.com/prhost/example-extension-copona/tree/master",
+                "issues": "https://github.com/prhost/example-extension-copona/issues"
+            },
+            "time": "2017-01-19 23:36:43"
         },
         {
             "name": "psr/log",
@@ -649,7 +772,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "react/promise",
@@ -692,7 +815,7 @@
                 "promise",
                 "promises"
             ],
-            "time": "2016-12-22 14:09:01"
+            "time": "2016-12-22T14:09:01+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -751,7 +874,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14 01:06:16"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/translation",
@@ -815,20 +938,20 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-30 07:22:48"
+            "time": "2016-07-30T07:22:48+00:00"
         },
         {
             "name": "symfony/validator",
-            "version": "v2.8.15",
+            "version": "v2.8.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "1a2bad8d4669f55dc4f9fcd26071b5e78fb37bce"
+                "reference": "3b1a3188efea75ec7c0419a2568b6e5f82031811"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/1a2bad8d4669f55dc4f9fcd26071b5e78fb37bce",
-                "reference": "1a2bad8d4669f55dc4f9fcd26071b5e78fb37bce",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/3b1a3188efea75ec7c0419a2568b6e5f82031811",
+                "reference": "3b1a3188efea75ec7c0419a2568b6e5f82031811",
                 "shasum": ""
             },
             "require": {
@@ -888,17 +1011,19 @@
             ],
             "description": "Symfony Validator Component",
             "homepage": "https://symfony.com",
-            "time": "2016-12-08 15:59:39"
+            "time": "2017-01-12T19:24:25+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "copona/composer-installers": 20,
+        "copona/core": 20,
+        "prhost/example-extension-copona": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "php": ">=5.4.0"
-    },
+    "platform": [],
     "platform-dev": []
 }

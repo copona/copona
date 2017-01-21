@@ -1,3 +1,7 @@
+# Copona
+core/
+storage/
+
 # Config and Htaccess Files
 /.htaccess
 /install/.htaccess
