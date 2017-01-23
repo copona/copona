@@ -18,7 +18,8 @@
         {
             "type": "vcs",
             "url": "https://github.com/copona/composer-installers.git"
-        },{
+        },
+        {
             "type": "vcs",
             "url": "https://github.com/copona/core.git"
         }
