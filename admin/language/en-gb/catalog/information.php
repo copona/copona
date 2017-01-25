@@ -22,6 +22,7 @@ $_['entry_meta_title'] = 'Meta Tag Title';
 $_['entry_meta_keyword'] = 'Meta Tag Keywords';
 $_['entry_meta_description'] = 'Meta Tag Description';
 $_['entry_keyword'] = 'SEO URL';
+$_['entry_multi_seo_keyword'] = 'Multilanguage SEO URL';
 $_['entry_bottom'] = 'Bottom';
 $_['entry_status'] = 'Status';
 $_['entry_sort_order'] = 'Sort Order';

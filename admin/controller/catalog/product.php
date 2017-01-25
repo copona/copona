@@ -781,8 +781,6 @@ class ControllerCatalogProduct extends Controller {
 			$data['product_store'] = array( 0 );
 		}
 
-
-// SEO KEYWORD
 		if (isset($this->request->post['seo_keywords'])) {
 			$data['seo_keywords'] = $this->request->post['seo_keywords'];
 		} elseif (isset($this->request->get['product_id'])) {
@@ -790,7 +788,6 @@ class ControllerCatalogProduct extends Controller {
 		} else {
 			$data['seo_keywords'] = '';
 		}
-// SEO KEYWORD END
 
 		if (isset($this->request->post['keyword'])) {
 			$data['keyword'] = $this->request->post['keyword'];
