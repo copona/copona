@@ -75,21 +75,25 @@ class ModelCatalogCategory extends Model {
 		  WHERE product_id = '" . $product_id . "' GROUP BY category_id";
 			$query = $this->db->query($sql);
 
-			$category_id = $query->row['category_id'];
+			$category_id = (isset($query->row['category_id']) ? $query->row['category_id'] : '' );
 		}
 
-		$sql = "SELECT cp.*, cd.name FROM " . DB_PREFIX . "category_path cp
+		if (isset($query->row['category_id'])) {
+			$sql = "SELECT cp.*, cd.name FROM " . DB_PREFIX . "category_path cp
 			LEFT JOIN " . DB_PREFIX . "category_description cd
 			ON (cp.path_id = cd.category_id)";
-		$sql .=" WHERE cp.category_id = '" . (int)$category_id . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY cp.level";
+			$sql .=" WHERE cp.category_id = '" . (int)$category_id . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY cp.level";
 
-		$query = $this->db->query($sql);
-		$result = array();
-		foreach ($query->rows as $path) {
-			$result[] = $path['path_id'];
+			$query = $this->db->query($sql);
+			$result = array();
+			foreach ($query->rows as $path) {
+				$result[] = $path['path_id'];
+			}
+
+			return implode("_", $result);
+		} else {
+			return false;
 		}
-
-		return implode("_", $result);
 	}
 
 }
