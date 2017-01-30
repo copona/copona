@@ -22,7 +22,7 @@ class ControllerExtensionCaptchaBasicCaptcha extends Controller {
 	public function validate() {
 		$this->load->language('extension/captcha/basic_captcha');
 
-		if (empty($this->session->data['captcha']) || ($this->session->data['captcha'] != $this->request->post['captcha'])) {
+		if (empty($this->session->data['captcha']) || empty($this->request->post['captcha']) || ($this->session->data['captcha'] != $this->request->post['captcha'])) {
 			return $this->language->get('error_captcha');
 		}
 	}
