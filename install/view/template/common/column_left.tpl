@@ -11,7 +11,7 @@
 			<li class="list-group-item"><?php echo $text_installation; ?></li>
 		<?php } ?>
 		<?php if ($route == 'install/step_3') { ?>
-			<li class="list-group-item"><b><?php echo $text_configuration; ?></b></li> 
+			<li class="list-group-item"><b><?php echo $text_configuration; ?></b></li>
 		<?php } else { ?>
 			<li class="list-group-item"><?php echo $text_configuration; ?></li>
 		<?php } ?>
@@ -35,7 +35,7 @@
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><?php echo $text_language; ?> <span class="caret"></span></button>
         <ul class="dropdown-menu">
 					<?php foreach ($languages as $language) { ?>
-						<li><a href="<?php echo $language; ?>"><img src="language/<?php echo $language; ?>/<?php echo $language; ?>.png" /></a></li>
+						<li><a href="<?php echo $language['code']; ?>"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" /> <?php echo $language['name']; ?></a></li>
 					<?php } ?>
         </ul>
       </div>

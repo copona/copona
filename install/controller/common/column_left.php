@@ -32,7 +32,7 @@ class ControllerCommonColumnLeft extends Controller {
 		$languages = glob(DIR_LANGUAGE . '*', GLOB_ONLYDIR);
 
 		foreach ($languages as $language) {
-			$data['languages'][] = basename($language);
+			$data['languages'][] = array( 'code' => basename($language), 'name' => $this->getLanguageName(basename($language)) );
 		}
 
 		if (!isset($this->request->get['route'])) {
@@ -65,6 +65,18 @@ class ControllerCommonColumnLeft extends Controller {
 			$this->response->redirect($this->request->post['redirect']);
 		} else {
 			$this->response->redirect($this->url->link('install/step_1'));
+		}
+	}
+
+	/**
+	 * Return language name from locale
+	 * @param $locale string language name
+	 */
+	protected function getLanguageName($locale) {
+		if (extension_loaded('intl')) {
+			return Locale::getDisplayLanguage($locale, 'en');
+		} else {
+			return $locale;
 		}
 	}
 
