@@ -33,9 +33,6 @@ class ControllerStartupStartup extends Controller {
 			}
 		}
 
-		// Url
-		$this->registry->set('url', new Url($this->config->get('config_url'), $this->config->get('config_ssl')));
-
 		// Language
 		$code = '';
 
@@ -154,6 +151,9 @@ class ControllerStartupStartup extends Controller {
 
 			$this->db->query("UPDATE `" . DB_PREFIX . "marketing` SET clicks = (clicks + 1) WHERE code = '" . $this->db->escape($this->request->get['tracking']) . "'");
 		}
+
+		// Url
+		$this->registry->set('url', new Url($this->config->get('config_url'), $this->config->get('config_ssl'), $this->registry));
 
 		// Affiliate
 		$this->registry->set('affiliate', new Cart\Affiliate($this->registry));

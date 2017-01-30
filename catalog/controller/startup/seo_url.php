@@ -75,6 +75,7 @@ class ControllerStartupSeoUrl extends Controller {
 	}
 
 	public function rewrite($link) {
+
 		$url_info = parse_url(str_replace('&amp;', '&', $link));
 
 		$url = '';
@@ -128,11 +129,8 @@ class ControllerStartupSeoUrl extends Controller {
 				}
 			}
 
-			// Add language code ALWAYS to link, if SEO is on.
-			$code = ( $this->config->get('config_seo_url') ? "/" . $this->session->data['language'] : '' );
-
 			return $url_info['scheme'] . '://' . $url_info['host'] . (isset($url_info['port']) ? ':' . $url_info['port'] : '')
-				. $code . str_replace('/index.php', '', $url_info['path']) . $url . $query;
+				. str_replace('/index.php', '', $url_info['path']) . $url . $query;
 		} else {
 			return $link;
 		}
