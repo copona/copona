@@ -5,6 +5,7 @@ class ControllerProductProduct extends Controller {
 	public function index() {
 		//$this->load->language('product/product');
 		$data = array_merge(array(), $this->language->load('product/product'));
+		$url = '';
 
 		$data['breadcrumbs'] = array();
 
@@ -176,12 +177,13 @@ class ControllerProductProduct extends Controller {
 				}
 
 
+
 				$data['group_products'][] = array(
 					'product_id'			 => $group_product['product_id'],
 					'product_group_id' => $group_product['product_group_id'],
 					'name'						 => $group_product['name'],
 					'image'						 => $image,
-					'href'						 => $this->url->link('product/product', 'path=' . $this->request->get['path'] . '&product_id=' . $group_product['product_id'] . $url)
+					'href'						 => $this->url->link('product/product', $url . '&product_id=' . $group_product['product_id'] . $url)
 				);
 			}
 		}
