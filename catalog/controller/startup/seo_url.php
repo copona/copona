@@ -16,8 +16,16 @@ class ControllerStartupSeoUrl extends Controller {
 				array_pop($parts);
 			}
 
+
+
 			foreach ($parts as $part) {
-				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE keyword = '" . $this->db->escape($part) . "'");
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE language_id = '" . (int)$this->config->get('config_language_id') . "' AND  keyword = '" . $this->db->escape($part) . "'");
+
+				if (!$query->num_rows) {
+					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE keyword = '" . $this->db->escape($part) . "'");
+				}
+
+				//prd($query);
 
 				if ($query->num_rows) {
 					$url = explode('=', $query->row['query']);

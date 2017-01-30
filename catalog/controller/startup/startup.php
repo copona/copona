@@ -43,6 +43,34 @@ class ControllerStartupStartup extends Controller {
 
 		$languages = $this->model_localisation_language->getLanguages();
 
+		/* seo language OC23 start */
+		foreach ($languages as $result) {
+			$languages[$result['code']] = $result;
+		}
+		if (isset($this->request->get["_route_"])) { // seo_language define
+			$seo_path = explode('/', $this->request->get["_route_"]);
+			if (array_key_exists($seo_path[0], $languages)) {
+				$this->session->data['language'] = $code = $seo_path[0];
+				$seo_language = true;
+				//remove first element! And shift!
+				array_shift($seo_path);
+				if ($seo_path[0] == 'index.php') {
+					array_shift($seo_path);
+				}
+				if (empty($seo_path)) {
+					unset($this->request->get["_route_"]);
+				} else {
+					$this->request->get["_route_"] = implode($seo_path, '/');
+				}
+			}
+		} else
+		// Set default language for domain without language link
+		if (empty($seo_language)) {
+			// TODO: must be fixed, otherwise Ajax has problems if nex line is enabled
+			// $session->data['language'] = $code = $config->get('config_language');
+		}
+		/* seo language OC23 end */
+
 		if (isset($this->session->data['language'])) {
 			$code = $this->session->data['language'];
 		}
