@@ -84,8 +84,6 @@ class Image {
 
 	public function resize($width = 0, $height = 0, $default = '') {
 
-
-
 		if (!$this->width || !$this->height) {
 			return;
 		}
@@ -241,16 +239,14 @@ class Image {
 		return array( $r, $g, $b );
 	}
 
-################################################### 1111111
-	#
-    # - Jerome Bohg - 12 juli 2011
-	#
-    # custom functie gemaakt om foto's te verschalen
-	# zonder witruimte er omheen.
+	/*
+	 * Jerome Bohg - 05 juli 2011
+	 *  custom functie gemaakt om uitsnedes te maken
+	 *  voor images ipv de hele foto weer te geven met
+	 *  witrumte eromheen
+	 * */
 
-	#
-
-	    public function onesize($maxsize = 0) {
+	public function onesize($maxsize = 0) {
 
 		if (!$this->info['width'] || !$this->info['height']) {
 			return;
@@ -308,21 +304,20 @@ class Image {
 		$this->info['height'] = $height;
 	}
 
-	###################################################
-	#
-    # - Jerome Bohg - 05 juli 2011
-	#
-    # custom functie gemaakt om uitsnedes te maken
-	# voor images ipv de hele foto weer te geven met
-	# witrumte eromheen
+	/*
+	 * Jerome Bohg - 05 juli 2011
+	 *  custom functie gemaakt om uitsnedes te maken
+	 *  voor images ipv de hele foto weer te geven met
+	 *  witrumte eromheen
+	 * */
 
-	#
-
-	    public function cropsize($width = 0, $height = 0) {
+	public function cropsize($width = 0, $height = 0) {
 
 		if (!$this->info['width'] || !$this->info['height']) {
 			return;
 		}
+		!$width > 0 ? $width = $this->width : false;
+		!$height > 0 ? $height = $this->height : false;
 
 		//afmetingen bepalen
 		$photo_width = $this->info['width'];
@@ -330,6 +325,7 @@ class Image {
 
 		$new_width = $width;
 		$new_height = $height;
+
 
 		//als foto te hoog is
 		if (($photo_width / $new_width) < ($photo_height / $new_height)) {
@@ -387,6 +383,8 @@ class Image {
 		if (!$this->info['width'] || !$this->info['height']) {
 			return;
 		}
+		!$width > 0 ? $width = $this->width : false;
+		!$height > 0 ? $height = $this->height : false;
 
 		$xpos = 0;
 		$ypos = 0;
@@ -441,6 +439,8 @@ class Image {
 		if (!$this->info['width'] || !$this->info['height']) {
 			return;
 		}
+		!$width > 0 ? $width = $this->width : false;
+		!$height > 0 ? $height = $this->height : false;
 
 		$xpos = 0;
 		$ypos = 0;
