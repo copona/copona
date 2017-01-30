@@ -1,4 +1,5 @@
 # Config and Htaccess Files
+composer.lock
 /.htaccess
 /install/.htaccess
 /.htpasswd
