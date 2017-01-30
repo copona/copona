@@ -25,6 +25,7 @@ $_['entry_meta_title'] = 'Meta Tag Title';
 $_['entry_meta_keyword'] = 'Meta Tag Keywords';
 $_['entry_meta_description'] = 'Meta Tag Description';
 $_['entry_keyword'] = 'SEO URL';
+$_['entry_multi_seo_keyword'] = 'Multilanguage SEO URL';
 $_['entry_model'] = 'Model';
 $_['entry_sku'] = 'SKU';
 $_['entry_upc'] = 'UPC';

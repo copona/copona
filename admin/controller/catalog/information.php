@@ -272,6 +272,7 @@ class ControllerCatalogInformation extends Controller {
 		$data['entry_meta_title'] = $this->language->get('entry_meta_title');
 		$data['entry_meta_description'] = $this->language->get('entry_meta_description');
 		$data['entry_meta_keyword'] = $this->language->get('entry_meta_keyword');
+		$data['entry_multi_seo_keyword'] = $this->language->get('entry_multi_seo_keyword');
 		$data['entry_keyword'] = $this->language->get('entry_keyword');
 		$data['entry_store'] = $this->language->get('entry_store');
 		$data['entry_bottom'] = $this->language->get('entry_bottom');
@@ -381,6 +382,14 @@ class ControllerCatalogInformation extends Controller {
 			$data['information_store'] = $this->model_catalog_information->getInformationStores($this->request->get['information_id']);
 		} else {
 			$data['information_store'] = array( 0 );
+		}
+
+		if (isset($this->request->post['seo_keywords'])) {
+			$data['seo_keywords'] = $this->request->post['seo_keywords'];
+		} elseif (isset($this->request->get['information_id'])) {
+			$data['seo_keywords'] = $this->seourl->getSeoUrls('information_id=' . $this->request->get['information_id']);
+		} else {
+			$data['seo_keywords'] = '';
 		}
 
 		if (isset($this->request->post['keyword'])) {

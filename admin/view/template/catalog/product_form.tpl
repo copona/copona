@@ -324,6 +324,17 @@
                   </label>
                 </div>
               </div>
+							<div class="form-group">
+                <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_multi_seo_keyword; ?></span></label>
+								<div class="col-sm-3">
+									<?php
+									foreach ($languages as $language) {
+										?>
+										<img src="language/<?php echo $language['directory']; ?>/<?php echo $language['image']; ?>" title="<?php echo $language['name']; ?>" />
+										<input type="text" name="seo_keywords[<?= $language['language_id'] ?>]" value="<?php echo (isset($seo_keywords[$language['language_id']]) ? $seo_keywords[$language['language_id']] : '') ?>" placeholder="<?php echo $entry_multi_seo_keyword; ?>" id="input-multi-seo-keyword" class="form-control" />
+									<?php } ?>
+								</div>
+              </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_keyword; ?></span></label>
                 <div class="col-sm-10">
