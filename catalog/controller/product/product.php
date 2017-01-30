@@ -374,6 +374,8 @@ class ControllerProductProduct extends Controller {
 				$data['minimum'] = 1;
 			}
 
+			$data['stock_quantity'] = $product_info['quantity'];
+
 			$data['review_status'] = $this->config->get('config_review_status');
 
 			if ($this->config->get('config_review_guest') || $this->customer->isLogged()) {

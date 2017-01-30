@@ -32,6 +32,7 @@ class ControllerExtensionThemeThemeDefault extends Controller {
 		$data['entry_product_description_length'] = $this->language->get('entry_product_description_length');
 		$data['entry_image_category'] = $this->language->get('entry_image_category');
 		$data['entry_image_thumb'] = $this->language->get('entry_image_thumb');
+		$data['entry_image_mid'] = $this->language->get('entry_image_mid');
 		$data['entry_image_popup'] = $this->language->get('entry_image_popup');
 		$data['entry_image_product'] = $this->language->get('entry_image_product');
 		$data['entry_image_additional'] = $this->language->get('entry_image_additional');
@@ -78,6 +79,12 @@ class ControllerExtensionThemeThemeDefault extends Controller {
 			$data['error_image_thumb'] = $this->error['image_thumb'];
 		} else {
 			$data['error_image_thumb'] = '';
+		}
+
+		if (isset($this->error['image_mid'])) {
+			$data['error_image_mid'] = $this->error['image_mid'];
+		} else {
+			$data['error_image_mid'] = '';
 		}
 
 		if (isset($this->error['image_popup'])) {
@@ -223,6 +230,23 @@ class ControllerExtensionThemeThemeDefault extends Controller {
 			$data['theme_default_image_thumb_height'] = $this->config->get('theme_default_image_thumb_height');
 		} else {
 			$data['theme_default_image_thumb_height'] = 228;
+		}
+
+
+		if (isset($this->request->post['theme_default_image_mid_width'])) {
+			$data['theme_default_image_mid_width'] = $this->request->post['theme_default_image_mid_width'];
+		} elseif (isset($setting_info['theme_default_image_mid_width'])) {
+			$data['theme_default_image_mid_width'] = $this->config->get('theme_default_image_mid_width');
+		} else {
+			$data['theme_default_image_mid_width'] = 500;
+		}
+
+		if (isset($this->request->post['theme_default_image_mid_height'])) {
+			$data['theme_default_image_mid_height'] = $this->request->post['theme_default_image_mid_height'];
+		} elseif (isset($setting_info['theme_default_image_mid_height'])) {
+			$data['theme_default_image_mid_height'] = $this->config->get('theme_default_image_mid_height');
+		} else {
+			$data['theme_default_image_mid_height'] = 500;
 		}
 
 		if (isset($this->request->post['theme_default_image_popup_width'])) {
@@ -379,6 +403,10 @@ class ControllerExtensionThemeThemeDefault extends Controller {
 
 		if (!$this->request->post['theme_default_image_thumb_width'] || !$this->request->post['theme_default_image_thumb_height']) {
 			$this->error['image_thumb'] = $this->language->get('error_image_thumb');
+		}
+
+		if (!$this->request->post['theme_default_image_mid_width'] || !$this->request->post['theme_default_image_mid_height']) {
+			$this->error['image_mid'] = $this->language->get('error_image_mid');
 		}
 
 		if (!$this->request->post['theme_default_image_popup_width'] || !$this->request->post['theme_default_image_popup_height']) {

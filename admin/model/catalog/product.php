@@ -154,7 +154,19 @@ class ModelCatalogProduct extends Model {
 			}
 		}
 
-		if ($data['keyword']) {
+		if (isset($data['seo_keywords']) && $data['seo_keywords']) {
+			foreach ($data['seo_keywords'] as $language_id => $keyword) {
+				if (empty($keyword)) {
+					$keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($data['product_description'][$language_id]['name']), $language_id);
+				} else {
+					$keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($keyword), $language_id);
+				}
+				$this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = 'product_id=" . (int)$product_id . "', keyword = '" . $this->db->escape($keyword) . "', language_id = '" . (int)$language_id . "'");
+			}
+		}
+
+		if (isset($data['keyword']) && $data['keyword']) {
+
 			$this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = 'product_id=" . (int)$product_id . "', keyword = '" . $this->db->escape($data['keyword']) . "'");
 		}
 
@@ -385,6 +397,17 @@ class ModelCatalogProduct extends Model {
 		}
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "url_alias WHERE query = 'product_id=" . (int)$product_id . "'");
+
+		if ($data['seo_keywords']) {
+			foreach ($data['seo_keywords'] as $language_id => $keyword) {
+				if (empty($keyword)) {
+					$keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($data['product_description'][$language_id]['name']), $language_id);
+				} else {
+					$keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($keyword), $language_id); //Arnis1
+				}
+				$this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = 'product_id=" . (int)$product_id . "', keyword = '" . $this->db->escape($keyword) . "', language_id = '" . (int)$language_id . "'");
+			}
+		}
 
 		if ($data['keyword']) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = 'product_id=" . (int)$product_id . "', keyword = '" . $this->db->escape($data['keyword']) . "'");

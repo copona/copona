@@ -46,6 +46,7 @@ catalog/controller/xml/*.xml
 # Templates
 /catalog/view/theme/*
 !/catalog/view/theme/default/
+!/catalog/view/theme/simplica/
 
 # Languages
 /catalog/language/*

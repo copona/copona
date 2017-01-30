@@ -664,7 +664,7 @@ class ControllerCatalogProduct extends Controller {
 
 
 		// add self as "grouped" - you cannot choose product as group to itself
-		$data['group_products'] = "," . (int)$this->request->get['product_id'] . ",";
+		$data['group_products'] = "," . (isset($this->request->get['product_id']) ? (int)$this->request->get['product_id'] : "") . ",";
 
 		if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
 			$data['product_group_href'] = urldecode(html_entity_decode($this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . '&product_group_id=' . $product_info['product_group_id']), ENT_QUOTES, 'UTF-8'));
@@ -781,8 +781,6 @@ class ControllerCatalogProduct extends Controller {
 			$data['product_store'] = array( 0 );
 		}
 
-
-// SEO KEYWORD
 		if (isset($this->request->post['seo_keywords'])) {
 			$data['seo_keywords'] = $this->request->post['seo_keywords'];
 		} elseif (isset($this->request->get['product_id'])) {
@@ -790,7 +788,6 @@ class ControllerCatalogProduct extends Controller {
 		} else {
 			$data['seo_keywords'] = '';
 		}
-// SEO KEYWORD END
 
 		if (isset($this->request->post['keyword'])) {
 			$data['keyword'] = $this->request->post['keyword'];
