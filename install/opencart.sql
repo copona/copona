@@ -1568,6 +1568,7 @@ CREATE TABLE `oc_information` (
   `information_id` int(11) NOT NULL AUTO_INCREMENT,
 	`image` varchar(255) DEFAULT NULL,
   `bottom` int(1) NOT NULL DEFAULT '0',
+  `top` int(1) NOT NULL DEFAULT '0',
   `sort_order` int(3) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`information_id`)

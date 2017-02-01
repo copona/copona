@@ -25,6 +25,7 @@ $_['entry_meta_description'] = 'Meta Tag Description';
 $_['entry_keyword'] = 'SEO URL';
 $_['entry_multi_seo_keyword'] = 'Multilanguage SEO URL';
 $_['entry_bottom'] = 'Bottom';
+$_['entry_top'] = 'Top';
 $_['entry_status'] = 'Status';
 $_['entry_sort_order'] = 'Sort Order';
 $_['entry_layout'] = 'Layout Override';
@@ -34,6 +35,7 @@ $_['entry_additional_image'] = 'Additional Images';
 // Help
 $_['help_keyword'] = 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.';
 $_['help_bottom'] = 'Display in the bottom footer.';
+$_['help_top'] = 'Display in the top menu.';
 
 // Error
 $_['error_warning'] = 'Warning: Please check the form carefully for errors!';

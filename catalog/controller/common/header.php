@@ -130,6 +130,18 @@ class ControllerCommonHeader extends Controller {
 			}
 		}
 
+		$this->load->model('catalog/information');
+
+		$data['informations'] = array();
+		$informations = $this->model_catalog_information->getInformations(array( 'top' => true ));
+		foreach ($informations as $information) {
+			$data['informations'][] = array(
+				'information_id' => $information['information_id'],
+				'title'					 => $information['title'],
+				'href'					 => $this->url->link('information/information', 'information_id=' . $information['information_id'])
+			);
+		}
+
 		$data['language'] = $this->load->controller('common/language');
 		$data['currency'] = $this->load->controller('common/currency');
 		$data['search'] = $this->load->controller('common/search');

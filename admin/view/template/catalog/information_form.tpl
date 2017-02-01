@@ -120,7 +120,7 @@
                 <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_multi_seo_keyword; ?></span></label>
 								<div class="col-sm-3">
 									<?php foreach ($languages as $language) { ?>
-										<img src="language/<?php echo $language['directory']; ?>/<?php echo $language['image']; ?>" title="<?php echo $language['name']; ?>" />
+										<img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
 										<input type="text" name="seo_keyword[<?= $language['language_id'] ?>]" value="<?php echo (isset($seo_keywords[$language['language_id']]) ? $seo_keywords[$language['language_id']] : "" ) ?>" placeholder="<?php echo $entry_multi_seo_keyword; ?>" id="input-multi-seo-keyword" class="form-control" />
 									<?php } ?>
 								</div>
@@ -132,6 +132,20 @@
 									<?php if ($error_keyword) { ?>
 										<div class="text-danger"><?php echo $error_keyword; ?></div>
 									<?php } ?>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-top"><span data-toggle="tooltip" title="<?php echo $help_top; ?>"><?php echo $entry_top; ?></span></label>
+                <div class="col-sm-10">
+                  <div class="checkbox">
+                    <label>
+											<?php if ($top) { ?>
+												<input type="checkbox" name="top" value="1" checked="checked" id="input-top" />
+											<?php } else { ?>
+												<input type="checkbox" name="top" value="1" id="input-top" />
+											<?php } ?>
+                      &nbsp; </label>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -148,6 +162,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
                 <div class="col-sm-10">
@@ -170,7 +185,7 @@
               </div>
             </div>
 						<div class="tab-pane" id="tab-image">
-              <div class="table-responsive"> 
+              <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                     <tr>
