@@ -5,7 +5,7 @@ class ControllerInformationInformation extends Controller {
 		$this->load->language('information/information');
 
 		$this->load->model('catalog/information');
-
+		$this->load->model('tool/image');
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -25,6 +25,8 @@ class ControllerInformationInformation extends Controller {
 			$this->document->setTitle($information_info['meta_title']);
 			$this->document->setDescription($information_info['meta_description']);
 			$this->document->setKeywords($information_info['meta_keyword']);
+			$this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
+			$this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
 
 			$data['breadcrumbs'][] = array(
 				'text' => $information_info['title'],
@@ -36,6 +38,29 @@ class ControllerInformationInformation extends Controller {
 			$data['button_continue'] = $this->language->get('button_continue');
 
 			$data['description'] = html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8');
+
+			if ($information_info['image']) {
+				$data['popup'] = $this->model_tool_image->resize($information_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+			} else {
+				$data['popup'] = '';
+			}
+
+			if ($information_info['image']) {
+				$data['thumb'] = $this->model_tool_image->resize($information_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+			} else {
+				$data['thumb'] = '';
+			}
+
+			$data['images'] = array();
+
+			$results = $this->model_catalog_information->getInformationImages($this->request->get['information_id']);
+
+			foreach ($results as $result) {
+				$data['images'][] = array(
+					'popup'	 => $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
+					'thumb'	 => $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
+				);
+			}
 
 			$data['continue'] = $this->url->link('common/home');
 

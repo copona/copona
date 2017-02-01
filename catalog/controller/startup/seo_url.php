@@ -16,8 +16,16 @@ class ControllerStartupSeoUrl extends Controller {
 				array_pop($parts);
 			}
 
+
+
 			foreach ($parts as $part) {
-				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE keyword = '" . $this->db->escape($part) . "'");
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE language_id = '" . (int)$this->config->get('config_language_id') . "' AND  keyword = '" . $this->db->escape($part) . "'");
+
+				if (!$query->num_rows) {
+					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE keyword = '" . $this->db->escape($part) . "'");
+				}
+
+				//prd($query);
 
 				if ($query->num_rows) {
 					$url = explode('=', $query->row['query']);
@@ -67,6 +75,7 @@ class ControllerStartupSeoUrl extends Controller {
 	}
 
 	public function rewrite($link) {
+
 		$url_info = parse_url(str_replace('&amp;', '&', $link));
 
 		$url = '';
@@ -78,7 +87,7 @@ class ControllerStartupSeoUrl extends Controller {
 		foreach ($data as $key => $value) {
 			if (isset($data['route'])) {
 				if (($data['route'] == 'product/product' && $key == 'product_id') || (($data['route'] == 'product/manufacturer/info' || $data['route'] == 'product/product') && $key == 'manufacturer_id') || ($data['route'] == 'information/information' && $key == 'information_id')) {
-					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = '" . $this->db->escape($key . '=' . (int)$value) . "'");
+					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = '" . $this->db->escape($key . '=' . (int)$value) . "' AND language_id='" . $this->config->get('config_language_id') . "'");
 
 					if ($query->num_rows && $query->row['keyword']) {
 						$url .= '/' . $query->row['keyword'];
@@ -120,7 +129,8 @@ class ControllerStartupSeoUrl extends Controller {
 				}
 			}
 
-			return $url_info['scheme'] . '://' . $url_info['host'] . (isset($url_info['port']) ? ':' . $url_info['port'] : '') . str_replace('/index.php', '', $url_info['path']) . $url . $query;
+			return $url_info['scheme'] . '://' . $url_info['host'] . (isset($url_info['port']) ? ':' . $url_info['port'] : '')
+				. str_replace('/index.php', '', $url_info['path']) . $url . $query;
 		} else {
 			return $link;
 		}

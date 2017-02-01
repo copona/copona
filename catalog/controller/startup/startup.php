@@ -33,15 +33,40 @@ class ControllerStartupStartup extends Controller {
 			}
 		}
 
-		// Url
-		$this->registry->set('url', new Url($this->config->get('config_url'), $this->config->get('config_ssl')));
-
 		// Language
 		$code = '';
 
 		$this->load->model('localisation/language');
 
 		$languages = $this->model_localisation_language->getLanguages();
+
+		/* seo language OC23 start */
+		foreach ($languages as $result) {
+			$languages[$result['code']] = $result;
+		}
+		if (isset($this->request->get["_route_"])) { // seo_language define
+			$seo_path = explode('/', $this->request->get["_route_"]);
+			if (array_key_exists($seo_path[0], $languages)) {
+				$this->session->data['language'] = $code = $seo_path[0];
+				$seo_language = true;
+				//remove first element! And shift!
+				array_shift($seo_path);
+				if ($seo_path[0] == 'index.php') {
+					array_shift($seo_path);
+				}
+				if (empty($seo_path)) {
+					unset($this->request->get["_route_"]);
+				} else {
+					$this->request->get["_route_"] = implode($seo_path, '/');
+				}
+			}
+		} else
+		// Set default language for domain without language link
+		if (empty($seo_language)) {
+			// TODO: must be fixed, otherwise Ajax has problems if nex line is enabled
+			// $session->data['language'] = $code = $config->get('config_language');
+		}
+		/* seo language OC23 end */
 
 		if (isset($this->session->data['language'])) {
 			$code = $this->session->data['language'];
@@ -126,6 +151,9 @@ class ControllerStartupStartup extends Controller {
 
 			$this->db->query("UPDATE `" . DB_PREFIX . "marketing` SET clicks = (clicks + 1) WHERE code = '" . $this->db->escape($this->request->get['tracking']) . "'");
 		}
+
+		// Url
+		$this->registry->set('url', new Url($this->config->get('config_url'), $this->config->get('config_ssl'), $this->registry));
 
 		// Affiliate
 		$this->registry->set('affiliate', new Cart\Affiliate($this->registry));

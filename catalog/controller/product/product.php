@@ -5,6 +5,7 @@ class ControllerProductProduct extends Controller {
 	public function index() {
 		//$this->load->language('product/product');
 		$data = array_merge(array(), $this->language->load('product/product'));
+		$url = '';
 
 		$data['breadcrumbs'] = array();
 
@@ -170,18 +171,17 @@ class ControllerProductProduct extends Controller {
 			foreach ($group_products as $group_product) {
 
 				if ($group_product['image']) {
-					$image = $this->model_tool_image->resize($group_product['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+					$image = $this->model_tool_image->resize($group_product['image'], $this->config->get($this->config->get('config_theme') . '_image_product_group_width'), $this->config->get($this->config->get('config_theme') . '_image_product_group_height'));
 				} else {
-					$image = $this->model_tool_image->resize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+					$image = $this->model_tool_image->resize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_group_width'), $this->config->get($this->config->get('config_theme') . '_image_product_group_height'));
 				}
-
 
 				$data['group_products'][] = array(
 					'product_id'			 => $group_product['product_id'],
 					'product_group_id' => $group_product['product_group_id'],
 					'name'						 => $group_product['name'],
 					'image'						 => $image,
-					'href'						 => $this->url->link('product/product', 'path=' . $this->request->get['path'] . '&product_id=' . $group_product['product_id'] . $url)
+					'href'						 => $this->url->link('product/product', $url . '&product_id=' . $group_product['product_id'] . $url)
 				);
 			}
 		}
@@ -282,15 +282,21 @@ class ControllerProductProduct extends Controller {
 			$this->load->model('tool/image');
 
 			if ($product_info['image']) {
-				$data['popup'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+				$data['popup'] = $this->model_tool_image->cropsize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
 			} else {
 				$data['popup'] = '';
 			}
 
 			if ($product_info['image']) {
-				$data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+				$data['thumb'] = $this->model_tool_image->cropsize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
 			} else {
 				$data['thumb'] = '';
+			}
+
+			if ($product_info['image']) {
+				$data['image_mid'] = $this->model_tool_image->cropsize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'));
+			} else {
+				$data['image_mid'] = '';
 			}
 
 			$data['images'] = array();
@@ -299,8 +305,9 @@ class ControllerProductProduct extends Controller {
 
 			foreach ($results as $result) {
 				$data['images'][] = array(
-					'popup'	 => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
-					'thumb'	 => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'))
+					'popup'			 => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
+					'thumb'			 => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
+					'image_mid'	 => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'))
 				);
 			}
 
@@ -373,6 +380,8 @@ class ControllerProductProduct extends Controller {
 			} else {
 				$data['minimum'] = 1;
 			}
+
+			$data['stock_quantity'] = $product_info['quantity'];
 
 			$data['review_status'] = $this->config->get('config_review_status');
 

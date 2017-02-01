@@ -260,34 +260,11 @@ class ControllerCatalogInformation extends Controller {
 	}
 
 	protected function getForm() {
-		$data['heading_title'] = $this->language->get('heading_title');
+
+		$data = array();
+		$data = array_merge($data, $this->load->language('catalog/information'));
 
 		$data['text_form'] = !isset($this->request->get['information_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
-		$data['text_default'] = $this->language->get('text_default');
-		$data['text_enabled'] = $this->language->get('text_enabled');
-		$data['text_disabled'] = $this->language->get('text_disabled');
-
-		$data['entry_title'] = $this->language->get('entry_title');
-		$data['entry_description'] = $this->language->get('entry_description');
-		$data['entry_meta_title'] = $this->language->get('entry_meta_title');
-		$data['entry_meta_description'] = $this->language->get('entry_meta_description');
-		$data['entry_meta_keyword'] = $this->language->get('entry_meta_keyword');
-		$data['entry_keyword'] = $this->language->get('entry_keyword');
-		$data['entry_store'] = $this->language->get('entry_store');
-		$data['entry_bottom'] = $this->language->get('entry_bottom');
-		$data['entry_sort_order'] = $this->language->get('entry_sort_order');
-		$data['entry_status'] = $this->language->get('entry_status');
-		$data['entry_layout'] = $this->language->get('entry_layout');
-
-		$data['help_keyword'] = $this->language->get('help_keyword');
-		$data['help_bottom'] = $this->language->get('help_bottom');
-
-		$data['button_save'] = $this->language->get('button_save');
-		$data['button_cancel'] = $this->language->get('button_cancel');
-
-		$data['tab_general'] = $this->language->get('tab_general');
-		$data['tab_data'] = $this->language->get('tab_data');
-		$data['tab_design'] = $this->language->get('tab_design');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -383,6 +360,14 @@ class ControllerCatalogInformation extends Controller {
 			$data['information_store'] = array( 0 );
 		}
 
+		if (isset($this->request->post['seo_keywords'])) {
+			$data['seo_keywords'] = $this->request->post['seo_keywords'];
+		} elseif (isset($this->request->get['information_id'])) {
+			$data['seo_keywords'] = $this->seourl->getSeoUrls('information_id=' . $this->request->get['information_id']);
+		} else {
+			$data['seo_keywords'] = '';
+		}
+
 		if (isset($this->request->post['keyword'])) {
 			$data['keyword'] = $this->request->post['keyword'];
 		} elseif (!empty($information_info)) {
@@ -397,6 +382,14 @@ class ControllerCatalogInformation extends Controller {
 			$data['bottom'] = $information_info['bottom'];
 		} else {
 			$data['bottom'] = 0;
+		}
+
+		if (isset($this->request->post['top'])) {
+			$data['top'] = $this->request->post['top'];
+		} elseif (!empty($information_info)) {
+			$data['top'] = $information_info['top'];
+		} else {
+			$data['top'] = 0;
 		}
 
 		if (isset($this->request->post['status'])) {
@@ -414,6 +407,58 @@ class ControllerCatalogInformation extends Controller {
 		} else {
 			$data['sort_order'] = '';
 		}
+
+// Image
+
+		if (isset($this->request->post['image'])) {
+			$data['image'] = $this->request->post['image'];
+		} elseif (!empty($information_info)) {
+			$data['image'] = $information_info['image'];
+		} else {
+			$data['image'] = '';
+		}
+
+		$this->load->model('tool/image');
+
+		if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {
+			$data['thumb'] = $this->model_tool_image->resize($this->request->post['image'], 100, 100);
+		} elseif (!empty($information_info) && is_file(DIR_IMAGE . $information_info['image'])) {
+			$data['thumb'] = $this->model_tool_image->resize($information_info['image'], 100, 100);
+		} else {
+			$data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+		}
+
+		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+
+		// Images
+		if (isset($this->request->post['information_image'])) {
+			$information_images = $this->request->post['information_image'];
+		} elseif (isset($this->request->get['information_id'])) {
+			$information_images = $this->model_catalog_information->getInformationImages($this->request->get['information_id']);
+		} else {
+			$information_images = array();
+		}
+
+		$data['information_images'] = array();
+
+		foreach ($information_images as $information_image) {
+			if (is_file(DIR_IMAGE . $information_image['image'])) {
+				$image = $information_image['image'];
+				$thumb = $information_image['image'];
+			} else {
+				$image = '';
+				$thumb = 'no_image.png';
+			}
+
+			$data['information_images'][] = array(
+				'image'			 => $image,
+				'thumb'			 => $this->model_tool_image->resize($thumb, 100, 100),
+				'sort_order' => $information_image['sort_order']
+			);
+		}
+
+
+
 
 		if (isset($this->request->post['information_layout'])) {
 			$data['information_layout'] = $this->request->post['information_layout'];

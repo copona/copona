@@ -442,6 +442,14 @@ class ControllerCatalogCategory extends Controller {
 			$data['category_store'] = array( 0 );
 		}
 
+		if (isset($this->request->post['seo_keywords'])) {
+			$data['seo_keywords'] = $this->request->post['seo_keywords'];
+		} elseif (isset($this->request->get['category_id'])) {
+			$data['seo_keywords'] = $this->seourl->getSeoUrls('category_id=' . $this->request->get['category_id']);
+		} else {
+			$data['seo_keywords'] = '';
+		}
+
 		if (isset($this->request->post['keyword'])) {
 			$data['keyword'] = $this->request->post['keyword'];
 		} elseif (!empty($category_info)) {

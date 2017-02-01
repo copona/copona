@@ -2,9 +2,19 @@
 class ModelCatalogInformation extends Model {
 
 	public function addInformation($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "information SET sort_order = '" . (int)$data['sort_order'] . "', bottom = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', status = '" . (int)$data['status'] . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "information SET sort_order = '" . (int)$data['sort_order'] . "', bottom = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', top = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', status = '" . (int)$data['status'] . "'");
 
 		$information_id = $this->db->getLastId();
+
+		if (isset($data['image'])) {
+			$this->db->query("UPDATE " . DB_PREFIX . "information SET image = '" . $this->db->escape($data['image']) . "' WHERE information_id = '" . (int)$information_id . "'");
+		}
+
+		if (isset($data['information_image'])) {
+			foreach ($data['information_image'] as $information_image) {
+				$this->db->query("INSERT INTO " . DB_PREFIX . "information_image SET information_id = '" . (int)$information_id . "', image = '" . $this->db->escape($information_image['image']) . "', sort_order = '" . (int)$information_image['sort_order'] . "'");
+			}
+		}
 
 		foreach ($data['information_description'] as $language_id => $value) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "information_description SET information_id = '" . (int)$information_id . "', language_id = '" . (int)$language_id . "', title = '" . $this->db->escape($value['title']) . "', description = '" . $this->db->escape($value['description']) . "', meta_title = '" . $this->db->escape($value['meta_title']) . "', meta_description = '" . $this->db->escape($value['meta_description']) . "', meta_keyword = '" . $this->db->escape($value['meta_keyword']) . "'");
@@ -22,6 +32,17 @@ class ModelCatalogInformation extends Model {
 			}
 		}
 
+		if (isset($data['seo_keyword'])) {
+			foreach ($data['seo_keyword'] as $language_id => $keyword) {
+				if (empty($keyword)) {
+					$keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($data['information_id'][$language_id]['title']), $language_id);
+				} else {
+					$keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($keyword), $language_id);
+				}
+				$this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = 'information_id=" . (int)$information_id . "', keyword = '" . $this->db->escape($keyword) . "', language_id = '" . (int)$language_id . "'");
+			}
+		}
+
 		if ($data['keyword']) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = 'information_id=" . (int)$information_id . "', keyword = '" . $this->db->escape($data['keyword']) . "'");
 		}
@@ -32,7 +53,19 @@ class ModelCatalogInformation extends Model {
 	}
 
 	public function editInformation($information_id, $data) {
-		$this->db->query("UPDATE " . DB_PREFIX . "information SET sort_order = '" . (int)$data['sort_order'] . "', bottom = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', status = '" . (int)$data['status'] . "' WHERE information_id = '" . (int)$information_id . "'");
+
+		$this->db->query("UPDATE " . DB_PREFIX . "information SET sort_order = '" . (int)$data['sort_order'] . "', bottom = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', top = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', status = '" . (int)$data['status'] . "' WHERE information_id = '" . (int)$information_id . "'");
+
+		if (isset($data['image'])) {
+			$this->db->query("UPDATE " . DB_PREFIX . "information SET image = '" . $this->db->escape($data['image']) . "' WHERE information_id = '" . (int)$information_id . "'");
+		}
+
+		$this->db->query("DELETE FROM " . DB_PREFIX . "information_image WHERE information_id = '" . (int)$information_id . "'");
+		if (isset($data['information_image'])) {
+			foreach ($data['information_image'] as $information_image) {
+				$this->db->query("INSERT INTO " . DB_PREFIX . "information_image SET information_id = '" . (int)$information_id . "', image = '" . $this->db->escape($information_image['image']) . "', sort_order = '" . (int)$information_image['sort_order'] . "'");
+			}
+		}
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "information_description WHERE information_id = '" . (int)$information_id . "'");
 
@@ -57,6 +90,17 @@ class ModelCatalogInformation extends Model {
 		}
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "url_alias WHERE query = 'information_id=" . (int)$information_id . "'");
+
+		if ($data['seo_keyword']) {
+			foreach ($data['seo_keyword'] as $language_id => $keyword) {
+				if (empty($keyword)) {
+					$keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($data['information_description'][$language_id]['title']), $language_id);
+				} else {
+					$keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($keyword), $language_id);
+				}
+				$this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = 'information_id=" . (int)$information_id . "', keyword = '" . $this->db->escape($keyword) . "', language_id = '" . (int)$language_id . "'");
+			}
+		}
 
 		if ($data['keyword']) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = 'information_id=" . (int)$information_id . "', keyword = '" . $this->db->escape($data['keyword']) . "'");
@@ -76,7 +120,7 @@ class ModelCatalogInformation extends Model {
 	}
 
 	public function getInformation($information_id) {
-		$query = $this->db->query("SELECT DISTINCT *, (SELECT keyword FROM " . DB_PREFIX . "url_alias WHERE query = 'information_id=" . (int)$information_id . "') AS keyword FROM " . DB_PREFIX . "information WHERE information_id = '" . (int)$information_id . "'");
+		$query = $this->db->query("SELECT DISTINCT *, (SELECT DISTINCT keyword FROM " . DB_PREFIX . "url_alias WHERE language_id='" . (int)$this->config->get('config_language_id') . "' AND query = 'information_id=" . (int)$information_id . "') AS keyword FROM " . DB_PREFIX . "information WHERE information_id = '" . (int)$information_id . "'");
 
 		return $query->row;
 	}
@@ -148,6 +192,12 @@ class ModelCatalogInformation extends Model {
 		}
 
 		return $information_description_data;
+	}
+
+	public function getInformationImages($information_id) {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "information_image WHERE information_id = '" . (int)$information_id . "' ORDER BY sort_order ASC");
+
+		return $query->rows;
 	}
 
 	public function getInformationStores($information_id) {
