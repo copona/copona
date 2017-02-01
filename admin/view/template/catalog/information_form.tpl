@@ -28,6 +28,7 @@
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>
             <li><a href="#tab-data" data-toggle="tab"><?php echo $tab_data; ?></a></li>
+						<li><a href="#tab-image" data-toggle="tab"><?php echo $tab_image; ?></a></li>
             <li><a href="#tab-design" data-toggle="tab"><?php echo $tab_design; ?></a></li>
           </ul>
           <div class="tab-content">
@@ -168,6 +169,51 @@
                 </div>
               </div>
             </div>
+						<div class="tab-pane" id="tab-image">
+              <div class="table-responsive"> 
+                <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <td class="text-left"><?php echo $entry_image; ?></td>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td class="text-left"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" /></td>
+										</tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-responsive">
+                <table id="images" class="table table-striped table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <td class="text-left"><?php echo $entry_additional_image; ?></td>
+                      <td class="text-right"><?php echo $entry_sort_order; ?></td>
+                      <td></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+										<?php $image_row = 0; ?>
+										<?php foreach ($information_images as $information_image) { ?>
+											<tr id="image-row<?php echo $image_row; ?>">
+												<td class="text-left"><a href="" id="thumb-image<?php echo $image_row; ?>" data-toggle="image" class="img-thumbnail"><img src="<?php echo $information_image['thumb']; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="information_image[<?php echo $image_row; ?>][image]" value="<?php echo $information_image['image']; ?>" id="input-image<?php echo $image_row; ?>" /></td>
+												<td class="text-right"><input type="text" name="information_image[<?php echo $image_row; ?>][sort_order]" value="<?php echo $information_image['sort_order']; ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
+												<td class="text-left"><button type="button" onclick="$('#image-row<?php echo $image_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+											</tr>
+											<?php $image_row++; ?>
+										<?php } ?>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="2"></td>
+                      <td class="text-left"><button type="button" onclick="addImage();" data-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
             <div class="tab-pane" id="tab-design">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -215,7 +261,6 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript"><!--
-$('#language a:first').tab('show');
-//--></script></div>
+	<?php require_once('information_form.js.tpl'); ?>
+</div>
 <?php echo $footer; ?>

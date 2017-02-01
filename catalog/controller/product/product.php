@@ -176,8 +176,6 @@ class ControllerProductProduct extends Controller {
 					$image = $this->model_tool_image->resize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_group_width'), $this->config->get($this->config->get('config_theme') . '_image_product_group_height'));
 				}
 
-
-
 				$data['group_products'][] = array(
 					'product_id'			 => $group_product['product_id'],
 					'product_group_id' => $group_product['product_group_id'],

@@ -1566,6 +1566,7 @@ INSERT INTO `oc_geo_zone` (`geo_zone_id`, `name`, `description`, `date_modified`
 DROP TABLE IF EXISTS `oc_information`;
 CREATE TABLE `oc_information` (
   `information_id` int(11) NOT NULL AUTO_INCREMENT,
+	`image` varchar(255) DEFAULT NULL,
   `bottom` int(1) NOT NULL DEFAULT '0',
   `sort_order` int(3) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '1',
@@ -1625,6 +1626,23 @@ CREATE TABLE `oc_information_to_layout` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
+
+
+--
+-- Table structure for table `oc_information_image`
+--
+
+DROP TABLE IF EXISTS `oc_information_image`;
+CREATE TABLE `oc_information_image` (
+  `information_image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `information_id` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `sort_order` int(3) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`information_image_id`),
+  KEY `information_id` (`information_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
 
 --
 -- Table structure for table `oc_information_to_store`

@@ -13,6 +13,12 @@ class ModelCatalogInformation extends Model {
 		return $query->rows;
 	}
 
+	public function getInformationImages($information_id) {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "information_image WHERE information_id = '" . (int)$information_id . "' ORDER BY sort_order ASC");
+
+		return $query->rows;
+	}
+
 	public function getInformationLayoutId($information_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "information_to_layout WHERE information_id = '" . (int)$information_id . "' AND store_id = '" . (int)$this->config->get('config_store_id') . "'");
 
