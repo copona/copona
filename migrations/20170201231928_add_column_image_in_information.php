@@ -5,7 +5,7 @@ use Phinx\Migration\AbstractMigration;
 class AddColumnImageInInformation extends AbstractMigration
 {
     /**
-     *
+     * Add column image in information table
      */
     public function change()
     {
