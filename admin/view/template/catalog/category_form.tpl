@@ -21,6 +21,18 @@
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 			</div>
 		<?php } ?>
+
+		<div class="alert">
+			<?php foreach ($languages as $language) { ?>
+				<?php if (isset($error_name[$language['language_id']])) { ?>
+					<div class="text-danger"><?php echo $language['name'] . ": " . $error_name[$language['language_id']]; ?></div>
+				<?php } ?>
+				<?php if (isset($error_meta_title[$language['language_id']])) { ?>
+					<div class="text-danger"><?php echo $language['name'] . ": " . $error_meta_title[$language['language_id']]; ?></div>
+				<?php } ?>
+			<?php } ?>
+		</div>
+
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>

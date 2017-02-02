@@ -90,6 +90,7 @@ class ControllerCommonHeader extends Controller {
 		$data['checkout'] = $this->url->link('checkout/checkout', '', true);
 		$data['contact'] = $this->url->link('information/contact');
 		$data['telephone'] = $this->config->get('config_telephone');
+		$data['product_catalog'] = $this->url->link('product/category', '', true);
 
 		// Menu
 		$this->load->model('catalog/category');
@@ -127,6 +128,18 @@ class ControllerCommonHeader extends Controller {
 					'href'		 => $this->url->link('product/category', 'path=' . $category['category_id'])
 				);
 			}
+		}
+
+		$this->load->model('catalog/information');
+
+		$data['informations'] = array();
+		$informations = $this->model_catalog_information->getInformations(array( 'top' => true ));
+		foreach ($informations as $information) {
+			$data['informations'][] = array(
+				'information_id' => $information['information_id'],
+				'title'					 => $information['title'],
+				'href'					 => $this->url->link('information/information', 'information_id=' . $information['information_id'])
+			);
 		}
 
 		$data['language'] = $this->load->controller('common/language');
