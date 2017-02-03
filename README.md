@@ -45,5 +45,7 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
     * `git pull`
   * if you have edited something locally - then you are a developer already - you will know, what to do! :)
   * check the site, if there are problems - post them online, or you can always return to the previous version.
-
-  
+* Run Composer install
+ * `composer install`
+* Run database migration
+ * `php vendor/bin/phinx migrate` (https://github.com/copona/copona/wiki/Migration-Phinx)
