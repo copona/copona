@@ -153,8 +153,8 @@
             <?php } ?>
           </div>
           <div class="row">
-            <div class="col-sm-6 text-left"><?php echo $pagination; ?></div>
-            <div class="col-sm-6 text-right"><?php echo $results; ?></div>
+            <div class="col-sm-7 text-left"><?php echo $pagination; ?></div>
+            <div class="col-sm-5 text-right"><?php echo $results; ?></div>
           </div>
       <?php } else { ?>
           <p><?php echo $text_empty; ?></p>
