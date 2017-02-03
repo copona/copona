@@ -1,16 +1,16 @@
 <footer>
   <div class="container">
     <div class="row">
-			<?php if ($informations) { ?>
-	      <div class="col-sm-3">
-	        <h5><?php echo $text_information; ?></h5>
-	        <ul class="list-unstyled">
-						<?php foreach ($informations as $information) { ?>
-		          <li><a href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
-						<?php } ?>
-	        </ul>
-	      </div>
-			<?php } ?>
+        <?php if ($informations) { ?>
+          <div class="col-sm-3">
+            <h5><?php echo $text_information; ?></h5>
+            <ul class="list-unstyled">
+                <?php foreach ($informations as $information) { ?>
+                  <li><a href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
+              <?php } ?>
+            </ul>
+          </div>
+      <?php } ?>
       <div class="col-sm-3">
         <h5><?php echo $text_service; ?></h5>
         <ul class="list-unstyled">
@@ -40,7 +40,7 @@
     </div>
     <hr>
     <p class="pull-left"><?php echo $powered; ?></p>
-		<p class="pull-right">Theme By <a target="_blank" href="http://www.harnishdesign.net">Harnish Design</a></p>
+    <p class="pull-right">Theme By <a target="_blank" href="http://www.harnishdesign.net">Harnish Design</a></p>
   </div>
 </footer>
 <!--
