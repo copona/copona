@@ -3,33 +3,33 @@
 namespace Template;
 
 final class PHP {
-	private $data = array();
+    private $data = array();
 
-	public function set($key, $value) {
-		$this->data[$key] = $value;
-	}
+    public function set($key, $value) {
+        $this->data[$key] = $value;
+    }
 
-	public function render($template) {
-		$loader = new Twig_Loader_Array(array(
-			'index' => 'Hello {{ name }}!',
-		));
+    public function render($template) {
+        $loader = new Twig_Loader_Array(array(
+            'index' => 'Hello {{ name }}!',
+        ));
 
-		$twig = new Twig_Environment($loader);
+        $twig = new Twig_Environment($loader);
 
-		$file = DIR_TEMPLATE . $template;
+        $file = DIR_TEMPLATE . $template;
 
-		if (is_file($file)) {
-			extract($this->data);
+        if (is_file($file)) {
+            extract($this->data);
 
-			ob_start();
+            ob_start();
 
-			require($file);
+            require($file);
 
-			return ob_get_clean();
-		}
+            return ob_get_clean();
+        }
 
-		trigger_error('Error: Could not load template ' . $file . '!');
-		exit();
-	}
+        trigger_error('Error: Could not load template ' . $file . '!');
+        exit();
+    }
 
 }

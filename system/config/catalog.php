@@ -20,22 +20,22 @@ $_['session_autostart'] = false;
 
 // Autoload Libraries
 $_['library_autoload'] = array(
-	'openbay'
+    'openbay'
 );
 
 // Actions
 $_['action_pre_action'] = array(
-	'startup/session',
-	'startup/startup',
-	'startup/error',
-	'startup/event',
-	'startup/maintenance',
-	'startup/seo_url'
+    'startup/session',
+    'startup/startup',
+    'startup/error',
+    'startup/event',
+    'startup/maintenance',
+    'startup/seo_url'
 );
 
 // Action Events
 $_['action_event'] = array(
-	'view/*/before' => 'event/theme',
-	//'controller/*/before'                 => 'event/debug/before',
-	//'controller/*/after'                  => 'event/debug/after'
+    'view/*/before' => 'event/theme',
+    //'controller/*/before'                 => 'event/debug/before',
+    //'controller/*/after'                  => 'event/debug/after'
 );
