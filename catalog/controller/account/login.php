@@ -10,6 +10,8 @@ class ControllerAccountLogin extends Controller {
             $this->customer->logout();
             $this->cart->clear();
 
+            // CSRF #5172
+            unset($this->session->data['csrf_token']);
             unset($this->session->data['order_id']);
             unset($this->session->data['payment_address']);
             unset($this->session->data['payment_method']);
@@ -52,6 +54,9 @@ class ControllerAccountLogin extends Controller {
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             // Unset guest
             unset($this->session->data['guest']);
+
+            //CSRF #5172
+            $this->session->data['csrf_token'] = token(32);
 
             // Default Shipping Address
             $this->load->model('account/address');
