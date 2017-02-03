@@ -1,18 +1,18 @@
 <?php echo $header; ?>
 <div class="container">
   <ul class="breadcrumb">
-    <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
   </ul>
   <div class="row"><?php echo $column_left; ?>
-    <?php if ($column_left && $column_right) { ?>
-    <?php $class = 'col-sm-6'; ?>
-    <?php } elseif ($column_left || $column_right) { ?>
-    <?php $class = 'col-sm-9'; ?>
-    <?php } else { ?>
-    <?php $class = 'col-sm-12'; ?>
-    <?php } ?>
+      <?php if ($column_left && $column_right) { ?>
+          <?php $class = 'col-sm-6'; ?>
+      <?php } elseif ($column_left || $column_right) { ?>
+          <?php $class = 'col-sm-9'; ?>
+      <?php } else { ?>
+          <?php $class = 'col-sm-12'; ?>
+      <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
@@ -29,28 +29,28 @@
             <div class="col-sm-10">
               <div class="radio">
                 <label>
-                  <?php if ($payment == 'cheque') { ?>
-                  <input type="radio" name="payment" value="cheque" checked="checked" />
+                    <?php if ($payment == 'cheque') { ?>
+                      <input type="radio" name="payment" value="cheque" checked="checked" />
                   <?php } else { ?>
-                  <input type="radio" name="payment" value="cheque" />
+                      <input type="radio" name="payment" value="cheque" />
                   <?php } ?>
                   <?php echo $text_cheque; ?></label>
               </div>
               <div class="radio">
                 <label>
-                  <?php if ($payment == 'paypal') { ?>
-                  <input type="radio" name="payment" value="paypal" checked="checked" />
+                    <?php if ($payment == 'paypal') { ?>
+                      <input type="radio" name="payment" value="paypal" checked="checked" />
                   <?php } else { ?>
-                  <input type="radio" name="payment" value="paypal" />
+                      <input type="radio" name="payment" value="paypal" />
                   <?php } ?>
                   <?php echo $text_paypal; ?></label>
               </div>
               <div class="radio">
                 <label>
-                  <?php if ($payment == 'bank') { ?>
-                  <input type="radio" name="payment" value="bank" checked="checked" />
+                    <?php if ($payment == 'bank') { ?>
+                      <input type="radio" name="payment" value="bank" checked="checked" />
                   <?php } else { ?>
-                  <input type="radio" name="payment" value="bank" />
+                      <input type="radio" name="payment" value="bank" />
                   <?php } ?>
                   <?php echo $text_bank; ?></label>
               </div>
@@ -112,12 +112,12 @@
     <?php echo $column_right; ?></div>
 </div>
 <script type="text/javascript"><!--
-$('input[name=\'payment\']').on('change', function() {
-    $('.payment').hide();
+$('input[name=\'payment\']').on('change', function () {
+        $('.payment').hide();
 
-    $('#payment-' + this.value).show();
-});
+        $('#payment-' + this.value).show();
+    });
 
-$('input[name=\'payment\']:checked').trigger('change');
+    $('input[name=\'payment\']:checked').trigger('change');
 //--></script>
 <?php echo $footer; ?>

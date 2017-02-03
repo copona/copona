@@ -5,8 +5,8 @@
       <label class="col-sm-2 control-label" for="input-cc-type"><?php echo $entry_cc_type; ?></label>
       <div class="col-sm-10">
         <select name="cc_type" id="input-cc-type" class="form-control">
-          <?php foreach ($cards as $card) { ?>
-            <option value="<?php echo $card['code']; ?>"><?php echo $card['text']; ?></option>
+            <?php foreach ($cards as $card) { ?>
+              <option value="<?php echo $card['code']; ?>"><?php echo $card['text']; ?></option>
           <?php } ?>
         </select>
       </div>
@@ -27,15 +27,15 @@
       <label class="col-sm-2 control-label" for="input-cc-expire-date"><?php echo $entry_cc_expire_date; ?></label>
       <div class="col-sm-3">
         <select name="cc_expire_date_month" id="input-cc-expire-date" class="form-control">
-          <?php foreach ($months as $month) { ?>
-          <option value="<?php echo $month['value']; ?>"><?php echo $month['text']; ?></option>
+            <?php foreach ($months as $month) { ?>
+              <option value="<?php echo $month['value']; ?>"><?php echo $month['text']; ?></option>
           <?php } ?>
         </select>
       </div>
       <div class="col-sm-3">
         <select name="cc_expire_date_year" class="form-control">
-          <?php foreach ($year_expire as $year) { ?>
-            <option value="<?php echo $year['value']; ?>"><?php echo $year['text']; ?></option>
+            <?php foreach ($year_expire as $year) { ?>
+              <option value="<?php echo $year['value']; ?>"><?php echo $year['text']; ?></option>
           <?php } ?>
         </select>
       </div>
@@ -60,45 +60,45 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#button-confirm').bind('click', function() {
-  $.ajax({
-    url: 'index.php?route=extension/payment/realex_remote/send',
-    type: 'post',
-    data: $('#payment :input'),
-    dataType: 'json',
-    beforeSend: function() {
-      $('#realex-message-error').remove();
-      $('#button-confirm').attr('disabled', true);
-      $('#payment').before('<div id="realex-message-wait" class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $text_wait; ?></div>');
-    },
-    success: function(json) {
-      // if 3ds redirect instruction
-      if (json['ACSURL']) {
-        $('#3dauth').remove();
+$('#button-confirm').bind('click', function () {
+        $.ajax({
+            url: 'index.php?route=extension/payment/realex_remote/send',
+            type: 'post',
+            data: $('#payment :input'),
+            dataType: 'json',
+            beforeSend: function () {
+                $('#realex-message-error').remove();
+                $('#button-confirm').attr('disabled', true);
+                $('#payment').before('<div id="realex-message-wait" class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $text_wait; ?></div>');
+            },
+            success: function (json) {
+                // if 3ds redirect instruction
+                if (json['ACSURL']) {
+                    $('#3dauth').remove();
 
-        html  = '<form action="' + json['ACSURL'] + '" method="post" id="3dauth">';
-        html += '  <input type="hidden" name="MD" value="' + json['MD'] + '" />';
-        html += '  <input type="hidden" name="PaReq" value="' + json['PaReq'] + '" />';
-        html += '  <input type="hidden" name="TermUrl" value="' + json['TermUrl'] + '" />';
-        html += '</form>';
+                    html = '<form action="' + json['ACSURL'] + '" method="post" id="3dauth">';
+                    html += '  <input type="hidden" name="MD" value="' + json['MD'] + '" />';
+                    html += '  <input type="hidden" name="PaReq" value="' + json['PaReq'] + '" />';
+                    html += '  <input type="hidden" name="TermUrl" value="' + json['TermUrl'] + '" />';
+                    html += '</form>';
 
-        $('#payment').after(html);
+                    $('#payment').after(html);
 
-        $('#3dauth').submit();
-      }
+                    $('#3dauth').submit();
+                }
 
-      // if error
-      if (json['error']) {
-        $('#payment').before('<div id="realex-message-error" class="alert alert-warning"><i class="fa fa-info-circle"></i> '+json['error']+'</div>');
-        $('#button-confirm').attr('disabled', false);
-        $('#realex-message-wait').remove();
-      }
+                // if error
+                if (json['error']) {
+                    $('#payment').before('<div id="realex-message-error" class="alert alert-warning"><i class="fa fa-info-circle"></i> ' + json['error'] + '</div>');
+                    $('#button-confirm').attr('disabled', false);
+                    $('#realex-message-wait').remove();
+                }
 
-      // if success
-      if (json['success']) {
-        location = json['success'];
-      }
-    }
-  });
-});
+                // if success
+                if (json['success']) {
+                    location = json['success'];
+                }
+            }
+        });
+    });
 //--></script>

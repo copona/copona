@@ -6,7 +6,7 @@
   <input type="hidden" name="x_fp_hash" value="<?php echo $x_fp_hash; ?>" />
   <input type="hidden" name="x_show_form" value="<?php echo $x_show_form; ?>" />
   <?php if ($x_test_request) { ?>
-  <input type="hidden" name="x_test_request" value="<?php echo $x_test_request; ?>" />
+      <input type="hidden" name="x_test_request" value="<?php echo $x_test_request; ?>" />
   <?php } ?>
   <input type="hidden" name="x_type" value="<?php echo $x_type; ?>" />
   <input type="hidden" name="x_currency_code" value="<?php echo $x_currency_code; ?>" />
