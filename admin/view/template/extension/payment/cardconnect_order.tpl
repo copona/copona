@@ -1,74 +1,74 @@
 <h2><?php echo $text_payment_info; ?></h2>
 <table class="table table-striped table-bordered">
-    <tr>
-        <td><?php echo $text_payment_method; ?></td>
-        <td><?php echo $cardconnect_order['payment_method']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_reference; ?></td>
-        <td><?php echo $cardconnect_order['retref']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_update; ?></td>
-        <td><a class="button btn btn-primary btn-xs" id="button-inquire-all"><?php echo $button_inquire_all; ?></a> <span class="btn btn-primary btn-xs img_loading_inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_order_total; ?></td>
-        <td><?php echo $cardconnect_order['total_formatted']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_total_captured; ?></td>
-        <td id="cardconnect_total_captured"><?php echo $cardconnect_order['total_captured_formatted']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_capture_payment; ?></td>
-        <td>
-            <input type="text" style="width:80px" id="capture_amount" value="<?php echo $cardconnect_order['total']; ?>"/>
-            <a class="button btn btn-primary btn-sm" id="button-capture"><?php echo $button_capture; ?></a> <span class="btn btn-primary btn-sm" id="img_loading_capture" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_refund_payment; ?></td>
-        <td>
-            <input type="text" style="width:80px" id="refund_amount" <?php if ($cardconnect_order['total_captured'] < 1) { echo 'style="display:none"'; } ?> />
-            <a class="button btn btn-primary btn-sm" id="button-refund" <?php if ($cardconnect_order['total_captured'] < 1) { echo 'style="display:none"'; } ?>><?php echo $button_refund; ?></a> <span class="btn btn-primary btn-sm" id="img_loading_refund" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_void; ?></td>
-        <td><a class="button btn btn-primary btn-xs" id="button-void-all"><?php echo $button_void_all; ?></a> <span class="btn btn-primary btn-xs" id="img_loading_void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_transactions; ?></td>
-        <td><table class="table table-striped table-bordered" id="cardconnect_transactions">
-                <thead>
-                    <tr>
-                        <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_reference; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_status; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_date_modified; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_date_added; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_update; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_void; ?></strong></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($cardconnect_order['transactions'] as $transaction) { ?>
-                        <tr>
-                            <td class="text-left"><?php echo $transaction['type']; ?></td>
-                            <td class="text-left"><?php echo $transaction['retref']; ?></td>
-                            <td class="text-left"><?php echo $transaction['amount']; ?></td>
-                            <td class="text-left"><?php echo $transaction['status']; ?></td>
-                            <td class="text-left"><?php echo $transaction['date_modified']; ?></td>
-                            <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-                            <td class="text-left"><a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="<?php echo $transaction['retref']; ?>"><?php echo $button_inquire; ?></a> <span class="btn btn-primary btn-xs img_loading_inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
-                            <td class="text-left"><a class="button btn btn-primary button-void btn-xs" data-void-retref="<?php echo $transaction['retref']; ?>"><?php echo $button_void; ?></a> <span class="btn btn-primary btn-xs img_loading_void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table></td>
-    </tr>
+  <tr>
+    <td><?php echo $text_payment_method; ?></td>
+    <td><?php echo $cardconnect_order['payment_method']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_reference; ?></td>
+    <td><?php echo $cardconnect_order['retref']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_update; ?></td>
+    <td><a class="button btn btn-primary btn-xs" id="button-inquire-all"><?php echo $button_inquire_all; ?></a> <span class="btn btn-primary btn-xs img_loading_inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_order_total; ?></td>
+    <td><?php echo $cardconnect_order['total_formatted']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_total_captured; ?></td>
+    <td id="cardconnect_total_captured"><?php echo $cardconnect_order['total_captured_formatted']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_capture_payment; ?></td>
+    <td>
+      <input type="text" style="width:80px" id="capture_amount" value="<?php echo $cardconnect_order['total']; ?>"/>
+      <a class="button btn btn-primary btn-sm" id="button-capture"><?php echo $button_capture; ?></a> <span class="btn btn-primary btn-sm" id="img_loading_capture" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_refund_payment; ?></td>
+    <td>
+      <input type="text" style="width:80px" id="refund_amount" <?php if ($cardconnect_order['total_captured'] < 1) { echo 'style="display:none"'; } ?> />
+      <a class="button btn btn-primary btn-sm" id="button-refund" <?php if ($cardconnect_order['total_captured'] < 1) { echo 'style="display:none"'; } ?>><?php echo $button_refund; ?></a> <span class="btn btn-primary btn-sm" id="img_loading_refund" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_void; ?></td>
+    <td><a class="button btn btn-primary btn-xs" id="button-void-all"><?php echo $button_void_all; ?></a> <span class="btn btn-primary btn-xs" id="img_loading_void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_transactions; ?></td>
+    <td><table class="table table-striped table-bordered" id="cardconnect_transactions">
+        <thead>
+          <tr>
+            <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_reference; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_status; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_date_modified; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_date_added; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_update; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_void; ?></strong></td>
+          </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($cardconnect_order['transactions'] as $transaction) { ?>
+              <tr>
+                <td class="text-left"><?php echo $transaction['type']; ?></td>
+                <td class="text-left"><?php echo $transaction['retref']; ?></td>
+                <td class="text-left"><?php echo $transaction['amount']; ?></td>
+                <td class="text-left"><?php echo $transaction['status']; ?></td>
+                <td class="text-left"><?php echo $transaction['date_modified']; ?></td>
+                <td class="text-left"><?php echo $transaction['date_added']; ?></td>
+                <td class="text-left"><a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="<?php echo $transaction['retref']; ?>"><?php echo $button_inquire; ?></a> <span class="btn btn-primary btn-xs img_loading_inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
+                <td class="text-left"><a class="button btn btn-primary button-void btn-xs" data-void-retref="<?php echo $transaction['retref']; ?>"><?php echo $button_void; ?></a> <span class="btn btn-primary btn-xs img_loading_void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
+              </tr>
+          <?php } ?>
+        </tbody>
+      </table></td>
+  </tr>
 </table>
 <script type="text/javascript"><!--
   $('#button-inquire-all').click(function () {

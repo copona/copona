@@ -1,86 +1,86 @@
 <h2><?php echo $text_payment_info; ?></h2>
 <div class="success" id="securetrading_pp_transaction_msg" style="display:none;"></div>
 <table class="form">
-    <tr>
-        <td><?php echo $text_order_ref; ?></td>
-        <td><?php echo $securetrading_pp_order['transaction_reference']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_order_total; ?></td>
-        <td><?php echo $securetrading_pp_order['total_formatted']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_total_released; ?></td>
-        <td id="securetrading_pp_total_released"><?php echo $securetrading_pp_order['total_released_formatted']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_release_status; ?></td>
-        <td id="release_status">
-            <?php if ($securetrading_pp_order['release_status'] == 1) { ?>
-                <span class="release_text"><?php echo $text_yes; ?></span>
-            <?php } else { ?>
-                <span class="release_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
-                <?php if ($securetrading_pp_order['void_status'] == 0) { ?>
-                    <input type="text" width="10" id="release_amount" value="<?php echo $securetrading_pp_order['total']; ?>"/>
-                    <a class="button btn btn-primary" id="btn_release"><?php echo $button_release; ?></a>
-                    <span class="btn btn-primary" id="img_loading_release" style="display:none;"><i class="fa fa-cog fa-spin fa-lg"></i></span>
-                <?php } ?>
-            <?php } ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_void_status; ?></td>
-        <td id="void_status">
-            <?php if ($securetrading_pp_order['void_status'] == 1) { ?>
-                <span class="void_text"><?php echo $text_yes; ?></span>
-            <?php } elseif ($securetrading_pp_order['void_status'] == 0 && $securetrading_pp_order['release_status'] != 1 && $securetrading_pp_order['rebate_status'] != 1) { ?>
-                <span class="void_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
-                <a class="button btn btn-primary" id="btn_void"><?php echo $button_void; ?></a>
-                <span class="btn btn-primary" id="img_loading_void" style="display:none;"><i class="fa fa-cog fa-spin fa-lg"></i></span>
-            <?php } else { ?>
-                <span class="void_text"><?php echo $text_no; ?></span>
-            <?php } ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_rebate_status; ?></td>
-        <td id="rebate_status">
-            <?php if ($securetrading_pp_order['rebate_status'] == 1) { ?>
-                <span class="rebate_text"><?php echo $text_yes; ?></span>
-            <?php } else { ?>
-                <span class="rebate_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
+  <tr>
+    <td><?php echo $text_order_ref; ?></td>
+    <td><?php echo $securetrading_pp_order['transaction_reference']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_order_total; ?></td>
+    <td><?php echo $securetrading_pp_order['total_formatted']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_total_released; ?></td>
+    <td id="securetrading_pp_total_released"><?php echo $securetrading_pp_order['total_released_formatted']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_release_status; ?></td>
+    <td id="release_status">
+        <?php if ($securetrading_pp_order['release_status'] == 1) { ?>
+          <span class="release_text"><?php echo $text_yes; ?></span>
+      <?php } else { ?>
+          <span class="release_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
+          <?php if ($securetrading_pp_order['void_status'] == 0) { ?>
+              <input type="text" width="10" id="release_amount" value="<?php echo $securetrading_pp_order['total']; ?>"/>
+              <a class="button btn btn-primary" id="btn_release"><?php echo $button_release; ?></a>
+              <span class="btn btn-primary" id="img_loading_release" style="display:none;"><i class="fa fa-cog fa-spin fa-lg"></i></span>
+          <?php } ?>
+      <?php } ?>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_void_status; ?></td>
+    <td id="void_status">
+        <?php if ($securetrading_pp_order['void_status'] == 1) { ?>
+          <span class="void_text"><?php echo $text_yes; ?></span>
+      <?php } elseif ($securetrading_pp_order['void_status'] == 0 && $securetrading_pp_order['release_status'] != 1 && $securetrading_pp_order['rebate_status'] != 1) { ?>
+          <span class="void_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
+          <a class="button btn btn-primary" id="btn_void"><?php echo $button_void; ?></a>
+          <span class="btn btn-primary" id="img_loading_void" style="display:none;"><i class="fa fa-cog fa-spin fa-lg"></i></span>
+      <?php } else { ?>
+          <span class="void_text"><?php echo $text_no; ?></span>
+      <?php } ?>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_rebate_status; ?></td>
+    <td id="rebate_status">
+        <?php if ($securetrading_pp_order['rebate_status'] == 1) { ?>
+          <span class="rebate_text"><?php echo $text_yes; ?></span>
+      <?php } else { ?>
+          <span class="rebate_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
 
-                <?php if ($securetrading_pp_order['total_released'] > 0 && $securetrading_pp_order['void_status'] == 0) { ?>
-                    <input type="text" width="10" id="rebate_amount" />
-                    <a class="button btn btn-primary" id="btn_rebate"><?php echo $button_rebate; ?></a>
-                    <span class="btn btn-primary" id="img_loading_rebate" style="display:none;"><i class="fa fa-cog fa-spin fa-lg"></i></span>
-                <?php } ?>
-            <?php } ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_transactions; ?>:</td>
-        <td>
-            <table class="list" id="securetrading_pp_transactions">
-                <thead>
-                    <tr>
-                        <td class="text-left"><strong><?php echo $text_column_created; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($securetrading_pp_order['transactions'] as $transaction) { ?>
-                        <tr>
-                            <td class="text-left"><?php echo $transaction['created']; ?></td>
-                            <td class="text-left"><?php echo $transaction['type']; ?></td>
-                            <td class="text-left"><?php echo $transaction['amount']; ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </td>
-    </tr>
+          <?php if ($securetrading_pp_order['total_released'] > 0 && $securetrading_pp_order['void_status'] == 0) { ?>
+              <input type="text" width="10" id="rebate_amount" />
+              <a class="button btn btn-primary" id="btn_rebate"><?php echo $button_rebate; ?></a>
+              <span class="btn btn-primary" id="img_loading_rebate" style="display:none;"><i class="fa fa-cog fa-spin fa-lg"></i></span>
+          <?php } ?>
+      <?php } ?>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_transactions; ?>:</td>
+    <td>
+      <table class="list" id="securetrading_pp_transactions">
+        <thead>
+          <tr>
+            <td class="text-left"><strong><?php echo $text_column_created; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
+          </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($securetrading_pp_order['transactions'] as $transaction) { ?>
+              <tr>
+                <td class="text-left"><?php echo $transaction['created']; ?></td>
+                <td class="text-left"><?php echo $transaction['type']; ?></td>
+                <td class="text-left"><?php echo $transaction['amount']; ?></td>
+              </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+    </td>
+  </tr>
 </table>
 <script type="text/javascript"><!--
   $("#btn_void").click(function () {

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-<?php if ($text_version) { // If is logged in      ?>
+<?php if ($text_version) { // If is logged in        ?>
         $('.ck-full').each(function () {
             CKEDITOR.replace($(this).attr('id'), {
                 filebrowserBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $this->session->data['token']; ?>',
