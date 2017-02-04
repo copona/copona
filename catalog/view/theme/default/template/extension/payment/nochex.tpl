@@ -1,15 +1,15 @@
 <form action="<?php echo $action; ?>" method="post">
-  <?php if (!$test) { ?>
-  <input type="hidden" name="merchant_id" value="<?php echo $merchant_id; ?>" />
-  <input type="hidden" name="success_url" value="<?php echo $success_url; ?>" />
-  <input type="hidden" name="cancel_url" value="<?php echo $cancel_url; ?>" />
-  <input type="hidden" name="declined_url" value="<?php echo $declined_url; ?>" />
+    <?php if (!$test) { ?>
+      <input type="hidden" name="merchant_id" value="<?php echo $merchant_id; ?>" />
+      <input type="hidden" name="success_url" value="<?php echo $success_url; ?>" />
+      <input type="hidden" name="cancel_url" value="<?php echo $cancel_url; ?>" />
+      <input type="hidden" name="declined_url" value="<?php echo $declined_url; ?>" />
   <?php } else { ?>
-  <input type="hidden" name="merchant_id" value="nochex_test" />
-  <input type="hidden" name="test_transaction" value="100" />
-  <input type="hidden" name="test_success_url" value="<?php echo $success_url; ?>" />
-  <input type="hidden" name="test_cancel_url" value="<?php echo $cancel_url; ?>" />
-  <input type="hidden" name="test_declined_url" value="<?php echo $declined_url; ?>" />
+      <input type="hidden" name="merchant_id" value="nochex_test" />
+      <input type="hidden" name="test_transaction" value="100" />
+      <input type="hidden" name="test_success_url" value="<?php echo $success_url; ?>" />
+      <input type="hidden" name="test_cancel_url" value="<?php echo $cancel_url; ?>" />
+      <input type="hidden" name="test_declined_url" value="<?php echo $declined_url; ?>" />
   <?php } ?>
   <input type="hidden" name="callback_url" value="<?php echo $callback_url; ?>" />
   <input type="hidden" name="amount" value="<?php echo $amount; ?>" />

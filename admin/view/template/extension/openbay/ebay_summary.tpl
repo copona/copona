@@ -1,79 +1,79 @@
 <?php echo $header; ?><?php echo $column_left; ?>
 <div id="content">
-    <div class="page-header">
-        <div class="container-fluid">
-            <div class="pull-right">
-                <a href="<?php echo $return; ?>" data-toggle="tooltip" title="<?php echo $button_back; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>
-            </div>
-            <h1><?php echo $heading_title; ?></h1>
-            <ul class="breadcrumb">
-                <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-                    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-                <?php } ?>
-            </ul>
-        </div>
-    </div>
+  <div class="page-header">
     <div class="container-fluid">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_summary; ?></h3>
-            </div>
-            <div class="panel-body">
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <p><?php echo $text_use_desc; ?></p>
-                        <div id="selling-limits" class="alert alert-warning" style="display:none;"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-default dsr-table">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-lg"></i> <?php echo $text_report_30; ?></h3>
-                            </div>
-                            <div class="panel-body">
-                                <table class="table" id="dsr-table-30">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th class="text-center"><?php echo $text_score; ?></th>
-                                            <th class="text-center"><?php echo $text_count; ?></th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default dsr-table">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-lg"></i> <?php echo $text_report_52; ?></h3>
-                            </div>
-                            <div class="panel-body">
-                                <table class="table" id="dsr-table-52">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th class="text-center"><?php echo $text_score; ?></th>
-                                            <th class="text-center"><?php echo $text_count; ?></th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="well">
-                    <div class="row">
-                        <div class="col-sm-12 text-right">
-                            <a class="btn btn-primary" id="load-usage"><i class="fa fa-cog fa-lg fa-spin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div class="pull-right">
+        <a href="<?php echo $return; ?>" data-toggle="tooltip" title="<?php echo $button_back; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>
+      </div>
+      <h1><?php echo $heading_title; ?></h1>
+      <ul class="breadcrumb">
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+      </ul>
     </div>
+  </div>
+  <div class="container-fluid">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_summary; ?></h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-12">
+            <p><?php echo $text_use_desc; ?></p>
+            <div id="selling-limits" class="alert alert-warning" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default dsr-table">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-lg"></i> <?php echo $text_report_30; ?></h3>
+              </div>
+              <div class="panel-body">
+                <table class="table" id="dsr-table-30">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th class="text-center"><?php echo $text_score; ?></th>
+                      <th class="text-center"><?php echo $text_count; ?></th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default dsr-table">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-lg"></i> <?php echo $text_report_52; ?></h3>
+              </div>
+              <div class="panel-body">
+                <table class="table" id="dsr-table-52">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th class="text-center"><?php echo $text_score; ?></th>
+                      <th class="text-center"><?php echo $text_count; ?></th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-12 text-right">
+              <a class="btn btn-primary" id="load-usage"><i class="fa fa-cog fa-lg fa-spin"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript"><!--

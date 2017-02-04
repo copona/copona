@@ -1,254 +1,254 @@
 <?php echo $header; ?><?php echo $column_left; ?>
 <div id="content">
-    <div class="page-header">
-        <div class="container-fluid">
-            <div class="pull-right">
-                <button type="submit" form="form-klarna-checkout" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-                <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
-            <h1><?php echo $heading_title; ?></h1>
-            <ul class="breadcrumb">
-                <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-                    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-                <?php } ?>
-            </ul>
-        </div>
-    </div>
+  <div class="page-header">
     <div class="container-fluid">
-        <?php if ($error_warning) { ?>
-            <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-            </div>
+      <div class="pull-right">
+        <button type="submit" form="form-klarna-checkout" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1><?php echo $heading_title; ?></h1>
+      <ul class="breadcrumb">
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
-            </div>
-            <div class="panel-body">
-                <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-klarna-checkout" class="form-horizontal">
-                    <ul class="nav nav-tabs" id="tabs">
-                        <li class="active"><a href="#tab-setting" data-toggle="tab"><?php echo $tab_setting; ?></a></li>
-                        <li><a href="#tab-account" data-toggle="tab"><?php echo $tab_account; ?></a></li>
-                        <li><a href="#tab-settlement" data-toggle="tab"><?php echo $tab_settlement; ?></a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tab-setting">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $entry_version; ?></label>
-                                <div class="col-sm-10" style="padding-top: 9px;">
-                                    <span><?php echo $text_version; ?></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="<?php echo $help_debug; ?>"><?php echo $entry_debug; ?></span></label>
-                                <div class="col-sm-10">
-                                    <select name="klarna_checkout_debug" id="input-debug" class="form-control">
-                                        <?php if ($klarna_checkout_debug) { ?>
-                                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                                            <option value="0"><?php echo $text_disabled; ?></option>
-                                        <?php } else { ?>
-                                            <option value="1"><?php echo $text_enabled; ?></option>
-                                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="klarna_checkout_total" value="<?php echo $klarna_checkout_total; ?>" placeholder="<?php echo $entry_total; ?>" id="input-total" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="input-order-status"><?php echo $entry_order_status; ?></label>
-                                <div class="col-sm-10">
-                                    <select name="klarna_checkout_order_status_id" id="input-order-status" class="form-control">
-                                        <?php foreach ($order_statuses as $order_status) { ?>
-                                            <?php if ($order_status['order_status_id'] == $klarna_checkout_order_status_id) { ?>
-                                                <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
-                                            <?php } else { ?>
-                                                <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
-                                            <?php } ?>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="input-terms"><?php echo $entry_terms; ?></label>
-                                <div class="col-sm-10">
-                                    <select name="klarna_checkout_terms" id="input-terms" class="form-control">
-                                        <?php foreach ($informations as $information) { ?>
-                                            <?php if ($information['information_id'] == $klarna_checkout_terms) { ?>
-                                                <option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
-                                            <?php } else { ?>
-                                                <option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
-                                            <?php } ?>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
-                                <div class="col-sm-10">
-                                    <select name="klarna_checkout_status" id="input-status" class="form-control">
-                                        <?php if ($klarna_checkout_status) { ?>
-                                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                                            <option value="0"><?php echo $text_disabled; ?></option>
-                                        <?php } else { ?>
-                                            <option value="1"><?php echo $text_enabled; ?></option>
-                                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab-account">
-                            <?php if ($error_account_warning) { ?>
-                                <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_account_warning; ?></div>
-                            <?php } ?>
-                            <table id="account" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <td class="text-left required"><?php echo $entry_merchant_id; ?></td>
-                                        <td class="text-left required"><?php echo $entry_secret; ?></td>
-                                        <td class="text-left required"><?php echo $entry_environment; ?></td>
-                                        <td class="text-left required"><?php echo $entry_country; ?></td>
-                                        <td class="text-left required"><span data-toggle="tooltip" title="<?php echo $help_shipping; ?>"><?php echo $entry_shipping; ?></span></td>
-                                        <td class="text-left required"><?php echo $entry_currency; ?></td>
-                                        <td class="text-left required"><span data-toggle="tooltip" title="<?php echo $help_locale; ?>"><?php echo $entry_locale; ?></span></td>
-                                        <td class="text-left required"><span data-toggle="tooltip" title="<?php echo $help_api; ?>"><?php echo $entry_api; ?></span></td>
-                                        <td></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $account_row = 0; ?>
-                                    <?php foreach ($klarna_checkout_account as $key => $account) { ?>
-                                        <tr id="account-row<?php echo $account_row; ?>">
-                                            <td class="text-left">
-                                                <input type="text" name="klarna_checkout_account[<?php echo $account_row; ?>][merchant_id]" placeholder="<?php echo $entry_merchant_id; ?>" class="form-control" value="<?php echo $account['merchant_id']; ?>" />
-                                                <?php if (isset($error_account[$key]['merchant_id'])) { ?>
-                                                    <div class="text-danger"><?php echo $error_account[$key]['merchant_id']; ?></div>
-                                                <?php } ?>
-                                            </td>
-                                            <td class="text-left">
-                                                <input type="text" name="klarna_checkout_account[<?php echo $account_row; ?>][secret]" placeholder="<?php echo $entry_merchant_id; ?>" class="form-control" value="<?php echo $account['secret']; ?>" />
-                                                <?php if (isset($error_account[$key]['secret'])) { ?>
-                                                    <div class="text-danger"><?php echo $error_account[$key]['secret']; ?></div>
-                                                <?php } ?>
-                                            </td>
-                                            <td class="text-left">
-                                                <select name="klarna_checkout_account[<?php echo $account_row; ?>][environment]" class="form-control">
-                                                    <?php if ($account['environment'] == 'live') { ?>
-                                                        <option value="test"><?php echo $text_test; ?></option>
-                                                        <option value="live" selected="selected"><?php echo $text_live; ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="test" selected="selected"><?php echo $text_test; ?></option>
-                                                        <option value="live"><?php echo $text_live; ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </td>
-                                            <td class="text-left">
-                                                <select name="klarna_checkout_account[<?php echo $account_row; ?>][country]" class="form-control">
-                                                    <?php foreach ($countries as $country) { ?>
-                                                        <?php if ($country['country_id'] == $account['country']) { ?>
-                                                            <option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
-                                                        <?php } else { ?>
-                                                            <option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
-                                                        <?php } ?>
-                                                    <?php } ?>
-                                                </select>
-                                            </td>
-                                            <td class="text-left">
-                                                <select name="klarna_checkout_account[<?php echo $account_row; ?>][shipping]" class="form-control">
-                                                    <?php foreach ($geo_zones as $geo_zone) { ?>
-                                                        <?php if ($geo_zone['geo_zone_id'] == $account['shipping']) { ?>
-                                                            <option value="<?php echo $geo_zone['geo_zone_id']; ?>" selected="selected"><?php echo $geo_zone['name']; ?></option>
-                                                        <?php } else { ?>
-                                                            <option value="<?php echo $geo_zone['geo_zone_id']; ?>"><?php echo $geo_zone['name']; ?></option>
-                                                        <?php } ?>
-                                                    <?php } ?>
-                                                </select>
-                                            </td>
-                                            <td class="text-left">
-                                                <select name="klarna_checkout_account[<?php echo $account_row; ?>][currency]" class="form-control">
-                                                    <?php foreach ($currencies as $currency) { ?>
-                                                        <?php if ($currency['code'] == $account['currency']) { ?>
-                                                            <option value="<?php echo $currency['code']; ?>" selected="selected"><?php echo $currency['title']; ?></option>
-                                                        <?php } else { ?>
-                                                            <option value="<?php echo $currency['code']; ?>"><?php echo $currency['title']; ?></option>
-                                                        <?php } ?>
-                                                    <?php } ?>
-                                                </select>
-                                            </td>
-                                            <td class="text-left">
-                                                <input type="text" name="klarna_checkout_account[<?php echo $account_row; ?>][locale]" placeholder="<?php echo $entry_locale; ?>" class="form-control" value="<?php echo $account['locale']; ?>" />
-                                                <?php if (isset($error_account[$key]['locale'])) { ?>
-                                                    <div class="text-danger"><?php echo $error_account[$key]['locale']; ?></div>
-                                                <?php } ?>
-                                            </td>
-                                            <td class="text-left">
-                                                <select name="klarna_checkout_account[<?php echo $account_row; ?>][api]" class="form-control klarna-checkout-api">
-                                                    <?php foreach ($api_locations as $api_location) { ?>
-                                                        <?php if ($api_location['code'] == $account['api']) { ?>
-                                                            <option value="<?php echo $api_location['code']; ?>" selected="selected"><?php echo $api_location['name']; ?></option>
-                                                        <?php } else { ?>
-                                                            <option value="<?php echo $api_location['code']; ?>"><?php echo $api_location['name']; ?></option>
-                                                        <?php } ?>
-                                                    <?php } ?>
-                                                </select>
-                                            </td>
-                                            <td class="text-left"><button type="button" onclick="$('#account-row<?php echo $account_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_account_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
-                                        </tr>
-                                        <?php $account_row++; ?>
-                                    <?php } ?>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="8"></td>
-                                        <td class="text-left"><button type="button" onclick="addAccount();" data-toggle="tooltip" title="<?php echo $button_account_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                        <div class="tab-pane" id="tab-settlement">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="input-sftp-username"><span data-toggle="tooltip" title="<?php echo $help_sftp_username; ?>"><?php echo $entry_sftp_username; ?></span></label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="klarna_checkout_sftp_username" placeholder="<?php echo $entry_sftp_username; ?>" class="form-control" value="<?php echo $klarna_checkout_sftp_username; ?>" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="input-sftp-password"><span data-toggle="tooltip" title="<?php echo $help_sftp_password; ?>"><?php echo $entry_sftp_password; ?></span></label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="klarna_checkout_sftp_password" placeholder="<?php echo $entry_sftp_password; ?>" class="form-control" value="<?php echo $klarna_checkout_sftp_password; ?>" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="input-settlement-order-status"><span data-toggle="tooltip" title="<?php echo $help_settlement_order_status; ?>"><?php echo $entry_settlement_order_status; ?></span></label>
-                                <div class="col-sm-10">
-                                    <select name="klarna_checkout_settlement_order_status_id" id="input-settlement-order-status" class="form-control">
-                                        <?php foreach ($order_statuses as $order_status) { ?>
-                                            <?php if ($order_status['order_status_id'] == $klarna_checkout_settlement_order_status_id) { ?>
-                                                <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
-                                            <?php } else { ?>
-                                                <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
-                                            <?php } ?>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $entry_process_settlement; ?></label>
-                                <div class="col-sm-10">
-                                    <button type="button" id="button-process-settlement" title="<?php echo $button_process_settlement; ?>" class="btn btn-primary"><?php echo $button_process_settlement; ?></button>
-                                </div>
-                            </div>
-                            <div class="settlement-alerts"></div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+      </ul>
     </div>
+  </div>
+  <div class="container-fluid">
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+    <?php } ?>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
+      </div>
+      <div class="panel-body">
+        <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-klarna-checkout" class="form-horizontal">
+          <ul class="nav nav-tabs" id="tabs">
+            <li class="active"><a href="#tab-setting" data-toggle="tab"><?php echo $tab_setting; ?></a></li>
+            <li><a href="#tab-account" data-toggle="tab"><?php echo $tab_account; ?></a></li>
+            <li><a href="#tab-settlement" data-toggle="tab"><?php echo $tab_settlement; ?></a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-setting">
+              <div class="form-group">
+                <label class="col-sm-2 control-label"><?php echo $entry_version; ?></label>
+                <div class="col-sm-10" style="padding-top: 9px;">
+                  <span><?php echo $text_version; ?></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="<?php echo $help_debug; ?>"><?php echo $entry_debug; ?></span></label>
+                <div class="col-sm-10">
+                  <select name="klarna_checkout_debug" id="input-debug" class="form-control">
+                      <?php if ($klarna_checkout_debug) { ?>
+                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                        <option value="0"><?php echo $text_disabled; ?></option>
+                    <?php } else { ?>
+                        <option value="1"><?php echo $text_enabled; ?></option>
+                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
+                <div class="col-sm-10">
+                  <input type="text" name="klarna_checkout_total" value="<?php echo $klarna_checkout_total; ?>" placeholder="<?php echo $entry_total; ?>" id="input-total" class="form-control" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-order-status"><?php echo $entry_order_status; ?></label>
+                <div class="col-sm-10">
+                  <select name="klarna_checkout_order_status_id" id="input-order-status" class="form-control">
+                      <?php foreach ($order_statuses as $order_status) { ?>
+                          <?php if ($order_status['order_status_id'] == $klarna_checkout_order_status_id) { ?>
+                            <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
+                        <?php } else { ?>
+                            <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
+                        <?php } ?>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-terms"><?php echo $entry_terms; ?></label>
+                <div class="col-sm-10">
+                  <select name="klarna_checkout_terms" id="input-terms" class="form-control">
+                      <?php foreach ($informations as $information) { ?>
+                          <?php if ($information['information_id'] == $klarna_checkout_terms) { ?>
+                            <option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
+                        <?php } else { ?>
+                            <option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
+                        <?php } ?>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+                <div class="col-sm-10">
+                  <select name="klarna_checkout_status" id="input-status" class="form-control">
+                      <?php if ($klarna_checkout_status) { ?>
+                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                        <option value="0"><?php echo $text_disabled; ?></option>
+                    <?php } else { ?>
+                        <option value="1"><?php echo $text_enabled; ?></option>
+                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab-account">
+                <?php if ($error_account_warning) { ?>
+                  <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_account_warning; ?></div>
+              <?php } ?>
+              <table id="account" class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <td class="text-left required"><?php echo $entry_merchant_id; ?></td>
+                    <td class="text-left required"><?php echo $entry_secret; ?></td>
+                    <td class="text-left required"><?php echo $entry_environment; ?></td>
+                    <td class="text-left required"><?php echo $entry_country; ?></td>
+                    <td class="text-left required"><span data-toggle="tooltip" title="<?php echo $help_shipping; ?>"><?php echo $entry_shipping; ?></span></td>
+                    <td class="text-left required"><?php echo $entry_currency; ?></td>
+                    <td class="text-left required"><span data-toggle="tooltip" title="<?php echo $help_locale; ?>"><?php echo $entry_locale; ?></span></td>
+                    <td class="text-left required"><span data-toggle="tooltip" title="<?php echo $help_api; ?>"><?php echo $entry_api; ?></span></td>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                    <?php $account_row = 0; ?>
+                    <?php foreach ($klarna_checkout_account as $key => $account) { ?>
+                      <tr id="account-row<?php echo $account_row; ?>">
+                        <td class="text-left">
+                          <input type="text" name="klarna_checkout_account[<?php echo $account_row; ?>][merchant_id]" placeholder="<?php echo $entry_merchant_id; ?>" class="form-control" value="<?php echo $account['merchant_id']; ?>" />
+                          <?php if (isset($error_account[$key]['merchant_id'])) { ?>
+                              <div class="text-danger"><?php echo $error_account[$key]['merchant_id']; ?></div>
+                          <?php } ?>
+                        </td>
+                        <td class="text-left">
+                          <input type="text" name="klarna_checkout_account[<?php echo $account_row; ?>][secret]" placeholder="<?php echo $entry_merchant_id; ?>" class="form-control" value="<?php echo $account['secret']; ?>" />
+                          <?php if (isset($error_account[$key]['secret'])) { ?>
+                              <div class="text-danger"><?php echo $error_account[$key]['secret']; ?></div>
+                          <?php } ?>
+                        </td>
+                        <td class="text-left">
+                          <select name="klarna_checkout_account[<?php echo $account_row; ?>][environment]" class="form-control">
+                              <?php if ($account['environment'] == 'live') { ?>
+                                <option value="test"><?php echo $text_test; ?></option>
+                                <option value="live" selected="selected"><?php echo $text_live; ?></option>
+                            <?php } else { ?>
+                                <option value="test" selected="selected"><?php echo $text_test; ?></option>
+                                <option value="live"><?php echo $text_live; ?></option>
+                            <?php } ?>
+                          </select>
+                        </td>
+                        <td class="text-left">
+                          <select name="klarna_checkout_account[<?php echo $account_row; ?>][country]" class="form-control">
+                              <?php foreach ($countries as $country) { ?>
+                                  <?php if ($country['country_id'] == $account['country']) { ?>
+                                    <option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
+                                <?php } else { ?>
+                                    <option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                          </select>
+                        </td>
+                        <td class="text-left">
+                          <select name="klarna_checkout_account[<?php echo $account_row; ?>][shipping]" class="form-control">
+                              <?php foreach ($geo_zones as $geo_zone) { ?>
+                                  <?php if ($geo_zone['geo_zone_id'] == $account['shipping']) { ?>
+                                    <option value="<?php echo $geo_zone['geo_zone_id']; ?>" selected="selected"><?php echo $geo_zone['name']; ?></option>
+                                <?php } else { ?>
+                                    <option value="<?php echo $geo_zone['geo_zone_id']; ?>"><?php echo $geo_zone['name']; ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                          </select>
+                        </td>
+                        <td class="text-left">
+                          <select name="klarna_checkout_account[<?php echo $account_row; ?>][currency]" class="form-control">
+                              <?php foreach ($currencies as $currency) { ?>
+                                  <?php if ($currency['code'] == $account['currency']) { ?>
+                                    <option value="<?php echo $currency['code']; ?>" selected="selected"><?php echo $currency['title']; ?></option>
+                                <?php } else { ?>
+                                    <option value="<?php echo $currency['code']; ?>"><?php echo $currency['title']; ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                          </select>
+                        </td>
+                        <td class="text-left">
+                          <input type="text" name="klarna_checkout_account[<?php echo $account_row; ?>][locale]" placeholder="<?php echo $entry_locale; ?>" class="form-control" value="<?php echo $account['locale']; ?>" />
+                          <?php if (isset($error_account[$key]['locale'])) { ?>
+                              <div class="text-danger"><?php echo $error_account[$key]['locale']; ?></div>
+                          <?php } ?>
+                        </td>
+                        <td class="text-left">
+                          <select name="klarna_checkout_account[<?php echo $account_row; ?>][api]" class="form-control klarna-checkout-api">
+                              <?php foreach ($api_locations as $api_location) { ?>
+                                  <?php if ($api_location['code'] == $account['api']) { ?>
+                                    <option value="<?php echo $api_location['code']; ?>" selected="selected"><?php echo $api_location['name']; ?></option>
+                                <?php } else { ?>
+                                    <option value="<?php echo $api_location['code']; ?>"><?php echo $api_location['name']; ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                          </select>
+                        </td>
+                        <td class="text-left"><button type="button" onclick="$('#account-row<?php echo $account_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_account_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                      </tr>
+                      <?php $account_row++; ?>
+                  <?php } ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="8"></td>
+                    <td class="text-left"><button type="button" onclick="addAccount();" data-toggle="tooltip" title="<?php echo $button_account_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="tab-pane" id="tab-settlement">
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-sftp-username"><span data-toggle="tooltip" title="<?php echo $help_sftp_username; ?>"><?php echo $entry_sftp_username; ?></span></label>
+                <div class="col-sm-10">
+                  <input type="text" name="klarna_checkout_sftp_username" placeholder="<?php echo $entry_sftp_username; ?>" class="form-control" value="<?php echo $klarna_checkout_sftp_username; ?>" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-sftp-password"><span data-toggle="tooltip" title="<?php echo $help_sftp_password; ?>"><?php echo $entry_sftp_password; ?></span></label>
+                <div class="col-sm-10">
+                  <input type="text" name="klarna_checkout_sftp_password" placeholder="<?php echo $entry_sftp_password; ?>" class="form-control" value="<?php echo $klarna_checkout_sftp_password; ?>" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-settlement-order-status"><span data-toggle="tooltip" title="<?php echo $help_settlement_order_status; ?>"><?php echo $entry_settlement_order_status; ?></span></label>
+                <div class="col-sm-10">
+                  <select name="klarna_checkout_settlement_order_status_id" id="input-settlement-order-status" class="form-control">
+                      <?php foreach ($order_statuses as $order_status) { ?>
+                          <?php if ($order_status['order_status_id'] == $klarna_checkout_settlement_order_status_id) { ?>
+                            <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
+                        <?php } else { ?>
+                            <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
+                        <?php } ?>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label"><?php echo $entry_process_settlement; ?></label>
+                <div class="col-sm-10">
+                  <button type="button" id="button-process-settlement" title="<?php echo $button_process_settlement; ?>" class="btn btn-primary"><?php echo $button_process_settlement; ?></button>
+                </div>
+              </div>
+              <div class="settlement-alerts"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 <script type="text/javascript"><!--
 $('.klarna-checkout-api').on('change', function () {

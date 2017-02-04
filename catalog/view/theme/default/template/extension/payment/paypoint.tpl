@@ -3,7 +3,7 @@
   <input type="hidden" name="trans_id" value="<?php echo $trans_id; ?>" />
   <input type="hidden" name="amount" value="<?php echo $amount; ?>" />
   <?php if ($digest) { ?>
-  <input type="hidden" name="digest" value="<?php echo $digest; ?>" />
+      <input type="hidden" name="digest" value="<?php echo $digest; ?>" />
   <?php } ?>
   <input type="hidden" name="bill_name" value="<?php echo $bill_name; ?>" />
   <input type="hidden" name="bill_addr_1" value="<?php echo $bill_addr_1; ?>" />

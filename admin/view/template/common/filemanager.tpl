@@ -1,49 +1,49 @@
 <div id="filemanager" class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"><?php echo $heading_title; ?></h4>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-sm-5"><a href="<?php echo $parent; ?>" data-toggle="tooltip" title="<?php echo $button_parent; ?>" id="button-parent" class="btn btn-default"><i class="fa fa-level-up"></i></a> <a href="<?php echo $refresh; ?>" data-toggle="tooltip" title="<?php echo $button_refresh; ?>" id="button-refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
-                    <button type="button" data-toggle="tooltip" title="<?php echo $button_upload; ?>" id="button-upload" class="btn btn-primary"><i class="fa fa-upload"></i></button>
-                    <button type="button" data-toggle="tooltip" title="<?php echo $button_folder; ?>" id="button-folder" class="btn btn-default"><i class="fa fa-folder"></i></button>
-                    <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>" id="button-delete" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                </div>
-                <div class="col-sm-7">
-                    <div class="input-group">
-                        <input type="text" name="search" value="<?php echo $filter_name; ?>" placeholder="<?php echo $entry_search; ?>" class="form-control">
-                        <span class="input-group-btn">
-                            <button type="button" data-toggle="tooltip" title="<?php echo $button_search; ?>" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                        </span></div>
-                </div>
-            </div>
-            <hr />
-            <?php foreach (array_chunk($images, 4) as $image) { ?>
-                <div class="row">
-                    <?php foreach ($image as $image) { ?>
-                        <div class="col-sm-3 col-xs-6 text-center">
-                            <?php if ($image['type'] == 'directory') { ?>
-                                <div class="text-center"><a href="<?php echo $image['href']; ?>" class="directory" style="vertical-align: middle;"><i class="fa fa-folder fa-5x"></i></a></div>
-                                <label>
-                                    <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
-                                    <?php echo $image['name']; ?></label>
-                            <?php } ?>
-                            <?php if ($image['type'] == 'image') { ?>
-                                <a href="<?php echo $image['href']; ?>" class="thumbnail"><img src="<?php echo $image['thumb']; ?>" alt="<?php echo $image['name']; ?>" title="<?php echo $image['name']; ?>" /></a>
-                                <label>
-                                    <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
-                                    <?php echo $image['name']; ?></label>
-                            <?php } ?>
-                        </div>
-                    <?php } ?>
-                </div>
-                <br />
-            <?php } ?>
-        </div>
-        <div class="modal-footer"><?php echo $pagination; ?></div>
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title"><?php echo $heading_title; ?></h4>
     </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-5"><a href="<?php echo $parent; ?>" data-toggle="tooltip" title="<?php echo $button_parent; ?>" id="button-parent" class="btn btn-default"><i class="fa fa-level-up"></i></a> <a href="<?php echo $refresh; ?>" data-toggle="tooltip" title="<?php echo $button_refresh; ?>" id="button-refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+          <button type="button" data-toggle="tooltip" title="<?php echo $button_upload; ?>" id="button-upload" class="btn btn-primary"><i class="fa fa-upload"></i></button>
+          <button type="button" data-toggle="tooltip" title="<?php echo $button_folder; ?>" id="button-folder" class="btn btn-default"><i class="fa fa-folder"></i></button>
+          <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>" id="button-delete" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+        </div>
+        <div class="col-sm-7">
+          <div class="input-group">
+            <input type="text" name="search" value="<?php echo $filter_name; ?>" placeholder="<?php echo $entry_search; ?>" class="form-control">
+            <span class="input-group-btn">
+              <button type="button" data-toggle="tooltip" title="<?php echo $button_search; ?>" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button>
+            </span></div>
+        </div>
+      </div>
+      <hr />
+      <?php foreach (array_chunk($images, 4) as $image) { ?>
+          <div class="row">
+              <?php foreach ($image as $image) { ?>
+                <div class="col-sm-3 col-xs-6 text-center">
+                    <?php if ($image['type'] == 'directory') { ?>
+                      <div class="text-center"><a href="<?php echo $image['href']; ?>" class="directory" style="vertical-align: middle;"><i class="fa fa-folder fa-5x"></i></a></div>
+                      <label>
+                        <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
+                        <?php echo $image['name']; ?></label>
+                  <?php } ?>
+                  <?php if ($image['type'] == 'image') { ?>
+                      <a href="<?php echo $image['href']; ?>" class="thumbnail"><img src="<?php echo $image['thumb']; ?>" alt="<?php echo $image['name']; ?>" title="<?php echo $image['name']; ?>" /></a>
+                      <label>
+                        <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
+                        <?php echo $image['name']; ?></label>
+                  <?php } ?>
+                </div>
+            <?php } ?>
+          </div>
+          <br />
+      <?php } ?>
+    </div>
+    <div class="modal-footer"><?php echo $pagination; ?></div>
+  </div>
 </div>
 <script type="text/javascript"><!--
 

@@ -6,8 +6,8 @@
       <label class="col-sm-2 control-label" for="input-type"><?php echo $entry_type; ?></label>
       <div class="col-sm-10">
         <select name="type" id="input-type" class="form-control">
-          <?php foreach ($cards as $key => $title) { ?>
-            <option value="<?php echo $key; ?>"><?php echo $title; ?></option>
+            <?php foreach ($cards as $key => $title) { ?>
+              <option value="<?php echo $key; ?>"><?php echo $title; ?></option>
           <?php } ?>
         </select>
       </div>
@@ -24,15 +24,15 @@
       <label class="col-sm-2 control-label" for="input-expire-date"><?php echo $entry_expire_date; ?></label>
       <div class="col-sm-3">
         <select name="expire_month" id="expire-date" class="form-control">
-          <?php foreach ($months as $month) { ?>
-          <option value="<?php echo $month['value']; ?>"><?php echo $month['text']; ?></option>
+            <?php foreach ($months as $month) { ?>
+              <option value="<?php echo $month['value']; ?>"><?php echo $month['text']; ?></option>
           <?php } ?>
         </select>
       </div>
       <div class="col-sm-3">
         <select name="expire_year" class="form-control">
-          <?php foreach ($year_expire as $year) { ?>
-          <option value="<?php echo $year['value']; ?>"><?php echo $year['text']; ?></option>
+            <?php foreach ($year_expire as $year) { ?>
+              <option value="<?php echo $year['value']; ?>"><?php echo $year['text']; ?></option>
           <?php } ?>
         </select>
       </div>
@@ -53,36 +53,34 @@
   </div>
 </div>
 <script type="text/javascript">
-$('#button-confirm').bind('click', function() {
-    $.ajax({
-        url: 'index.php?route=extension/payment/securetrading_ws/process',
-        type: 'post',
-        data: $('#payment :input'),
-        dataType: 'json',
+    $('#button-confirm').bind('click', function () {
+        $.ajax({
+            url: 'index.php?route=extension/payment/securetrading_ws/process',
+            type: 'post',
+            data: $('#payment :input'),
+            dataType: 'json',
+            beforeSend: function () {
+                $('#button-confirm').attr('disabled', true);
+                $('form.form-horizontal .alert').remove();
+                $('#payment').before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $text_wait; ?></div>');
+            },
+            complete: function () {
+                $('#button-confirm').attr('disabled', false);
+            },
+            success: function (json) {
+                $('form.form-horizontal .alert').remove();
 
-    beforeSend: function() {
-        $('#button-confirm').attr('disabled', true);
-        $('form.form-horizontal .alert').remove();
-        $('#payment').before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $text_wait; ?></div>');
-    },
-
-    complete: function() {
-        $('#button-confirm').attr('disabled', false);
-    },
-    success: function(json) {
-        $('form.form-horizontal .alert').remove();
-
-        if (json['status']) {
-            if (json['redirect']) {
-                location = json['redirect'];
-            } else {
-                $('#payment').before('<form id="threed-form" action="' + json['acs_url'] + '" method="POST"><input type="hidden" name="PaReq" value="' + json['pareq'] + '" /><input type="hidden" name="MD" value="' + json['md'] + '" /><input type="hidden" name="TermUrl" value="' + json['term_url'] + '" /></form>');
-                $('#threed-form').submit();
+                if (json['status']) {
+                    if (json['redirect']) {
+                        location = json['redirect'];
+                    } else {
+                        $('#payment').before('<form id="threed-form" action="' + json['acs_url'] + '" method="POST"><input type="hidden" name="PaReq" value="' + json['pareq'] + '" /><input type="hidden" name="MD" value="' + json['md'] + '" /><input type="hidden" name="TermUrl" value="' + json['term_url'] + '" /></form>');
+                        $('#threed-form').submit();
+                    }
+                } else {
+                    $('#payment').before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + json['message'] + '</div>');
+                }
             }
-        } else {
-            $('#payment').before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + json['message'] + '</div>');
-        }
-    }
-  });
-});
+        });
+    });
 </script>

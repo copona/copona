@@ -1,79 +1,79 @@
 <?php echo $header; ?><?php echo $column_left; ?>
 <div id="content">
-    <div class="page-header">
-        <div class="container-fluid">
-            <div class="pull-right">
-                <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
-            <h1><?php echo $heading_title; ?></h1>
-            <ul class="breadcrumb">
-                <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-                    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-                <?php } ?>
-            </ul>
-        </div>
-    </div>
+  <div class="page-header">
     <div class="container-fluid">
-        <form id="product-form">
-            <div class="alert alert-info">
-                <p><?php echo $text_desc1; ?></p>
-                <p><?php echo $text_desc2; ?></p>
-                <p><?php echo $text_desc3; ?></p>
-            </div>
-            <div class="well">
-                <div class="row">
-                    <div class="col-sm-12 text-right">
-                        <a class="btn btn-primary" id="button-load"><?php echo $button_load; ?></a>
-                    </div>
-                </div>
-            </div>
-            <table class="table table-bordered table-hover">
-                <thead id="table-head-1">
-                    <tr>
-                        <th class="text-center" colspan="3"><h4><?php echo $text_new_link; ?></h4></th>
-                    </tr>
-                </thead>
-                <thead id="table-head-2">
-                    <tr>
-                        <th class="text-right"><?php echo $text_autocomplete_product; ?></th>
-                        <th class="text-left"><?php echo $text_amazon_sku; ?></th>
-                        <th class="text-center"><?php echo $text_action; ?></th>
-                    </tr>
-                </thead>
-                <tbody id="unlinked-items">
-                    <tr>
-                        <td class="text-right">
-                            <input type="hidden" id="new-product-id">
-                            <input id="new-product" type="text" class="form-control" autocomplete="off">
-                        </td>
-                        <td>
-                            <input id="new-amazon-sku" type="text" class="form-control" autocomplete="off">
-                        </td>
-                        <td class="text-center">
-                            <a class="btn btn-primary" id="add-new-button" onclick="addNewLinkAutocomplete()" data-toggle="tooltip" data-original-title="<?php echo $button_add; ?>"><i class="fa fa-plus-circle"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th class="text-center" colspan="6"><h4><?php echo $text_linked_items; ?></h4></th>
-                    </tr>
-                </thead>
-                <thead>
-                    <tr>
-                        <th><?php echo $text_name; ?></th>
-                        <th><?php echo $text_sku; ?></th>
-                        <th><?php echo $text_model; ?></th>
-                        <th><?php echo $text_combination; ?></th>
-                        <th><?php echo $text_amazon_sku; ?></th>
-                        <th class="text-center"><?php echo $text_action; ?></th>
-                    </tr>
-                </thead>
-                <tbody id="linked-items"></tbody>
-            </table>
-        </form>
+      <div class="pull-right">
+        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1><?php echo $heading_title; ?></h1>
+      <ul class="breadcrumb">
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+      </ul>
     </div>
+  </div>
+  <div class="container-fluid">
+    <form id="product-form">
+      <div class="alert alert-info">
+        <p><?php echo $text_desc1; ?></p>
+        <p><?php echo $text_desc2; ?></p>
+        <p><?php echo $text_desc3; ?></p>
+      </div>
+      <div class="well">
+        <div class="row">
+          <div class="col-sm-12 text-right">
+            <a class="btn btn-primary" id="button-load"><?php echo $button_load; ?></a>
+          </div>
+        </div>
+      </div>
+      <table class="table table-bordered table-hover">
+        <thead id="table-head-1">
+          <tr>
+            <th class="text-center" colspan="3"><h4><?php echo $text_new_link; ?></h4></th>
+          </tr>
+        </thead>
+        <thead id="table-head-2">
+          <tr>
+            <th class="text-right"><?php echo $text_autocomplete_product; ?></th>
+            <th class="text-left"><?php echo $text_amazon_sku; ?></th>
+            <th class="text-center"><?php echo $text_action; ?></th>
+          </tr>
+        </thead>
+        <tbody id="unlinked-items">
+          <tr>
+            <td class="text-right">
+              <input type="hidden" id="new-product-id">
+              <input id="new-product" type="text" class="form-control" autocomplete="off">
+            </td>
+            <td>
+              <input id="new-amazon-sku" type="text" class="form-control" autocomplete="off">
+            </td>
+            <td class="text-center">
+              <a class="btn btn-primary" id="add-new-button" onclick="addNewLinkAutocomplete()" data-toggle="tooltip" data-original-title="<?php echo $button_add; ?>"><i class="fa fa-plus-circle"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="text-center" colspan="6"><h4><?php echo $text_linked_items; ?></h4></th>
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th><?php echo $text_name; ?></th>
+            <th><?php echo $text_sku; ?></th>
+            <th><?php echo $text_model; ?></th>
+            <th><?php echo $text_combination; ?></th>
+            <th><?php echo $text_amazon_sku; ?></th>
+            <th class="text-center"><?php echo $text_action; ?></th>
+          </tr>
+        </thead>
+        <tbody id="linked-items"></tbody>
+      </table>
+    </form>
+  </div>
 </div>
 <script type="text/javascript"><!--
 $(document).ready(function () {
