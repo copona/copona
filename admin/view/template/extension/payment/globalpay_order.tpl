@@ -1,84 +1,84 @@
 <h2><?php echo $text_payment_info; ?></h2>
 <div class="alert alert-success" id="globalpay-transaction-msg" style="display:none;"></div>
 <table class="table table-striped table-bordered">
-    <tr>
-        <td><?php echo $text_order_ref; ?></td>
-        <td><?php echo $globalpay_order['order_ref']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_order_total; ?></td>
-        <td><?php echo $globalpay_order['total_formatted']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_total_captured; ?></td>
-        <td id="globalpay-total-captured"><?php echo $globalpay_order['total_captured_formatted']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_capture_status; ?></td>
-        <td id="capture_status">
-            <?php if ($globalpay_order['capture_status'] == 1) { ?>
-                <span class="capture-text"><?php echo $text_yes; ?></span>
-            <?php } else { ?>
-                <span class="capture-text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
-                <?php if ($globalpay_order['void_status'] == 0) { ?>
-                    <input type="text" width="10" id="capture-amount" value="<?php echo $globalpay_order['total']; ?>"/>
-                    <a class="button btn btn-primary" id="button-capture"><?php echo $button_capture; ?></a>
-                    <span class="btn btn-primary" id="loading-capture" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
-                <?php } ?>
-            <?php } ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_void_status; ?></td>
-        <td id="void_status">
-            <?php if ($globalpay_order['void_status'] == 1) { ?>
-                <span class="void_text"><?php echo $text_yes; ?></span>
-            <?php } else { ?>
-                <span class="void_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
-                <a class="button btn btn-primary" id="button-void"><?php echo $button_void; ?></a>
-                <span class="btn btn-primary" id="loading-void" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
-            <?php } ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_rebate_status; ?></td>
-        <td id="rebate_status">
-            <?php if ($globalpay_order['rebate_status'] == 1) { ?>
-                <span class="rebate_text"><?php echo $text_yes; ?></span>
-            <?php } else { ?>
-                <span class="rebate_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
+  <tr>
+    <td><?php echo $text_order_ref; ?></td>
+    <td><?php echo $globalpay_order['order_ref']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_order_total; ?></td>
+    <td><?php echo $globalpay_order['total_formatted']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_total_captured; ?></td>
+    <td id="globalpay-total-captured"><?php echo $globalpay_order['total_captured_formatted']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_capture_status; ?></td>
+    <td id="capture_status">
+        <?php if ($globalpay_order['capture_status'] == 1) { ?>
+          <span class="capture-text"><?php echo $text_yes; ?></span>
+      <?php } else { ?>
+          <span class="capture-text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
+          <?php if ($globalpay_order['void_status'] == 0) { ?>
+              <input type="text" width="10" id="capture-amount" value="<?php echo $globalpay_order['total']; ?>"/>
+              <a class="button btn btn-primary" id="button-capture"><?php echo $button_capture; ?></a>
+              <span class="btn btn-primary" id="loading-capture" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+          <?php } ?>
+      <?php } ?>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_void_status; ?></td>
+    <td id="void_status">
+        <?php if ($globalpay_order['void_status'] == 1) { ?>
+          <span class="void_text"><?php echo $text_yes; ?></span>
+      <?php } else { ?>
+          <span class="void_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
+          <a class="button btn btn-primary" id="button-void"><?php echo $button_void; ?></a>
+          <span class="btn btn-primary" id="loading-void" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+      <?php } ?>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_rebate_status; ?></td>
+    <td id="rebate_status">
+        <?php if ($globalpay_order['rebate_status'] == 1) { ?>
+          <span class="rebate_text"><?php echo $text_yes; ?></span>
+      <?php } else { ?>
+          <span class="rebate_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
 
-                <?php if ($globalpay_order['total_captured'] > 0 && $globalpay_order['void_status'] == 0) { ?>
-                    <input type="text" width="10" id="rebate-amount" />
-                    <a class="button btn btn-primary" id="button-rebate"><?php echo $button_rebate; ?></a>
-                    <span class="btn btn-primary" id="loading-rebate" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
-                <?php } ?>
-            <?php } ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_transactions; ?>:</td>
-        <td>
-            <table class="table table-striped table-bordered" id="globalpay-transactions">
-                <thead>
-                    <tr>
-                        <td class="text-left"><strong><?php echo $text_column_date_added; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($globalpay_order['transactions'] as $transaction) { ?>
-                        <tr>
-                            <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-                            <td class="text-left"><?php echo $transaction['type']; ?></td>
-                            <td class="text-left"><?php echo $transaction['amount']; ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </td>
-    </tr>
+          <?php if ($globalpay_order['total_captured'] > 0 && $globalpay_order['void_status'] == 0) { ?>
+              <input type="text" width="10" id="rebate-amount" />
+              <a class="button btn btn-primary" id="button-rebate"><?php echo $button_rebate; ?></a>
+              <span class="btn btn-primary" id="loading-rebate" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+          <?php } ?>
+      <?php } ?>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_transactions; ?>:</td>
+    <td>
+      <table class="table table-striped table-bordered" id="globalpay-transactions">
+        <thead>
+          <tr>
+            <td class="text-left"><strong><?php echo $text_column_date_added; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
+          </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($globalpay_order['transactions'] as $transaction) { ?>
+              <tr>
+                <td class="text-left"><?php echo $transaction['date_added']; ?></td>
+                <td class="text-left"><?php echo $transaction['type']; ?></td>
+                <td class="text-left"><?php echo $transaction['amount']; ?></td>
+              </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+    </td>
+  </tr>
 </table>
 <script type="text/javascript"><!--
   $("#button-void").click(function () {

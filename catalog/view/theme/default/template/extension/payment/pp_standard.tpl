@@ -1,5 +1,5 @@
 <?php if ($testmode) { ?>
-  <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $text_testmode; ?></div>
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $text_testmode; ?></div>
 <?php } ?>
 <form action="<?php echo $action; ?>" method="post">
   <input type="hidden" name="cmd" value="_cart" />
@@ -14,15 +14,15 @@
   <input type="hidden" name="weight_<?php echo $i; ?>" value="<?php echo $product['weight']; ?>" />
   <?php $j = 0; ?>
   <?php foreach ($product['option'] as $option) { ?>
-  <input type="hidden" name="on<?php echo $j; ?>_<?php echo $i; ?>" value="<?php echo $option['name']; ?>" />
+  <input t ype="hidden" name="on<?php echo $j; ?>_<?php echo $i; ?>" value="<?php echo $option['name']; ?>" />
   <input type="hidden" name="os<?php echo $j; ?>_<?php echo $i; ?>" value="<?php echo $option['value']; ?>" />
   <?php $j++; ?>
   <?php } ?>
   <?php $i++; ?>
-  <?php } ?>
-  <?php if ($discount_amount_cart) { ?>
-    <input type="hidden" name="discount_amount_cart" value="<?php echo $discount_amount_cart; ?>" />
-  <?php } ?>
+<?php } ?>
+<?php if ($discount_amount_cart) { ?>
+  <input type="hidden" name="discount_amount_cart" value="<?php echo $discount_amount_cart; ?>" />
+<?php } ?>
   <input type="hidden" name="currency_code" value="<?php echo $currency_code; ?>" />
   <input type="hidden" name="first_name" value="<?php echo $first_name; ?>" />
   <input type="hidden" name="last_name" value="<?php echo $last_name; ?>" />

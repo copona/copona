@@ -74,4 +74,11 @@ $_['text_news'] = 'News';
 $_['text_for_professionals'] = 'For professionals';
 $_['text_bestsellers'] = 'Bestsellers';
 $_['button_add_address'] = 'show all';
-?>
+$_['text_how_to_buy'] = 'How to buy?';
+$_['text_see_all'] = 'view all';
+$_['button_add_product'] = 'Add product';
+$_['text_our_partners'] = 'Partners';
+$_['text_catalog'] = 'Products';
+$_['text_specials'] = 'Promotions';
+$_['text_about_us'] = 'About us';
+$_['text_contacts'] = 'Contacts';

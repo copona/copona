@@ -4,7 +4,7 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#button-confirm').on('click', function() {
-	$('#button-confirm').button('loading');
-});
+$('#button-confirm').on('click', function () {
+        $('#button-confirm').button('loading');
+    });
 //--></script>

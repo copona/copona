@@ -1,54 +1,54 @@
 <fieldset>
-    <legend><?php echo $text_transaction; ?></legend>
-    <div id="paypal-transaction"></div>
+  <legend><?php echo $text_transaction; ?></legend>
+  <div id="paypal-transaction"></div>
 </fieldset>
 
 <fieldset>
-    <legend><?php echo $text_payment; ?></legend>
-    <table class="table table-bordered">
-        <tr>
-            <td><?php echo $text_capture_status; ?></td>
-            <td id="capture-status"><?php echo $capture_status; ?></td>
-        </tr>
-        <tr>
-            <td><?php echo $text_amount_authorised; ?></td>
-            <td><?php echo $total; ?>
-                <?php if ($capture_status != 'Complete') { ?>
-                    &nbsp;&nbsp;&nbsp;
-                    <button type="button" id="button-void" data-loading="<?php echo $text_loading; ?>" class="btn btn-danger"><?php echo $button_void; ?></button>
-                <?php } ?></td>
-        </tr>
-        <tr>
-            <td><?php echo $text_amount_captured; ?></td>
-            <td id="paypal-captured"><?php echo $captured; ?></td>
-        </tr>
-        <tr>
-            <td><?php echo $text_amount_refunded; ?></td>
-            <td id="paypal-refund"><?php echo $refunded; ?></td>
-        </tr>
-    </table>
+  <legend><?php echo $text_payment; ?></legend>
+  <table class="table table-bordered">
+    <tr>
+      <td><?php echo $text_capture_status; ?></td>
+      <td id="capture-status"><?php echo $capture_status; ?></td>
+    </tr>
+    <tr>
+      <td><?php echo $text_amount_authorised; ?></td>
+      <td><?php echo $total; ?>
+          <?php if ($capture_status != 'Complete') { ?>
+            &nbsp;&nbsp;&nbsp;
+            <button type="button" id="button-void" data-loading="<?php echo $text_loading; ?>" class="btn btn-danger"><?php echo $button_void; ?></button>
+        <?php } ?></td>
+    </tr>
+    <tr>
+      <td><?php echo $text_amount_captured; ?></td>
+      <td id="paypal-captured"><?php echo $captured; ?></td>
+    </tr>
+    <tr>
+      <td><?php echo $text_amount_refunded; ?></td>
+      <td id="paypal-refund"><?php echo $refunded; ?></td>
+    </tr>
+  </table>
 </fieldset>
 
 <?php if ($capture_status != 'Complete') { ?>
     <fieldset id="capture-form">
-        <legend><?php echo $tab_capture; ?></legend>
-        <form id="paypal-capture" class="form-horizontal">
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-capture-amount"><?php echo $entry_capture_amount; ?></label>
-                <div class="col-sm-10">
-                    <input type="text" name="amount" value="<?php echo $capture_remaining; ?>" id="input-capture-amount" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-capture-complete"><?php echo $entry_capture_complete; ?></label>
-                <div class="col-sm-10">
-                    <input type="checkbox" name="complete" value="1" id="input-capture-complete" class="form-control" />
-                </div>
-            </div>
-            <div class="pull-right">
-                <button type="button" id="button-capture" data-loading="<?php echo $text_loading; ?>" class="btn btn-primary"><?php echo $button_capture; ?></button>
-            </div>
-        </form>
+      <legend><?php echo $tab_capture; ?></legend>
+      <form id="paypal-capture" class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="input-capture-amount"><?php echo $entry_capture_amount; ?></label>
+          <div class="col-sm-10">
+            <input type="text" name="amount" value="<?php echo $capture_remaining; ?>" id="input-capture-amount" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="input-capture-complete"><?php echo $entry_capture_complete; ?></label>
+          <div class="col-sm-10">
+            <input type="checkbox" name="complete" value="1" id="input-capture-complete" class="form-control" />
+          </div>
+        </div>
+        <div class="pull-right">
+          <button type="button" id="button-capture" data-loading="<?php echo $text_loading; ?>" class="btn btn-primary"><?php echo $button_capture; ?></button>
+        </div>
+      </form>
     </fieldset>
 <?php } ?>
 <script type="text/javascript"><!--

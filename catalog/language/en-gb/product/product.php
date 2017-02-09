@@ -1,5 +1,4 @@
 <?php
-// Text
 $_['text_search'] = 'Search';
 $_['text_brand'] = 'Brand';
 $_['text_manufacturer'] = 'Brand:';
@@ -30,21 +29,16 @@ $_['text_week'] = 'week';
 $_['text_semi_month'] = 'half-month';
 $_['text_month'] = 'month';
 $_['text_year'] = 'year';
-
-// Entry
 $_['entry_qty'] = 'Qty';
 $_['entry_name'] = 'Your Name';
 $_['entry_review'] = 'Your Review';
 $_['entry_rating'] = 'Rating';
 $_['entry_good'] = 'Good';
 $_['entry_bad'] = 'Bad';
-
-// Tabs
 $_['tab_description'] = 'Description';
 $_['tab_attribute'] = 'Specification';
 $_['tab_review'] = 'Reviews (%s)';
-
-// Error
 $_['error_name'] = 'Warning: Review Name must be between 3 and 25 characters!';
 $_['error_text'] = 'Warning: Review Text must be between 25 and 1000 characters!';
 $_['error_rating'] = 'Warning: Please select a review rating!';
+$_['text_download'] = 'Downloads';

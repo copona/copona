@@ -1,96 +1,96 @@
 <h2><?php echo $text_payment_info; ?></h2>
 <div class="alert alert-success" id="amazon_login_pay-transaction-msg" style="display:none;"></div>
 <table class="table table-striped table-bordered">
-    <tr>
-        <td><?php echo $text_order_ref; ?></td>
-        <td><?php echo $amazon_login_pay_order['amazon_order_reference_id']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_order_total; ?></td>
-        <td><?php echo $amazon_login_pay_order['total_formatted']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_total_captured; ?></td>
-        <td id="amazon_login_pay-total-captured"><?php echo $amazon_login_pay_order['total_captured_formatted']; ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $text_capture_status; ?></td>
-        <td id="capture_status">
-            <?php if ($amazon_login_pay_order['capture_status'] == 1) { ?>
-                <span class="capture-text"><?php echo $text_yes; ?></span>
-            <?php } else { ?>
-                <span class="capture-text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
-                <?php if ($amazon_login_pay_order['cancel_status'] == 0) { ?>
-                    <input type="text" width="10" id="capture-amount" value="<?php echo $amazon_login_pay_order['total']; ?>"/>
-                    <a class="button btn btn-primary" id="button-capture"><?php echo $button_capture; ?></a>
-                    <span class="btn btn-primary" id="loading-capture" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
-                <?php } ?>
-            <?php } ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_cancel_status; ?></td>
-        <td id="cancel_status">
-            <?php if ($amazon_login_pay_order['cancel_status'] == 1) { ?>
-                <span class="cancel_text"><?php echo $text_yes; ?></span>
-            <?php } else { ?>
-                <span class="cancel_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
-                <?php if ($amazon_login_pay_order['total_captured'] == 0 && $amazon_login_pay_order['refund_status'] != 1) { ?>
-                    <a class="button btn btn-primary" id="button-cancel"><?php echo $button_cancel; ?></a>
-                    <span class="btn btn-primary" id="loading-cancel" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
-                <?php } ?>
-            <?php } ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_refund_status; ?></td>
-        <td id="refund_status">
-            <?php if ($amazon_login_pay_order['refund_status'] == 1) { ?>
-                <span class="refund_text"><?php echo $text_yes; ?></span>
-            <?php } else { ?>
-                <span class="refund_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
-                <?php if ($amazon_login_pay_order['total_captured'] > 0 && $amazon_login_pay_order['cancel_status'] == 0) { ?>
-                    <input type="text" width="10" id="refund-amount" />
-                    <a class="button btn btn-primary" id="button-refund"><?php echo $button_refund; ?></a>
-                <?php } else { ?>
-                    <input type="text" width="10" id="refund-amount" style="display:none;"/>
-                    <a class="button btn btn-primary" id="button-refund" style="display:none;"><?php echo $button_refund; ?></a>
-                <?php } ?>
-                <span class="btn btn-primary" id="loading-refund" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
-            <?php } ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $text_transactions; ?>:</td>
-        <td>
-            <table class="table table-striped table-bordered" id="amazon_login_pay-transactions">
-                <thead>
-                    <tr>
-                        <td class="text-left"><strong><?php echo $text_column_date_added; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_status; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_authorization_id; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_capture_id; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_refund_id; ?></strong></td>
-                        <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($amazon_login_pay_order['transactions'] as $transaction) { ?>
-                        <tr>
-                            <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-                            <td class="text-left"><?php echo $transaction['type']; ?></td>
-                            <td class="text-left"><?php echo $transaction['status']; ?></td>
-                            <td class="text-left"><?php echo $transaction['amazon_authorization_id']; ?></td>
-                            <td class="text-left"><?php echo $transaction['amazon_capture_id']; ?></td>
-                            <td class="text-left"><?php echo $transaction['amazon_refund_id']; ?></td>
-                            <td class="text-left"><?php echo $transaction['amount']; ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </td>
-    </tr>
+  <tr>
+    <td><?php echo $text_order_ref; ?></td>
+    <td><?php echo $amazon_login_pay_order['amazon_order_reference_id']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_order_total; ?></td>
+    <td><?php echo $amazon_login_pay_order['total_formatted']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_total_captured; ?></td>
+    <td id="amazon_login_pay-total-captured"><?php echo $amazon_login_pay_order['total_captured_formatted']; ?></td>
+  </tr>
+  <tr>
+    <td><?php echo $text_capture_status; ?></td>
+    <td id="capture_status">
+        <?php if ($amazon_login_pay_order['capture_status'] == 1) { ?>
+          <span class="capture-text"><?php echo $text_yes; ?></span>
+      <?php } else { ?>
+          <span class="capture-text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
+          <?php if ($amazon_login_pay_order['cancel_status'] == 0) { ?>
+              <input type="text" width="10" id="capture-amount" value="<?php echo $amazon_login_pay_order['total']; ?>"/>
+              <a class="button btn btn-primary" id="button-capture"><?php echo $button_capture; ?></a>
+              <span class="btn btn-primary" id="loading-capture" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+          <?php } ?>
+      <?php } ?>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_cancel_status; ?></td>
+    <td id="cancel_status">
+        <?php if ($amazon_login_pay_order['cancel_status'] == 1) { ?>
+          <span class="cancel_text"><?php echo $text_yes; ?></span>
+      <?php } else { ?>
+          <span class="cancel_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
+          <?php if ($amazon_login_pay_order['total_captured'] == 0 && $amazon_login_pay_order['refund_status'] != 1) { ?>
+              <a class="button btn btn-primary" id="button-cancel"><?php echo $button_cancel; ?></a>
+              <span class="btn btn-primary" id="loading-cancel" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+          <?php } ?>
+      <?php } ?>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_refund_status; ?></td>
+    <td id="refund_status">
+        <?php if ($amazon_login_pay_order['refund_status'] == 1) { ?>
+          <span class="refund_text"><?php echo $text_yes; ?></span>
+      <?php } else { ?>
+          <span class="refund_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
+          <?php if ($amazon_login_pay_order['total_captured'] > 0 && $amazon_login_pay_order['cancel_status'] == 0) { ?>
+              <input type="text" width="10" id="refund-amount" />
+              <a class="button btn btn-primary" id="button-refund"><?php echo $button_refund; ?></a>
+          <?php } else { ?>
+              <input type="text" width="10" id="refund-amount" style="display:none;"/>
+              <a class="button btn btn-primary" id="button-refund" style="display:none;"><?php echo $button_refund; ?></a>
+          <?php } ?>
+          <span class="btn btn-primary" id="loading-refund" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+      <?php } ?>
+    </td>
+  </tr>
+  <tr>
+    <td><?php echo $text_transactions; ?>:</td>
+    <td>
+      <table class="table table-striped table-bordered" id="amazon_login_pay-transactions">
+        <thead>
+          <tr>
+            <td class="text-left"><strong><?php echo $text_column_date_added; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_status; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_authorization_id; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_capture_id; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_refund_id; ?></strong></td>
+            <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
+          </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($amazon_login_pay_order['transactions'] as $transaction) { ?>
+              <tr>
+                <td class="text-left"><?php echo $transaction['date_added']; ?></td>
+                <td class="text-left"><?php echo $transaction['type']; ?></td>
+                <td class="text-left"><?php echo $transaction['status']; ?></td>
+                <td class="text-left"><?php echo $transaction['amazon_authorization_id']; ?></td>
+                <td class="text-left"><?php echo $transaction['amazon_capture_id']; ?></td>
+                <td class="text-left"><?php echo $transaction['amazon_refund_id']; ?></td>
+                <td class="text-left"><?php echo $transaction['amount']; ?></td>
+              </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+    </td>
+  </tr>
 </table>
 <script type="text/javascript"><!--
   $("#button-cancel").click(function () {

@@ -14,17 +14,17 @@
   <input type=hidden name="MERCHANT_RESPONSE_URL" value="<?php echo $response_url; ?>">
   <input type=hidden name="COMMENT1" value="OpenCart">
   <?php if ($card_select == true) { ?>
-  <fieldset id="payment">
-    <div class="form-group required">
-      <label class="col-sm-2 control-label" for="input-cc-type"><span data-toggle="tooltip" title="<?php echo $help_select_card; ?>"><?php echo $entry_cc_type; ?></span></label>
-      <div class="col-sm-10">
-        <select name="ACCOUNT" class="form-control" id="input-cc-type">
-          <?php foreach ($cards as $card) { ?>
-          <option value="<?php echo $card['account']; ?>"><?php echo $card['type']; ?></option>
-          <?php } ?>
-        </select></div>
-    </div>
-  </fieldset>
+      <fieldset id="payment">
+        <div class="form-group required">
+          <label class="col-sm-2 control-label" for="input-cc-type"><span data-toggle="tooltip" title="<?php echo $help_select_card; ?>"><?php echo $entry_cc_type; ?></span></label>
+          <div class="col-sm-10">
+            <select name="ACCOUNT" class="form-control" id="input-cc-type">
+                <?php foreach ($cards as $card) { ?>
+                  <option value="<?php echo $card['account']; ?>"><?php echo $card['type']; ?></option>
+              <?php } ?>
+            </select></div>
+        </div>
+      </fieldset>
   <?php } ?>
 </form>
 <div class="buttons">
@@ -33,7 +33,7 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#button-confirm').bind('click', function() {
-  $('#globalpay_form_redirect').submit();
-});
+$('#button-confirm').bind('click', function () {
+        $('#globalpay_form_redirect').submit();
+    });
 //--></script>
