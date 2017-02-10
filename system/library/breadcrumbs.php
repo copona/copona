@@ -38,6 +38,12 @@ class Breadcrumbs {
 		echo $this->render();
 		
 	}
+	
+	public function getPath(){
+		
+		return $this->path;
+		
+	}
 
 }
 
@@ -47,5 +53,8 @@ $bread_crumbs = new Breadcrumbs( $this );
 $bread_crumbs->push( 'text_account', 'account/account' );
 $data['breadcrumbs_html'] = $bread_crumbs->render();
 // we have breadcrumbs html
+
+// for compatibility
+$data['breadcrumbs'] = $bread_crumbs->getPath();
 
 */
