@@ -6,18 +6,18 @@ class Breadcrumbs {
 	private $path = array();
 	private $registry;
 	
-	public function __construct( $registry ){
+	public function __construct( &$registry ){
 	
 		$this->registry = $registry;
 		$this->push( 'text_home', 'common/home' );
 	
 	}
 	
-	public function push( $text, $route ){
+	public function push( $text, $route, $args = "", $secure = false ){
 	
 		$this->path[] = array(
-			'text' => $this->registry->language->get( (string) $text ),
-			'href' => $this->registry->url->link( (string) $route )
+			'text' => $this->registry->language->get( $text ),
+			'href' => $this->registry->url->link( $route, $args, $secure )
 		);
 	
 	}
@@ -38,6 +38,12 @@ class Breadcrumbs {
 		echo $this->render();
 		
 	}
+	
+	public function getPath(){
+		
+		return $this->path;
+		
+	}
 
 }
 
@@ -47,5 +53,8 @@ $bread_crumbs = new Breadcrumbs( $this );
 $bread_crumbs->push( 'text_account', 'account/account' );
 $data['breadcrumbs_html'] = $bread_crumbs->render();
 // we have breadcrumbs html
+
+// for compatibility
+$data['breadcrumbs'] = $bread_crumbs->getPath();
 
 */
