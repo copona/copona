@@ -7,12 +7,20 @@ class ControllerProductProduct extends Controller {
         $data = array_merge(array(), $this->language->load('product/product'));
         $url = '';
 
-        $data['breadcrumbs'] = array();
+        /*$data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
             'text' => $data['text_home'],
             'href' => $this->url->link('common/home')
-        );
+        );*/
+        
+        $bread_crumbs = new Breadcrumbs( $this );
+        $bread_crumbs->push( 'text_home', 'common/home' );
+        $data['breadcrumbs_html'] = $bread_crumbs->render();
+        // we have breadcrumbs html
+
+        // for compatibility
+        $data['breadcrumbs'] = $bread_crumbs->getPath();
 
         $this->load->model('catalog/category');
         $this->load->model('tool/image');
