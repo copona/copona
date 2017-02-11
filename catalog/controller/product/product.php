@@ -575,7 +575,7 @@ class ControllerProductProduct extends Controller {
     public function review() {
         $this->load->language('product/product');
 
-        $this->load->model('catalog/review');
+        $this->load->model('catalog/review'); //
 
         $data['text_no_reviews'] = $this->language->get('text_no_reviews');
 
