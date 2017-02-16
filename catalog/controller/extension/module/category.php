@@ -34,20 +34,7 @@ class ControllerExtensionModuleCategory extends Controller {
 
         foreach ($categories as $category) {
             $children_data = array();
-
-            $children = $this->model_catalog_category->getCategories($category['category_id']);
-
-            foreach ($children as $child) {
-                $filter_data = array( 'filter_category_id'  => $child['category_id'],
-                    'filter_sub_category' => true );
-
-                $children_data[] = array(
-                    'category_id' => $child['category_id'],
-                    'name'        => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-                    'href'        => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id']),
-                    'active'      => (in_array($category['category_id'], $parts) ? true : false)
-                );
-            }
+            $children_data = $this->getChildren($category['category_id']);
 
             $filter_data = array(
                 'filter_category_id'  => $category['category_id'],
@@ -64,6 +51,29 @@ class ControllerExtensionModuleCategory extends Controller {
         }
 
         return $this->load->view('extension/module/category', $data);
+    }
+
+    function getChildren($category_id, $children_data = array()) {
+        if (isset($this->request->get['path'])) {
+            $parts = explode('_', (string)$this->request->get['path']);
+        } else {
+            $parts = array();
+        }
+
+
+        $this->load->model('catalog/category');
+        $children = $this->model_catalog_category->getCategories($category_id);
+        foreach ($children as $child) {
+            $children_data[] = array(
+                'category_id' => $child['category_id'],
+                'name'        => $child['name'],
+                'children'    => $this->getChildren($child['category_id']),
+                'href'        => $this->url->link('product/category', 'path=' . $this->model_catalog_category->getCategoryPath($child['category_id'])),
+                'active'      => (in_array($child['category_id'], $parts) ? true : false)
+            );
+        }
+
+        return $children_data;
     }
 
 }

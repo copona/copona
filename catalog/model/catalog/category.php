@@ -78,7 +78,7 @@ class ModelCatalogCategory extends Model {
             $category_id = (isset($query->row['category_id']) ? $query->row['category_id'] : '' );
         }
 
-        if (isset($query->row['category_id'])) {
+        if ($category_id) {
             $sql = "SELECT cp.*, cd.name FROM " . DB_PREFIX . "category_path cp
 			LEFT JOIN " . DB_PREFIX . "category_description cd
 			ON (cp.path_id = cd.category_id)";
