@@ -33,6 +33,9 @@ class ControllerStartupStartup extends Controller {
             }
         }
 
+        $this->config->set('theme_name', !empty($this->config->get('theme_default_directory')) ? $this->config->get('theme_default_directory') : 'default');
+        $this->config->set('theme_uri', DIR_TEMPLATE . $this->config->get('theme_name'));
+
         // Language
         $code = '';
 
