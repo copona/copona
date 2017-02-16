@@ -7,6 +7,7 @@ composer.lock
 /admin/config.php
 /catalog/controller/xml
 /catalog/controller/*/_*
+Search-Replace-DB-master*
 
 # XML filesimport
 catalog/controller/xml/*.xml
