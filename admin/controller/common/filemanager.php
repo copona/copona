@@ -12,7 +12,7 @@ class ControllerCommonFileManager extends Controller {
         }
 
         if (isset($this->request->get['filter_name'])) {
-            $filter_name = rtrim(str_replace('*', '', $this->request->get['filter_name']), '/');
+            $filter_name = rtrim(str_replace(array( '*', '/' ), '', $this->request->get['filter_name']), '/');
         } else {
             $filter_name = null;
         }
@@ -37,7 +37,7 @@ class ControllerCommonFileManager extends Controller {
 
         $this->load->model('tool/image');
 
-        if (substr(str_replace('\\', '/', realpath($directory . '/' . $filter_name)), 0, strlen(DIR_IMAGE . 'catalog')) == DIR_IMAGE . 'catalog') {
+        if (substr(str_replace('\\', '/', realpath($directory) . '/' . $filter_name), 0, strlen(DIR_IMAGE . 'catalog')) == DIR_IMAGE . 'catalog') {
             // Get directories
             $directories = glob($directory . '/' . $filter_name . '*', GLOB_ONLYDIR);
 
