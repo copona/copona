@@ -10,12 +10,15 @@ class ControllerInstallStep3 extends Controller {
 
 			$this->model_install_install->database($this->request->post);
 
+            $http_server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
+            $https_server = 'https://' . $_SERVER['SERVER_NAME'] . '/';
+
 			$output = '<?php' . "\n";
 			$output .= '// HTTP' . "\n";
-			$output .= 'define(\'HTTP_SERVER\', \'' . HTTP_OPENCART . '\');' . "\n\n";
+			$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . '\');' . "\n\n";
 
 			$output .= '// HTTPS' . "\n";
-			$output .= 'define(\'HTTPS_SERVER\', \'' . HTTP_OPENCART . '\');' . "\n\n";
+			$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . '/\');' . "\n\n";
 
 			$output .= '// DIR' . "\n";
 			$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'catalog/\');' . "\n";
@@ -54,12 +57,12 @@ class ControllerInstallStep3 extends Controller {
 
 			$output = '<?php' . "\n";
 			$output .= '// HTTP' . "\n";
-			$output .= 'define(\'HTTP_SERVER\', \'' . HTTP_OPENCART . 'admin/\');' . "\n";
-			$output .= 'define(\'HTTP_CATALOG\', \'' . HTTP_OPENCART . '\');' . "\n\n";
+			$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . '/admin/\');' . "\n";
+			$output .= 'define(\'HTTP_CATALOG\', \'' . $http_server . '\');' . "\n\n";
 
 			$output .= '// HTTPS' . "\n";
-			$output .= 'define(\'HTTPS_SERVER\', \'' . HTTP_OPENCART . 'admin/\');' . "\n";
-			$output .= 'define(\'HTTPS_CATALOG\', \'' . HTTP_OPENCART . '\');' . "\n\n";
+			$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . 'admin/\');' . "\n";
+			$output .= 'define(\'HTTPS_CATALOG\', \'' . $https_server . '/\');' . "\n\n";
 
 			$output .= '// DIR' . "\n";
 			$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'admin/\');' . "\n";

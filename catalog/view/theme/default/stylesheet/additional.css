@@ -3,3 +3,4 @@
 }
 
 .alert.alert-cart{ position: fixed; top: 30px; z-index: 9999; right: 50px;}
+.close { font-size: 36px; }
