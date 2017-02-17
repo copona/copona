@@ -164,8 +164,6 @@ var cart = {
 						$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
 					}, 100);
 
-					// $('html, body').animate({ scrollTop: 0 }, 'slow');
-
 					$('#cart > ul').load('index.php?route=common/cart/info ul li');
 				}
 			},
@@ -290,7 +288,6 @@ var wishlist = {
 				$('#wishlist-total span').html(json['total']);
 				$('#wishlist-total').attr('title', json['total']);
 
-				$('html, body').animate({ scrollTop: 0 }, 'slow');
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -317,7 +314,6 @@ var compare = {
 
 					$('#compare-total').html(json['total']);
 
-					$('html, body').animate({ scrollTop: 0 }, 'slow');
 				}
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
