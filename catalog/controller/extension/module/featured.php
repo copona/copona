@@ -2,7 +2,7 @@
 class ControllerExtensionModuleFeatured extends Controller {
 
     public function index($setting) {
-        $this->load->language('extension/module/featured');
+        $data = array_merge(array(), $this->load->language('extension/module/featured'));
 
         $data['heading_title'] = $this->language->get('heading_title');
 
