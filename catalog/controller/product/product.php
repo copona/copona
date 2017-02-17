@@ -7,18 +7,17 @@ class ControllerProductProduct extends Controller {
         $data = array_merge(array(), $this->language->load('product/product'));
         $url = '';
 
-        /*$data['breadcrumbs'] = array();
+        /* $data['breadcrumbs'] = array();
 
-        $data['breadcrumbs'][] = array(
-            'text' => $data['text_home'],
-            'href' => $this->url->link('common/home')
-        );*/
-        
-        $bread_crumbs = new Breadcrumbs( $this );
-        $bread_crumbs->push( 'text_home', 'common/home' );
+          $data['breadcrumbs'][] = array(
+          'text' => $data['text_home'],
+          'href' => $this->url->link('common/home')
+          ); */
+
+        $bread_crumbs = new Breadcrumbs($this);
+        $bread_crumbs->push('text_home', 'common/home');
         $data['breadcrumbs_html'] = $bread_crumbs->render();
         // we have breadcrumbs html
-
         // for compatibility
         $data['breadcrumbs'] = $bread_crumbs->getPath();
 
@@ -179,9 +178,9 @@ class ControllerProductProduct extends Controller {
             foreach ($group_products as $group_product) {
 
                 if ($group_product['image']) {
-                    $image = $this->model_tool_image->resize($group_product['image'], $this->config->get($this->config->get('config_theme') . '_image_product_group_width'), $this->config->get($this->config->get('config_theme') . '_image_product_group_height'));
+                    $image = $this->model_tool_image->cropsize($group_product['image'], $this->config->get($this->config->get('config_theme') . '_image_product_group_width'), $this->config->get($this->config->get('config_theme') . '_image_product_group_height'));
                 } else {
-                    $image = $this->model_tool_image->resize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_group_width'), $this->config->get($this->config->get('config_theme') . '_image_product_group_height'));
+                    $image = $this->model_tool_image->cropsize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_group_width'), $this->config->get($this->config->get('config_theme') . '_image_product_group_height'));
                 }
 
                 $data['group_products'][] = array(
