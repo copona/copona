@@ -29,7 +29,6 @@ class ControllerInstallStep2 extends Controller {
 		$data['session_auto_start'] = ini_get('session_auto_start');
 
 		$db = array(
-			'mysql',
 			'mysqli',
 			'pgsql',
 			'pdo'
@@ -86,7 +85,6 @@ class ControllerInstallStep2 extends Controller {
 		}
 
 		$db = array(
-			'mysql',
 			'mysqli',
 			'pdo',
 			'pgsql'
