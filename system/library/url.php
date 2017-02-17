@@ -22,7 +22,7 @@ class Url {
 
     public function link($route, $args = '', $secure = false) {
         $code = $this->code ? $this->code . "/" : '';
-        if ($this->ssl && $secure) {
+        if($_SERVER['HTTPS'] == true) {
             $url = $this->ssl . $code . 'index.php?route=' . $route;
         } else {
             $url = $this->url . $code . 'index.php?route=' . $route;
