@@ -15,8 +15,8 @@ class Currency {
             $this->currencies[$result['code']] = array(
                 'currency_id'   => $result['currency_id'],
                 'title'         => $result['title'],
-                'symbol_left'   => $result['symbol_left'],
-                'symbol_right'  => $result['symbol_right'],
+                'symbol_left'   => html_entity_decode($result['symbol_left']),
+                'symbol_right'  => html_entity_decode($result['symbol_right']),
                 'decimal_place' => $result['decimal_place'],
                 'value'         => $result['value']
             );
