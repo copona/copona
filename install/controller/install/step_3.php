@@ -245,7 +245,6 @@ class ControllerInstallStep3 extends Controller {
 		}
 
 		$data['mysqli'] = extension_loaded('mysqli');
-		$data['mysql'] = extension_loaded('mysql');
 		$data['pdo'] = extension_loaded('pdo');
 		$data['pgsql'] = extension_loaded('pgsql');
 
