@@ -7,22 +7,22 @@
       </div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <?php if ($success) { ?>
-    <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -36,30 +36,30 @@
                 <tr>
                   <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
                   <td class="text-left"><?php if ($sort == 'title') { ?>
-                    <a href="<?php echo $sort_title; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_title; ?></a>
+                        <a href="<?php echo $sort_title; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_title; ?></a>
                     <?php } else { ?>
-                    <a href="<?php echo $sort_title; ?>"><?php echo $column_title; ?></a>
+                        <a href="<?php echo $sort_title; ?>"><?php echo $column_title; ?></a>
                     <?php } ?></td>
                   <td class="text-right"><?php echo $column_action; ?></td>
                 </tr>
               </thead>
               <tbody>
-                <?php if ($tax_classes) { ?>
-                <?php foreach ($tax_classes as $tax_class) { ?>
-                <tr>
-                  <td class="text-center"><?php if (in_array($tax_class['tax_class_id'], $selected)) { ?>
-                    <input type="checkbox" name="selected[]" value="<?php echo $tax_class['tax_class_id']; ?>" checked="checked" />
-                    <?php } else { ?>
-                    <input type="checkbox" name="selected[]" value="<?php echo $tax_class['tax_class_id']; ?>" />
-                    <?php } ?></td>
-                  <td class="text-left"><?php echo $tax_class['title']; ?></td>
-                  <td class="text-right"><a href="<?php echo $tax_class['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
-                </tr>
-                <?php } ?>
+                  <?php if ($tax_classes) { ?>
+                      <?php foreach ($tax_classes as $tax_class) { ?>
+                        <tr>
+                          <td class="text-center"><?php if (in_array($tax_class['tax_class_id'], $selected)) { ?>
+                                <input type="checkbox" name="selected[]" value="<?php echo $tax_class['tax_class_id']; ?>" checked="checked" />
+                            <?php } else { ?>
+                                <input type="checkbox" name="selected[]" value="<?php echo $tax_class['tax_class_id']; ?>" />
+                            <?php } ?></td>
+                          <td class="text-left"><?php echo $tax_class['title']; ?></td>
+                          <td class="text-right"><a href="<?php echo $tax_class['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                        </tr>
+                    <?php } ?>
                 <?php } else { ?>
-                <tr>
-                  <td class="text-center" colspan="3"><?php echo $text_no_results; ?></td>
-                </tr>
+                    <tr>
+                      <td class="text-center" colspan="3"><?php echo $text_no_results; ?></td>
+                    </tr>
                 <?php } ?>
               </tbody>
             </table>

@@ -5,24 +5,24 @@
       <div class="pull-right"> <a href="<?php echo $url_return; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a> </div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?></div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?></div>
     <?php } ?>
     <?php if ($listing_errors) { ?>
-    <div class="alert alert-danger">
-      <ul>
-        <?php foreach ($listing_errors as $listing_error) { ?>
-        <li><i class="fa fa-exclamation-circle"></i> <?php echo $listing_error; ?></li>
-        <?php } ?>
-      </ul>
-    </div>
+        <div class="alert alert-danger">
+          <ul>
+              <?php foreach ($listing_errors as $listing_error) { ?>
+                <li><i class="fa fa-exclamation-circle"></i> <?php echo $listing_error; ?></li>
+            <?php } ?>
+          </ul>
+        </div>
     <?php } ?>
     <div class="panel-body" id="search-container">
       <div class="alert alert-danger" id="search-error" style="display:none;"></div>
@@ -40,14 +40,14 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <?php foreach ($marketplaces as $id => $name) {?>
-              <label class="radio-inline">
-                <?php if ($default_marketplace == $id) { ?>
-                <input type="radio" name="marketplace" id="marketplace_<?php echo $id; ?>" value="<?php echo $id; ?>" checked="checked" />
-                <?php } else { ?>
-                <input type="radio" name="marketplace" id="marketplace_<?php echo $id; ?>" value="<?php echo $id; ?>" />
-                <?php } ?>
-                <?php echo $name; ?> </label>
+                <?php foreach ($marketplaces as $id => $name) { ?>
+                  <label class="radio-inline">
+                      <?php if ($default_marketplace == $id) { ?>
+                        <input type="radio" name="marketplace" id="marketplace_<?php echo $id; ?>" value="<?php echo $id; ?>" checked="checked" />
+                    <?php } else { ?>
+                        <input type="radio" name="marketplace" id="marketplace_<?php echo $id; ?>" value="<?php echo $id; ?>" />
+                    <?php } ?>
+                    <?php echo $name; ?> </label>
               <?php } ?>
             </div>
           </div>
@@ -101,12 +101,12 @@
                   <label class="col-sm-2 control-label" for="condition"><?php echo $entry_condition; ?></label>
                   <div class="col-sm-10">
                     <select name="condition" id="condition" class="form-control">
-                      <?php foreach ($conditions as $value => $title) { ?>
-                      <?php if ($value == $default_condition) { ?>
-                      <option selected="selected" value="<?php echo $value; ?>"><?php echo $title; ?></option>
-                      <?php } else { ?>
-                      <option value="<?php echo $value; ?>"><?php echo $title; ?></option>
-                      <?php } ?>
+                        <?php foreach ($conditions as $value => $title) { ?>
+                            <?php if ($value == $default_condition) { ?>
+                              <option selected="selected" value="<?php echo $value; ?>"><?php echo $title; ?></option>
+                          <?php } else { ?>
+                              <option value="<?php echo $value; ?>"><?php echo $title; ?></option>
+                          <?php } ?>
                       <?php } ?>
                     </select>
                   </div>
@@ -146,14 +146,14 @@
                     <div class="input-group date">
                       <input type="text" class="form-control" id="sale_from" data-date-format="YYYY-MM-DD" placeholder="<?php echo $entry_from; ?>" name="sale_from">
                       <span class="input-group-btn">
-                      <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
+                        <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
                       </span> </div>
                   </div>
                   <div class="col-sm-3">
                     <div class="input-group date">
                       <input type="text" class="form-control" id="sale_to" data-date-format="YYYY-MM-DD" placeholder="<?php echo $entry_to; ?>" name="sale_to">
                       <span class="input-group-btn">
-                      <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
+                        <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
                       </span> </div>
                   </div>
                 </div>
@@ -163,7 +163,7 @@
                     <div class="input-group date">
                       <input type="text" class="form-control" id="start_selling" data-date-format="YYYY-MM-DD" placeholder="<?php echo $entry_start_selling; ?>" name="start_selling">
                       <span class="input-group-btn">
-                      <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
+                        <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
                       </span> </div>
                   </div>
                 </div>
@@ -173,7 +173,7 @@
                     <div class="input-group date">
                       <input type="text" class="form-control" id="input-date-restock" data-date-format="YYYY-MM-DD" placeholder="<?php echo $entry_restock_date; ?>" name="restock_date">
                       <span class="input-group-btn">
-                      <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
+                        <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
                       </span> </div>
                   </div>
                 </div>
@@ -191,181 +191,183 @@
   </div>
 </div>
 <script type="text/javascript">
-  $('#search-submit').bind('click', function(e) {
-    e.preventDefault();
+    $('#search-submit').bind('click', function (e) {
+        e.preventDefault();
 
-    $('#search-string').val($.trim($('#search-string').val()));
+        $('#search-string').val($.trim($('#search-string').val()));
 
-    $.ajax({
-      url: 'index.php?route=extension/openbay/amazon_listing/search&token=<?php echo $token; ?>',
-      type: 'POST',
-      dataType: 'json',
-      data: {search_string : encodeURIComponent($('#search-string').val()), marketplace: $('input[name="marketplace"]:checked').val()},
-      beforeSend: function(){
-          $('#search-submit').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-          $('#search-error').hide();
-          $('#search-result-container').hide();
-          $('#chosen-product').hide();
-      },
-      complete: function() {
-        $('#search-submit').empty().html('<i class="fa fa-search"></i> <?php echo $button_search; ?>').removeAttr('disabled').show();
-      },
-      success: function(data) {
-          if (data.error){
-              $('#search-error').empty().html('<i class="fa fa-exclamation-circle"></i> ' + data.error).show();
-          } else {
-              var html = '';
-              var count = 0;
-              var funcString = '';
+        $.ajax({
+            url: 'index.php?route=extension/openbay/amazon_listing/search&token=<?php echo $token; ?>',
+            type: 'POST',
+            dataType: 'json',
+            data: {search_string: encodeURIComponent($('#search-string').val()), marketplace: $('input[name="marketplace"]:checked').val()},
+            beforeSend: function () {
+                $('#search-submit').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+                $('#search-error').hide();
+                $('#search-result-container').hide();
+                $('#chosen-product').hide();
+            },
+            complete: function () {
+                $('#search-submit').empty().html('<i class="fa fa-search"></i> <?php echo $button_search; ?>').removeAttr('disabled').show();
+            },
+            success: function (data) {
+                if (data.error) {
+                    $('#search-error').empty().html('<i class="fa fa-exclamation-circle"></i> ' + data.error).show();
+                } else {
+                    var html = '';
+                    var count = 0;
+                    var funcString = '';
 
-              $.each(data['data'], function(index, value) {
-                  functString = "listProduct('" + value.asin + "')";
+                    $.each(data['data'], function (index, value) {
+                        functString = "listProduct('" + value.asin + "')";
 
-                  html += '<tr>';
-                  html += '  <td class="text-center"><img src="' + value.image + '" /></td>';
-                  html += '  <td class="text-center">' + value.asin + '</td>';
-                  html += '  <td class="text-left">' + value.name + '</td>';
-                  html += '  <td class="text-center">' + value.price + '</td>';
-                  html += '  <td class="text-center">';
-                  html += '    <a target="_blank" href="' + value.link + '" class="btn btn-primary" data-toggle="tooltip" title="<?php echo $button_view_on_amazon; ?>"><i class="fa fa-eye"></i></a>';
-                  html += '    <a onclick="' + functString + '" class="btn btn-primary" data-toggle="tooltip" title="<?php echo $text_list; ?>"><i class="fa fa-check-square"></i></a>';
-                  html += '  </td>';
-                  html += '</tr>';
+                        html += '<tr>';
+                        html += '  <td class="text-center"><img src="' + value.image + '" /></td>';
+                        html += '  <td class="text-center">' + value.asin + '</td>';
+                        html += '  <td class="text-left">' + value.name + '</td>';
+                        html += '  <td class="text-center">' + value.price + '</td>';
+                        html += '  <td class="text-center">';
+                        html += '    <a target="_blank" href="' + value.link + '" class="btn btn-primary" data-toggle="tooltip" title="<?php echo $button_view_on_amazon; ?>"><i class="fa fa-eye"></i></a>';
+                        html += '    <a onclick="' + functString + '" class="btn btn-primary" data-toggle="tooltip" title="<?php echo $text_list; ?>"><i class="fa fa-check-square"></i></a>';
+                        html += '  </td>';
+                        html += '</tr>';
 
-                  count++;
-              });
+                        count++;
+                    });
 
-              if (count != 0){
-                  $('#search-result-container tbody').html(html);
-                  $('#search-result-container').css('opacity', 0).slideDown('slow').animate({ opacity: 1 },{ queue: false, duration: 'slow' });
-              } else {
-                  $('#search-error').empty().html('<i class="fa fa-exclamation-circle"></i> <?php echo $text_no_results; ?>').show();
-              }
-          }
+                    if (count != 0) {
+                        $('#search-result-container tbody').html(html);
+                        $('#search-result-container').css('opacity', 0).slideDown('slow').animate({opacity: 1}, {queue: false, duration: 'slow'});
+                    } else {
+                        $('#search-error').empty().html('<i class="fa fa-exclamation-circle"></i> <?php echo $text_no_results; ?>').show();
+                    }
+                }
 
-          $('#search-submit').show();
-      },
-      error: function(){
-        alert('error');
-      },
-      failure: function(){
-        alert('failure');
-      }
+                $('#search-submit').show();
+            },
+            error: function () {
+                alert('error');
+            },
+            failure: function () {
+                alert('failure');
+            }
+        });
     });
-  });
 
-  $('#button-amazon-price').bind('click', function(e) {
-    e.preventDefault();
+    $('#button-amazon-price').bind('click', function (e) {
+        e.preventDefault();
 
-    $.ajax({
-        url: 'index.php?route=extension/openbay/amazon_listing/bestPrice&token=<?php echo $token; ?>',
-        type: 'POST',
-        dataType: 'json',
-        data: $('form input[name="asin"], form select[name="condition"], form input[name="marketplace"]'),
-        beforeSend: function(){
-          $('#button-amazon-price').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-          $('#best-price-info').remove();
-        },
-        complete: function() {
-          $('#button-amazon-price').empty().html('<?php echo $button_amazon_price; ?>').removeAttr('disabled').show();
-        },
-        success: function(data) {
-          if (data['error']) {
-            alert(data.error);
-          } else {
-            $('form input[name="price"]').val(data.data.amount);
+        $.ajax({
+            url: 'index.php?route=extension/openbay/amazon_listing/bestPrice&token=<?php echo $token; ?>',
+            type: 'POST',
+            dataType: 'json',
+            data: $('form input[name="asin"], form select[name="condition"], form input[name="marketplace"]'),
+            beforeSend: function () {
+                $('#button-amazon-price').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+                $('#best-price-info').remove();
+            },
+            complete: function () {
+                $('#button-amazon-price').empty().html('<?php echo $button_amazon_price; ?>').removeAttr('disabled').show();
+            },
+            success: function (data) {
+                if (data['error']) {
+                    alert(data.error);
+                } else {
+                    $('form input[name="price"]').val(data.data.amount);
 
-            $('#price').before('<div class="alert alert-info" id="best-price-info">'+data.data.amount+' '+data.data.currency+' plus shipping '+data.data.shipping+' '+data.data.currency+'</div>');
-          }
-        },
-        error: function(){
-            alert('error');
-        },
-        failure: function(){
-            alert('failure');
+                    $('#price').before('<div class="alert alert-info" id="best-price-info">' + data.data.amount + ' ' + data.data.currency + ' plus shipping ' + data.data.shipping + ' ' + data.data.currency + '</div>');
+                }
+            },
+            error: function () {
+                alert('error');
+            },
+            failure: function () {
+                alert('failure');
+            }
+        });
+    });
+
+    $('#button-list').bind('click', function () {
+        var error = false;
+
+        if ($('#quantity').val() < 1) {
+            alert('<?php echo $error_stock; ?>');
+            error = true;
+        }
+
+        if ($('#price').val() == '' || $('#price').val() == 0) {
+            alert('<?php echo $error_price; ?>');
+            error = true;
+        }
+
+        if ($('#sku').val() == '' || $('#sku').val() == 0) {
+            alert('<?php echo $error_sku; ?>');
+            error = true;
+        }
+
+        if (error == false) {
+            $('#chosen-product form').submit();
         }
     });
-});
 
-  $('#button-list').bind('click', function() {
-    var error = false;
-
-    if ($('#quantity').val() < 1){
-        alert('<?php echo $error_stock; ?>');
-        error = true;
+    function listProduct(asin) {
+        getProduct(asin);
+        $('form input[name="asin"]').val(asin);
+        $('#chosen-product').css('opacity', 0).slideDown('slow').animate({opacity: 1}, {queue: false, duration: 'slow'});
+        $('#search-result-container').css('opacity', 1).slideUp('medium').animate({opacity: 0}, {queue: false, duration: 'medium'});
+        $('html, body').animate({scrollTop: 0}, 'slow');
     }
 
-    if ($('#price').val() == '' || $('#price').val() == 0){
-        alert('<?php echo $error_price; ?>');
-        error = true;
+    function getProduct(asin) {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/amazon_listing/getProductByAsin&token=<?php echo $token; ?>',
+            type: 'POST',
+            dataType: 'json',
+            data: {asin: asin, market: $('form input[name="marketplace"]').val()},
+            beforeSend: function () {
+                $('#chosen-product-preview').empty();
+            },
+            success: function (data) {
+                var html = '';
+                html += '<div class="row">';
+                if (data.img != '') {
+                    html += '<div class="col-md-1 text-center">';
+                    html += '<img src="' + data.img + '" />';
+                    html += '</div>';
+                }
+                html += '<div class="col-md-11 text-left">';
+                html += '<h2>' + data.title + '<br /><small>ASIN: ' + asin + '</small></h2>';
+                html += '</div>';
+                html += '</div>';
+
+                $('#chosen-product-preview').html(html).css('opacity', 0).slideDown('slow').animate({opacity: 1}, {queue: false, duration: 'slow'});
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
     }
 
-    if ($('#sku').val() == '' || $('#sku').val() == 0){
-        alert('<?php echo $error_sku; ?>');
-        error = true;
-    }
-
-    if (error == false){
-        $('#chosen-product form').submit();
-    }
-});
-
-  function listProduct(asin) {
-    getProduct(asin);
-    $('form input[name="asin"]').val(asin);
-    $('#chosen-product').css('opacity', 0).slideDown('slow').animate({ opacity: 1 },{ queue: false, duration: 'slow' });
-    $('#search-result-container').css('opacity', 1).slideUp('medium').animate({ opacity: 0 },{ queue: false, duration: 'medium' });
-    $('html, body').animate({ scrollTop: 0 }, 'slow');
-  }
-
-  function getProduct(asin){
-    $.ajax({
-      url: 'index.php?route=extension/openbay/amazon_listing/getProductByAsin&token=<?php echo $token; ?>',
-      type: 'POST',
-      dataType: 'json',
-      data: {asin : asin, market : $('form input[name="marketplace"]').val() },
-      beforeSend: function(){
-        $('#chosen-product-preview').empty();
-      },
-      success: function(data) {
-        var html = '';
-        html += '<div class="row">';
-          if (data.img != '') {
-            html += '<div class="col-md-1 text-center">';
-              html += '<img src="'+data.img+'" />';
-            html += '</div>';
-          }
-          html += '<div class="col-md-11 text-left">';
-            html += '<h2>'+data.title+'<br /><small>ASIN: '+asin+'</small></h2>';
-          html += '</div>';
-        html += '</div>';
-
-        $('#chosen-product-preview').html(html).css('opacity', 0).slideDown('slow').animate({ opacity: 1 },{ queue: false, duration: 'slow' });
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        if (xhr.status != 0) { alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText); }
-      }
+    $(document).ready(function () {
+        $('.search-container input[name="marketplace"]').bind('change', function () {
+            $('form input[name="marketplace"]').val($(this).val());
+        });
     });
-  }
-
-  $(document).ready(function() {
-  $('.search-container input[name="marketplace"]').bind('change', function(){
-        $('form input[name="marketplace"]').val($(this).val());
-    });
-});
 </script>
 <script type="text/javascript"><!--
 $('.date').datetimepicker({
-  pickTime: false
-});
+        pickTime: false
+    });
 
-$('.datetime').datetimepicker({
-  pickDate: true,
-  pickTime: true
-});
+    $('.datetime').datetimepicker({
+        pickDate: true,
+        pickTime: true
+    });
 
-$('.time').datetimepicker({
-  pickDate: false
-});
+    $('.time').datetimepicker({
+        pickDate: false
+    });
 //--></script>
 <?php echo $footer; ?>

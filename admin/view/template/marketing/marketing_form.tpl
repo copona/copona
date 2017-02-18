@@ -7,17 +7,17 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -30,7 +30,7 @@
             <div class="col-sm-10">
               <input type="text" name="name" value="<?php echo $name; ?>" placeholder="<?php echo $entry_name; ?>" id="input-name" class="form-control" />
               <?php if ($error_name) { ?>
-              <div class="text-danger"><?php echo $error_name; ?></div>
+                  <div class="text-danger"><?php echo $error_name; ?></div>
               <?php } ?>
             </div>
           </div>
@@ -45,7 +45,7 @@
             <div class="col-sm-10">
               <input type="text" name="code" value="<?php echo $code; ?>" placeholder="<?php echo $entry_code; ?>" id="input-code" class="form-control" />
               <?php if ($error_code) { ?>
-              <div class="text-danger"><?php echo $error_code; ?></div>
+                  <div class="text-danger"><?php echo $error_code; ?></div>
               <?php } ?>
             </div>
           </div>
@@ -62,11 +62,11 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('#input-code').on('keyup', function() {
-	$('#input-example1').val('<?php echo $store; ?>?tracking=' + $('#input-code').val());
-	$('#input-example2').val('<?php echo $store; ?>index.php?route=common/home&tracking=' + $('#input-code').val());
-});
+$('#input-code').on('keyup', function () {
+          $('#input-example1').val('<?php echo $store; ?>?tracking=' + $('#input-code').val());
+          $('#input-example2').val('<?php echo $store; ?>index.php?route=common/home&tracking=' + $('#input-code').val());
+      });
 
-$('#input-code').trigger('keyup');
-//--></script></div>
+      $('#input-code').trigger('keyup');
+      //--></script></div>
 <?php echo $footer; ?>

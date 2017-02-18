@@ -11,15 +11,15 @@
       <label class="col-sm-2 control-label" for="input-cc-start-date"><span data-toggle="tooltip" title="<?php echo $help_start_date; ?>"><?php echo $entry_cc_start_date; ?></span></label>
       <div class="col-sm-3">
         <select name="cc_start_date_month" id="input-cc-start-date" class="form-control">
-          <?php foreach ($months as $month) { ?>
-          <option value="<?php echo $month['value']; ?>"><?php echo $month['text']; ?></option>
+            <?php foreach ($months as $month) { ?>
+              <option value="<?php echo $month['value']; ?>"><?php echo $month['text']; ?></option>
           <?php } ?>
         </select>
       </div>
       <div class="col-sm-3">
         <select name="cc_start_date_year" class="form-control">
-          <?php foreach ($year_valid as $year) { ?>
-          <option value="<?php echo $year['value']; ?>"><?php echo $year['text']; ?></option>
+            <?php foreach ($year_valid as $year) { ?>
+              <option value="<?php echo $year['value']; ?>"><?php echo $year['text']; ?></option>
           <?php } ?>
         </select>
       </div>
@@ -28,15 +28,15 @@
       <label class="col-sm-2 control-label" for="input-cc-expire-date"><?php echo $entry_cc_expire_date; ?></label>
       <div class="col-sm-3">
         <select name="cc_expire_date_month" id="input-cc-expire-date" class="form-control">
-          <?php foreach ($months as $month) { ?>
-          <option value="<?php echo $month['value']; ?>"><?php echo $month['text']; ?></option>
+            <?php foreach ($months as $month) { ?>
+              <option value="<?php echo $month['value']; ?>"><?php echo $month['text']; ?></option>
           <?php } ?>
         </select>
       </div>
       <div class="col-sm-3">
         <select name="cc_expire_date_year" class="form-control">
-          <?php foreach ($year_expire as $year) { ?>
-          <option value="<?php echo $year['value']; ?>"><?php echo $year['text']; ?></option>
+            <?php foreach ($year_expire as $year) { ?>
+              <option value="<?php echo $year['value']; ?>"><?php echo $year['text']; ?></option>
           <?php } ?>
         </select>
       </div>
@@ -61,28 +61,28 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#button-confirm').bind('click', function() {
-	$.ajax({
-		url: 'index.php?route=extension/payment/perpetual_payments/send',
-		type: 'post',
-		data: $('#payment :input'),
-		dataType: 'json',
-		cache: false,
-		beforeSend: function() {
-			$('#button-confirm').button('loading');
-		},
-		complete: function() {
-			$('#button-confirm').button('reset');
-		},
-		success: function(json) {
-			if (json['error']) {
-				alert(json['error']);
-			}
+$('#button-confirm').bind('click', function () {
+        $.ajax({
+            url: 'index.php?route=extension/payment/perpetual_payments/send',
+            type: 'post',
+            data: $('#payment :input'),
+            dataType: 'json',
+            cache: false,
+            beforeSend: function () {
+                $('#button-confirm').button('loading');
+            },
+            complete: function () {
+                $('#button-confirm').button('reset');
+            },
+            success: function (json) {
+                if (json['error']) {
+                    alert(json['error']);
+                }
 
-			if (json['redirect']) {
-				location = json['redirect'];
-			}
-		}
-	});
-});
+                if (json['redirect']) {
+                    location = json['redirect'];
+                }
+            }
+        });
+    });
 //--></script>

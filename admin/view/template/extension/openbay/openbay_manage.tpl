@@ -78,8 +78,8 @@
               <label class="col-sm-2 control-label" for="input-language"><?php echo $text_language; ?></label>
               <div class="col-sm-10">
                 <select name="openbay_language" id="input-language" class="form-control">
-                  <?php foreach ($languages as $key => $language) { ?>
-                    <option value="<?php echo $key; ?>" <?php if ($key == $openbay_language) { echo'selected="selected"'; } ?>><?php echo $language; ?></option>
+                    <?php foreach ($languages as $key => $language) { ?>
+                      <option value="<?php echo $key; ?>" <?php if ($key == $openbay_language) { echo'selected="selected"'; } ?>><?php echo $language; ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -106,270 +106,276 @@
 </div>
 
 <script type="text/javascript"><!--
-  $('#button-patch').bind('click', function(e) {
-    e.preventDefault();
+  $('#button-patch').bind('click', function (e) {
+        e.preventDefault();
 
-    $.ajax({
-      url: 'index.php?route=extension/openbay/patch&token=<?php echo $token; ?>',
-      type: 'post',
-      dataType: 'json',
-      beforeSend: function() {
-        $('#button-patch').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>');
-        $("#button-patch").attr('disabled', 'disabled');
-      },
-      success: function() {
-        $('#button-patch').empty().removeClass('btn-primary').addClass('btn-success').html('<?php echo $text_complete; ?>');
-        alert('<?php echo $text_patch_complete; ?>');
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        $('#button-patch').empty().html('<?php echo $button_patch; ?>');
-        if (xhr.status != 0) { alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText); }
-      }
+        $.ajax({
+            url: 'index.php?route=extension/openbay/patch&token=<?php echo $token; ?>',
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () {
+                $('#button-patch').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>');
+                $("#button-patch").attr('disabled', 'disabled');
+            },
+            success: function () {
+                $('#button-patch').empty().removeClass('btn-primary').addClass('btn-success').html('<?php echo $text_complete; ?>');
+                alert('<?php echo $text_patch_complete; ?>');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('#button-patch').empty().html('<?php echo $button_patch; ?>');
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
     });
-  });
 
-  $('#button-clear-faq').bind('click', function(e) {
-    e.preventDefault();
+    $('#button-clear-faq').bind('click', function (e) {
+        e.preventDefault();
 
-    $.ajax({
-      url: 'index.php?route=extension/openbay/faqclear&token=<?php echo $token; ?>',
-      beforeSend: function() {
-        $('#button-clear-faq').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>');
-        $("#button-clear-faq").attr('disabled','disabled');
-      },
-      type: 'post',
-      dataType: 'json',
-      success: function(json) {
-        $('#button-clear-faq').empty().removeClass('btn-primary').addClass('btn-success').html('<?php echo $text_complete; ?>');
-        alert('<?php echo $text_clear_faq_complete; ?>');
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        $('#button-clear-faq').empty().html('<?php echo $button_clear; ?>');
-        if (xhr.status != 0) { alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText); }
-      }
+        $.ajax({
+            url: 'index.php?route=extension/openbay/faqclear&token=<?php echo $token; ?>',
+            beforeSend: function () {
+                $('#button-clear-faq').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>');
+                $("#button-clear-faq").attr('disabled', 'disabled');
+            },
+            type: 'post',
+            dataType: 'json',
+            success: function (json) {
+                $('#button-clear-faq').empty().removeClass('btn-primary').addClass('btn-success').html('<?php echo $text_complete; ?>');
+                alert('<?php echo $text_clear_faq_complete; ?>');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('#button-clear-faq').empty().html('<?php echo $button_clear; ?>');
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
     });
-  });
 
-  $('#button-clear-data').bind('click', function(e) {
-    e.preventDefault();
+    $('#button-clear-data').bind('click', function (e) {
+        e.preventDefault();
 
-    var pass = prompt("<?php echo $entry_password_prompt; ?>", "");
+        var pass = prompt("<?php echo $entry_password_prompt; ?>", "");
 
-    if (pass != '') {
-      $.ajax({
-        url: 'index.php?route=extension/openbay/purge&token=<?php echo $token; ?>',
-        type: 'post',
-        dataType: 'json',
-        data: 'pass=' + pass,
-        beforeSend: function() {
-          $('#button-clear-data').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>');
-        },
-        success: function(json) {
-          setTimeout(function() {
-            alert(json.msg);
+        if (pass != '') {
+            $.ajax({
+                url: 'index.php?route=extension/openbay/purge&token=<?php echo $token; ?>',
+                type: 'post',
+                dataType: 'json',
+                data: 'pass=' + pass,
+                beforeSend: function () {
+                    $('#button-clear-data').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>');
+                },
+                success: function (json) {
+                    setTimeout(function () {
+                        alert(json.msg);
+                        $('#button-clear-data').empty().html('<?php echo $button_clear; ?>');
+                    }, 500);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    if (xhr.status != 0) {
+                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                }
+            });
+        } else {
+            alert('<?php echo $text_action_warning; ?>');
             $('#button-clear-data').empty().html('<?php echo $button_clear; ?>');
-          }, 500);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-          if (xhr.status != 0) { alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText); }
         }
-      });
-    } else {
-      alert('<?php echo $text_action_warning; ?>');
-      $('#button-clear-data').empty().html('<?php echo $button_clear; ?>');
+    });
+
+    $('#update-v2').bind('click', function (e) {
+        e.preventDefault();
+
+        var text_confirm = confirm('<?php echo $text_confirm_backup; ?>');
+
+        if (text_confirm == true) {
+            $('#update-error').hide();
+            $('#update-v2-box').hide();
+            $('#update-v2-progress').fadeIn();
+            $('#update-text').text('<?php echo $text_check_server; ?>');
+            $('#loading-bar').css('width', '5%');
+
+            var beta = $('#update-v2-beta :selected').val();
+
+            updateCheckServer(beta);
+        }
+    });
+
+    function updateCheckServer(beta) {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/updatev2&stage=check_server&token=<?php echo $token; ?>&beta=' + beta,
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () { },
+            success: function (json) {
+                if (json.error == 1) {
+                    updateError(json.response);
+                } else {
+                    $('#update-text').text(json.status_message);
+                    $('#loading-bar').css('width', json.percent_complete + '%');
+                    updateCheckVersion(beta);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
     }
-  });
 
-  $('#update-v2').bind('click', function(e) {
-    e.preventDefault();
-
-    var text_confirm = confirm('<?php echo $text_confirm_backup; ?>');
-
-    if (text_confirm == true) {
-      $('#update-error').hide();
-      $('#update-v2-box').hide();
-      $('#update-v2-progress').fadeIn();
-      $('#update-text').text('<?php echo $text_check_server; ?>');
-      $('#loading-bar').css('width', '5%');
-
-      var beta = $('#update-v2-beta :selected').val();
-
-      updateCheckServer(beta);
+    function updateCheckVersion(beta) {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/updatev2&stage=check_version&token=<?php echo $token; ?>&beta=' + beta,
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () { },
+            success: function (json) {
+                if (json.error == 1) {
+                    $('#update-error').removeClass('alert-danger').addClass('alert-info').html('<i class="fa fa-check"></i> ' + json.response).show();
+                    $('#update-v2-progress').hide();
+                    $('#update-v2-box').fadeIn();
+                } else {
+                    $('#update-text').text(json.status_message);
+                    $('#loading-bar').css('width', json.percent_complete + '%');
+                    updateDownload(beta);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
     }
-  });
 
-  function updateCheckServer(beta) {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/updatev2&stage=check_server&token=<?php echo $token; ?>&beta=' + beta,
-      type: 'post',
-      dataType: 'json',
-      beforeSend: function() { },
-      success: function(json) {
-        if (json.error == 1) {
-          updateError(json.response);
-        } else {
-          $('#update-text').text(json.status_message);
-          $('#loading-bar').css('width', json.percent_complete + '%');
-          updateCheckVersion(beta);
-        }
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        if (xhr.status != 0) {
-          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-      }
-    });
-  }
+    function updateDownload(beta) {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/updatev2&stage=download&token=<?php echo $token; ?>&beta=' + beta,
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () { },
+            success: function (json) {
+                if (json.error == 1) {
+                    updateError(json.response);
+                } else {
+                    $('#update-text').text(json.status_message);
+                    $('#loading-bar').css('width', json.percent_complete + '%');
+                    updateExtract(beta);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
+    }
 
-  function updateCheckVersion(beta) {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/updatev2&stage=check_version&token=<?php echo $token; ?>&beta=' + beta,
-      type: 'post',
-      dataType: 'json',
-      beforeSend: function() { },
-      success: function(json) {
-        if (json.error == 1) {
-          $('#update-error').removeClass('alert-danger').addClass('alert-info').html('<i class="fa fa-check"></i> ' + json.response).show();
-          $('#update-v2-progress').hide();
-          $('#update-v2-box').fadeIn();
-        } else {
-          $('#update-text').text(json.status_message);
-          $('#loading-bar').css('width', json.percent_complete + '%');
-          updateDownload(beta);
-        }
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        if (xhr.status != 0) {
-          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-      }
-    });
-  }
+    function updateExtract(beta) {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/updatev2&stage=extract&token=<?php echo $token; ?>&beta=' + beta,
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () { },
+            success: function (json) {
+                if (json.error == 1) {
+                    updateError(json.response);
+                } else {
+                    $('#update-text').text(json.status_message);
+                    $('#loading-bar').css('width', json.percent_complete + '%');
+                    updateRemove(beta);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
+    }
 
-  function updateDownload(beta) {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/updatev2&stage=download&token=<?php echo $token; ?>&beta=' + beta,
-      type: 'post',
-      dataType: 'json',
-      beforeSend: function() { },
-      success: function(json) {
-        if (json.error == 1) {
-          updateError(json.response);
-        } else {
-          $('#update-text').text(json.status_message);
-          $('#loading-bar').css('width', json.percent_complete + '%');
-          updateExtract(beta);
-        }
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        if (xhr.status != 0) {
-          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-      }
-    });
-  }
+    function updateRemove(beta) {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/updatev2&stage=remove&token=<?php echo $token; ?>&beta=' + beta,
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () { },
+            success: function (json) {
+                if (json.error == 1) {
+                    $('#update-v2-progress').prepend('<div class="alert alert-warning">' + json.response + '</div>');
+                }
 
-  function updateExtract(beta) {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/updatev2&stage=extract&token=<?php echo $token; ?>&beta=' + beta,
-      type: 'post',
-      dataType: 'json',
-      beforeSend: function() { },
-      success: function(json) {
-        if (json.error == 1) {
-          updateError(json.response);
-        } else {
-          $('#update-text').text(json.status_message);
-          $('#loading-bar').css('width', json.percent_complete + '%');
-          updateRemove(beta);
-        }
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        if (xhr.status != 0) {
-          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-      }
-    });
-  }
+                $('#update-text').text(json.status_message);
+                $('#loading-bar').css('width', json.percent_complete + '%');
+                updatePatch(beta);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
+    }
 
-  function updateRemove(beta) {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/updatev2&stage=remove&token=<?php echo $token; ?>&beta=' + beta,
-      type: 'post',
-      dataType: 'json',
-      beforeSend: function() { },
-      success: function(json) {
-        if (json.error == 1) {
-          $('#update-v2-progress').prepend('<div class="alert alert-warning">' + json.response + '</div>');
-        }
+    function updatePatch(beta) {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/updatev2&stage=run_patch&token=<?php echo $token; ?>&beta=' + beta,
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () { },
+            success: function (json) {
+                if (json.error == 1) {
+                    updateError(json.response);
+                } else {
+                    $('#update-text').text(json.status_message);
+                    $('#loading-bar').css('width', json.percent_complete + '%');
+                    updateVersion(beta);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
+    }
 
-        $('#update-text').text(json.status_message);
-        $('#loading-bar').css('width', json.percent_complete + '%');
-        updatePatch(beta);
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        if (xhr.status != 0) {
-          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-      }
-    });
-  }
+    function updateVersion(beta) {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/updatev2&stage=update_version&token=<?php echo $token; ?>&beta=' + beta,
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () { },
+            success: function (json) {
+                if (json.error == 1) {
+                    updateError(json.response);
+                } else {
+                    $('#update-text').text(json.status_message);
+                    $('#text-version').text(json.response);
+                    $('#loading-bar').css('width', json.percent_complete + '%').removeClass('progress-bar-info').addClass('progress-bar-success');
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
+    }
 
-  function updatePatch(beta) {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/updatev2&stage=run_patch&token=<?php echo $token; ?>&beta=' + beta,
-      type: 'post',
-      dataType: 'json',
-      beforeSend: function() { },
-      success: function(json) {
-        if (json.error == 1) {
-          updateError(json.response);
-        } else {
-          $('#update-text').text(json.status_message);
-          $('#loading-bar').css('width', json.percent_complete + '%');
-          updateVersion(beta);
-        }
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        if (xhr.status != 0) {
-          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-      }
-    });
-  }
+    function updateError(errors) {
+        $('#update-error').text(errors).show();
 
-  function updateVersion(beta) {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/updatev2&stage=update_version&token=<?php echo $token; ?>&beta=' + beta,
-      type: 'post',
-      dataType: 'json',
-      beforeSend: function() { },
-      success: function(json) {
-        if (json.error == 1) {
-          updateError(json.response);
-        } else {
-          $('#update-text').text(json.status_message);
-          $('#text-version').text(json.response);
-          $('#loading-bar').css('width', json.percent_complete + '%').removeClass('progress-bar-info').addClass('progress-bar-success');
-        }
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        if (xhr.status != 0) {
-          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-      }
-    });
-  }
+        $('#update-v2-progress').hide();
+        $('#update-v2-box').fadeIn();
+    }
 
-  function updateError(errors) {
-    $('#update-error').text(errors).show();
-
-    $('#update-v2-progress').hide();
-    $('#update-v2-box').fadeIn();
-  }
-
-  function validateForm() {
-    $('#form-openbay').submit();
-  }
+    function validateForm() {
+        $('#form-openbay').submit();
+    }
 //--></script>
 <?php echo $footer; ?>

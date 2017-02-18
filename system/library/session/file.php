@@ -4,66 +4,66 @@ namespace Session;
 
 class File extends \SessionHandler {
 
-	public function create_sid() {
-		return parent::create_sid();
-	}
+    public function create_sid() {
+        return parent::create_sid();
+    }
 
-	public function open($path, $name) {
-		return true;
-	}
+    public function open($path, $name) {
+        return true;
+    }
 
-	public function close() {
-		return true;
-	}
+    public function close() {
+        return true;
+    }
 
-	public function read($session_id) {
-		$file = session_save_path() . '/sess_' . $session_id;
+    public function read($session_id) {
+        $file = session_save_path() . '/sess_' . $session_id;
 
-		if (is_file($file)) {
-			$handle = fopen($file, 'r');
+        if (is_file($file)) {
+            $handle = fopen($file, 'r');
 
-			flock($handle, LOCK_SH);
+            flock($handle, LOCK_SH);
 
-			$data = fread($handle, filesize($file));
+            $data = fread($handle, filesize($file));
 
-			flock($handle, LOCK_UN);
+            flock($handle, LOCK_UN);
 
-			fclose($handle);
+            fclose($handle);
 
-			return $data;
-		}
+            return $data;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public function write($session_id, $data) {
-		$file = session_save_path() . '/sess_' . $session_id;
+    public function write($session_id, $data) {
+        $file = session_save_path() . '/sess_' . $session_id;
 
-		$handle = fopen($file, 'w');
+        $handle = fopen($file, 'w');
 
-		flock($handle, LOCK_EX);
+        flock($handle, LOCK_EX);
 
-		fwrite($handle, $data);
+        fwrite($handle, $data);
 
-		fflush($handle);
+        fflush($handle);
 
-		flock($handle, LOCK_UN);
+        flock($handle, LOCK_UN);
 
-		fclose($handle);
+        fclose($handle);
 
-		return true;
-	}
+        return true;
+    }
 
-	public function destroy($session_id) {
-		$file = session_save_path() . '/sess_' . $session_id;
+    public function destroy($session_id) {
+        $file = session_save_path() . '/sess_' . $session_id;
 
-		if (is_file($file)) {
-			unset($file);
-		}
-	}
+        if (is_file($file)) {
+            unset($file);
+        }
+    }
 
-	public function gc($maxlifetime) {
-		return parent::gc($maxlifetime);
-	}
+    public function gc($maxlifetime) {
+        return parent::gc($maxlifetime);
+    }
 
 }

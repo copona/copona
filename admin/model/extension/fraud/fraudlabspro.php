@@ -1,8 +1,8 @@
 <?php
 class ModelExtensionFraudFraudLabsPro extends Model {
 
-	public function install() {
-		$this->db->query("
+    public function install() {
+        $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "fraudlabspro` (
 				`order_id` VARCHAR(11) NOT NULL,
 				`is_country_match` CHAR(2) NOT NULL,
@@ -55,73 +55,73 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 		");
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` (`language_id`, `name`) VALUES (1, 'Fraud');");
-		$status_fraud_id = $this->db->getLastId();
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` (`language_id`, `name`) VALUES (1, 'Fraud');");
+        $status_fraud_id = $this->db->getLastId();
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` (`language_id`, `name`) VALUES (1, 'Fraud Review');");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` (`language_id`, `name`) VALUES (1, 'Fraud Review');");
 
-		$status_fraud_review_id = $this->db->getLastId();
+        $status_fraud_review_id = $this->db->getLastId();
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_score', '80', '0');");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_order_status_id', '$status_fraud_id', '0');");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_review_status_id', '$status_fraud_review_id', '0');");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_approve_status_id', '2', '0');");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_reject_status_id', '8', '0');");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_score', '80', '0');");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_order_status_id', '$status_fraud_id', '0');");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_review_status_id', '$status_fraud_review_id', '0');");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_approve_status_id', '2', '0');");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraudlabspro_reject_status_id', '8', '0');");
 
-		$this->cache->delete('order_status.' . (int)$this->config->get('config_language_id'));
-	}
+        $this->cache->delete('order_status.' . (int)$this->config->get('config_language_id'));
+    }
 
-	public function uninstall() {
-		//$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "fraudlabspro`");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud Review'");
-	}
+    public function uninstall() {
+        //$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "fraudlabspro`");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud Review'");
+    }
 
-	public function getOrder($order_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE order_id = '" . (int)$order_id . "'");
+    public function getOrder($order_id) {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE order_id = '" . (int)$order_id . "'");
 
-		return $query->row;
-	}
+        return $query->row;
+    }
 
-	public function addOrderHistory($order_id, $data, $store_id = 0) {
-		$json = array();
+    public function addOrderHistory($order_id, $data, $store_id = 0) {
+        $json = array();
 
-		$this->load->model('setting/store');
+        $this->load->model('setting/store');
 
-		$store_info = $this->model_setting_store->getStore($store_id);
+        $store_info = $this->model_setting_store->getStore($store_id);
 
-		if ($store_info) {
-			$url = $store_info['ssl'];
-		} else {
-			$url = HTTPS_CATALOG;
-		}
+        if ($store_info) {
+            $url = $store_info['ssl'];
+        } else {
+            $url = HTTPS_CATALOG;
+        }
 
-		if (isset($this->session->data['cookie'])) {
-			$curl = curl_init();
+        if (isset($this->session->data['cookie'])) {
+            $curl = curl_init();
 
-			// Set SSL if required
-			if (substr($url, 0, 5) == 'https') {
-				curl_setopt($curl, CURLOPT_PORT, 443);
-			}
+            // Set SSL if required
+            if (substr($url, 0, 5) == 'https') {
+                curl_setopt($curl, CURLOPT_PORT, 443);
+            }
 
-			curl_setopt($curl, CURLOPT_HEADER, false);
-			curl_setopt($curl, CURLINFO_HEADER_OUT, true);
-			curl_setopt($curl, CURLOPT_USERAGENT, $this->request->server['HTTP_USER_AGENT']);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-			curl_setopt($curl, CURLOPT_FORBID_REUSE, false);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curl, CURLOPT_URL, $url . 'index.php?route=api/order/history&order_id=' . $order_id);
-			curl_setopt($curl, CURLOPT_POST, true);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-			curl_setopt($curl, CURLOPT_COOKIE, session_name() . '=' . $this->session->data['cookie'] . ';');
+            curl_setopt($curl, CURLOPT_HEADER, false);
+            curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+            curl_setopt($curl, CURLOPT_USERAGENT, $this->request->server['HTTP_USER_AGENT']);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_FORBID_REUSE, false);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_URL, $url . 'index.php?route=api/order/history&order_id=' . $order_id);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+            curl_setopt($curl, CURLOPT_COOKIE, session_name() . '=' . $this->session->data['cookie'] . ';');
 
-			$json = curl_exec($curl);
+            $json = curl_exec($curl);
 
-			curl_close($curl);
-		}
+            curl_close($curl);
+        }
 
-		return $json;
-	}
+        return $json;
+    }
 
 }

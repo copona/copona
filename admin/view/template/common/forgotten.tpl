@@ -9,10 +9,10 @@
             <h1 class="panel-title"><i class="fa fa-repeat"></i> <?php echo $heading_title; ?></h1>
           </div>
           <div class="panel-body">
-            <?php if ($error_warning) { ?>
-            <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-              <button type="button" class="close" data-dismiss="alert">&times;</button>
-            </div>
+              <?php if ($error_warning) { ?>
+                <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
             <?php } ?>
             <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
               <div class="form-group">

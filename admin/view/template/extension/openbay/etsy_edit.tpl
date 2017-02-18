@@ -7,8 +7,8 @@
       </div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-          <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
@@ -20,8 +20,8 @@
       </div>
       <div class="panel-body">
         <div id="page-listing">
-          <?php if ($error_warning) { ?>
-          <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?></div>
+            <?php if ($error_warning) { ?>
+              <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?></div>
           <?php } ?>
           <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
             <input type="hidden" name="etsy_item_id" value="<?php echo $etsy_item_id; ?>" />
@@ -53,8 +53,8 @@
                   <label class="col-sm-2 control-label" for="input-state"><?php echo $entry_state; ?></label>
                   <div class="col-sm-10">
                     <select name="state" id="input-state" class="form-control">
-                      <?php foreach ($setting['state'] as $value) { ?>
-                      <option value="<?php echo $value; ?>"<?php echo ($listing['state'] == $value) ? ' selected' : ''; ?>><?php echo $value; ?></option>
+                        <?php foreach ($setting['state'] as $value) { ?>
+                          <option value="<?php echo $value; ?>"<?php echo ($listing['state'] == $value) ? ' selected' : ''; ?>><?php echo $value; ?></option>
                       <?php } ?>
                     </select>
                   </div>
@@ -86,39 +86,41 @@
 <script type="text/javascript"><!--
   var image_count = 1;
 
-  $('#button-save').bind('click', function() {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/etsy_product/editsubmit&token=<?php echo $token; ?>',
-      beforeSend: function(){
-        $('#button-submit').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-      },
-      type: 'post',
-      data: $("#form").serialize(),
-      dataType: 'json',
-      success: function(json) {
-        if (json.error) {
-          if (json.code) {
-            alert(json.error);
-          } else {
-            $.each(json.error, function( k, v ) {
-              alert(v);
-            });
-          }
-          $('#button-submit').empty().html('<span><?php echo $button_submit; ?></span>').removeAttr('disabled');
-        } else {
-          if (json.listing_id) {
-            $('#page-listing').hide();
-            $('#page-listing-success').fadeIn();
-            $('#button-submit').empty().html('<span><?php echo $button_submit; ?></span>').removeAttr('disabled');
-          }
-        }
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        if (xhr.status != 0) { alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText); }
-        $('#button-submit').empty().html('<span><?php echo $button_submit; ?></span>').removeAttr('disabled');
-      }
+    $('#button-save').bind('click', function () {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/etsy_product/editsubmit&token=<?php echo $token; ?>',
+            beforeSend: function () {
+                $('#button-submit').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+            },
+            type: 'post',
+            data: $("#form").serialize(),
+            dataType: 'json',
+            success: function (json) {
+                if (json.error) {
+                    if (json.code) {
+                        alert(json.error);
+                    } else {
+                        $.each(json.error, function (k, v) {
+                            alert(v);
+                        });
+                    }
+                    $('#button-submit').empty().html('<span><?php echo $button_submit; ?></span>').removeAttr('disabled');
+                } else {
+                    if (json.listing_id) {
+                        $('#page-listing').hide();
+                        $('#page-listing-success').fadeIn();
+                        $('#button-submit').empty().html('<span><?php echo $button_submit; ?></span>').removeAttr('disabled');
+                    }
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+                $('#button-submit').empty().html('<span><?php echo $button_submit; ?></span>').removeAttr('disabled');
+            }
+        });
     });
-  });
 
 //--></script>
 <?php echo $footer; ?>

@@ -12,7 +12,14 @@
   </tr>
   <tr>
     <td><span data-toggle="tooltip" data-container="#tab-general" title="<?php echo $help_status; ?>"><?php echo $text_status; ?></span></td>
-    <td id="flp_status"><span style="font-weight:bold; color:<?php if (strtolower($flp_status) == 'approve') echo '#5cb85c'; else if (strtolower($flp_status) == 'review') echo '#f0ad4e'; else echo '#d9534f'; ?>"><?php echo $flp_status; ?></span></td>
+    <td id="flp_status"><span style="font-weight:bold; color:<?php
+        if (strtolower($flp_status) == 'approve')
+            echo '#5cb85c';
+        else if (strtolower($flp_status) == 'review')
+            echo '#f0ad4e';
+        else
+            echo '#d9534f';
+        ?>"><?php echo $flp_status; ?></span></td>
   </tr>
   <tr>
     <td><span data-toggle="tooltip" data-container="#tab-general" title="<?php echo $help_ip_address; ?>"><?php echo $text_ip_address; ?></span></td>
@@ -90,39 +97,39 @@
     <td><span data-toggle="tooltip" data-container="#tab-general" title="<?php echo $help_message; ?>"><?php echo $text_message; ?></span></td>
     <td><?php echo $flp_message; ?></td>
   </tr>
-  
-  
-  <?php if (strtolower($flp_status) == 'review'){?>
-  <tr style="background-color:#eee;">
-    <td id="flp_action" colspan="2">
-      <form id="review-action" method="post">
-	<div align="center">
-	  <button type="button" id="button-flp-approve" class="btn btn-primary"><i class="fa fa-check"></i> Approve</button>
-	  <button type="button" id="button-flp-reject" class="btn btn-danger"><i class="fa fa-remove"></i> Reject</button>
-	</div>
-	<input type="hidden" id="flp_id" name="flp_id" value="<?php echo $flp_id; ?>" />
-	<input type="hidden" id="new_status" name="new_status" value="" />
-      </form>
-      
-      <script>
-	$(document).ready(function(){
-		$("#button-flp-approve").click(function(){
-			$("#new_status").val("APPROVE");
-			$("#review-action").submit();
-		});
-	});
-	
-	$(document).ready(function(){
-		$("#button-flp-reject").click(function(){
-			$("#new_status").val("REJECT");
-			$("#review-action").submit();
-		});
-	});
-      </script>
-    </td>
-  </tr>
+
+
+  <?php if (strtolower($flp_status) == 'review') { ?>
+      <tr style="background-color:#eee;">
+        <td id="flp_action" colspan="2">
+          <form id="review-action" method="post">
+            <div align="center">
+              <button type="button" id="button-flp-approve" class="btn btn-primary"><i class="fa fa-check"></i> Approve</button>
+              <button type="button" id="button-flp-reject" class="btn btn-danger"><i class="fa fa-remove"></i> Reject</button>
+            </div>
+            <input type="hidden" id="flp_id" name="flp_id" value="<?php echo $flp_id; ?>" />
+            <input type="hidden" id="new_status" name="new_status" value="" />
+          </form>
+
+          <script>
+              $(document).ready(function () {
+                  $("#button-flp-approve").click(function () {
+                      $("#new_status").val("APPROVE");
+                      $("#review-action").submit();
+                  });
+              });
+
+              $(document).ready(function () {
+                  $("#button-flp-reject").click(function () {
+                      $("#new_status").val("REJECT");
+                      $("#review-action").submit();
+                  });
+              });
+          </script>
+        </td>
+      </tr>
   <?php } ?>
 </table>
 <div>
-	<?php echo $text_flp_merchant_area; ?>
+    <?php echo $text_flp_merchant_area; ?>
 </div>

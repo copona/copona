@@ -8,23 +8,23 @@
       </tr>
     </thead>
     <tbody>
-      <?php if ($rewards) { ?>
-      <?php foreach ($rewards as $reward) { ?>
-      <tr>
-        <td class="text-left"><?php echo $reward['date_added']; ?></td>
-        <td class="text-left"><?php echo $reward['description']; ?></td>
-        <td class="text-right"><?php echo $reward['points']; ?></td>
-      </tr>
-      <?php } ?>
-      <tr>
-        <td></td>
-        <td class="text-right"><b><?php echo $text_balance; ?></b></td>
-        <td class="text-right"><?php echo $balance; ?></td>
-      </tr>
+        <?php if ($rewards) { ?>
+            <?php foreach ($rewards as $reward) { ?>
+              <tr>
+                <td class="text-left"><?php echo $reward['date_added']; ?></td>
+                <td class="text-left"><?php echo $reward['description']; ?></td>
+                <td class="text-right"><?php echo $reward['points']; ?></td>
+              </tr>
+          <?php } ?>
+          <tr>
+            <td></td>
+            <td class="text-right"><b><?php echo $text_balance; ?></b></td>
+            <td class="text-right"><?php echo $balance; ?></td>
+          </tr>
       <?php } else { ?>
-      <tr>
-        <td class="text-center" colspan="3"><?php echo $text_no_results; ?></td>
-      </tr>
+          <tr>
+            <td class="text-center" colspan="3"><?php echo $text_no_results; ?></td>
+          </tr>
       <?php } ?>
     </tbody>
   </table>

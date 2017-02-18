@@ -27,6 +27,8 @@ class ModelUpgrade1000 extends Model {
 			$line = str_replace("CREATE TABLE IF NOT EXISTS `oc_", "CREATE TABLE `" . DB_PREFIX, $line);
 
 			$line = str_replace("CREATE TABLE `oc_", "CREATE TABLE `" . DB_PREFIX, $line);
+                        
+                        $line = str_replace("ALTER TABLE `oc_", "ALTER TABLE `" . DB_PREFIX, $line);
 
 			// If line begins with create table we want to start recording
 			if (substr($line, 0, 12) == 'CREATE TABLE') {

@@ -7,8 +7,8 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
@@ -26,7 +26,7 @@
               <select name="store_id" id="input-store" class="form-control">
                 <option value="0"><?php echo $text_default; ?></option>
                 <?php foreach ($stores as $store) { ?>
-                <option value="<?php echo $store['store_id']; ?>"><?php echo $store['name']; ?></option>
+                    <option value="<?php echo $store['store_id']; ?>"><?php echo $store['name']; ?></option>
                 <?php } ?>
               </select>
             </div>
@@ -49,8 +49,8 @@
             <label class="col-sm-2 control-label" for="input-customer-group"><?php echo $entry_customer_group; ?></label>
             <div class="col-sm-10">
               <select name="customer_group_id" id="input-customer-group" class="form-control">
-                <?php foreach ($customer_groups as $customer_group) { ?>
-                <option value="<?php echo $customer_group['customer_group_id']; ?>"><?php echo $customer_group['name']; ?></option>
+                  <?php foreach ($customer_groups as $customer_group) { ?>
+                    <option value="<?php echo $customer_group['customer_group_id']; ?>"><?php echo $customer_group['name']; ?></option>
                 <?php } ?>
               </select>
             </div>
@@ -91,149 +91,149 @@
         </form>
       </div>
     </div>
-  </div>  
+  </div>
   <script type="text/javascript"><!--
-$('select[name=\'to\']').on('change', function() {
-	$('.to').hide();
+$('select[name=\'to\']').on('change', function () {
+          $('.to').hide();
 
-	$('#to-' + this.value.replace('_', '-')).show();
-});
+          $('#to-' + this.value.replace('_', '-')).show();
+      });
 
-$('select[name=\'to\']').trigger('change');
-//--></script>
+      $('select[name=\'to\']').trigger('change');
+      //--></script>
   <script type="text/javascript"><!--
-// Customers
-$('input[name=\'customers\']').autocomplete({
-	'source': function(request, response) {
-		$.ajax({
-			url: 'index.php?route=customer/customer/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request),
-			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
-					return {
-						label: item['name'],
-						value: item['customer_id']
-					}
-				}));
-			}
-		});
-	},
-	'select': function(item) {
-		$('input[name=\'customers\']').val('');
+      // Customers
+      $('input[name=\'customers\']').autocomplete({
+          'source': function (request, response) {
+              $.ajax({
+                  url: 'index.php?route=customer/customer/autocomplete&token=<?php echo $token; ?>&filter_name=' + encodeURIComponent(request),
+                  dataType: 'json',
+                  success: function (json) {
+                      response($.map(json, function (item) {
+                          return {
+                              label: item['name'],
+                              value: item['customer_id']
+                          }
+                      }));
+                  }
+              });
+          },
+          'select': function (item) {
+              $('input[name=\'customers\']').val('');
 
-		$('#input-customer' + item['value']).remove();
+              $('#input-customer' + item['value']).remove();
 
-		$('#input-customer').parent().find('.well').append('<div id="customer' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="customer[]" value="' + item['value'] + '" /></div>');
-	}
-});
+              $('#input-customer').parent().find('.well').append('<div id="customer' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="customer[]" value="' + item['value'] + '" /></div>');
+          }
+      });
 
-$('#input-customer').parent().find('.well').delegate('.fa-minus-circle', 'click', function() {
-	$(this).parent().remove();
-});
+      $('#input-customer').parent().find('.well').delegate('.fa-minus-circle', 'click', function () {
+          $(this).parent().remove();
+      });
 
-// Affiliates
-$('input[name=\'affiliates\']').autocomplete({
-	'source': function(request, response) {
-		$.ajax({
-			url: 'index.php?route=marketing/affiliate/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request),
-			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
-					return {
-						label: item['name'],
-						value: item['affiliate_id']
-					}
-				}));
-			}
-		});
-	},
-	'select': function(item) {
-		$('input[name=\'affiliates\']').val('');
+      // Affiliates
+      $('input[name=\'affiliates\']').autocomplete({
+          'source': function (request, response) {
+              $.ajax({
+                  url: 'index.php?route=marketing/affiliate/autocomplete&token=<?php echo $token; ?>&filter_name=' + encodeURIComponent(request),
+                  dataType: 'json',
+                  success: function (json) {
+                      response($.map(json, function (item) {
+                          return {
+                              label: item['name'],
+                              value: item['affiliate_id']
+                          }
+                      }));
+                  }
+              });
+          },
+          'select': function (item) {
+              $('input[name=\'affiliates\']').val('');
 
-		$('#input-affiliate' + item['value']).remove();
+              $('#input-affiliate' + item['value']).remove();
 
-		$('#input-affiliate').parent().find('.well').append('<div id="affiliate' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="affiliate[]" value="' + item['value'] + '" /></div>');
-	}
-});
+              $('#input-affiliate').parent().find('.well').append('<div id="affiliate' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="affiliate[]" value="' + item['value'] + '" /></div>');
+          }
+      });
 
-$('#input-affiliate').parent().find('.well').delegate('.fa-minus-circle', 'click', function() {
-	$(this).parent().remove();
-});
+      $('#input-affiliate').parent().find('.well').delegate('.fa-minus-circle', 'click', function () {
+          $(this).parent().remove();
+      });
 
-// Products
-$('input[name=\'products\']').autocomplete({
-	'source': function(request, response) {
-		$.ajax({
-			url: 'index.php?route=catalog/product/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request),
-			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
-					return {
-						label: item['name'],
-						value: item['product_id']
-					}
-				}));
-			}
-		});
-	},
-	'select': function(item) {
-		$('input[name=\'products\']').val('');
+      // Products
+      $('input[name=\'products\']').autocomplete({
+          'source': function (request, response) {
+              $.ajax({
+                  url: 'index.php?route=catalog/product/autocomplete&token=<?php echo $token; ?>&filter_name=' + encodeURIComponent(request),
+                  dataType: 'json',
+                  success: function (json) {
+                      response($.map(json, function (item) {
+                          return {
+                              label: item['name'],
+                              value: item['product_id']
+                          }
+                      }));
+                  }
+              });
+          },
+          'select': function (item) {
+              $('input[name=\'products\']').val('');
 
-		$('#input-product' + item['value']).remove();
+              $('#input-product' + item['value']).remove();
 
-		$('#input-product').parent().find('.well').append('<div id="product' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product[]" value="' + item['value'] + '" /></div>');
-	}
-});
+              $('#input-product').parent().find('.well').append('<div id="product' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product[]" value="' + item['value'] + '" /></div>');
+          }
+      });
 
-$('#input-product').parent().find('.well').delegate('.fa-minus-circle', 'click', function() {
-	$(this).parent().remove();
-});
+      $('#input-product').parent().find('.well').delegate('.fa-minus-circle', 'click', function () {
+          $(this).parent().remove();
+      });
 
-function send(url) {
-	$.ajax({
-		url: url,
-		type: 'post',
-		data: $('#content select, #content input, #content textarea'),
-		dataType: 'json',
-		beforeSend: function() {
-			$('#button-send').button('loading');
-		},
-		complete: function() {
-			$('#button-send').button('reset');
-		},
-		success: function(json) {
-			$('.alert, .text-danger').remove();
+      function send(url) {
+          $.ajax({
+              url: url,
+              type: 'post',
+              data: $('#content select, #content input, #content textarea'),
+              dataType: 'json',
+              beforeSend: function () {
+                  $('#button-send').button('loading');
+              },
+              complete: function () {
+                  $('#button-send').button('reset');
+              },
+              success: function (json) {
+                  $('.alert, .text-danger').remove();
 
-			if (json['error']) {
-				if (json['error']['warning']) {
-					$('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '</div>');
-				}
+                  if (json['error']) {
+                      if (json['error']['warning']) {
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '</div>');
+                      }
 
-				if (json['error']['email']) {
-					$('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['email'] + '</div>');
-				}
+                      if (json['error']['email']) {
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['email'] + '</div>');
+                      }
 
-				if (json['error']['subject']) {
-					$('input[name=\'subject\']').after('<div class="text-danger">' + json['error']['subject'] + '</div>');
-				}
+                      if (json['error']['subject']) {
+                          $('input[name=\'subject\']').after('<div class="text-danger">' + json['error']['subject'] + '</div>');
+                      }
 
-				if (json['error']['message']) {
-					$('textarea[name=\'message\']').parent().append('<div class="text-danger">' + json['error']['message'] + '</div>');
-				}
-			}
+                      if (json['error']['message']) {
+                          $('textarea[name=\'message\']').parent().append('<div class="text-danger">' + json['error']['message'] + '</div>');
+                      }
+                  }
 
-			if (json['success']) {
-				$('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  ' + json['success'] + '</div>');
-			}
-				
-			if (json['next']) {
-				send(json['next']);
-			}
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-	});
-}
-//--></script></div>
+                  if (json['success']) {
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  ' + json['success'] + '</div>');
+                  }
+
+                  if (json['next']) {
+                      send(json['next']);
+                  }
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              }
+          });
+      }
+      //--></script></div>
 <?php echo $footer; ?>

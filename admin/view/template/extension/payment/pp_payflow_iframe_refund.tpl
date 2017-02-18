@@ -5,8 +5,8 @@
       <div class="pull-right"><a href="<?php echo $cancel; ?>" class="btn btn-danger"><i class="fa fa-times"></i> <?php echo $button_cancel; ?></a></div>
       <h1><?php echo $heading_refund; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
@@ -37,33 +37,31 @@
   </div>
   <script type="text/javascript"><!--
 function refund() {
-  var amount = $('input[name="amount"]').val();
+          var amount = $('input[name="amount"]').val();
 
-  $.ajax({
-    type: 'POST',
-    dataType: 'json',
-    data: {'transaction_reference': '<?php echo $transaction_reference; ?>', 'amount': amount },
-    url: 'index.php?route=extension/payment/pp_payflow_iframe/dorefund&token=<?php echo $token; ?>',
+          $.ajax({
+              type: 'POST',
+              dataType: 'json',
+              data: {'transaction_reference': '<?php echo $transaction_reference; ?>', 'amount': amount},
+              url: 'index.php?route=extension/payment/pp_payflow_iframe/dorefund&token=<?php echo $token; ?>',
+              beforeSend: function () {
+                  $('#button-refund').after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
+                  $('#button-refund').hide();
+              },
+              success: function (data) {
+                  if (!data.error) {
+                      alert(data.success);
+                      $('input[name="amount"]').val('0.00');
+                  }
 
-    beforeSend: function () {
-      $('#button-refund').after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
-      $('#button-refund').hide();
-    },
+                  if (data.error) {
+                      alert(data.error);
+                  }
 
-    success: function (data) {
-      if (!data.error) {
-        alert(data.success);
-        $('input[name="amount"]').val('0.00');
+                  $('#button-refund').show();
+                  $('.loading').remove();
+              }
+          });
       }
-
-      if (data.error) {
-        alert(data.error);
-      }
-
-      $('#button-refund').show();
-      $('.loading').remove();
-    }
-  });
-}
-//--></script></div>
+      //--></script></div>
 <?php echo $footer; ?>

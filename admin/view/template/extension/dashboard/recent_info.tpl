@@ -15,21 +15,21 @@
         </tr>
       </thead>
       <tbody>
-        <?php if ($orders) { ?>
-        <?php foreach ($orders as $order) { ?>
-        <tr>
-          <td class="text-right"><?php echo $order['order_id']; ?></td>
-          <td><?php echo $order['customer']; ?></td>
-          <td><?php echo $order['status']; ?></td>
-          <td><?php echo $order['date_added']; ?></td>
-          <td class="text-right"><?php echo $order['total']; ?></td>
-          <td class="text-right"><a href="<?php echo $order['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
-        </tr>
-        <?php } ?>
+          <?php if ($orders) { ?>
+              <?php foreach ($orders as $order) { ?>
+                <tr>
+                  <td class="text-right"><?php echo $order['order_id']; ?></td>
+                  <td><?php echo $order['customer']; ?></td>
+                  <td><?php echo $order['status']; ?></td>
+                  <td><?php echo $order['date_added']; ?></td>
+                  <td class="text-right"><?php echo $order['total']; ?></td>
+                  <td class="text-right"><a href="<?php echo $order['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
+                </tr>
+            <?php } ?>
         <?php } else { ?>
-        <tr>
-          <td class="text-center" colspan="6"><?php echo $text_no_results; ?></td>
-        </tr>
+            <tr>
+              <td class="text-center" colspan="6"><?php echo $text_no_results; ?></td>
+            </tr>
         <?php } ?>
       </tbody>
     </table>

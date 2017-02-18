@@ -7,18 +7,18 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-				<?php foreach ($breadcrumbs as $breadcrumb) { ?>
-	        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-				<?php } ?>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-		<?php if ($error_warning) { ?>
-	    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-	      <button type="button" class="close" data-dismiss="alert">&times;</button>
-	    </div>
-		<?php } ?>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+    <?php } ?>
     <div class="alert alert-info"><?php echo $text_recurring; ?></div>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -29,14 +29,14 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label"><?php echo $entry_name; ?></label>
             <div class="col-sm-10">
-							<?php foreach ($languages as $language) { ?>
-	              <div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
-	                <input type="text" name="recurring_description[<?php echo $language['language_id']; ?>][name]" value="<?php echo isset($recurring_description[$language['language_id']]) ? $recurring_description[$language['language_id']]['name'] : ''; ?>" placeholder="<?php echo $entry_name; ?>" class="form-control" />
-	              </div>
-								<?php if (isset($error_name[$language['language_id']])) { ?>
-		              <div class="text-danger"><?php echo $error_name[$language['language_id']]; ?></div>
-								<?php } ?>
-							<?php } ?>
+                <?php foreach ($languages as $language) { ?>
+                  <div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
+                    <input type="text" name="recurring_description[<?php echo $language['language_id']; ?>][name]" value="<?php echo isset($recurring_description[$language['language_id']]) ? $recurring_description[$language['language_id']]['name'] : ''; ?>" placeholder="<?php echo $entry_name; ?>" class="form-control" />
+                  </div>
+                  <?php if (isset($error_name[$language['language_id']])) { ?>
+                      <div class="text-danger"><?php echo $error_name[$language['language_id']]; ?></div>
+                  <?php } ?>
+              <?php } ?>
             </div>
           </div>
           <fieldset>
@@ -63,13 +63,13 @@
               <label class="col-sm-2 control-label" for="input-frequency"><?php echo $entry_frequency; ?></label>
               <div class="col-sm-10">
                 <select name="frequency" id="input-frequency" class="form-control">
-									<?php foreach ($frequencies as $frequency_option) { ?>
-										<?php if ($frequency == $frequency_option['value']) { ?>
-		                  <option value="<?php echo $frequency_option['value']; ?>" selected="selected"><?php echo $frequency_option['text']; ?></option>
-										<?php } else { ?>
-		                  <option value="<?php echo $frequency_option['value']; ?>"><?php echo $frequency_option['text']; ?></option>
-										<?php } ?>
-									<?php } ?>
+                    <?php foreach ($frequencies as $frequency_opt ion) { ?>
+                        <?php if ($frequency == $frequency_option['value']) { ?>
+                          <option value="<?php echo $frequency_option['value']; ?>" selected="selected"><?php echo $frequency_option['text']; ?></option>
+                      <?php } else { ?>
+                          <option value="<?php echo $frequency_option['value']; ?>"><?php echo $frequency_option['text']; ?></option>
+                      <?php } ?>
+                  <?php } ?>
                 </select>
               </div>
             </div>
@@ -77,13 +77,13 @@
               <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
               <div class="col-sm-10">
                 <select name="status" id="input-status" class="form-control">
-									<?php if ($status) { ?>
-	                  <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-	                  <option value="0"><?php echo $text_disabled; ?></option>
-									<?php } else { ?>
-	                  <option value="1"><?php echo $text_enabled; ?></option>
-	                  <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-									<?php } ?>
+                    <?php if ($status) { ?>
+                      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                      <option value="0"><?php echo $text_disabled; ?></option>
+                  <?php } else { ?>
+                      <option value="1"><?php echo $text_enabled; ?></option>
+                      <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                  <?php } ?>
                 </select>
               </div>
             </div>
@@ -112,13 +112,13 @@
               <label class="col-sm-2 control-label" for="input-trial-frequency"><?php echo $entry_trial_frequency; ?></label>
               <div class="col-sm-10">
                 <select name="trial_frequency" id="input-trial-frequency" class="form-control">
-									<?php foreach ($frequencies as $frequency_option) { ?>
-										<?php if ($trial_frequency == $frequency_option['value']) { ?>
-		                  <option value="<?php echo $frequency_option['value']; ?>" selected="selected"><?php echo $frequency_option['text']; ?></option>
-										<?php } else { ?>
-		                  <option value="<?php echo $frequency_option['value']; ?>"><?php echo $frequency_option['text']; ?></option>
-										<?php } ?>
-									<?php } ?>
+                    <?php foreach ($frequencies as $frequency_option) { ?>
+                        <?php if ($tri al_frequency == $frequency_option['value']) { ?>
+                          <option value="<?php echo $frequency_option['value']; ?>" selected="selected"><?php echo $frequency_option['text']; ?></option>
+                      <?php } else { ?>
+                          <option value="<?php echo $frequency_option['value']; ?>"><?php echo $frequency_option['text']; ?></option>
+                      <?php } ?>
+                  <?php } ?>
                 </select>
               </div>
             </div>
@@ -126,13 +126,13 @@
               <label class="col-sm-2 control-label" for="input-trial-status"><?php echo $entry_trial_status; ?></label>
               <div class="col-sm-10">
                 <select name="trial_status" id="input-trial-status" class="form-control">
-									<?php if ($trial_status) { ?>
-	                  <option value="0"><?php echo $text_disabled; ?></option>
-	                  <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-									<?php } else { ?>
-	                  <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-	                  <option value="1"><?php echo $text_enabled; ?></option>
-									<?php } ?>
+                    <?php if ($trial_status) { ?>
+                      <option value="0"><?php echo $text_disabled; ?></option>
+                      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                  <?php } else { ?>
+                      <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                      <option value="1"><?php echo $text_enabled; ?></option>
+                  <?php } ?>
                 </select>
               </div>
             </div>
@@ -149,5 +149,5 @@
   </div>
   <script type="text/javascript"><!--
 $('#language a:first').tab('show');
-//--></script></div>
+      //--></script></div>
 <?php echo $footer; ?>

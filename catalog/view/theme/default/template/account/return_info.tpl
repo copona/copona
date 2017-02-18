@@ -1,18 +1,18 @@
 <?php echo $header; ?>
 <div class="container">
   <ul class="breadcrumb">
-    <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
   </ul>
   <div class="row"><?php echo $column_left; ?>
-    <?php if ($column_left && $column_right) { ?>
-    <?php $class = 'col-sm-6'; ?>
-    <?php } elseif ($column_left || $column_right) { ?>
-    <?php $class = 'col-sm-9'; ?>
-    <?php } else { ?>
-    <?php $class = 'col-sm-12'; ?>
-    <?php } ?>
+      <?php if ($column_left && $column_right) { ?>
+          <?php $class = 'col-sm-6'; ?>
+      <?php } elseif ($column_left || $column_right) { ?>
+          <?php $class = 'col-sm-9'; ?>
+      <?php } else { ?>
+          <?php $class = 'col-sm-12'; ?>
+      <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
       <table class="table table-bordered table-hover">
@@ -69,20 +69,20 @@
         </table>
       </div>
       <?php if ($comment) { ?>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <td class="text-left"><?php echo $text_comment; ?></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-left"><?php echo $comment; ?></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <td class="text-left"><?php echo $text_comment; ?></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-left"><?php echo $comment; ?></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
       <?php } ?>
       <h3><?php echo $text_history; ?></h3>
       <div class="table-responsive">
@@ -95,24 +95,21 @@
             </tr>
           </thead>
           <tbody>
-            <?php if ($histories) { ?>
-            <?php foreach ($histories as $history) { ?>
-            <tr>
-              <td class="text-left"><?php echo $history['date_added']; ?></td>
-              <td class="text-left"><?php echo $history['status']; ?></td>
-              <td class="text-left"><?php echo $history['comment']; ?></td>
-            </tr>
-            <?php } ?>
+              <?php if ($histories) { ?>
+                  <?php foreach ($histories as $history) { ?>
+                    <tr>
+                      <td class="text-left"><?php echo $history['date_added']; ?></td>
+                      <td class="text-left"><?php echo $history['status']; ?></td>
+                      <td class="text-left"><?php echo $history['comment']; ?></td>
+                    </tr>
+                <?php } ?>
             <?php } else { ?>
-            <tr>
-              <td colspan="3" class="text-center"><?php echo $text_no_results; ?></td>
-            </tr>
+                <tr>
+                  <td colspan="3" class="text-center"><?php echo $text_no_results; ?></td>
+                </tr>
             <?php } ?>
           </tbody>
         </table>
-      </div>
-      <div class="buttons clearfix">
-        <div class="pull-right"><a href="<?php echo $continue; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>
       </div>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>

@@ -1,84 +1,84 @@
 <?php
 class ModelExtensionFraudFraudLabsPro extends Model {
 
-	public function check($data) {
-		// Do not perform fraud check if FraudLabs Pro is disabled or API key is not provided.
-		if (!$this->config->get('fraudlabspro_status') || !$this->config->get('fraudlabspro_key')) {
-			return;
-		}
+    public function check($data) {
+        // Do not perform fraud check if FraudLabs Pro is disabled or API key is not provided.
+        if (!$this->config->get('fraudlabspro_status') || !$this->config->get('fraudlabspro_key')) {
+            return;
+        }
 
-		$risk_score = 0;
+        $risk_score = 0;
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE order_id = '" . (int)$data['order_id'] . "'");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE order_id = '" . (int)$data['order_id'] . "'");
 
-		// Do not call FraudLabs Pro API if order is already screened.
-		if ($query->num_rows) {
-			return;
-		}
+        // Do not call FraudLabs Pro API if order is already screened.
+        if ($query->num_rows) {
+            return;
+        }
 
-		$ip = $data['ip'];
+        $ip = $data['ip'];
 
-		// Detect client IP is store is behind CloudFlare protection.
-		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)) {
-			$ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
-		}
+        // Detect client IP is store is behind CloudFlare protection.
+        if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)) {
+            $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+        }
 
-		// Get real client IP is they are behind proxy server.
-		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && filter_var($_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP)) {
-			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		}
+        // Get real client IP is they are behind proxy server.
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && filter_var($_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP)) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
 
-		// Overwrite client IP if simulate IP is provided.
-		if (filter_var($this->config->get('fraudlabspro_simulate_ip'), FILTER_VALIDATE_IP)) {
-			$ip = $this->config->get('fraudlabspro_simulate_ip');
-		}
+        // Overwrite client IP if simulate IP is provided.
+        if (filter_var($this->config->get('fraudlabspro_simulate_ip'), FILTER_VALIDATE_IP)) {
+            $ip = $this->config->get('fraudlabspro_simulate_ip');
+        }
 
-		$request['key'] = $this->config->get('fraudlabspro_key');
-		$request['ip'] = $ip;
-		$request['first_name'] = $data['firstname'];
-		$request['last_name'] = $data['lastname'];
-		$request['bill_city'] = $data['payment_city'];
-		$request['bill_state'] = $data['payment_zone'];
-		$request['bill_country'] = $data['payment_iso_code_2'];
-		$request['bill_zip_code'] = $data['payment_postcode'];
-		$request['email_domain'] = utf8_substr(strrchr($data['email'], '@'), 1);
-		$request['user_phone'] = $data['telephone'];
+        $request['key'] = $this->config->get('fraudlabspro_key');
+        $request['ip'] = $ip;
+        $request['first_name'] = $data['firstname'];
+        $request['last_name'] = $data['lastname'];
+        $request['bill_city'] = $data['payment_city'];
+        $request['bill_state'] = $data['payment_zone'];
+        $request['bill_country'] = $data['payment_iso_code_2'];
+        $request['bill_zip_code'] = $data['payment_postcode'];
+        $request['email_domain'] = utf8_substr(strrchr($data['email'], '@'), 1);
+        $request['user_phone'] = $data['telephone'];
 
-		if ($data['shipping_method']) {
-			$request['ship_addr'] = $data['shipping_address_1'];
-			$request['ship_city'] = $data['shipping_city'];
-			$request['ship_state'] = $data['shipping_zone'];
-			$request['ship_zip_code'] = $data['shipping_postcode'];
-			$request['ship_country'] = $data['shipping_iso_code_2'];
-		}
+        if ($data['shipping_method']) {
+            $request['ship_addr'] = $data['shipping_address_1'];
+            $request['ship_city'] = $data['shipping_city'];
+            $request['ship_state'] = $data['shipping_zone'];
+            $request['ship_zip_code'] = $data['shipping_postcode'];
+            $request['ship_country'] = $data['shipping_iso_code_2'];
+        }
 
-		$request['email'] = $data['email'];
-		$request['email_hash'] = $this->hashIt($data['email']);
-		$request['amount'] = $this->currency->format($data['total'], $data['currency_code'], $data['currency_value'], false);
-		$request['quantity'] = 1;
-		$request['currency'] = $data['currency_code'];
-		$request['payment_mode'] = $data['payment_code'];
-		$request['user_order_id'] = $data['order_id'];
-		$request['format'] = 'json';
-		$request['source'] = 'opencart';
-		$request['source_version'] = '2.1.0.2';
+        $request['email'] = $data['email'];
+        $request['email_hash'] = $this->hashIt($data['email']);
+        $request['amount'] = $this->currency->format($data['total'], $data['currency_code'], $data['currency_value'], false);
+        $request['quantity'] = 1;
+        $request['currency'] = $data['currency_code'];
+        $request['payment_mode'] = $data['payment_code'];
+        $request['user_order_id'] = $data['order_id'];
+        $request['format'] = 'json';
+        $request['source'] = 'opencart';
+        $request['source_version'] = '2.1.0.2';
 
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, 'https://api.fraudlabspro.com/v1/order/screen?' . http_build_query($request));
-		curl_setopt($curl, CURLOPT_HEADER, 0);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, 'https://api.fraudlabspro.com/v1/order/screen?' . http_build_query($request));
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
+        curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
 
-		$response = curl_exec($curl);
+        $response = curl_exec($curl);
 
-		curl_close($curl);
+        curl_close($curl);
 
-		$risk_score = 0;
+        $risk_score = 0;
 
-		if (is_null($json = json_decode($response)) === FALSE) {
-			$this->db->query("REPLACE INTO `" . DB_PREFIX . "fraudlabspro` SET order_id = '" . (int)$data['order_id'] . "',
+        if (is_null($json = json_decode($response)) === FALSE) {
+            $this->db->query("REPLACE INTO `" . DB_PREFIX . "fraudlabspro` SET order_id = '" . (int)$data['order_id'] . "',
 				is_country_match = '" . $this->db->escape($json->is_country_match) . "',
 				is_high_risk_country = '" . $this->db->escape($json->is_high_risk_country) . "',
 				distance_in_km = '" . $this->db->escape($json->distance_in_km) . "',
@@ -125,40 +125,40 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 				fraudlabspro_credits = '" . $this->db->escape($json->fraudlabspro_credits) . "',
 				api_key = '" . $this->config->get('fraudlabspro_key') . "',
 				ip_address = '" . $ip . "'"
-			);
+            );
 
-			$risk_score = (int)$json->fraudlabspro_score;
-		}
+            $risk_score = (int)$json->fraudlabspro_score;
+        }
 
-		// Do not perform any action if error found
-		if ($json->fraudlabspro_error_code) {
-			return;
-		}
+        // Do not perform any action if error found
+        if ($json->fraudlabspro_error_code) {
+            return;
+        }
 
-		if ($risk_score > $this->config->get('fraudlabspro_score')) {
-			return $this->config->get('fraudlabspro_order_status_id');
-		}
+        if ($risk_score > $this->config->get('fraudlabspro_score')) {
+            return $this->config->get('fraudlabspro_order_status_id');
+        }
 
-		if ($json->fraudlabspro_status == 'REVIEW') {
-			return $this->config->get('fraudlabspro_review_status_id');
-		}
+        if ($json->fraudlabspro_status == 'REVIEW') {
+            return $this->config->get('fraudlabspro_review_status_id');
+        }
 
-		if ($json->fraudlabspro_status == 'APPROVE') {
-			return $this->config->get('fraudlabspro_approve_status_id');
-		}
+        if ($json->fraudlabspro_status == 'APPROVE') {
+            return $this->config->get('fraudlabspro_approve_status_id');
+        }
 
-		if ($json->fraudlabspro_status == 'REJECT') {
-			return $this->config->get('fraudlabspro_reject_status_id');
-		}
-	}
+        if ($json->fraudlabspro_status == 'REJECT') {
+            return $this->config->get('fraudlabspro_reject_status_id');
+        }
+    }
 
-	private function hashIt($s) {
-		$hash = 'fraudlabspro_' . $s;
+    private function hashIt($s) {
+        $hash = 'fraudlabspro_' . $s;
 
-		for ($i = 0; $i < 65536; $i++)
-			$hash = sha1('fraudlabspro_' . $hash);
+        for ($i = 0; $i < 65536; $i++)
+            $hash = sha1('fraudlabspro_' . $hash);
 
-		return $hash;
-	}
+        return $hash;
+    }
 
 }

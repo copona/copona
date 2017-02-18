@@ -7,8 +7,8 @@
   <tr>
     <td><?php echo $text_amount_auth; ?></td>
     <td><?php echo $paypal_order['total']; ?>
-      <?php if ($paypal_order['capture_status'] != 'Complete') { ?>
-      &nbsp;&nbsp; <a onclick="doVoid();" id="button-void" class="button paypal_capture btn btn-primary"><?php echo $button_void; ?></a> <span class="btn btn-primary" id="img_loading_void" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+        <?php if ($paypal_order['capture_status'] != 'Complete') { ?>
+          &nbsp;&nbsp; <a onclick="doVoid();" id="button-void" class="button paypal_capture btn btn-primary"><?php echo $button_void; ?></a> <span class="btn btn-primary" id="img_loading_void" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
       <?php } ?></td>
   </tr>
   <tr>
@@ -20,21 +20,21 @@
     <td id="paypal_refunded"><?php echo $paypal_order['refunded']; ?></td>
   </tr>
   <?php if ($paypal_order['capture_status'] != 'Complete') { ?>
-  <tr class="paypal_capture">
-    <td><?php echo $text_capture_amount; ?></td>
-    <td><p>
-        <input type="checkbox" name="paypal_capture_complete" id="paypal_capture_complete" value="1"/>
-        <?php echo $text_complete_capture; ?></p>
-      <p>
-        <input type="text" size="10" id="paypal_capture_amount" value="<?php echo $paypal_order['remaining']; ?>"/>
-        <a class="btn btn-primary" onclick="capture();" id="button-capture"><?php echo $button_capture; ?></a> <span class="btn btn-primary" id="img_loading_capture" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span> </p></td>
-  </tr>
+      <tr class="paypal_capture">
+        <td><?php echo $text_capture_amount; ?></td>
+        <td><p>
+            <input type="checkbox" name="paypal_capture_complete" id="paypal_capture_complete" value="1"/>
+            <?php echo $text_complete_capture; ?></p>
+          <p>
+            <input type="text" size="10" id="paypal_capture_amount" value="<?php echo $paypal_order['remaining']; ?>"/>
+            <a class="btn btn-primary" onclick="capture();" id="button-capture"><?php echo $button_capture; ?></a> <span class="btn btn-primary" id="img_loading_capture" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span> </p></td>
+      </tr>
   <?php } ?>
   <?php if ($paypal_order['capture_status'] != 'Complete') { ?>
-  <tr>
-    <td><?php echo $text_reauthorise; ?></td>
-    <td><a id="button-reauthorise" onclick="reauthorise()" class="btn btn-primary"><?php echo $button_reauthorise; ?></a></td>
-  </tr>
+      <tr>
+        <td><?php echo $text_reauthorise; ?></td>
+        <td><a id="button-reauthorise" onclick="reauthorise()" class="btn btn-primary"><?php echo $button_reauthorise; ?></a></td>
+      </tr>
   <?php } ?>
   <tr>
     <td><?php echo $text_transactions; ?>:</td>
@@ -51,23 +51,23 @@
           </tr>
         </thead>
         <tbody>
-          <?php foreach($transactions as $transaction) { ?>
-          <tr>
-            <td class="text-left"><?php echo $transaction['transaction_id']; ?></td>
-            <td class="text-left"><?php echo $transaction['amount']; ?></td>
-            <td class="text-left"><?php echo $transaction['payment_type']; ?></td>
-            <td class="text-left"><?php echo $transaction['payment_status']; ?></td>
-            <td class="text-left"><?php echo $transaction['pending_reason']; ?></td>
-            <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-            <td class="text-left"><?php if ($transaction['transaction_id']) { ?>
-              <a href="<?php echo $transaction['view']; ?>"><?php echo $text_view; ?></a>
-              <?php if ($transaction['payment_type'] == 'instant' && ($transaction['payment_status'] == 'Completed' || $transaction['payment_status'] == 'Partially-Refunded')) { ?>
-              &nbsp;<a href="<?php echo $transaction['refund']; ?>"><?php echo $text_refund; ?></a>
-              <?php } ?>
-              <?php } else { ?>
-              <a onclick="resendTransaction(this); return false;" href="<?php echo $transaction['resend']; ?>"><?php echo $text_resend; ?></a>
-              <?php } ?></td>
-          </tr>
+            <?php foreach ($transactions as $transaction) { ?>
+              <tr>
+                <td class="text-left"><?php echo $transaction['transaction_id']; ?></td>
+                <td class="text-left"><?php echo $transaction['amount']; ?></td>
+                <td class="text-left"><?php echo $transaction['payment_type']; ?></td>
+                <td class="text-left"><?php echo $transaction['payment_status']; ?></td>
+                <td class="text-left"><?php echo $transaction['pending_reason']; ?></td>
+                <td class="text-left"><?php echo $transaction['date_added']; ?></td>
+                <td class="text-left"><?php if ($transaction['transaction_id']) { ?>
+                      <a href="<?php echo $transaction['view']; ?>"><?php echo $text_view; ?></a>
+                      <?php if ($transaction['payment_type'] == 'instant' && ($transaction['payment_status'] == 'Completed' || $transaction['payment_status'] == 'Partially-Refunded')) { ?>
+                          &nbsp;<a href="<?php echo $transaction['refund']; ?>"><?php echo $text_refund; ?></a>
+                      <?php } ?>
+                  <?php } else { ?>
+                      <a onclick="resendTransaction(this); return false;" href="<?php echo $transaction['resend']; ?>"><?php echo $text_resend; ?></a>
+                  <?php } ?></td>
+              </tr>
           <?php } ?>
         </tbody>
       </table></td>
@@ -91,15 +91,15 @@
             }
 
             $.ajax({
-                type:'POST',
+                type: 'POST',
                 dataType: 'json',
-                data: {'amount':amt,'order_id':<?php echo $order_id; ?>,'complete':captureComplete},
+                data: {'amount': amt, 'order_id':<?php echo $order_id; ?>, 'complete': captureComplete},
                 url: 'index.php?route=extension/payment/pp_pro_iframe/capture&token=<?php echo $token; ?>',
-                beforeSend: function() {
+                beforeSend: function () {
                     $('#button-capture').hide();
                     $('#img_loading_capture').show();
                 },
-                success: function(data) {
+                success: function (data) {
                     if (data.error == false) {
                         html = '';
 
@@ -166,15 +166,15 @@
     function doVoid() {
         if (confirm('<?php echo $text_confirm_void; ?>')) {
             $.ajax({
-                type:'POST',
+                type: 'POST',
                 dataType: 'json',
-                data: {'order_id':<?php echo $order_id; ?> },
+                data: {'order_id':<?php echo $order_id; ?>},
                 url: 'index.php?route=extension/payment/pp_pro_iframe/void&token=<?php echo $token; ?>',
-                beforeSend: function() {
+                beforeSend: function () {
                     $('#button-void').hide();
                     $('#img_loading_void').show();
                 },
-                success: function(data) {
+                success: function (data) {
                     if (data.error == false) {
                         html = '';
                         html += '<tr>';
@@ -203,69 +203,69 @@
         }
     }
 
-function reauthorise() {
-    $.ajax({
-        type:'POST',
-        dataType: 'json',
-        data: {'order_id':<?php echo $order_id; ?> },
-        url: 'index.php?route=extension/payment/pp_pro_iframe/reauthorise&token=<?php echo $token; ?>',
-        beforeSend: function() {
-            $('#button-reauthorise').hide();
-            $('.loading').remove();
-            $('#button-reauthorise').after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
-        },
-        success: function(data) {
-            $('.loading').remove();
-            $('#button-reauthorise').show();
+    function reauthorise() {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: {'order_id':<?php echo $order_id; ?>},
+            url: 'index.php?route=extension/payment/pp_pro_iframe/reauthorise&token=<?php echo $token; ?>',
+            beforeSend: function () {
+                $('#button-reauthorise').hide();
+                $('.loading').remove();
+                $('#button-reauthorise').after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
+            },
+            success: function (data) {
+                $('.loading').remove();
+                $('#button-reauthorise').show();
 
-            if (data.error == false) {
-                html = '';
-                html += '<tr>';
-                html += '<td class="text-left">' + data.data.transaction_id + '</td>';
-                html += '<td class="text-left">0.00</td>';
-                html += '<td class="text-left">' + data.data.payment_type + '</td>';
-                html += '<td class="text-left">' + data.data.payment_status + '</td>';
-                html += '<td class="text-left">' + data.data.pending_reason + '</td>';
-                html += '<td class="text-left">' + data.data.date_added + '</td>';
-                html += '<td class="text-left"></td>';
-                html += '</tr>';
+                if (data.error == false) {
+                    html = '';
+                    html += '<tr>';
+                    html += '<td class="text-left">' + data.data.transaction_id + '</td>';
+                    html += '<td class="text-left">0.00</td>';
+                    html += '<td class="text-left">' + data.data.payment_type + '</td>';
+                    html += '<td class="text-left">' + data.data.payment_status + '</td>';
+                    html += '<td class="text-left">' + data.data.pending_reason + '</td>';
+                    html += '<td class="text-left">' + data.data.date_added + '</td>';
+                    html += '<td class="text-left"></td>';
+                    html += '</tr>';
 
-                $('#paypal_transactions').append(html);
-                alert('<?php echo $text_reauthorised; ?>');
-                $('.loading').hide();
+                    $('#paypal_transactions').append(html);
+                    alert('<?php echo $text_reauthorised; ?>');
+                    $('.loading').hide();
+                }
+
+                if (data.error == true) {
+                    alert(data.msg);
+                }
+
+                $('#button-void').show();
+                $('#img_loading_void').hide();
             }
+        });
+    }
 
-            if (data.error == true) {
-                alert(data.msg);
+    function resendTransaction(element) {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: $(element).attr('href'),
+            beforeSend: function () {
+                $(element).hide();
+                $(element).after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
+            },
+            success: function (data) {
+                $(element).show();
+                $('.loading').remove();
+
+                if (data.error) {
+                    alert(data.error);
+                }
+
+                if (data.success) {
+                    location.reload();
+                }
             }
-
-            $('#button-void').show();
-            $('#img_loading_void').hide();
-        }
-    });
-}
-
-function resendTransaction(element) {
-    $.ajax({
-        type:'GET',
-        dataType: 'json',
-        url: $(element).attr('href'),
-        beforeSend: function() {
-            $(element).hide();
-            $(element).after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
-        },
-        success: function(data) {
-            $(element).show();
-            $('.loading').remove();
-
-            if (data.error) {
-                alert(data.error);
-            }
-
-            if (data.success) {
-                location.reload();
-            }
-        }
-    });
-}
+        });
+    }
 //--></script>

@@ -7,17 +7,17 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $text_iso; ?>
       <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -33,7 +33,7 @@
             <div class="col-sm-10">
               <input type="text" name="title" value="<?php echo $title; ?>" placeholder="<?php echo $entry_title; ?>" id="input-title" class="form-control" />
               <?php if ($error_title) { ?>
-              <div class="text-danger"><?php echo $error_title; ?></div>
+                  <div class="text-danger"><?php echo $error_title; ?></div>
               <?php } ?>
             </div>
           </div>
@@ -42,7 +42,7 @@
             <div class="col-sm-10">
               <input type="text" name="code" value="<?php echo $code; ?>" placeholder="<?php echo $entry_code; ?>" id="input-code" class="form-control" />
               <?php if ($error_code) { ?>
-              <div class="text-danger"><?php echo $error_code; ?></div>
+                  <div class="text-danger"><?php echo $error_code; ?></div>
               <?php } ?>
             </div>
           </div>
@@ -75,11 +75,11 @@
             <div class="col-sm-10">
               <select name="status" id="input-status" class="form-control">
                 <?php if ($status) { ?>
-                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                <option value="0"><?php echo $text_disabled; ?></option>
+                    <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                    <option value="0"><?php echo $text_disabled; ?></option>
                 <?php } else { ?>
-                <option value="1"><?php echo $text_enabled; ?></option>
-                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                    <option value="1"><?php echo $text_enabled; ?></option>
+                    <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                 <?php } ?>
               </select>
             </div>

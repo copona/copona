@@ -7,17 +7,17 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -50,21 +50,21 @@
                     <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_display_weight; ?>"><?php echo $entry_display_weight; ?></span></label>
                     <div class="col-sm-10">
                       <label class="radio-inline">
-                        <?php if ($royal_mail_display_weight) { ?>
-                        <input type="radio" name="royal_mail_display_weight" value="1" checked="checked" />
-                        <?php echo $text_yes; ?>
+                          <?php if ($royal_mail_display_weight) { ?>
+                            <input type="radio" name="royal_mail_display_weight" value="1" checked="checked" />
+                            <?php echo $text_yes; ?>
                         <?php } else { ?>
-                        <input type="radio" name="royal_mail_display_weight" value="1" />
-                        <?php echo $text_yes; ?>
+                            <input type="radio" name="royal_mail_display_weight" value="1" />
+                            <?php echo $text_yes; ?>
                         <?php } ?>
                       </label>
                       <label class="radio-inline">
-                        <?php if (!$royal_mail_display_weight) { ?>
-                        <input type="radio" name="royal_mail_display_weight" value="0" checked="checked" />
-                        <?php echo $text_no; ?>
+                          <?php if (!$royal_mail_display_weight) { ?>
+                            <input type="radio" name="royal_mail_display_weight" value="0" checked="checked" />
+                            <?php echo $text_no; ?>
                         <?php } else { ?>
-                        <input type="radio" name="royal_mail_display_weight" value="0" />
-                        <?php echo $text_no; ?>
+                            <input type="radio" name="royal_mail_display_weight" value="0" />
+                            <?php echo $text_no; ?>
                         <?php } ?>
                       </label>
                     </div>
@@ -73,21 +73,21 @@
                     <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_display_insurance; ?>"><?php echo $entry_display_insurance; ?></span></label>
                     <div class="col-sm-10">
                       <label class="radio-inline">
-                        <?php if ($royal_mail_display_insurance) { ?>
-                        <input type="radio" name="royal_mail_display_insurance" value="1" checked="checked" />
-                        <?php echo $text_yes; ?>
+                          <?php if ($royal_mail_display_insurance) { ?>
+                            <input type="radio" name="royal_mail_display_insurance" value="1" checked="checked" />
+                            <?php echo $text_yes; ?>
                         <?php } else { ?>
-                        <input type="radio" name="royal_mail_display_insurance" value="1" />
-                        <?php echo $text_yes; ?>
+                            <input type="radio" name="royal_mail_display_insurance" value="1" />
+                            <?php echo $text_yes; ?>
                         <?php } ?>
                       </label>
                       <label class="radio-inline">
-                        <?php if (!$royal_mail_display_insurance) { ?>
-                        <input type="radio" name="royal_mail_display_insurance" value="0" checked="checked" />
-                        <?php echo $text_no; ?>
+                          <?php if (!$royal_mail_display_insurance) { ?>
+                            <input type="radio" name="royal_mail_display_insurance" value="0" checked="checked" />
+                            <?php echo $text_no; ?>
                         <?php } else { ?>
-                        <input type="radio" name="royal_mail_display_insurance" value="0" />
-                        <?php echo $text_no; ?>
+                            <input type="radio" name="royal_mail_display_insurance" value="0" />
+                            <?php echo $text_no; ?>
                         <?php } ?>
                       </label>
                     </div>
@@ -96,12 +96,12 @@
                     <label class="col-sm-2 control-label" for="input-weight-class"><?php echo $entry_weight_class; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_weight_class_id" id="input-weight-class" class="form-control">
-                        <?php foreach ($weight_classes as $weight_class) { ?>
-                        <?php if ($weight_class['weight_class_id'] == $royal_mail_weight_class_id) { ?>
-                        <option value="<?php echo $weight_class['weight_class_id']; ?>" selected="selected"><?php echo $weight_class['title']; ?></option>
-                        <?php } else { ?>
-                        <option value="<?php echo $weight_class['weight_class_id']; ?>"><?php echo $weight_class['title']; ?></option>
-                        <?php } ?>
+                          <?php foreach ($weight_classes as $weight_class) { ?>
+                              <?php if ($weight_class['weight_class_id'] == $royal_mail_weight_class_id) { ?>
+                                <option value="<?php echo $weight_class['weight_class_id']; ?>" selected="selected"><?php echo $weight_class['title']; ?></option>
+                            <?php } else { ?>
+                                <option value="<?php echo $weight_class['weight_class_id']; ?>"><?php echo $weight_class['title']; ?></option>
+                            <?php } ?>
                         <?php } ?>
                       </select>
                     </div>
@@ -112,11 +112,11 @@
                       <select name="royal_mail_tax_class_id" id="input-tax-class" class="form-control">
                         <option value="0"><?php echo $text_none; ?></option>
                         <?php foreach ($tax_classes as $tax_class) { ?>
-                        <?php if ($tax_class['tax_class_id'] == $royal_mail_tax_class_id) { ?>
-                        <option value="<?php echo $tax_class['tax_class_id']; ?>" selected="selected"><?php echo $tax_class['title']; ?></option>
-                        <?php } else { ?>
-                        <option value="<?php echo $tax_class['tax_class_id']; ?>"><?php echo $tax_class['title']; ?></option>
-                        <?php } ?>
+                            <?php if ($tax_class['tax_class_id'] == $royal_mail_tax_class_id) { ?>
+                                <option value="<?php echo $tax_class['tax_class_id']; ?>" selected="selected"><?php echo $tax_class['title']; ?></option>
+                            <?php } else { ?>
+                                <option value="<?php echo $tax_class['tax_class_id']; ?>"><?php echo $tax_class['title']; ?></option>
+                            <?php } ?>
                         <?php } ?>
                       </select>
                     </div>
@@ -127,11 +127,11 @@
                       <select name="royal_mail_geo_zone_id" id="input-geo-zone" class="form-control">
                         <option value="0"><?php echo $text_all_zones; ?></option>
                         <?php foreach ($geo_zones as $geo_zone) { ?>
-                        <?php if ($geo_zone['geo_zone_id'] == $royal_mail_geo_zone_id) { ?>
-                        <option value="<?php echo $geo_zone['geo_zone_id']; ?>" selected="selected"><?php echo $geo_zone['name']; ?></option>
-                        <?php } else { ?>
-                        <option value="<?php echo $geo_zone['geo_zone_id']; ?>"><?php echo $geo_zone['name']; ?></option>
-                        <?php } ?>
+                            <?php if ($geo_zone['geo_zone_id'] == $royal_mail_geo_zone_id) { ?>
+                                <option value="<?php echo $geo_zone['geo_zone_id']; ?>" selected="selected"><?php echo $geo_zone['name']; ?></option>
+                            <?php } else { ?>
+                                <option value="<?php echo $geo_zone['geo_zone_id']; ?>"><?php echo $geo_zone['name']; ?></option>
+                            <?php } ?>
                         <?php } ?>
                       </select>
                     </div>
@@ -140,12 +140,12 @@
                     <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_status" id="input-status" class="form-control">
-                        <?php if ($royal_mail_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -174,12 +174,12 @@
                     <label class="col-sm-2 control-label" for="input-special-delivery-500-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_special_delivery_500_status" id="input-special-delivery-500-status" class="form-control">
-                        <?php if ($royal_mail_special_delivery_500_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_special_delivery_500_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -202,12 +202,12 @@
                     <label class="col-sm-2 control-label" for="input-special-delivery-1000-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_special_delivery_1000_status" id="input-special-delivery-1000-status" class="form-control">
-                        <?php if ($royal_mail_special_delivery_1000_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_special_delivery_1000_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -230,12 +230,12 @@
                     <label class="col-sm-2 control-label" for="input-special-delivery-2500-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_special_delivery_2500_status" id="input-special-delivery-2500-status" class="form-control">
-                        <?php if ($royal_mail_special_delivery_2500_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_special_delivery_2500_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -252,12 +252,12 @@
                     <label class="col-sm-2 control-label" for="input-1st-class-signed-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_1st_class_signed_status" id="input-1st-class-signed-status" class="form-control">
-                        <?php if ($royal_mail_1st_class_signed_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_1st_class_signed_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -274,12 +274,12 @@
                     <label class="col-sm-2 control-label" for="input-2nd-class-signed-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_2nd_class_signed_status" id="input-2nd-class-signed-status" class="form-control">
-                        <?php if ($royal_mail_2nd_class_signed_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_2nd_class_signed_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -296,12 +296,12 @@
                     <label class="col-sm-2 control-label" for="input-input-1st-class-standard-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_1st_class_standard_status" id="input-input-1st-class-standard-status" class="form-control">
-                        <?php if ($royal_mail_1st_class_standard_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_1st_class_standard_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -318,12 +318,12 @@
                     <label class="col-sm-2 control-label" for="input-2nd-class-standard-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_2nd_class_standard_status" id="input-2nd-class-standard-status" class="form-control">
-                        <?php if ($royal_mail_2nd_class_standard_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_2nd_class_standard_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -347,17 +347,17 @@
                     <div class="col-sm-10">
                       <textarea name="royal_mail_international_standard_zone_2_rate" rows="5" placeholder="<?php echo $entry_rate_zone_2; ?>" id="input-international-standard-zone-2-rate" class="form-control"><?php echo $royal_mail_international_standard_zone_2_rate; ?></textarea>
                     </div>
-                  </div>             
+                  </div>
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-international-standard-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_international_standard_status" id="input-international-standard-status" class="form-control">
-                        <?php if ($royal_mail_international_standard_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_international_standard_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -382,17 +382,17 @@
                     <div class="col-sm-10">
                       <textarea name="royal_mail_international_tracked_signed_zone_2_rate" rows="5" placeholder="<?php echo $entry_rate_zone_2; ?>" id="input-international-tracked-signed-zone-2-rate" class="form-control"><?php echo $royal_mail_international_tracked_signed_zone_2_rate; ?></textarea>
                     </div>
-                  </div>                     
+                  </div>
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-international-tracked-signed-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_international_tracked_signed_status" id="input-international-tracked-signed-status" class="form-control">
-                        <?php if ($royal_mail_international_tracked_signed_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_international_tracked_signed_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -423,17 +423,17 @@
                     <div class="col-sm-10">
                       <textarea name="royal_mail_international_tracked_zone_2_rate" rows="5" placeholder="<?php echo $entry_rate_zone_2; ?>" id="input-international-tracked-zone-2-rate" class="form-control"><?php echo $royal_mail_international_tracked_zone_2_rate; ?></textarea>
                     </div>
-                  </div>                   
+                  </div>
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-international-tracked-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_international_tracked_status" id="input-international-tracked-status" class="form-control">
-                        <?php if ($royal_mail_international_tracked_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_international_tracked_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -458,17 +458,17 @@
                     <div class="col-sm-10">
                       <textarea name="royal_mail_international_signed_zone_2_rate" rows="5" placeholder="<?php echo $entry_rate; ?>" id="input-international-signed-zone-2-rate" class="form-control"><?php echo $royal_mail_international_signed_zone_2_rate; ?></textarea>
                     </div>
-                  </div>                   
+                  </div>
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-international-signed-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_international_signed_status" id="input-international-signed-status" class="form-control">
-                        <?php if ($royal_mail_international_signed_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php if ($royal_mail_international_signed_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -480,17 +480,17 @@
                     <div class="col-sm-10">
                       <textarea name="royal_mail_international_economy_rate" rows="5" placeholder="<?php echo $entry_rate; ?>" id="input-international-economy-rate" class="form-control"><?php echo $royal_mail_international_economy_rate; ?></textarea>
                     </div>
-                  </div>                 
+                  </div>
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-international-economy-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="royal_mail_international_economy_status" id="input-international-economy-status" class="form-control">
                         <?php if ($royal_mail_international_economy_status) { ?>
-                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                        <option value="0"><?php echo $text_disabled; ?></option>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
                         <?php } else { ?>
-                        <option value="1"><?php echo $text_enabled; ?></option>
-                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -504,4 +504,4 @@
     </div>
   </div>
 </div>
-<?php echo $footer; ?> 
+<?php echo $footer; ?>

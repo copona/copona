@@ -7,8 +7,8 @@
       </div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
@@ -55,20 +55,20 @@
                 <div class="form-group stdMatrix">
                   <label class="col-sm-2 control-label" for="qty-instock"><?php echo $entry_stock_store; ?></label>
                   <div class="col-sm-2">
-                  <input type="text" name="qty_instock" id="qty-instock" class="form-control" disabled="disabled" />
-                  <span class="help-block"><?php echo $help_stock_store; ?></span> </div>
+                    <input type="text" name="qty_instock" id="qty-instock" class="form-control" disabled="disabled" />
+                    <span class="help-block"><?php echo $help_stock_store; ?></span> </div>
                 </div>
                 <div class="form-group stdMatrix">
                   <label class="col-sm-2 control-label" for="qty-listed"><?php echo $entry_stock_listed; ?></label>
                   <div class="col-sm-2">
-                  <input type="text" name="qty_listed" id="qty-listed" class="form-control" disabled="disabled" />
-                  <span class="help-block"><?php echo $help_stock_listed; ?></span> </div>
+                    <input type="text" name="qty_listed" id="qty-listed" class="form-control" disabled="disabled" />
+                    <span class="help-block"><?php echo $help_stock_listed; ?></span> </div>
                 </div>
                 <div class="form-group stdMatrix">
                   <label class="col-sm-2 control-label"><?php echo $entry_stock_reserve; ?></label>
                   <div class="col-sm-2">
-                  <input type="text" name="qty_reserve" value="0" id="qty-reserve" class="form-control" onkeyup="updateReserveMessage();" />
-                  <span class="help-block"><?php echo $help_stock_reserve; ?></span> </div>
+                    <input type="text" name="qty_reserve" value="0" id="qty-reserve" class="form-control" onkeyup="updateReserveMessage();" />
+                    <span class="help-block"><?php echo $help_stock_reserve; ?></span> </div>
                 </div>
                 <div class="form-group" id="variantMatrix">
                   <label class="col-sm-2 control-label"><?php echo $entry_stock_matrix_active; ?></label>
@@ -86,9 +86,9 @@
                         </tr>
                       </thead>
                       <tbody id="matrix-active">
-                        <input type="hidden" name="variant" value="1" />
-                        <input type="hidden" name="optGroupArray" value="" id="option-groups" />
-                        <input type="hidden" name="optGroupRelArray" value="" id="option-group-relationship" />
+                      <input type="hidden" name="variant" value="1" />
+                      <input type="hidden" name="optGroupArray" value="" id="option-groups" />
+                      <input type="hidden" name="optGroupRelArray" value="" id="option-group-relationship" />
                       </tbody>
                     </table>
                   </div>
@@ -137,37 +137,37 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-  function updateReserveMessage(){
-    var reserve = parseInt($('#qty-reserve').val());
-    var local = parseInt($('#qty_local').val());
+  function updateReserveMessage() {
+        var reserve = parseInt($('#qty-reserve').val());
+        var local = parseInt($('#qty_local').val());
 
-    if (reserve > local){
-      alert('<?php echo $error_reserve; ?>');
-      $('#qty-reserve').val(local);
+        if (reserve > local) {
+            alert('<?php echo $error_reserve; ?>');
+            $('#qty-reserve').val(local);
+        }
     }
-  }
 
-  function load(){
+    function load() {
         $.ajax({
             url: 'index.php?route=extension/openbay/ebay/editLoad&token=<?php echo $token; ?>&product_id=<?php echo $product_id; ?>',
             type: 'GET',
             dataType: 'json',
-            beforeSend: function(){
+            beforeSend: function () {
                 $('#form-loading').fadeIn('slow');
                 $('#form-main').hide();
                 $('#form-error').hide();
             },
-            success: function(data) {
-                if (data.error == false){
-                    if (data.data.listing.status == 0){
+            success: function (data) {
+                if (data.error == false) {
+                    if (data.data.listing.status == 0) {
                         $('#form').hide();
                         $('#btn-end-item').hide();
                         $('#error_box').html('<p><?php echo $error_ended; ?></p>').fadeIn('slow');
-                    }else{
+                    } else {
                         $('#title').val(data.data.listing.title);
                         $('#item-id').val(data.data.listing.itemId);
 
-                        if (data.data.variant.variant == 1){
+                        if (data.data.variant.variant == 1) {
                             $('.stdMatrix').remove();
                             $('#option-groups').val(data.data.variant.data.group_information.option_groups);
                             $('#option-group-relationship').val(data.data.variant.data.group_information.option_group_relationship);
@@ -175,7 +175,7 @@
                             var i = 0;
                             var html = '';
 
-                            $.each(data.data.variant.data.options, function( k, v ) {
+                            $.each(data.data.variant.data.options, function (k, v) {
                                 html = '';
 
                                 $('#matrix-active').append('<input type="hidden" name="opt[' + i + '][sku]" value="' + v.ebay.SKU + '" />');
@@ -184,18 +184,18 @@
                                 html += '<input type="hidden" name="varPriceExCount" class="varPriceExCount" value="' + i + '" />';
                                 html += '<input type="hidden" name="opt[' + i + '][product_option_variant_id]" value="' + v.product_option_variant_id + '" />';
                                 html += '<td class="text-center">';
-                                  if (v.local.sku == '') {
+                                if (v.local.sku == '') {
                                     html += '<span class="label label-danger"><?php echo $error_no_sku; ?></span>';
-                                  } else {
+                                } else {
                                     html += v.local.sku;
-                                  }
+                                }
                                 html += '</td>';
                                 html += '<td class="text-center">';
-                                  if (v.local.stock < 1) {
+                                if (v.local.stock < 1) {
                                     html += '<span class="label label-danger">' + v.local.stock + '</span>';
-                                  } else {
+                                } else {
                                     html += v.local.stock;
-                                  }
+                                }
                                 html += '</td>';
                                 html += '<td class="text-center">' + v.ebay.Quantity + '</td>';
                                 html += '<td class="text-center"><input type="text" name="opt[' + i + '][reserve]" value="' + v.local.reserve + '" class="text-center form-control" /></td>';
@@ -209,34 +209,34 @@
                                 i++;
                             });
 
-                            if (data.data.variant.data.options_inactive != false){
+                            if (data.data.variant.data.options_inactive != false) {
                                 $('#variantMatrixInactive').show();
-                                $.each(data.data.variant.data.options_inactive, function( k, v ) {
+                                $.each(data.data.variant.data.options_inactive, function (k, v) {
                                     $('#matrix-active').append('<input type="hidden" name="opt[' + i + '][sku]" value="' + v.local.sku + '" />');
                                     html = '';
                                     html += '<tr class="warning">';
                                     html += '<input type="hidden" name="varPriceExCount" class="varPriceExCount" value="' + i + '" />';
                                     html += '<input type="hidden" name="opt[' + i + '][product_option_variant_id]" value="' + v.product_option_variant_id + '" />';
                                     html += '<td class="text-center">';
-                                      if (v.local.sku == '') {
+                                    if (v.local.sku == '') {
                                         html += '<span class="label label-danger"><?php echo $error_no_sku; ?></span>';
-                                      } else {
+                                    } else {
                                         html += v.local.sku;
-                                      }
+                                    }
                                     html += '</td>';
                                     html += '<td class="text-center">';
                                     if (v.local.stock < 1) {
-                                      html += '<span class="label label-danger">' + v.local.stock + '</span>';
+                                        html += '<span class="label label-danger">' + v.local.stock + '</span>';
                                     } else {
-                                      html += v.local.stock;
+                                        html += v.local.stock;
                                     }
                                     html += '</td>';
                                     html += '<td class="text-center"><input type="text" name="opt[' + i + '][reserve]" value="' + v.local.reserve + '" class="text-center form-control"/></td>';
                                     html += '<td class="text-left">' + v.local.combination + '</td>';
                                     if (v.local.price == 0) {
-                                      html += '<td class="text-left"><input type="text" name="opt[' + i + '][price]" value="' + parseFloat(data.data.product.price).toFixed(2) + '" value="0" class="text-center form-control" /></td>';
+                                        html += '<td class="text-left"><input type="text" name="opt[' + i + '][price]" value="' + parseFloat(data.data.product.price).toFixed(2) + '" value="0" class="text-center form-control" /></td>';
                                     } else {
-                                      html += '<td class="text-left"><input type="text" name="opt[' + i + '][price]" value="' + v.local.price + '" value="0" class="text-center form-control" /></td>';
+                                        html += '<td class="text-left"><input type="text" name="opt[' + i + '][price]" value="' + v.local.price + '" value="0" class="text-center form-control" /></td>';
                                     }
                                     html += '<td class="text-center"><input type="hidden" name="opt[' + i + '][active]" value="0" /><input type="checkbox" name="opt[' + i + '][active]" value="1" /></td>';
                                     html += '</tr>';
@@ -246,7 +246,7 @@
                                     i++;
                                 });
                             }
-                        }else{
+                        } else {
                             $('#variantMatrix').remove();
                             $('#price').val(data.data.listing.price);
                             $('#qty-instock').val(data.data.stock.quantity);
@@ -262,159 +262,161 @@
 
                 $('#form-main').fadeIn('slow');
             },
-            complete: function() {
-              $('#form-loading').hide();
+            complete: function () {
+                $('#form-loading').hide();
             },
-            failure: function(){
+            failure: function () {
                 $('#form-error').fadeIn('slow');
             },
-            error: function(){
+            error: function () {
                 $('#form-error').fadeIn('slow');
             }
         });
     }
 
-  function loadRecommendations() {
-    var item_id = $('#item-id').val();
+    function loadRecommendations() {
+        var item_id = $('#item-id').val();
 
-    $.ajax({
-      url: 'index.php?route=extension/openbay/ebay/getItemRecommendations&token=<?php echo $token; ?>&item_id=' + item_id,
-      type: 'GET',
-      dataType: 'json',
-      success: function(data) {
-        if (data.error == false) {
-          if (data.data == false) {
-            $('#recommendations-success').fadeIn('slow');
-          } else {
-            $.each(data.data, function( key, value ) {
-              $('#tab-recommendation').append('<div class="alert alert-info">' + value.message + '</div>');
-            });
-          }
-        } else {
-          $('#recommendations-error').append('<?php echo $error_recommendations_load; ?>').fadeIn('slow');
-        }
-      },
-      complete: function() {
-        $('#recommendations-loading').hide();
-      },
-      failure: function(){
-        $('#recommendations-error').append('<?php echo $error_recommendations_load; ?>').fadeIn('slow');
-      },
-      error: function(){
-        $('#recommendations-error').append('<?php echo $error_recommendations_load; ?>').fadeIn('slow');
-      }
-    });
-  }
-
-  $('#button-save').bind('click', function() {
-    $.ajax({
-      type: 'POST',
-      url: 'index.php?route=extension/openbay/ebay/editSave&token=<?php echo $token; ?>',
-      dataType: 'json',
-      data: $("#form").serialize(),
-      beforeSend: function(){
-        $('#button-save').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-          $('#error_box').empty().hide();
-          $('#form-success').hide();
-      },
-      success: function(data) {
-          $('#reviewButtonLoading').hide();
-          $('#reviewButton').show();
-
-          if (data.Errors){
-              if (data.Errors.ShortMessage){
-                  $('#error_box').append('<p class="m3">' + data.Errors.LongMessage + '</p>');
-              }else{
-                  $.each(data.Errors, function(key,val){
-                      $('#error_box').append('<p class="m3">' + val.LongMessage + '</p>');
-                  });
-              }
-              $('#error_box').fadeIn('slow');
-          }
-
-          if (data.Ack !== 'Failure'){
-            $('#form-success').fadeIn('slow');
-            $('#button-save').hide();
-            $('#button-edit-item').show();
-          }
-
-          $('#form').hide();
-      },
-      complete: function() {
-        $('#button-save').empty().html('<i class="fa fa-save"></i> <?php echo $button_save; ?>').removeAttr('disabled');
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-          if (xhr.status != 0) { alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText); }
-        }
-    });
-    });
-
-  $('#button-load').bind('click', function() {
-    load();
-  });
-
-  $('#button-remove-link').on('click', function () {
-    var pass = confirm("<?php echo $text_confirm; ?>");
-
-    if (pass == true) {
-      $.ajax({
-        type: 'GET',
-        url: 'index.php?route=extension/openbay/ebay/removeItemLink&token=<?php echo $token; ?>&product_id=<?php echo $product_id; ?>',
-        dataType: 'json',
-        beforeSend: function(){
-          $('#button-remove-link').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-        },
-        success: function () {
-          alert('<?php echo $text_alert_removed; ?>');
-          window.location = 'index.php?route=extension/openbay/items&token=<?php echo $token; ?>';
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-          if (xhr.status != 0) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-          }
-        }
-      });
-    }
-  });
-
-  $('#button-end-item').on('click', function () {
-    var pass = confirm("<?php echo $text_confirm; ?>");
-
-    if (pass == true) {
-      var item_id = $('#item-id').val();
-
-      if (item_id !== '') {
         $.ajax({
-          type: 'GET',
-          url: 'index.php?route=extension/openbay/ebay/endItem&token=<?php echo $token; ?>&item_id=' + item_id,
-          dataType: 'json',
-          beforeSend: function(){
-            $('#button-end-item').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-          },
-          success: function (data) {
-            if (data.error == true) {
-              alert(data.msg);
-            } else {
-              alert('<?php echo $text_alert_ended; ?>');
-              window.location = 'index.php?route=extension/openbay/items&token=<?php echo $token; ?>';
+            url: 'index.php?route=extension/openbay/ebay/getItemRecommendations&token=<?php echo $token; ?>&item_id=' + item_id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                if (data.error == false) {
+                    if (data.data == false) {
+                        $('#recommendations-success').fadeIn('slow');
+                    } else {
+                        $.each(data.data, function (key, value) {
+                            $('#tab-recommendation').append('<div class="alert alert-info">' + value.message + '</div>');
+                        });
+                    }
+                } else {
+                    $('#recommendations-error').append('<?php echo $error_recommendations_load; ?>').fadeIn('slow');
+                }
+            },
+            complete: function () {
+                $('#recommendations-loading').hide();
+            },
+            failure: function () {
+                $('#recommendations-error').append('<?php echo $error_recommendations_load; ?>').fadeIn('slow');
+            },
+            error: function () {
+                $('#recommendations-error').append('<?php echo $error_recommendations_load; ?>').fadeIn('slow');
             }
-          },
-          error: function (xhr, ajaxOptions, thrownError) {
-            if (xhr.status != 0) {
-              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
-          }
         });
-      }
     }
-  });
 
-  $('#button-edit-item').on('click', function () {
-    window.location.href = window.location.href;
-  });
+    $('#button-save').bind('click', function () {
+        $.ajax({
+            type: 'POST',
+            url: 'index.php?route=extension/openbay/ebay/editSave&token=<?php echo $token; ?>',
+            dataType: 'json',
+            data: $("#form").serialize(),
+            beforeSend: function () {
+                $('#button-save').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+                $('#error_box').empty().hide();
+                $('#form-success').hide();
+            },
+            success: function (data) {
+                $('#reviewButtonLoading').hide();
+                $('#reviewButton').show();
 
-  $(document).ready(function() {
-    load();
-  });
+                if (data.Errors) {
+                    if (data.Errors.ShortMessage) {
+                        $('#error_box').append('<p class="m3">' + data.Errors.LongMessage + '</p>');
+                    } else {
+                        $.each(data.Errors, function (key, val) {
+                            $('#error_box').append('<p class="m3">' + val.LongMessage + '</p>');
+                        });
+                    }
+                    $('#error_box').fadeIn('slow');
+                }
+
+                if (data.Ack !== 'Failure') {
+                    $('#form-success').fadeIn('slow');
+                    $('#button-save').hide();
+                    $('#button-edit-item').show();
+                }
+
+                $('#form').hide();
+            },
+            complete: function () {
+                $('#button-save').empty().html('<i class="fa fa-save"></i> <?php echo $button_save; ?>').removeAttr('disabled');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status != 0) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            }
+        });
+    });
+
+    $('#button-load').bind('click', function () {
+        load();
+    });
+
+    $('#button-remove-link').on('click', function () {
+        var pass = confirm("<?php echo $text_confirm; ?>");
+
+        if (pass == true) {
+            $.ajax({
+                type: 'GET',
+                url: 'index.php?route=extension/openbay/ebay/removeItemLink&token=<?php echo $token; ?>&product_id=<?php echo $product_id; ?>',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#button-remove-link').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+                },
+                success: function () {
+                    alert('<?php echo $text_alert_removed; ?>');
+                    window.location = 'index.php?route=extension/openbay/items&token=<?php echo $token; ?>';
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    if (xhr.status != 0) {
+                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                }
+            });
+        }
+    });
+
+    $('#button-end-item').on('click', function () {
+        var pass = confirm("<?php echo $text_confirm; ?>");
+
+        if (pass == true) {
+            var item_id = $('#item-id').val();
+
+            if (item_id !== '') {
+                $.ajax({
+                    type: 'GET',
+                    url: 'index.php?route=extension/openbay/ebay/endItem&token=<?php echo $token; ?>&item_id=' + item_id,
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $('#button-end-item').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+                    },
+                    success: function (data) {
+                        if (data.error == true) {
+                            alert(data.msg);
+                        } else {
+                            alert('<?php echo $text_alert_ended; ?>');
+                            window.location = 'index.php?route=extension/openbay/items&token=<?php echo $token; ?>';
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        if (xhr.status != 0) {
+                            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    $('#button-edit-item').on('click', function () {
+        window.location.href = window.location.href;
+    });
+
+    $(document).ready(function () {
+        load();
+    });
 //--></script>
 <?php echo $footer; ?>

@@ -1,3 +1,18 @@
+/*$(document).mouseup(function (e)
+ {
+ var container = new Array();
+ container.push($('#input-product_autocomplete').parent());
+ //container.push($('#item_2'));
+ $.each(container, function (key, value) {
+
+ if (!$(value).is(e.target) // if the target of the click isn't the container...
+ && $(value).has(e.target).length === 0) // ... nor a descendant of the container
+ {
+ $(value).closest('.dropdown-menu').hide();
+ }
+ });
+ }); */
+
 function saveAndContinue(e) {
 	e.preventDefault();
 
@@ -275,12 +290,25 @@ $(document).ready(function () {
 				this.request();
 			});
 
-			// Blur
-			$this.on('blur', function () {
-				setTimeout(function (object) {
-					object.hide();
-				}, 200, this);
-			});
+			// Blur and keepDropdown
+			// http://stackoverflow.com/questions/1403615/use-jquery-to-hide-a-div-when-the-user-clicks-outside-of-it
+			if (this.keepDropdown === true) {
+				// if keepDropdown is true - then do not hide dropdown on internal clicks
+				$(document).mouseup(function (e) {
+					if (!$dropdown.is(e.target) && $dropdown.has(e.target).length === 0)
+					{
+						$dropdown.hide();
+					}
+				});
+			} else {
+				// otherwise - hide dropdown whenever click outside
+				$this.on('blur', function () {
+					setTimeout(function (object) {
+						object.hide();
+					}, 200, this);
+				});
+			}
+			;
 
 			// Keydown
 			$this.on('keydown', function (event) {
@@ -297,9 +325,11 @@ $(document).ready(function () {
 			// Click
 			this.click = function (event) {
 				event.preventDefault();
-
 				var value = $(event.target).parent().attr('data-value');
-
+				//remove LI
+				$(event.target).parent().remove();
+				//if no more LI left, hide UL
+				!$this.parent().find('ul li').length ? $this.parent().find('ul').hide() : '';
 				if (value && this.items[value]) {
 					this.select(this.items[value]);
 				}

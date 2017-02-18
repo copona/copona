@@ -7,17 +7,17 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -30,7 +30,7 @@
             <div class="col-sm-10">
               <input type="text" name="name" value="<?php echo $name; ?>" placeholder="<?php echo $entry_name; ?>" id="input-name" class="form-control" />
               <?php if ($error_name) { ?>
-              <div class="text-danger"><?php echo $error_name; ?></div>
+                  <div class="text-danger"><?php echo $error_name; ?></div>
               <?php } ?>
             </div>
           </div>
@@ -40,27 +40,27 @@
               <div class="well well-sm" style="height: 150px; overflow: auto;">
                 <div class="checkbox">
                   <label>
-                    <?php if (in_array(0, $manufacturer_store)) { ?>
-                    <input type="checkbox" name="manufacturer_store[]" value="0" checked="checked" />
-                    <?php echo $text_default; ?>
+                      <?php if (in_array(0, $manufacturer_store)) { ?>
+                        <input type="checkbox" name="manufacturer_store[]" value="0" checked="checked" />
+                        <?php echo $text_default; ?>
                     <?php } else { ?>
-                    <input type="checkbox" name="manufacturer_store[]" value="0" />
-                    <?php echo $text_default; ?>
+                        <input type="checkbox" name="manufacturer_store[]" value="0" />
+                        <?php echo $text_default; ?>
                     <?php } ?>
                   </label>
                 </div>
                 <?php foreach ($stores as $store) { ?>
-                <div class="checkbox">
-                  <label>
-                    <?php if (in_array($store['store_id'], $manufacturer_store)) { ?>
-                    <input type="checkbox" name="manufacturer_store[]" value="<?php echo $store['store_id']; ?>" checked="checked" />
-                    <?php echo $store['name']; ?>
-                    <?php } else { ?>
-                    <input type="checkbox" name="manufacturer_store[]" value="<?php echo $store['store_id']; ?>" />
-                    <?php echo $store['name']; ?>
-                    <?php } ?>
-                  </label>
-                </div>
+                    <div class="checkbox">
+                      <label>
+                          <?php if (in_array($store['store_id'], $manufacturer_store)) { ?>
+                            <input type="checkbox" name="manufacturer_store[]" value="<?php echo $store['store_id']; ?>" checked="checked" />
+                            <?php echo $store['name']; ?>
+                        <?php } else { ?>
+                            <input type="checkbox" name="manufacturer_store[]" value="<?php echo $store['store_id']; ?>" />
+                            <?php echo $store['name']; ?>
+                        <?php } ?>
+                      </label>
+                    </div>
                 <?php } ?>
               </div>
             </div>
@@ -70,7 +70,7 @@
             <div class="col-sm-10">
               <input type="text" name="keyword" value="<?php echo $keyword; ?>" placeholder="<?php echo $entry_keyword; ?>" id="input-keyword" class="form-control" />
               <?php if ($error_keyword) { ?>
-              <div class="text-danger"><?php echo $error_keyword; ?></div>
+                  <div class="text-danger"><?php echo $error_keyword; ?></div>
               <?php } ?>
             </div>
           </div>

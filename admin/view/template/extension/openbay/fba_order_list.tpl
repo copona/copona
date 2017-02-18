@@ -7,22 +7,22 @@
       </div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <?php if ($success) { ?>
-    <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -37,7 +37,7 @@
                 <div class="input-group date">
                   <input type="text" name="filter_start" value="<?php echo $filter_start; ?>" placeholder="YYYY-MM-DD" data-date-format="YYYY-MM-DD" id="input-start-date" class="form-control" />
                   <span class="input-group-btn">
-                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                   </span>
                 </div>
               </div>
@@ -48,7 +48,7 @@
                 <div class="input-group date">
                   <input type="text" name="filter_end" value="<?php echo $filter_end; ?>" placeholder="YYYY-MM-DD" data-date-format="YYYY-MM-DD" id="input-end-date" class="form-control" />
                   <span class="input-group-btn">
-                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                   </span>
                 </div>
               </div>
@@ -59,7 +59,7 @@
                 <select name="filter_status" id="input-status" class="form-control">
                   <option value=""<?php echo (is_null($filter_status) ? ' selected' : '') ?>><?php echo $text_option_all; ?></option>
                   <?php foreach ($status_options as $option_key => $option) { ?>
-                    <option value="<?php echo $option_key; ?>"<?php echo (!is_null($filter_status) && ($filter_status == $option_key) ? ' selected' : '') ?>><?php echo $option; ?></option>
+                      <option value="<?php echo $option_key; ?>"<?php echo (!is_null($filter_status) && ($filter_status == $option_key) ? ' selected' : '') ?>><?php echo $option; ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -79,20 +79,20 @@
               </tr>
             </thead>
             <tbody>
-              <?php if (empty($orders)) { ?>
-                <tr>
-                  <td class="text-center" colspan="6"><?php echo $text_no_results; ?></td>
-                </tr>
-              <?php } else { ?>
-                <?php foreach ($orders as $order) { ?>
+                <?php if (empty($orders)) { ?>
                   <tr>
-                    <td class="text-left"><a href="<?php echo $order['order_link']; ?>"><?php echo $order['order_id']; ?></a></td>
-                    <td class="text-left"><?php echo $order['created']; ?></td>
-                    <td class="text-left"><?php echo $status_options[$order['status']]; ?></td>
-                    <td class="text-center"><?php echo $order['fba_item_count']; ?></td>
-                    <td class="text-right"><a href="<?php echo $order['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                    <td class="text-center" colspan="6"><?php echo $text_no_results; ?></td>
                   </tr>
-                <?php } ?>
+              <?php } else { ?>
+                  <?php foreach ($orders as $order) { ?>
+                      <tr>
+                        <td class="text-left"><a href="<?php echo $order['order_link']; ?>"><?php echo $order['order_id']; ?></a></td>
+                        <td class="text-left"><?php echo $order['created']; ?></td>
+                        <td class="text-left"><?php echo $status_options[$order['status']]; ?></td>
+                        <td class="text-center"><?php echo $order['fba_item_count']; ?></td>
+                        <td class="text-right"><a href="<?php echo $order['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                      </tr>
+                  <?php } ?>
               <?php } ?>
             </tbody>
           </table>
@@ -102,35 +102,35 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#button-filter').on('click', function() {
-  var url = 'index.php?route=extension/openbay/fba/orderlist&token=<?php echo $token; ?>';
+$('#button-filter').on('click', function () {
+        var url = 'index.php?route=extension/openbay/fba/orderlist&token=<?php echo $token; ?>';
 
-  var filter_start = $('input[name=\'filter_start\']').val();
+        var filter_start = $('input[name=\'filter_start\']').val();
 
-  if (filter_start) {
-    url += '&filter_start=' + encodeURIComponent(filter_start);
-  }
+        if (filter_start) {
+            url += '&filter_start=' + encodeURIComponent(filter_start);
+        }
 
-  var filter_end = $('input[name=\'filter_end\']').val();
+        var filter_end = $('input[name=\'filter_end\']').val();
 
-  if (filter_end) {
-    url += '&filter_end=' + encodeURIComponent(filter_end);
-  }
+        if (filter_end) {
+            url += '&filter_end=' + encodeURIComponent(filter_end);
+        }
 
-  var filter_status = $('select[name=\'filter_status\']').val();
+        var filter_status = $('select[name=\'filter_status\']').val();
 
-  if (filter_status) {
-    url += '&filter_status=' + encodeURIComponent(filter_status);
-  }
+        if (filter_status) {
+            url += '&filter_status=' + encodeURIComponent(filter_status);
+        }
 
-  location = url;
-});
+        location = url;
+    });
 //--></script>
 <script src="view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <link href="view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen" />
 <script type="text/javascript"><!--
 $('.date').datetimepicker({
-  pickTime: false
-});
+        pickTime: false
+    });
 //--></script>
 <?php echo $footer; ?>

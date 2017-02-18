@@ -1,70 +1,73 @@
 <?php
 class Language extends Controller {
-	private $default = 'en-gb';
-	private $directory, $code;
-	private $data = array();
-	private $db;
-	private $languages;
+    private $default = 'en-gb';
+    private $directory, $code;
+    private $data = array();
+    private $db;
+    private $languages;
 
-	public function __construct($code = 'en', $registry) {
+    public function __construct($code = 'en', $registry) {
 
-		$this->db = $registry->get('db');
-		$languages = $this->db->query("select * from `" . DB_PREFIX . "language` where `code` = '" . $code . "'");
-		if ($languages->num_rows) {
-			foreach ($languages->rows as $val) {
-				$this->languages[$val['code']] = $val['directory'];
-			}
-			$this->code = $code;
-		} else {
-			// Default language English gb eb-gb
-			$this->languages['en'] = 'en-gb';
-			$this->code = 'en';
-		}
+        $this->db = $registry->get('db');
 
-		$this->directory = $this->languages[$this->code];
-		!$this->directory ? !pr($this->languages) && !pr($this->code) : false;
-	}
+        if ($this->db) {
+            $languages = $this->db->query("select * from `" . DB_PREFIX . "language` where `code` = '" . $code . "'");
+        }
+        if ($this->db && $languages->num_rows) {
+            foreach ($languages->rows as $val) {
+                $this->languages[$val['code']] = $val['directory'];
+            }
+            $this->code = $code;
+        } else {
+            // Default language English gb eb-gb
+            $this->languages['en'] = 'en-gb';
+            $this->code = 'en';
+        }
 
-	public function get($key) {
-		return (isset($this->data[$key]) ? $this->data[$key] : $key);
-	}
+        $this->directory = $this->languages[$this->code];
+        !$this->directory ? !pr($this->languages) && !pr($this->code) : false;
+    }
 
-	public function set($key, $value) {
-		$this->data[$key] = $value;
-	}
+    public function get($key) {
+        return (isset($this->data[$key]) ? $this->data[$key] : $key);
+    }
 
-	// Please dont use the below function i'm thinking getting rid of it.
-	public function all() {
-		return $this->data;
-	}
+    public function set($key, $value) {
+        $this->data[$key] = $value;
+    }
 
-	// Please dont use the below function i'm thinking getting rid of it.
-	public function merge(&$data) {
-		array_merge($this->data, $data);
-	}
+    // Please dont use the below function i'm thinking getting rid of it.
+    public function all() {
+        return $this->data;
+    }
 
-	public function load($filename, &$data = array()) {
-		if ($filename == $this->code) {
-			$filename = $this->languages[$this->code];
-		}
-		$_ = array();
+    // Please dont use the below function i'm thinking getting rid of it.
+    public function merge(&$data) {
+        array_merge($this->data, $data);
+    }
 
-		$file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
-		if (is_file($file)) {
-			require($file);
-		} elseif (is_file(DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php')) {
-			require( DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php' );
-		} elseif (is_file(DIR_LANGUAGE . $this->default . '/' . $filename . '.php')) {
+    public function load($filename, &$data = array()) {
+        if ($filename == $this->code) {
+            $filename = $this->languages[$this->code];
+        }
+        $_ = array();
 
-			require(DIR_LANGUAGE . $this->default . '/' . $filename . '.php' );
-		} else {
-			//pr($filename);
-			require(DIR_LANGUAGE . $this->default . '/' . $this->default . '.php' );
-		}
+        $file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
+        if (is_file($file)) {
+            require($file);
+        } elseif (is_file(DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php')) {
+            require( DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php' );
+        } elseif (is_file(DIR_LANGUAGE . $this->default . '/' . $filename . '.php')) {
 
-		$this->data = array_merge($this->data, $_);
+            require(DIR_LANGUAGE . $this->default . '/' . $filename . '.php' );
+        } else {
+            //pr($filename);
+            require(DIR_LANGUAGE . $this->default . '/' . $this->default . '.php' );
+        }
 
-		return $this->data;
-	}
+        $this->data = array_merge($this->data, $_);
+
+        return $this->data;
+    }
 
 }

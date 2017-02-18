@@ -7,17 +7,17 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -29,21 +29,21 @@
             <label class="col-sm-2 control-label"><?php echo $entry_admin; ?></label>
             <div class="col-sm-10">
               <label class="radio-inline">
-                <?php if ($store_admin) { ?>
-                <input type="radio" name="store_admin" value="1" checked="checked" />
-                <?php echo $text_yes; ?>
+                  <?php if ($store_admin) { ?>
+                    <input type="radio" name="store_admin" value="1" checked="checked" />
+                    <?php echo $text_yes; ?>
                 <?php } else { ?>
-                <input type="radio" name="store_admin" value="1" />
-                <?php echo $text_yes; ?>
+                    <input type="radio" name="store_admin" value="1" />
+                    <?php echo $text_yes; ?>
                 <?php } ?>
               </label>
               <label class="radio-inline">
-                <?php if (!$store_admin) { ?>
-                <input type="radio" name="store_admin" value="0" checked="checked" />
-                <?php echo $text_no; ?>
+                  <?php if (!$store_admin) { ?>
+                    <input type="radio" name="store_admin" value="0" checked="checked" />
+                    <?php echo $text_no; ?>
                 <?php } else { ?>
-                <input type="radio" name="store_admin" value="0" />
-                <?php echo $text_no; ?>
+                    <input type="radio" name="store_admin" value="0" />
+                    <?php echo $text_no; ?>
                 <?php } ?>
               </label>
             </div>
@@ -53,11 +53,11 @@
             <div class="col-sm-10">
               <select name="store_status" id="input-status" class="form-control">
                 <?php if ($store_status) { ?>
-                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                <option value="0"><?php echo $text_disabled; ?></option>
+                    <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                    <option value="0"><?php echo $text_disabled; ?></option>
                 <?php } else { ?>
-                <option value="1"><?php echo $text_enabled; ?></option>
-                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                    <option value="1"><?php echo $text_enabled; ?></option>
+                    <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                 <?php } ?>
               </select>
             </div>

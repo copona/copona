@@ -5,8 +5,8 @@
       <div class="pull-right"><a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
@@ -31,9 +31,9 @@
               <tr>
                 <td><?php echo $text_recurring_name; ?></td>
                 <td><?php if ($recurring) { ?>
-                  <a href="<?php echo $recurring; ?>"><?php echo $recurring_name; ?></a>
+                      <a href="<?php echo $recurring; ?>"><?php echo $recurring_name; ?></a>
                   <?php } else { ?>
-                  <?php echo $recurring_name; ?>
+                      <?php echo $recurring_name; ?>
                   <?php } ?></td>
               </tr>
               <tr>
@@ -66,9 +66,9 @@
               <tr>
                 <td><?php echo $text_customer; ?></td>
                 <td><?php if ($customer) { ?>
-                  <a href="<?php echo $customer; ?>"><?php echo $firstname; ?> <?php echo $lastname; ?></a>
+                      <a href="<?php echo $customer; ?>"><?php echo $firstname; ?> <?php echo $lastname; ?></a>
                   <?php } else { ?>
-                  <?php echo $firstname; ?> <?php echo $lastname; ?>
+                      <?php echo $firstname; ?> <?php echo $lastname; ?>
                   <?php } ?></td>
               </tr>
               <tr>
@@ -123,18 +123,18 @@
             </tr>
           </thead>
           <tbody>
-            <?php if ($transactions) { ?>
-            <?php foreach ($transactions as $transaction) { ?>
-            <tr>
-              <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-              <td class="text-right"><?php echo $transaction['amount']; ?></td>
-              <td class="text-left"><?php echo $transaction['type']; ?></td>
-            </tr>
-            <?php } ?>
+              <?php if ($transactions) { ?>
+                  <?php foreach ($transactions as $transaction) { ?>
+                    <tr>
+                      <td class="text-left"><?php echo $transaction['date_added']; ?></td>
+                      <td class="text-right"><?php echo $transaction['amount']; ?></td>
+                      <td class="text-left"><?php echo $transaction['type']; ?></td>
+                    </tr>
+                <?php } ?>
             <?php } else { ?>
-            <tr>
-              <td class="text-center" colspan="7"><?php echo $text_no_results; ?></td>
-            </tr>
+                <tr>
+                  <td class="text-center" colspan="7"><?php echo $text_no_results; ?></td>
+                </tr>
             <?php } ?>
           </tbody>
         </table>
@@ -142,4 +142,4 @@
     </div>
   </div>
 </div>
-<?php echo $footer; ?> 
+<?php echo $footer; ?>

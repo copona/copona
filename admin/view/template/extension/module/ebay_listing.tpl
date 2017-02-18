@@ -7,17 +7,17 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> <?php echo $text_about; ?>
       <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -47,12 +47,12 @@
             <label class="col-sm-2 control-label" for="input-description"><?php echo $entry_description; ?></label>
             <div class="col-sm-10">
               <select name="ebay_listing_description" id="input-description" class="form-control">
-                <?php if ($ebay_listing_description) { ?>
-                <option value="1" selected="selected"><?php echo $text_yes; ?></option>
-                <option value="0"><?php echo $text_no; ?></option>
+                  <?php if ($ebay_listing_description) { ?>
+                    <option value="1" selected="selected"><?php echo $text_yes; ?></option>
+                    <option value="0"><?php echo $text_no; ?></option>
                 <?php } else { ?>
-                <option value="1"><?php echo $text_yes; ?></option>
-                <option value="0" selected="selected"><?php echo $text_no; ?></option>
+                    <option value="1"><?php echo $text_yes; ?></option>
+                    <option value="0" selected="selected"><?php echo $text_no; ?></option>
                 <?php } ?>
               </select>
             </div>
@@ -68,7 +68,7 @@
             <div class="col-sm-10">
               <input type="text" name="ebay_listing_width" value="<?php echo $ebay_listing_width; ?>" placeholder="<?php echo $entry_width; ?>" id="input-width" class="form-control" />
               <?php if ($error_width) { ?>
-              <div class="text-danger"><?php echo $error_width; ?></div>
+                  <div class="text-danger"><?php echo $error_width; ?></div>
               <?php } ?>
             </div>
           </div>
@@ -77,7 +77,7 @@
             <div class="col-sm-10">
               <input type="text" name="ebay_listing_height" value="<?php echo $ebay_listing_height; ?>" placeholder="<?php echo $entry_height; ?>" id="input-height" class="form-control" />
               <?php if ($error_height) { ?>
-              <div class="text-danger"><?php echo $error_height; ?></div>
+                  <div class="text-danger"><?php echo $error_height; ?></div>
               <?php } ?>
             </div>
           </div>
@@ -85,15 +85,15 @@
             <label class="col-sm-2 control-label" for="input-sort"><?php echo $entry_sort; ?></label>
             <div class="col-sm-10">
               <select name="ebay_listing_sort" id="input-sort" class="form-control">
-                <?php if ($ebay_listing_sort == 'StartTimeNewest') { ?>
-                <option value="StartTimeNewest" selected><?php echo $text_latest; ?></option>
+                  <?php if ($ebay_listing_sort == 'StartTimeNewest') { ?>
+                    <option value="StartTimeNewest" selected><?php echo $text_latest; ?></option>
                 <?php } else { ?>
-                <option value="StartTimeNewest"><?php echo $text_latest; ?></option>
+                    <option value="StartTimeNewest"><?php echo $text_latest; ?></option>
                 <?php } ?>
                 <?php if ($ebay_listing_sort == 'random') { ?>
-                <option value="random" selected><?php echo $text_random; ?></option>
+                    <option value="random" selected><?php echo $text_random; ?></option>
                 <?php } else { ?>
-                <option value="random"><?php echo $text_random; ?></option>
+                    <option value="random"><?php echo $text_random; ?></option>
                 <?php } ?>
               </select>
             </div>
@@ -102,12 +102,12 @@
             <label class="col-sm-2 control-label" for="input-site"><?php echo $entry_site; ?></label>
             <div class="col-sm-10">
               <select name="ebay_listing_site" id="input-site" class="form-control">
-                <?php foreach($sites as $site) { ?>
-                <?php if ($site['value'] == $ebay_listing_site) { ?>
-                <option value="<?php echo $site['value']; ?>" selected><?php echo $site['text']; ?></option>
-                <?php } else { ?>
-                <option value="<?php echo $site['value']; ?>"><?php echo $site['text']; ?></option>
-                <?php } ?>
+                  <?php foreach ($sites as $site) { ?>
+                      <?php if ($site['value'] == $ebay_listing_site) { ?>
+                        <option value="<?php echo $site['value']; ?>" selected><?php echo $site['text']; ?></option>
+                    <?php } else { ?>
+                        <option value="<?php echo $site['value']; ?>"><?php echo $site['text']; ?></option>
+                    <?php } ?>
                 <?php } ?>
               </select>
             </div>
@@ -117,11 +117,11 @@
             <div class="col-sm-10">
               <select name="ebay_listing_status" id="input-status" class="form-control">
                 <?php if ($ebay_listing_status) { ?>
-                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                <option value="0"><?php echo $text_disabled; ?></option>
+                    <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                    <option value="0"><?php echo $text_disabled; ?></option>
                 <?php } else { ?>
-                <option value="1"><?php echo $text_enabled; ?></option>
-                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                    <option value="1"><?php echo $text_enabled; ?></option>
+                    <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                 <?php } ?>
               </select>
             </div>

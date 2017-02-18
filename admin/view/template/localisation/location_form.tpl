@@ -7,17 +7,17 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -30,7 +30,7 @@
             <div class="col-sm-10">
               <input type="text" name="name" value="<?php echo $name; ?>" placeholder="<?php echo $entry_name; ?>" id="input-name" class="form-control" />
               <?php if ($error_name) { ?>
-              <div class="text-danger"><?php echo $error_name; ?></div>
+                  <div class="text-danger"><?php echo $error_name; ?></div>
               <?php } ?>
             </div>
           </div>
@@ -39,7 +39,7 @@
             <div class="col-sm-10">
               <textarea type="text" name="address" placeholder="<?php echo $entry_address; ?>" rows="5" id="input-address" class="form-control"><?php echo $address; ?></textarea>
               <?php if ($error_address) { ?>
-              <div class="text-danger"><?php echo $error_address; ?></div>
+                  <div class="text-danger"><?php echo $error_address; ?></div>
               <?php } ?>
             </div>
           </div>
@@ -54,8 +54,8 @@
             <div class="col-sm-10">
               <input type="text" name="telephone" value="<?php echo $telephone; ?>" placeholder="<?php echo $entry_telephone; ?>" id="input-telephone" class="form-control" />
               <?php if ($error_telephone) { ?>
-              <div class="text-danger"><?php echo $error_telephone; ?></div>
-              <?php  } ?>
+                  <div class="text-danger"><?php echo $error_telephone; ?></div>
+              <?php } ?>
             </div>
           </div>
           <div class="form-group">

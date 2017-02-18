@@ -17,12 +17,12 @@ $_['session_autostart'] = true;
 
 // Actions
 $_['action_pre_action'] = array(
-	'startup/startup',
-	'startup/error',
-	'startup/event',
-	'startup/sass',
-	'startup/login',
-	'startup/permission'
+    'startup/startup',
+    'startup/error',
+    'startup/event',
+    'startup/sass',
+    'startup/login',
+    'startup/permission'
 );
 
 // Actions
@@ -30,5 +30,5 @@ $_['action_default'] = 'common/dashboard';
 
 // Action Events
 $_['action_event'] = array(
-	'view/*/before' => 'event/theme'
+    'view/*/before' => 'event/theme'
 );

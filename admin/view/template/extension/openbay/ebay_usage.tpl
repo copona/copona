@@ -8,8 +8,8 @@
       </div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
@@ -28,35 +28,37 @@
 </div>
 
 <script type="text/javascript"><!--
-  function loadUsage(){
-	    $.ajax({
-        url: 'index.php?route=extension/openbay/ebay/getusage&token=<?php echo $token; ?>',
-        type: 'post',
-        dataType: 'json',
-        beforeSend: function(){
-            $('#usageTable').hide();
-            $('#load_usage_loading').show();
-        },
-        success: function(json) {
-            $('#load_usage_loading').hide();
-            $('#usageTable').html(json.html).show();
-            if (json.lasterror){ alert(json.lastmsg); }
-        },
-        failure: function(){
-            $('#load_usage_loading').hide();
-            $('#usageTable').hide();
-            alert('<?php echo $error_ajax_load; ?>');
-        },
-        error: function(){
-            $('#load_usage_loading').hide();
-            $('#usageTable').hide();
-            alert('<?php echo $error_ajax_load; ?>');
-        }
-	    });
-  }
+  function loadUsage() {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/ebay/getusage&token=<?php echo $token; ?>',
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () {
+                $('#usageTable').hide();
+                $('#load_usage_loading').show();
+            },
+            success: function (json) {
+                $('#load_usage_loading').hide();
+                $('#usageTable').html(json.html).show();
+                if (json.lasterror) {
+                    alert(json.lastmsg);
+                }
+            },
+            failure: function () {
+                $('#load_usage_loading').hide();
+                $('#usageTable').hide();
+                alert('<?php echo $error_ajax_load; ?>');
+            },
+            error: function () {
+                $('#load_usage_loading').hide();
+                $('#usageTable').hide();
+                alert('<?php echo $error_ajax_load; ?>');
+            }
+        });
+    }
 
-  $(document).ready(function() {
-    loadUsage();
-  });
+    $(document).ready(function () {
+        loadUsage();
+    });
 //--></script>
 <?php echo $footer; ?>

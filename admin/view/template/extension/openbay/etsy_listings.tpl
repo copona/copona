@@ -4,18 +4,18 @@
     <div class="container-fluid">
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($success) { ?>
-      <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?></div>
+      <?php if ($success) { ?>
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?></div>
     <?php } ?>
     <?php if ($error_warning) { ?>
-      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?></div>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?></div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -77,47 +77,47 @@
               </tr>
             </thead>
             <tbody>
-              <?php if ($listings) { ?>
-              <?php foreach ($listings as $listing) { ?>
-              <tr>
-                <td class="text-left"><?php echo $listing['listing']['listing_id']; ?></td>
-                <td class="text-left"><?php echo $listing['listing']['title']; ?></td>
-                <td class="text-center"><?php echo $listing['listing']['quantity']; ?></td>
-                <?php if (!empty($listing['link'])) { ?>
-                <td class="text-center"><?php echo $listing['link']['quantity']; ?></td>
-                <td class="text-center"><i class="fa fa-check" style="color: green;"></i></td>
-                <td class="text-center"><?php
-                        if ($listing['link']['quantity'] != $listing['listing']['quantity']) {
-                          echo $text_status_stock;
-                        } else {
-                          echo $text_status_ok;
-                        }
-                       ?></td>
-                <?php } else { ?>
-                <td class="text-center"><i class="fa fa-minus"></i></td>
-                <td class="text-center"><i class="fa fa-times" style="color: red;"></i></td>
-                <td class="text-center"><?php echo $text_status_nolink; ?></td>
-                <?php } ?>
-                  </td>
-                <td class="text-right"><?php if (in_array('activate_item', $listing['actions'])) { ?>
-                  <button data-toggle="tooltip" title="<?php echo $text_activate; ?>" class="btn btn-primary" onclick="activateListing('<?php echo $listing['listing']['listing_id']; ?>');" id="btn-activate-<?php echo $listing['listing']['listing_id']; ?>"><i class="fa fa-plus"></i></button>
+                <?php if ($listings) { ?>
+                    <?php foreach ($listings as $listing) { ?>
+                      <tr>
+                        <td class="text-left"><?php echo $listing['listing']['listing_id']; ?></td>
+                        <td class="text-left"><?php echo $listing['listing']['title']; ?></td>
+                        <td class="text-center"><?php echo $listing['listing']['quantity']; ?></td>
+                        <?php if (!empty($listing['link'])) { ?>
+                            <td class="text-center"><?php echo $listing['link']['quantity']; ?></td>
+                            <td class="text-center"><i class="fa fa-check" style="color: green;"></i></td>
+                            <td class="text-center"><?php
+                                if ($listing['link']['quantity'] != $listing['listing']['quantity']) {
+                                    echo $text_status_stock;
+                                } else {
+                                    echo $text_status_ok;
+                                }
+                                ?></td>
+                        <?php } else { ?>
+                            <td class="text-center"><i class="fa fa-minus"></i></td>
+                            <td class="text-center"><i class="fa fa-times" style="color: red;"></i></td>
+                            <td class="text-center"><?php echo $text_status_nolink; ?></td>
+                        <?php } ?>
+                        </td>
+                        <td class="text-right"><?php if (in_array('activate_item', $listing['actions'])) { ?>
+                              <button data-toggle="tooltip" title="<?php echo $text_activate; ?>" class="btn btn-primary" onclick="activateListing('<?php echo $listing['listing']['listing_id']; ?>');" id="btn-activate-<?php echo $listing['listing']['listing_id']; ?>"><i class="fa fa-plus"></i></button>
+                          <?php } ?>
+                          <?php if (in_array('add_link', $listing['actions'])) { ?>
+                              <button data-toggle="tooltip" title="<?php echo $text_add_link; ?>" class="btn btn-primary" onclick="showLinkOption('<?php echo $listing['listing']['listing_id']; ?>');"><i class="fa fa-link"></i></button>
+                          <?php } ?>
+                          <?php if (in_array('delete_link', $listing['actions'])) { ?>
+                              <button data-toggle="tooltip" title="<?php echo $text_delete_link; ?>" class="btn btn-danger" id="btn-delete-<?php echo $listing['link']['etsy_listing_id']; ?>" onclick="deleteLink('<?php echo $listing['link']['etsy_listing_id']; ?>');"><i class="fa fa-unlink"></i></button>
+                          <?php } ?>
+                          <?php if (in_array('end_item', $listing['actions'])) { ?>
+                              <button data-toggle="tooltip" title="<?php echo $text_delete; ?>" class="btn btn-danger" onclick="endListing('<?php echo $listing['listing']['listing_id']; ?>');" id="btn-end-<?php echo $listing['link']['etsy_listing_id']; ?>"><i class="fa fa-times"></i></button>
+                              <button data-toggle="tooltip" title="<?php echo $text_deactivate; ?>" class="btn btn-danger" onclick="deactivateListing('<?php echo $listing['listing']['listing_id']; ?>');" id="btn-deactivate-<?php echo $listing['listing']['listing_id']; ?>"><i class="fa fa-ban"></i></button>
+                          <?php } ?></td>
+                      </tr>
                   <?php } ?>
-                  <?php if (in_array('add_link', $listing['actions'])) { ?>
-                  <button data-toggle="tooltip" title="<?php echo $text_add_link; ?>" class="btn btn-primary" onclick="showLinkOption('<?php echo $listing['listing']['listing_id']; ?>');"><i class="fa fa-link"></i></button>
-                  <?php } ?>
-                  <?php if (in_array('delete_link', $listing['actions'])) { ?>
-                  <button data-toggle="tooltip" title="<?php echo $text_delete_link; ?>" class="btn btn-danger" id="btn-delete-<?php echo $listing['link']['etsy_listing_id']; ?>" onclick="deleteLink('<?php echo $listing['link']['etsy_listing_id']; ?>');"><i class="fa fa-unlink"></i></button>
-                  <?php } ?>
-                  <?php if (in_array('end_item', $listing['actions'])) { ?>
-                  <button data-toggle="tooltip" title="<?php echo $text_delete; ?>" class="btn btn-danger" onclick="endListing('<?php echo $listing['listing']['listing_id']; ?>');" id="btn-end-<?php echo $listing['link']['etsy_listing_id']; ?>"><i class="fa fa-times"></i></button>
-                  <button data-toggle="tooltip" title="<?php echo $text_deactivate; ?>" class="btn btn-danger" onclick="deactivateListing('<?php echo $listing['listing']['listing_id']; ?>');" id="btn-deactivate-<?php echo $listing['listing']['listing_id']; ?>"><i class="fa fa-ban"></i></button>
-                  <?php } ?></td>
-              </tr>
-              <?php } ?>
               <?php } else { ?>
-              <tr>
-                <td class="text-center" colspan="8"><?php echo $text_no_results; ?></td>
-              </tr>
+                  <tr>
+                    <td class="text-center" colspan="8"><?php echo $text_no_results; ?></td>
+                  </tr>
               <?php } ?>
             </tbody>
           </table>
@@ -133,205 +133,205 @@
 <script type="text/javascript"><!--
 var url = 'index.php?route=extension/openbay/etsy_product/listings&token=<?php echo $token; ?>&page=<?php echo $filter["page"]; ?>';
 
-var filter_keywords = $('input[name=\'keywords\']').val();
+    var filter_keywords = $('input[name=\'keywords\']').val();
 
-if (filter_keywords) {
-  url += '&keywords=' + encodeURIComponent(filter_keywords);
-}
-
-var filter_status = $('input[name=\'status\']').val();
-
-if (filter_status) {
-  url += '&status=' + encodeURIComponent(filter_status);
-}
-
-$('#button-filter').on('click', function() {
-  var url = 'index.php?route=extension/openbay/etsy_product/listings&token=<?php echo $token; ?>';
-
-  var status = $('select[name=\'status\']').val();
-
-  url += '&status=' + encodeURIComponent(status);
-
-  var keywords = $('input[name=\'keywords\']').val();
-
-  if (keywords != '') {
-    url += '&keywords=' + encodeURIComponent(keywords);
-  }
-
-  location = url;
-});
-
-function showLinkOption(id) {
-  $('#input-etsy-id').val(id);
-  $('#link-well').slideDown();
-}
-
-function addLink() {
-  var product_id = $('#input-product-id').val();
-  var etsy_id = $('#input-etsy-id').val();
-
-  if (product_id == '') {
-    alert('<?php echo $error_product_id; ?>');
-    return false;
-  }
-
-  if (etsy_id == '') {
-    alert('<?php echo $error_etsy_id; ?>');
-    return false;
-  }
-
-  $.ajax({
-    url: 'index.php?route=extension/openbay/etsy_product/addLink&token=<?php echo $token; ?>',
-    dataType: 'json',
-    method: 'POST',
-    data: { 'product_id' : product_id, 'etsy_id' : etsy_id },
-    beforeSend: function() {
-      $('#alert-error').hide().empty();
-      $('#button-submit-link').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-    },
-    success: function(json) {
-      if (json.error == false) {
-        url += '&link_added=1';
-        location = url;
-      } else {
-        $('#alert-error').html('<i class="fa fa-times fa-lg" style="color:red;"></i> '+json.error).show();
-      }
-
-      $('#button-submit-link').empty().html('<i class="fa fa-check"></i> <?php echo $button_save; ?>').removeAttr('disabled');
-    },
-    failure: function() {
-      $('#button-submit').empty().html('<i class="fa fa-check"></i> <?php echo $button_save; ?>').removeAttr('disabled');
+    if (filter_keywords) {
+        url += '&keywords=' + encodeURIComponent(filter_keywords);
     }
-  });
-}
 
-function deleteLink(etsy_link_id) {
-  $.ajax({
-    url: 'index.php?route=extension/openbay/etsy_product/deleteLink&token=<?php echo $token; ?>',
-    dataType: 'json',
-    method: 'POST',
-    data: { 'etsy_link_id' : etsy_link_id },
-    beforeSend: function() {
-      $('#btn-delete-'+etsy_link_id).empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-    },
-    success: function(json) {
-      if (json.error == false) {
-        url += '&link_deleted=1';
-        location = url;
-      } else {
-        $('#btn-delete-'+etsy_link_id).empty().html('<i class="fa fa-times fa-lg" style="color:red;"></i>').removeAttr('disabled');
-        $('#alert-error').html('<i class="fa fa-times fa-lg"></i> '+json.error).show();
-      }
-    },
-    failure: function() {
-      $('#btn-delete-'+etsy_link_id).empty().html('<i class="fa fa-times fa-lg"></i>').removeAttr('disabled');
+    var filter_status = $('input[name=\'status\']').val();
+
+    if (filter_status) {
+        url += '&status=' + encodeURIComponent(filter_status);
     }
-  });
-}
 
-function endListing(etsy_item_id) {
-  var pass = confirm("<?php echo $text_confirm_end; ?>");
+    $('#button-filter').on('click', function () {
+        var url = 'index.php?route=extension/openbay/etsy_product/listings&token=<?php echo $token; ?>';
 
-  if (pass == true) {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/etsy_product/endlisting&token=<?php echo $token; ?>',
-      dataType: 'json',
-      method: 'POST',
-      data: { 'etsy_item_id' : etsy_item_id },
-      beforeSend: function() {
-        $('#btn-end-'+etsy_item_id).empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-      },
-      success: function(json) {
-        if (json.error == false) {
-          url += '&item_ended=1';
-          location = url;
-        } else {
-          $('#btn-end-'+etsy_item_id).empty().html('<i class="fa fa-times fa-lg" style="color:red;"></i>').removeAttr('disabled');
-          $('#alert-error').html('<i class="fa fa-times fa-lg"></i> '+json.error).show();
+        var status = $('select[name=\'status\']').val();
+
+        url += '&status=' + encodeURIComponent(status);
+
+        var keywords = $('input[name=\'keywords\']').val();
+
+        if (keywords != '') {
+            url += '&keywords=' + encodeURIComponent(keywords);
         }
-      },
-      failure: function() {
-        $('#btn-end-'+etsy_item_id).empty().html('<i class="fa fa-times fa-lg"></i>').removeAttr('disabled');
-      }
+
+        location = url;
     });
-  }
-}
 
-function deactivateListing(etsy_item_id) {
-  var pass = confirm("<?php echo $text_confirm_deactivate; ?>");
+    function showLinkOption(id) {
+        $('#input-etsy-id').val(id);
+        $('#link-well').slideDown();
+    }
 
-  if (pass == true) {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/etsy_product/deactivatelisting&token=<?php echo $token; ?>',
-      dataType: 'json',
-      method: 'POST',
-      data: { 'etsy_item_id' : etsy_item_id },
-      beforeSend: function() {
-        $('#btn-deactivate-'+etsy_item_id).empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-      },
-      success: function(json) {
-        if (json.error == false) {
-          url += '&item_deactivated=1';
-          location = url;
-        } else {
-          $('#btn-deactivate-'+etsy_item_id).empty().html('<i class="fa fa-times fa-lg" style="color:red;"></i>').removeAttr('disabled');
-          $('#alert-error').html('<i class="fa fa-times fa-lg"></i> '+json.error).show();
+    function addLink() {
+        var product_id = $('#input-product-id').val();
+        var etsy_id = $('#input-etsy-id').val();
+
+        if (product_id == '') {
+            alert('<?php echo $error_product_id; ?>');
+            return false;
         }
-      },
-      failure: function() {
-        $('#btn-deactivate-'+etsy_item_id).empty().html('<i class="fa fa-times fa-lg"></i>').removeAttr('disabled');
-      }
-    });
-  }
-}
 
-function activateListing(etsy_item_id) {
-  var pass = confirm("<?php echo $text_confirm_activate; ?>");
-
-  if (pass == true) {
-    $.ajax({
-      url: 'index.php?route=extension/openbay/etsy_product/activatelisting&token=<?php echo $token; ?>',
-      dataType: 'json',
-      method: 'POST',
-      data: { 'etsy_item_id' : etsy_item_id },
-      beforeSend: function() {
-        $('#btn-activate-'+etsy_item_id).empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled','disabled');
-      },
-      success: function(json) {
-        if (json.error == false) {
-          url += '&item_activated=1';
-          location = url;
-        } else {
-          $('#btn-activate-'+etsy_item_id).empty().html('<i class="fa fa-times fa-lg" style="color:red;"></i>').removeAttr('disabled');
-          $('#alert-error').html('<i class="fa fa-times fa-lg"></i> '+json.error).show();
+        if (etsy_id == '') {
+            alert('<?php echo $error_etsy_id; ?>');
+            return false;
         }
-      },
-      failure: function() {
-        $('#btn-activate-'+etsy_item_id).empty().html('<i class="fa fa-times fa-lg"></i>').removeAttr('disabled');
-      }
-    });
-  }
-}
 
-$('input[name=\'add_link_product\']').autocomplete({
-  'source': function(request, response) {
-    $.ajax({
-      url: 'index.php?route=catalog/product/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request),
-      dataType: 'json',
-      success: function(json) {
-        response($.map(json, function(item) {
-          return {
-            label: item['name'],
-            value: item['product_id']
-          }
-        }));
-      }
+        $.ajax({
+            url: 'index.php?route=extension/openbay/etsy_product/addLink&token=<?php echo $token; ?>',
+            dataType: 'json',
+            method: 'POST',
+            data: {'product_id': product_id, 'etsy_id': etsy_id},
+            beforeSend: function () {
+                $('#alert-error').hide().empty();
+                $('#button-submit-link').empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+            },
+            success: function (json) {
+                if (json.error == false) {
+                    url += '&link_added=1';
+                    location = url;
+                } else {
+                    $('#alert-error').html('<i class="fa fa-times fa-lg" style="color:red;"></i> ' + json.error).show();
+                }
+
+                $('#button-submit-link').empty().html('<i class="fa fa-check"></i> <?php echo $button_save; ?>').removeAttr('disabled');
+            },
+            failure: function () {
+                $('#button-submit').empty().html('<i class="fa fa-check"></i> <?php echo $button_save; ?>').removeAttr('disabled');
+            }
+        });
+    }
+
+    function deleteLink(etsy_link_id) {
+        $.ajax({
+            url: 'index.php?route=extension/openbay/etsy_product/deleteLink&token=<?php echo $token; ?>',
+            dataType: 'json',
+            method: 'POST',
+            data: {'etsy_link_id': etsy_link_id},
+            beforeSend: function () {
+                $('#btn-delete-' + etsy_link_id).empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+            },
+            success: function (json) {
+                if (json.error == false) {
+                    url += '&link_deleted=1';
+                    location = url;
+                } else {
+                    $('#btn-delete-' + etsy_link_id).empty().html('<i class="fa fa-times fa-lg" style="color:red;"></i>').removeAttr('disabled');
+                    $('#alert-error').html('<i class="fa fa-times fa-lg"></i> ' + json.error).show();
+                }
+            },
+            failure: function () {
+                $('#btn-delete-' + etsy_link_id).empty().html('<i class="fa fa-times fa-lg"></i>').removeAttr('disabled');
+            }
+        });
+    }
+
+    function endListing(etsy_item_id) {
+        var pass = confirm("<?php echo $text_confirm_end; ?>");
+
+        if (pass == true) {
+            $.ajax({
+                url: 'index.php?route=extension/openbay/etsy_product/endlisting&token=<?php echo $token; ?>',
+                dataType: 'json',
+                method: 'POST',
+                data: {'etsy_item_id': etsy_item_id},
+                beforeSend: function () {
+                    $('#btn-end-' + etsy_item_id).empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+                },
+                success: function (json) {
+                    if (json.error == false) {
+                        url += '&item_ended=1';
+                        location = url;
+                    } else {
+                        $('#btn-end-' + etsy_item_id).empty().html('<i class="fa fa-times fa-lg" style="color:red;"></i>').removeAttr('disabled');
+                        $('#alert-error').html('<i class="fa fa-times fa-lg"></i> ' + json.error).show();
+                    }
+                },
+                failure: function () {
+                    $('#btn-end-' + etsy_item_id).empty().html('<i class="fa fa-times fa-lg"></i>').removeAttr('disabled');
+                }
+            });
+        }
+    }
+
+    function deactivateListing(etsy_item_id) {
+        var pass = confirm("<?php echo $text_confirm_deactivate; ?>");
+
+        if (pass == true) {
+            $.ajax({
+                url: 'index.php?route=extension/openbay/etsy_product/deactivatelisting&token=<?php echo $token; ?>',
+                dataType: 'json',
+                method: 'POST',
+                data: {'etsy_item_id': etsy_item_id},
+                beforeSend: function () {
+                    $('#btn-deactivate-' + etsy_item_id).empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+                },
+                success: function (json) {
+                    if (json.error == false) {
+                        url += '&item_deactivated=1';
+                        location = url;
+                    } else {
+                        $('#btn-deactivate-' + etsy_item_id).empty().html('<i class="fa fa-times fa-lg" style="color:red;"></i>').removeAttr('disabled');
+                        $('#alert-error').html('<i class="fa fa-times fa-lg"></i> ' + json.error).show();
+                    }
+                },
+                failure: function () {
+                    $('#btn-deactivate-' + etsy_item_id).empty().html('<i class="fa fa-times fa-lg"></i>').removeAttr('disabled');
+                }
+            });
+        }
+    }
+
+    function activateListing(etsy_item_id) {
+        var pass = confirm("<?php echo $text_confirm_activate; ?>");
+
+        if (pass == true) {
+            $.ajax({
+                url: 'index.php?route=extension/openbay/etsy_product/activatelisting&token=<?php echo $token; ?>',
+                dataType: 'json',
+                method: 'POST',
+                data: {'etsy_item_id': etsy_item_id},
+                beforeSend: function () {
+                    $('#btn-activate-' + etsy_item_id).empty().html('<i class="fa fa-cog fa-lg fa-spin"></i>').attr('disabled', 'disabled');
+                },
+                success: function (json) {
+                    if (json.error == false) {
+                        url += '&item_activated=1';
+                        location = url;
+                    } else {
+                        $('#btn-activate-' + etsy_item_id).empty().html('<i class="fa fa-times fa-lg" style="color:red;"></i>').removeAttr('disabled');
+                        $('#alert-error').html('<i class="fa fa-times fa-lg"></i> ' + json.error).show();
+                    }
+                },
+                failure: function () {
+                    $('#btn-activate-' + etsy_item_id).empty().html('<i class="fa fa-times fa-lg"></i>').removeAttr('disabled');
+                }
+            });
+        }
+    }
+
+    $('input[name=\'add_link_product\']').autocomplete({
+        'source': function (request, response) {
+            $.ajax({
+                url: 'index.php?route=catalog/product/autocomplete&token=<?php echo $token; ?>&filter_name=' + encodeURIComponent(request),
+                dataType: 'json',
+                success: function (json) {
+                    response($.map(json, function (item) {
+                        return {
+                            label: item['name'],
+                            value: item['product_id']
+                        }
+                    }));
+                }
+            });
+        },
+        'select': function (item) {
+            $('input[name=\'add_link_product\']').val(item['label']);
+            $('#input-product-id').val(item['value']);
+        }
     });
-  },
-  'select': function(item) {
-    $('input[name=\'add_link_product\']').val(item['label']);
-    $('#input-product-id').val(item['value']);
-  }
-});
 //--></script>
 <?php echo $footer; ?>

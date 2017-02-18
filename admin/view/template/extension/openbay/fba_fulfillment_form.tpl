@@ -6,17 +6,17 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -91,16 +91,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($response['items'] as $item) { ?>
-                    <tr>
-                      <td class="text-left"><?php echo $item['seller_sku']; ?></td>
-                      <td class="text-left"><?php echo $item['seller_fulfillment_order_item_id']; ?></td>
-                      <td class="text-left"><?php echo $item['quantity']; ?></td>
-                      <td class="text-left"><?php echo $item['cancelled_quantity']; ?></td>
-                      <td class="text-left"><?php echo $item['unfulfillable_quantity']; ?></td>
-                      <td class="text-left"><?php echo $item['estimated_ship_date_time']; ?></td>
-                      <td class="text-left"><?php echo $item['estimated_arrival_date_time']; ?></td>
-                    </tr>
+                    <?php foreach ($response['items'] as $item) { ?>
+                      <tr>
+                        <td class="text-left"><?php echo $item['seller_sku']; ?></td>
+                        <td class="text-left"><?php echo $item['seller_fulfillment_order_item_id']; ?></td>
+                        <td class="text-left"><?php echo $item['quantity']; ?></td>
+                        <td class="text-left"><?php echo $item['cancelled_quantity']; ?></td>
+                        <td class="text-left"><?php echo $item['unfulfillable_quantity']; ?></td>
+                        <td class="text-left"><?php echo $item['estimated_ship_date_time']; ?></td>
+                        <td class="text-left"><?php echo $item['estimated_arrival_date_time']; ?></td>
+                      </tr>
                   <?php } ?>
                 </tbody>
               </table>

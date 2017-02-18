@@ -7,17 +7,17 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -31,12 +31,12 @@
               <label class="col-sm-2 control-label" for="input-directory"><span data-toggle="tooltip" title="<?php echo $help_directory; ?>"><?php echo $entry_directory; ?></span></label>
               <div class="col-sm-10">
                 <select name="theme_default_directory" id="input-directory" class="form-control">
-                  <?php foreach ($directories as $directory) { ?>
-                  <?php if ($directory == $theme_default_directory) { ?>
-                  <option value="<?php echo $directory; ?>" selected="selected"><?php echo $directory; ?></option>
-                  <?php } else { ?>
-                  <option value="<?php echo $directory; ?>"><?php echo $directory; ?></option>
-                  <?php } ?>
+                    <?php foreach ($directories as $directory) { ?>
+                        <?php if ($directory == $theme_default_directory) { ?>
+                          <option value="<?php echo $directory; ?>" selected="selected"><?php echo $directory; ?></option>
+                      <?php } else { ?>
+                          <option value="<?php echo $directory; ?>"><?php echo $directory; ?></option>
+                      <?php } ?>
                   <?php } ?>
                 </select>
               </div>
@@ -45,12 +45,12 @@
               <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
               <div class="col-sm-10">
                 <select name="theme_default_status" id="input-status" class="form-control">
-                  <?php if ($theme_default_status) { ?>
-                  <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                  <option value="0"><?php echo $text_disabled; ?></option>
+                    <?php if ($theme_default_status) { ?>
+                      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                      <option value="0"><?php echo $text_disabled; ?></option>
                   <?php } else { ?>
-                  <option value="1"><?php echo $text_enabled; ?></option>
-                  <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                      <option value="1"><?php echo $text_enabled; ?></option>
+                      <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -63,7 +63,7 @@
               <div class="col-sm-10">
                 <input type="text" name="theme_default_product_limit" value="<?php echo $theme_default_product_limit; ?>" placeholder="<?php echo $entry_product_limit; ?>" id="input-catalog-limit" class="form-control" />
                 <?php if ($error_product_limit) { ?>
-                <div class="text-danger"><?php echo $error_product_limit; ?></div>
+                    <div class="text-danger"><?php echo $error_product_limit; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -72,7 +72,7 @@
               <div class="col-sm-10">
                 <input type="text" name="theme_default_product_description_length" value="<?php echo $theme_default_product_description_length; ?>" placeholder="<?php echo $entry_product_description_length; ?>" id="input-description-limit" class="form-control" />
                 <?php if ($error_product_description_length) { ?>
-                <div class="text-danger"><?php echo $error_product_description_length; ?></div>
+                    <div class="text-danger"><?php echo $error_product_description_length; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -91,7 +91,7 @@
                   </div>
                 </div>
                 <?php if ($error_image_category) { ?>
-                <div class="text-danger"><?php echo $error_image_category; ?></div>
+                    <div class="text-danger"><?php echo $error_image_category; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -107,7 +107,40 @@
                   </div>
                 </div>
                 <?php if ($error_image_thumb) { ?>
-                <div class="text-danger"><?php echo $error_image_thumb; ?></div>
+                    <div class="text-danger"><?php echo $error_image_thumb; ?></div>
+                <?php } ?>
+              </div>
+            </div>
+            <div class="form-group required">
+              <label class="col-sm-2 control-label" for="input-image-mid-width"><?php echo $entry_image_mid; ?></label>
+              <div class="col-sm-10">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <input type="text" name="theme_default_image_mid_width" value="<?php echo $theme_default_image_mid_width; ?>" placeholder="<?php echo $entry_width; ?>" id="input-image-mid-width" class="form-control" />
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" name="theme_default_image_mid_height" value="<?php echo $theme_default_image_mid_height; ?>" placeholder="<?php echo $entry_height; ?>" class="form-control" />
+                  </div>
+                </div>
+                <?php if ($error_image_mid) { ?>
+                    <div class="text-danger"><?php echo $error_image_mid; ?></div>
+                <?php } ?>
+              </div>
+            </div>
+
+            <div class="form-group required">
+              <label class="col-sm-2 control-label" for="input-image-product_group-width"><?php echo $entry_image_product_group; ?></label>
+              <div class="col-sm-10">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <input type="text" name="theme_default_image_product_group_width" value="<?php echo $theme_default_image_product_group_width; ?>" placeholder="<?php echo $entry_width; ?>" id="input-image-product_group-width" class="form-control" />
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" name="theme_default_image_product_group_height" value="<?php echo $theme_default_image_product_group_height; ?>" placeholder="<?php echo $entry_height; ?>" class="form-control" />
+                  </div>
+                </div>
+                <?php if ($error_image_product_group) { ?>
+                    <div class="text-danger"><?php echo $error_image_product_group; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -123,7 +156,7 @@
                   </div>
                 </div>
                 <?php if ($error_image_popup) { ?>
-                <div class="text-danger"><?php echo $error_image_popup; ?></div>
+                    <div class="text-danger"><?php echo $error_image_popup; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -139,7 +172,7 @@
                   </div>
                 </div>
                 <?php if ($error_image_product) { ?>
-                <div class="text-danger"><?php echo $error_image_product; ?></div>
+                    <div class="text-danger"><?php echo $error_image_product; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -155,7 +188,7 @@
                   </div>
                 </div>
                 <?php if ($error_image_additional) { ?>
-                <div class="text-danger"><?php echo $error_image_additional; ?></div>
+                    <div class="text-danger"><?php echo $error_image_additional; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -171,7 +204,7 @@
                   </div>
                 </div>
                 <?php if ($error_image_related) { ?>
-                <div class="text-danger"><?php echo $error_image_related; ?></div>
+                    <div class="text-danger"><?php echo $error_image_related; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -187,7 +220,7 @@
                   </div>
                 </div>
                 <?php if ($error_image_compare) { ?>
-                <div class="text-danger"><?php echo $error_image_compare; ?></div>
+                    <div class="text-danger"><?php echo $error_image_compare; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -203,7 +236,7 @@
                   </div>
                 </div>
                 <?php if ($error_image_wishlist) { ?>
-                <div class="text-danger"><?php echo $error_image_wishlist; ?></div>
+                    <div class="text-danger"><?php echo $error_image_wishlist; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -219,7 +252,7 @@
                   </div>
                 </div>
                 <?php if ($error_image_cart) { ?>
-                <div class="text-danger"><?php echo $error_image_cart; ?></div>
+                    <div class="text-danger"><?php echo $error_image_cart; ?></div>
                 <?php } ?>
               </div>
             </div>
@@ -235,7 +268,7 @@
                   </div>
                 </div>
                 <?php if ($error_image_location) { ?>
-                <div class="text-danger"><?php echo $error_image_location; ?></div>
+                    <div class="text-danger"><?php echo $error_image_location; ?></div>
                 <?php } ?>
               </div>
             </div>

@@ -5,8 +5,8 @@
     <div class="container-fluid">
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
@@ -27,7 +27,7 @@
                 <select name="store_id" class="form-control">
                   <option value="0"><?php echo $text_default; ?></option>
                   <?php foreach ($stores as $store) { ?>
-                  <option value="<?php echo $store['store_id']; ?>"><?php echo $store['name']; ?></option>
+                      <option value="<?php echo $store['store_id']; ?>"><?php echo $store['name']; ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -62,247 +62,247 @@
   </div>
   <link href="view/javascript/codemirror/lib/codemirror.css" rel="stylesheet" />
   <link href="view/javascript/codemirror/theme/monokai.css" rel="stylesheet" />
-  <script type="text/javascript" src="view/javascript/codemirror/lib/codemirror.js"></script> 
-  <script type="text/javascript" src="view/javascript/codemirror/lib/xml.js"></script> 
-  <script type="text/javascript" src="view/javascript/codemirror/lib/formatting.js"></script> 
+  <script type="text/javascript" src="view/javascript/codemirror/lib/codemirror.js"></script>
+  <script type="text/javascript" src="view/javascript/codemirror/lib/xml.js"></script>
+  <script type="text/javascript" src="view/javascript/codemirror/lib/formatting.js"></script>
   <script type="text/javascript"><!--
-$('select[name="store_id"]').on('change', function(e) {
-	$.ajax({
-		url: 'index.php?route=design/theme/path&token=<?php echo $token; ?>&store_id=' + $('select[name="store_id"]').val(),
-		dataType: 'json',
-		beforeSend: function() {
-			$('select[name="store_id"]').prop('disabled', true);
-		},
-		complete: function() {
-			$('select[name="store_id"]').prop('disabled', false);
-		},
-		success: function(json) {
-			html = '';
+$('select[name="store_id"]').on('change', function (e) {
+          $.ajax({
+              url: 'index.php?route=design/theme/path&token=<?php echo $token; ?>&store_id=' + $('select[name="store_id"]').val(),
+              dataType: 'json',
+              beforeSend: function () {
+                  $('select[name="store_id"]').prop('disabled', true);
+              },
+              complete: function () {
+                  $('select[name="store_id"]').prop('disabled', false);
+              },
+              success: function (json) {
+                  html = '';
 
-			if (json['directory']) {
-				for (i = 0; i < json['directory'].length; i++) {
-					html += '<a href="' + json['directory'][i]['path'] + '" class="list-group-item directory">' + json['directory'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
-				}
-			}
+                  if (json['directory']) {
+                      for (i = 0; i < json['directory'].length; i++) {
+                          html += '<a href="' + json['directory'][i]['path'] + '" class="list-group-item directory">' + json['directory'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
+                      }
+                  }
 
-			if (json['file']) {
-				for (i = 0; i < json['file'].length; i++) {
-					html += '<a href="' + json['file'][i]['path'] + '" class="list-group-item file">' + json['file'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
-				}
-			}
+                  if (json['file']) {
+                      for (i = 0; i < json['file'].length; i++) {
+                          html += '<a href="' + json['file'][i]['path'] + '" class="list-group-item file">' + json['file'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
+                      }
+                  }
 
-			$('#path').html(html);
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-	});
-});
+                  $('#path').html(html);
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              }
+          });
+      });
 
-$('select[name="store_id"]').trigger('change');
+      $('select[name="store_id"]').trigger('change');
 
-$('#path').on('click', 'a.directory', function(e) {
-	e.preventDefault();
+      $('#path').on('click', 'a.directory', function (e) {
+          e.preventDefault();
 
-	var node = this;
+          var node = this;
 
-	$.ajax({
-		url: 'index.php?route=design/theme/path&token=<?php echo $token; ?>&store_id=' + $('select[name="store_id"]').val() + '&path=' + $(node).attr('href'),
-		dataType: 'json',
-		beforeSend: function() {
-			$(node).find('i').removeClass('fa-arrow-right');
-			$(node).find('i').addClass('fa-circle-o-notch fa-spin');
-		},
-		complete: function() {
-			$(node).find('i').removeClass('fa-circle-o-notch fa-spin');
-			$(node).find('i').addClass('fa-arrow-right');
-		},
-		success: function(json) {
-			html = '';
+          $.ajax({
+              url: 'index.php?route=design/theme/path&token=<?php echo $token; ?>&store_id=' + $('select[name="store_id"]').val() + '&path=' + $(node).attr('href'),
+              dataType: 'json',
+              beforeSend: function () {
+                  $(node).find('i').removeClass('fa-arrow-right');
+                  $(node).find('i').addClass('fa-circle-o-notch fa-spin');
+              },
+              complete: function () {
+                  $(node).find('i').removeClass('fa-circle-o-notch fa-spin');
+                  $(node).find('i').addClass('fa-arrow-right');
+              },
+              success: function (json) {
+                  html = '';
 
-			if (json['directory']) {
-				for (i = 0; i < json['directory'].length; i++) {
-					html += '<a href="' + json['directory'][i]['path'] + '" class="list-group-item directory">' + json['directory'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
-				}
-			}
+                  if (json['directory']) {
+                      for (i = 0; i < json['directory'].length; i++) {
+                          html += '<a href="' + json['directory'][i]['path'] + '" class="list-group-item directory">' + json['directory'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
+                      }
+                  }
 
-			if (json['file']) {
-				for (i = 0; i < json['file'].length; i++) {
-					html += '<a href="' + json['file'][i]['path'] + '" class="list-group-item file">' + json['file'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
-				}
-			}
+                  if (json['file']) {
+                      for (i = 0; i < json['file'].length; i++) {
+                          html += '<a href="' + json['file'][i]['path'] + '" class="list-group-item file">' + json['file'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
+                      }
+                  }
 
-			if (json['back']) {
-				html += '<a href="' + json['back']['path'] + '" class="list-group-item directory">' + json['back']['name'] + ' <i class="fa fa-arrow-left fa-fw pull-right"></i></a>';
-			}
+                  if (json['back']) {
+                      html += '<a href="' + json['back']['path'] + '" class="list-group-item directory">' + json['back']['name'] + ' <i class="fa fa-arrow-left fa-fw pull-right"></i></a>';
+                  }
 
-			$('#path').html(html);
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-	});
-});
+                  $('#path').html(html);
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              }
+          });
+      });
 
-$('#path').on('click', 'a.file',function(e) {
-	e.preventDefault();
+      $('#path').on('click', 'a.file', function (e) {
+          e.preventDefault();
 
-	var node = this;
-	
-	// Check if the file has an extension
-	var pos = $(node).attr('href').lastIndexOf('.');
+          var node = this;
 
-	if (pos != -1) {
-		var tab_id = $('select[name="store_id"]').val() + '-' + $(node).attr('href').slice(0, pos).replace('/', '-').replace('_', '-');
-	} else {
-		var tab_id = $('select[name="store_id"]').val() + '-' + $(node).attr('href').replace('/', '-').replace('_', '-');
-	}
-	
-	if (!$('#tab-' + tab_id).length) {
-		$.ajax({
-			url: 'index.php?route=design/theme/template&token=<?php echo $token; ?>&store_id=' + $('select[name="store_id"]').val() + '&path=' + $(node).attr('href'),
-			dataType: 'json',
-			beforeSend: function() {
-				$(node).find('i').removeClass('fa-arrow-right');
-				$(node).find('i').addClass('fa-circle-o-notch fa-spin');
-			},
-			complete: function() {
-				$(node).find('i').removeClass('fa-circle-o-notch fa-spin');
-				$(node).find('i').addClass('fa-arrow-right');
-			},
-			success: function(json) {
-				if (json['code']) {
-					$('#code').show();
-					$('#warning').hide();
+          // Check if the file has an extension
+          var pos = $(node).attr('href').lastIndexOf('.');
 
-					$('.nav-tabs').append('<li><a href="#tab-' + tab_id + '" data-toggle="tab">' + $(node).attr('href').split('/').join(' / ') + '&nbsp;&nbsp;<i class="fa fa-minus-circle"></i></a></li>');
+          if (pos != -1) {
+              var tab_id = $('select[name="store_id"]').val() + '-' + $(node).attr('href').slice(0, pos).replace('/', '-').replace('_', '-');
+          } else {
+              var tab_id = $('select[name="store_id"]').val() + '-' + $(node).attr('href').replace('/', '-').replace('_', '-');
+          }
 
-					html  = '<div class="tab-pane" id="tab-' + tab_id + '">';
-					html += '  <textarea name="code" rows="10"></textarea>';
-					html += '  <input type="hidden" name="store_id" value="' + $('select[name="store_id"]').val() + '" />';
-					html += '  <input type="hidden" name="path" value="' + $(node).attr('href') + '" />';
-					html += '  <br />';
-					html += '  <div class="pull-right">';
-					html += '    <button type="button" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-floppy-o"></i> <?php echo $button_save; ?></button>';
-					html += '    <button type="button" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger"><i class="fa fa-recycle"></i> <?php echo $button_reset; ?></button>';
-					html += '  </div>';
-					html += '</div>';
+          if (!$('#tab-' + tab_id).length) {
+              $.ajax({
+                  url: 'index.php?route=design/theme/template&token=<?php echo $token; ?>&store_id=' + $('select[name="store_id"]').val() + '&path=' + $(node).attr('href'),
+                  dataType: 'json',
+                  beforeSend: function () {
+                      $(node).find('i').removeClass('fa-arrow-right');
+                      $(node).find('i').addClass('fa-circle-o-notch fa-spin');
+                  },
+                  complete: function () {
+                      $(node).find('i').removeClass('fa-circle-o-notch fa-spin');
+                      $(node).find('i').addClass('fa-arrow-right');
+                  },
+                  success: function (json) {
+                      if (json['code']) {
+                          $('#code').show();
+                          $('#warning').hide();
 
-					$('.tab-content').append(html);
+                          $('.nav-tabs').append('<li><a href="#tab-' + tab_id + '" data-toggle="tab">' + $(node).attr('href').split('/').join(' / ') + '&nbsp;&nbsp;<i class="fa fa-minus-circle"></i></a></li>');
 
-					$('.nav-tabs a[href=\'#tab-' + tab_id + '\']').tab('show');
-					
-					// Initialize codemirrror
-					var editor = CodeMirror.fromTextArea(document.querySelector('.tab-content .active textarea'), {
-						mode: 'text/html',
-						height: '500px',
-						lineNumbers: true,
-						autofocus: true,
-						theme: 'monokai'
-					});
+                          html = '<div class="tab-pane" id="tab-' + tab_id + '">';
+                          html += '  <textarea name="code" rows="10"></textarea>';
+                          html += '  <input type="hidden" name="store_id" value="' + $('select[name="store_id"]').val() + '" />';
+                          html += '  <input type="hidden" name="path" value="' + $(node).attr('href') + '" />';
+                          html += '  <br />';
+                          html += '  <div class="pull-right">';
+                          html += '    <button type="button" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-floppy-o"></i> <?php echo $button_save; ?></button>';
+                          html += '    <button type="button" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger"><i class="fa fa-recycle"></i> <?php echo $button_reset; ?></button>';
+                          html += '  </div>';
+                          html += '</div>';
 
-					editor.setValue(json['code']);
-				}
-			},
-			error: function(xhr, ajaxOptions, thrownError) {
-				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-			}
-		});
-	} else {
-		$('.nav-tabs a[href=\'#tab-' + tab_id + '\']').tab('show');
-	}
-});
+                          $('.tab-content').append(html);
 
-$('.nav-tabs').on('click', 'i.fa-minus-circle', function(e) {
-	e.preventDefault();
+                          $('.nav-tabs a[href=\'#tab-' + tab_id + '\']').tab('show');
 
-	if ($(this).parent().parent().is('li.active')) {
-		index = $(this).parent().parent().index();
+                          // Initialize codemirrror
+                          var editor = CodeMirror.fromTextArea(document.querySelector('.tab-content .active textarea'), {
+                              mode: 'text/html',
+                              height: '500px',
+                              lineNumbers: true,
+                              autofocus: true,
+                              theme: 'monokai'
+                          });
 
-		if (index == 0) {
-			$(this).parent().parent().parent().find('li').eq(index + 1).find('a').tab('show');
-		} else {
-			$(this).parent().parent().parent().find('li').eq(index - 1).find('a').tab('show');
-		}
-	}
+                          editor.setValue(json['code']);
+                      }
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                  }
+              });
+          } else {
+              $('.nav-tabs a[href=\'#tab-' + tab_id + '\']').tab('show');
+          }
+      });
 
-	$(this).parent().parent().remove();
+      $('.nav-tabs').on('click', 'i.fa-minus-circle', function (e) {
+          e.preventDefault();
 
-	$($(this).parent().attr('href')).remove();
+          if ($(this).parent().parent().is('li.active')) {
+              index = $(this).parent().parent().index();
 
-	if (!$('#code > ul > li').length) {
-		$('#code').hide();
-		$('#warning').show();
-	}
-});
+              if (index == 0) {
+                  $(this).parent().parent().parent().find('li').eq(index + 1).find('a').tab('show');
+              } else {
+                  $(this).parent().parent().parent().find('li').eq(index - 1).find('a').tab('show');
+              }
+          }
 
-$('.tab-content').on('click', '.btn-primary', function(e) {
-	var node = this;
+          $(this).parent().parent().remove();
 
-	var editor = $('.tab-content .active .CodeMirror')[0].CodeMirror;
-				
-	$.ajax({
-		url: 'index.php?route=design/theme/save&token=<?php echo $token; ?>&store_id=' + $('.tab-content .active input[name="store_id"]').val() + '&path=' + $('.tab-content .active input[name="path"]').val(),
-		type: 'post',
-		data: 'code=' + encodeURIComponent(editor.getValue()),
-		dataType: 'json',
-		beforeSend: function() {
-			$(node).button('loading');
-		},
-		complete: function() {
-			$(node).button('reset');
-		},
-		success: function(json) {
-			$('.alert').remove();
-			
-			if (json['error']) {
-				$('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-			}
+          $($(this).parent().attr('href')).remove();
 
-			if (json['success']) {
-				$('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-			}
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-	});
-});
+          if (!$('#code > ul > li').length) {
+              $('#code').hide();
+              $('#warning').show();
+          }
+      });
 
-$('.tab-content').on('click', '.btn-danger', function(e) {
-	if (confirm('<?php echo $text_confirm; ?>')) {
-		var node = this;
+      $('.tab-content').on('click', '.btn-primary', function (e) {
+          var node = this;
 
-		$.ajax({
-			url: 'index.php?route=design/theme/reset&token=<?php echo $token; ?>&store_id=' + $('.tab-content .active input[name="store_id"]').val() + '&path=' + $('.tab-content .active input[name="path"]').val(),
-			dataType: 'json',
-			beforeSend: function() {
-				$(node).button('loading');
-			},
-			complete: function() {
-				$(node).button('reset');
-			},
-			success: function(json) {
-				$('.alert').remove();
-				
-				if (json['error']) {
-					$('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-				}
+          var editor = $('.tab-content .active .CodeMirror')[0].CodeMirror;
 
-				if (json['success']) {
-					$('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-				}
-				
-				var editor = $('.tab-content .active .CodeMirror')[0].CodeMirror;
-				
-				editor.setValue(json['code']);
-			},
-			error: function(xhr, ajaxOptions, thrownError) {
-				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-			}
-		});
-	}
-});
-//--></script> 
+          $.ajax({
+              url: 'index.php?route=design/theme/save&token=<?php echo $token; ?>&store_id=' + $('.tab-content .active input[name="store_id"]').val() + '&path=' + $('.tab-content .active input[name="path"]').val(),
+              type: 'post',
+              data: 'code=' + encodeURIComponent(editor.getValue()),
+              dataType: 'json',
+              beforeSend: function () {
+                  $(node).button('loading');
+              },
+              complete: function () {
+                  $(node).button('reset');
+              },
+              success: function (json) {
+                  $('.alert').remove();
+
+                  if (json['error']) {
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                  }
+
+                  if (json['success']) {
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                  }
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              }
+          });
+      });
+
+      $('.tab-content').on('click', '.btn-danger', function (e) {
+          if (confirm('<?php echo $text_confirm; ?>')) {
+              var node = this;
+
+              $.ajax({
+                  url: 'index.php?route=design/theme/reset&token=<?php echo $token; ?>&store_id=' + $('.tab-content .active input[name="store_id"]').val() + '&path=' + $('.tab-content .active input[name="path"]').val(),
+                  dataType: 'json',
+                  beforeSend: function () {
+                      $(node).button('loading');
+                  },
+                  complete: function () {
+                      $(node).button('reset');
+                  },
+                  success: function (json) {
+                      $('.alert').remove();
+
+                      if (json['error']) {
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      }
+
+                      if (json['success']) {
+                          $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      }
+
+                      var editor = $('.tab-content .active .CodeMirror')[0].CodeMirror;
+
+                      editor.setValue(json['code']);
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                  }
+              });
+          }
+      });
+      //--></script>
 </div>
-<?php echo $footer; ?> 
+<?php echo $footer; ?>

@@ -28,20 +28,22 @@
     <input type="hidden" name="bstate" value="<?php echo $bstate; ?>" />
     <input type="hidden" name="bcountry" value="<?php echo $bcountry; ?>" />
     <input type="hidden" name="bzip" value="<?php echo $bzip; ?>" />
-	<input type="hidden" name="email" value="<?php echo $email; ?>" />
+    <input type="hidden" name="email" value="<?php echo $email; ?>" />
     <input type="hidden" name="invoicenumber" value="<?php echo $version; ?>" />
 
     <?php if ($card_storage == 1) { ?>
-      <?php $i = 1; if (!empty($stored_cards)) { ?>
-        <?php foreach ($stored_cards as $card) { ?>
-          <p><input type="radio" name="hosteddataid" value="<?php echo $card['token']; ?>" <?php echo ($i == 1 ? ' checked="checked"' : ''); ?> /> <?php echo $card['digits'] . ' - ' . $card['expire_month'] . '/' . $card['expire_year']; ?></p>
-          <?php $i++; ?>
+        <?php $i = 1;
+        if (!empty($stored_cards)) {
+            ?>
+            <?php foreach ($stored_cards as $card) { ?>
+                <p><input type="radio" name="hosteddataid" value="<?php echo $card['token']; ?>" <?php echo ($i == 1 ? ' checked="checked"' : ''); ?> /> <?php echo $card['digits'] . ' - ' . $card['expire_month'] . '/' . $card['expire_year']; ?></p>
+                <?php $i++; ?>
+            <?php } ?>
+            <p><input type="radio" name="hosteddataid" value="<?php echo $new_hosted_id; ?>" <?php echo $i == 1 ? ' checked="checked"' : ''; ?> /> Use a new card</p>
+        <?php } else { ?>
+            <input type="hidden" name="hosteddataid" value="<?php echo $new_hosted_id; ?>" />
         <?php } ?>
-        <p><input type="radio" name="hosteddataid" value="<?php echo $new_hosted_id; ?>" <?php echo $i == 1 ? ' checked="checked"' : ''; ?> /> Use a new card</p>
-      <?php } else { ?>
-        <input type="hidden" name="hosteddataid" value="<?php echo $new_hosted_id; ?>" />
-      <?php } ?>
-    <?php } ?>
+<?php } ?>
   </fieldset>
 </form>
 
@@ -52,7 +54,7 @@
 </div>
 
 <script type="text/javascript"><!--
-$('#button-confirm').bind('click', function() {
-  $('#firstdata_form_redirect').submit();
-});
+$('#button-confirm').bind('click', function () {
+        $('#firstdata_form_redirect').submit();
+    });
 //--></script>

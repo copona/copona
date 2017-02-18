@@ -1,9 +1,9 @@
 <h2><?php echo $text_payment_info; ?></h2>
 <?php if ($void_success) { ?>
-<div class="alert alert-success"><?php echo $void_success; ?></div>
+    <div class="alert alert-success"><?php echo $void_success; ?></div>
 <?php } ?>
 <?php if ($void_error) { ?>
-<div class="alert alert-warning"><?php echo $void_error; ?></div>
+    <div class="alert alert-warning"><?php echo $void_error; ?></div>
 <?php } ?>
 <table class="table table-striped table-bordered">
   <tr>
@@ -21,20 +21,20 @@
   <tr>
     <td><?php echo $text_capture_status; ?></td>
     <td id="capture_status"><?php if ($firstdata_order['capture_status'] == 1) { ?>
-      <span class="capture_text"><?php echo $text_yes; ?></span>
+          <span class="capture_text"><?php echo $text_yes; ?></span>
       <?php } else { ?>
-      <span class="capture_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
-      <?php if ($firstdata_order['void_status'] == 0) { ?>
-      <a class="button btn btn-primary" id="button_capture"><?php echo $button_capture; ?></a> <span class="btn btn-primary" id="img_loading_capture" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
-      <?php } ?>
-      <?php } ?></td>
+          <span class="capture_text"><?php echo $text_no; ?></span>&nbsp;&nbsp;
+          <?php if ($firstdata_order['void_status'] == 0) { ?>
+              <a class="button btn btn-primary" id="button_capture"><?php echo $button_capture; ?></a> <span class="btn btn-primary" id="img_loading_capture" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+          <?php } ?>
+        <?php } ?></td>
   </tr>
   <tr>
     <td><?php echo $text_void_status; ?></td>
     <td id="void_status"><?php if ($firstdata_order['void_status'] == 1) { ?>
-      <span class="void_text"><?php echo $text_yes; ?></span>
+          <span class="void_text"><?php echo $text_yes; ?></span>
       <?php } else { ?>
-      <span class="void_text"><?php echo $text_no; ?></span>&nbsp;&nbsp; <a class="button btn btn-primary" id="button-void"><?php echo $button_void; ?></a> <span class="btn btn-primary" id="img_loading_void" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+          <span class="void_text"><?php echo $text_no; ?></span>&nbsp;&nbsp; <a class="button btn btn-primary" id="button-void"><?php echo $button_void; ?></a> <span class="btn btn-primary" id="img_loading_void" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
       <?php } ?></td>
   </tr>
   <tr>
@@ -48,12 +48,12 @@
           </tr>
         </thead>
         <tbody>
-          <?php foreach($firstdata_order['transactions'] as $transaction) { ?>
-          <tr>
-            <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-            <td class="text-left"><?php echo $transaction['type']; ?></td>
-            <td class="text-left"><?php echo $transaction['amount']; ?></td>
-          </tr>
+            <?php foreach ($firstdata_order['transactions'] as $transaction) { ?>
+              <tr>
+                <td class="text-left"><?php echo $transaction['date_added']; ?></td>
+                <td class="text-left"><?php echo $transaction['type']; ?></td>
+                <td class="text-left"><?php echo $transaction['amount']; ?></td>
+              </tr>
           <?php } ?>
         </tbody>
       </table></td>
@@ -91,32 +91,32 @@
 </form>
 <script type="text/javascript"><!--
 $("#button-void").bind('click', function () {
-  if (confirm('<?php echo $text_confirm_void; ?>')) {
-    $('#voidform').submit();
-  }
-});
+        if (confirm('<?php echo $text_confirm_void; ?>')) {
+            $('#voidform').submit();
+        }
+    });
 
-$("#button_capture").bind('click', function () {
-  if (confirm('<?php echo $text_confirm_capture; ?>')) {
-    $('#captureform').submit();
-  }
-});
+    $("#button_capture").bind('click', function () {
+        if (confirm('<?php echo $text_confirm_capture; ?>')) {
+            $('#captureform').submit();
+        }
+    });
 
-$(document).ready(function () {
-  <?php if ($void_success) { ?>
-    alert('<?php echo $void_success; ?>');
-  <?php } ?>
+    $(document).ready(function () {
+<?php if ($void_success) { ?>
+            alert('<?php echo $void_success; ?>');
+<?php } ?>
 
-  <?php if ($void_error) { ?>
-    alert('<?php echo $void_error; ?>');
-  <?php } ?>
+<?php if ($void_error) { ?>
+            alert('<?php echo $void_error; ?>');
+<?php } ?>
 
-  <?php if ($capture_success) { ?>
-    alert('<?php echo $capture_success; ?>');
-  <?php } ?>
+<?php if ($capture_success) { ?>
+            alert('<?php echo $capture_success; ?>');
+<?php } ?>
 
-  <?php if ($capture_error) { ?>
-    alert('<?php echo $capture_error; ?>');
-  <?php } ?>
-});
+<?php if ($capture_error) { ?>
+            alert('<?php echo $capture_error; ?>');
+<?php } ?>
+    });
 //--></script>

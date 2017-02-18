@@ -14,7 +14,7 @@
 //                               --db_password pass \
 //                               --db_database opencart \
 //                               --db_driver mysqli \
-//								 --db_port 3306 \
+//                               --db_port 3306 \
 //                               --username admin \
 //                               --password admin \
 //                               --email youremail@example.com \
@@ -23,6 +23,12 @@
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+
+//get options for startup.php
+$argv = $_SERVER['argv'];
+$script = array_shift($argv);
+$subcommand = array_shift($argv);
+$options = get_options($argv);
 
 // DIR
 define('DIR_APPLICATION', str_replace('\\', '/', realpath(dirname(__FILE__))) . '/');
@@ -33,6 +39,8 @@ define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/template/');
 define('DIR_CONFIG', DIR_SYSTEM . 'config/');
 define('DIR_MODIFICATION', DIR_SYSTEM . 'modification/');
+
+define('HTTP_SERVER', $options['http_server'] ? $options['http_server'] : ''  );
 
 // Startup
 require_once(DIR_SYSTEM . 'startup.php');
@@ -99,7 +107,7 @@ function get_options($argv) {
 }
 
 
-function valid($options) {
+function valid(&$options) {
 	$required = array(
 		'db_hostname',
 		'db_username',
@@ -141,8 +149,8 @@ function install($options) {
 
 function check_requirements() {
 	$error = null;
-	if (phpversion() < '5.0') {
-		$error = 'Warning: You need to use PHP5 or above for OpenCart to work!';
+	if (phpversion() < '5.6') {
+		$error = 'Warning: You need to use PHP 5.6 or above for OpenCart to work!';
 	}
 
 	if (!ini_get('file_uploads')) {
@@ -178,6 +186,7 @@ function check_requirements() {
 
 
 function setup_db($data) {
+
 	$db = new DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
 
 	$file = DIR_APPLICATION . 'opencart.sql';
@@ -199,6 +208,7 @@ function setup_db($data) {
 					$sql = str_replace("DROP TABLE IF EXISTS `oc_", "DROP TABLE IF EXISTS `" . $data['db_prefix'], $sql);
 					$sql = str_replace("CREATE TABLE `oc_", "CREATE TABLE `" . $data['db_prefix'], $sql);
 					$sql = str_replace("INSERT INTO `oc_", "INSERT INTO `" . $data['db_prefix'], $sql);
+                                        $sql = str_replace("ALTER TABLE `oc_", "ALTER TABLE `" . $data['db_prefix'], $sql);
 
 					$db->query($sql);
 
@@ -234,13 +244,16 @@ function setup_db($data) {
 
 
 function write_config_files($options) {
+
+    $http_server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
+    $https_server = 'https://' . $_SERVER['SERVER_NAME'] . '/';
+
 	$output  = '<?php' . "\n";
 	$output .= '// HTTP' . "\n";
-	$output .= 'define(\'HTTP_SERVER\', \'' . $options['http_server'] . '\');' . "\n";
-	$output .= 'define(\'HTTP_ADMIN\', \'' . $options['http_server'] . 'admin/\');' . "\n\n";
+	$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . '\');' . "\n";
 
 	$output .= '// HTTPS' . "\n";
-	$output .= 'define(\'HTTPS_SERVER\', \'' . $options['http_server'] . '\');' . "\n";
+	$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . '\');' . "\n";
 
 	$output .= '// DIR' . "\n";
 	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'catalog/\');' . "\n";
@@ -274,12 +287,12 @@ function write_config_files($options) {
 
 	$output  = '<?php' . "\n";
 	$output .= '// HTTP' . "\n";
-	$output .= 'define(\'HTTP_SERVER\', \'' . $options['http_server'] . 'admin/\');' . "\n";
-	$output .= 'define(\'HTTP_CATALOG\', \'' . $options['http_server'] . '\');' . "\n";
+	$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . 'admin/\');' . "\n";
+	$output .= 'define(\'HTTP_CATALOG\', \'' . $http_server . '\');' . "\n";
 
 	$output .= '// HTTPS' . "\n";
-	$output .= 'define(\'HTTPS_SERVER\', \'' . $options['http_server'] . 'admin/\');' . "\n";
-	$output .= 'define(\'HTTPS_CATALOG\', \'' . $options['http_server'] . '\');' . "\n";
+	$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . 'admin/\');' . "\n";
+	$output .= 'define(\'HTTPS_CATALOG\', \'' . $https_server . '\');' . "\n";
 
 	$output .= '// DIR' . "\n";
 	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'admin/\');' . "\n";

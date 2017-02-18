@@ -4,8 +4,8 @@
     <div class="container-fluid">
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
@@ -46,27 +46,27 @@
               </tr>
             </thead>
             <tbody>
-              <?php if ($customers) { ?>
-              <?php foreach ($customers as $customer) { ?>
-              <tr>
-                <td class="text-left"><a href="http://whatismyipaddress.com/ip/<?php echo $customer['ip']; ?>" target="_blank"><?php echo $customer['ip']; ?></a></td>
-                <td class="text-left"><?php echo $customer['customer']; ?></td>
-                <td class="text-left"><a href="<?php echo $customer['url']; ?>" target="_blank"><?php echo implode('<br/>', str_split($customer['url'], 30)); ?></a></td>
-                <td class="text-left"><?php if ($customer['referer']) { ?>
-                  <a href="<?php echo $customer['referer']; ?>" target="_blank"><?php echo implode('<br/>', str_split($customer['referer'], 30)); ?></a>
-                  <?php } ?></td>
-                <td class="text-left"><?php echo $customer['date_added']; ?></td>
-                <td class="text-right"><?php if ($customer['customer_id']) { ?>
-                  <a href="<?php echo $customer['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                  <?php } else { ?>
-                  <button type="button" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary" disabled="disabled"><i class="fa fa-pencil"></i></button>
-                  <?php } ?></td>
-              </tr>
-              <?php } ?>
+                <?php if ($customers) { ?>
+                    <?php foreach ($customers as $customer) { ?>
+                      <tr>
+                        <td class="text-left"><a href="http://whatismyipaddress.com/ip/<?php echo $customer['ip']; ?>" target="_blank"><?php echo $customer['ip']; ?></a></td>
+                        <td class="text-left"><?php echo $customer['customer']; ?></td>
+                        <td class="text-left"><a href="<?php echo $customer['url']; ?>" target="_blank"><?php echo implode('<br/>', str_split($customer['url'], 30)); ?></a></td>
+                        <td class="text-left"><?php if ($customer['referer']) { ?>
+                              <a href="<?php echo $customer['referer']; ?>" target="_blank"><?php echo implode('<br/>', str_split($customer['referer'], 30)); ?></a>
+                          <?php } ?></td>
+                        <td class="text-left"><?php echo $customer['date_added']; ?></td>
+                        <td class="text-right"><?php if ($customer['customer_id']) { ?>
+                              <a href="<?php echo $customer['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                          <?php } else { ?>
+                              <button type="button" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary" disabled="disabled"><i class="fa fa-pencil"></i></button>
+                          <?php } ?></td>
+                      </tr>
+                  <?php } ?>
               <?php } else { ?>
-              <tr>
-                <td class="text-center" colspan="6"><?php echo $text_no_results; ?></td>
-              </tr>
+                  <tr>
+                    <td class="text-center" colspan="6"><?php echo $text_no_results; ?></td>
+                  </tr>
               <?php } ?>
             </tbody>
           </table>
@@ -79,43 +79,43 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('#button-filter').on('click', function() {
-	url = 'index.php?route=report/customer_online&token=<?php echo $token; ?>';
+$('#button-filter').on('click', function () {
+          url = 'index.php?route=report/customer_online&token=<?php echo $token; ?>';
 
-	var filter_customer = $('input[name=\'filter_customer\']').val();
+          var filter_customer = $('input[name=\'filter_customer\']').val();
 
-	if (filter_customer) {
-		url += '&filter_customer=' + encodeURIComponent(filter_customer);
-	}
-
-	var filter_ip = $('input[name=\'filter_ip\']').val();
-
-	if (filter_ip) {
-		url += '&filter_ip=' + encodeURIComponent(filter_ip);
-	}
-
-	location = url;
-});
-//--></script>
-  <script type="text/javascript"><!--
-$('input[name=\'filter_customer\']').autocomplete({
-  'source': function(request, response) {
-    $.ajax({
-      url: 'index.php?route=customer/customer/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request),
-      dataType: 'json',
-      success: function(json) {
-        response($.map(json, function(item) {
-          return {
-            label: item['name'],
-            value: item['customer_id']
+          if (filter_customer) {
+              url += '&filter_customer=' + encodeURIComponent(filter_customer);
           }
-        }));
-      }
-    });
-  },
-  'select': function(item) {
-    $('input[name=\'filter_customer\']').val(item['label']);
-  }
-});
-//--></script></div>
+
+          var filter_ip = $('input[name=\'filter_ip\']').val();
+
+          if (filter_ip) {
+              url += '&filter_ip=' + encodeURIComponent(filter_ip);
+          }
+
+          location = url;
+      });
+      //--></script>
+  <script type="text/javascript"><!--
+      $('input[name=\'filter_customer\']').autocomplete({
+          'source': function (request, response) {
+              $.ajax({
+                  url: 'index.php?route=customer/customer/autocomplete&token=<?php echo $token; ?>&filter_name=' + encodeURIComponent(request),
+                  dataType: 'json',
+                  success: function (json) {
+                      response($.map(json, function (item) {
+                          return {
+                              label: item['name'],
+                              value: item['customer_id']
+                          }
+                      }));
+                  }
+              });
+          },
+          'select': function (item) {
+              $('input[name=\'filter_customer\']').val(item['label']);
+          }
+      });
+      //--></script></div>
 <?php echo $footer; ?>
