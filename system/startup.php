@@ -6,8 +6,8 @@ error_reporting(E_ALL);
 require_once(DIR_SYSTEM . 'helper/debug.php');
 
 // Check Version
-if (version_compare(phpversion(), '5.4.0', '<') == true) {
-    exit('PHP5.4+ Required');
+if (version_compare(phpversion(), '5.6.0', '<') == true) {
+    exit('PHP5.6+ Required');
 }
 
 // Magic Quotes Fix
@@ -60,9 +60,7 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 }
 
 // Check if SSL
-if ((isset($_SERVER['HTTPS']) && (($_SERVER['HTTPS'] == 'on') || ($_SERVER['HTTPS'] == '1'))) || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) {
-    $_SERVER['HTTPS'] = true;
-} elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+if($_SERVER['REQUEST_SCHEME'] == 'https') {
     $_SERVER['HTTPS'] = true;
 } else {
     $_SERVER['HTTPS'] = false;

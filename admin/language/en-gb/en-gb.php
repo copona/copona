@@ -150,4 +150,3 @@ $_['label_name'] = 'Name';
 $_['label_model'] = 'Model';
 $_['label_price'] = 'Price';
 $_['button_save_continue'] = 'Save & Continue';
-?>

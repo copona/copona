@@ -64,6 +64,7 @@ if (!function_exists('prd')) {
             elseif (gettype($data) == 'string') {
                 print_r(htmlentities($data));
             } else {
+                $vardump ? array_walk_recursive($data, function(&$v) { $v = htmlspecialchars($v); }) : false;
                 $vardump ? var_dump($data) : print_r($data);
             }
             echo "\n</pre>\n";

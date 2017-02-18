@@ -153,8 +153,12 @@
                 <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_multi_seo_keyword; ?></span></label>
                 <div class="col-sm-3">
                     <?php foreach ($languages as $language) { ?>
-                      <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
-                      <input type="text" name="seo_keyword[<?= $language['language_id'] ?>]" value="<?php echo (isset($seo_keywords[$language['language_id']]) ? $seo_keywords[$language['language_id']] : "" ) ?>" placeholder="<?php echo $entry_multi_seo_keyword; ?>" id="input-multi-seo-keyword" class="form-control" />
+                      <div class="input-group">
+                        <span class="input-group-addon lng-image">
+                          <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
+                        </span>
+                        <input type="text" name="seo_keyword[<?= $language['language_id'] ?>]" value="<?php echo (isset($seo_keywords[$language['language_id']]) ? $seo_keywords[$language['language_id']] : "" ) ?>" placeholder="<?php echo $entry_multi_seo_keyword; ?>" id="input-multi-seo-keyword" class="form-control" />
+                      </div>
                   <?php } ?>
                 </div>
               </div>
@@ -261,33 +265,33 @@
       </div>
     </div>
   </div>
-    <script type="text/javascript"><!--
-  $('input[name=\'path\']').autocomplete({
-            'source': function (request, response) {
-                $.ajax({
-                    url: 'index.php?route=catalog/category/autocomplete&token=<?php echo $token; ?>&filter_name=' + encodeURIComponent(request),
-                    dataType: 'json',
-                    success: function (json) {
-                        json.unshift({
-                            category_id: 0,
-                            name: '<?php echo $text_none; ?>'
-                        });
+  <script type="text/javascript"><!--
+$('input[name=\'path\']').autocomplete({
+          'source': function (request, response) {
+              $.ajax({
+                  url: 'index.php?route=catalog/category/autocomplete&token=<?php echo $token; ?>&filter_name=' + encodeURIComponent(request),
+                  dataType: 'json',
+                  success: function (json) {
+                      json.unshift({
+                          category_id: 0,
+                          name: '<?php echo $text_none; ?>'
+                      });
 
-                        response($.map(json, function (item) {
-                            return {
-                                label: item['name'],
-                                value: item['category_id']
-                            }
-                        }));
-                    }
-                });
-            },
-            'select': function (item) {
-                $('input[name=\'path\']').val(item['label']);
-                $('input[name=\'parent_id\']').val(item['value']);
-            }
-        });
-        //--></script>
+                      response($.map(json, function (item) {
+                          return {
+                              label: item['name'],
+                              value: item['category_id']
+                          }
+                      }));
+                  }
+              });
+          },
+          'select': function (item) {
+              $('input[name=\'path\']').val(item['label']);
+              $('input[name=\'parent_id\']').val(item['value']);
+          }
+      });
+      //--></script>
   <script type="text/javascript"><!--
       $('input[name=\'filter\']').autocomplete({
           'source': function (request, response) {
@@ -320,4 +324,4 @@
   <script type="text/javascript"><!--
       $('#language a:first').tab('show');
       //--></script></div>
-      <?php echo $footer; ?>
+<?php echo $footer; ?>

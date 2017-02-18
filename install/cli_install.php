@@ -244,13 +244,16 @@ function setup_db($data) {
 
 
 function write_config_files($options) {
+
+    $http_server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
+    $https_server = 'https://' . $_SERVER['SERVER_NAME'] . '/';
+
 	$output  = '<?php' . "\n";
 	$output .= '// HTTP' . "\n";
-	$output .= 'define(\'HTTP_SERVER\', \'' . $options['http_server'] . '\');' . "\n";
-	$output .= 'define(\'HTTP_ADMIN\', \'' . $options['http_server'] . 'admin/\');' . "\n\n";
+	$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . '\');' . "\n";
 
 	$output .= '// HTTPS' . "\n";
-	$output .= 'define(\'HTTPS_SERVER\', \'' . $options['http_server'] . '\');' . "\n";
+	$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . '\');' . "\n";
 
 	$output .= '// DIR' . "\n";
 	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'catalog/\');' . "\n";
@@ -284,12 +287,12 @@ function write_config_files($options) {
 
 	$output  = '<?php' . "\n";
 	$output .= '// HTTP' . "\n";
-	$output .= 'define(\'HTTP_SERVER\', \'' . $options['http_server'] . 'admin/\');' . "\n";
-	$output .= 'define(\'HTTP_CATALOG\', \'' . $options['http_server'] . '\');' . "\n";
+	$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . 'admin/\');' . "\n";
+	$output .= 'define(\'HTTP_CATALOG\', \'' . $http_server . '\');' . "\n";
 
 	$output .= '// HTTPS' . "\n";
-	$output .= 'define(\'HTTPS_SERVER\', \'' . $options['http_server'] . 'admin/\');' . "\n";
-	$output .= 'define(\'HTTPS_CATALOG\', \'' . $options['http_server'] . '\');' . "\n";
+	$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . 'admin/\');' . "\n";
+	$output .= 'define(\'HTTPS_CATALOG\', \'' . $https_server . '\');' . "\n";
 
 	$output .= '// DIR' . "\n";
 	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'admin/\');' . "\n";

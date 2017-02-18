@@ -534,12 +534,6 @@ class ControllerCatalogCategory extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        foreach ($this->request->post['category_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['name']) < 2) || (utf8_strlen($value['name']) > 255)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
-            }
-        }
-
         if (isset($this->request->get['category_id']) && $this->request->post['parent_id']) {
             $results = $this->model_catalog_category->getCategoryPath($this->request->post['parent_id']);
 
