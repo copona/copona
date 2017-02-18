@@ -22,3 +22,15 @@ form#form-category tbody td.name a
 	display: block;
 	width: 100%;
 }
+
+.secure-warning {
+	background: #ff0000;
+	color: #ffffff;
+	text-align: center;
+	font-weight: 700;
+	font-size: 110%;
+}
+
+.secure-warning em {
+	text-decoration: underline;
+}
