@@ -8206,3 +8206,75 @@ ALTER TABLE `oc_webform`
 --
 ALTER TABLE `oc_search_types`
   ADD PRIMARY KEY (`type_id`);
+
+
+--
+-- LJK Additional indexes
+--
+ALTER TABLE `oc_banner`
+  ADD INDEX `status` (`status`);
+
+ALTER TABLE `oc_banner_image`
+  ADD INDEX `banner_id` (`banner_id`),
+  ADD INDEX `language_id` (`language_id`);
+
+ALTER TABLE `oc_category`
+  ADD INDEX `status` (`status`);
+
+ALTER TABLE `oc_customer`
+  ADD INDEX `approved` (`approved`),
+  ADD INDEX `language_id` (`language_id`),
+  ADD INDEX `store_id` (`store_id`),
+  ADD INDEX `status` (`status`);
+
+ALTER TABLE `oc_language`
+  ADD INDEX `code` (`code`);
+
+ALTER TABLE `oc_layout_module`
+  ADD INDEX `layout_id` (`layout_id`);
+
+ALTER TABLE `oc_extension`
+  ADD INDEX `type` (`type`);
+
+ALTER TABLE `oc_product`
+  ADD INDEX `status` (`status`),
+  ADD INDEX `date_available` (`date_available`),
+  ADD INDEX `manufacturer_id` (`manufacturer_id`),
+  ADD INDEX `stock_status_id` (`stock_status_id`);
+
+ALTER TABLE `oc_product_discount`
+  ADD INDEX `customer_group_id` (`customer_group_id`),
+  ADD INDEX `quantity` (`quantity`),
+  ADD INDEX `date_start` (`date_start`),
+  ADD INDEX `date_end` (`date_end`);
+
+ALTER TABLE `oc_product_reward`
+  ADD INDEX `customer_group_id` (`customer_group_id`),
+  ADD INDEX `product_id` (`product_id`);
+
+ALTER TABLE `oc_product_special`
+  ADD INDEX `customer_group_id` (`customer_group_id`),
+  ADD INDEX `date_start` (`date_start`),
+  ADD INDEX `date_end` (`date_end`);
+
+ALTER TABLE `oc_review`
+  ADD INDEX `status` (`status`);
+
+ALTER TABLE `oc_setting`
+  ADD INDEX `store_id` (`store_id`);
+
+ALTER TABLE `oc_store`
+  ADD INDEX `url` (`url`);
+
+ALTER TABLE `oc_url_alias`
+  ADD INDEX `language_id` (`language_id`);
+
+ALTER TABLE `oc_user`
+  ADD INDEX `username` (`username`),
+  ADD INDEX `email` (`email`),
+  ADD INDEX `user_group_id` (`user_group_id`);
+
+
+-- TODO:
+-- Continue analyzing queries, adding indexes where needed, etc.
+-- Investigate converting oc_event trigger from text to varchar to enable indexing
