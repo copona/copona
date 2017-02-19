@@ -43,7 +43,11 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_PASSWORD\', \'' . addslashes(html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8')) . '\');' . "\n";
 			$output .= 'define(\'DB_DATABASE\', \'' . addslashes($this->request->post['db_database']) . '\');' . "\n";
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
-			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n";
+			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n\n";
+
+            $output .= '// DEBUGGING' . "\n";
+            $output .= '// Use extreme caution enabling this on production systems!' . "\n";
+            $output .= 'define(\'DEBUG\', false);' . "\n";
 
 			if (!file_exists(DIR_OPENCART . 'config.php')) {
 				touch(DIR_OPENCART . 'config.php');
@@ -88,7 +92,11 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_PASSWORD\', \'' . addslashes(html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8')) . '\');' . "\n";
 			$output .= 'define(\'DB_DATABASE\', \'' . addslashes($this->request->post['db_database']) . '\');' . "\n";
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
-			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n";
+			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n\n";
+
+            $output .= '// DEBUGGING' . "\n";
+            $output .= '// Use extreme caution enabling this on production systems!' . "\n";
+            $output .= 'define(\'DEBUG\', false);' . "\n";
 
 			if (!file_exists(DIR_OPENCART . 'admin/config.php')) {
 				touch(DIR_OPENCART . 'admin/config.php');
