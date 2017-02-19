@@ -72,7 +72,7 @@ function usage() {
 		'--db_hostname', 'localhost',
 		'--db_username', 'root',
 		'--db_password', 'pass',
-		'--db_database', 'opencart',
+		'--db_database', 'copona',
 		'--db_driver', 'mysqli',
 		'--db_port', '3306',
 		'--username', 'admin',
@@ -87,8 +87,8 @@ function usage() {
 function get_options($argv) {
 	$defaults = array(
 		'db_hostname' => 'localhost',
-		'db_database' => 'opencart',
-		'db_prefix' => 'oc_',
+		'db_database' => 'copona',
+		'db_prefix' => 'cp_',
 		'db_driver' => 'mysqli',
 		'db_port' => '3306',
 		'username' => 'admin',

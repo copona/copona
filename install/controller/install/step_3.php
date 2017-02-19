@@ -223,7 +223,7 @@ class ControllerInstallStep3 extends Controller {
 		if (isset($this->request->post['db_prefix'])) {
 			$data['db_prefix'] = $this->request->post['db_prefix'];
 		} else {
-			$data['db_prefix'] = 'oc_';
+			$data['db_prefix'] = 'cp_';
 		}
 
 		if (isset($this->request->post['username'])) {
