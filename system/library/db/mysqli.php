@@ -14,6 +14,16 @@ final class MySQLi {
 
         $this->connection->set_charset("utf8");
         $this->connection->query("SET SQL_MODE = ''");
+    
+       if(DEBUG === true) {
+           $this->connection->query("set global general_log_file = \"/tmp/mysql_query.log\"");
+           $this->connection->query("set global general_log = \"ON\"");
+       }
+       
+	   if(DEBUG === false) {
+           $this->connection->query("set global general_log = \"OFF\"");
+       }
+
     }
 
     public function query($sql) {
