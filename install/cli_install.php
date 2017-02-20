@@ -276,8 +276,13 @@ function write_config_files($options) {
 	$output .= 'define(\'DB_PASSWORD\', \'' . addslashes($options['db_password']) . '\');' . "\n";
 	$output .= 'define(\'DB_DATABASE\', \'' . addslashes($options['db_database']) . '\');' . "\n";
 	$output .= 'define(\'DB_PREFIX\', \'' . addslashes($options['db_prefix']) . '\');' . "\n";
-	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n";
-	$output .= '?>';
+	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n\n";
+
+    $output .= '// DEBUGGING' . "\n";
+    $output .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
+    $output .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
+    $output .= '// This directory should NOT be readable by the world!' . "\n";
+    $output .= 'define(\'MODE\', \'production\');' . "\n";
 
 	$file = fopen(DIR_OPENCART . 'config.php', 'w');
 
@@ -316,8 +321,13 @@ function write_config_files($options) {
 	$output .= 'define(\'DB_PASSWORD\', \'' . addslashes($options['db_password']) . '\');' . "\n";
 	$output .= 'define(\'DB_DATABASE\', \'' . addslashes($options['db_database']) . '\');' . "\n";
 	$output .= 'define(\'DB_PREFIX\', \'' . addslashes($options['db_prefix']) . '\');' . "\n";
-	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n";
-	$output .= '?>';
+	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n\n";
+
+    $output .= '// DEBUGGING' . "\n";
+    $output .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
+    $output .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
+    $output .= '// This directory should NOT be readable by the world!' . "\n";
+    $output .= 'define(\'MODE\', \'production\');' . "\n";
 
 	$file = fopen(DIR_OPENCART . 'admin/config.php', 'w');
 

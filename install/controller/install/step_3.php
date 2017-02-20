@@ -43,7 +43,13 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_PASSWORD\', \'' . addslashes(html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8')) . '\');' . "\n";
 			$output .= 'define(\'DB_DATABASE\', \'' . addslashes($this->request->post['db_database']) . '\');' . "\n";
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
-			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n";
+			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n\n";
+
+            $output .= '// DEBUGGING' . "\n";
+            $output .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
+            $output .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
+            $output .= '// This directory should NOT be readable by the world!' . "\n";
+            $output .= 'define(\'MODE\', \'production\');' . "\n";
 
 			if (!file_exists(DIR_OPENCART . 'config.php')) {
 				touch(DIR_OPENCART . 'config.php');
@@ -88,7 +94,13 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_PASSWORD\', \'' . addslashes(html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8')) . '\');' . "\n";
 			$output .= 'define(\'DB_DATABASE\', \'' . addslashes($this->request->post['db_database']) . '\');' . "\n";
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
-			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n";
+			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n\n";
+
+            $output .= '// DEBUGGING' . "\n";
+            $output .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
+            $output .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
+            $output .= '// This directory should NOT be readable by the world!' . "\n";
+            $output .= 'define(\'MODE\', \'production\');' . "\n";
 
 			if (!file_exists(DIR_OPENCART . 'admin/config.php')) {
 				touch(DIR_OPENCART . 'admin/config.php');
