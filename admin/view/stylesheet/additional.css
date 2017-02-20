@@ -24,11 +24,11 @@ form#form-category tbody td.name a
 }
 
 .secure-warning {
-	background: #ff0000;
-	color: #ffffff;
+	background: #fef1f1;
+	color: #f56b6b;
 	text-align: center;
-	font-weight: 700;
 	font-size: 110%;
+  margin: 0; 
 }
 
 .secure-warning em {
