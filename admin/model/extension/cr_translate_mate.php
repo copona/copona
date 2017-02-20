@@ -266,7 +266,7 @@ class CrTranslateMateModel extends model {
             if ($translated) { unset($texts[$string]); } // remove string if fully translated
         }
         // if all strings translated, return false, otherwise return the array of untranslated strings
-        return empty($texts) ? false : $texts;
+        return empty($texts) ? array() : $texts;
     }
 
     // filter out any strings that don't match the given filter (very similar to the notTranslated function)

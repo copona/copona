@@ -60,7 +60,7 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 }
 
 // Check if SSL
-if($_SERVER['REQUEST_SCHEME'] == 'https') {
+if (!empty($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https') {
     $_SERVER['HTTPS'] = true;
 } else {
     $_SERVER['HTTPS'] = false;
