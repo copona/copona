@@ -279,8 +279,10 @@ function write_config_files($options) {
 	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n\n";
 
     $output .= '// DEBUGGING' . "\n";
-    $output .= '// Use extreme caution enabling this on production systems!' . "\n";
-    $output .= 'define(\'DEBUG\', false);' . "\n";
+    $output .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
+    $output .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
+    $output .= '// This directory should NOT be readable by the world!' . "\n";
+    $output .= 'define(\'MODE\', \'production\');' . "\n";
 
 	$file = fopen(DIR_OPENCART . 'config.php', 'w');
 
@@ -322,8 +324,10 @@ function write_config_files($options) {
 	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n\n";
 
     $output .= '// DEBUGGING' . "\n";
-    $output .= '// Use extreme caution enabling this on production systems!' . "\n";
-    $output .= 'define(\'DEBUG\', false);' . "\n";
+    $output .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
+    $output .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
+    $output .= '// This directory should NOT be readable by the world!' . "\n";
+    $output .= 'define(\'MODE\', \'production\');' . "\n";
 
 	$file = fopen(DIR_OPENCART . 'admin/config.php', 'w');
 
