@@ -23,6 +23,5 @@ $_['text_documentation'] = 'Documentation';
 $_['text_logout'] = 'Logout';
 
 // Warning
-$_['error_secure']  = 'You are accessing the dashboard through a non-secure method! ';
-$_['error_secure'] .= 'It is <em>strongly recommended</em> that you enable SSL. (To come: link with instructions)';
+$_['error_secure'] = "You are accessing the dashboard through a non-secure method! \nIt is <em>strongly recommended</em> that you enable SSL. (To come: link with instructions)";
 
