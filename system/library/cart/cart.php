@@ -360,7 +360,6 @@ class Cart {
         $total = 0;
 
         foreach ($this->cartProducts as $product) {
-            pr($this->dd_count);
             $total += $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'];
         }
 
