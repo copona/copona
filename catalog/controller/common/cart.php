@@ -56,7 +56,7 @@ class ControllerCommonCart extends Controller {
         $data['text_loading'] = $this->language->get('text_loading');
 
         $data['button_remove'] = $this->language->get('button_remove');
-
+        $data['template_name'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
         $this->load->model('tool/image');
         $this->load->model('tool/upload');
 
