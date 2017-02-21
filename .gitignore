@@ -6,6 +6,7 @@ composer.lock
 /config.php
 /admin/config.php
 /catalog/controller/xml
+/catalog/model/xml
 /catalog/controller/*/_*
 Search-Replace-DB-master*
 
