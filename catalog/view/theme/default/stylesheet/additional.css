@@ -1,6 +1,26 @@
 #form-language img {
-	max-width: 16px;
+    max-width: 16px;
 }
 
 .alert.alert-cart{ position: fixed; top: 30px; z-index: 9999; right: 50px;}
 .close { font-size: 36px; }
+
+/* grouped Products */
+.product-group li {
+    float: left;
+    border: 2px solid white;
+}
+
+.product-group li.active {
+    border: 2px solid green;
+}
+
+.product-group li:hover {
+    border: 2px solid grey;
+}
+
+.product-group:after{
+    display: table;
+    content: " ";
+    clear: both;
+}
