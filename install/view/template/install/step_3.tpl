@@ -53,16 +53,25 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-db-hostname"><?php echo $entry_db_hostname; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="db_hostname" value="<?php echo $db_hostname; ?>" id="input-db-hostname" class="form-control" />
+              <input type="text" name="db_hostname" value="<?php echo $db_hostname; ?>" id="input-db-hostname" class="form-control" placeholder="<?php echo $placeholder_db_hostname; ?>"/>
               <?php if ($error_db_hostname) { ?>
               <div class="text-danger"><?php echo $error_db_hostname; ?></div>
               <?php } ?>
             </div>
           </div>
           <div class="form-group required">
+            <label class="col-sm-2 control-label" for="input-db-database"><?php echo $entry_db_database; ?></label>
+            <div class="col-sm-10">
+              <input type="text" name="db_database" value="<?php echo $db_database; ?>" id="input-db-database" class="form-control" placeholder="<?php echo $placeholder_db_database; ?>"/>
+              <?php if ($error_db_database) { ?>
+              <div class="text-danger"><?php echo $error_db_database; ?></div>
+              <?php } ?>
+            </div>
+          </div>
+          <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-db-username"><?php echo $entry_db_username; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="db_username" value="<?php echo $db_username; ?>" id="input-db-username" class="form-control" />
+              <input type="text" name="db_username" value="<?php echo $db_username; ?>" id="input-db-username" class="form-control" placeholder="<?php echo $placeholder_db_username; ?>"/>
               <?php if ($error_db_username) { ?>
               <div class="text-danger"><?php echo $error_db_username; ?></div>
               <?php } ?>
@@ -71,22 +80,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-db-password"><?php echo $entry_db_password; ?></label>
             <div class="col-sm-10">
-              <input type="password" name="db_password" value="<?php echo $db_password; ?>" id="input-db-password" class="form-control" />
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-db-database"><?php echo $entry_db_database; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="db_database" value="<?php echo $db_database; ?>" id="input-db-database" class="form-control" />
-              <?php if ($error_db_database) { ?>
-              <div class="text-danger"><?php echo $error_db_database; ?></div>
-              <?php } ?>
+              <input type="password" name="db_password" value="<?php echo $db_password; ?>" id="input-db-password" class="form-control" placeholder="<?php echo $placeholder_db_password; ?>"/>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-db-port"><?php echo $entry_db_port; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="db_port" value="<?php echo $db_port; ?>" id="input-db-port" class="form-control" />
+              <input type="text" name="db_port" value="<?php echo $db_port; ?>" id="input-db-port" class="form-control" placeholder="<?php echo $placeholder_db_port; ?>"/>
               <?php if ($error_db_port) { ?>
               <div class="text-danger"><?php echo $error_db_port; ?></div>
               <?php } ?>
@@ -95,7 +95,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-db-prefix"><?php echo $entry_db_prefix; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="db_prefix" value="<?php echo $db_prefix; ?>" id="input-db-prefix" class="form-control" />
+              <input type="text" name="db_prefix" value="<?php echo $db_prefix; ?>" id="input-db-prefix" class="form-control" placeholder="<?php echo $placeholder_db_prefix; ?>"/>
               <?php if ($error_db_prefix) { ?>
               <div class="text-danger"><?php echo $error_db_prefix; ?></div>
               <?php } ?>
@@ -107,7 +107,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"><?php echo $entry_username; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="username" value="<?php echo $username; ?>" id="input-username" class="form-control" />
+              <input type="text" name="username" value="<?php echo $username; ?>" id="input-username" class="form-control" placeholder="<?php echo $placeholder_username; ?>"/>
               <?php if ($error_username) { ?>
               <div class="text-danger"><?php echo $error_username; ?></div>
               <?php } ?>
@@ -116,7 +116,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-password"><?php echo $entry_password; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="password" value="<?php echo $password; ?>" id="input-password" class="form-control" />
+              <input type="text" name="password" value="<?php echo $password; ?>" id="input-password" class="form-control" placeholder="<?php echo $placeholder_password; ?>"/>
               <?php if ($error_password) { ?>
               <div class="text-danger"><?php echo $error_password; ?></div>
               <?php } ?>
@@ -125,7 +125,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-email"><?php echo $entry_email; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="email" value="<?php echo $email; ?>" id="input-email" class="form-control" />
+              <input type="text" name="email" value="<?php echo $email; ?>" id="input-email" class="form-control" placeholder="<?php echo $placeholder_email; ?>"/>
               <?php if ($error_email) { ?>
               <div class="text-danger"><?php echo $error_email; ?></div>
               <?php } ?>
