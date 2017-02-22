@@ -292,7 +292,7 @@ class ControllerProductProduct extends Controller {
             $this->load->model('tool/image');
 
             if ($product_info['image']) {
-                $data['popup'] = $this->model_tool_image->cropsize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                $data['popup'] = $this->model_tool_image->propsize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
             } else {
                 $data['popup'] = '';
             }
