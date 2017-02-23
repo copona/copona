@@ -537,9 +537,8 @@ class ModelCatalogProduct extends Model {
             $sql .= " AND p2p.product_group_id is null";
         }
 
-
-        if (isset($data['default_product']) && empty($data['filter_name'])) {
-            $sql .= " AND (p2p.default_id IS NULL OR p2p.default_id > 0  )";
+        if (isset($data['default_product']) && empty($data['filter_name']) && empty($data['filter_model'])) {
+            $sql .= " AND (p2p.default_id IS NULL OR p2p.default_id > 0 )";
         }
 
         if (isset($data['filter_image']) && !is_null($data['filter_image'])) {
@@ -584,7 +583,7 @@ class ModelCatalogProduct extends Model {
 
             $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
         }
-        //prd($sql);
+        //pr($sql);
         $query = $this->db->query($sql);
         //prd($query->rows);
         return $query->rows;

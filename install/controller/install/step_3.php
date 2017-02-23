@@ -43,7 +43,13 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_PASSWORD\', \'' . addslashes(html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8')) . '\');' . "\n";
 			$output .= 'define(\'DB_DATABASE\', \'' . addslashes($this->request->post['db_database']) . '\');' . "\n";
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
-			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n";
+			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n\n";
+
+            $output .= '// DEBUGGING' . "\n";
+            $output .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
+            $output .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
+            $output .= '// This directory should NOT be readable by the world!' . "\n";
+            $output .= 'define(\'MODE\', \'production\');' . "\n";
 
 			if (!file_exists(DIR_OPENCART . 'config.php')) {
 				touch(DIR_OPENCART . 'config.php');
@@ -88,7 +94,13 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_PASSWORD\', \'' . addslashes(html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8')) . '\');' . "\n";
 			$output .= 'define(\'DB_DATABASE\', \'' . addslashes($this->request->post['db_database']) . '\');' . "\n";
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
-			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n";
+			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n\n";
+
+            $output .= '// DEBUGGING' . "\n";
+            $output .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
+            $output .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
+            $output .= '// This directory should NOT be readable by the world!' . "\n";
+            $output .= 'define(\'MODE\', \'production\');' . "\n";
 
 			if (!file_exists(DIR_OPENCART . 'admin/config.php')) {
 				touch(DIR_OPENCART . 'admin/config.php');
@@ -116,14 +128,27 @@ class ControllerInstallStep3 extends Controller {
 
 		$data['entry_db_driver'] = $this->language->get('entry_db_driver');
 		$data['entry_db_hostname'] = $this->language->get('entry_db_hostname');
-		$data['entry_db_username'] = $this->language->get('entry_db_username');
-		$data['entry_db_password'] = $this->language->get('entry_db_password');
-		$data['entry_db_database'] = $this->language->get('entry_db_database');
-		$data['entry_db_port'] = $this->language->get('entry_db_port');
+        $data['entry_db_username'] = $this->language->get('entry_db_username');
+        $data['entry_db_password'] = $this->language->get('entry_db_password');
+        $data['entry_db_database'] = $this->language->get('entry_db_database');
+        $data['entry_db_port'] = $this->language->get('entry_db_port');
 		$data['entry_db_prefix'] = $this->language->get('entry_db_prefix');
 		$data['entry_username'] = $this->language->get('entry_username');
 		$data['entry_password'] = $this->language->get('entry_password');
 		$data['entry_email'] = $this->language->get('entry_email');
+
+        $data['placeholder_db_hostname'] = $this->language->get('placeholder_db_hostname');
+        $data['placeholder_db_username'] = $this->language->get('placeholder_db_username');
+        $data['placeholder_db_database'] = $this->language->get('placeholder_db_database');
+        $data['placeholder_db_password'] = $this->language->get('placeholder_db_password');
+        $data['placeholder_db_port'] = $this->language->get('placeholder_db_port');
+        $data['placeholder_db_prefix'] = $this->language->get('placeholder_db_prefix');
+        $data['placeholder_username'] = $this->language->get('placeholder_username');
+        $data['placeholder_password'] = $this->language->get('placeholder_password');
+        $data['placeholder_email'] = $this->language->get('placeholder_email');
+
+
+
 
 		$data['button_continue'] = $this->language->get('button_continue');
 		$data['button_back'] = $this->language->get('button_back');
@@ -193,13 +218,13 @@ class ControllerInstallStep3 extends Controller {
 		if (isset($this->request->post['db_hostname'])) {
 			$data['db_hostname'] = $this->request->post['db_hostname'];
 		} else {
-			$data['db_hostname'] = 'localhost';
+			$data['db_hostname'] = '127.0.0.1';
 		}
 
 		if (isset($this->request->post['db_username'])) {
 			$data['db_username'] = $this->request->post['db_username'];
 		} else {
-			$data['db_username'] = 'root';
+			$data['db_username'] = 'copona';
 		}
 
 		if (isset($this->request->post['db_password'])) {

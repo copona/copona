@@ -21,6 +21,17 @@ $_['entry_username']         = 'Username';
 $_['entry_password']         = 'Password';
 $_['entry_email']            = 'E-Mail';
 
+// Placeholder
+$_['placeholder_db_hostname'] = 'Typically 127.0.0.1 or localhost';
+$_['placeholder_db_username'] = '';
+$_['placeholder_db_password'] = '';
+$_['placeholder_db_database'] = '';
+$_['placeholder_db_port']     = '';
+$_['placeholder_db_prefix']   = '';
+$_['placeholder_username']    = '';
+$_['placeholder_password']    = '';
+$_['placeholder_email']       = '';
+
 // Error
 $_['error_db_hostname']      = 'Hostname required!';
 $_['error_db_username']      = 'Username required!';

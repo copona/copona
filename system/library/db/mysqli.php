@@ -14,10 +14,35 @@ final class MySQLi {
 
         $this->connection->set_charset("utf8");
         $this->connection->query("SET SQL_MODE = ''");
+
     }
 
     public function query($sql) {
-        $query = $this->connection->query($sql);
+
+        if(defined('MODE') && (MODE == 'debug')) {
+            $start_time = microtime(true);
+
+            $query = $this->connection->query($sql);
+
+            $msec = number_format(microtime(true) - $start_time, 4, '.', ',') . " msec";
+
+            $output = date("Y-m-d h:i:s"). " \t";
+            $output .= $msec . " \t";
+            $output .= $sql . " \n";
+
+            if (!file_exists(DIR_LOGS . 'mysql_queries.txt')) {
+                touch(DIR_LOGS . 'mysql_queries.txt');
+            }
+
+            $file = fopen(DIR_LOGS . 'mysql_queries.txt', 'a');
+
+            fwrite($file, $output);
+
+            fclose($file);
+
+        } else {
+            $query = $this->connection->query($sql);
+        }
 
         if (!$this->connection->errno) {
             if ($query instanceof \mysqli_result) {
