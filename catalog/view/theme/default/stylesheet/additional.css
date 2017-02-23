@@ -9,6 +9,28 @@
 .product-group li {
     float: left;
     border: 2px solid white;
+    box-sizing: initial;
+}
+
+.product-group .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+
+.product-group img {
+    position:absolute;
+    top:0;
+    bottom:0;
+    margin:auto;
+}
+
+.product-group a {
+    position:relative;
+    display: block;
+    height: 100%;
+    width: 100%;
 }
 
 .product-group li.active {
