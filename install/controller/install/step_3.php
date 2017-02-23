@@ -18,7 +18,7 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . '\');' . "\n\n";
 
 			$output .= '// HTTPS' . "\n";
-			$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . '/\');' . "\n\n";
+			$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . '\');' . "\n\n";
 
 			$output .= '// DIR' . "\n";
 			$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'catalog/\');' . "\n";
@@ -63,12 +63,12 @@ class ControllerInstallStep3 extends Controller {
 
 			$output = '<?php' . "\n";
 			$output .= '// HTTP' . "\n";
-			$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . '/admin/\');' . "\n";
+			$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . 'admin/\');' . "\n";
 			$output .= 'define(\'HTTP_CATALOG\', \'' . $http_server . '\');' . "\n\n";
 
 			$output .= '// HTTPS' . "\n";
 			$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . 'admin/\');' . "\n";
-			$output .= 'define(\'HTTPS_CATALOG\', \'' . $https_server . '/\');' . "\n\n";
+			$output .= 'define(\'HTTPS_CATALOG\', \'' . $https_server . '\');' . "\n\n";
 
 			$output .= '// DIR' . "\n";
 			$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'admin/\');' . "\n";
