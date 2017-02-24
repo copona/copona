@@ -464,6 +464,28 @@
         image_row++;
     }
 
+    // Videos
+    var video_row = <?php echo $video_row; ?>;
+    function addVideo() {
+        html = '<tr id="video-row' + video_row + '">';
+        html += '<td class="text-right">'
+<?php foreach ($languages as $language) { ?>
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon lng-image">';
+            html += '  <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png">';
+            html += '</span>'
+            html += '<input type = "text" name = "content_meta[product_video][' + video_row + '][video][<?php echo $language['language_id']; ?>]" value = "" placeholder = "<?php echo $entry_video_link; ?>" class = "form-control" / >'
+            html += '</div>'
+<?php } ?>
+        html += '</td>';
+        html += '  <td class="text-right"><input type="text" name="content_meta[product_video][' + video_row + '][sort_order]" value="" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>';
+        html += '  <td class="text-left"><button type="button" onclick="$(\'#video-row' + video_row + '\').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+
+        html += '</tr>';
+        $('#videos tbody').append(html);
+        video_row++;
+    }
+
     // Recurring
     var recurring_row = <?php echo $recurring_row; ?>;
     function addRecurring() {

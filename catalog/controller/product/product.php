@@ -166,6 +166,7 @@ class ControllerProductProduct extends Controller {
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
+
         $data['group_products'] = array();
         if ($product_info['product_group_id']) {
 
@@ -484,6 +485,22 @@ class ControllerProductProduct extends Controller {
             }
 
             $data['recurrings'] = $this->model_catalog_product->getProfiles($this->request->get['product_id']);
+
+            // Content Meta
+
+            if (isset($product_info['content_meta'])) {
+                if (isset($product_info['content_meta']['product_video'])) {
+                    foreach ($product_info['content_meta']['product_video'] as $product_video) {
+                        $video = html_entity_decode($product_video['video'][$this->config->get('config_language_id')], ENT_QUOTES, 'UTF-8');
+                        $data['product_videos'][] = array(
+                            'video'     => 'https://www.youtube.com/watch?v=' . $video . '',
+                            'video_src' => $this->url->link('common/youtube', 'inpt=' . $video . '&quality=hq&play')             //   HTTPS_SERVER . 'youtube/yt-thumb.php?inpt=' . $video . '&quality=hq&play"'
+                        );
+                    }
+                } else {
+                    $data['product_videos'] = '';
+                }
+            }
 
             $this->model_catalog_product->updateViewed($this->request->get['product_id']);
 

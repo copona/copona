@@ -459,6 +459,48 @@
                   </tfoot>
                 </table>
               </div>
+              <div class="table-responsive">
+                <table id="videos" class="table table-striped table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <td class="text-left"><?php echo $entry_video; ?></td>
+                      <td class="text-right"><?php echo $entry_sort_order; ?></td>
+                      <td></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <?php $video_row = 0; ?>
+                    <?php if (isset($content_meta['product_video'])) { ?>
+                        <?php foreach ($content_meta['product_video'] as $product_video) { ?>
+                            <tr id="video-row<?php echo $video_row; ?>">
+                              <td class="text-right">
+                                  <?php foreach ($languages as $language) {// pr($product_video) ?>
+                                    <div class="input-group">
+                                      <span class="input-group-addon lng-image">
+                                        <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
+                                      </span>
+                                      <input type="text" name="content_meta[product_video][<?php echo $video_row; ?>][video][<?php echo $language['language_id'] ?>]" value="<?php echo $product_video['video'][$language['language_id']] ?>" placeholder="<?php echo $entry_video_link; ?>" class="form-control" />
+                                    </div>
+                                <?php } ?>
+                              </td>
+                              <td class="text-right"><input type="text" name="product_video[<?php echo $video_row; ?>][sort_order]" value="<?php echo $product_video['sort_order'] ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
+                              <td class="text-left"><button type="button" onclick="$('#video-row<?php echo $video_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                            </tr>
+                            <?php $video_row++; ?>
+                        <?php } ?>
+                    <?php } ?>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="2"></td>
+                      <td class="text-left"><button type="button" onclick="addVideo();" data-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+
+
             </div>
             <div class="tab-pane" id="tab-links">
               <div class="form-group">
