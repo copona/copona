@@ -13,7 +13,9 @@
         </div>
     <?php } ?>
     <?php if ($error_warning) { ?>
-        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php // echo $error_warning;                                                                                                                                                                                                                                                      ?>
+
+        <?php // echo $error_warning;?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>
             <?php
             $i = 0;
             foreach ($error_warning as $val) {
@@ -30,8 +32,9 @@
         </div>
     <?php } ?>
     <div class="row">
-      <div id="content" class="content-cart"><?php //echo $content_top;                                                                                                                                                                                                                                                   ?>
-          <?= $cart; ?>
+        <?php //echo $content_top;?>
+      <div id="content" class="content-cart">
+        <?= $cart; ?>
         <div class="onepage-checkout">
           <form action="<?php echo $action; ?>" class="form" method="post">
             <div id="step1">
