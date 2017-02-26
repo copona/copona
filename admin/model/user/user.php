@@ -1,7 +1,7 @@
 <?php
 class ModelUserUser extends Model {
 	public function addUser($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "user` SET username = '" . $this->db->escape($data['username']) . "', user_group_id = '" . (int)$data['user_group_id'] . "', password = '" . password_hash($password, PASSWORD_DEFAULT) . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', email = '" . $this->db->escape($data['email']) . "', image = '" . $this->db->escape($data['image']) . "', status = '" . (int)$data['status'] . "', date_added = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "user` SET username = '" . $this->db->escape($data['username']) . "', user_group_id = '" . (int)$data['user_group_id'] . "', password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', email = '" . $this->db->escape($data['email']) . "', image = '" . $this->db->escape($data['image']) . "', status = '" . (int)$data['status'] . "', date_added = NOW()");
 	
 		return $this->db->getLastId();
 	}
@@ -15,7 +15,7 @@ class ModelUserUser extends Model {
 	}
 
 	public function editPassword($user_id, $password) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET salt = '', password = '" . password_hash($password, PASSWORD_DEFAULT) . "', code = '' WHERE user_id = '" . (int)$user_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET salt = '', password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "', code = '' WHERE user_id = '" . (int)$user_id . "'");
 	}
 
 	public function editCode($email, $code) {
