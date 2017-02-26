@@ -37,7 +37,7 @@ class Affiliate {
 	}
 
 	public function login($email, $password) {
-        $affiliate_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "affiliate WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1' limit 1");
+        $affiliate_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "affiliate WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1' AND approved = '1' limit 1");
 
         $this->affiliate_id = $affiliate_query->row['affiliate_id'];
         $this->password     = $affiliate_query->row['password'];
