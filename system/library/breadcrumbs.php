@@ -23,6 +23,8 @@ class Breadcrumbs {
 	}
 	
 	public function render(){
+		// if in path only home link
+		if( count( $this->path ) == 1 ) return null;
 	
 		$html = '<ul class="breadcrumb">';
 		foreach ( $this->path as $part ) {
@@ -40,6 +42,8 @@ class Breadcrumbs {
 	}
 	
 	public function getPath(){
+		// if in path only home link
+		if( count( $this->path ) == 1 ) return null;
 		
 		return $this->path;
 		
