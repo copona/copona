@@ -1,7 +1,10 @@
 <?php
 class ModelUpgrade1001 extends Model {
 	public function upgrade() {
-		// address
+	    // user
+        $this->db->query("ALTER TABLE `" . DB_PREFIX . "user` CHANGE `password` `password` VARCHAR(255)");
+
+        // address
 		$this->db->query("ALTER TABLE `" . DB_PREFIX . "address` CHANGE `company` `company` VARCHAR(40) NOT NULL");
 
 		// order
@@ -12,6 +15,7 @@ class ModelUpgrade1001 extends Model {
 
 		// affiliate
 		$this->db->query("ALTER TABLE `" . DB_PREFIX . "affiliate` CHANGE `company` `company` VARCHAR(40) NOT NULL");
+        $this->db->query("ALTER TABLE `" . DB_PREFIX . "affiliate` CHANGE `password` `password` VARCHAR(255)");
 
 		// order_history
 		$this->db->query("ALTER TABLE `" . DB_PREFIX . "order_history` CHANGE `order_status_id` `order_status_id` int(11) NOT NULL");
@@ -84,6 +88,8 @@ class ModelUpgrade1001 extends Model {
 
 		// customer
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer' AND COLUMN_NAME = 'custom_field'");
+
+        $this->db->query("ALTER TABLE `" . DB_PREFIX . "customer` CHANGE `password` `password` VARCHAR(255)");
 
 		if (!$query->num_rows) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer` ADD `custom_field` TEXT NOT NULL AFTER `address_id`");
