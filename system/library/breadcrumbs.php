@@ -4,22 +4,22 @@
 class Breadcrumbs {
     private $path = array();
     protected $language;
-	protected $url;
+    protected $url;
 	
-	public function __construct( $registry ){
+    public function __construct( $registry ){
 	
-		$this->language = $registry->get('language');
-		$this->url = $registry->get('url');
-		$this->push( 'text_home', 'common/home' );
-	}
+        $this->language = $registry->get('language');
+        $this->url = $registry->get('url');
+        $this->push( 'text_home', 'common/home' );
+    }
 	
-	public function push( $text, $route, $args = "", $secure = false ){
+    public function push( $text, $route, $args = "", $secure = false ){
 	
-		$this->path[] = array(
-			'text' => $this->language->get( $text ),
-			'href' => $this->url->link( $route, $args, $secure )
-		);
-	}
+        $this->path[] = array(
+            'text' => $this->language->get( $text ),
+            'href' => $this->url->link( $route, $args, $secure )
+        );
+    }
 
     public function render() {
         // if in path only home link
