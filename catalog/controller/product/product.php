@@ -15,7 +15,7 @@ class ControllerProductProduct extends Controller {
           'href' => $this->url->link('common/home')
           ); */
 
-        $bread_crumbs = new Breadcrumbs($this); // home already in object data
+        $bread_crumbs = new Breadcrumbs($this->registry); // home already in object data
 
         $this->load->model('catalog/category');
         $this->load->model('tool/image');

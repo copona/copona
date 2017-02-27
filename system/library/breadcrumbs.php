@@ -7,7 +7,12 @@ class Breadcrumbs {
 
     public function __construct($registry) {
 
+        //prd($registry);
+
         $this->registry = $registry;
+        $this->registry->language = $this->registry->get('language');
+        $this->registry->url = $this->registry->get('url');
+
         $this->push('text_home', 'common/home');
     }
 
