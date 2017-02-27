@@ -945,7 +945,11 @@ class ModelCatalogProduct extends Model {
         $sql = "SELECT * from " . DB_PREFIX . "content_meta WHERE content_id='" . $product_id . "' AND content_type = 'product'";
         $query = $this->db->query($sql);
 
-        return unserialize($query->row['value']);
+        if ($query->row) {
+            return unserialize($query->row['value']);
+        } else {
+            return array();
+        }
     }
 
 }
