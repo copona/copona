@@ -161,6 +161,8 @@ class ControllerCommonHeader extends Controller {
         } else {
             $data['class'] = 'common-home';
         }
+        
+        // $data["breadcrumbs"] = $this->breadcrumbs->getPath();
 
         return $this->load->view('common/header', $data);
     }

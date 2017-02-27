@@ -54,7 +54,8 @@ $registry->set('cache', new Cache($config->get('cache_type'), $config->get('cach
 
 // Url
 if ($config->get('url_autostart')) {
-    $registry->set('url', new Url($config->get('site_base'), $config->get('site_ssl'), $registry));
+    $url = new Url($config->get('site_base'), $config->get('site_ssl'), $registry);
+    $registry->set('url', $url);
 }
 
 // Copona seo urls
@@ -63,10 +64,13 @@ if ($config->get('url_autostart')) {
 }
 
 // Language
-
 $language = new Language($config->get('language_default'), $registry);
 $language->load($config->get('language_default'));
 $registry->set('language', $language);
+
+// Breadcrumbs
+$breadcrumbs = new Breadcrumbs( $registry );
+$registry->set('breadcrumbs', $breadcrumbs);
 
 // Document
 $registry->set('document', new Document());
