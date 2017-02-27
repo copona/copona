@@ -3,26 +3,23 @@
 
 class Breadcrumbs {
     private $path = array();
-    private $registry;
-
-    public function __construct($registry) {
-
-        //prd($registry);
-
-        $this->registry = $registry;
-        $this->registry->language = $this->registry->get('language');
-        $this->registry->url = $this->registry->get('url');
-
-        $this->push('text_home', 'common/home');
-    }
-
-    public function push($text, $route) {
-
-        $this->path[] = array(
-            'text' => $this->registry->language->get((string)$text),
-            'href' => $this->registry->url->link((string)$route)
-        );
-    }
+    protected $language;
+	protected $url;
+	
+	public function __construct( $registry ){
+	
+		$this->language = $registry->get('language');
+		$this->url = $registry->get('url');
+		$this->push( 'text_home', 'common/home' );
+	}
+	
+	public function push( $text, $route, $args = "", $secure = false ){
+	
+		$this->path[] = array(
+			'text' => $this->language->get( $text ),
+			'href' => $this->url->link( $route, $args, $secure )
+		);
+	}
 
     public function render() {
         // if in path only home link
@@ -51,16 +48,3 @@ class Breadcrumbs {
     }
 
 }
-/* example
-// using new object
-$bread_crumbs = new Breadcrumbs( $this );
-$bread_crumbs->push( 'text_account', 'account/account' );
-$data['breadcrumbs_html'] = $bread_crumbs->render();
-// we have breadcrumbs html
-
-// using registry ( new, if breadcrumbs is the part of registry and breadcrumbs has moved into header )
-$this->breadcrumbs->push( 'text_account', 'account/account', 'args', secure );
-
-// for compatibility $bread_crumbs->getPath() return array
-
-*/
