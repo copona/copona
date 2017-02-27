@@ -76,6 +76,7 @@ class ControllerCatalogProduct extends Controller {
 
         $this->load->model('catalog/product');
 
+
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             // prd($this->request->post);
             //prd($this->request->post);
@@ -1160,10 +1161,7 @@ class ControllerCatalogProduct extends Controller {
             );
         }
 
-
         // Content meta
-
-
 
         if (!empty($product_info)) {
             $data['content_meta'] = $this->model_catalog_product->getContentMeta($this->request->get['product_id']);
@@ -1308,6 +1306,9 @@ class ControllerCatalogProduct extends Controller {
         } else {
             $data['product_layout'] = array();
         }
+
+        $this->load->model('localisation/tax_rate');
+        $data['tax_rates'] = $this->model_localisation_tax_rate->getTaxRates();
 
         $this->load->model('design/layout');
 
