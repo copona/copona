@@ -20,6 +20,7 @@
           <?php } else { ?>
               <?php $class = 'col-sm-8'; ?>
           <?php } ?>
+
         <div class="<?php echo $class; ?>">
             <?php if ($thumb || $images) { ?>
               <ul class="thumbnails">
@@ -31,8 +32,17 @@
                         <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
                     <?php } ?>
                 <?php } ?>
+                <?php if ($product_videos) { ?>
+                    <?php foreach ($product_videos as $video) { ?>
+                        <li class="image-additional"><a class="video" href="https://www.youtube.com/watch?v=ARM42-eorzE">
+                            <img style="width:83px; height: 55px;" src="<?php echo $video['video_src'] ?>" title="<?php echo $heading_title . " "; ?>" alt="<?= $heading_title ?>" /></a>
+                        </li>
+                    <?php } ?>
+
+                <?php } ?>
               </ul>
           <?php } ?>
+
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-description" data-toggle="tab"><?php echo $tab_description; ?></a></li>
             <?php if ($attribute_groups) { ?>
@@ -592,12 +602,32 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 
     $(document).ready(function () {
         $('.thumbnails').magnificPopup({
-            type: 'image',
             delegate: 'a',
-            gallery: {
-                enabled: true
-            }
+            callbacks: {
+                elementParse: function (item) {
+                    // the class name
+                    if (item.el.context.className  == 'video') {
+                        item.type = 'iframe';
+                    } else {
+                        item.type = 'image';
+                    }
+                }
+            },
+            gallery: {enabled: true},
+            type: 'image',
         });
+
     });
+
+
+
+
+
+
+
+
+
+
+
 //--></script>
 <?php echo $footer; ?>

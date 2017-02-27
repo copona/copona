@@ -21,6 +21,7 @@ class ControllerCatalogProduct extends Controller {
 
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+
             $product_id = $this->model_catalog_product->addProduct($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -76,6 +77,7 @@ class ControllerCatalogProduct extends Controller {
         $this->load->model('catalog/product');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+            // prd($this->request->post);
             //prd($this->request->post);
             $product_id = $this->request->get['product_id'];
 
@@ -996,6 +998,7 @@ class ControllerCatalogProduct extends Controller {
             $categories = array();
         }
 
+
         $data['product_categories'] = array();
 
         foreach ($categories as $category_id) {
@@ -1156,6 +1159,20 @@ class ControllerCatalogProduct extends Controller {
                 'date_end'          => ($product_special['date_end'] != '0000-00-00') ? $product_special['date_end'] : ''
             );
         }
+
+
+        // Content meta
+
+
+
+        if (!empty($product_info)) {
+            $data['content_meta'] = $this->model_catalog_product->getContentMeta($this->request->get['product_id']);
+        } else {
+            $data['content_meta'] = '';
+        }
+
+
+        pr($data['content_meta']);
 
         // Image
         if (isset($this->request->post['image'])) {

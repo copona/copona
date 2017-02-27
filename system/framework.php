@@ -68,10 +68,11 @@ $language = new Language($config->get('language_default'), $registry);
 $language->load($config->get('language_default'));
 $registry->set('language', $language);
 
+if ($config->get('url_autostart')) {
 // Breadcrumbs
-$breadcrumbs = new Breadcrumbs( $registry );
-$registry->set('breadcrumbs', $breadcrumbs);
-
+    $breadcrumbs = new Breadcrumbs($registry);
+    $registry->set('breadcrumbs', $breadcrumbs);
+}
 // Document
 $registry->set('document', new Document());
 
