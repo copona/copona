@@ -850,6 +850,17 @@ class ControllerSettingSetting extends Controller {
             $data['config_error_filename'] = $this->config->get('config_error_filename');
         }
 
+        // Default tax class
+        $this->load->model('localisation/tax_class');
+        $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
+        if (isset($this->request->post['config_tax_class_id'])) {
+            $data['config_tax_class_id'] = $this->request->post['config_tax_class_id'];
+        } else {
+            $data['config_tax_class_id'] = $this->config->get('config_tax_class_id');
+        }
+        // End default tax class 
+
+
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');

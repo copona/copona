@@ -60,6 +60,22 @@
                   </select>
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-price"><?php echo $entry_price; ?></label>
+                <div class="col-sm-10">
+                  <input type="text" name="price" value="<?php echo $price; ?>" placeholder="<?php echo $entry_price; ?>" id="input-price" class="form-control" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-price-vat">
+                    <?= $label_price_with_base_vat; ?>
+                    <?= !empty($tax_rates[0]) ? $tax_rates[0]['name'] : '' ?>
+                </label>
+                <div class="col-sm-10">
+                  <input type="text" name="price-vat" value="" placeholder="Price with VAT" id="input-price-vat" class="form-control" />
+                </div>
+              </div>
+
               <ul class="nav nav-tabs" id="language">
                   <?php foreach ($languages as $language) { ?>
                     <li>
@@ -240,12 +256,8 @@
                   <input type="text" name="location" value="<?php echo $location; ?>" placeholder="<?php echo $entry_location; ?>" id="input-location" class="form-control" />
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-price"><?php echo $entry_price; ?></label>
-                <div class="col-sm-10">
-                  <input type="text" name="price" value="<?php echo $price; ?>" placeholder="<?php echo $entry_price; ?>" id="input-price" class="form-control" />
-                </div>
-              </div>
+
+
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-tax-class"><?php echo $entry_tax_class; ?></label>
                 <div class="col-sm-10">
@@ -972,7 +984,10 @@
                               <?php } ?>
                             </select></td>
                           <td class="text-right"><input type="text" name="product_special[<?php echo $special_row; ?>][priority]" value="<?php echo $product_special['priority']; ?>" placeholder="<?php echo $entry_priority; ?>" class="form-control" /></td>
-                          <td class="text-right"><input type="text" name="product_special[<?php echo $special_row; ?>][price]" value="<?php echo $product_special['price']; ?>" placeholder="<?php echo $entry_price; ?>" class="form-control" /></td>
+                          <td class="text-right">
+                            <input type="text" name="product_special[<?php echo $special_row; ?>][price]" value="<?php echo $product_special['price']; ?>" placeholder="<?php echo $entry_price; ?>" class="form-control" />
+                            <input data-toggle="tooltip" title="<?= $label_price_with_base_vat; ?>" placeholder="<?= $label_price_with_base_vat; ?>"  type="text" name="" value="" class="form-control price-vat" />
+                          </td>
                           <td class="text-left" style="width: 20%;"><div class="input-group date">
                               <input type="text" name="product_special[<?php echo $special_row; ?>][date_start]" value="<?php echo $product_special['date_start']; ?>" placeholder="<?php echo $entry_date_start; ?>" data-date-format="YYYY-MM-DD" class="form-control" />
                               <span class="input-group-btn">
