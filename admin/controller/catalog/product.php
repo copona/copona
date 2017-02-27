@@ -1171,9 +1171,6 @@ class ControllerCatalogProduct extends Controller {
             $data['content_meta'] = '';
         }
 
-
-        pr($data['content_meta']);
-
         // Image
         if (isset($this->request->post['image'])) {
             $data['image'] = $this->request->post['image'];
