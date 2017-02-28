@@ -42,11 +42,14 @@ class ControllerInstallStep2 extends Controller {
 
 		$data['gd'] = extension_loaded('gd');
 		$data['curl'] = extension_loaded('curl');
+        $data['dom'] = extension_loaded('dom');
 		$data['mcrypt_encrypt'] = function_exists('mcrypt_encrypt');
+        $data['xml'] = extension_loaded('xml');
 		$data['zlib'] = extension_loaded('zlib');
 		$data['zip'] = extension_loaded('zip');
 
-		$data['iconv'] = function_exists('iconv');
+
+        $data['iconv'] = function_exists('iconv');
 		$data['mbstring'] = extension_loaded('mbstring');
 
 		$data['config_catalog'] = DIR_OPENCART . 'config.php';
@@ -106,13 +109,21 @@ class ControllerInstallStep2 extends Controller {
 			$this->error['warning'] = $this->language->get('error_mcrypt');
 		}
 
-		if (!extension_loaded('zlib')) {
-			$this->error['warning'] = $this->language->get('error_zlib');
+        if (!extension_loaded('xml')) {
+            $this->error['warning'] = $this->language->get('error_xml');
+        }
+
+		if (!extension_loaded('dom')) {
+			$this->error['warning'] = $this->language->get('error_dom');
 		}
 
 		if (!extension_loaded('zip')) {
 			$this->error['warning'] = $this->language->get('error_zip');
 		}
+
+        if (!extension_loaded('zlib')) {
+            $this->error['warning'] = $this->language->get('error_zlib');
+        }
 
 		if (!function_exists('iconv') && !extension_loaded('mbstring')) {
 			$this->error['warning'] = $this->language->get('error_mbstring');
