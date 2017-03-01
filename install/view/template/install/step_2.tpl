@@ -253,15 +253,15 @@
           <table class="table">
             <thead>
               <tr>
-                <td><b><?php echo $text_file; ?></b></td>
-                <td><b><?php echo $text_status; ?></b></td>
+                <th width="85%"><b><?php echo $text_file; ?></b></th>
+                <th width="15%" class="text-center"><b><?php echo $text_status; ?></b></th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><?php echo $config_catalog; ?></td>
-                <td><?php if (!file_exists($config_catalog)) { ?>
-                  <span class="text-success">Will be created.</span>
+                <td class="text-center"><?php if (!file_exists($config_catalog)) { ?>
+                  <span class="text-success"><?php echo $text_will_be_created; ?></span>
                   <?php } elseif (!is_writable($config_catalog)) { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
                   <?php } else { ?>
@@ -270,8 +270,8 @@
               </tr>
               <tr>
                 <td><?php echo $config_admin; ?></td>
-                <td><?php if (!file_exists($config_admin)) { ?>
-                  <span class="text-success">Will be created.</span>
+                <td class="text-center"><?php if (!file_exists($config_admin)) { ?>
+                  <span class="text-success"><?php echo $text_will_be_created; ?></span>
                   <?php } elseif (!is_writable($config_admin)) { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
                   <?php } else { ?>
@@ -286,14 +286,14 @@
           <table class="table">
             <thead>
               <tr>
-                <td align="left"><b><?php echo $text_directory; ?></b></td>
-                <td align="left"><b><?php echo $text_status; ?></b></td>
+                <th align="left" width="85%"><b><?php echo $text_directory; ?></b></th>
+                <th align="left" width="15%" class="text-center"><b><?php echo $text_status; ?></b></th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><?php echo $image . '/'; ?></td>
-                <td><?php if (is_writable($image)) { ?>
+                <td class="text-center"><?php if (is_writable($image)) { ?>
                   <span class="text-success"><?php echo $text_writable; ?></span>
                   <?php } else { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
@@ -301,7 +301,7 @@
               </tr>
               <tr>
                 <td><?php echo $image_cache . '/'; ?></td>
-                <td><?php if (is_writable($image_cache)) { ?>
+                <td class="text-center"><?php if (is_writable($image_cache)) { ?>
                   <span class="text-success"><?php echo $text_writable; ?></span>
                   <?php } else { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
@@ -309,7 +309,7 @@
               </tr>
               <tr>
                 <td><?php echo $image_catalog . '/'; ?></td>
-                <td><?php if (is_writable($image_catalog)) { ?>
+                <td class="text-center"><?php if (is_writable($image_catalog)) { ?>
                   <span class="text-success"><?php echo $text_writable; ?></span>
                   <?php } else { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
@@ -317,7 +317,7 @@
               </tr>
               <tr>
                 <td><?php echo $cache . '/'; ?></td>
-                <td><?php if (is_writable($cache)) { ?>
+                <td class="text-center"><?php if (is_writable($cache)) { ?>
                   <span class="text-success"><?php echo $text_writable; ?></span>
                   <?php } else { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
@@ -325,7 +325,7 @@
               </tr>
               <tr>
                 <td><?php echo $logs . '/'; ?></td>
-                <td><?php if (is_writable($logs)) { ?>
+                <td class="text-center"><?php if (is_writable($logs)) { ?>
                   <span class="text-success"><?php echo $text_writable; ?></span>
                   <?php } else { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
@@ -333,7 +333,7 @@
               </tr>
               <tr>
                 <td><?php echo $download . '/'; ?></td>
-                <td><?php if (is_writable($download)) { ?>
+                <td class="text-center"><?php if (is_writable($download)) { ?>
                   <span class="text-success"><?php echo $text_writable; ?></span>
                   <?php } else { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
@@ -341,7 +341,7 @@
               </tr>
               <tr>
                 <td><?php echo $upload . '/'; ?></td>
-                <td><?php if (is_writable($upload)) { ?>
+                <td class="text-center"><?php if (is_writable($upload)) { ?>
                   <span class="text-success"><?php echo $text_writable; ?></span>
                   <?php } else { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
@@ -349,7 +349,7 @@
               </tr>
               <tr>
                 <td><?php echo $modification . '/'; ?></td>
-                <td><?php if (is_writable($modification)) { ?>
+                <td class="text-center"><?php if (is_writable($modification)) { ?>
                   <span class="text-success"><?php echo $text_writable; ?></span>
                   <?php } else { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
