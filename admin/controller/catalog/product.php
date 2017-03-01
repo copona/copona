@@ -76,6 +76,7 @@ class ControllerCatalogProduct extends Controller {
 
         $this->load->model('catalog/product');
 
+
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             // prd($this->request->post);
             //prd($this->request->post);
@@ -836,7 +837,7 @@ class ControllerCatalogProduct extends Controller {
         } elseif (!empty($product_info)) {
             $data['tax_class_id'] = $product_info['tax_class_id'];
         } else {
-            $data['tax_class_id'] = 0;
+            $data['tax_class_id'] = $this->config->get('config_tax_class_id');
         }
 
         if (isset($this->request->post['date_available'])) {
@@ -1160,19 +1161,13 @@ class ControllerCatalogProduct extends Controller {
             );
         }
 
-
         // Content meta
-
-
 
         if (!empty($product_info)) {
             $data['content_meta'] = $this->model_catalog_product->getContentMeta($this->request->get['product_id']);
         } else {
             $data['content_meta'] = '';
         }
-
-
-        pr($data['content_meta']);
 
         // Image
         if (isset($this->request->post['image'])) {
@@ -1311,6 +1306,9 @@ class ControllerCatalogProduct extends Controller {
         } else {
             $data['product_layout'] = array();
         }
+
+        $this->load->model('localisation/tax_rate');
+        $data['tax_rates'] = $this->model_localisation_tax_rate->getTaxRates();
 
         $this->load->model('design/layout');
 

@@ -302,6 +302,29 @@
                   </select>
                 </div>
               </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-default-tax-class"><?php echo $entry_tax_class; ?></label>
+                <div class="col-sm-10">
+                  <select name="config_tax_class_id" id="input-default-tax-class" class="form-control">
+                    <option value="0"><?php echo $text_none; ?></option>
+                    <?php foreach ($tax_classes as $tax_class) { ?>
+                        <?php if ($tax_class['tax_class_id'] == $config_tax_class_id) { ?>
+                            <option value="<?php echo $tax_class['tax_class_id']; ?>" selected="selected"><?php echo $tax_class['title']; ?></option>
+                        <?php } else { ?>
+                            <option value="<?php echo $tax_class['tax_class_id']; ?>"><?php echo $tax_class['title']; ?></option>
+                        <?php } ?>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+
+
+
+
+
+
+
             </div>
             <div class="tab-pane" id="tab-option">
               <fieldset>
