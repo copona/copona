@@ -33,6 +33,7 @@ $_['text_zip']               = 'ZIP';
 $_['text_mbstring']          = 'mbstring';
 $_['text_on']                = 'On';
 $_['text_off']               = 'Off';
+$_['text_will_be_created']   = 'Will be created';
 $_['text_writable']          = 'Writable';
 $_['text_unwritable']        = 'Unwritable';
 $_['text_missing']           = 'Missing';
