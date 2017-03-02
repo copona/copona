@@ -25,12 +25,15 @@
       </div>
       <div class="panel-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-option" class="form-horizontal">
-          <div class="form-group required">
+          <div class="row form-group required">
             <label class="col-sm-2 control-label"><?php echo $entry_name; ?></label>
             <div class="col-sm-10">
                 <?php foreach ($languages as $language) { ?>
                   <div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
-                    <input type="text" name="option_description[<?php echo $language['language_id']; ?>][name]" value="<?php echo isset($option_description[$language['language_id']]) ? $option_description[$language['language_id']]['name'] : ''; ?>" placeholder="<?php echo $entry_name; ?>" class="form-control" />
+                    <input type="text"
+                           name="option_description[<?php echo $language['language_id']; ?>][name]"
+                           value="<?php echo isset($option_description[$language['language_id']]) ? $option_description[$language['language_id']]['name'] : ''; ?>"
+                           placeholder="<?php echo $entry_name; ?>" class="form-control" />
                   </div>
                   <?php if (isset($error_name[$language['language_id']])) { ?>
                       <div class="text-danger"><?php echo $error_name[$language['language_id']]; ?></div>
@@ -38,7 +41,25 @@
               <?php } ?>
             </div>
           </div>
-          <div class="form-group">
+
+          <div class="row form-group">
+            <label class="col-sm-2 control-label"><?php echo $entry_display; ?></label>
+            <div class="col-sm-10">
+              <?php foreach ($languages as $language) { ?>
+              <div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
+                <input type="text"
+                       name="option_description[<?php echo $language['language_id']; ?>][display]"
+                       value="<?php echo isset($option_description[$language['language_id']]) ? $option_description[$language['language_id']]['display'] : ''; ?>"
+                       placeholder="<?php echo $entry_display_placeholder; ?>" class="form-control" />
+              </div>
+              <?php if (isset($error_name[$language['language_id']])) { ?>
+              <div class="text-danger"><?php echo $error_name[$language['language_id']]; ?></div>
+              <?php } ?>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="row form-group">
             <label class="col-sm-2 control-label" for="input-type"><?php echo $entry_type; ?></label>
             <div class="col-sm-10">
               <select name="type" id="input-type" class="form-control">
