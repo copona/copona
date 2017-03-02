@@ -26,6 +26,8 @@ $_['column_action'] = 'Action';
 
 // Entry
 $_['entry_name'] = 'Option Name';
+$_['entry_display'] = 'Display Name';
+$_['entry_display_placeholder'] = 'Display Name (Optional)';
 $_['entry_type'] = 'Type';
 $_['entry_option_value'] = 'Option Value Name';
 $_['entry_image'] = 'Image';
