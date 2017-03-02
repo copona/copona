@@ -27,7 +27,7 @@ class queryParams {
 			
 			if ( isset( $this->data[ $entry ] ) ) {
 				$str .= '&'. $entry .'='. $this->data[ $entry ];
-            }
+			}
 			
 		}
 		
