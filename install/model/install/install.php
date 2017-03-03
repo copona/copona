@@ -53,8 +53,9 @@ class ModelInstallInstall extends Model {
 			$db->query("DELETE FROM `" . $data['db_prefix'] . "setting` WHERE `key` = 'config_api_id'");
 			$db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_api_id', value = '" . (int)$api_id . "'");
 
-            if(strstr(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache') && array_search('mod_rewrite', apache_get_modules())) {
+            if($_SESSION['new_htaccess'] === true) {
                 $db->query("UPDATE `" . $data['db_prefix'] . "setting` SET value = '1' WHERE `key` = 'config_seo_url'");
+                unset($_SESSION['new_htaccess']);
             }
 		}
 	}
