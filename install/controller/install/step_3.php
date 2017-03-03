@@ -8,10 +8,8 @@ class ControllerInstallStep3 extends Controller {
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->load->model('install/install');
 
-			$this->model_install_install->database($this->request->post);
-
-            $http_server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
-            $https_server = 'https://' . $_SERVER['SERVER_NAME'] . '/';
+            $http_server = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+            $https_server = 'https://' . $_SERVER['HTTP_HOST'] . '/';
 
 			$output = '<?php' . "\n";
 			$output .= '// HTTP' . "\n";
@@ -114,13 +112,13 @@ class ControllerInstallStep3 extends Controller {
 
             /* create .htaccess file */
 
-            if(strstr(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache') && array_search('mod_rewrite', apache_get_modules())) {
+            if(strstr(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache') && array_search('mod_rewrite', apache_get_modules()) && !file_exists(DIR_OPENCART . '.htaccess')) {
 
                 $output = "# 1.To use URL Alias you need to be running apache with mod_rewrite enabled. \n\n";
 
                 $output .= "# 2. In your opencart directory rename htaccess.txt to .htaccess. \n\n";
 
-                $output .= "# For any support issues please visit: http://www.opencart.com \n\n";
+                $output .= "# For any support issues please visit: http://www.copona.org \n\n";
 
                 $output .= "Options +FollowSymlinks \n\n";
 
@@ -137,7 +135,7 @@ class ControllerInstallStep3 extends Controller {
 
                 $output .= "# SEO URL Settings \n";
                 $output .= "RewriteEngine On \n";
-                $output .= "# If your opencart installation does not run on the main web folder make sure you folder it does run in ie. / becomes /shop/ \n\n";
+                $output .= "# If your Copona installation does not run on the main web folder make sure you folder it does run in ie. / becomes /shop/ \n\n";
 
                 $output .= "RewriteBase / \n";
                 $output .= "RewriteRule ^sitemap.xml$ index.php?route=extension/feed/google_sitemap [L] \n";
@@ -182,9 +180,13 @@ class ControllerInstallStep3 extends Controller {
                 fwrite($file, $output);
 
                 fclose($file);
+
+                $_SESSION['new_htaccess'] = true;
             }
 
-			$this->response->redirect($this->url->link('install/step_4'));
+            $this->model_install_install->database($this->request->post);
+
+            $this->response->redirect($this->url->link('install/step_4'));
 		}
 
 		$this->document->setTitle($this->language->get('heading_title'));
