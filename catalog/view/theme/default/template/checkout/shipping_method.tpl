@@ -15,7 +15,7 @@
 <?php if ($shipping_methods) { ?>
     <p><?php echo $text_shipping_method; ?></p>
     <?php foreach ($shipping_methods as $type => $shipping_method) { ?>
-        <?php $show_address = ($type == 'country_zone' ? true : false); // pārbauda vai rādīt adreses lauku   ?>
+        <?php $show_address = ($type !== 'pickup' ? true : false); // pārbauda vai rādīt adreses lauku   ?>
         <?php if (!$shipping_method['error']) { ?>
             <?php if (isset($shipping_method['group_title'])) { ?>
                 <p><strong><?php echo $shipping_method['group_title'] ?><p></strong>
