@@ -134,8 +134,8 @@ class ControllerCommonHeader extends Controller {
             $data['informations'][] = array(
                 'information_id' => $information['information_id'],
                 'title'          => $information['title'],
-                'href'           => $this->url->link('information/information', 'information_id=' . $information['information_id'])
-            );
+                'href'           => ($information['external_link'] ? $this->url->externalLink($information['external_link']) : $this->url->link('information/information', 'information_id=' . $information['information_id'])
+                ) );
         }
 
         $data['language'] = $this->load->controller('common/language');
@@ -161,7 +161,7 @@ class ControllerCommonHeader extends Controller {
         } else {
             $data['class'] = 'common-home';
         }
-        
+
         // $data["breadcrumbs"] = $this->breadcrumbs->getPath();
 
         return $this->load->view('common/header', $data);
