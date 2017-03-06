@@ -11,7 +11,7 @@ $_['text_shipping_method'] = 'Shipping method';
 $_['text_shipping_address'] = 'Shipping address';
 $_['text_payment_method'] = 'Payment method';
 $_['entry_company'] = 'Company';
-$_['text_contact_buyer'] = 'Pircēja kontakti:';
+$_['text_contact_buyer'] = 'Customer Information:';
 $_['entry_firstname'] = 'Name';
 $_['entry_lastname'] = 'Surname';
 $_['text_surname'] = 'Surname';
@@ -38,4 +38,3 @@ $_['entry_vat_num'] = 'VAT number';
 $_['entry_bank_name'] = 'Bank name';
 $_['entry_bank_code'] = 'Bank code';
 $_['entry_bank_account'] = 'Bank account #';
-?>
