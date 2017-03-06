@@ -112,7 +112,17 @@ class ControllerInstallStep3 extends Controller {
 
             /* create .htaccess file */
 
-            if(strstr(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache') && !file_exists(DIR_OPENCART . '.htaccess')) {
+            /* check if mod_rewrite is enabled - checking phpinfo rather than apache_get_modules for greater compatibility */
+
+            ob_start();
+            phpinfo();
+            $phpinfo = ob_get_contents();
+            ob_end_clean();
+
+            $rewrite = strpos($phpinfo, "mod_rewrite");
+
+            if(strstr(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache') && $rewrite && !file_exists(DIR_OPENCART . '.htaccess')) {
+
 
                 $output = "# 1.To use URL Alias you need to be running apache with mod_rewrite enabled. \n\n";
 
