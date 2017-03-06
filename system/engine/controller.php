@@ -23,7 +23,6 @@
  * @property Length $length
  * @property Cart $cart
  * @property Encryption $encryption
- * @property Openbay $openbay
  * @property Event $event
  * @property ModelAccountActivity $model_account_activity
  * @property ModelAccountAddress $model_account_address
