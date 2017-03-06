@@ -46,3 +46,12 @@
     content: " ";
     clear: both;
 }
+
+.over{
+     position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.image{
+    position: relative;
+}
