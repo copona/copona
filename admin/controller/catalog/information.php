@@ -408,7 +408,7 @@ class ControllerCatalogInformation extends Controller {
             $data['sort_order'] = '';
         }
 
-// Image
+        // Image
 
         if (isset($this->request->post['image'])) {
             $data['image'] = $this->request->post['image'];
@@ -456,9 +456,6 @@ class ControllerCatalogInformation extends Controller {
                 'sort_order' => $information_image['sort_order']
             );
         }
-
-
-
 
         if (isset($this->request->post['information_layout'])) {
             $data['information_layout'] = $this->request->post['information_layout'];

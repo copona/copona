@@ -152,3 +152,6 @@ $_['label_price'] = 'Price';
 $_['button_save_continue'] = 'Save & Continue';
 $_['label_price_with_base_vat'] = 'Price with base Tax';
 $_['entry_tax_class'] = 'Default Tax Class:';
+$_['entry_external_link'] = 'Enter internal or external URL. For internal links, skip `route=` and enter only controller/ with additional parameters.';
+$_['label_external_link'] = 'Link to';
+$_['help_external_link'] = 'Enternal URL, or internal path (see help info)';

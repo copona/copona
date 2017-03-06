@@ -3,7 +3,9 @@ class ControllerExtensionThemeThemeDefault extends Controller {
     private $error = array();
 
     public function index() {
-        $this->load->language('extension/theme/theme_default');
+
+        $data = array();
+        $data = array_merge($data, $this->load->language('extension/theme/theme_default'));
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -18,40 +20,7 @@ class ControllerExtensionThemeThemeDefault extends Controller {
             $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=theme', true));
         }
 
-        $data['heading_title'] = $this->language->get('heading_title');
 
-        $data['text_edit'] = $this->language->get('text_edit');
-        $data['text_enabled'] = $this->language->get('text_enabled');
-        $data['text_disabled'] = $this->language->get('text_disabled');
-        $data['text_product'] = $this->language->get('text_product');
-        $data['text_image'] = $this->language->get('text_image');
-        $data['text_general'] = $this->language->get('text_general');
-
-        $data['entry_directory'] = $this->language->get('entry_directory');
-        $data['entry_status'] = $this->language->get('entry_status');
-        $data['entry_product_limit'] = $this->language->get('entry_product_limit');
-        $data['entry_product_description_length'] = $this->language->get('entry_product_description_length');
-        $data['entry_image_category'] = $this->language->get('entry_image_category');
-        $data['entry_image_thumb'] = $this->language->get('entry_image_thumb');
-        $data['entry_image_mid'] = $this->language->get('entry_image_mid');
-        $data['entry_image_product_group'] = $this->language->get('entry_image_product_group');
-        $data['entry_image_popup'] = $this->language->get('entry_image_popup');
-        $data['entry_image_product'] = $this->language->get('entry_image_product');
-        $data['entry_image_additional'] = $this->language->get('entry_image_additional');
-        $data['entry_image_related'] = $this->language->get('entry_image_related');
-        $data['entry_image_compare'] = $this->language->get('entry_image_compare');
-        $data['entry_image_wishlist'] = $this->language->get('entry_image_wishlist');
-        $data['entry_image_cart'] = $this->language->get('entry_image_cart');
-        $data['entry_image_location'] = $this->language->get('entry_image_location');
-        $data['entry_width'] = $this->language->get('entry_width');
-        $data['entry_height'] = $this->language->get('entry_height');
-
-        $data['help_product_limit'] = $this->language->get('help_product_limit');
-        $data['help_product_description_length'] = $this->language->get('help_product_description_length');
-        $data['help_directory'] = $this->language->get('help_directory');
-
-        $data['button_save'] = $this->language->get('button_save');
-        $data['button_cancel'] = $this->language->get('button_cancel');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];

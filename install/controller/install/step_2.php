@@ -43,7 +43,7 @@ class ControllerInstallStep2 extends Controller {
 		$data['gd'] = extension_loaded('gd');
 		$data['curl'] = extension_loaded('curl');
         $data['dom'] = extension_loaded('dom');
-		$data['mcrypt_encrypt'] = function_exists('mcrypt_encrypt');
+		$data['openssl'] = extension_loaded('openssl');
         $data['xml'] = extension_loaded('xml');
 		$data['zlib'] = extension_loaded('zlib');
 		$data['zip'] = extension_loaded('zip');
@@ -105,8 +105,8 @@ class ControllerInstallStep2 extends Controller {
 			$this->error['warning'] = $this->language->get('error_curl');
 		}
 
-		if (!function_exists('mcrypt_encrypt')) {
-			$this->error['warning'] = $this->language->get('error_mcrypt');
+		if (!extension_loaded('openssl')) {
+			$this->error['warning'] = $this->language->get('error_openssl');
 		}
 
         if (!extension_loaded('xml')) {
