@@ -34,7 +34,7 @@
     <div class="row">
         <?php //echo $content_top;?>
       <div id="content" class="content-cart">
-        <?= $cart; ?>
+          <?= $cart; ?>
         <div class="onepage-checkout">
           <form action="<?php echo $action; ?>" class="form" method="post">
             <div id="step1">
@@ -156,12 +156,12 @@
                           ?>
                         <div class="col-md-12" >
                           <input type="radio" name="customer_group_id" value="1" id="customer_group_id1" <?= $customer_group_id == "1" ? 'checked="checked"' : '' ?> >
-                          <label for="customer_group_id1"><?= $customer_group_fiz_pers ?></label>
+                          <label for="customer_group_id1"><?= $text_customer_group_pers ?></label>
                           <br />
 
                           <div style="display:none">
                             <input type="radio" name="customer_group_id" value="2" id="customer_group_id2" <?= $customer_group_id == "2" ? 'checked="checked"' : '' ?> >
-                            <label for="customer_group_id2"><?= $customer_group_jur_pers; ?></label>
+                            <label for="customer_group_id2"><?= $text_customer_group_legal; ?></label>
                           </div>
                         </div>
 

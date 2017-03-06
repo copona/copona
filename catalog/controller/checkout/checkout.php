@@ -126,7 +126,7 @@ class ControllerCheckoutCheckout extends Controller {
 
     function guest() {
         $data = array();
-        $data = array_merge($data, $this->load->language('order/order'));
+        $data = array_merge($data, $this->load->language('checkout/checkout'));
         $this->document->setTitle($this->language->get('heading_title'));
 
         //Set data default values
