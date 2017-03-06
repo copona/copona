@@ -123,6 +123,7 @@ class ControllerInstallStep3 extends Controller {
 
             if(strstr(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache') && $rewrite && !file_exists(DIR_OPENCART . '.htaccess')) {
 
+
                 $output = "# 1.To use URL Alias you need to be running apache with mod_rewrite enabled. \n\n";
 
                 $output .= "# 2. In your opencart directory rename htaccess.txt to .htaccess. \n\n";
