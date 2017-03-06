@@ -50,6 +50,22 @@
                           <?php } ?>
                         </div>
                       </div>
+
+                      <div class="form-group required">
+
+                        <label class="col-sm-2 control-label" for="input-title<?php echo $language['language_id']; ?>">
+                          <span data-toggle="tooltip" title="<?php echo $help_external_link; ?>"><?php echo $label_external_link; ?></span>
+                        </label>
+
+
+                        <div class="col-sm-10">
+                          <input type="text" name="information_description[<?php echo $language['language_id']; ?>][external_link]" value="<?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['external_link'] : ''; ?>" placeholder="<?php echo $entry_external_link; ?>" id="input-external_link<?php echo $language['language_id']; ?>" class="form-control" />
+                          <?php if (isset($error_title[$language['language_id']])) { ?>
+                              <div class="text-danger"><?php echo $error_title[$language['language_id']]; ?></div>
+                          <?php } ?>
+                        </div>
+                      </div>
+
                       <div class="form-group">
                         <label class="col-sm-2 control-label" for="input-description<?php echo $language['language_id']; ?>"><?php echo $entry_description; ?></label>
                         <div class="col-sm-10">
