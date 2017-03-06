@@ -185,6 +185,8 @@ class ModelCatalogProduct extends Model {
             $sql .= " AND p2p.product_group_id = '" . (int)$data['product_group_id'] . "'";
         }
 
+        $sql .= " AND not exists (select p2p.product_id from `".DB_PREFIX."product_to_product` p2p where p2p.product_id = p.product_id and p2p.default_id = 0)";
+
         $sql .= " GROUP BY p.product_id";
 
         $sort_data = array(
@@ -557,12 +559,17 @@ class ModelCatalogProduct extends Model {
         if (!empty($data['filter_manufacturer_id'])) {
             $sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
         }
+
+        $sql .= " AND not exists (select p2p.product_id from `".DB_PREFIX."product_to_product` p2p where p2p.product_id = p.product_id and p2p.default_id = 0)";
         $product_data = $this->cache->get('product.gettotalproducts.' . md5($sql));
         if (!$product_data) {
             $product_data = $this->db->query($sql);
             $this->cache->set('product.gettotalproducts.' . md5($sql), $product_data->row['total']);
             $product_data = $product_data->row['total'];
         }
+
+        // pr($sql);
+
         return $product_data;
     }
 
