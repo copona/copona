@@ -18,11 +18,6 @@ $_['db_port'] = DB_PORT;
 // Session
 $_['session_autostart'] = false;
 
-// Autoload Libraries
-$_['library_autoload'] = array(
-    'openbay'
-);
-
 // Actions
 $_['action_pre_action'] = array(
     'startup/session',
