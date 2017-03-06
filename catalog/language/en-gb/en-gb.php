@@ -83,3 +83,4 @@ $_['text_specials'] = 'Promotions';
 $_['text_about_us'] = 'About us';
 $_['text_contacts'] = 'Contacts';
 $_['text_onsale'] = 'On sale';
+$_['text_variations_available'] = 'Variations available';
