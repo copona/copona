@@ -22,6 +22,36 @@ function getURLVar(key) {
     }
 }
 
+// Cookie functions
+// Credit to: http://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
+function setCookie(name, value, days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "; expires=" + date.toGMTString();
+    } else
+        var expires = "";
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ')
+            c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0)
+            return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function deleteCookie(name) {
+    setCookie(name, "", -1);
+}
+
+
 $(document).ready(function () {
     // Highlight any found errors
     $('.text-danger').each(function () {
@@ -52,7 +82,8 @@ $(document).ready(function () {
 
     /* Search */
     $('#search input[name=\'search\']').parent().find('button').on('click', function () {
-        var url = $('base').attr('href') + 'index.php?route=product/search';
+        var site_host = $('base').attr('href') ? $('base').attr('href') : location.protocol + "//" + location.host + '/';
+        var url = site_host + 'index.php?route=product/search';
 
         var value = $('header #search input[name=\'search\']').val();
 
@@ -161,10 +192,9 @@ var cart = {
 
                     // Need to set timeout otherwise it wont update the total
                     setTimeout(function () {
-                        $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+                        $('#cart').load('index.php?route=common/cart/info');
                     }, 100);
 
-                    $('#cart > ul').load('index.php?route=common/cart/info ul li');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {

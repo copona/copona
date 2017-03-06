@@ -484,12 +484,6 @@ class ControllerCatalogInformation extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        foreach ($this->request->post['information_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['title']) < 3) || (utf8_strlen($value['title']) > 64)) {
-                $this->error['title'][$language_id] = $this->language->get('error_title');
-            }
-        }
-
         if (utf8_strlen($this->request->post['keyword']) > 0) {
             $this->load->model('catalog/url_alias');
 

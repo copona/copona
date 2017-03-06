@@ -138,7 +138,7 @@
                     var order_total = cart_total * 1 + order_shipping * 1
                     $('#order_shipping').html(order_shipping.toFixed(2) + ' €')
                     $('#order_total').html(order_total.toFixed(2) + ' €')
-
+                    console.log($(this));
                     if ($(this).data('show-address')) {
                         $('#shipping_address').show()
                         $('#validate_address').val(1)

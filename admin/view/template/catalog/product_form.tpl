@@ -60,6 +60,22 @@
                   </select>
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-price"><?php echo $entry_price; ?></label>
+                <div class="col-sm-10">
+                  <input type="text" name="price" value="<?php echo $price; ?>" placeholder="<?php echo $entry_price; ?>" id="input-price" class="form-control" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-price-vat">
+                    <?= $label_price_with_base_vat; ?>
+                    <?= !empty($tax_rates[0]) ? $tax_rates[0]['name'] : '' ?>
+                </label>
+                <div class="col-sm-10">
+                  <input type="text" name="price-vat" value="" placeholder="Price with VAT" id="input-price-vat" class="form-control" />
+                </div>
+              </div>
+
               <ul class="nav nav-tabs" id="language">
                   <?php foreach ($languages as $language) { ?>
                     <li>
@@ -240,12 +256,8 @@
                   <input type="text" name="location" value="<?php echo $location; ?>" placeholder="<?php echo $entry_location; ?>" id="input-location" class="form-control" />
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-price"><?php echo $entry_price; ?></label>
-                <div class="col-sm-10">
-                  <input type="text" name="price" value="<?php echo $price; ?>" placeholder="<?php echo $entry_price; ?>" id="input-price" class="form-control" />
-                </div>
-              </div>
+
+
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-tax-class"><?php echo $entry_tax_class; ?></label>
                 <div class="col-sm-10">
@@ -459,6 +471,48 @@
                   </tfoot>
                 </table>
               </div>
+              <div class="table-responsive">
+                <table id="videos" class="table table-striped table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <td class="text-left"><?php echo $entry_video; ?></td>
+                      <td class="text-right"><?php echo $entry_sort_order; ?></td>
+                      <td></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <?php $video_row = 0; ?>
+                    <?php if (isset($content_meta['product_video'])) { ?>
+                        <?php foreach ($content_meta['product_video'] as $product_video) { ?>
+                            <tr id="video-row<?php echo $video_row; ?>">
+                              <td class="text-right">
+                                  <?php foreach ($languages as $language) {// pr($product_video) ?>
+                                    <div class="input-group">
+                                      <span class="input-group-addon lng-image">
+                                        <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
+                                      </span>
+                                      <input type="text" name="content_meta[product_video][<?php echo $video_row; ?>][video][<?php echo $language['language_id'] ?>]" value="<?php echo $product_video['video'][$language['language_id']] ?>" placeholder="<?php echo $entry_video_link; ?>" class="form-control" />
+                                    </div>
+                                <?php } ?>
+                              </td>
+                              <td class="text-right"><input type="text" name="product_video[<?php echo $video_row; ?>][sort_order]" value="<?php echo $product_video['sort_order'] ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
+                              <td class="text-left"><button type="button" onclick="$('#video-row<?php echo $video_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                            </tr>
+                            <?php $video_row++; ?>
+                        <?php } ?>
+                    <?php } ?>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="2"></td>
+                      <td class="text-left"><button type="button" onclick="addVideo();" data-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+
+
             </div>
             <div class="tab-pane" id="tab-links">
               <div class="form-group">
@@ -930,7 +984,10 @@
                               <?php } ?>
                             </select></td>
                           <td class="text-right"><input type="text" name="product_special[<?php echo $special_row; ?>][priority]" value="<?php echo $product_special['priority']; ?>" placeholder="<?php echo $entry_priority; ?>" class="form-control" /></td>
-                          <td class="text-right"><input type="text" name="product_special[<?php echo $special_row; ?>][price]" value="<?php echo $product_special['price']; ?>" placeholder="<?php echo $entry_price; ?>" class="form-control" /></td>
+                          <td class="text-right">
+                            <input type="text" name="product_special[<?php echo $special_row; ?>][price]" value="<?php echo $product_special['price']; ?>" placeholder="<?php echo $entry_price; ?>" class="form-control" />
+                            <input data-toggle="tooltip" title="<?= $label_price_with_base_vat; ?>" placeholder="<?= $label_price_with_base_vat; ?>"  type="text" name="" value="" class="form-control price-vat" />
+                          </td>
                           <td class="text-left" style="width: 20%;"><div class="input-group date">
                               <input type="text" name="product_special[<?php echo $special_row; ?>][date_start]" value="<?php echo $product_special['date_start']; ?>" placeholder="<?php echo $entry_date_start; ?>" data-date-format="YYYY-MM-DD" class="form-control" />
                               <span class="input-group-btn">

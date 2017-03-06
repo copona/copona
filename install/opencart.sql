@@ -44,7 +44,7 @@ CREATE TABLE `oc_affiliate` (
   `email` varchar(96) NOT NULL,
   `telephone` varchar(32) NOT NULL,
   `fax` varchar(32) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `salt` varchar(9) NOT NULL,
   `company` varchar(40) NOT NULL,
   `website` varchar(255) NOT NULL,
@@ -686,7 +686,18 @@ INSERT INTO `oc_category_to_store` (`category_id`, `store_id`) VALUES
 (57, 0),
 (58, 0);
 
--- --------------------------------------------------------
+--
+-- Table structure for table `oc_content_meta`
+--
+
+CREATE TABLE `cp_content_meta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content_id` int(55) NOT NULL,
+  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 --
 -- Table structure for table `oc_country`
@@ -1087,7 +1098,7 @@ CREATE TABLE `oc_customer` (
   `email` varchar(96) NOT NULL,
   `telephone` varchar(32) NOT NULL,
   `fax` varchar(32) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `salt` varchar(9) NOT NULL,
   `cart` text,
   `wishlist` text,
@@ -2075,6 +2086,7 @@ CREATE TABLE `oc_option_description` (
   `option_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
+  `display` varchar(128) NOT NULL,
   PRIMARY KEY (`option_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -3724,7 +3736,7 @@ CREATE TABLE `oc_user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_group_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `salt` varchar(9) NOT NULL,
   `firstname` varchar(32) NOT NULL,
   `lastname` varchar(32) NOT NULL,

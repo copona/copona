@@ -440,7 +440,9 @@
 <?php } ?>
         html += '  </select></td>';
         html += '  <td class="text-right"><input type="text" name="product_special[' + special_row + '][priority]" value="" placeholder="<?php echo $entry_priority; ?>" class="form-control" /></td>';
-        html += '  <td class="text-right"><input type="text" name="product_special[' + special_row + '][price]" value="" placeholder="<?php echo $entry_price; ?>" class="form-control" /></td>';
+        html += '  <td class="text-right"><input type="text" name="product_special[' + special_row + '][price]" value="" placeholder="<?php echo $entry_price; ?>" class="form-control" />\n\
+        <input data-toggle="tooltip" title="<?= $label_price_with_base_vat ?>" type="text" name="" value="" placeholder="<?= $label_price_with_base_vat ?>" class="price-vat form-control" />\n\
+        </td>';
         html += '  <td class="text-left" style="width: 20%;"><div class="input-group date"><input type="text" name="product_special[' + special_row + '][date_start]" value="" placeholder="<?php echo $entry_date_start; ?>" data-date-format="YYYY-MM-DD" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></td>';
         html += '  <td class="text-left" style="width: 20%;"><div class="input-group date"><input type="text" name="product_special[' + special_row + '][date_end]" value="" placeholder="<?php echo $entry_date_end; ?>" data-date-format="YYYY-MM-DD" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></td>';
         html += '  <td class="text-left"><button type="button" onclick="$(\'#special-row' + special_row + '\').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
@@ -462,6 +464,28 @@
         html += '</tr>';
         $('#images tbody').append(html);
         image_row++;
+    }
+
+    // Videos
+    var video_row = <?php echo $video_row; ?>;
+    function addVideo() {
+        html = '<tr id="video-row' + video_row + '">';
+        html += '<td class="text-right">'
+<?php foreach ($languages as $language) { ?>
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon lng-image">';
+            html += '  <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png">';
+            html += '</span>'
+            html += '<input type = "text" name = "content_meta[product_video][' + video_row + '][video][<?php echo $language['language_id']; ?>]" value = "" placeholder = "<?php echo $entry_video_link; ?>" class = "form-control" / >'
+            html += '</div>'
+<?php } ?>
+        html += '</td>';
+        html += '  <td class="text-right"><input type="text" name="content_meta[product_video][' + video_row + '][sort_order]" value="" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>';
+        html += '  <td class="text-left"><button type="button" onclick="$(\'#video-row' + video_row + '\').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+
+        html += '</tr>';
+        $('#videos tbody').append(html);
+        video_row++;
     }
 
     // Recurring
@@ -489,4 +513,42 @@
         $('#tab-recurring table tbody').append(html);
         recurring_row++;
     }
+</script>
+<script>
+    /* Javascript price input ease */
+
+    var tax_rates = <?= json_encode($tax_rates); ?>;
+    ease_rate = (tax_rates[0].rate / 100) + 1;
+
+    $(function () {
+        var $price = $('input[name=\'price\']');
+        var $price_vat = $('input[name=\'price-vat\']');
+        var vat = Number(ease_rate);
+        // prive without TAX
+        $price.on('keyup', function () {
+            var res = (Number($price.val().replace(/,/g, ".")) * vat).toFixed(4);
+            $price_vat.val(res.replace(/,/g, "."));
+        });
+        // prive with TAX
+        $price_vat.on('keyup', function () {
+            var res = (Number($price_vat.val().replace(/,/g, ".")) / vat).toFixed(4);
+            $price.val(res.replace(/,/g, "."));
+        });
+    });
+
+    $(function () {
+        var e = $.Event('keyup');
+        $('input[name=\'price\']').trigger(e);
+    });
+
+    /* SPECIAL */
+
+    $("#form-product").on('keyup', "input[name^=\'product_special\']", 'keyup', function () {
+        $(this).siblings('input.price-vat').val(($(this).val() * Number(ease_rate)).toFixed(4));
+    });
+
+    $("#form-product").on('keyup', 'input.price-vat', function () {
+        $(this).siblings("input[name^=\'product_special']").val(($(this).val() / Number(ease_rate)).toFixed(4));
+    });
+    $("input[name^=\'product_special'], input.price-vat").trigger('keyup');
 </script>
