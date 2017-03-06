@@ -211,7 +211,7 @@ class ModelCatalogProduct extends Model {
                 $sql .= " ORDER BY " . $data['sort'];
             }
         } else {
-            $sql .= " ORDER BY p.sort_order";
+            $sql .= " ORDER BY p2p.default_id = 1 desc, p.sort_order";
         }
 
         if (isset($data['order']) && ($data['order'] == 'DESC')) {
