@@ -16,6 +16,7 @@
             <input type="text" name="search" value="<?php echo $filter_name; ?>" placeholder="<?php echo $entry_search; ?>" class="form-control">
             <span class="input-group-btn">
               <button type="button" data-toggle="tooltip" title="<?php echo $button_search; ?>" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button>
+              <button type="button" id="button-reset" class="btn btn-primary"><i class="fa fa-eraser"></i></button>
             </span></div>
         </div>
       </div>
@@ -132,6 +133,11 @@
 <?php } ?>
 
         $('#modal-image').load(url);
+    });
+
+    $('#button-reset').on('click', function (e) {
+        $('input[name=\'search\']').val('');
+        $('#button-search').click();
     });
 //--></script>
 <script type="text/javascript"><!--
