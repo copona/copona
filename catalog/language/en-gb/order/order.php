@@ -2,7 +2,7 @@
 $_['heading_title'] = 'Checkout';
 $_['heading_title2'] = 'Confirm';
 $_['text_agree'] = 'I have read and agree to the <a href="%s" class="agree"><b>%s</b></a>';
-$_['text_total_title'] = 'Kopā';
+$_['text_total_title'] = 'Total';
 $_['text_shipping'] = 'Shipping (including VAT)';
 $_['text_total_payment'] = 'Kopā apmaksai';
 $_['text_price'] = 'Price';
