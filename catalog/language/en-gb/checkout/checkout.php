@@ -47,6 +47,8 @@ $_['text_price'] = 'Price';
 $_['text_make_order'] = 'Continue';
 $_['text_customer_group_pers'] = 'Retail customer';
 $_['text_customer_group_company'] = 'Company';
+
+// Column
 $_['column_name'] = 'Product Name';
 $_['column_model'] = 'Model';
 $_['column_quantity'] = 'Quantity';
