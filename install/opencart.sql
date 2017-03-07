@@ -3299,7 +3299,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_language', 'en', 0),
 (0, 'config', 'config_admin_language', 'en', 0),
 (0, 'config', 'config_currency', 'USD', 0),
-(0, 'config', 'config_currency_auto', '1', 0),
+(0, 'config', 'config_currency_auto', '0', 0),
 (0, 'config', 'config_length_class_id', '1', 0),
 (0, 'config', 'config_weight_class_id', '1', 0),
 (0, 'config', 'config_product_count', '1', 0),
