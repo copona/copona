@@ -2,8 +2,8 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class AddOptionDisplayNameColumn extends AbstractMigration
-{
+class AddOptionDisplayNameColumn extends AbstractMigration {
+
     /**
      * Change Method.
      *
@@ -25,16 +25,16 @@ class AddOptionDisplayNameColumn extends AbstractMigration
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-
     public function up() {
-
-        $this->table('option_description')->addColumn('display', 'string', array('null' => true, 'limit' => 128))->save();
-
+        if (!$this->table('option_description')->hasColumn('display')) {
+            $this->table('option_description')->addColumn('display', 'string', array(
+                'null'  => true, 'limit' => 128 ))->save();
+        }
     }
 
     public function down() {
 
         $this->table('option_description')->removeColumn('display')->save();
-
     }
+
 }
