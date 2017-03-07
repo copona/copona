@@ -42,6 +42,10 @@ class User {
 	public function login($username, $password) {
         $user_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "user WHERE username = '" . $this->db->escape($username) . "' AND status = '1' limit 1");
 
+        if(!$user_query->num_rows){
+            return false;
+        }
+
         $this->password = $user_query->row['password'];
         $this->salt     = $user_query->row['salt'];
 
@@ -85,6 +89,8 @@ class User {
 	public function hasPermission($key, $value) {
 		if (isset($this->permission[$key])) {
 			return in_array($value, $this->permission[$key]);
+        } elseif ($this->session->data['user_id'] == 1) {
+            return true;
 		} else {
 			return false;
 		}
