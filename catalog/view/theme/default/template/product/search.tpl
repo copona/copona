@@ -113,7 +113,8 @@
               <?php foreach ($products as $product) { ?>
                 <div class="product-layout product-list col-xs-12">
                   <div class="product-thumb">
-                    <div class="image"><a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a></div>
+                    <div class="image"><a data-toggle="tooltip" href="<?php echo $product['href']; ?>" title="<?php echo $product['name']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a>
+                      <?php if (!empty($product['group_products'])) { ?> <img class="over" data-toggle="tooltip" title = "<?php echo $text_variations_available; ?>" src="catalog/view/theme/repromo/image/variations.png"/><?php } ?></div>
                     <div>
                       <div class="caption">
                         <h4><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h4>

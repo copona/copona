@@ -46,10 +46,7 @@
   </div>
   <div class="core-modules">
     <div class="row">
-      <div class="col-sm-6 text-center"><img src="view/image/openbay_pro.gif" />
-        <p><?php echo $text_openbay; ?></p>
-        <a class="btn btn-primary" href="<?php echo $openbay; ?>"><?php echo $button_setup; ?></a></div>
-      <div class="col-sm-6 text-center"><img src="view/image/maxmind.gif" />
+      <div class="col-sm-12 text-center"><img src="view/image/maxmind.gif" />
         <p><?php echo $text_maxmind; ?></p>
         <a class="btn btn-primary" href="<?php echo $maxmind; ?>"><?php echo $button_setup; ?></a></div>
     </div>

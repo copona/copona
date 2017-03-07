@@ -39,14 +39,14 @@ class ControllerCommonFileManager extends Controller {
 
         if (substr(str_replace('\\', '/', realpath($directory) . '/' . $filter_name), 0, strlen(DIR_IMAGE . 'catalog')) == DIR_IMAGE . 'catalog') {
             // Get directories
-            $directories = glob($directory . '/' . $filter_name . '*', GLOB_ONLYDIR);
+            $directories = glob($directory . '/*' . $filter_name . '*', GLOB_ONLYDIR);
 
             if (!$directories) {
                 $directories = array();
             }
 
             // Get files
-            $files = glob($directory . '/' . $filter_name . '*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}', GLOB_BRACE);
+            $files = glob($directory . '/*' . $filter_name . '*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}', GLOB_BRACE);
 
             if (!$files) {
                 $files = array();

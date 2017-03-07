@@ -2,7 +2,7 @@
 class ControllerProductSearch extends Controller {
 
     public function index() {
-        $this->load->language('product/search');
+        $data = array_merge(array(), $this->load->language('product/search'));
 
         $this->load->model('catalog/category');
 
@@ -130,30 +130,7 @@ class ControllerProductSearch extends Controller {
             $data['heading_title'] = $this->language->get('heading_title');
         }
 
-        $data['text_empty'] = $this->language->get('text_empty');
-        $data['text_search'] = $this->language->get('text_search');
-        $data['text_keyword'] = $this->language->get('text_keyword');
-        $data['text_category'] = $this->language->get('text_category');
-        $data['text_sub_category'] = $this->language->get('text_sub_category');
-        $data['text_quantity'] = $this->language->get('text_quantity');
-        $data['text_manufacturer'] = $this->language->get('text_manufacturer');
-        $data['text_model'] = $this->language->get('text_model');
-        $data['text_price'] = $this->language->get('text_price');
-        $data['text_tax'] = $this->language->get('text_tax');
-        $data['text_points'] = $this->language->get('text_points');
         $data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
-        $data['text_sort'] = $this->language->get('text_sort');
-        $data['text_limit'] = $this->language->get('text_limit');
-
-        $data['entry_search'] = $this->language->get('entry_search');
-        $data['entry_description'] = $this->language->get('entry_description');
-
-        $data['button_search'] = $this->language->get('button_search');
-        $data['button_cart'] = $this->language->get('button_cart');
-        $data['button_wishlist'] = $this->language->get('button_wishlist');
-        $data['button_compare'] = $this->language->get('button_compare');
-        $data['button_list'] = $this->language->get('button_list');
-        $data['button_grid'] = $this->language->get('button_grid');
 
         $data['compare'] = $this->url->link('product/compare');
 
@@ -240,16 +217,22 @@ class ControllerProductSearch extends Controller {
                 }
 
                 $data['products'][] = array(
-                    'product_id'  => $result['product_id'],
-                    'thumb'       => $image,
-                    'name'        => $result['name'],
-                    'description' => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
-                    'price'       => $price,
-                    'special'     => $special,
-                    'tax'         => $tax,
-                    'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
-                    'rating'      => $result['rating'],
-                    'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'] . $url)
+                    'product_id'     => $result['product_id'],
+                    'thumb'          => $image,
+                    'name'           => $result['name'],
+                    'description'    => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
+                    'price'          => $price,
+                    'special'        => $special,
+                    'tax'            => $tax,
+                    'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,
+                    'rating'         => $result['rating'],
+                    'href'           => $this->url->link('product/product', 'product_id=' . $result['product_id'] . $url),
+                    'group_products' => $this->model_catalog_product->getProducts(
+                        [
+                            'group_products'   => true,
+                            'product_group_id' => $result['product_group_id'],
+                            'product_id'       => $result['product_id'] ]
+                    ),
                 );
             }
 

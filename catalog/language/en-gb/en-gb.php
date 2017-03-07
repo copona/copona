@@ -93,3 +93,4 @@ $_['text_order_total_with_shipping'] = 'Total order (with shipping)';
 $_['text_model'] = 'Model';
 $_['text_compare_list'] = 'Compare list';
 $_['text_advices'] = 'Advices';
+$_['text_variations_available'] = 'Variations available';

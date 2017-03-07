@@ -651,7 +651,8 @@ ul.product-group {
 ul.product-group li{
     float:left;
     margin-right: 5px;
-
+    width: 30px;
+    height: 30px;
 }
 ul.product-group li.active{
     border: 1px solid #ddd;
