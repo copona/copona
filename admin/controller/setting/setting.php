@@ -327,6 +327,46 @@ class ControllerSettingSetting extends Controller {
             $data['config_product_count'] = $this->config->get('config_product_count');
         }
 
+
+        // part numbers adminisitration
+
+        if (isset($this->request->post['config_use_sku'])) {
+            $data['config_use_sku'] = $this->request->post['config_use_sku'];
+        } else {
+            $data['config_use_sku'] = $this->config->get('config_use_sku');
+        }
+
+        if (isset($this->request->post['config_use_upc'])) {
+            $data['config_use_upc'] = $this->request->post['config_use_upc'];
+        } else {
+            $data['config_use_upc'] = $this->config->get('config_use_upc');
+        }
+
+        if (isset($this->request->post['config_use_ean'])) {
+            $data['config_use_ean'] = $this->request->post['config_use_ean'];
+        } else {
+            $data['config_use_ean'] = $this->config->get('config_use_ean');
+        }
+
+        if (isset($this->request->post['config_use_jan'])) {
+            $data['config_use_jan'] = $this->request->post['config_use_jan'];
+        } else {
+            $data['config_use_jan'] = $this->config->get('config_use_jan');
+        }
+
+        if (isset($this->request->post['config_use_isbn'])) {
+            $data['config_use_isbn'] = $this->request->post['config_use_isbn'];
+        } else {
+            $data['config_use_isbn'] = $this->config->get('config_use_isbn');
+        }
+
+        if (isset($this->request->post['config_use_mpn'])) {
+            $data['config_use_mpn'] = $this->request->post['config_use_mpn'];
+        } else {
+            $data['config_use_mpn'] = $this->config->get('config_use_mpn');
+        }
+
+
         if (isset($this->request->post['config_review_status'])) {
             $data['config_review_status'] = $this->request->post['config_review_status'];
         } else {

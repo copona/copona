@@ -55,6 +55,15 @@ $_['entry_length_class'] = 'Length Class';
 $_['entry_weight_class'] = 'Weight Class';
 $_['entry_limit_admin'] = 'Default Items Per Page (Admin)';
 $_['entry_product_count'] = 'Category Product Count';
+
+$_['text_part_numbers'] = 'Part Numbers';
+$_['entry_sku'] = 'SKU';
+$_['entry_upc'] = 'UPC';
+$_['entry_ean'] = 'EAN';
+$_['entry_jan'] = 'JAN';
+$_['entry_isbn'] = 'ISBN';
+$_['entry_mpn'] = 'MPN';
+
 $_['entry_review'] = 'Allow Reviews';
 $_['entry_review_guest'] = 'Allow Guest Reviews';
 $_['entry_voucher_min'] = 'Voucher Min';
@@ -163,7 +172,7 @@ $_['help_return'] = 'Forces people to agree to terms before a return can be crea
 $_['help_return_status'] = 'Set the default return status when a return request is submitted.';
 $_['help_captcha'] = 'Captcha to use for registration, login, contact and reviews.';
 $_['help_icon'] = 'The icon should be a PNG that is 16px x 16px.';
-$_['help_ftp_root'] = 'The directory your OpenCart installation is stored in. Normally \'public_html/\'.';
+$_['help_ftp_root'] = 'The directory your Copona installation is stored in. Normally \'public_html/\'.';
 $_['help_mail_protocol'] = 'Only choose \'Mail\' unless your host has disabled the php mail function.';
 $_['help_mail_parameter'] = 'When using \'Mail\', additional mail parameters can be added here (e.g. -f email@storeaddress.com).';
 $_['help_mail_smtp_hostname'] = 'Add \'tls://\' or \'ssl://\' prefix if security connection is required. (e.g. tls://smtp.gmail.com, ssl://smtp.gmail.com).';
