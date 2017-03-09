@@ -13,5 +13,4 @@ $_['text_account'] = 'My Account';
 $_['text_order'] = 'Order History';
 $_['text_wishlist'] = 'Wish List';
 $_['text_newsletter'] = 'Newsletter';
-$_['text_powered'] = 'Based on <a href="http://www.opencart.com">OpenCart</a><br /> %s © %s';
-?>
+$_['text_powered'] = '© %s %s<br />';

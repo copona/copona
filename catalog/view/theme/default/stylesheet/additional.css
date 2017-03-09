@@ -50,4 +50,13 @@
 
 .img-responsive, .thumbnail>img, .thumbnail a>img {
     margin: 0 auto; /* Centering images */
+
+}
+.over{
+     position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.image{
+    position: relative;
 }

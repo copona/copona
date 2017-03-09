@@ -1,8 +1,5 @@
 <?php
-// Heading
 $_['heading_title'] = 'Checkout';
-
-// Text
 $_['text_cart'] = 'Shopping Cart';
 $_['text_checkout_option'] = 'Step %s: Checkout Options';
 $_['text_checkout_account'] = 'Step %s: Account &amp; Billing Details';
@@ -45,13 +42,8 @@ $_['text_month'] = 'month';
 $_['text_year'] = 'year';
 $_['text_total_title'] = 'Total';
 $_['text_total'] = 'Total (with VAT)';
-$_['text_total_payment'] = 'Amount Due';
-$_['text_price'] = 'Price';
-$_['text_make_order'] = 'Continue';
-
 $_['text_customer_group_pers'] = 'Retail customer';
 $_['text_customer_group_company'] = 'Company';
-
 
 // Column
 $_['column_name'] = 'Product Name';
@@ -59,8 +51,6 @@ $_['column_model'] = 'Model';
 $_['column_quantity'] = 'Quantity';
 $_['column_price'] = 'Unit Price';
 $_['column_total'] = 'Total';
-
-// Entry
 $_['entry_email_address'] = 'E-Mail Address';
 $_['entry_email'] = 'E-Mail';
 $_['entry_password'] = 'Password';
@@ -80,8 +70,6 @@ $_['entry_country'] = 'Country';
 $_['entry_zone'] = 'Region / State';
 $_['entry_newsletter'] = 'I wish to subscribe to the %s newsletter.';
 $_['entry_shipping'] = 'My delivery and billing addresses are the same.';
-
-// Error
 $_['error_warning'] = 'There was a problem while trying to process your order! If the problem persists please try selecting a different payment method or you can contact the store owner by <a href="%s">clicking here</a>.';
 $_['error_login'] = 'Warning: No match for E-Mail Address and/or Password.';
 $_['error_attempts'] = 'Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.';
@@ -106,3 +94,6 @@ $_['error_payment'] = 'Warning: Payment method required!';
 $_['error_no_payment'] = 'Warning: No Payment options are available. Please <a href="%s">contact us</a> for assistance!';
 $_['error_custom_field'] = '%s required!';
 $_['error_form'] = '<a href="/index.php?route=account/login">Register</a> or continue as guest.';
+$_['entry_company_id'] = 'Registration number';
+$_['error_minimum'] = 'Warning: Minimum order for %s is %s.';
+$_['error_custom_field_validate'] = '%s incorrect';
