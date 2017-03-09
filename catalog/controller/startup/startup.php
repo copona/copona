@@ -36,6 +36,11 @@ class ControllerStartupStartup extends Controller {
         $this->config->set('theme_name', !empty($this->config->get('theme_default_directory')) ? $this->config->get('theme_default_directory') : 'default');
         $this->config->set('theme_uri', DIR_TEMPLATE . $this->config->get('theme_name'));
 
+        //Theme settings override
+        if (file_exists($this->config->get('theme_uri') . '/functions.php')) {
+            require_once($this->config->get('theme_uri') . '/functions.php');
+        }
+
         // Language
         $code = '';
 
@@ -218,9 +223,6 @@ class ControllerStartupStartup extends Controller {
 
         // Encryption
         $this->registry->set('encryption', new Encryption($this->config->get('config_encryption')));
-
-        // OpenBay Pro
-        $this->registry->set('openbay', new Openbay($this->registry));
     }
 
 }

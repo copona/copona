@@ -238,7 +238,13 @@ class ModelCatalogCategory extends Model {
         $sql = "SELECT cp.category_id AS category_id, GROUP_CONCAT(cd1.name ORDER BY cp.level SEPARATOR '&nbsp;&nbsp;&gt;&nbsp;&nbsp;') AS name, c1.parent_id, c1.sort_order FROM " . DB_PREFIX . "category_path cp LEFT JOIN " . DB_PREFIX . "category c1 ON (cp.category_id = c1.category_id) LEFT JOIN " . DB_PREFIX . "category c2 ON (cp.path_id = c2.category_id) LEFT JOIN " . DB_PREFIX . "category_description cd1 ON (cp.path_id = cd1.category_id) LEFT JOIN " . DB_PREFIX . "category_description cd2 ON (cp.category_id = cd2.category_id) WHERE cd1.language_id = '" . (int)$this->config->get('config_language_id') . "' AND cd2.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_name'])) {
-            $sql .= " AND cd2.name LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+            $sql .= " AND (cd2.name LIKE '" . $this->db->escape($data['filter_name']) . "%' OR cd2.name LIKE '% " . $this->db->escape($data['filter_name']) . "%')";
+        }
+
+        if (!empty($data['filter_parent'])) {
+            $parents = $this->getCategories(array( 'filter_name' => $data['filter_parent'] ));
+            $parent_id = count($parents) === 1 ? $parents[0]['category_id'] : ( trim($data['filter_parent']) === trim($this->language->get('text_none')) ? 0 : -1 );
+            $sql .= " AND c1.parent_id = " . (int)($parent_id) . "";
         }
 
         $sql .= " GROUP BY cp.category_id";
@@ -337,8 +343,22 @@ class ModelCatalogCategory extends Model {
         return $category_layout_data;
     }
 
-    public function getTotalCategories() {
-        $query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "category");
+    public function getTotalCategories($data = array()) {
+        $sql = "SELECT COUNT(DISTINCT c.category_id) AS total FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id)";
+
+        $sql .= " WHERE cd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+        if (!empty($data['filter_name'])) {
+            $sql .= " AND cd.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+        }
+
+        if (!empty($data['filter_parent'])) {
+            $parents = $this->getCategories(array( 'filter_name' => $data['filter_parent'] ));
+            $parent_id = count($parents) === 1 ? $parents[0]['category_id'] : ( trim($data['filter_parent']) === trim($this->language->get('text_none')) ? 0 : -1 );
+            $sql .= " AND c.parent_id = " . (int)($parent_id) . "";
+        }
+
+        $query = $this->db->query($sql);
 
         return $query->row['total'];
     }

@@ -13,7 +13,9 @@
         </div>
     <?php } ?>
     <?php if ($error_warning) { ?>
-        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php // echo $error_warning;                                                                                                                                                                                                                                                   ?>
+
+        <?php // echo $error_warning;?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>
             <?php
             $i = 0;
             foreach ($error_warning as $val) {
@@ -30,7 +32,8 @@
         </div>
     <?php } ?>
     <div class="row">
-      <div id="content" class="content-cart"><?php //echo $content_top;                                                                                                                                                                                                                                                ?>
+        <?php //echo $content_top;?>
+      <div id="content" class="content-cart">
           <?= $cart; ?>
         <div class="onepage-checkout">
           <form action="<?php echo $action; ?>" class="form" method="post">
@@ -77,7 +80,7 @@
                       <legend><?= $text_shipping_address; ?></legend>
                       <?php $field = 'city'; ?>
                       <?php $field = 'address_1'; ?>
-                      <div class=" <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                      <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                         <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                           <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                           <input class="form-control" type="text" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -93,7 +96,7 @@
                       <div class="col-md-6">
 
                         <?php $field = 'firstname'; ?>
-                        <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                        <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                           <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                             <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                             <input class="form-control" type="text"   name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -102,7 +105,7 @@
                       </div>
                       <div class="col-md-6">
                           <?php $field = 'lastname'; ?>
-                        <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                        <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                           <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                             <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                             <input class="form-control" type="text"  name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -113,7 +116,7 @@
                     <div class="row">
                       <div class="col-md-6">
                           <?php $field = 'email'; ?>
-                        <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                        <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                           <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                             <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                             <input class="form-control" type="text"  name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -122,7 +125,7 @@
                       </div>
                       <div class="col-md-6">
                           <?php $field = 'telephone'; ?>
-                        <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                        <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                           <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                             <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                             <input class="form-control" type="text"  name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -153,19 +156,19 @@
                           ?>
                         <div class="col-md-12" >
                           <input type="radio" name="customer_group_id" value="1" id="customer_group_id1" <?= $customer_group_id == "1" ? 'checked="checked"' : '' ?> >
-                          <label for="customer_group_id1"><?= $customer_group_fiz_pers ?></label>
+                          <label for="customer_group_id1"><?= $text_customer_group_pers ?></label>
                           <br />
 
                           <div style="display:none">
                             <input type="radio" name="customer_group_id" value="2" id="customer_group_id2" <?= $customer_group_id == "2" ? 'checked="checked"' : '' ?> >
-                            <label for="customer_group_id2"><?= $customer_group_jur_pers; ?></label>
+                            <label for="customer_group_id2"><?= $text_customer_group_legal; ?></label>
                           </div>
                         </div>
 
                         <div id="legal_person_div" style="display: none;">
                           <div class="col-md-12">
                               <?php $field = 'company_name'; ?>
-                            <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                            <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                                 <input class="form-control" type="text"id="<?= $field; ?>"  name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -175,7 +178,7 @@
 
                           <div class="col-md-12">
                               <?php $field = 'reg_num'; ?>
-                            <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                            <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                                 <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -185,7 +188,7 @@
 
                           <div class="col-md-12">
                               <?php $field = 'vat_num'; ?>
-                            <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                            <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                                 <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -195,7 +198,7 @@
 
                           <div class="col-md-12">
                               <?php $field = 'bank_name'; ?>
-                            <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                            <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                                 <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -205,7 +208,7 @@
 
                           <div class="col-md-12">
                               <?php $field = 'bank_code'; ?>
-                            <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                            <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                                 <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -215,7 +218,7 @@
 
                           <div class="col-md-12">
                               <?php $field = 'bank_account'; ?>
-                            <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                            <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                                 <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
@@ -225,7 +228,7 @@
 
                           <div class="col-md-12">
                               <?php $field = 'address_2'; ?>
-                            <div  <?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
+                            <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
                                 <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />

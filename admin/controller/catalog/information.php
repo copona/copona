@@ -408,7 +408,7 @@ class ControllerCatalogInformation extends Controller {
             $data['sort_order'] = '';
         }
 
-// Image
+        // Image
 
         if (isset($this->request->post['image'])) {
             $data['image'] = $this->request->post['image'];
@@ -457,9 +457,6 @@ class ControllerCatalogInformation extends Controller {
             );
         }
 
-
-
-
         if (isset($this->request->post['information_layout'])) {
             $data['information_layout'] = $this->request->post['information_layout'];
         } elseif (isset($this->request->get['information_id'])) {
@@ -482,12 +479,6 @@ class ControllerCatalogInformation extends Controller {
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'catalog/information')) {
             $this->error['warning'] = $this->language->get('error_permission');
-        }
-
-        foreach ($this->request->post['information_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['title']) < 3) || (utf8_strlen($value['title']) > 64)) {
-                $this->error['title'][$language_id] = $this->language->get('error_title');
-            }
         }
 
         if (utf8_strlen($this->request->post['keyword']) > 0) {

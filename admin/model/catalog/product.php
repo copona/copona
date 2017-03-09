@@ -72,6 +72,12 @@ class ModelCatalogProduct extends Model {
             }
         }
 
+
+        $this->db->query("DELETE FROM " . DB_PREFIX . "content_meta WHERE content_type = 'product' AND content_id = '" . (int)$product_id . "'");
+        if (isset($data['content_meta'])) {
+            $this->db->query("INSERT INTO " . DB_PREFIX . "content_meta SET content_type = 'product', content_id = '" . (int)$product_id . "', value = '" . $this->db->escape(serialize($data['content_meta'])) . "'");
+        }
+
         if (isset($data['product_download'])) {
             foreach ($data['product_download'] as $download_id) {
                 $this->db->query("INSERT INTO " . DB_PREFIX . "product_to_download SET product_id = '" . (int)$product_id . "', download_id = '" . (int)$download_id . "'");
@@ -182,7 +188,7 @@ class ModelCatalogProduct extends Model {
     }
 
     public function editProduct($product_id, $data) {
-        //pr($data);
+
         $this->db->query("UPDATE " . DB_PREFIX . "product SET model = '" . $this->db->escape($data['model']) . "', sku = '" . $this->db->escape($data['sku']) . "', upc = '" . $this->db->escape($data['upc']) . "', ean = '" . $this->db->escape($data['ean']) . "', jan = '" . $this->db->escape($data['jan']) . "', isbn = '" . $this->db->escape($data['isbn']) . "', mpn = '" . $this->db->escape($data['mpn']) . "', location = '" . $this->db->escape($data['location']) . "', quantity = '" . (int)$data['quantity'] . "', minimum = '" . (int)$data['minimum'] . "', subtract = '" . (int)$data['subtract'] . "', stock_status_id = '" . (int)$data['stock_status_id'] . "', date_available = '" . $this->db->escape($data['date_available']) . "', manufacturer_id = '" . (int)$data['manufacturer_id'] . "', shipping = '" . (int)$data['shipping'] . "', price = '" . (float)$data['price'] . "', points = '" . (int)$data['points'] . "', weight = '" . (float)$data['weight'] . "', weight_class_id = '" . (int)$data['weight_class_id'] . "', length = '" . (float)$data['length'] . "', width = '" . (float)$data['width'] . "', height = '" . (float)$data['height'] . "', length_class_id = '" . (int)$data['length_class_id'] . "', status = '" . (int)$data['status'] . "', tax_class_id = '" . (int)$data['tax_class_id'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");
 
         if (isset($data['image'])) {
@@ -328,6 +334,14 @@ class ModelCatalogProduct extends Model {
             foreach ($data['product_image'] as $product_image) {
                 $this->db->query("INSERT INTO " . DB_PREFIX . "product_image SET product_id = '" . (int)$product_id . "', image = '" . $this->db->escape($product_image['image']) . "', sort_order = '" . (int)$product_image['sort_order'] . "'");
             }
+        }
+
+
+
+
+        $this->db->query("DELETE FROM " . DB_PREFIX . "content_meta WHERE content_type = 'product' AND content_id = '" . (int)$product_id . "'");
+        if (isset($data['content_meta'])) {
+            $this->db->query("INSERT INTO " . DB_PREFIX . "content_meta SET content_type = 'product', content_id = '" . (int)$product_id . "', value = '" . $this->db->escape(serialize($data['content_meta'])) . "'");
         }
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_to_download WHERE product_id = '" . (int)$product_id . "'");
@@ -537,9 +551,8 @@ class ModelCatalogProduct extends Model {
             $sql .= " AND p2p.product_group_id is null";
         }
 
-
-        if (isset($data['default_product']) && empty($data['filter_name'])) {
-            $sql .= " AND (p2p.default_id IS NULL OR p2p.default_id > 0  )";
+        if (isset($data['default_product']) && empty($data['filter_name']) && empty($data['filter_model'])) {
+            $sql .= " AND (p2p.default_id IS NULL OR p2p.default_id > 0 )";
         }
 
         if (isset($data['filter_image']) && !is_null($data['filter_image'])) {
@@ -584,7 +597,7 @@ class ModelCatalogProduct extends Model {
 
             $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
         }
-        //prd($sql);
+        //pr($sql);
         $query = $this->db->query($sql);
         //prd($query->rows);
         return $query->rows;
@@ -925,6 +938,18 @@ class ModelCatalogProduct extends Model {
             );
         }
         return $seo_keywords;
+    }
+
+    public function getContentMeta($product_id) {
+
+        $sql = "SELECT * from " . DB_PREFIX . "content_meta WHERE content_id='" . $product_id . "' AND content_type = 'product'";
+        $query = $this->db->query($sql);
+
+        if ($query->row) {
+            return unserialize($query->row['value']);
+        } else {
+            return array();
+        }
     }
 
 }
