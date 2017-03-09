@@ -222,6 +222,8 @@
                   <input type="text" name="sku" value="<?php echo $sku; ?>" placeholder="<?php echo $entry_sku; ?>" id="input-sku" class="form-control" />
                 </div>
               </div>
+              <?php } else { ?>
+                <input type="hidden" name="sku" value="<?php echo $sku; ?>" id="input-sku" class="form-control" />
               <?php } ?>
 
               <?php if($this->config->get('config_use_upc') ==1) { ?>
@@ -231,6 +233,8 @@
                   <input type="text" name="upc" value="<?php echo $upc; ?>" placeholder="<?php echo $entry_upc; ?>" id="input-upc" class="form-control" />
                 </div>
               </div>
+              <?php } else { ?>
+                <input type="hidden" name="upc" value="<?php echo $upc; ?>" id="input-upc" class="form-control" />
               <?php } ?>
 
               <?php if($this->config->get('config_use_ean') ==1) { ?>
@@ -240,6 +244,8 @@
                   <input type="text" name="ean" value="<?php echo $ean; ?>" placeholder="<?php echo $entry_ean; ?>" id="input-ean" class="form-control" />
                 </div>
               </div>
+              <?php } else { ?>
+                <input type="hidden" name="ean" value="<?php echo $ean; ?>" id="input-ean" class="form-control" />
               <?php } ?>
 
               <?php if($this->config->get('config_use_jan') ==1) { ?>
@@ -249,6 +255,8 @@
                   <input type="text" name="jan" value="<?php echo $jan; ?>" placeholder="<?php echo $entry_jan; ?>" id="input-jan" class="form-control" />
                 </div>
               </div>
+              <?php } else { ?>
+                <input type="hidden" name="jan" value="<?php echo $jan; ?>" id="input-jan" class="form-control" />
               <?php } ?>
 
               <?php if($this->config->get('config_use_isbn') ==1) { ?>
@@ -258,6 +266,8 @@
                   <input type="text" name="isbn" value="<?php echo $isbn; ?>" placeholder="<?php echo $entry_isbn; ?>" id="input-isbn" class="form-control" />
                 </div>
               </div>
+              <?php } else { ?>
+                <input type="hidden" name="isbn" value="<?php echo $isbn; ?>" id="input-isbn" class="form-control" />
               <?php } ?>
 
               <?php if($this->config->get('config_use_mpn') ==1) { ?>
@@ -267,8 +277,10 @@
                   <input type="text" name="mpn" value="<?php echo $mpn; ?>" placeholder="<?php echo $entry_mpn; ?>" id="input-mpn" class="form-control" />
                 </div>
               </div>
+              <?php } else { ?>
+                <input type="hidden" name="mpn" value="<?php echo $mpn; ?>" id="input-mpn" class="form-control" />
               <?php } ?>
-              
+
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-location"><?php echo $entry_location; ?></label>
                 <div class="col-sm-10">
