@@ -362,6 +362,146 @@
                   </div>
                 </div>
               </fieldset>
+
+              <fieldset>
+                <legend><?php echo $text_part_numbers; ?></legend>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_product_count; ?>"><?php echo $entry_sku; ?></span></label>
+                  <div class="col-sm-10">
+                    <label class="radio-inline">
+                      <?php if ($config_use_sku) { ?>
+                      <input type="radio" name="config_use_sku" value="1" checked="checked" />
+                      <?php echo $text_yes; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_sku" value="1" />
+                      <?php echo $text_yes; ?>
+                      <?php } ?>
+                    </label>
+                    <label class="radio-inline">
+                      <?php if (!$config_use_sku) { ?>
+                      <input type="radio" name="config_use_sku" value="0" checked="checked" />
+                      <?php echo $text_no; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_sku" value="0" />
+                      <?php echo $text_no; ?>
+                      <?php } ?>
+                    </label>
+                  </div>
+
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_product_count; ?>"><?php echo $entry_upc; ?></span></label>
+                  <div class="col-sm-10">
+                    <label class="radio-inline">
+                      <?php if ($config_use_upc) { ?>
+                      <input type="radio" name="config_use_upc" value="1" checked="checked" />
+                      <?php echo $text_yes; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_upc" value="1" />
+                      <?php echo $text_yes; ?>
+                      <?php } ?>
+                    </label>
+                    <label class="radio-inline">
+                      <?php if (!$config_use_upc) { ?>
+                      <input type="radio" name="config_use_upc" value="0" checked="checked" />
+                      <?php echo $text_no; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_upc" value="0" />
+                      <?php echo $text_no; ?>
+                      <?php } ?>
+                    </label>
+                  </div>
+
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_product_count; ?>"><?php echo $entry_ean; ?></span></label>
+                  <div class="col-sm-10">
+                    <label class="radio-inline">
+                      <?php if ($config_use_ean) { ?>
+                      <input type="radio" name="config_use_ean" value="1" checked="checked" />
+                      <?php echo $text_yes; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_ean" value="1" />
+                      <?php echo $text_yes; ?>
+                      <?php } ?>
+                    </label>
+                    <label class="radio-inline">
+                      <?php if (!$config_use_ean) { ?>
+                      <input type="radio" name="config_use_ean" value="0" checked="checked" />
+                      <?php echo $text_no; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_ean" value="0" />
+                      <?php echo $text_no; ?>
+                      <?php } ?>
+                    </label>
+                  </div>
+
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_product_count; ?>"><?php echo $entry_jan; ?></span></label>
+                  <div class="col-sm-10">
+                    <label class="radio-inline">
+                      <?php if ($config_use_jan) { ?>
+                      <input type="radio" name="config_use_jan" value="1" checked="checked" />
+                      <?php echo $text_yes; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_jan" value="1" />
+                      <?php echo $text_yes; ?>
+                      <?php } ?>
+                    </label>
+                    <label class="radio-inline">
+                      <?php if (!$config_use_jan) { ?>
+                      <input type="radio" name="config_use_jan" value="0" checked="checked" />
+                      <?php echo $text_no; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_jan" value="0" />
+                      <?php echo $text_no; ?>
+                      <?php } ?>
+                    </label>
+                  </div>
+
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_product_count; ?>"><?php echo $entry_isbn; ?></span></label>
+                  <div class="col-sm-10">
+                    <label class="radio-inline">
+                      <?php if ($config_use_isbn) { ?>
+                      <input type="radio" name="config_use_isbn" value="1" checked="checked" />
+                      <?php echo $text_yes; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_isbn" value="1" />
+                      <?php echo $text_yes; ?>
+                      <?php } ?>
+                    </label>
+                    <label class="radio-inline">
+                      <?php if (!$config_use_isbn) { ?>
+                      <input type="radio" name="config_use_isbn" value="0" checked="checked" />
+                      <?php echo $text_no; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_isbn" value="0" />
+                      <?php echo $text_no; ?>
+                      <?php } ?>
+                    </label>
+                  </div>
+
+
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_product_count; ?>"><?php echo $entry_mpn; ?></span></label>
+                  <div class="col-sm-10">
+                    <label class="radio-inline">
+                      <?php if ($config_use_mpn) { ?>
+                      <input type="radio" name="config_use_mpn" value="1" checked="checked" />
+                      <?php echo $text_yes; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_mpn" value="1" />
+                      <?php echo $text_yes; ?>
+                      <?php } ?>
+                    </label>
+                    <label class="radio-inline">
+                      <?php if (!$config_use_mpn) { ?>
+                      <input type="radio" name="config_use_mpn" value="0" checked="checked" />
+                      <?php echo $text_no; ?>
+                      <?php } else { ?>
+                      <input type="radio" name="config_use_mpn" value="0" />
+                      <?php echo $text_no; ?>
+                      <?php } ?>
+                    </label>
+                  </div>
+                </div>
+
+              </fieldset>
+
               <fieldset>
                 <legend><?php echo $text_review; ?></legend>
                 <div class="form-group">
