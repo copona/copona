@@ -276,6 +276,8 @@ class ControllerCatalogOption extends Controller {
         $data['text_time'] = $this->language->get('text_time');
 
         $data['entry_name'] = $this->language->get('entry_name');
+        $data['entry_display'] = $this->language->get('entry_display');
+        $data['entry_display_placeholder'] = $this->language->get('entry_display_placeholder');
         $data['entry_type'] = $this->language->get('entry_type');
         $data['entry_option_value'] = $this->language->get('entry_option_value');
         $data['entry_image'] = $this->language->get('entry_image');

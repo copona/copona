@@ -7,7 +7,6 @@ $_['text_step_3']            = 'Enter your database and administration details';
 $_['text_db_connection']     = '1. Please enter your database connection details.';
 $_['text_db_administration'] = '2. Please enter a username and password for the administration.';
 $_['text_mysqli']            = 'MySQLi';
-$_['text_mysql']             = 'MySQL';
 $_['text_mpdo']              = 'mPDO';
 
 // Entry
@@ -21,6 +20,17 @@ $_['entry_db_prefix']        = 'Prefix';
 $_['entry_username']         = 'Username';
 $_['entry_password']         = 'Password';
 $_['entry_email']            = 'E-Mail';
+
+// Placeholder
+$_['placeholder_db_hostname'] = 'Typically 127.0.0.1 or localhost';
+$_['placeholder_db_username'] = '';
+$_['placeholder_db_password'] = '';
+$_['placeholder_db_database'] = '';
+$_['placeholder_db_port']     = '';
+$_['placeholder_db_prefix']   = '';
+$_['placeholder_username']    = '';
+$_['placeholder_password']    = '';
+$_['placeholder_email']       = '';
 
 // Error
 $_['error_db_hostname']      = 'Hostname required!';

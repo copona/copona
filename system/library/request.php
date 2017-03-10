@@ -14,6 +14,79 @@ class Request {
         $this->files = $this->clean($_FILES);
         $this->server = $this->clean($_SERVER);
     }
+    
+    public function paramsToStr( $entries, $from = "get" ){
+        if( is_string( $entries ) ){
+            
+            $entries = preg_replace("#[\/\;\,]#", " ", $entries);
+            $entries = explode(" ", $entries);
+            
+            if( is_string( $entries ) )
+                $entries = array( $entries );
+        }
+        
+        $str = "";
+        $method = $from ."ParamToStr";
+        foreach( $entries as $entry ){
+            
+            if( $from == "both" ){
+                
+                $str .= $this->getParamToStr( $entry );
+                $str .= $this->postParamToStr( $entry );
+                
+            }else $str .= $this->$method( $entry );
+        }
+        return $str;
+    }
+    
+    public function getParamToStr( $entry ){
+        if ( isset( $this->get[ $entry ] ) ) {
+            return '&'. $entry .'='. $this->get[ $entry ];
+        }else return "";
+    }
+    
+    public function postParamToStr( $entry ){
+        if( isset( $this->post[ $entry ] ) ) {
+            return '&'. $entry .'='. $this->post[ $entry ];
+        }else return "";
+    }
+    
+    public function params( $entries, $from = "get" ) {
+        if( is_string( $entries ) ){
+            
+            $entries = preg_replace("#[\/\;\,]#", " ", $entries);
+            $entries = explode(" ", $entries);
+            
+            if( is_string( $entries ) )
+                $entries = array( $entries );
+        }
+        $data = array();
+        $method = $from ."Param";
+        foreach( $entries as $entry ){
+            
+            if( $from == "both" ){
+                
+                $data[ $entry ] = $this->getParam( $entry );
+                if( empty( $data[ $entry ] ) )
+                    $data[ $entry ] = $this->postParam( $entry );
+                
+            }else $data[ $entry ] = $this->$method( $entry );
+            
+        }
+		return $data;
+    }
+    
+    public function getParam( $entry ){
+        if ( isset( $this->get[ $entry ] ) ) {
+            return $this->get[ $entry ];
+        }
+    }
+    
+    public function postParam( $entry ){
+        if( isset( $this->post[ $entry ] ) ) {
+            return $this->post[ $entry ];
+        }
+    }
 
     public function clean($data) {
         if (is_array($data)) {

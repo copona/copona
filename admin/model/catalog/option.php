@@ -7,7 +7,7 @@ class ModelCatalogOption extends Model {
         $option_id = $this->db->getLastId();
 
         foreach ($data['option_description'] as $language_id => $value) {
-            $this->db->query("INSERT INTO " . DB_PREFIX . "option_description SET option_id = '" . (int)$option_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
+            $this->db->query("INSERT INTO " . DB_PREFIX . "option_description SET option_id = '" . (int)$option_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', display = '" . $this->db->escape($value['display']) . "'");
         }
 
         if (isset($data['option_value'])) {
@@ -31,7 +31,7 @@ class ModelCatalogOption extends Model {
         $this->db->query("DELETE FROM " . DB_PREFIX . "option_description WHERE option_id = '" . (int)$option_id . "'");
 
         foreach ($data['option_description'] as $language_id => $value) {
-            $this->db->query("INSERT INTO " . DB_PREFIX . "option_description SET option_id = '" . (int)$option_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
+            $this->db->query("INSERT INTO " . DB_PREFIX . "option_description SET option_id = '" . (int)$option_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', display = '" . $this->db->escape($value['display']) . "'");
         }
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "option_value WHERE option_id = '" . (int)$option_id . "'");
@@ -118,7 +118,7 @@ class ModelCatalogOption extends Model {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_description WHERE option_id = '" . (int)$option_id . "'");
 
         foreach ($query->rows as $result) {
-            $option_data[$result['language_id']] = array( 'name' => $result['name'] );
+            $option_data[$result['language_id']] = array( 'name' => $result['name'], 'display' =>$result['display'] );
         }
 
         return $option_data;

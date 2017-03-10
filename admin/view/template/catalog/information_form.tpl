@@ -7,17 +7,17 @@
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-          <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+          <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
         <?php } ?>
       </ul>
     </div>
   </div>
   <div class="container-fluid">
-    <?php if ($error_warning) { ?>
-      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-      </div>
+      <?php if ($error_warning) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -34,53 +34,69 @@
           <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
               <ul class="nav nav-tabs lng-image" id="language">
-                <?php foreach ($languages as $language) { ?>
-                  <li><a href="#language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>
+                  <?php foreach ($languages as $language) { ?>
+                    <li><a href="#language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>
                 <?php } ?>
               </ul>
               <div class="tab-content">
-                <?php foreach ($languages as $language) { ?>
-                  <div class="tab-pane" id="language<?php echo $language['language_id']; ?>">
-                    <div class="form-group required">
-                      <label class="col-sm-2 control-label" for="input-title<?php echo $language['language_id']; ?>"><?php echo $entry_title; ?></label>
-                      <div class="col-sm-10">
-                        <input type="text" name="information_description[<?php echo $language['language_id']; ?>][title]" value="<?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['title'] : ''; ?>" placeholder="<?php echo $entry_title; ?>" id="input-title<?php echo $language['language_id']; ?>" class="form-control" />
-                        <?php if (isset($error_title[$language['language_id']])) { ?>
-                          <div class="text-danger"><?php echo $error_title[$language['language_id']]; ?></div>
-                        <?php } ?>
+                  <?php foreach ($languages as $language) { ?>
+                    <div class="tab-pane" id="language<?php echo $language['language_id']; ?>">
+                      <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-title<?php echo $language['language_id']; ?>"><?php echo $entry_title; ?></label>
+                        <div class="col-sm-10">
+                          <input type="text" name="information_description[<?php echo $language['language_id']; ?>][title]" value="<?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['title'] : ''; ?>" placeholder="<?php echo $entry_title; ?>" id="input-title<?php echo $language['language_id']; ?>" class="form-control" />
+                          <?php if (isset($error_title[$language['language_id']])) { ?>
+                              <div class="text-danger"><?php echo $error_title[$language['language_id']]; ?></div>
+                          <?php } ?>
+                        </div>
+                      </div>
+
+                      <div class="form-group required">
+
+                        <label class="col-sm-2 control-label" for="input-title<?php echo $language['language_id']; ?>">
+                          <span data-toggle="tooltip" title="<?php echo $help_external_link; ?>"><?php echo $label_external_link; ?></span>
+                        </label>
+
+
+                        <div class="col-sm-10">
+                          <input type="text" name="information_description[<?php echo $language['language_id']; ?>][external_link]" value="<?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['external_link'] : ''; ?>" placeholder="<?php echo $entry_external_link; ?>" id="input-external_link<?php echo $language['language_id']; ?>" class="form-control" />
+                          <?php if (isset($error_title[$language['language_id']])) { ?>
+                              <div class="text-danger"><?php echo $error_title[$language['language_id']]; ?></div>
+                          <?php } ?>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-description<?php echo $language['language_id']; ?>"><?php echo $entry_description; ?></label>
+                        <div class="col-sm-10">
+                          <textarea name="information_description[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="ck-full form-control"><?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['description'] : ''; ?></textarea>
+                          <?php if (isset($error_description[$language['language_id']])) { ?>
+                              <div class="text-danger"><?php echo $error_description[$language['language_id']]; ?></div>
+                          <?php } ?>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-meta-title<?php echo $language['language_id']; ?>"><?php echo $entry_meta_title; ?></label>
+                        <div class="col-sm-10">
+                          <input type="text" name="information_description[<?php echo $language['language_id']; ?>][meta_title]" value="<?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['meta_title'] : ''; ?>" placeholder="<?php echo $entry_meta_title; ?>" id="input-meta-title<?php echo $language['language_id']; ?>" class="form-control" />
+                          <?php if (isset($error_meta_title[$language['language_id']])) { ?>
+                              <div class="text-danger"><?php echo $error_meta_title[$language['language_id']]; ?></div>
+                          <?php } ?>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-meta-description<?php echo $language['language_id']; ?>"><?php echo $entry_meta_description; ?></label>
+                        <div class="col-sm-10">
+                          <textarea name="information_description[<?php echo $language['language_id']; ?>][meta_description]" rows="5" placeholder="<?php echo $entry_meta_description; ?>" id="input-meta-description<?php echo $language['language_id']; ?>" class="form-control"><?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['meta_description'] : ''; ?></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-meta-keyword<?php echo $language['language_id']; ?>"><?php echo $entry_meta_keyword; ?></label>
+                        <div class="col-sm-10">
+                          <textarea name="information_description[<?php echo $language['language_id']; ?>][meta_keyword]" rows="5" placeholder="<?php echo $entry_meta_keyword; ?>" id="input-meta-keyword<?php echo $language['language_id']; ?>" class="form-control"><?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['meta_keyword'] : ''; ?></textarea>
+                        </div>
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label" for="input-description<?php echo $language['language_id']; ?>"><?php echo $entry_description; ?></label>
-                      <div class="col-sm-10">
-                        <textarea name="information_description[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="ck-full form-control"><?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['description'] : ''; ?></textarea>
-                        <?php if (isset($error_description[$language['language_id']])) { ?>
-                          <div class="text-danger"><?php echo $error_description[$language['language_id']]; ?></div>
-                        <?php } ?>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label" for="input-meta-title<?php echo $language['language_id']; ?>"><?php echo $entry_meta_title; ?></label>
-                      <div class="col-sm-10">
-                        <input type="text" name="information_description[<?php echo $language['language_id']; ?>][meta_title]" value="<?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['meta_title'] : ''; ?>" placeholder="<?php echo $entry_meta_title; ?>" id="input-meta-title<?php echo $language['language_id']; ?>" class="form-control" />
-                        <?php if (isset($error_meta_title[$language['language_id']])) { ?>
-                          <div class="text-danger"><?php echo $error_meta_title[$language['language_id']]; ?></div>
-                        <?php } ?>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label" for="input-meta-description<?php echo $language['language_id']; ?>"><?php echo $entry_meta_description; ?></label>
-                      <div class="col-sm-10">
-                        <textarea name="information_description[<?php echo $language['language_id']; ?>][meta_description]" rows="5" placeholder="<?php echo $entry_meta_description; ?>" id="input-meta-description<?php echo $language['language_id']; ?>" class="form-control"><?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['meta_description'] : ''; ?></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label" for="input-meta-keyword<?php echo $language['language_id']; ?>"><?php echo $entry_meta_keyword; ?></label>
-                      <div class="col-sm-10">
-                        <textarea name="information_description[<?php echo $language['language_id']; ?>][meta_keyword]" rows="5" placeholder="<?php echo $entry_meta_keyword; ?>" id="input-meta-keyword<?php echo $language['language_id']; ?>" class="form-control"><?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['meta_keyword'] : ''; ?></textarea>
-                      </div>
-                    </div>
-                  </div>
                 <?php } ?>
               </div>
             </div>
@@ -91,37 +107,41 @@
                   <div class="well well-sm" style="height: 150px; overflow: auto;">
                     <div class="checkbox">
                       <label>
-                        <?php if (in_array(0, $information_store)) { ?>
-                          <input type="checkbox" name="information_store[]" value="0" checked="checked" />
-                          <?php echo $text_default; ?>
+                          <?php if (in_array(0, $information_store)) { ?>
+                            <input type="checkbox" name="information_store[]" value="0" checked="checked" />
+                            <?php echo $text_default; ?>
                         <?php } else { ?>
-                          <input type="checkbox" name="information_store[]" value="0" />
-                          <?php echo $text_default; ?>
+                            <input type="checkbox" name="information_store[]" value="0" />
+                            <?php echo $text_default; ?>
                         <?php } ?>
                       </label>
                     </div>
                     <?php foreach ($stores as $store) { ?>
-                      <div class="checkbox">
-                        <label>
-                          <?php if (in_array($store['store_id'], $information_store)) { ?>
-                            <input type="checkbox" name="information_store[]" value="<?php echo $store['store_id']; ?>" checked="checked" />
-                            <?php echo $store['name']; ?>
-                          <?php } else { ?>
-                            <input type="checkbox" name="information_store[]" value="<?php echo $store['store_id']; ?>" />
-                            <?php echo $store['name']; ?>
-                          <?php } ?>
-                        </label>
-                      </div>
+                        <div class="checkbox">
+                          <label>
+                              <?php if (in_array($store['store_id'], $information_store)) { ?>
+                                <input type="checkbox" name="information_store[]" value="<?php echo $store['store_id']; ?>" checked="checked" />
+                                <?php echo $store['name']; ?>
+                            <?php } else { ?>
+                                <input type="checkbox" name="information_store[]" value="<?php echo $store['store_id']; ?>" />
+                                <?php echo $store['name']; ?>
+                            <?php } ?>
+                          </label>
+                        </div>
                     <?php } ?>
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_multi_seo_keyword; ?></span></label>
-                <div class="col-sm-3">
-                  <?php foreach ($languages as $language) { ?>
-                    <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
-                    <input type="text" name="seo_keyword[<?= $language['language_id'] ?>]" value="<?php echo (isset($seo_keywords[$language['language_id']]) ? $seo_keywords[$language['language_id']] : "" ) ?>" placeholder="<?php echo $entry_multi_seo_keyword; ?>" id="input-multi-seo-keyword" class="form-control" />
+                <div class="col-sm-10">
+                    <?php foreach ($languages as $language) { ?>
+                      <div class="input-group">
+                        <span class="input-group-addon lng-image">
+                          <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
+                        </span>
+                        <input type="text" name="seo_keyword[<?= $language['language_id'] ?>]" value="<?php echo (isset($seo_keywords[$language['language_id']]) ? $seo_keywords[$language['language_id']] : "" ) ?>" placeholder="<?php echo $entry_multi_seo_keyword; ?>" id="input-multi-seo-keyword" class="form-control" />
+                      </div>
                   <?php } ?>
                 </div>
               </div>
@@ -130,7 +150,7 @@
                 <div class="col-sm-10">
                   <input type="text" name="keyword" value="<?php echo $keyword; ?>" placeholder="<?php echo $entry_keyword; ?>" id="input-keyword" class="form-control" />
                   <?php if ($error_keyword) { ?>
-                    <div class="text-danger"><?php echo $error_keyword; ?></div>
+                      <div class="text-danger"><?php echo $error_keyword; ?></div>
                   <?php } ?>
                 </div>
               </div>
@@ -139,10 +159,10 @@
                 <div class="col-sm-10">
                   <div class="checkbox">
                     <label>
-                      <?php if ($top) { ?>
-                        <input type="checkbox" name="top" value="1" checked="checked" id="input-top" />
+                        <?php if ($top) { ?>
+                          <input type="checkbox" name="top" value="1" checked="checked" id="input-top" />
                       <?php } else { ?>
-                        <input type="checkbox" name="top" value="1" id="input-top" />
+                          <input type="checkbox" name="top" value="1" id="input-top" />
                       <?php } ?>
                       &nbsp; </label>
                   </div>
@@ -153,10 +173,10 @@
                 <div class="col-sm-10">
                   <div class="checkbox">
                     <label>
-                      <?php if ($bottom) { ?>
-                        <input type="checkbox" name="bottom" value="1" checked="checked" id="input-bottom" />
+                        <?php if ($bottom) { ?>
+                          <input type="checkbox" name="bottom" value="1" checked="checked" id="input-bottom" />
                       <?php } else { ?>
-                        <input type="checkbox" name="bottom" value="1" id="input-bottom" />
+                          <input type="checkbox" name="bottom" value="1" id="input-bottom" />
                       <?php } ?>
                       &nbsp; </label>
                   </div>
@@ -167,12 +187,12 @@
                 <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
                 <div class="col-sm-10">
                   <select name="status" id="input-status" class="form-control">
-                    <?php if ($status) { ?>
-                      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                      <option value="0"><?php echo $text_disabled; ?></option>
+                      <?php if ($status) { ?>
+                        <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                        <option value="0"><?php echo $text_disabled; ?></option>
                     <?php } else { ?>
-                      <option value="1"><?php echo $text_enabled; ?></option>
-                      <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                        <option value="1"><?php echo $text_enabled; ?></option>
+                        <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
                     <?php } ?>
                   </select>
                 </div>
@@ -210,14 +230,14 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $image_row = 0; ?>
-                    <?php foreach ($information_images as $information_image) { ?>
-                      <tr id="image-row<?php echo $image_row; ?>">
-                        <td class="text-left"><a href="" id="thumb-image<?php echo $image_row; ?>" data-toggle="image" cla ss="img-thumbnail"><img src="<?php echo $information_image['thumb']; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="information_image[<?php echo $image_row; ?>][image]" value="<?php echo $information_image['image']; ?>" id="input-image<?php echo $image_row; ?>" /></td>
-                        <td class="text-right"><input type="text" name="information_image[<?php echo $image_row; ?>][sort_order]" value="<?php echo $information_image['sort_order']; ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
-                        <td class="text-left"><button type="button" onclick="$('#image-row<?php echo $image_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
-                      </tr>
-                      <?php $image_row++; ?>
+                      <?php $image_row = 0; ?>
+                      <?php foreach ($information_images as $information_image) { ?>
+                        <tr id="image-row<?php echo $image_row; ?>">
+                          <td class="text-left"><a href="" id="thumb-image<?php echo $image_row; ?>" data-toggle="image" cla ss="img-thumbnail"><img src="<?php echo $information_image['thumb']; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="information_image[<?php echo $image_row; ?>][image]" value="<?php echo $information_image['image']; ?>" id="input-image<?php echo $image_row; ?>" /></td>
+                          <td class="text-right"><input type="text" name="information_image[<?php echo $image_row; ?>][sort_order]" value="<?php echo $information_image['sort_order']; ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
+                          <td class="text-left"><button type="button" onclick="$('#image-row<?php echo $image_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                        </tr>
+                        <?php $image_row++; ?>
                     <?php } ?>
                   </tbody>
                   <tfoot>
@@ -244,28 +264,28 @@
                       <td class="text-left"><select name="information_layout[0]" class="form-control">
                           <option value=""></option>
                           <?php foreach ($layouts as $layout) { ?>
-                            <?php if (isset($information_layout[0]) && $information_layout[0] == $layout['layout_id']) { ?>
-                              <option value="<?php echo $layout['layout_id']; ?>" selected="selected"> <?php echo $layout['name']; ?></option>
-                            <?php } else { ?>
-                              <option value="<?php echo $layout['layout_id']; ?>"><?php echo $layout['name']; ?></option>
-                            <?php } ?>
+                              <?php if (isset($information_layout[0]) && $information_layout[0] == $layout['layout_id']) { ?>
+                                  <option value="<?php echo $layout['layout_id']; ?>" selected="selected"> <?php echo $layout['name']; ?></option>
+                              <?php } else { ?>
+                                  <option value="<?php echo $layout['layout_id']; ?>"><?php echo $layout['name']; ?></option>
+                              <?php } ?>
                           <?php } ?>
                         </select></td>
                     </tr>
                     <?php foreach ($stores as $store) { ?>
-                      <tr>
-                        <td class="text-left"><?php echo $store['name']; ?></td>
-                        <td class="text-left"><select name="information_layout[<?php echo $store['store_id']; ?>]" class="form-control">
-                            <option value=""></option>
-                            <?php foreach ($layouts as $layout) { ?>
-                              <?php if (isset($information_layout[$store['store_id']]) && $information_layout[$store['store_id']] == $layout['layout_id']) { ?>
-                                <option value="<?php echo $layout['layout_id']; ?>" selected="selected"><?php echo $layout['name']; ?></option>
-                              <?php } else { ?>
-                                <option value="<?php echo $layout['layout_id']; ?>"><?php echo $layout['name']; ?></option>
+                        <tr>
+                          <td class="text-left"><?php echo $store['name']; ?></td>
+                          <td class="text-left"><select name="information_layout[<?php echo $store['store_id']; ?>]" class="form-control">
+                              <option value=""></option>
+                              <?php foreach ($layouts as $layout) { ?>
+                                  <?php if (isset($information_layout[$store['store_id']]) && $information_layout[$store['store_id']] == $layout['layout_id']) { ?>
+                                      <option value="<?php echo $layout['layout_id']; ?>" selected="selected"><?php echo $layout['name']; ?></option>
+                                  <?php } else { ?>
+                                      <option value="<?php echo $layout['layout_id']; ?>"><?php echo $layout['name']; ?></option>
+                                  <?php } ?>
                               <?php } ?>
-                            <?php } ?>
-                          </select></td>
-                      </tr>
+                            </select></td>
+                        </tr>
                     <?php } ?>
                   </tbody>
                 </table>

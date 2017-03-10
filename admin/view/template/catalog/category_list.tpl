@@ -29,6 +29,23 @@
         <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_list; ?></h3>
       </div>
       <div class="panel-body">
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label" for="input-name"><?php echo $entry_name; ?></label>
+                <input type="text" name="filter_name" value="<?php echo $filter_name; ?>" placeholder="<?php echo $entry_name; ?>" id="input-name" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label" for="input-parent-id"><?php echo $entry_parent; ?></label>
+                <input type="text" name="filter_parent" value="<?php echo $filter_parent; ?>" placeholder="<?php echo $entry_parent; ?>" id="input-name" class="form-control" />
+              </div>
+              <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-search"></i> <?php echo $button_filter; ?></button>
+            </div>
+          </div>
+        </div>
         <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form-category">
           <div class="table-responsive">
             <table class="table table-bordered table-hover">
@@ -79,4 +96,76 @@
     </div>
   </div>
 </div>
+<script type="text/javascript"><!--
+$('#button-filter').on('click', function () {
+        var url = '?route=catalog/category&token=<?= $token; ?>&';
+
+        var filter_name = $('input[name=\'filter_name\']').val();
+
+        if (filter_name) {
+            url += '&filter_name=' + encodeURIComponent(filter_name);
+        }
+
+        var filter_parent = $('input[name=\'filter_parent\']').val();
+
+        if (filter_parent) {
+            url += '&filter_parent=' + encodeURIComponent(filter_parent);
+        }
+
+        location = url;
+    });
+//--></script>
+<script type="text/javascript"><!--
+
+// Category's name
+    $('input[name=\'filter_name\']').autocomplete({
+        'source': function (request, response) {
+            $.ajax({
+                url: '?route=catalog/category/autocomplete&token=<?= $token ?>&filter_name=' + encodeURIComponent(request),
+                dataType: 'json',
+                success: function (json) {
+                    response($.map(json, function (item) {
+                        return {
+                            label: item['name'],
+                            value: item['category_id']
+                        }
+                    }));
+                }
+            });
+        },
+        'select': function (item) {
+            var parts = item['label'].split('>');
+            $('input[name=\'filter_name\']').val(parts[parts.length - 1].trim());
+        }
+    });
+
+// Category's parent
+    $('input[name=\'filter_parent\']').autocomplete({
+        'source': function (request, response) {
+            $.ajax({
+                url: '?route=catalog/category/autocomplete&token=<?= $token ?>&filter_name=' + encodeURIComponent(request),
+                dataType: 'json',
+                success: function (json) {
+                    json.unshift({
+                        category_id: 0,
+                        name: '<?php echo $text_none; ?>'
+                    });
+
+                    response($.map(json, function (item) {
+                        return {
+                            label: item['name'],
+                            value: item['category_id']
+                        }
+                    }));
+                }
+            });
+        },
+        'select': function (item) {
+            var parts = item['label'].split('>');
+            $('input[name=\'filter_parent\']').val(parts[parts.length - 1].trim());
+        }
+    });
+
+//--></script>
+
 <?php echo $footer; ?>

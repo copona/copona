@@ -8,17 +8,15 @@ class ControllerInstallStep3 extends Controller {
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->load->model('install/install');
 
-			$this->model_install_install->database($this->request->post);
-
-            $http_server = 'http://' . $_SERVER['SERVER_NAME'] . '/';
-            $https_server = 'https://' . $_SERVER['SERVER_NAME'] . '/';
+            $http_server = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+            $https_server = 'https://' . $_SERVER['HTTP_HOST'] . '/';
 
 			$output = '<?php' . "\n";
 			$output .= '// HTTP' . "\n";
 			$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . '\');' . "\n\n";
 
 			$output .= '// HTTPS' . "\n";
-			$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . '/\');' . "\n\n";
+			$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . '\');' . "\n\n";
 
 			$output .= '// DIR' . "\n";
 			$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'catalog/\');' . "\n";
@@ -43,7 +41,13 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_PASSWORD\', \'' . addslashes(html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8')) . '\');' . "\n";
 			$output .= 'define(\'DB_DATABASE\', \'' . addslashes($this->request->post['db_database']) . '\');' . "\n";
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
-			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n";
+			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n\n";
+
+            $output .= '// DEBUGGING' . "\n";
+            $output .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
+            $output .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
+            $output .= '// This directory should NOT be readable by the world!' . "\n";
+            $output .= 'define(\'MODE\', \'production\');' . "\n";
 
 			if (!file_exists(DIR_OPENCART . 'config.php')) {
 				touch(DIR_OPENCART . 'config.php');
@@ -57,12 +61,12 @@ class ControllerInstallStep3 extends Controller {
 
 			$output = '<?php' . "\n";
 			$output .= '// HTTP' . "\n";
-			$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . '/admin/\');' . "\n";
+			$output .= 'define(\'HTTP_SERVER\', \'' . $http_server . 'admin/\');' . "\n";
 			$output .= 'define(\'HTTP_CATALOG\', \'' . $http_server . '\');' . "\n\n";
 
 			$output .= '// HTTPS' . "\n";
 			$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . 'admin/\');' . "\n";
-			$output .= 'define(\'HTTPS_CATALOG\', \'' . $https_server . '/\');' . "\n\n";
+			$output .= 'define(\'HTTPS_CATALOG\', \'' . $https_server . '\');' . "\n\n";
 
 			$output .= '// DIR' . "\n";
 			$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'admin/\');' . "\n";
@@ -88,7 +92,13 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_PASSWORD\', \'' . addslashes(html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8')) . '\');' . "\n";
 			$output .= 'define(\'DB_DATABASE\', \'' . addslashes($this->request->post['db_database']) . '\');' . "\n";
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
-			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n";
+			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n\n";
+
+            $output .= '// DEBUGGING' . "\n";
+            $output .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
+            $output .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
+            $output .= '// This directory should NOT be readable by the world!' . "\n";
+            $output .= 'define(\'MODE\', \'production\');' . "\n";
 
 			if (!file_exists(DIR_OPENCART . 'admin/config.php')) {
 				touch(DIR_OPENCART . 'admin/config.php');
@@ -100,7 +110,93 @@ class ControllerInstallStep3 extends Controller {
 
 			fclose($file);
 
-			$this->response->redirect($this->url->link('install/step_4'));
+            /* create .htaccess file */
+
+            /* check if mod_rewrite is enabled - checking phpinfo rather than apache_get_modules for greater compatibility */
+
+            ob_start();
+            phpinfo();
+            $phpinfo = ob_get_contents();
+            ob_end_clean();
+
+            $rewrite = strpos($phpinfo, "mod_rewrite");
+
+            if(strstr(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache') && $rewrite && !file_exists(DIR_OPENCART . '.htaccess')) {
+
+
+                $output = "# 1.To use URL Alias you need to be running apache with mod_rewrite enabled. \n\n";
+
+                $output .= "# 2. In your opencart directory rename htaccess.txt to .htaccess. \n\n";
+
+                $output .= "# For any support issues please visit: http://www.copona.org \n\n";
+
+                $output .= "Options +FollowSymlinks \n\n";
+
+                $output .= "# Prevent Directoy listing \n";
+                $output .= "Options -Indexes \n\n";
+
+                $output .= "# Prevent Direct Access to files \n";
+                $output .= "<FilesMatch \"(?i)((\.tpl|\.ini|\.log|(?<!robots)\.txt))\"> \n";
+                $output .= " Require all denied \n";
+                $output .= "## For apache 2.2 and older, replace \"Require all denied\" with these two lines : \n";
+                $output .= "# Order deny,allow \n";
+                $output .= "# Deny from all \n";
+                $output .= "</FilesMatch> \n\n";
+
+                $output .= "# SEO URL Settings \n";
+                $output .= "RewriteEngine On \n";
+                $output .= "# If your Copona installation does not run on the main web folder make sure you folder it does run in ie. / becomes /shop/ \n\n";
+
+                $output .= "RewriteBase / \n";
+                $output .= "RewriteRule ^sitemap.xml$ index.php?route=extension/feed/google_sitemap [L] \n";
+                $output .= "RewriteRule ^googlebase.xml$ index.php?route=extension/feed/google_base [L] \n";
+                $output .= "RewriteRule ^system/download/(.*) index.php?route=error/not_found [L] \n";
+                $output .= "RewriteCond %{REQUEST_FILENAME} !-f \n";
+                $output .= "RewriteCond %{REQUEST_FILENAME} !-d \n";
+                $output .= "RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css) \n";
+                $output .= "RewriteRule ^([^?]*) index.php?_route_=$1 [L,QSA] \n\n";
+
+                $output .= "### Additional Settings that may need to be enabled for some servers \n";
+                $output .= "### Uncomment the commands by removing the # sign in front of it. \n";
+                $output .= "### If you get an \"Internal Server Error 500\" after enabling any of the following settings, restore the # as this means your host doesn't allow that. \n\n";
+
+                $output .= "# 1. If your cart only allows you to add one item at a time, it is possible register_globals is on. This may work to disable it: \n";
+                $output .= "# php_flag register_globals off \n\n";
+
+                $output .= "# 2. If your cart has magic quotes enabled, This may work to disable it: \n";
+                $output .= "# php_flag magic_quotes_gpc Off \n\n";
+
+                $output .= "# 3. Set max upload file size. Most hosts will limit this and not allow it to be overridden but you can try \n";
+                $output .= "# php_value upload_max_filesize 999M \n\n";
+
+                $output .= "# 4. set max post size. uncomment this line if you have a lot of product options or are getting errors where forms are not saving all fields \n";
+                $output .= "# php_value post_max_size 999M \n\n";
+
+                $output .= "# 5. set max time script can take. uncomment this line if you have a lot of product options or are getting errors where forms are not saving all fields \n";
+                $output .= "# php_value max_execution_time 200  \n\n";
+
+                $output .= "# 6. set max time for input to be recieved. Uncomment this line if you have a lot of product options or are getting errors where forms are not saving all fields \n";
+                $output .= "# php_value max_input_time 200 \n\n";
+
+                $output .= "# 7. disable open_basedir limitations \n";
+                $output .= "# php_admin_value open_basedir none";
+
+                if (!file_exists(DIR_OPENCART . '.htaccess')) {
+                    touch(DIR_OPENCART . '.htaccess');
+                }
+
+                $file = fopen(DIR_OPENCART . '.htaccess', 'w');
+
+                fwrite($file, $output);
+
+                fclose($file);
+
+                $_SESSION['new_htaccess'] = true;
+            }
+
+            $this->model_install_install->database($this->request->post);
+
+            $this->response->redirect($this->url->link('install/step_4'));
 		}
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -116,14 +212,27 @@ class ControllerInstallStep3 extends Controller {
 
 		$data['entry_db_driver'] = $this->language->get('entry_db_driver');
 		$data['entry_db_hostname'] = $this->language->get('entry_db_hostname');
-		$data['entry_db_username'] = $this->language->get('entry_db_username');
-		$data['entry_db_password'] = $this->language->get('entry_db_password');
-		$data['entry_db_database'] = $this->language->get('entry_db_database');
-		$data['entry_db_port'] = $this->language->get('entry_db_port');
+        $data['entry_db_username'] = $this->language->get('entry_db_username');
+        $data['entry_db_password'] = $this->language->get('entry_db_password');
+        $data['entry_db_database'] = $this->language->get('entry_db_database');
+        $data['entry_db_port'] = $this->language->get('entry_db_port');
 		$data['entry_db_prefix'] = $this->language->get('entry_db_prefix');
 		$data['entry_username'] = $this->language->get('entry_username');
 		$data['entry_password'] = $this->language->get('entry_password');
 		$data['entry_email'] = $this->language->get('entry_email');
+
+        $data['placeholder_db_hostname'] = $this->language->get('placeholder_db_hostname');
+        $data['placeholder_db_username'] = $this->language->get('placeholder_db_username');
+        $data['placeholder_db_database'] = $this->language->get('placeholder_db_database');
+        $data['placeholder_db_password'] = $this->language->get('placeholder_db_password');
+        $data['placeholder_db_port'] = $this->language->get('placeholder_db_port');
+        $data['placeholder_db_prefix'] = $this->language->get('placeholder_db_prefix');
+        $data['placeholder_username'] = $this->language->get('placeholder_username');
+        $data['placeholder_password'] = $this->language->get('placeholder_password');
+        $data['placeholder_email'] = $this->language->get('placeholder_email');
+
+
+
 
 		$data['button_continue'] = $this->language->get('button_continue');
 		$data['button_back'] = $this->language->get('button_back');
@@ -193,13 +302,13 @@ class ControllerInstallStep3 extends Controller {
 		if (isset($this->request->post['db_hostname'])) {
 			$data['db_hostname'] = $this->request->post['db_hostname'];
 		} else {
-			$data['db_hostname'] = 'localhost';
+			$data['db_hostname'] = '127.0.0.1';
 		}
 
 		if (isset($this->request->post['db_username'])) {
 			$data['db_username'] = $this->request->post['db_username'];
 		} else {
-			$data['db_username'] = 'root';
+			$data['db_username'] = 'copona';
 		}
 
 		if (isset($this->request->post['db_password'])) {
@@ -223,7 +332,7 @@ class ControllerInstallStep3 extends Controller {
 		if (isset($this->request->post['db_prefix'])) {
 			$data['db_prefix'] = $this->request->post['db_prefix'];
 		} else {
-			$data['db_prefix'] = 'oc_';
+			$data['db_prefix'] = 'cp_';
 		}
 
 		if (isset($this->request->post['username'])) {
@@ -245,7 +354,6 @@ class ControllerInstallStep3 extends Controller {
 		}
 
 		$data['mysqli'] = extension_loaded('mysqli');
-		$data['mysql'] = extension_loaded('mysql');
 		$data['pdo'] = extension_loaded('pdo');
 		$data['pgsql'] = extension_loaded('pgsql');
 

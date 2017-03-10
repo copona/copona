@@ -6,28 +6,8 @@ error_reporting(E_ALL);
 require_once(DIR_SYSTEM . 'helper/debug.php');
 
 // Check Version
-if (version_compare(phpversion(), '5.4.0', '<') == true) {
-    exit('PHP5.4+ Required');
-}
-
-// Magic Quotes Fix
-if (ini_get('magic_quotes_gpc')) {
-
-    function clean($data) {
-        if (is_array($data)) {
-            foreach ($data as $key => $value) {
-                $data[clean($key)] = clean($value);
-            }
-        } else {
-            $data = stripslashes($data);
-        }
-
-        return $data;
-    }
-
-    $_GET = clean($_GET);
-    $_POST = clean($_POST);
-    $_COOKIE = clean($_COOKIE);
+if (version_compare(phpversion(), '5.6.0', '<') == true) {
+    exit('PHP5.6+ Required');
 }
 
 if (!ini_get('date.timezone')) {
@@ -60,14 +40,14 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 }
 
 // Check if SSL
-if($_SERVER['REQUEST_SCHEME'] == 'https') {
+if (!empty($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https') {
     $_SERVER['HTTPS'] = true;
 } else {
     $_SERVER['HTTPS'] = false;
 }
 
 // Universal Host redirect to correct hostname
-if ($_SERVER['HTTP_HOST'] != parse_url(HTTP_SERVER)['host'] && $_SERVER['HTTP_HOST'] != parse_url(HTTP_SERVER)['host']) {
+if (defined('HTTP_HOST') && defined('HTTPS_HOST') && $_SERVER['HTTP_HOST'] != parse_url(HTTPS_SERVER)['host'] && $_SERVER['HTTP_HOST'] != parse_url(HTTP_SERVER)['host']) {
     header("Location: " . ($_SERVER['HTTPS'] ? HTTPS_SERVER : HTTP_SERVER) . ltrim('/', $_SERVER['REQUEST_URI']));
 }
 

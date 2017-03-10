@@ -752,7 +752,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         $this->load->model('extension/payment/klarna_checkout');
         $this->load->model('localisation/geo_zone');
 
-        if (version_compare(phpversion(), '5.4.0', '<')) {
+        if (version_compare(phpversion(), '5.6.0', '<')) {
             $this->error['warning'] = $this->language->get('error_php_version');
         }
 

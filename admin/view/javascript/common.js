@@ -69,7 +69,7 @@ function getCookie(name) {
 }
 
 function deleteCookie(name) {
-	createCookie(name, "", -1);
+	setCookie(name, "", -1);
 }
 
 

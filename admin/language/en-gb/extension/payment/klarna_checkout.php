@@ -1,8 +1,5 @@
 <?php
-// Heading
 $_['heading_title'] = 'Klarna Checkout';
-
-// Text
 $_['text_extension'] = 'Extensions';
 $_['text_success'] = 'Success: You have modified Klarna Checkout account details!';
 $_['text_edit'] = 'Edit Klarna Checkout';
@@ -34,8 +31,6 @@ $_['text_processing_orders'] = 'Processing orders...';
 $_['text_processing_order'] = 'Processing order';
 $_['text_no_files'] = 'No files to download.';
 $_['text_version'] = '1.1';
-
-// Column
 $_['column_order_id'] = 'Order ID';
 $_['column_capture_id'] = 'Capture ID';
 $_['column_reference'] = 'Klarna Reference';
@@ -74,7 +69,6 @@ $_['column_region'] = 'Region';
 $_['column_country'] = 'Country';
 $_['column_email'] = 'Email';
 $_['column_phone'] = 'Phone';
-$_['column_action'] = 'Action';
 $_['column_shipping_info'] = 'Shipping Info';
 $_['column_shipping_company'] = 'Shipping Company';
 $_['column_shipping_method'] = 'Shipping Method';
@@ -83,8 +77,6 @@ $_['column_tracking_uri'] = 'Tracking URI';
 $_['column_return_shipping_company'] = 'Return Shipping Company';
 $_['column_return_tracking_number'] = 'Return Tracking Number';
 $_['column_return_tracking_uri'] = 'Return Tracking URI';
-
-// Entry
 $_['entry_debug'] = 'Debug Logging';
 $_['entry_total'] = 'Total';
 $_['entry_order_status'] = 'Order Status';
@@ -110,8 +102,6 @@ $_['entry_sftp_password'] = 'SFTP Password';
 $_['entry_process_settlement'] = 'Process Settlement Files';
 $_['entry_settlement_order_status'] = 'Order Status';
 $_['entry_version'] = 'Extension Version';
-
-// Help
 $_['help_debug'] = 'Enabling debug will write sensitive data to a log file. You should always disable unless instructed otherwise.';
 $_['help_total'] = 'The checkout total the order must reach before this payment method becomes active.';
 $_['help_locale'] = 'Locale code for each account. Two-letter language code combined with two-letter country code according to RFC 1766. (e.g. en-gb for British English or sv-se for Swedish)';
@@ -120,8 +110,6 @@ $_['help_sftp_username'] = 'SFTP username provided by your account manager';
 $_['help_sftp_password'] = 'SFTP password provided by your account manager';
 $_['help_settlement_order_status'] = 'Order status that processed settlement orders will change to.';
 $_['help_shipping'] = 'All countries within this geo zone will be available to select in the Klarna iFrame.';
-
-// Button
 $_['button_account_remove'] = 'Remove Account';
 $_['button_account_add'] = 'Add Account';
 $_['button_capture'] = 'Capture';
@@ -136,8 +124,6 @@ $_['button_edit_billing_address'] = 'Edit Billing Address';
 $_['button_new_capture'] = 'New Capture';
 $_['button_new_refund'] = 'New Refund';
 $_['button_process_settlement'] = 'Process Settlement Files';
-
-// Error
 $_['error_warning'] = 'Warning: Please check the form carefully for errors!';
 $_['error_php_version'] = 'Minimum version of PHP 5.4.0 is required!';
 $_['error_ssl'] = 'You must enable "Use SSL" in the store settings and have an SSL certificate installed!';
@@ -146,8 +132,7 @@ $_['error_locale'] = 'Please enter a valid locale.';
 $_['error_account_currency'] = 'Account list contains one or more duplicate currencies.';
 $_['error_merchant_id'] = 'Merchant ID Required!';
 $_['error_secret'] = 'Shared Secret Required!';
-
-// Tab
 $_['tab_setting'] = 'Settings';
 $_['tab_account'] = 'Accounts';
 $_['tab_settlement'] = 'Settlement';
+$_['error_account_countries'] = 'Account list contains one or more duplicate countries.';

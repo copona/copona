@@ -184,7 +184,7 @@ class ControllerProductCategory extends Controller {
 
             foreach ($results as $result) {
                 if ($result['image']) {
-                    $image = $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                    $image = $this->model_tool_image->propsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
                 } else {
                     $image = $this->model_tool_image->cropsize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
                 }
@@ -216,16 +216,22 @@ class ControllerProductCategory extends Controller {
                 $category_path = $this->model_catalog_category->getCategoryPath($category_id, $result['product_id']);
 
                 $data['products'][] = array(
-                    'product_id'  => $result['product_id'],
-                    'thumb'       => $image,
-                    'name'        => $result['name'],
-                    'description' => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
-                    'price'       => $price,
-                    'special'     => $special,
-                    'tax'         => $tax,
-                    'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
-                    'rating'      => $result['rating'],
-                    'href'        => $this->url->link('product/product', ($category_path ? 'path=' . $category_path . '&' : '') . 'product_id=' . $result['product_id'] . $url)
+                    'product_id'     => $result['product_id'],
+                    'thumb'          => $image,
+                    'name'           => $result['name'],
+                    'description'    => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
+                    'price'          => $price,
+                    'special'        => $special,
+                    'tax'            => $tax,
+                    'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,
+                    'rating'         => $result['rating'],
+                    'href'           => $this->url->link('product/product', ($category_path ? 'path=' . $category_path . '&' : '') . 'product_id=' . $result['product_id'] . $url),
+                    'group_products' => $this->model_catalog_product->getProducts(
+                        [
+                            'group_products'   => true,
+                            'product_group_id' => $result['product_group_id'],
+                            'product_id'       => $result['product_id'] ]
+                    ),
                 );
             }
 
