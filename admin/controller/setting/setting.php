@@ -25,7 +25,8 @@ class ControllerSettingSetting extends Controller {
     }
 
     public function index() {
-        $data = $this->load->language('setting/setting');
+        $data = $this->load->language('catalog/product');
+        $data = array_merge($data, $this->load->language('setting/setting') );
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -898,7 +899,7 @@ class ControllerSettingSetting extends Controller {
         } else {
             $data['config_tax_class_id'] = $this->config->get('config_tax_class_id');
         }
-        // End default tax class 
+        // End default tax class
 
 
         $data['header'] = $this->load->controller('common/header');

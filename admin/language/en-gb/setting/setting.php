@@ -57,12 +57,6 @@ $_['entry_limit_admin'] = 'Default Items Per Page (Admin)';
 $_['entry_product_count'] = 'Category Product Count';
 
 $_['text_part_numbers'] = 'Part Numbers';
-$_['entry_sku'] = 'SKU';
-$_['entry_upc'] = 'UPC';
-$_['entry_ean'] = 'EAN';
-$_['entry_jan'] = 'JAN';
-$_['entry_isbn'] = 'ISBN';
-$_['entry_mpn'] = 'MPN';
 
 $_['entry_review'] = 'Allow Reviews';
 $_['entry_review_guest'] = 'Allow Guest Reviews';
