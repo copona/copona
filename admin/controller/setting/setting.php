@@ -26,7 +26,7 @@ class ControllerSettingSetting extends Controller {
 
     public function index() {
         $data = $this->load->language('catalog/product');
-        $data = array_merge($data, $this->load->language('setting/setting') );
+        $data = array_merge($data, $this->load->language('setting/setting'));
 
         $this->document->setTitle($this->language->get('heading_title'));
 
