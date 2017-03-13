@@ -66,9 +66,18 @@ class ModelCatalogProduct extends Model {
             }
         }
 
+
         if (isset($data['product_image'])) {
             foreach ($data['product_image'] as $product_image) {
                 $this->db->query("INSERT INTO " . DB_PREFIX . "product_image SET product_id = '" . (int)$product_id . "', image = '" . $this->db->escape($product_image['image']) . "', sort_order = '" . (int)$product_image['sort_order'] . "'");
+
+                $product_image_id = $this->db->getLastId();
+
+                if ($product_image['description']) {
+                    foreach ($product_image['description'] as $language_id => $description) {
+                        $this->db->query("INSERT INTO " . DB_PREFIX . "product_image_description SET product_image_id = '" . (int)$product_image_id . "', language_id = '" . (int)$language_id . "', description='" . $this->db->escape($description) . "', product_id='" . (int)$product_id . "'");
+                    }
+                }
             }
         }
 
@@ -329,14 +338,21 @@ class ModelCatalogProduct extends Model {
         }
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_image WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("DELETE FROM " . DB_PREFIX . "product_image_description WHERE product_id = '" . (int)$product_id . "'");
 
         if (isset($data['product_image'])) {
             foreach ($data['product_image'] as $product_image) {
                 $this->db->query("INSERT INTO " . DB_PREFIX . "product_image SET product_id = '" . (int)$product_id . "', image = '" . $this->db->escape($product_image['image']) . "', sort_order = '" . (int)$product_image['sort_order'] . "'");
+
+                $product_image_id = $this->db->getLastId();
+
+                if ($product_image['description']) {
+                    foreach ($product_image['description'] as $language_id => $description) {
+                        $this->db->query("INSERT INTO " . DB_PREFIX . "product_image_description SET product_image_id = '" . (int)$product_image_id . "', language_id = '" . (int)$language_id . "', description='" . $this->db->escape($description) . "', product_id='" . (int)$product_id . "'");
+                    }
+                }
             }
         }
-
-
 
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "content_meta WHERE content_type = 'product' AND content_id = '" . (int)$product_id . "'");
@@ -367,9 +383,6 @@ class ModelCatalogProduct extends Model {
                 $this->db->query("INSERT INTO " . DB_PREFIX . "product_filter SET product_id = '" . (int)$product_id . "', filter_id = '" . (int)$filter_id . "'");
             }
         }
-
-
-
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$product_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE related_id = '" . (int)$product_id . "'");
@@ -462,6 +475,7 @@ class ModelCatalogProduct extends Model {
             $data['product_discount'] = $this->getProductDiscounts($product_id);
             $data['product_filter'] = $this->getProductFilters($product_id);
             $data['product_image'] = $this->getProductImages($product_id);
+
             $data['product_option'] = $this->getProductOptions($product_id);
             $data['product_related'] = $this->getProductRelated($product_id);
             $data['product_backway'] = $this->getProductRelatedBackway($product_id);
@@ -736,8 +750,28 @@ class ModelCatalogProduct extends Model {
 
     public function getProductImages($product_id) {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_image WHERE product_id = '" . (int)$product_id . "' ORDER BY sort_order ASC");
+        $product_images = array();
+        foreach ($query->rows as $product_image) {
 
-        return $query->rows;
+            $product_images[] = array(
+                'product_image_id' => $product_image['product_image_id'],
+                'product_id'       => $product_image['product_id'],
+                'image'            => $product_image['image'],
+                'sort_order'       => $product_image['sort_order'],
+                'description'      => $this->getProductImageDescriptions($product_image['product_image_id']),
+            );
+        }
+        return $product_images;
+    }
+
+    public function getProductImageDescriptions($product_image_id) {
+        $sql = "SELECT * FROM " . DB_PREFIX . "product_image_description WHERE product_image_id = '" . (int)$product_image_id . "'";
+        $query = $this->db->query($sql);
+        $descriptions = array();
+        foreach ($query->rows as $row) {
+            $descriptions[$row['language_id']] = $row;
+        }
+        return $descriptions;
     }
 
     public function getProductDiscounts($product_id) {
