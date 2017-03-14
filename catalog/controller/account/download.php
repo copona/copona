@@ -144,7 +144,7 @@ class ControllerAccountDownload extends Controller {
                         ob_end_clean();
                     }
 
-                    readfile($file, 'rb');
+                    readfile($file);
 
                     exit();
                 } else {
