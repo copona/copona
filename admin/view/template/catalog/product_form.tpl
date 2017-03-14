@@ -620,6 +620,39 @@
                   </div>
                 </div>
               </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label"><?php echo "Apdruka" ?></label>
+                <div class="col-sm-10">
+                  <div class="well well-sm" style="height: 150px; overflow: auto;">
+                    <div class="checkbox">
+                      <label>
+                          <?php if (in_array(0, $product_store)) { ?>
+                            <input type="checkbox" name="printing" value="0" checked="checked" />
+                            <?php echo 'Nav apdruka'; ?>
+                        <?php } else { ?>
+                            <input type="checkbox" name="printing" value="0" />
+                            <?php echo 'Nav apdruka'; ?>
+                        <?php } ?>
+                      </label>
+                    </div>
+                    <?php foreach ($stores as $store) { ?>
+                        <div class="checkbox">
+                          <label>
+                              <?php if (in_array($store['store_id'], $product_store)) { ?>
+                                <input type="checkbox" name="printing" value="<?php echo $store['store_id']; ?>" checked="checked" />
+                                <?php echo $print['name']; ?>
+                            <?php } else { ?>
+                                <input type="checkbox" name="printing" value="<?php echo $store['store_id']; ?>" />
+                                <?php echo $print['name']; ?>
+                            <?php } ?>
+                          </label>
+                        </div>
+                    <?php } ?>
+                  </div>
+                </div>
+              </div>
+
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-download"><span data-toggle="tooltip" title="<?php echo $help_download; ?>"><?php echo $entry_download; ?></span></label>
                 <div class="col-sm-10">

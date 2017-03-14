@@ -428,16 +428,6 @@ class ControllerCatalogOption extends Controller {
             $this->error['warning'] = $this->language->get('error_type');
         }
 
-        if (isset($this->request->post['option_value'])) {
-            foreach ($this->request->post['option_value'] as $option_value_id => $option_value) {
-                foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
-                    if ((utf8_strlen($option_value_description['name']) < 1) || (utf8_strlen($option_value_description['name']) > 128)) {
-                        $this->error['option_value'][$option_value_id][$language_id] = $this->language->get('error_option_value');
-                    }
-                }
-            }
-        }
-
         return !$this->error;
     }
 

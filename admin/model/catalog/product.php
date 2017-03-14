@@ -979,7 +979,6 @@ class ModelCatalogProduct extends Model {
     }
 
     public function getContentMeta($product_id) {
-
         $sql = "SELECT * from " . DB_PREFIX . "content_meta WHERE content_id='" . $product_id . "' AND content_type = 'product'";
         $query = $this->db->query($sql);
 
