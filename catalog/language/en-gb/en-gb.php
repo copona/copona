@@ -94,3 +94,4 @@ $_['text_model'] = 'Model';
 $_['text_compare_list'] = 'Compare list';
 $_['text_advices'] = 'Advices';
 $_['text_variations_available'] = 'Variations available';
+$_['text_get_link'] = 'Get link';
