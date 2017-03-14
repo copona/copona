@@ -549,6 +549,7 @@
     $(function () {
         var e = $.Event('keyup');
         $('input[name=\'price\']').trigger(e);
+        window.somethingChanged = false;
     });
 
     /* SPECIAL */

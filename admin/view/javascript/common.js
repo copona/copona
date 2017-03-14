@@ -413,7 +413,7 @@ $(document).ready(function () {
 // Warn, if user exits EDIT form without saveing
 // TODO: implement AreYouSure
 	var formSubmitting = false;
-	var somethingChanged = false;
+	window.somethingChanged = false;
 
 	$(document).ready(function () {
 
@@ -422,8 +422,9 @@ $(document).ready(function () {
 			formSubmitting = true;
 		});
 
-		$('form').on('keyup', "input", function () {
-			somethingChanged = true;
+		$('form').on('keyup', 'input', function (e) {
+        // product_form.js.tpl has 'keyup' function for prices input change.
+			window.somethingChanged = true;
 		});
 
 	});
@@ -435,7 +436,7 @@ $(document).ready(function () {
 
 			if (formSubmitting == true) {
 				return undefined;
-			} else if (somethingChanged == false) {
+			} else if (window.somethingChanged == false) {
 				return undefined;
 			}
 
