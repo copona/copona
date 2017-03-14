@@ -318,13 +318,6 @@
                   </select>
                 </div>
               </div>
-
-
-
-
-
-
-
             </div>
             <div class="tab-pane" id="tab-option">
               <fieldset>
@@ -360,6 +353,24 @@
                         <div class="text-danger"><?php echo $error_limit_admin; ?></div>
                     <?php } ?>
                   </div>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend><?php echo $text_part_numbers; ?></legend>
+                <div class="form-group">
+                    <?php foreach ($partnumbers as $partnumber) { ?>
+                      <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo ${'help_' . $partnumber}; ?>"><?php echo ${'entry_' . $partnumber}; ?></span></label>
+                      <div class="col-sm-10">
+                        <label class="radio-inline">
+                          <input type="radio" name="config_use_<?= $partnumber ?>" value="1" <?= ${'config_use_' . $partnumber} ? 'checked="checked"' : '' ?> />
+                          <?php echo $text_yes; ?>
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="config_use_<?= $partnumber ?>" value="0" <?= !${'config_use_' . $partnumber} ? 'checked="checked"' : '' ?> />
+                          <?php echo $text_no; ?>
+                        </label>
+                      </div>
+                  <?php } ?>
                 </div>
               </fieldset>
               <fieldset>

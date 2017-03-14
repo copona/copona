@@ -46,5 +46,11 @@ class Breadcrumbs {
 
         return $this->path;
     }
+	
+    public static function cutstr($str, $start = 0, $length = 16) {
+        
+        return ( utf8_strlen($str) > $length ? utf8_substr($str, $start, $length) ."..." : $str );
+        
+    }
 
 }
