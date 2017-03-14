@@ -19,8 +19,8 @@ class ControllerExtensionModuleLatest extends Controller {
         $data['products'] = array();
 
         $filter_data = array(
-            'sort'  => 'p.sort_order',
-            'order' => 'ASC',
+            'sort'  => 'p.date_added',
+            'order' => 'DESC',
             'start' => 0,
             'limit' => $setting['limit']
         );
