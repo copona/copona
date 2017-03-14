@@ -537,7 +537,7 @@
                                     </div>
                                 <?php } ?>
                               </td>
-                              <td class="text-right"><input type="text" name="product_video[<?php echo $video_row; ?>][sort_order]" value="<?php echo $product_video['sort_order'] ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
+                              <td class="text-right"><input type="text" name="content_meta[product_video][<?php echo $video_row; ?>][sort_order]" value="<?php echo $product_video['sort_order'] ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
                               <td class="text-left"><button type="button" onclick="$('#video-row<?php echo $video_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                             </tr>
                             <?php $video_row++; ?>
