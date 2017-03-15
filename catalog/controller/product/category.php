@@ -356,8 +356,8 @@ class ControllerProductCategory extends Controller {
             $pagination->limit = $limit;
             $pagination->text_first = '';
             $pagination->text_last = '';
-            $pagination->prev_hide = true;
-            $pagination->next_hide = true;
+            $pagination->prev_hide = $this->config->get('theme_default_pagination_prev') === null ? false : $this->config->get('theme_default_pagination_prev');
+            $pagination->next_hide = $this->config->get('theme_default_pagination_next') === null ? false : $this->config->get('theme_default_pagination_next');
             $pagination->url = $this->url->link('product/category', ($category_info ? 'path=' . $category_path : '') . $url . '&page={page}');
 
             $data['pagination'] = $pagination->render();
