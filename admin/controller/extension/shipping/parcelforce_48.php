@@ -3,7 +3,7 @@ class ControllerExtensionShippingParcelforce48 extends Controller {
     private $error = array();
 
     public function index() {
-        $this->load->language('extension/shipping/parcelforce_48');
+        $data = $this->load->language('extension/shipping/parcelforce_48');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -18,35 +18,6 @@ class ControllerExtensionShippingParcelforce48 extends Controller {
         }
 
         $data['heading_title'] = $this->language->get('heading_title');
-
-        $data['text_edit'] = $this->language->get('text_edit');
-        $data['text_enabled'] = $this->language->get('text_enabled');
-        $data['text_disabled'] = $this->language->get('text_disabled');
-        $data['text_all_zones'] = $this->language->get('text_all_zones');
-        $data['text_none'] = $this->language->get('text_none');
-        $data['text_yes'] = $this->language->get('text_yes');
-        $data['text_no'] = $this->language->get('text_no');
-
-        $data['entry_rate'] = $this->language->get('entry_rate');
-        $data['entry_insurance'] = $this->language->get('entry_insurance');
-        $data['entry_display_weight'] = $this->language->get('entry_display_weight');
-        $data['entry_display_insurance'] = $this->language->get('entry_display_insurance');
-        $data['entry_display_time'] = $this->language->get('entry_display_time');
-        $data['entry_tax_class'] = $this->language->get('entry_tax_class');
-        $data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
-        $data['entry_status'] = $this->language->get('entry_status');
-        $data['entry_sort_order'] = $this->language->get('entry_sort_order');
-
-        $data['help_rate'] = $this->language->get('help_rate');
-        $data['help_insurance'] = $this->language->get('help_insurance');
-        $data['help_display_weight'] = $this->language->get('help_display_weight');
-        $data['help_display_insurance'] = $this->language->get('help_display_insurance');
-        $data['help_display_time'] = $this->language->get('help_display_time');
-
-        $data['button_save'] = $this->language->get('button_save');
-        $data['button_cancel'] = $this->language->get('button_cancel');
-
-        $data['tab_general'] = $this->language->get('tab_general');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];

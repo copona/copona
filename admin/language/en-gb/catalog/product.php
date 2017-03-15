@@ -55,6 +55,7 @@ $_['entry_width'] = 'Width';
 $_['entry_height'] = 'Height';
 $_['entry_image'] = 'Image';
 $_['entry_additional_image'] = 'Additional Images';
+$_['entry_additional_image_description'] = 'Additional Image Description';
 $_['entry_video'] = 'Videos';
 $_['entry_video_link'] = 'Video links';
 $_['entry_customer_group'] = 'Customer Group';

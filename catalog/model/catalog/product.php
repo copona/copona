@@ -7,10 +7,9 @@ class ModelCatalogProduct extends Model {
 
     public function getProduct($product_id) {
 
-        $sql = "SELECT DISTINCT *,"
-            . "(SELECT product_group_id FROM " . DB_PREFIX . "product_to_product WHERE product_id='" . (int)$product_id . "') as product_group_id, "
-            . "pd.name AS name, "
+        $sql = "SELECT DISTINCT p.*, p2p.product_group_id, p2pd.product_id as default_group_product_id, "
             . "p.image, "
+            . "pd.*, "
             . "m.name AS manufacturer, "
             . "(SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < '" . date("Y-m-d") . "') AND (pd2.date_end = '0000-00-00' OR pd2.date_end > '" . date("Y-m-d") . "')) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, "
             . "(SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < '" . date("Y-m-d") . "') AND (ps.date_end = '0000-00-00' OR ps.date_end > '" . date("Y-m-d") . "')) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special, "
@@ -25,6 +24,8 @@ class ModelCatalogProduct extends Model {
             . "LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) "
             . "LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) "
             . "LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id) "
+            . "LEFT JOIN " . DB_PREFIX . "product_to_product p2p ON (p2p.product_id = '" . (int)$product_id . "') "
+            . "LEFT JOIN " . DB_PREFIX . "product_to_product p2pd ON (p2pd.product_group_id = p2p.product_group_id and p2pd.default_id=1) "
             . "WHERE p.product_id = '" . (int)$product_id . "' "
             . "AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' "
             . "AND p.status = '1' AND p.date_available <= '" . date("Y-m-d") . "' "
@@ -32,11 +33,14 @@ class ModelCatalogProduct extends Model {
 
         $query = $this->db->query($sql);
 
+        // pr($query->row);
+
         if ($query->num_rows) {
             return array(
                 'product_id'       => $query->row['product_id'],
                 'name'             => $query->row['name'],
                 'product_group_id' => $query->row['product_group_id'],
+                'default_id'       => $query->row['default_group_product_id'],
                 'description'      => $query->row['description'],
                 'meta_title'       => $query->row['meta_title'],
                 'meta_description' => $query->row['meta_description'],
@@ -190,7 +194,7 @@ class ModelCatalogProduct extends Model {
         }
 
 
-        $sql .= " GROUP BY p.product_id";
+        $sql .= " GROUP BY p.product_id, p2p.product_group_id";
 
         $sort_data = array(
             'pd.name',
@@ -385,7 +389,7 @@ class ModelCatalogProduct extends Model {
     public function getProductOptions($product_id) {
         $product_option_data = array();
 
-        $product_option_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_id = '" . (int)$product_id . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.sort_order");
+        $product_option_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_id = '" . (int)$product_id . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.sort_order, po.product_option_id");
 
         foreach ($product_option_query->rows as $product_option) {
 
@@ -395,7 +399,7 @@ class ModelCatalogProduct extends Model {
 
             $product_option_value_data = array();
 
-            $product_option_value_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_id = '" . (int)$product_id . "' AND pov.product_option_id = '" . (int)$product_option['product_option_id'] . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY ov.sort_order");
+            $product_option_value_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_id = '" . (int)$product_id . "' AND pov.product_option_id = '" . (int)$product_option['product_option_id'] . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY ov.sort_order, pov.product_option_value_id");
 
             foreach ($product_option_value_query->rows as $product_option_value) {
                 $product_option_value_data[] = array(
@@ -433,7 +437,12 @@ class ModelCatalogProduct extends Model {
     }
 
     public function getProductImages($product_id) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_image WHERE product_id = '" . (int)$product_id . "' ORDER BY sort_order ASC");
+        $sql = "SELECT * FROM " . DB_PREFIX . "product_image pi "
+            . " LEFT JOIN " . DB_PREFIX . "product_image_description pid"
+            . " ON pi.product_image_id = pid.product_image_id"
+            . " WHERE pi.product_id = '" . (int)$product_id . "' AND pid.language_id='" . (int)$this->config->get('config_language_id') . "' ORDER BY pi.sort_order ASC";
+
+        $query = $this->db->query($sql);
 
         return $query->rows;
     }

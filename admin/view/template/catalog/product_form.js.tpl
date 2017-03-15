@@ -459,6 +459,16 @@
     function addImage() {
         html = '<tr id="image-row' + image_row + '">';
         html += '  <td class="text-left"><a href="" id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img src="<?php echo $placeholder; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
+        html += '<td class="text-right">'
+<?php foreach ($languages as $language) { ?>
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon lng-image">';
+            html += '  <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png">';
+            html += '</span>'
+            html += '<input type = "text" name = "product_image[' + image_row + '][description][<?php echo $language['language_id']; ?>]" value = "" placeholder = "<?php echo $entry_additional_image_description; ?>" class = "form-control" / >'
+            html += '</div>'
+<?php } ?>
+        html += '</td>';
         html += '  <td class="text-right"><input type="text" name="product_image[' + image_row + '][sort_order]" value="" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>';
         html += '  <td class="text-left"><button type="button" onclick="$(\'#image-row' + image_row + '\').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
         html += '</tr>';
@@ -539,6 +549,7 @@
     $(function () {
         var e = $.Event('keyup');
         $('input[name=\'price\']').trigger(e);
+        window.somethingChanged = false;
     });
 
     /* SPECIAL */
