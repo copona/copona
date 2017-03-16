@@ -465,7 +465,7 @@
             html += '<span class="input-group-addon lng-image">';
             html += '  <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png">';
             html += '</span>'
-            html += '<input type = "text" name = "product_image[' + image_row + '][description][<?php echo $language['language_id']; ?>]" value = "" placeholder = "<?php echo $entry_additional_image_description; ?>" class = "form-control" / >'
+            html += '<input type = "text" name = "product_image[' + image_row + '][description][<?php echo $language['language_id']; ?>][description]" value = "" placeholder = "<?php echo $entry_additional_image_description; ?>" class = "form-control" / >'
             html += '</div>'
 <?php } ?>
         html += '</td>';

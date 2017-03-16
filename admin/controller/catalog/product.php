@@ -19,7 +19,6 @@ class ControllerCatalogProduct extends Controller {
 
         $this->load->model('catalog/product');
 
-
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 
             $product_id = $this->model_catalog_product->addProduct($this->request->post);

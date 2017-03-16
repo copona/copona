@@ -493,8 +493,8 @@
                                 <div class="input-group">
                                   <span class="input-group-addon lng-image">
                                     <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
-                                  </span>
-                                  <input type="text" name="product_image[<?php echo $image_row; ?>][description][<?php echo $language['language_id'] ?>]" value="<?php echo empty($product_image['description'][$language['language_id']]['description']) ? "" : $product_image['description'][$language['language_id']]['description']; ?>" placeholder="<?php echo $entry_additional_image_description; ?>" class="form-control" />
+                                  </span> 
+                                  <input type="text" name="product_image[<?php echo $image_row; ?>][description][<?php echo $language['language_id'] ?>][description]" value="<?php echo empty($product_image['description'][$language['language_id']]['description']) ? "" : $product_image['description'][$language['language_id']]['description']; ?>" placeholder="<?php echo $entry_additional_image_description; ?>" class="form-control" />
                                 </div>
                             <?php } ?>
                           </td>

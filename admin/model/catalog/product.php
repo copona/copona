@@ -75,7 +75,7 @@ class ModelCatalogProduct extends Model {
 
                 if ($product_image['description']) {
                     foreach ($product_image['description'] as $language_id => $description) {
-                        $this->db->query("INSERT INTO " . DB_PREFIX . "product_image_description SET product_image_id = '" . (int)$product_image_id . "', language_id = '" . (int)$language_id . "', description='" . $this->db->escape($description) . "', product_id='" . (int)$product_id . "'");
+                        $this->db->query("INSERT INTO " . DB_PREFIX . "product_image_description SET product_image_id = '" . (int)$product_image_id . "', language_id = '" . (int)$language_id . "', description='" . $this->db->escape($description['description']) . "', product_id='" . (int)$product_id . "'");
                     }
                 }
             }
@@ -348,7 +348,7 @@ class ModelCatalogProduct extends Model {
 
                 if ($product_image['description']) {
                     foreach ($product_image['description'] as $language_id => $description) {
-                        $this->db->query("INSERT INTO " . DB_PREFIX . "product_image_description SET product_image_id = '" . (int)$product_image_id . "', language_id = '" . (int)$language_id . "', description='" . $this->db->escape($description) . "', product_id='" . (int)$product_id . "'");
+                        $this->db->query("INSERT INTO " . DB_PREFIX . "product_image_description SET product_image_id = '" . (int)$product_image_id . "', language_id = '" . (int)$language_id . "', description='" . $this->db->escape($description['description']) . "', product_id='" . (int)$product_id . "'");
                     }
                 }
             }
