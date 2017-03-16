@@ -438,10 +438,10 @@ class ModelCatalogProduct extends Model {
 
     public function getProductImages($product_id) {
         $sql = "SELECT * FROM " . DB_PREFIX . "product_image pi "
-            . " LEFT JOIN " . DB_PREFIX . "product_image_description pid"
-            . " ON pi.product_image_id = pid.product_image_id"
-            . " WHERE pi.product_id = '" . (int)$product_id . "' AND pid.language_id='" . (int)$this->config->get('config_language_id') . "' ORDER BY pi.sort_order ASC";
-
+            . "LEFT JOIN " . DB_PREFIX . "product_image_description pid "
+            . "ON pi.product_image_id = pid.product_image_id AND pid.language_id='" . (int)$this->config->get('config_language_id') . "' "
+            . "WHERE pi.product_id = '" . (int)$product_id . "' "
+            . "ORDER BY pi.sort_order ASC";
         $query = $this->db->query($sql);
 
         return $query->rows;
