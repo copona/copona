@@ -479,6 +479,7 @@
                   <thead>
                     <tr>
                       <td class="text-left"><?php echo $entry_additional_image; ?></td>
+                      <td class="text-right"><?php echo $entry_additional_image_description; ?></td>
                       <td class="text-right"><?php echo $entry_sort_order; ?></td>
                       <td></td>
                     </tr>
@@ -493,7 +494,7 @@
                                 <div class="input-group">
                                   <span class="input-group-addon lng-image">
                                     <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
-                                  </span> 
+                                  </span>
                                   <input type="text" name="product_image[<?php echo $image_row; ?>][description][<?php echo $language['language_id'] ?>][description]" value="<?php echo empty($product_image['description'][$language['language_id']]['description']) ? "" : $product_image['description'][$language['language_id']]['description']; ?>" placeholder="<?php echo $entry_additional_image_description; ?>" class="form-control" />
                                 </div>
                             <?php } ?>
@@ -506,7 +507,7 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colspan="2"></td>
+                      <td colspan="3"></td>
                       <td class="text-left"><button type="button" onclick="addImage();" data-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                     </tr>
                   </tfoot>
