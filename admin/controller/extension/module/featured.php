@@ -11,14 +11,17 @@ class ControllerExtensionModuleFeatured extends Controller {
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             if (!isset($this->request->get['module_id'])) {
-                $this->model_extension_module->addModule('featured', $this->request->post);
+                $this->request->get['module_id'] = $this->model_extension_module->addModule('featured', $this->request->post);
             } else {
                 $this->model_extension_module->editModule($this->request->get['module_id'], $this->request->post);
             }
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+                $this->response->redirect($this->url->link('extension/module/featured', 'module_id=' . $this->request->get['module_id'] . '&token=' . $this->session->data['token'] . $url, true));
+            else
+                $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true));
         }
 
         $data['heading_title'] = $this->language->get('heading_title');
