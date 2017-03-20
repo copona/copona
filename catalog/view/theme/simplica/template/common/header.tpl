@@ -25,10 +25,10 @@
     <!-- Default theme "fixes" and additions -->
     <link href="catalog/view/theme/default/stylesheet/additional.css" rel="stylesheet">
     <!-- Simplica theme default Stylesheet -->
-    <link href="catalog/view/theme/simplica/stylesheet/stylesheet.css" rel="stylesheet">
-    <link href="catalog/view/theme/simplica/stylesheet/owl.carousel.css" rel="stylesheet">
+    <link href="catalog/view/theme/<?= $theme_directory; ?>/stylesheet/stylesheet.css" rel="stylesheet">
+    <link href="catalog/view/theme/<?= $theme_directory; ?>/stylesheet/owl.carousel.css" rel="stylesheet">
     <!-- Simplica theme "fixes" and additions -->
-    <link href="catalog/view/theme/simplica/stylesheet/additional.css" rel="stylesheet">
+    <link href="catalog/view/theme/<?= $theme_directory; ?>/stylesheet/additional.css" rel="stylesheet">
 		<?php foreach ($styles as $style) { ?>
 			<link href="<?php echo $style['href']; ?>" type="text/css" rel="<?php echo $style['rel']; ?>" media="<?php echo $style['media']; ?>" />
 		<?php } ?>
