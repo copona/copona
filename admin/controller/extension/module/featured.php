@@ -3,7 +3,7 @@ class ControllerExtensionModuleFeatured extends Controller {
     private $error = array();
 
     public function index() {
-        $this->load->language('extension/module/featured');
+        $data = $this->load->language('extension/module/featured');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -23,21 +23,6 @@ class ControllerExtensionModuleFeatured extends Controller {
 
         $data['heading_title'] = $this->language->get('heading_title');
 
-        $data['text_edit'] = $this->language->get('text_edit');
-        $data['text_enabled'] = $this->language->get('text_enabled');
-        $data['text_disabled'] = $this->language->get('text_disabled');
-
-        $data['entry_name'] = $this->language->get('entry_name');
-        $data['entry_product'] = $this->language->get('entry_product');
-        $data['entry_limit'] = $this->language->get('entry_limit');
-        $data['entry_width'] = $this->language->get('entry_width');
-        $data['entry_height'] = $this->language->get('entry_height');
-        $data['entry_status'] = $this->language->get('entry_status');
-
-        $data['help_product'] = $this->language->get('help_product');
-
-        $data['button_save'] = $this->language->get('button_save');
-        $data['button_cancel'] = $this->language->get('button_cancel');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -98,7 +83,15 @@ class ControllerExtensionModuleFeatured extends Controller {
         if (isset($this->request->get['module_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $module_info = $this->model_extension_module->getModule($this->request->get['module_id']);
         }
+        if (isset($this->request->post['module_description'])) {
+            $data['module_description'] = $this->request->post['module_description'];
+        } elseif (!empty($module_info)) {
+            $data['module_description'] = $module_info['module_description'];
+        } else {
+            $data['module_description'] = array();
+        }
 
+        //pr($data['module_description']);
         $data['token'] = $this->session->data['token'];
 
         if (isset($this->request->post['name'])) {
@@ -155,6 +148,9 @@ class ControllerExtensionModuleFeatured extends Controller {
         } else {
             $data['height'] = 200;
         }
+        $this->load->model('localisation/language');
+
+        $data['languages'] = $this->model_localisation_language->getLanguages();
 
         if (isset($this->request->post['status'])) {
             $data['status'] = $this->request->post['status'];

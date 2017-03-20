@@ -34,57 +34,75 @@
               <?php } ?>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="<?php echo $help_product; ?>"><?php echo $entry_product; ?></span></label>
-            <div class="col-sm-10">
-              <input type="text" name="product_name" value="" placeholder="<?php echo $entry_product; ?>" id="input-product" class="form-control" />
-              <div id="featured-product" class="well well-sm" style="height: 150px; overflow: auto;">
-                  <?php foreach ($products as $product) { ?>
-                    <div id="featured-product<?php echo $product['product_id']; ?>"><i class="fa fa-minus-circle"></i> <?php echo $product['name']; ?>
-                      <input type="hidden" name="product[]" value="<?php echo $product['product_id']; ?>" />
+          <div class="tab-pane">
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?= $help_display_title ?>"><?php echo $entry_display_title; ?></span></label>
+              <div class="col-sm-10">
+                  <?php
+                  foreach ($languages as $language) {
+                      ?>
+                    <div class="input-group">
+                      <span class="input-group-addon lng-image">
+                        <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
+
+                      </span>
+                      <input type="text" name="module_description[<?php echo $language['language_id']; ?>][title]" placeholder="<?php echo $entry_placeholder_display_title; ?>" id="input-heading<?php echo $language['language_id']; ?>" value="<?php echo isset($module_description[$language['language_id']]['title']) ? $module_description[$language['language_id']]['title'] : ''; ?>" class="form-control" />
                     </div>
                 <?php } ?>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-limit"><?php echo $entry_limit; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="limit" value="<?php echo $limit; ?>" placeholder="<?php echo $entry_limit; ?>" id="input-limit" class="form-control" />
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="<?php echo $help_product; ?>"><?php echo $entry_product; ?></span></label>
+              <div class="col-sm-10">
+                <input type="text" name="product_name" value="" placeholder="<?php echo $entry_product; ?>" id="input-product" class="form-control" />
+                <div id="featured-product" class="well well-sm" style="height: 150px; overflow: auto;">
+                    <?php foreach ($products as $product) { ?>
+                      <div id="featured-product<?php echo $product['product_id']; ?>"><i class="fa fa-minus-circle"></i> <?php echo $product['name']; ?>
+                        <input type="hidden" name="product[]" value="<?php echo $product['product_id']; ?>" />
+                      </div>
+                  <?php } ?>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-width"><?php echo $entry_width; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="width" value="<?php echo $width; ?>" placeholder="<?php echo $entry_width; ?>" id="input-width" class="form-control" />
-              <?php if ($error_width) { ?>
-                  <div class="text-danger"><?php echo $error_width; ?></div>
-              <?php } ?>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-limit"><?php echo $entry_limit; ?></label>
+              <div class="col-sm-10">
+                <input type="text" name="limit" value="<?php echo $limit; ?>" placeholder="<?php echo $entry_limit; ?>" id="input-limit" class="form-control" />
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-height"><?php echo $entry_height; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="height" value="<?php echo $height; ?>" placeholder="<?php echo $entry_height; ?>" id="input-height" class="form-control" />
-              <?php if ($error_height) { ?>
-                  <div class="text-danger"><?php echo $error_height; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
-            <div class="col-sm-10">
-              <select name="status" id="input-status" class="form-control">
-                <?php if ($status) { ?>
-                    <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                    <option value="0"><?php echo $text_disabled; ?></option>
-                <?php } else { ?>
-                    <option value="1"><?php echo $text_enabled; ?></option>
-                    <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-width"><?php echo $entry_width; ?></label>
+              <div class="col-sm-10">
+                <input type="text" name="width" value="<?php echo $width; ?>" placeholder="<?php echo $entry_width; ?>" id="input-width" class="form-control" />
+                <?php if ($error_width) { ?>
+                    <div class="text-danger"><?php echo $error_width; ?></div>
                 <?php } ?>
-              </select>
+              </div>
             </div>
-          </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-height"><?php echo $entry_height; ?></label>
+              <div class="col-sm-10">
+                <input type="text" name="height" value="<?php echo $height; ?>" placeholder="<?php echo $entry_height; ?>" id="input-height" class="form-control" />
+                <?php if ($error_height) { ?>
+                    <div class="text-danger"><?php echo $error_height; ?></div>
+                <?php } ?>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+              <div class="col-sm-10">
+                <select name="status" id="input-status" class="form-control">
+                  <?php if ($status) { ?>
+                      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                      <option value="0"><?php echo $text_disabled; ?></option>
+                  <?php } else { ?>
+                      <option value="1"><?php echo $text_enabled; ?></option>
+                      <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+            </div>
         </form>
       </div>
     </div>
