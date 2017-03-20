@@ -85,7 +85,7 @@ class ControllerExtensionModuleFeatured extends Controller {
         }
         if (isset($this->request->post['module_description'])) {
             $data['module_description'] = $this->request->post['module_description'];
-        } elseif (!empty($module_info)) {
+        } elseif (!empty($module_info) && !empty($module_info['module_description'])) {
             $data['module_description'] = $module_info['module_description'];
         } else {
             $data['module_description'] = array();
