@@ -5,6 +5,8 @@ class ControllerExtensionShippingFlat extends Controller {
     public function index() {
         $data = $this->load->language('extension/shipping/flat');
 
+        $this->load->model('localisation/language');
+
         $this->document->setTitle($this->language->get('heading_title'));
 
         $this->load->model('setting/setting');
@@ -14,7 +16,10 @@ class ControllerExtensionShippingFlat extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=shipping', true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+                $this->response->redirect($this->url->link('extension/shipping/flat', 'token=' . $this->session->data['token'] . $url, true));
+            else
+                $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=shipping', true));
         }
 
         $data['heading_title'] = $this->language->get('heading_title');
@@ -83,6 +88,17 @@ class ControllerExtensionShippingFlat extends Controller {
         } else {
             $data['flat_sort_order'] = $this->config->get('flat_sort_order');
         }
+
+        if (isset($this->request->post['flat_description'])) {
+            $data['flat_description'] = $this->request->post['flat_description'];
+        } else {
+            $data['flat_description'] = $this->config->get('flat_description');
+        }
+        $data['languages'] = $this->model_localisation_language->getLanguages();
+
+        //pr($data['module_description']);
+        $data['token'] = $this->session->data['token'];
+
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
