@@ -16,12 +16,7 @@ class ControllerCheckoutConfirm extends Controller {
             $shipping_address = $this->session->data['guest']['shipping'];
 
             if (empty($shipping_address)) {
-                $redirect = $this->url->link('checkout/checkot/guest', '', 'SSL');
-            }
-
-            // Validate if shipping method has been set.
-            if (!isset($this->session->data['shipping_method'])) {
-                ////$redirect = $this->url->link('checkout/checkout', '', 'SSL');
+                $redirect = $this->url->link('checkout/checkout/guest', '', 'SSL');
             }
         } else {
             unset($this->session->data['shipping_method']);
@@ -31,21 +26,10 @@ class ControllerCheckoutConfirm extends Controller {
         // Validate if payment address has been set.
         $this->load->model('account/address');
 
-        $payment_address = $this->session->data['guest']['payment'];
-
-        if (empty($payment_address)) {
-            ////$redirect = $this->url->link('checkout/checkout', '', 'SSL');
-        }
-
         // Validate if payment method has been set.
 
         if (!isset($this->session->data['payment_method'])) {
-            $redirect = $this->url->link('checkout/checkot/guest', '', 'SSL');
-        }
-
-        // Validate cart has products and has stock.
-        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-            ////$redirect = $this->url->link('checkout/cart');
+            $redirect = $this->url->link('checkout/checkout/guest', '', 'SSL');
         }
 
         if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
@@ -85,8 +69,6 @@ class ControllerCheckoutConfirm extends Controller {
             }
 
             if ($product['minimum'] > $product_total) {
-                ////$redirect = $this->url->link('checkout/cart');
-
                 break;
             }
         }
@@ -153,8 +135,6 @@ class ControllerCheckoutConfirm extends Controller {
                 $data1['fax'] = $customer_info['fax'];
                 $data1['custom_field'] = unserialize($customer_info['custom_field']);
                 $this->load->model('account/address');
-
-                ////$payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);
             } elseif (isset($this->session->data['guest'])) {
                 $data1['customer_id'] = 0;
                 $data1['customer_group_id'] = $this->session->data['guest']['customer_group_id'];
@@ -202,13 +182,9 @@ class ControllerCheckoutConfirm extends Controller {
             }
 
             if ($this->cart->hasShipping()) {
-                if ($this->customer->isLogged()) {
-                    $this->load->model('account/address');
-                    ////$shipping_address = $this->model_account_address->getAddress($this->session->data['shipping_address_id']);
-                } elseif (isset($this->session->data['guest'])) {
+                if (!$this->customer->isLogged() && isset($this->session->data['guest'])) {
                     $shipping_address = $this->session->data['guest']['shipping'];
                 }
-
                 $data1['shipping_firstname'] = $shipping_address['firstname'];
                 $data1['shipping_lastname'] = $shipping_address['lastname'];
                 $data1['shipping_company'] = $shipping_address['company'];
@@ -306,7 +282,6 @@ class ControllerCheckoutConfirm extends Controller {
 
             $data1['products'] = $product_data;
             $data1['vouchers'] = $voucher_data;
-            //$data1['totals'] = $total_data;
             $data1['totals'] = $total_data['totals'];
             $data1['comment'] = $this->session->data['comment'];
             $data1['total'] = $total;

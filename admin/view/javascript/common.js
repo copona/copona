@@ -16,8 +16,8 @@
 function saveAndContinue(e) {
     e.preventDefault();
 
-    $('#form-product, #form-category, #form-featured').append('<input type="hidden" name="save_continue" value="1"  />');
-    $('#form-product, #form-category, #form-featured').submit();
+    $('#form-product, #form-category, #form-featured, #form-flat').append('<input type="hidden" name="save_continue" value="1"  />');
+    $('#form-product, #form-category, #form-featured, #form-flat').submit();
 }
 
 function getURLVar(key) {
