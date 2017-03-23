@@ -535,12 +535,15 @@ class ModelCatalogProduct extends Model {
     }
 
     public function getProduct($product_id) {
-        $query = $this->db->query("SELECT DISTINCT *, (SELECT keyword FROM " . DB_PREFIX . "url_alias "
+        $query = $this->db->query("SELECT DISTINCT p.*"
+            . ", pd.*"
+            . ", p2p.product_group_id"
+            . ", p2p.default_id"
+            . ", (SELECT keyword FROM " . DB_PREFIX . "url_alias "
             . "WHERE query = 'product_id=" . (int)$product_id . "' limit 1) AS keyword FROM " . DB_PREFIX . "product p "
             . "LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) "
             . "LEFT JOIN " . DB_PREFIX . "product_to_product p2p ON (p.product_id = p2p.product_id) "
             . "WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
-
         return $query->row;
     }
 

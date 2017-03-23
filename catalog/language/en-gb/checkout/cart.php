@@ -34,3 +34,6 @@ $_['error_required'] = '%s required!';
 $_['error_product'] = 'Warning: There are no products in your cart!';
 $_['error_recurring_required'] = 'Please select a payment recurring!';
 $_['text_use_voucher'] = 'Use voucher';
+$_['text_use_coupon'] = 'Use Coupon Code';
+$_['text_shipping_estimate'] = 'Estimate Shipping & Taxes';
+$_['text_shipping_detail'] = 'Enter your destination to get a shipping estimate.';

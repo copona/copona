@@ -102,7 +102,9 @@ class ControllerProductCategory extends Controller {
         } elseif (!isset($this->request->get['path']) && !$category_info) {
             $show_category = true;
             $category_name = 'Product Catalog';
-            $category_meta_title = '';
+            $category_meta_title = (!empty($this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')]) ?
+                    $this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')] . ' - ' : '') .
+                $this->config->get('config_name');
             $category_meta_description = '';
             $category_meta_keyword = '';
             $category_path = '';

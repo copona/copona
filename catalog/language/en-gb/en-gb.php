@@ -97,3 +97,14 @@ $_['text_variations_available'] = 'Variations available';
 $_['text_get_link'] = 'Get link';
 $_['text_extension'] = 'Extension';
 $_['text_extensions'] = 'Extensions';
+
+$_['entry_firstname'] = 'Name';
+$_['entry_lastname'] = 'Surname';
+$_['text_surname'] = 'Surname';
+$_['entry_telephone'] = 'Mobile phone';
+$_['entry_email'] = 'E-mail';
+$_['text_company_name'] = 'Company name';
+$_['entry_company_id'] = 'Registration number';
+$_['entry_city'] = 'City';
+$_['entry_country'] = 'Country';
+$_['entry_address_1'] = 'Address';

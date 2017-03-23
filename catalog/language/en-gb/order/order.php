@@ -12,18 +12,10 @@ $_['text_shipping_address'] = 'Shipping address';
 $_['text_payment_method'] = 'Payment method';
 $_['entry_company'] = 'Company';
 $_['text_contact_buyer'] = 'Customer Information:';
-$_['entry_firstname'] = 'Name';
-$_['entry_lastname'] = 'Surname';
-$_['text_surname'] = 'Surname';
-$_['entry_telephone'] = 'Mobile phone';
-$_['entry_email'] = 'E-mail';
-$_['text_company_name'] = 'Company name';
-$_['entry_company_id'] = 'Registration number';
+
 $_['entry_tax_id'] = 'VAT number';
 $_['entry_address_2'] = 'Legal address';
-$_['entry_city'] = 'City';
-$_['entry_country'] = 'Country';
-$_['entry_address_1'] = 'Address';
+
 $_['error_form'] = '<a href="/index.php?route=account/login">Register</a> or continue as guest.';
 $_['error_shipping_method_choose_shop'] = 'Choose the shop for pickup';
 $_['text_make_order'] = 'Continue';

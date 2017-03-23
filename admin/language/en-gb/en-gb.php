@@ -157,3 +157,6 @@ $_['label_external_link'] = 'Link to';
 $_['help_external_link'] = 'Enternal URL, or internal path (see help info)';
 $_['text_extension'] = 'Extension';
 $_['text_extensions'] = 'Extensions';
+
+$_['entry_display'] = 'Display Name';
+$_['entry_display_placeholder'] = 'Display Name (Optional)';

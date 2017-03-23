@@ -7,15 +7,7 @@ $_['text_add'] = 'Your address has been successfully inserted';
 $_['text_edit'] = 'Your address has been successfully updated';
 $_['text_delete'] = 'Your address has been successfully deleted';
 $_['text_empty'] = 'You have no addresses in your account.';
-$_['entry_firstname'] = 'First Name';
-$_['entry_lastname'] = 'Last Name';
-$_['entry_company'] = 'Company';
-$_['entry_address_1'] = 'Address 1';
-$_['entry_address_2'] = 'Address 2';
-$_['entry_postcode'] = 'Post Code';
-$_['entry_city'] = 'City';
-$_['entry_country'] = 'Country';
-$_['entry_zone'] = 'Region / State';
+
 $_['entry_default'] = 'Default Address';
 $_['error_delete'] = 'Warning: You must have at least one address!';
 $_['error_default'] = 'Warning: You can not delete your default address!';
