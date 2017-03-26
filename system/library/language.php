@@ -65,7 +65,7 @@ class Language extends Controller {
             require(DIR_LANGUAGE . $this->default . '/' . $this->default . '.php' );
         }
 
-        $this->data = array_merge($this->data, $_);
+        $this->data = array_merge($this->data, $_); //
 
         return $this->data;
     }
