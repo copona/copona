@@ -13,8 +13,10 @@ class ControllerCommonHome extends Controller {
         }
 
         $data = $this->language->load('common/home');
+        $data['template_name'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
+        //Current
+        $data['theme_directory'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
 
-        //prd($this->language);
 
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['column_right'] = $this->load->controller('common/column_right');
