@@ -97,7 +97,6 @@ $_['text_variations_available'] = 'Variations available';
 $_['text_get_link'] = 'Get link';
 $_['text_extension'] = 'Extension';
 $_['text_extensions'] = 'Extensions';
-
 $_['entry_firstname'] = 'First Name';
 $_['entry_lastname'] = 'Last Name';
 $_['text_surname'] = 'Last Name';
@@ -116,4 +115,3 @@ $_['entry_tax'] = 'Tax ID';
 $_['entry_password'] = 'Password';
 $_['entry_confirm'] = 'Password Confirm';
 $_['entry_customer_group'] = 'Customer Group';
-
