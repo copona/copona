@@ -387,79 +387,7 @@ class ControllerSaleOrder extends Controller {
         $data['heading_title'] = $this->language->get('heading_title');
 
         $data['text_form'] = !isset($this->request->get['order_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
-        $data['text_no_results'] = $this->language->get('text_no_results');
-        $data['text_default'] = $this->language->get('text_default');
-        $data['text_select'] = $this->language->get('text_select');
-        $data['text_none'] = $this->language->get('text_none');
-        $data['text_loading'] = $this->language->get('text_loading');
         $data['text_ip_add'] = sprintf($this->language->get('text_ip_add'), $this->request->server['REMOTE_ADDR']);
-        $data['text_product'] = $this->language->get('text_product');
-        $data['text_voucher'] = $this->language->get('text_voucher');
-        $data['text_order_detail'] = $this->language->get('text_order_detail');
-
-        $data['entry_store'] = $this->language->get('entry_store');
-        $data['entry_customer'] = $this->language->get('entry_customer');
-        $data['entry_customer_group'] = $this->language->get('entry_customer_group');
-        $data['entry_firstname'] = $this->language->get('entry_firstname');
-        $data['entry_lastname'] = $this->language->get('entry_lastname');
-        $data['entry_email'] = $this->language->get('entry_email');
-        $data['entry_telephone'] = $this->language->get('entry_telephone');
-        $data['entry_fax'] = $this->language->get('entry_fax');
-        $data['entry_comment'] = $this->language->get('entry_comment');
-        $data['entry_affiliate'] = $this->language->get('entry_affiliate');
-        $data['entry_address'] = $this->language->get('entry_address');
-        $data['entry_company'] = $this->language->get('entry_company');
-        $data['entry_address_1'] = $this->language->get('entry_address_1');
-        $data['entry_address_2'] = $this->language->get('entry_address_2');
-        $data['entry_city'] = $this->language->get('entry_city');
-        $data['entry_postcode'] = $this->language->get('entry_postcode');
-        $data['entry_zone'] = $this->language->get('entry_zone');
-        $data['entry_zone_code'] = $this->language->get('entry_zone_code');
-        $data['entry_country'] = $this->language->get('entry_country');
-        $data['entry_product'] = $this->language->get('entry_product');
-        $data['entry_option'] = $this->language->get('entry_option');
-        $data['entry_quantity'] = $this->language->get('entry_quantity');
-        $data['entry_to_name'] = $this->language->get('entry_to_name');
-        $data['entry_to_email'] = $this->language->get('entry_to_email');
-        $data['entry_from_name'] = $this->language->get('entry_from_name');
-        $data['entry_from_email'] = $this->language->get('entry_from_email');
-        $data['entry_theme'] = $this->language->get('entry_theme');
-        $data['entry_message'] = $this->language->get('entry_message');
-        $data['entry_amount'] = $this->language->get('entry_amount');
-        $data['entry_currency'] = $this->language->get('entry_currency');
-        $data['entry_shipping_method'] = $this->language->get('entry_shipping_method');
-        $data['entry_payment_method'] = $this->language->get('entry_payment_method');
-        $data['entry_coupon'] = $this->language->get('entry_coupon');
-        $data['entry_voucher'] = $this->language->get('entry_voucher');
-        $data['entry_reward'] = $this->language->get('entry_reward');
-        $data['entry_order_status'] = $this->language->get('entry_order_status');
-
-        $data['column_product'] = $this->language->get('column_product');
-        $data['column_model'] = $this->language->get('column_model');
-        $data['column_quantity'] = $this->language->get('column_quantity');
-        $data['column_price'] = $this->language->get('column_price');
-        $data['column_total'] = $this->language->get('column_total');
-        $data['column_action'] = $this->language->get('column_action');
-
-        $data['button_save'] = $this->language->get('button_save');
-        $data['button_cancel'] = $this->language->get('button_cancel');
-        $data['button_continue'] = $this->language->get('button_continue');
-        $data['button_back'] = $this->language->get('button_back');
-        $data['button_refresh'] = $this->language->get('button_refresh');
-        $data['button_product_add'] = $this->language->get('button_product_add');
-        $data['button_voucher_add'] = $this->language->get('button_voucher_add');
-        $data['button_apply'] = $this->language->get('button_apply');
-        $data['button_upload'] = $this->language->get('button_upload');
-        $data['button_remove'] = $this->language->get('button_remove');
-        $data['button_ip_add'] = $this->language->get('button_ip_add');
-
-        $data['tab_order'] = $this->language->get('tab_order');
-        $data['tab_customer'] = $this->language->get('tab_customer');
-        $data['tab_payment'] = $this->language->get('tab_payment');
-        $data['tab_shipping'] = $this->language->get('tab_shipping');
-        $data['tab_product'] = $this->language->get('tab_product');
-        $data['tab_voucher'] = $this->language->get('tab_voucher');
-        $data['tab_total'] = $this->language->get('tab_total');
 
         $url = '';
 
@@ -962,6 +890,8 @@ class ControllerSaleOrder extends Controller {
                 $option_data = array();
 
                 $options = $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);
+
+                pr($options);
 
                 foreach ($options as $option) {
                     if ($option['type'] != 'file') {
