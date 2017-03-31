@@ -524,7 +524,7 @@ class ControllerCatalogOption extends Controller {
 
         foreach ($json as $key => $value) {
             $sort_order_type[$key] = $value['category'];
-            $sort_order_sort[$key] = 'ASC';
+            $sort_order_sort[$key] = $value['sort_order'];
             $sort_order_name[$key] = $value['name'];
         }
 
