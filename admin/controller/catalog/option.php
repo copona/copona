@@ -512,7 +512,8 @@ class ControllerCatalogOption extends Controller {
                     'name'         => strip_tags(html_entity_decode($option['name'], ENT_QUOTES, 'UTF-8')),
                     'category'     => $type,
                     'type'         => $option['type'],
-                    'option_value' => $option_value_data
+                    'option_value' => $option_value_data,
+                    'sort_order'   => 'o.sort_order'
                 );
             }
         }
