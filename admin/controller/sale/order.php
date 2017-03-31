@@ -769,70 +769,14 @@ class ControllerSaleOrder extends Controller {
         $order_info = $this->model_sale_order->getOrder($order_id);
 
         if ($order_info) {
-            $this->load->language('sale/order');
+            $data = $this->load->language('sale/order');
 
             $this->document->setTitle($this->language->get('heading_title'));
 
             $data['heading_title'] = $this->language->get('heading_title');
 
             $data['text_ip_add'] = sprintf($this->language->get('text_ip_add'), $this->request->server['REMOTE_ADDR']);
-            $data['text_order_detail'] = $this->language->get('text_order_detail');
-            $data['text_customer_detail'] = $this->language->get('text_customer_detail');
-            $data['text_option'] = $this->language->get('text_option');
-            $data['text_store'] = $this->language->get('text_store');
-            $data['text_date_added'] = $this->language->get('text_date_added');
-            $data['text_payment_method'] = $this->language->get('text_payment_method');
-            $data['text_shipping_method'] = $this->language->get('text_shipping_method');
-            $data['text_customer'] = $this->language->get('text_customer');
-            $data['text_customer_group'] = $this->language->get('text_customer_group');
-            $data['text_email'] = $this->language->get('text_email');
-            $data['text_telephone'] = $this->language->get('text_telephone');
-            $data['text_invoice'] = $this->language->get('text_invoice');
-            $data['text_reward'] = $this->language->get('text_reward');
-            $data['text_affiliate'] = $this->language->get('text_affiliate');
             $data['text_order'] = sprintf($this->language->get('text_order'), $this->request->get['order_id']);
-            $data['text_payment_address'] = $this->language->get('text_payment_address');
-            $data['text_shipping_address'] = $this->language->get('text_shipping_address');
-            $data['text_comment'] = $this->language->get('text_comment');
-            $data['text_account_custom_field'] = $this->language->get('text_account_custom_field');
-            $data['text_payment_custom_field'] = $this->language->get('text_payment_custom_field');
-            $data['text_shipping_custom_field'] = $this->language->get('text_shipping_custom_field');
-            $data['text_browser'] = $this->language->get('text_browser');
-            $data['text_ip'] = $this->language->get('text_ip');
-            $data['text_forwarded_ip'] = $this->language->get('text_forwarded_ip');
-            $data['text_user_agent'] = $this->language->get('text_user_agent');
-            $data['text_accept_language'] = $this->language->get('text_accept_language');
-            $data['text_history'] = $this->language->get('text_history');
-            $data['text_history_add'] = $this->language->get('text_history_add');
-            $data['text_loading'] = $this->language->get('text_loading');
-
-            $data['column_product'] = $this->language->get('column_product');
-            $data['column_model'] = $this->language->get('column_model');
-            $data['column_quantity'] = $this->language->get('column_quantity');
-            $data['column_price'] = $this->language->get('column_price');
-            $data['column_total'] = $this->language->get('column_total');
-
-            $data['entry_order_status'] = $this->language->get('entry_order_status');
-            $data['entry_notify'] = $this->language->get('entry_notify');
-            $data['entry_override'] = $this->language->get('entry_override');
-            $data['entry_comment'] = $this->language->get('entry_comment');
-
-            $data['help_override'] = $this->language->get('help_override');
-
-            $data['button_invoice_print'] = $this->language->get('button_invoice_print');
-            $data['button_shipping_print'] = $this->language->get('button_shipping_print');
-            $data['button_edit'] = $this->language->get('button_edit');
-            $data['button_cancel'] = $this->language->get('button_cancel');
-            $data['button_generate'] = $this->language->get('button_generate');
-            $data['button_reward_add'] = $this->language->get('button_reward_add');
-            $data['button_reward_remove'] = $this->language->get('button_reward_remove');
-            $data['button_commission_add'] = $this->language->get('button_commission_add');
-            $data['button_commission_remove'] = $this->language->get('button_commission_remove');
-            $data['button_history_add'] = $this->language->get('button_history_add');
-            $data['button_ip_add'] = $this->language->get('button_ip_add');
-
-            $data['tab_history'] = $this->language->get('tab_history');
-            $data['tab_additional'] = $this->language->get('tab_additional');
 
             $url = '';
 
