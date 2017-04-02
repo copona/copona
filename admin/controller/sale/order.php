@@ -891,8 +891,6 @@ class ControllerSaleOrder extends Controller {
 
                 $options = $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);
 
-                pr($options);
-
                 foreach ($options as $option) {
                     if ($option['type'] != 'file') {
                         $option_data[] = array(
