@@ -512,7 +512,8 @@ class ControllerCatalogOption extends Controller {
                     'name'         => strip_tags(html_entity_decode($option['name'], ENT_QUOTES, 'UTF-8')),
                     'category'     => $type,
                     'type'         => $option['type'],
-                    'option_value' => $option_value_data
+                    'option_value' => $option_value_data,
+                    'sort_order'   => 'o.sort_order'
                 );
             }
         }
@@ -523,7 +524,7 @@ class ControllerCatalogOption extends Controller {
 
         foreach ($json as $key => $value) {
             $sort_order_type[$key] = $value['category'];
-            $sort_order_sort[$key] = 'ASC';
+            $sort_order_sort[$key] = $value['sort_order'];
             $sort_order_name[$key] = $value['name'];
         }
 

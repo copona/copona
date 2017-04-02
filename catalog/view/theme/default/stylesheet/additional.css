@@ -60,3 +60,14 @@
 .image{
     position: relative;
 }
+
+.category-layout{
+    border: 1px solid transparent;
+}
+.category-layout:hover{
+    border: 1px solid #e7e7e7;
+
+}
+.category-layout .category-thumb .caption {
+    text-align: center;
+}
