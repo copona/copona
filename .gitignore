@@ -24,6 +24,8 @@ catalog/controller/xml/*.xml
 /image/data/
 /image/cache/*
 /image/catalog/*
+!/image/catalog/cart.copona.png
+!/image/catalog/cart.png
 
 # System Cache Files
 /system/storage/cache/*
