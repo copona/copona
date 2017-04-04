@@ -39,10 +39,6 @@ $_['column_action'] = 'Action';
 // Entry
 $_['entry_order_id'] = 'Order ID';
 $_['entry_date_ordered'] = 'Order Date';
-$_['entry_firstname'] = 'First Name';
-$_['entry_lastname'] = 'Last Name';
-$_['entry_email'] = 'E-Mail';
-$_['entry_telephone'] = 'Telephone';
 $_['entry_product'] = 'Product Name';
 $_['entry_model'] = 'Product Code';
 $_['entry_quantity'] = 'Quantity';

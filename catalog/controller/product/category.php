@@ -102,7 +102,9 @@ class ControllerProductCategory extends Controller {
         } elseif (!isset($this->request->get['path']) && !$category_info) {
             $show_category = true;
             $category_name = 'Product Catalog';
-            $category_meta_title = '';
+            $category_meta_title = (!empty($this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')]) ?
+                    $this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')] . ' - ' : '') .
+                $this->config->get('config_name');
             $category_meta_description = '';
             $category_meta_keyword = '';
             $category_path = '';
@@ -356,8 +358,8 @@ class ControllerProductCategory extends Controller {
             $pagination->limit = $limit;
             $pagination->text_first = '';
             $pagination->text_last = '';
-            $pagination->prev_hide = true;
-            $pagination->next_hide = true;
+            $pagination->prev_hide = $this->config->get('theme_default_pagination_prev_hide') === null ? false : $this->config->get('theme_default_pagination_prev_hide');
+            $pagination->next_hide = $this->config->get('theme_default_pagination_next_hide') === null ? false : $this->config->get('theme_default_pagination_next_hide');
             $pagination->url = $this->url->link('product/category', ($category_info ? 'path=' . $category_path : '') . $url . '&page={page}');
 
             $data['pagination'] = $pagination->render();

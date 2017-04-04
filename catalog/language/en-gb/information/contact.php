@@ -13,9 +13,6 @@ $_['text_open'] = 'Opening Times';
 $_['text_comment'] = 'Comments';
 $_['text_success'] = '<p>Your enquiry has been successfully sent to the store owner!</p>';
 
-// Entry
-$_['entry_name'] = 'Your Name';
-$_['entry_email'] = 'E-Mail Address';
 $_['entry_enquiry'] = 'Enquiry';
 
 // Email

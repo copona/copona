@@ -29,7 +29,7 @@
                 <?php } ?>
                 <?php if ($images) { ?>
                     <?php foreach ($images as $image) { ?>
-                        <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+                        <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $image['description']; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $image['description']; ?>" alt="<?php echo $image['description']; ?>" /></a></li>
                     <?php } ?>
                 <?php } ?>
                 <?php if ($product_videos) { ?>

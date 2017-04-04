@@ -52,22 +52,8 @@ $_['column_quantity'] = 'Quantity';
 $_['column_price'] = 'Unit Price';
 $_['column_total'] = 'Total';
 $_['entry_email_address'] = 'E-Mail Address';
-$_['entry_email'] = 'E-Mail';
-$_['entry_password'] = 'Password';
-$_['entry_confirm'] = 'Password Confirm';
-$_['entry_firstname'] = 'First Name';
-$_['entry_lastname'] = 'Last Name';
-$_['entry_telephone'] = 'Telephone';
-$_['entry_fax'] = 'Fax';
-$_['entry_address'] = 'Choose Address';
-$_['entry_company'] = 'Company';
-$_['entry_customer_group'] = 'Customer Group';
-$_['entry_address_1'] = 'Address 1';
-$_['entry_address_2'] = 'Address 2';
-$_['entry_postcode'] = 'Post Code';
-$_['entry_city'] = 'City';
-$_['entry_country'] = 'Country';
-$_['entry_zone'] = 'Region / State';
+
+
 $_['entry_newsletter'] = 'I wish to subscribe to the %s newsletter.';
 $_['entry_shipping'] = 'My delivery and billing addresses are the same.';
 $_['error_warning'] = 'There was a problem while trying to process your order! If the problem persists please try selecting a different payment method or you can contact the store owner by <a href="%s">clicking here</a>.';

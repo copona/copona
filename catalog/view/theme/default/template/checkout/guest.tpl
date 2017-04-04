@@ -38,18 +38,6 @@
         <div class="onepage-checkout">
           <form action="<?php echo $action; ?>" class="form" method="post">
             <div id="step1">
-                <?php
-                if (!$logged) {
-                    if (isset($error_warning)) {
-                        echo "<div class='warning'>";
-                        if (isset($error_warning['shipping_method']))
-                            echo $error['shipping_method'];
-                        else
-                            echo '<div class="container"><h4>' . $error_form . "</h4></div>";
-                        echo "</div>";
-                    }
-                }
-                ?>
               <div class="row">
                 <div class="col-md-6">
                   <fieldset>
@@ -73,7 +61,7 @@
                     <br><br>
                     <div id="shipping-method">
                       <div style="display:block; margin: 0 auto; width: 50%; text-align: center;">
-                        <img src="<?php echo $this->config->get('config_url') . 'image/catalog/AjaxLoader.gif' ?>" alt=""/>
+                        <img src="catalog/view/theme/<?php echo $this->config->get('theme_default_directory') ?>/image/AjaxLoader.gif" alt=""/>
                       </div>
                     </div>
                     <div id="shipping_address">
@@ -247,7 +235,7 @@
                           <input id="agree" type="checkbox" name="agree" <?= ($agree ? 'checked' : ''); ?>>
                           <?= $text_agree; ?></label>
                         <div align="right">
-                          <span class="wait" style="display: none; margin-right: 10px;">&nbsp;<img src="<?= HTTP_SERVER; ?>image/catalog/AjaxLoader.gif" alt="Loading" /></span>
+                          <span class="wait" style="display: none; margin-right: 10px;">&nbsp;<img src="catalog/view/theme/<?php echo $this->config->get('theme_default_directory') ?>/image/AjaxLoader.gif" width="20px" alt="Loading" /></span>
                           <input type="submit" value="<?= $text_make_order; ?>" id="button-payment-method" class="btn btn-primary" />
                         </div>
                       </div>

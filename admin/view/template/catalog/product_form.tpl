@@ -214,42 +214,73 @@
                   <input type="text" name="model" value="<?php echo $model; ?>" placeholder="<?php echo $entry_model; ?>" id="input-model" class="form-control" />
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-sku"><span data-toggle="tooltip" title="<?php echo $help_sku; ?>"><?php echo $entry_sku; ?></span></label>
-                <div class="col-sm-10">
-                  <input type="text" name="sku" value="<?php echo $sku; ?>" placeholder="<?php echo $entry_sku; ?>" id="input-sku" class="form-control" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-upc"><span data-toggle="tooltip" title="<?php echo $help_upc; ?>"><?php echo $entry_upc; ?></span></label>
-                <div class="col-sm-10">
-                  <input type="text" name="upc" value="<?php echo $upc; ?>" placeholder="<?php echo $entry_upc; ?>" id="input-upc" class="form-control" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-ean"><span data-toggle="tooltip" title="<?php echo $help_ean; ?>"><?php echo $entry_ean; ?></span></label>
-                <div class="col-sm-10">
-                  <input type="text" name="ean" value="<?php echo $ean; ?>" placeholder="<?php echo $entry_ean; ?>" id="input-ean" class="form-control" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-jan"><span data-toggle="tooltip" title="<?php echo $help_jan; ?>"><?php echo $entry_jan; ?></span></label>
-                <div class="col-sm-10">
-                  <input type="text" name="jan" value="<?php echo $jan; ?>" placeholder="<?php echo $entry_jan; ?>" id="input-jan" class="form-control" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-isbn"><span data-toggle="tooltip" title="<?php echo $help_isbn; ?>"><?php echo $entry_isbn; ?></span></label>
-                <div class="col-sm-10">
-                  <input type="text" name="isbn" value="<?php echo $isbn; ?>" placeholder="<?php echo $entry_isbn; ?>" id="input-isbn" class="form-control" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-mpn"><span data-toggle="tooltip" title="<?php echo $help_mpn; ?>"><?php echo $entry_mpn; ?></span></label>
-                <div class="col-sm-10">
-                  <input type="text" name="mpn" value="<?php echo $mpn; ?>" placeholder="<?php echo $entry_mpn; ?>" id="input-mpn" class="form-control" />
-                </div>
-              </div>
+
+              <?php if ($this->config->get('config_use_sku') == 1) { ?>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-sku"><span data-toggle="tooltip" title="<?php echo $help_sku; ?>"><?php echo $entry_sku; ?></span></label>
+                    <div class="col-sm-10">
+                      <input type="text" name="sku" value="<?php echo $sku; ?>" placeholder="<?php echo $entry_sku; ?>" id="input-sku" class="form-control" />
+                    </div>
+                  </div>
+              <?php } else { ?>
+                  <input type="hidden" name="sku" value="<?php echo $sku; ?>" id="input-sku" class="form-control" />
+              <?php } ?>
+
+              <?php if ($this->config->get('config_use_upc') == 1) { ?>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-upc"><span data-toggle="tooltip" title="<?php echo $help_upc; ?>"><?php echo $entry_upc; ?></span></label>
+                    <div class="col-sm-10">
+                      <input type="text" name="upc" value="<?php echo $upc; ?>" placeholder="<?php echo $entry_upc; ?>" id="input-upc" class="form-control" />
+                    </div>
+                  </div>
+              <?php } else { ?>
+                  <input type="hidden" name="upc" value="<?php echo $upc; ?>" id="input-upc" class="form-control" />
+              <?php } ?>
+
+              <?php if ($this->config->get('config_use_ean') == 1) { ?>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-ean"><span data-toggle="tooltip" title="<?php echo $help_ean; ?>"><?php echo $entry_ean; ?></span></label>
+                    <div class="col-sm-10">
+                      <input type="text" name="ean" value="<?php echo $ean; ?>" placeholder="<?php echo $entry_ean; ?>" id="input-ean" class="form-control" />
+                    </div>
+                  </div>
+              <?php } else { ?>
+                  <input type="hidden" name="ean" value="<?php echo $ean; ?>" id="input-ean" class="form-control" />
+              <?php } ?>
+
+              <?php if ($this->config->get('config_use_jan') == 1) { ?>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-jan"><span data-toggle="tooltip" title="<?php echo $help_jan; ?>"><?php echo $entry_jan; ?></span></label>
+                    <div class="col-sm-10">
+                      <input type="text" name="jan" value="<?php echo $jan; ?>" placeholder="<?php echo $entry_jan; ?>" id="input-jan" class="form-control" />
+                    </div>
+                  </div>
+              <?php } else { ?>
+                  <input type="hidden" name="jan" value="<?php echo $jan; ?>" id="input-jan" class="form-control" />
+              <?php } ?>
+
+              <?php if ($this->config->get('config_use_isbn') == 1) { ?>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-isbn"><span data-toggle="tooltip" title="<?php echo $help_isbn; ?>"><?php echo $entry_isbn; ?></span></label>
+                    <div class="col-sm-10">
+                      <input type="text" name="isbn" value="<?php echo $isbn; ?>" placeholder="<?php echo $entry_isbn; ?>" id="input-isbn" class="form-control" />
+                    </div>
+                  </div>
+              <?php } else { ?>
+                  <input type="hidden" name="isbn" value="<?php echo $isbn; ?>" id="input-isbn" class="form-control" />
+              <?php } ?>
+
+              <?php if ($this->config->get('config_use_mpn') == 1) { ?>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-mpn"><span data-toggle="tooltip" title="<?php echo $help_mpn; ?>"><?php echo $entry_mpn; ?></span></label>
+                    <div class="col-sm-10">
+                      <input type="text" name="mpn" value="<?php echo $mpn; ?>" placeholder="<?php echo $entry_mpn; ?>" id="input-mpn" class="form-control" />
+                    </div>
+                  </div>
+              <?php } else { ?>
+                  <input type="hidden" name="mpn" value="<?php echo $mpn; ?>" id="input-mpn" class="form-control" />
+              <?php } ?>
+
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-location"><?php echo $entry_location; ?></label>
                 <div class="col-sm-10">
@@ -448,6 +479,7 @@
                   <thead>
                     <tr>
                       <td class="text-left"><?php echo $entry_additional_image; ?></td>
+                      <td class="text-right"><?php echo $entry_additional_image_description; ?></td>
                       <td class="text-right"><?php echo $entry_sort_order; ?></td>
                       <td></td>
                     </tr>
@@ -457,6 +489,16 @@
                       <?php foreach ($product_images as $product_image) { ?>
                         <tr id="image-row<?php echo $image_row; ?>">
                           <td class="text-left"><a href="" id="thumb-image<?php echo $image_row; ?>" data-toggle="image" class="img-thumbnail"><img src="<?php echo $product_image['thumb']; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="product_image[<?php echo $image_row; ?>][image]" value="<?php echo $product_image['image']; ?>" id="input-image<?php echo $image_row; ?>" /></td>
+                          <td class="text-right">
+                              <?php foreach ($languages as $language) {// pr($product_video) ?>
+                                <div class="input-group">
+                                  <span class="input-group-addon lng-image">
+                                    <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
+                                  </span>
+                                  <input type="text" name="product_image[<?php echo $image_row; ?>][description][<?php echo $language['language_id'] ?>][description]" value="<?php echo empty($product_image['description'][$language['language_id']]['description']) ? "" : $product_image['description'][$language['language_id']]['description']; ?>" placeholder="<?php echo $entry_additional_image_description; ?>" class="form-control" />
+                                </div>
+                            <?php } ?>
+                          </td>
                           <td class="text-right"><input type="text" name="product_image[<?php echo $image_row; ?>][sort_order]" value="<?php echo $product_image['sort_order']; ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
                           <td class="text-left"><button type="button" onclick="$('#image-row<?php echo $image_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                         </tr>
@@ -465,7 +507,7 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colspan="2"></td>
+                      <td colspan="3"></td>
                       <td class="text-left"><button type="button" onclick="addImage();" data-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                     </tr>
                   </tfoot>
@@ -496,7 +538,7 @@
                                     </div>
                                 <?php } ?>
                               </td>
-                              <td class="text-right"><input type="text" name="product_video[<?php echo $video_row; ?>][sort_order]" value="<?php echo $product_video['sort_order'] ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
+                              <td class="text-right"><input type="text" name="content_meta[product_video][<?php echo $video_row; ?>][sort_order]" value="<?php echo $product_video['sort_order'] ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
                               <td class="text-left"><button type="button" onclick="$('#video-row<?php echo $video_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                             </tr>
                             <?php $video_row++; ?>
@@ -579,6 +621,39 @@
                   </div>
                 </div>
               </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label"><?php echo "Apdruka" ?></label>
+                <div class="col-sm-10">
+                  <div class="well well-sm" style="height: 150px; overflow: auto;">
+                    <div class="checkbox">
+                      <label>
+                          <?php if (in_array(0, $product_store)) { ?>
+                            <input type="checkbox" name="printing" value="0" checked="checked" />
+                            <?php echo 'Nav apdruka'; ?>
+                        <?php } else { ?>
+                            <input type="checkbox" name="printing" value="0" />
+                            <?php echo 'Nav apdruka'; ?>
+                        <?php } ?>
+                      </label>
+                    </div>
+                    <?php foreach ($stores as $store) { ?>
+                        <div class="checkbox">
+                          <label>
+                              <?php if (in_array($store['store_id'], $product_store)) { ?>
+                                <input type="checkbox" name="printing" value="<?php echo $store['store_id']; ?>" checked="checked" />
+                                <?php echo $print['name']; ?>
+                            <?php } else { ?>
+                                <input type="checkbox" name="printing" value="<?php echo $store['store_id']; ?>" />
+                                <?php echo $print['name']; ?>
+                            <?php } ?>
+                          </label>
+                        </div>
+                    <?php } ?>
+                  </div>
+                </div>
+              </div>
+
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-download"><span data-toggle="tooltip" title="<?php echo $help_download; ?>"><?php echo $entry_download; ?></span></label>
                 <div class="col-sm-10">

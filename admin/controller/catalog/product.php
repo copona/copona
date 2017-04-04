@@ -19,7 +19,6 @@ class ControllerCatalogProduct extends Controller {
 
         $this->load->model('catalog/product');
 
-
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 
             $product_id = $this->model_catalog_product->addProduct($this->request->post);
@@ -78,7 +77,7 @@ class ControllerCatalogProduct extends Controller {
 
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-            // prd($this->request->post);
+            //prd($this->request->post);
             //prd($this->request->post);
             $product_id = $this->request->get['product_id'];
 
@@ -1211,9 +1210,10 @@ class ControllerCatalogProduct extends Controller {
             }
 
             $data['product_images'][] = array(
-                'image'      => $image,
-                'thumb'      => $this->model_tool_image->resize($thumb, 100, 100),
-                'sort_order' => $product_image['sort_order']
+                'image'       => $image,
+                'thumb'       => $this->model_tool_image->resize($thumb, 100, 100),
+                'sort_order'  => $product_image['sort_order'],
+                'description' => $product_image['description']
             );
         }
 

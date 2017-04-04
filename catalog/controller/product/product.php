@@ -5,17 +5,11 @@ class ControllerProductProduct extends Controller {
     public function index() {
         //$this->load->language('product/product');
         $data = array_merge(array(), $this->language->load('product/product'));
+        $data['config_url'] = $this->config->get('config_url');
         $url = '';
 
-
-        /* $data['breadcrumbs'] = array();
-
-          $data['breadcrumbs'][] = array(
-          'text' => $data['text_home'],
-          'href' => $this->url->link('common/home')
-          ); */
-
-        $bread_crumbs = new Breadcrumbs($this->registry); // home already in object data
+        // home already in object data
+        $bread_crumbs = new Breadcrumbs($this->registry);
 
         $this->load->model('catalog/category');
         $this->load->model('tool/image');
@@ -36,10 +30,6 @@ class ControllerProductProduct extends Controller {
                 $category_info = $this->model_catalog_category->getCategory($path_id);
 
                 if ($category_info) {
-                    /* $data['breadcrumbs'][] = array(
-                      'text' => $category_info['name'],
-                      'href' => $this->url->link('product/category', 'path=' . $path)
-                      ); */
                     $bread_crumbs->push($category_info['name'], 'product/category', 'path=' . $path);
                 }
             }
@@ -66,10 +56,6 @@ class ControllerProductProduct extends Controller {
                     $url .= '&limit=' . $this->request->get['limit'];
                 }
 
-                /* $data['breadcrumbs'][] = array(
-                  'text' => $category_info['name'],
-                  'href' => $this->url->link('product/category', 'path=' . $this->request->get['path'] . $url)
-                  ); */
                 $bread_crumbs->push($category_info['name'], 'product/category', 'path=' . $this->request->get['path'] . $url);
             }
         }
@@ -77,14 +63,8 @@ class ControllerProductProduct extends Controller {
         $this->load->model('catalog/manufacturer');
 
         if (isset($this->request->get['manufacturer_id'])) {
-            /* $data['breadcrumbs'][] = array(
-              'text' => $data['text_brand'],
-              'href' => $this->url->link('product/manufacturer')
-              ); */
             $bread_crumbs->push($data['text_brand'], 'product/manufacturer');
-
             $url = '';
-
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
             }
@@ -104,10 +84,6 @@ class ControllerProductProduct extends Controller {
             $manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($this->request->get['manufacturer_id']);
 
             if ($manufacturer_info) {
-                /* $data['breadcrumbs'][] = array(
-                  'text' => $manufacturer_info['name'],
-                  'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url)
-                  ); */
                 $bread_crumbs->push($manufacturer_info['name'], 'product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url);
             }
         }
@@ -151,10 +127,6 @@ class ControllerProductProduct extends Controller {
                 $url .= '&limit=' . $this->request->get['limit'];
             }
 
-            /* $data['breadcrumbs'][] = array(
-              'text' => $data['text_search'],
-              'href' => $this->url->link('product/search', $url)
-              ); */
             $bread_crumbs->push($data['text_search'], 'product/search', $url);
         }
 
@@ -318,9 +290,10 @@ class ControllerProductProduct extends Controller {
 
             foreach ($results as $result) {
                 $data['images'][] = array(
-                    'popup'     => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
-                    'thumb'     => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
-                    'image_mid' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'))
+                    'description' => $result['description'],
+                    'popup'       => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
+                    'thumb'       => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
+                    'image_mid'   => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'))
                 );
             }
 

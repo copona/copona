@@ -3,7 +3,9 @@ class ControllerExtensionShippingFlat extends Controller {
     private $error = array();
 
     public function index() {
-        $this->load->language('extension/shipping/flat');
+        $data = $this->load->language('extension/shipping/flat');
+
+        $this->load->model('localisation/language');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -14,25 +16,13 @@ class ControllerExtensionShippingFlat extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=shipping', true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+                $this->response->redirect($this->url->link('extension/shipping/flat', 'token=' . $this->session->data['token'] . $url, true));
+            else
+                $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=shipping', true));
         }
 
         $data['heading_title'] = $this->language->get('heading_title');
-
-        $data['text_edit'] = $this->language->get('text_edit');
-        $data['text_enabled'] = $this->language->get('text_enabled');
-        $data['text_disabled'] = $this->language->get('text_disabled');
-        $data['text_all_zones'] = $this->language->get('text_all_zones');
-        $data['text_none'] = $this->language->get('text_none');
-
-        $data['entry_cost'] = $this->language->get('entry_cost');
-        $data['entry_tax_class'] = $this->language->get('entry_tax_class');
-        $data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
-        $data['entry_status'] = $this->language->get('entry_status');
-        $data['entry_sort_order'] = $this->language->get('entry_sort_order');
-
-        $data['button_save'] = $this->language->get('button_save');
-        $data['button_cancel'] = $this->language->get('button_cancel');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -98,6 +88,17 @@ class ControllerExtensionShippingFlat extends Controller {
         } else {
             $data['flat_sort_order'] = $this->config->get('flat_sort_order');
         }
+
+        if (isset($this->request->post['flat_description'])) {
+            $data['flat_description'] = $this->request->post['flat_description'];
+        } else {
+            $data['flat_description'] = $this->config->get('flat_description');
+        }
+        $data['languages'] = $this->model_localisation_language->getLanguages();
+
+        //pr($data['module_description']);
+        $data['token'] = $this->session->data['token'];
+
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');

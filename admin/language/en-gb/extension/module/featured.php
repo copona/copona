@@ -14,6 +14,9 @@ $_['entry_limit'] = 'Limit';
 $_['entry_width'] = 'Width';
 $_['entry_height'] = 'Height';
 $_['entry_status'] = 'Status';
+$_['entry_display_title'] = 'Display title';
+$_['entry_placeholder_display_title'] = 'Display title';
+$_['help_display_title'] = 'This title in specific language will be visible, if filled in';
 
 // Help
 $_['help_product'] = '(Autocomplete)';
