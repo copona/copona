@@ -220,14 +220,14 @@ class ControllerProductProduct extends Controller {
 
             /* $data['breadcrumbs'][] = array(
               'text' => $product_info['name'],
-              'href' => $this->url->link('product/product', $url . '&product_id=' . $this->request->get['product_id'])
+              'href' => $this->url->link('product/product', $url . '&product_id=' . $product_id)
               ); */
             $bread_crumbs->push($product_info['name'], 'product/product', $url . '&product_id=' . $this->request->get['product_id']);
 
             $this->document->setTitle($product_info['meta_title']);
             $this->document->setDescription($product_info['meta_description']);
             $this->document->setKeywords($product_info['meta_keyword']);
-            $this->document->addLink($this->url->link('product/product', 'product_id=' . $this->request->get['product_id']), 'canonical');
+            $this->document->addLink($this->url->link('product/product', 'product_id=' . $product_id), 'canonical');
             $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
             $this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
             $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
@@ -245,7 +245,7 @@ class ControllerProductProduct extends Controller {
 
             $data['tab_review'] = sprintf($this->language->get('tab_review'), $product_info['reviews']);
 
-            $data['product_id'] = (int)$this->request->get['product_id'];
+            $data['product_id'] = (int)$product_id;
             $data['product_url'] = $this->url->link('product/product', '&product_id=' . $data['product_id'] . $url);
 
 
@@ -273,27 +273,27 @@ class ControllerProductProduct extends Controller {
             }
 
             if ($product_info['image']) {
-                $data['thumb'] = $this->model_tool_image->propsize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+                $data['thumb'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
             } else {
                 $data['thumb'] = '';
             }
 
             if ($product_info['image']) {
-                $data['image_mid'] = $this->model_tool_image->cropsize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'));
+                $data['image_mid'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'));
             } else {
                 $data['image_mid'] = '';
             }
 
             $data['images'] = array();
 
-            $results = $this->model_catalog_product->getProductImages($this->request->get['product_id']);
+            $results = $this->model_catalog_product->getProductImages($product_id);
 
             foreach ($results as $result) {
                 $data['images'][] = array(
                     'description' => $result['description'],
                     'popup'       => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
-                    'thumb'       => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
-                    'image_mid'   => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'))
+                    'thumb'       => $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
+                    'image_mid'   => $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'))
                 );
             }
 
@@ -315,7 +315,7 @@ class ControllerProductProduct extends Controller {
                 $data['tax'] = false;
             }
 
-            $discounts = $this->model_catalog_product->getProductDiscounts($this->request->get['product_id']);
+            $discounts = $this->model_catalog_product->getProductDiscounts($product_id);
 
             $data['discounts'] = array();
 
@@ -328,7 +328,7 @@ class ControllerProductProduct extends Controller {
 
             $data['options'] = array();
 
-            foreach ($this->model_catalog_product->getProductOptions($this->request->get['product_id']) as $option) {
+            foreach ($this->model_catalog_product->getProductOptions($product_id) as $option) {
                 $product_option_value_data = array();
 
                 foreach ($option['product_option_value'] as $option_value) {
@@ -393,13 +393,13 @@ class ControllerProductProduct extends Controller {
                 $data['captcha'] = '';
             }
 
-            $data['share'] = $this->url->link('product/product', 'product_id=' . (int)$this->request->get['product_id']);
+            $data['share'] = $this->url->link('product/product', 'product_id=' . (int)$product_id);
 
-            $data['attribute_groups'] = $this->model_catalog_product->getProductAttributes($this->request->get['product_id']);
+            $data['attribute_groups'] = $this->model_catalog_product->getProductAttributes($product_id);
 
             $data['products'] = array();
 
-            $results = $this->model_catalog_product->getProductRelated($this->request->get['product_id']);
+            $results = $this->model_catalog_product->getProductRelated($product_id);
 
             foreach ($results as $result) {
                 if ($result['image']) {
@@ -459,7 +459,7 @@ class ControllerProductProduct extends Controller {
                 }
             }
 
-            $data['recurrings'] = $this->model_catalog_product->getProfiles($this->request->get['product_id']);
+            $data['recurrings'] = $this->model_catalog_product->getProfiles($product_id);
 
             // Content Meta
 
@@ -477,7 +477,7 @@ class ControllerProductProduct extends Controller {
                 }
             }
 
-            $this->model_catalog_product->updateViewed($this->request->get['product_id']);
+            $this->model_catalog_product->updateViewed($product_id);
 
             $data['breadcrumbs_html'] = $bread_crumbs->render(); // we have breadcrumbs html
             $data['breadcrumbs'] = $bread_crumbs->getPath(); // for compatibility
@@ -582,7 +582,7 @@ class ControllerProductProduct extends Controller {
         $data['text_no_reviews'] = $this->language->get('text_no_reviews');
 
         if (isset($this->request->get['page'])) {
-            $page = $this->request->get['page'];
+            $page = (int)$this->request->get['page'];
         } else {
             $page = 1;
         }
