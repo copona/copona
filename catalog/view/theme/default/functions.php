@@ -33,7 +33,7 @@ foreach ($template_config_settings as $key => $val) {
  * string = callback functions
  */
 
-$this->hook->setHook('product/index/after', 'remove_image');
+$this->hook->setHook('product/index/after', 'default_remove_image');
 
 /*
  * callback functions
@@ -41,7 +41,7 @@ $this->hook->setHook('product/index/after', 'remove_image');
  *
  */
 
-function remove_image(&$data, &$registry) {
+function default_remove_image(&$data, &$registry) {
     $db = $registry->get('db');
     $registry->get('load')->model('catalog/product');
     // Real modifications.

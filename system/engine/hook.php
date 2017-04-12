@@ -9,12 +9,10 @@ class Hook {
     }
 
     public function setHook($string, $data) {
-        pr('1');
         $this->hooks[$string][] = $data;
     }
 
     public function getHook($string, &$data) {
-
         if (!empty($this->hooks[$string])) {
             foreach ($this->hooks[$string] as $function) {
                 if (function_exists($function)) {
