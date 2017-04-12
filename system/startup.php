@@ -96,6 +96,7 @@ spl_autoload_extensions('.php');
 require_once(modification(DIR_SYSTEM . 'engine/action.php'));
 require_once(modification(DIR_SYSTEM . 'engine/controller.php'));
 require_once(modification(DIR_SYSTEM . 'engine/event.php'));
+require_once(modification(DIR_SYSTEM . 'engine/hook.php'));
 require_once(modification(DIR_SYSTEM . 'engine/front.php'));
 require_once(modification(DIR_SYSTEM . 'engine/loader.php'));
 require_once(modification(DIR_SYSTEM . 'engine/model.php'));

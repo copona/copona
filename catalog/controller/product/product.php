@@ -489,6 +489,8 @@ class ControllerProductProduct extends Controller {
             $data['footer'] = $this->load->controller('common/footer');
             $data['header'] = $this->load->controller('common/header');
 
+            $this->hook->getHook('product/index/after', $data);
+
             $this->response->setOutput($this->load->view('product/product', $data));
         } else {
             $url = '';
@@ -565,6 +567,8 @@ class ControllerProductProduct extends Controller {
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
             $data['footer'] = $this->load->controller('common/footer');
             $data['header'] = $this->load->controller('common/header');
+
+            $this->hook->getHook('product/index/after', $data);
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
