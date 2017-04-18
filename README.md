@@ -10,12 +10,6 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 * PHP >= 5.6
 * Composer [https://getcomposer.org/](https://getcomposer.org/)
 
-## Use with Docker
-Execute Copona with Docker
-* Install [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
-* Duplicate `.env.example` to `.env` and configure file
-* Execute `docker-compose up -d`
-
 ## Installation
 * Getting project files
     * With Git (recommended)
