@@ -4,6 +4,7 @@ composer.lock
 /install/.htaccess
 /.htpasswd
 /config.php
+.env
 /admin/config.php
 /catalog/controller/xml
 /catalog/model/xml
