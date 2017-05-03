@@ -227,14 +227,10 @@ class ControllerCheckoutConfirm extends Controller {
             }
 
             $product_data = array();
+
             foreach ($this->cart->getProducts() as $product) {
                 $option_data = array();
                 foreach ($product['option'] as $option) {
-                    if ($option['type'] != 'file') {
-                        $value = $option['value'];
-                    } else {
-                        $value = $this->encryption->decrypt($option['value']);
-                    }
 
                     $option_data[] = array(
                         'product_option_id'       => $option['product_option_id'],
@@ -242,7 +238,7 @@ class ControllerCheckoutConfirm extends Controller {
                         'option_id'               => $option['option_id'],
                         'option_value_id'         => $option['option_value_id'],
                         'name'                    => $option['name'],
-                        'value'                   => $value,
+                        'value'                   => $option['value'],
                         'type'                    => $option['type']
                     );
                 }
@@ -358,6 +354,8 @@ class ControllerCheckoutConfirm extends Controller {
 
             $data['products'] = array();
 
+            $this->load->model('tool/upload');
+
             foreach ($this->cart->getProducts() as $product) {
                 $option_data = array();
 
@@ -365,9 +363,13 @@ class ControllerCheckoutConfirm extends Controller {
                     if ($option['type'] != 'file') {
                         $value = $option['value'];
                     } else {
-                        $filename = $this->encryption->decrypt($option['value']);
 
-                        $value = utf8_substr($filename, 0, utf8_strrpos($filename, '.'));
+                        $upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
+                        if ($upload_info) {
+                            $value = $upload_info['name'];
+                        } else {
+                            $value = '';
+                        }
                     }
                     $option_data[] = array(
                         'name'  => $option['name'],

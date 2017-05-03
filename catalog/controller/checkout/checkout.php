@@ -125,8 +125,8 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
     function guest() {
-        $data = array();
-        $data = array_merge($data, $this->load->language('checkout/checkout'));
+
+        $data = $this->load->language('checkout/checkout');
         $this->document->setTitle($this->language->get('heading_title'));
 
         //Set data default values
@@ -218,6 +218,9 @@ class ControllerCheckoutCheckout extends Controller {
             $shipping = explode('.', $this->request->post['shipping_method']);
             $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
         }
+
+
+
 
         if ($this->request->post && $this->validate('guest')) {
 

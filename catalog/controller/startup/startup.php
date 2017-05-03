@@ -36,6 +36,11 @@ class ControllerStartupStartup extends Controller {
         $this->config->set('theme_name', !empty($this->config->get('theme_default_directory')) ? $this->config->get('theme_default_directory') : 'default');
         $this->config->set('theme_uri', DIR_TEMPLATE . $this->config->get('theme_name'));
 
+        // Default theme 'default' functions.php settings.
+        if (file_exists(DIR_TEMPLATE . 'default/functions.php')) {
+            require_once(DIR_TEMPLATE . 'default/functions.php');
+        }
+
         //Theme settings override
         if (file_exists($this->config->get('theme_uri') . '/functions.php')) {
             require_once($this->config->get('theme_uri') . '/functions.php');
