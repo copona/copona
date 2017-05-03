@@ -35,6 +35,7 @@ catalog/controller/xml/*.xml
 
 # Modification Files
 /system/storage/modification/*
+/catalog/controller/extension/plugins/
 
 # Templates Files
 /image/templates/*
