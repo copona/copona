@@ -2,8 +2,8 @@
 	"name": "copona/copona",
     "type": "project",
     "description": "A free shopping cart system, based on OpenCart (http://www.opencart.com)",
-    "keywords": ["copona", "opencart", "ecommerce", "framework", "opensource"],
-    "homepage": "http://www.opencart.com",
+    "keywords": ["copona", "ecommerce", "framework", "opensource"],
+    "homepage": "https://github.com/copona/copona",
     "license": "GPL-3.0+",
     "require": {
         "cardinity/cardinity-sdk-php": "^1.0",

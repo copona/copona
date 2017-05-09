@@ -235,6 +235,7 @@ class ControllerCheckoutCart extends Controller {
             $data['continue'] = $this->url->link('common/home');
 
             $data['checkout'] = $this->url->link('checkout/checkout', '', true);
+            $data['checkout_guest'] = $this->url->link('checkout/checkout/guest', '', true);
 
             $this->load->model('extension/extension');
 
@@ -339,6 +340,10 @@ class ControllerCheckoutCart extends Controller {
             }
 
             if (!$json) {
+
+                $hook_data = ['product_id' => (int)$this->request->post['product_id'] ];
+                $this->hook->getHook('checkout/cart/add/beforeadd', $hook_data);
+
                 $this->cart->add($this->request->post['product_id'], $quantity, $option, $recurring_id);
 
                 $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('checkout/cart'));

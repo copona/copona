@@ -19,6 +19,10 @@ if ($config->has('action_event')) {
     }
 }
 
+// Hook
+$hook = new Hook($registry);
+$registry->set('hook', $hook);
+
 // Loader
 $loader = new Loader($registry);
 $registry->set('load', $loader);

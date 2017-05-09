@@ -1,9 +1,9 @@
 # Config and Htaccess Files
-composer.lock
 /.htaccess
 /install/.htaccess
 /.htpasswd
 /config.php
+.env
 /admin/config.php
 /catalog/controller/xml
 /catalog/model/xml
@@ -24,6 +24,8 @@ catalog/controller/xml/*.xml
 /image/data/
 /image/cache/*
 /image/catalog/*
+!/image/catalog/cart.copona.png
+!/image/catalog/cart.png
 
 # System Cache Files
 /system/storage/cache/*
@@ -35,6 +37,7 @@ catalog/controller/xml/*.xml
 
 # Modification Files
 /system/storage/modification/*
+/catalog/controller/extension/plugins/
 
 # Templates Files
 /image/templates/*
