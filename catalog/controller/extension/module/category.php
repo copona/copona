@@ -49,7 +49,7 @@ class ControllerExtensionModuleCategory extends Controller {
                 'active'      => (in_array($category['category_id'], $parts) ? true : false)
             );
         }
-
+        $data['category_path'] = $parts;
         return $this->load->view('extension/module/category', $data);
     }
 
