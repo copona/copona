@@ -16,6 +16,7 @@ class ControllerExtensionExtensionShipping extends Controller {
         $this->load->model('extension/extension');
 
         if ($this->validate()) {
+
             $this->model_extension_extension->install('shipping', $this->request->get['extension']);
 
             $this->load->model('user/user_group');

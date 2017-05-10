@@ -2,7 +2,8 @@
 class ControllerCheckoutCart extends Controller {
 
     public function index() {
-        $this->load->language('checkout/cart');
+        $data = $this->load->language('checkout/cart');
+
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -20,22 +21,6 @@ class ControllerCheckoutCart extends Controller {
 
         if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
             $data['heading_title'] = $this->language->get('heading_title');
-
-            $data['text_recurring_item'] = $this->language->get('text_recurring_item');
-            $data['text_next'] = $this->language->get('text_next');
-            $data['text_next_choice'] = $this->language->get('text_next_choice');
-
-            $data['column_image'] = $this->language->get('column_image');
-            $data['column_name'] = $this->language->get('column_name');
-            $data['column_model'] = $this->language->get('column_model');
-            $data['column_quantity'] = $this->language->get('column_quantity');
-            $data['column_price'] = $this->language->get('column_price');
-            $data['column_total'] = $this->language->get('column_total');
-
-            $data['button_update'] = $this->language->get('button_update');
-            $data['button_remove'] = $this->language->get('button_remove');
-            $data['button_shopping'] = $this->language->get('button_shopping');
-            $data['button_checkout'] = $this->language->get('button_checkout');
 
             if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
                 $data['error_warning'] = $this->language->get('error_stock');
@@ -252,14 +237,18 @@ class ControllerCheckoutCart extends Controller {
                 }
             }
 
-            $data['column_left'] = $this->load->controller('common/column_left');
-            $data['column_right'] = $this->load->controller('common/column_right');
-            $data['content_top'] = $this->load->controller('common/content_top');
-            $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer'] = $this->load->controller('common/footer');
-            $data['header'] = $this->load->controller('common/header');
+            if (isset($this->request->post['checkout'])) {
+                echo $this->response->setOutput($this->load->view('checkout/cart_info', $data));
+            } else {
+                $data['column_left'] = $this->load->controller('common/column_left');
+                $data['column_right'] = $this->load->controller('common/column_right');
+                $data['content_top'] = $this->load->controller('common/content_top');
+                $data['content_bottom'] = $this->load->controller('common/content_bottom');
+                $data['footer'] = $this->load->controller('common/footer');
+                $data['header'] = $this->load->controller('common/header');
 
-            $this->response->setOutput($this->load->view('checkout/cart', $data));
+                $this->response->setOutput($this->load->view('checkout/cart', $data));
+            }
         } else {
             $data['heading_title'] = $this->language->get('heading_title');
 
@@ -416,6 +405,11 @@ class ControllerCheckoutCart extends Controller {
         if (!empty($this->request->post['quantity'])) {
             foreach ($this->request->post['quantity'] as $key => $value) {
                 $this->cart->update($key, $value);
+            }
+            if (!empty($this->request->post['method']) && $this->request->post['method'] == 'ajax') {
+                $json['status'] = 'OK';
+                echo json_encode($json);
+                return false;
             }
 
             $this->session->data['success'] = $this->language->get('text_remove');

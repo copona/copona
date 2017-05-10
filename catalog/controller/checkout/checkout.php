@@ -309,7 +309,8 @@ class ControllerCheckoutCheckout extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['payment_method'] = $this->load->controller('checkout/payment_method');
-        $data['cart'] = $this->load->controller('checkout/cart');
+
+        //$data['cart'] = $this->load->controller('checkout/cart');
 
         $data['session'] = $this->session->data;
 

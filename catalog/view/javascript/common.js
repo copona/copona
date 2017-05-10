@@ -203,10 +203,14 @@ var cart = {
         });
     },
     'update': function (key, quantity) {
+
+        var info = {};
+        info[key] = quantity;
+
         $.ajax({
             url: 'index.php?route=checkout/cart/edit',
             type: 'post',
-            data: 'key=' + key + '&quantity=' + (typeof (quantity) != 'undefined' ? quantity : 1),
+            data: {quantity: info, method: 'ajax'},
             dataType: 'json',
             beforeSend: function () {
                 $('#cart > button').button('loading');
@@ -217,14 +221,9 @@ var cart = {
             success: function (json) {
                 // Need to set timeout otherwise it wont update the total
                 setTimeout(function () {
-                    $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+                    $('#cart').load('index.php?route=common/cart/info');
+                    cart.get('#mycart');
                 }, 100);
-
-                if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
-                    location = 'index.php?route=checkout/cart';
-                } else {
-                    $('#cart > ul').load('index.php?route=common/cart/info ul li');
-                }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -246,19 +245,26 @@ var cart = {
             success: function (json) {
                 // Need to set timeout otherwise it wont update the total
                 setTimeout(function () {
-                    $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
-                }, 100);
+                    $('#cart').load('index.php?route=common/cart/info');
+                    cart.get('#mycart');
 
-                if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
-                    location = 'index.php?route=checkout/cart';
-                } else {
-                    $('#cart > ul').load('index.php?route=common/cart/info ul li');
-                }
+                }, 100);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         });
+    },
+    'get': function (key) {
+        $.ajax({
+            type: "POST",
+            url: 'index.php?route=checkout/cart',
+            data: 'checkout',
+            success: (function (data) {
+                $(key).html(data);
+            })
+        });
+
     }
 }
 

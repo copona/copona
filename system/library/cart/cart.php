@@ -60,7 +60,7 @@ class Cart {
 
 
                     if ($option_query->num_rows) {
-                        if($option_query->row['display'] != "") {
+                        if ($option_query->row['display'] != "") {
                             $option_query->row['name'] = $option_query->row['display'];
                         }
 
