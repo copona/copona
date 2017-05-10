@@ -56,6 +56,7 @@
                         <td class="left"><?php echo $entry_tax_class; ?></td>
                         <td><?php echo $entry_cost ?></td>
                         <td class="left"><?php echo $entry_title ?></td>
+                        <td class="left"><?php echo $entry_show_address ?></td>
                         <td></td>
                       </tr>
                     </thead>
@@ -85,7 +86,8 @@
                                 <?php } ?>
                             <?php } ?>
                           </select></td>
-                        <td><input class="form-control" type="text" size="15" name="location_based_shipping_cost[<?php echo $row; ?>][cost]" value="<?php echo $czc['cost']; ?>" />
+                        <td><label class="control-label"><span data-toggle="tooltip" title="" data-original-title="<?php echo $text_rates_info; ?>"><?php echo $text_rates; ?></span></label><input class="form-control" type="text" size="15" name="location_based_shipping_cost[<?php echo $row; ?>][rates]" value="<?php echo $czc['rates']; ?>" /><br />
+                          <label><span data-original-title="Shipping cost"><?php echo $text_cost; ?></span></label><input class="form-control" type="text" size="15" name="location_based_shipping_cost[<?php echo $row; ?>][cost]" value="<?php echo $czc['cost']; ?>" />
                         <td>
                             <?php foreach ($languages as $language) {
                                 ?>
@@ -96,6 +98,16 @@
                                 <input class="form-control" placeholder="<?php echo $entry_title ?>" type="text" name="location_based_shipping_cost[<?php echo $row; ?>][title][<?php echo $language['language_id']; ?>]" value="<?php echo $czc['title'][$language['language_id']]; ?>" />
                               </div>
                           <?php } ?>
+                        </td>
+                        <td>
+                          <label>
+                              <?php if (isset($czc['show_address']) && $czc['show_address']) { ?>
+                                <input type="checkbox" name="location_based_shipping_cost[<?php echo $row; ?>][show_address]" value="1" checked="checked" id="input-show-address" />
+                            <?php } else { ?>
+                                <input type="checkbox" name="location_based_shipping_cost[<?php echo $row; ?>][show_address]" value="1" id="input-show-address" />
+                            <?php } ?>
+                          </label>
+                        </td>
                         <td class="left"><a onclick="$('#location-based-shipping-cost-row<?php echo $row; ?>').remove();" class="btn btn-danger"><?php echo $button_remove; ?></a></td>
                         </tr>
                         </tbody>
@@ -132,7 +144,7 @@
 <?php } ?>
 
 <script type="text/javascript"><!--
-    var row = <?php echo $row; ?>;
+                var row = <?php echo $row; ?>;
     var group_row = <?php echo $group_row; ?>;
 
     function add_group() {
@@ -175,13 +187,16 @@
             html += '<option value="<?php echo $tax_class['tax_class_id']; ?>"><?php echo $tax_class['title']; ?></option>';
 <?php } ?>
         html += '</select></td>';
-        html += '<td><input class="form-control" type="text" size="15" name="location_based_shipping_cost[' + row + '][cost]" value=""></td>';
+        html += '<td><label class="control-label"><span data-toggle="tooltip" title="" data-original-title="<?php echo $text_rates_info; ?>"><?php echo $text_rates; ?></span></label><input class="form-control" type="text" size="15" name="location_based_shipping_cost[' + row + '][rates]" value=""><br />\n\
+        <label><span data-original-title="Shipping cost"><?php echo $text_cost; ?></span></label>\n\
+    <input class="form-control" type="text" size="15" name="location_based_shipping_cost[' + row + '][cost]" value=""></td>';
         html += '<td>';
 <?php foreach ($languages as $language) { ?>
             html += '<div class="input-group"><span class="input-group-addon lng-image"><img src="<?php echo HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>';
             html += '<input class="form-control" placeholder="<?php echo $entry_title ?>" type="text" name="location_based_shipping_cost[' + row + '][title][<?php echo $language['language_id'] ?>]" value=""></div>';
 <?php } ?>
         html += '</td>';
+        html += '<td> <input type="checkbox" name="location_based_shipping_cost[<?php echo $row; ?>][show_address]" value="1" id="input-show-address" /></td>';
         html += '<td class="left"><a onclick="$(\'#location-based-shipping-cost-row' + row + '\').remove();" class="btn btn-danger"><?php echo $button_remove; ?></a></td>';
         html += '</tr>';
         html += '</tbody>';

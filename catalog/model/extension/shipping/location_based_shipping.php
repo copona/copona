@@ -8,6 +8,7 @@ class ModelExtensionShippingLocationBasedShipping extends Model {
         $method_data = array();
         $quote_data = array();
         foreach ($shipping_costs as $costs) {
+
             $cost = $costs['cost'];
             // Check if $costs is an array
             if (is_array($costs)) {
@@ -18,25 +19,25 @@ class ModelExtensionShippingLocationBasedShipping extends Model {
                         $items += $product['quantity'];
                 }
                 $cart_total = $this->cart->getTotal();
-                $rates = explode(',', $costs['cost']);
+                $rates = explode(',', $costs['rates']);
 
                 foreach ($rates as $rate) {
                     $data = explode(':', $rate);
 
-                    if ($cart_total <= $data[0]) {
+                    if ($cart_total >= $data[0]) {
                         if (isset($data[1])) {
                             $cost = $data[1];
                         }
-                        break;
+                        // break;
                     }
                 }
-
                 $quote_data[$costs['group']] = array(
                     'code'         => 'location_based_shipping.' . $costs['group'],
                     'title'        => $costs['title'][$this->config->get('config_language_id')],
                     'cost'         => $cost,
                     'tax_class_id' => $costs['tax_class_id'],
-                    'text'         => $this->currency->format($this->tax->calculate($cost, $costs['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'])
+                    'text'         => $this->currency->format($this->tax->calculate($cost, $costs['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
+                    'show_address' => (isset($costs['show_address']) && $costs['show_address'] ? 1 : 0),
                 );
             }
         }
