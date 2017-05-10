@@ -8,11 +8,11 @@ class Hook {
         $this->registry = $registry;
     }
 
-    public function setHook($string, $data) {
+    public function setHook($string, $data = [ ]) {
         $this->hooks[$string][] = $data;
     }
 
-    public function getHook($string, &$data) {
+    public function getHook($string, &$data = [ ]) {
         if (!empty($this->hooks[$string])) {
             foreach ($this->hooks[$string] as $function) {
                 if (function_exists($function)) {
