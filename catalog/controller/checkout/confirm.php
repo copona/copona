@@ -279,7 +279,7 @@ class ControllerCheckoutConfirm extends Controller {
             $data1['products'] = $product_data;
             $data1['vouchers'] = $voucher_data;
             $data1['totals'] = $total_data['totals'];
-            $data1['comment'] = $this->session->data['comment'];
+            $data1['comment'] = empty($this->session->data['comment']) ? '' : $this->session->data['comment'];
             $data1['total'] = $total;
 
             if (isset($this->request->cookie['tracking'])) {
