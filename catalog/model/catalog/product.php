@@ -427,6 +427,7 @@ class ModelCatalogProduct extends Model {
             );
         }
 
+        $this->hook->getHook('model/catalog/product/getProductOptions/after', $product_option_data);
         return $product_option_data;
     }
 

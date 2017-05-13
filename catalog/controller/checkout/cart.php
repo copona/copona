@@ -2,7 +2,9 @@
 class ControllerCheckoutCart extends Controller {
 
     public function index() {
-        $this->load->language('checkout/cart');
+        $data = $this->load->language('checkout/cart');
+
+
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -20,22 +22,6 @@ class ControllerCheckoutCart extends Controller {
 
         if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
             $data['heading_title'] = $this->language->get('heading_title');
-
-            $data['text_recurring_item'] = $this->language->get('text_recurring_item');
-            $data['text_next'] = $this->language->get('text_next');
-            $data['text_next_choice'] = $this->language->get('text_next_choice');
-
-            $data['column_image'] = $this->language->get('column_image');
-            $data['column_name'] = $this->language->get('column_name');
-            $data['column_model'] = $this->language->get('column_model');
-            $data['column_quantity'] = $this->language->get('column_quantity');
-            $data['column_price'] = $this->language->get('column_price');
-            $data['column_total'] = $this->language->get('column_total');
-
-            $data['button_update'] = $this->language->get('button_update');
-            $data['button_remove'] = $this->language->get('button_remove');
-            $data['button_shopping'] = $this->language->get('button_shopping');
-            $data['button_checkout'] = $this->language->get('button_checkout');
 
             if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
                 $data['error_warning'] = $this->language->get('error_stock');
@@ -164,6 +150,9 @@ class ControllerCheckoutCart extends Controller {
                     'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
                 );
             }
+
+            // Traverse prepared products array for checkout template
+            $this->hook->getHook('checkout/cart/index/afterProducts', $data['products']);
 
             // Gift Voucher
             $data['vouchers'] = array();

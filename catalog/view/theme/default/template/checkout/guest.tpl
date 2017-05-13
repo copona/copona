@@ -60,7 +60,7 @@
                     </div>
                     <br><br>
                     <div id="shipping-method">
-                      <div style="display:block; margin: 0 auto; width: 50%; text-align: center;">
+                      <div style="display:none; margin: 0 auto; width: 50%; text-align: center;">
                         <img src="catalog/view/theme/<?php echo $this->config->get('theme_default_directory') ?>/image/AjaxLoader.gif" alt=""/>
                       </div>
                     </div>

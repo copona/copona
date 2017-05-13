@@ -210,6 +210,7 @@ class ControllerCheckoutCheckout extends Controller {
         // Load policy content
         $this->load->model('catalog/information');
         $information_info = $this->model_catalog_information->getInformation($this->config->get('config_checkout_id'));
+        empty($information_info) ? $information_info = ['title' => 'Please, specify Terms in Admin!' ] : false;
         $data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information', 'information_id=' . $this->config->get('config_checkout_id'), 'SSL'), $information_info['title'], $information_info['title']);
 
         // SHIPPING

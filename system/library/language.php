@@ -4,11 +4,13 @@ class Language extends Controller {
     private $directory, $code;
     private $data = array();
     private $db;
+    private $config;
     private $languages;
 
     public function __construct($code = 'en', $registry) {
 
         $this->db = $registry->get('db');
+        $this->config = $registry->get('config');
 
         if ($this->db) {
             $languages = $this->db->query("select * from `" . DB_PREFIX . "language` where `code` = '" . $code . "'");
@@ -55,10 +57,12 @@ class Language extends Controller {
         $file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
         if (is_file($file)) {
             require($file);
+        } elseif (is_file(DIR_TEMPLATE . $filename . '/' . $this->directory . '.php')) {
+            //Theme settings override
+            require_once(DIR_TEMPLATE . $filename . '/' . $this->directory . '.php');
         } elseif (is_file(DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php')) {
             require( DIR_LANGUAGE . $this->directory . '/' . $this->directory . '.php' );
         } elseif (is_file(DIR_LANGUAGE . $this->default . '/' . $filename . '.php')) {
-
             require(DIR_LANGUAGE . $this->default . '/' . $filename . '.php' );
         } else {
             //pr($filename);
