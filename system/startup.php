@@ -2,8 +2,17 @@
 // Error Reporting
 error_reporting(E_ALL);
 
-// DEBUG functions
-require_once(DIR_SYSTEM . 'helper/debug.php');
+// Composer Autoloader
+if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
+    require_once(DIR_SYSTEM . '../vendor/autoload.php');
+} else {
+    die('Please, execute composer install');
+}
+
+//Errors handler
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
 
 // Check Version
 if (version_compare(phpversion(), '5.6.0', '<') == true) {
@@ -72,11 +81,6 @@ function modification($filename) {
     return $filename;
 }
 
-// Autoloader
-if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
-    require_once(DIR_SYSTEM . '../vendor/autoload.php');
-}
-
 function library($class) {
     $file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
 
@@ -107,6 +111,7 @@ require_once(modification(DIR_SYSTEM . 'engine/proxy.php'));
 require_once(DIR_SYSTEM . 'helper/general.php');
 require_once(DIR_SYSTEM . 'helper/utf8.php');
 require_once(DIR_SYSTEM . 'helper/json.php');
+require_once(DIR_SYSTEM . 'helper/debug.php');
 
 function start($application_config) {
     require_once(DIR_SYSTEM . 'framework.php');
