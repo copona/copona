@@ -10,7 +10,6 @@
 /catalog/controller/*/_*
 /.vs
 Search-Replace-DB-master*
-composer.lock
 
 # XML filesimport
 catalog/controller/xml/*.xml
