@@ -19,8 +19,8 @@ class ControllerApiAjax extends Controller {
 
     public function product() {
         $data = [ ];
-        $this->hook->getHook('api/ajax/product', $data);
         $data['success'] = true;
+        $this->hook->getHook('api/ajax/product', $data);
         $this->response->setOutput(json_encode($data));
     }
 
