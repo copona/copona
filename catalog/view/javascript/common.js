@@ -51,6 +51,15 @@ function deleteCookie(name) {
     setCookie(name, "", -1);
 }
 
+// http://stackoverflow.com/questions/1909441/how-to-delay-the-keyup-handler-until-the-user-stops-typing
+var delay = (function () {
+    var timer = 0;
+    return function (callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
+})();
+
 
 $(document).ready(function () {
     // Highlight any found errors
@@ -513,4 +522,6 @@ $(document).delegate('.agree', 'click', function (e) {
 
         });
     }
+
+
 })(window.jQuery);
