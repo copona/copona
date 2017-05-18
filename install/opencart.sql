@@ -1063,8 +1063,8 @@ CREATE TABLE `oc_currency` (
   `currency_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(32) NOT NULL,
   `code` varchar(3) NOT NULL,
-  `symbol_left` varchar(12) NOT NULL,
-  `symbol_right` varchar(12) NOT NULL,
+  `symbol_left` varchar(64) NOT NULL,
+  `symbol_right` varchar(64) NOT NULL,
   `decimal_place` char(1) NOT NULL,
   `value` float(15,8) NOT NULL,
   `status` tinyint(1) NOT NULL,
@@ -1424,7 +1424,7 @@ CREATE TABLE `oc_download_description` (
 DROP TABLE IF EXISTS `oc_event`;
 CREATE TABLE `oc_event` (
   `event_id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(32) NOT NULL,
+  `code` varchar(64) NOT NULL,
   `trigger` text NOT NULL,
   `action` text NOT NULL,
   `status` tinyint(1) NOT NULL,
@@ -3245,8 +3245,8 @@ DROP TABLE IF EXISTS `oc_setting`;
 CREATE TABLE `oc_setting` (
   `setting_id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL DEFAULT '0',
-  `code` varchar(32) NOT NULL,
-  `key` varchar(64) NOT NULL,
+  `code` varchar(128) NOT NULL,
+  `key` varchar(128) NOT NULL,
   `value` text NOT NULL,
   `serialized` tinyint(1) NOT NULL,
   PRIMARY KEY (`setting_id`)
