@@ -80,15 +80,6 @@ $(document).ready(function () {
         $('#form-currency').submit();
     });
 
-    // Language
-    $('#form-language .language-select').on('click', function (e) {
-        e.preventDefault();
-
-        $('#form-language input[name=\'code\']').val($(this).attr('name'));
-
-        $('#form-language').submit();
-    });
-
     /* Search */
     $('#search input[name=\'search\']').parent().find('button').on('click', function () {
         var site_host = $('base').attr('href') ? $('base').attr('href') : location.protocol + "//" + location.host + '/';
