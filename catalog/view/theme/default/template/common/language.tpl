@@ -1,5 +1,5 @@
 <?php if (count($languages) > 1) { ?>
-    <div class="pull-left">
+    <div class="pull-left language-select">
       <div class="btn-group">
         <button class="btn btn-link dropdown-toggle" data-toggle="dropdown">
             <?php foreach ($languages as $language) { ?>

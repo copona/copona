@@ -71,3 +71,7 @@
 .category-layout .category-thumb .caption {
     text-align: center;
 }
+
+#top .language-select img {
+	height: 16px;
+}
