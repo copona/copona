@@ -432,6 +432,7 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 //--></script>
 <script type="text/javascript"><!--
     $('#button-cart').on('click', function () {
+        $("alert-success").remove();
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
             type: 'post',
@@ -469,11 +470,17 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
                 }
 
                 if (json['success']) {
-                    $('.breadcrumb').after('<div class="alert alert-success">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('.breadcrumb')
+                            .after($('<div class="alert alert-success">' + json['success'] +
+                                    '<button type="button" class="close" data-dismiss="alert">&times;</button></div>')
+                                    .hide()
+                                    .fadeIn(1000));
+
+                    delay(function () {
+                        $('.alert-success').fadeOut(500);
+                    }, 3000);
 
                     $('#cart > button').html('<i class="fa fa-shopping-cart"></i> ' + json['total']);
-
-                    $('html, body').animate({scrollTop: 0}, 'slow');
 
                     $('#cart > ul').load('index.php?route=common/cart/info ul li');
                 }
