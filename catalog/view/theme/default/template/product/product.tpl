@@ -439,6 +439,7 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 //--></script>
 <script type="text/javascript"><!--
     $('#button-cart').on('click', function () {
+        $("alert-success").remove();
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
             type: 'post',
@@ -476,10 +477,14 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
                 }
 
                 if (json['success']) {
-                    $('.breadcrumb').after('<div class="alert alert-success">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                    $('html, body').animate({scrollTop: 0}, 'slow');
-
+                    $('.breadcrumb')
+                            .after($('<div class="alert alert-success">' + json['success'] +
+                                    '<button type="button" class="close" data-dismiss="alert">&times;</button></div>')
+                                    .hide()
+                                    .fadeIn(200));
+                    delay(function () {
+                        $('.alert-success').fadeOut(500);
+                    }, 3000);
                     $('#cart').load('index.php?route=common/cart/info');
                 }
             },
@@ -488,6 +493,7 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
             }
         });
     });
+
 //--></script>
 <script type="text/javascript"><!--
     $('.date').datetimepicker({

@@ -334,6 +334,17 @@ footer h5 {
 .alert {
     padding: 8px 14px 8px 14px;
 }
+
+.alert-success{
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 2px solid #ccc;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 999;
+    width: 200px;
+}
 /* breadcrumb */
 .breadcrumb {
     margin: 0 0 20px 0;
