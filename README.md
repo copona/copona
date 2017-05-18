@@ -14,7 +14,7 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 * Getting project files
     * With Git (recommended)
         * install git [guide](http://rogerdudler.github.io/git-guide)
-		* install composer [guide](https://getcomposer.org/download/)
+		* install composer [guide](https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies)
         * execute commands: 
 		* cd to webroot, like:
 		    * `cd /var/www/public_html`
