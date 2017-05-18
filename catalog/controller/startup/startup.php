@@ -50,7 +50,7 @@ class ControllerStartupStartup extends Controller {
                 $seo_language = true;
                 //remove first element! And shift!
                 array_shift($seo_path);
-                if ($seo_path[0] == 'index.php') {
+                if (!empty($seo_path[0]) && $seo_path[0] == 'index.php') {
                     array_shift($seo_path);
                 }
                 if (empty($seo_path)) {
