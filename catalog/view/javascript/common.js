@@ -161,20 +161,13 @@ var cart = {
                 }
 
                 if (json['success']) {
-                    $('#content').parent().before($('<div class="alert alert-success alert-cart"><i class="fa fa-check-circle"></i> '
-                            + json['success']
-                            + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>')
-                            .hide()
-                            .fadeIn(200)
-                            );
-
-                    delay(function () {
-                        $('.alert-success').fadeOut(500);
-                    }, 3000);
-                    // Need to set timeout otherwise it wont update the total
+                    $('.breadcrumb').after('<div class="alert alert-success alert-success-addtocart">' +
+                            json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
                     setTimeout(function () {
-                        $('#cart').load('index.php?route=common/cart/info');
-                    }, 100);
+                        $('.alert-success-addtocart').fadeOut(500);
+                    }, 3000);
+
+                    $('#cart').load('index.php?route=common/cart/info');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
