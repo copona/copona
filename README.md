@@ -42,8 +42,8 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
         * Install Composer [https://getcomposer.org/](https://getcomposer.org/)
         * From the command prompt, execute:
             * Execute composer `composer install`
-            * Execute migration `php vendor/bin/phinx migrate`
 * navigate to WEB address `http://domain-OR-IPaddress/` or `http://domain-OR-IPaddress/subfolder-where-you-cloned`
+	* Execute migration `php vendor/bin/phinx migrate`
 * If all the requirements have been met, fill the form and enjoy!
 
 ## Update
