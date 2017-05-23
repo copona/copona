@@ -216,7 +216,6 @@ class ControllerProductCategory extends Controller {
                 }
 
                 $category_path = $this->model_catalog_category->getCategoryPath($category_id, $result['product_id']);
-
                 $data['products'][] = array(
                     'product_id'     => $result['product_id'],
                     'thumb'          => $image,
@@ -227,6 +226,7 @@ class ControllerProductCategory extends Controller {
                     'tax'            => $tax,
                     'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,
                     'rating'         => $result['rating'],
+                    'quantity'       => $result['quantity'],
                     'href'           => $this->url->link('product/product', ($category_path ? 'path=' . $category_path . '&' : '') . 'product_id=' . $result['product_id'] . $url),
                     'group_products' => $this->model_catalog_product->getProducts(
                         [
