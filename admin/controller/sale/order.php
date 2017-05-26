@@ -79,6 +79,8 @@ class ControllerSaleOrder extends Controller {
     }
 
     protected function getList() {
+		$data = $this->load->language('sale/order');
+		
         if (isset($this->request->get['filter_order_id'])) {
             $filter_order_id = $this->request->get['filter_order_id'];
         } else {
@@ -221,37 +223,7 @@ class ControllerSaleOrder extends Controller {
             );
         }
 
-        $data['heading_title'] = $this->language->get('heading_title');
-
-        $data['text_list'] = $this->language->get('text_list');
-        $data['text_no_results'] = $this->language->get('text_no_results');
-        $data['text_confirm'] = $this->language->get('text_confirm');
-        $data['text_missing'] = $this->language->get('text_missing');
-        $data['text_loading'] = $this->language->get('text_loading');
-
-        $data['column_order_id'] = $this->language->get('column_order_id');
-        $data['column_customer'] = $this->language->get('column_customer');
-        $data['column_status'] = $this->language->get('column_status');
-        $data['column_total'] = $this->language->get('column_total');
-        $data['column_date_added'] = $this->language->get('column_date_added');
-        $data['column_date_modified'] = $this->language->get('column_date_modified');
-        $data['column_action'] = $this->language->get('column_action');
-
-        $data['entry_order_id'] = $this->language->get('entry_order_id');
-        $data['entry_customer'] = $this->language->get('entry_customer');
-        $data['entry_order_status'] = $this->language->get('entry_order_status');
-        $data['entry_total'] = $this->language->get('entry_total');
-        $data['entry_date_added'] = $this->language->get('entry_date_added');
-        $data['entry_date_modified'] = $this->language->get('entry_date_modified');
-
-        $data['button_invoice_print'] = $this->language->get('button_invoice_print');
-        $data['button_shipping_print'] = $this->language->get('button_shipping_print');
-        $data['button_add'] = $this->language->get('button_add');
-        $data['button_edit'] = $this->language->get('button_edit');
-        $data['button_delete'] = $this->language->get('button_delete');
-        $data['button_filter'] = $this->language->get('button_filter');
-        $data['button_view'] = $this->language->get('button_view');
-        $data['button_ip_add'] = $this->language->get('button_ip_add');
+        $data['heading_title'] = $this->language->get('heading_title');       
 
         $data['token'] = $this->session->data['token'];
 
@@ -384,6 +356,8 @@ class ControllerSaleOrder extends Controller {
     }
 
     public function getForm() {
+		$data = $this->load->language('sale/order');
+		
         $data['heading_title'] = $this->language->get('heading_title');
 
         $data['text_form'] = !isset($this->request->get['order_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
