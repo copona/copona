@@ -33,7 +33,7 @@ class ControllerSaleOrder extends Controller {
     }
 
     public function delete() {
-        $this->load->language('sale/order');
+        $data = $this->load->language('sale/order');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -79,8 +79,8 @@ class ControllerSaleOrder extends Controller {
     }
 
     protected function getList() {
-		$data = $this->load->language('sale/order');
-		
+        $data = $this->load->language('sale/order');
+
         if (isset($this->request->get['filter_order_id'])) {
             $filter_order_id = $this->request->get['filter_order_id'];
         } else {
@@ -223,7 +223,7 @@ class ControllerSaleOrder extends Controller {
             );
         }
 
-        $data['heading_title'] = $this->language->get('heading_title');       
+        $data['heading_title'] = $this->language->get('heading_title');
 
         $data['token'] = $this->session->data['token'];
 
@@ -356,8 +356,8 @@ class ControllerSaleOrder extends Controller {
     }
 
     public function getForm() {
-		$data = $this->load->language('sale/order');
-		
+        $data = $this->load->language('sale/order');
+
         $data['heading_title'] = $this->language->get('heading_title');
 
         $data['text_form'] = !isset($this->request->get['order_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
@@ -660,6 +660,7 @@ class ControllerSaleOrder extends Controller {
     }
 
     public function info() {
+        $data = $this->load->language('sale/order');
         $this->load->model('sale/order');
 
         if (isset($this->request->get['order_id'])) {
@@ -741,6 +742,8 @@ class ControllerSaleOrder extends Controller {
 
             $data['store_id'] = $order_info['store_id'];
             $data['store_name'] = $order_info['store_name'];
+
+            $data['serial'] = $order_info['serial'];
 
             if ($order_info['store_id'] == 0) {
                 $data['store_url'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;

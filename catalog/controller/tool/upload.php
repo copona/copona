@@ -42,6 +42,7 @@ class ControllerToolUpload extends Controller {
             }
 
             if (!in_array($this->request->files['file']['type'], $allowed)) {
+                $json['type'] = $this->request->files['file']['type'];
                 $json['error'] = $this->language->get('error_filetype');
             }
 
@@ -71,6 +72,7 @@ class ControllerToolUpload extends Controller {
             $json['code'] = $this->model_tool_upload->addUpload($filename, $file);
 
             $json['success'] = $this->language->get('text_upload');
+            $json['type'] = $this->request->files['file']['type'];
         }
 
         $this->response->addHeader('Content-Type: application/json');
