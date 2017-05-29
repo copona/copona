@@ -26,7 +26,7 @@ final class Loader {
         }
 
         // Trigger the post events
-        $result = $this->registry->get('event')->trigger('controller/' . $route . '/after', array(
+        $this->registry->get('event')->trigger('controller/' . $route . '/after', array(
             &$route, &$data, &$output ));
 
         if ($output instanceof Exception) {
@@ -37,6 +37,7 @@ final class Loader {
     }
 
     public function model($route) {
+
         // Sanitize the call
         $route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 
@@ -46,7 +47,19 @@ final class Loader {
 
         if (!$this->registry->has('model_' . str_replace(array( '/', '-', '.' ), array(
                     '_', '', '' ), $route))) {
-            $file = DIR_APPLICATION . 'model/' . $route . '.php';
+
+            $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
+            // TODO: optimize this! Probably - with a new variable. Also needed in Extension controller in admin.
+            defined('DIR_CATALOG')
+                ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/model/" . $route . ".php")
+                : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/model/" . $route . ".php");
+
+            if(!empty($extension_files[0])) {
+                $file = $extension_files[0];
+            } else {
+                $file = DIR_APPLICATION . 'model/' . $route . '.php';
+            }
+
             $class = 'Model' . preg_replace('/[^a-zA-Z0-9]/', '', $route);
 
             if (is_file($file)) {
@@ -62,6 +75,7 @@ final class Loader {
                         '_',
                         '', '' ), (string)$route), $proxy);
             } else {
+                prd($file);
                 throw new \Exception('Error: Could not load model ' . $route . '!');
             }
         }
@@ -172,7 +186,19 @@ final class Loader {
 
             // Store the model object
             if (!isset($model[$route])) {
-                $file = DIR_APPLICATION . 'model/' . substr($route, 0, strrpos($route, '/')) . '.php';
+
+                $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
+                // TODO: optimize this! Probably - with a new variable. Also needed in Extension controller in admin.
+                defined('DIR_CATALOG')
+                    ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/model/" . substr($route, 0, strrpos($route, '/')) . ".php")
+                    : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/model/" . substr($route, 0, strrpos($route, '/')) . ".php");
+
+                if(!empty($extension_files[0])) {
+                    $file = $extension_files[0];
+                } else {
+                    $file = DIR_APPLICATION . 'model/' . substr($route, 0, strrpos($route, '/')) . '.php';
+                }
+
                 $class = 'Model' . preg_replace('/[^a-zA-Z0-9]/', '', substr($route, 0, strrpos($route, '/')));
 
                 if (is_file($file)) {

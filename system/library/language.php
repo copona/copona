@@ -54,7 +54,19 @@ class Language extends Controller {
         }
         $_ = array();
 
-        $file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
+
+        $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
+        // TODO: optimize this!
+        defined('DIR_CATALOG')
+            ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/language/".$this->directory."/" .$filename . ".php")
+            : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/language/".$this->directory."/" . $filename . ".php");
+
+        if(!empty($extension_files[0])) {
+            $file = $extension_files[0];
+        } else {
+            $file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
+        }
+
         if (is_file($file)) {
             require($file);
         } elseif (is_file(DIR_TEMPLATE . $filename . '/' . $this->directory . '.php')) {
