@@ -35,9 +35,18 @@
               <?php if ($shipping_method) { ?>
                   <tr>
                     <td><button data-toggle="tooltip" title="<?php echo $text_shipping_method; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
-                    <td><?php echo $shipping_method; ?></td>
+                    <td><?php echo htmlspecialchars( $shipping_method ); ?></td>
                   </tr>
               <?php } ?>
+              <?php if (!empty($serial)) { ?>
+                  <tr>
+                    <td><button data-toggle="tooltip" title="<?php echo $text_other_information; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
+                    <td><?php foreach ($serial as $key => $val) { ?>
+                          <?= $key; ?>: <strong><?=  $val; ?></strong><br />
+                      <?php } ?></td>
+                  </tr>
+              <?php } ?>
+
             </tbody>
           </table>
         </div>
