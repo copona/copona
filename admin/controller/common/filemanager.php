@@ -12,7 +12,7 @@ class ControllerCommonFileManager extends Controller {
         }
 
         if (isset($this->request->get['filter_name'])) {
-            $filter_name = rtrim(str_replace(array( '*', '/' ), '', $this->request->get['filter_name']), '/');
+            $filter_name = rtrim(str_replace(array( '*', '/', '\\' ), '', $this->request->get['filter_name']), '/');
         } else {
             $filter_name = null;
         }
@@ -37,16 +37,16 @@ class ControllerCommonFileManager extends Controller {
 
         $this->load->model('tool/image');
 
-        if (substr(str_replace('\\', '/', realpath($directory) . '/' . $filter_name), 0, strlen(DIR_IMAGE . 'catalog')) == DIR_IMAGE . 'catalog') {
+        if (substr(str_replace('\\', '/', realpath($directory) . '/' . $filter_name), 0, strlen(DIR_IMAGE . 'catalog')) == str_replace('\\', '/', DIR_IMAGE . 'catalog')) {
             // Get directories
-            $directories = glob($directory . '/' . $filter_name . '*', GLOB_ONLYDIR);
+            $directories = glob($directory . '/*' . $filter_name . '*', GLOB_ONLYDIR);
 
             if (!$directories) {
                 $directories = array();
             }
 
             // Get files
-            $files = glob($directory . '/' . $filter_name . '*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}', GLOB_BRACE);
+            $files = glob($directory . '/*' . $filter_name . '*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}', GLOB_BRACE);
 
             if (!$files) {
                 $files = array();
@@ -239,7 +239,7 @@ class ControllerCommonFileManager extends Controller {
         }
 
         // Check its a directory
-        if (!is_dir($directory) || substr(str_replace('\\', '/', realpath($directory)), 0, strlen(DIR_IMAGE . 'catalog')) != DIR_IMAGE . 'catalog') {
+        if (!is_dir($directory) || substr(str_replace('\\', '/', realpath($directory)), 0, strlen(DIR_IMAGE . 'catalog')) != str_replace('\\', '/', DIR_IMAGE . 'catalog')) {
             $json['error'] = $this->language->get('error_directory');
         }
 
@@ -334,7 +334,7 @@ class ControllerCommonFileManager extends Controller {
         }
 
         // Check its a directory
-        if (!is_dir($directory) || substr(str_replace('\\', '/', realpath($directory)), 0, strlen(DIR_IMAGE . 'catalog')) != DIR_IMAGE . 'catalog') {
+        if (!is_dir($directory) || substr(str_replace('\\', '/', realpath($directory)), 0, strlen(DIR_IMAGE . 'catalog')) != str_replace('\\', '/', DIR_IMAGE . 'catalog')) {
             $json['error'] = $this->language->get('error_directory');
         }
 
@@ -385,7 +385,7 @@ class ControllerCommonFileManager extends Controller {
         // Loop through each path to run validations
         foreach ($paths as $path) {
             // Check path exsists
-            if ($path == DIR_IMAGE . 'catalog' || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $path)), 0, strlen(DIR_IMAGE . 'catalog')) != DIR_IMAGE . 'catalog') {
+            if ($path == DIR_IMAGE . 'catalog' || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $path)), 0, strlen(DIR_IMAGE . 'catalog')) != str_replace('\\', '/', DIR_IMAGE . 'catalog')) {
                 $json['error'] = $this->language->get('error_delete');
 
                 break;

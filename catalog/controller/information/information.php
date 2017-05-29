@@ -22,6 +22,11 @@ class ControllerInformationInformation extends Controller {
         $information_info = $this->model_catalog_information->getInformation($information_id);
 
         if ($information_info) {
+
+            if (isset($information_info['external_link']) && $information_info['external_link']) {
+                $this->response->redirect( $this->url->externalLink( $information_info['external_link']) );
+            }
+
             $this->document->setTitle($information_info['meta_title']);
             $this->document->setDescription($information_info['meta_description']);
             $this->document->setKeywords($information_info['meta_keyword']);

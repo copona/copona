@@ -276,6 +276,8 @@ class ControllerCatalogOption extends Controller {
         $data['text_time'] = $this->language->get('text_time');
 
         $data['entry_name'] = $this->language->get('entry_name');
+        $data['entry_display'] = $this->language->get('entry_display');
+        $data['entry_display_placeholder'] = $this->language->get('entry_display_placeholder');
         $data['entry_type'] = $this->language->get('entry_type');
         $data['entry_option_value'] = $this->language->get('entry_option_value');
         $data['entry_image'] = $this->language->get('entry_image');
@@ -426,16 +428,6 @@ class ControllerCatalogOption extends Controller {
             $this->error['warning'] = $this->language->get('error_type');
         }
 
-        if (isset($this->request->post['option_value'])) {
-            foreach ($this->request->post['option_value'] as $option_value_id => $option_value) {
-                foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
-                    if ((utf8_strlen($option_value_description['name']) < 1) || (utf8_strlen($option_value_description['name']) > 128)) {
-                        $this->error['option_value'][$option_value_id][$language_id] = $this->language->get('error_option_value');
-                    }
-                }
-            }
-        }
-
         return !$this->error;
     }
 
@@ -470,7 +462,8 @@ class ControllerCatalogOption extends Controller {
             $filter_data = array(
                 'filter_name' => $this->request->get['filter_name'],
                 'start'       => 0,
-                'limit'       => 5
+                'sort'        => 'o.sort_order',
+                'limit'       => 10
             );
 
             $options = $this->model_catalog_option->getOptions($filter_data);
@@ -494,14 +487,6 @@ class ControllerCatalogOption extends Controller {
                             'image'           => $image
                         );
                     }
-
-                    $sort_order = array();
-
-                    foreach ($option_value_data as $key => $value) {
-                        $sort_order[$key] = $value['name'];
-                    }
-
-                    array_multisort($sort_order, SORT_ASC, $option_value_data);
                 }
 
                 $type = '';
@@ -527,18 +512,23 @@ class ControllerCatalogOption extends Controller {
                     'name'         => strip_tags(html_entity_decode($option['name'], ENT_QUOTES, 'UTF-8')),
                     'category'     => $type,
                     'type'         => $option['type'],
-                    'option_value' => $option_value_data
+                    'option_value' => $option_value_data,
+                    'sort_order'   => 'o.sort_order'
                 );
             }
         }
 
-        $sort_order = array();
+        $sort_order_type = array();
+        $sort_order_sort = array();
+        $sort_order_name = array();
 
         foreach ($json as $key => $value) {
-            $sort_order[$key] = $value['name'];
+            $sort_order_type[$key] = $value['category'];
+            $sort_order_sort[$key] = $value['sort_order'];
+            $sort_order_name[$key] = $value['name'];
         }
 
-        array_multisort($sort_order, SORT_ASC, $json);
+        array_multisort($sort_order_type, SORT_ASC, SORT_NATURAL, $sort_order_sort, SORT_ASC, SORT_NUMERIC, $sort_order_name, SORT_ASC, SORT_NATURAL, $json);
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));

@@ -3,7 +3,8 @@ class ControllerCatalogCategory extends Controller {
     private $error = array();
 
     public function index() {
-        $this->load->language('catalog/category');
+
+        $data = array_merge(array(), $this->load->language('catalog/category'));
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -56,13 +57,20 @@ class ControllerCatalogCategory extends Controller {
         $this->load->model('catalog/category');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-            //prd($this->request->post);
             $category_id = $this->request->get['category_id'];
             $this->model_catalog_category->editCategory($this->request->get['category_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
             $url = '';
+            if (isset($this->request->get['filter_name'])) {
+                $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+            }
+
+            if (isset($this->request->get['filter_parent'])) {
+                $url .= '&filter_parent=' . urlencode(html_entity_decode($this->request->get['filter_parent'], ENT_QUOTES, 'UTF-8'));
+            }
+
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -152,6 +160,20 @@ class ControllerCatalogCategory extends Controller {
     }
 
     protected function getList() {
+        $data = array_merge(array(), $this->load->language('catalog/category'));
+
+        if (isset($this->request->get['filter_name'])) {
+            $filter_name = $this->request->get['filter_name'];
+        } else {
+            $filter_name = null;
+        }
+
+        if (isset($this->request->get['filter_parent'])) {
+            $filter_parent = $this->request->get['filter_parent'];
+        } else {
+            $filter_parent = null;
+        }
+
         if (isset($this->request->get['sort'])) {
             $sort = $this->request->get['sort'];
         } else {
@@ -171,6 +193,14 @@ class ControllerCatalogCategory extends Controller {
         }
 
         $url = '';
+
+        if (isset($this->request->get['filter_name'])) {
+            $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+        }
+
+        if (isset($this->request->get['filter_parent'])) {
+            $url .= '&filter_parent=' . urlencode(html_entity_decode($this->request->get['filter_parent'], ENT_QUOTES, 'UTF-8'));
+        }
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
@@ -203,13 +233,15 @@ class ControllerCatalogCategory extends Controller {
         $data['categories'] = array();
 
         $filter_data = array(
-            'sort'  => $sort,
-            'order' => $order,
-            'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-            'limit' => $this->config->get('config_limit_admin')
+            'filter_name'   => $filter_name,
+            'filter_parent' => $filter_parent,
+            'sort'          => $sort,
+            'order'         => $order,
+            'start'         => ($page - 1) * $this->config->get('config_limit_admin'),
+            'limit'         => $this->config->get('config_limit_admin')
         );
 
-        $category_total = $this->model_catalog_category->getTotalCategories();
+        $category_total = $this->model_catalog_category->getTotalCategories($filter_data);
 
         $results = $this->model_catalog_category->getCategories($filter_data);
 
@@ -238,6 +270,8 @@ class ControllerCatalogCategory extends Controller {
         $data['button_delete'] = $this->language->get('button_delete');
         $data['button_rebuild'] = $this->language->get('button_rebuild');
 
+        $data['token'] = $this->session->data['token'];
+
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
         } else {
@@ -260,6 +294,14 @@ class ControllerCatalogCategory extends Controller {
 
         $url = '';
 
+        if (isset($this->request->get['filter_name'])) {
+            $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+        }
+
+        if (isset($this->request->get['filter_parent'])) {
+            $url .= '&filter_parent=' . urlencode(html_entity_decode($this->request->get['filter_parent'], ENT_QUOTES, 'UTF-8'));
+        }
+
         if ($order == 'ASC') {
             $url .= '&order=DESC';
         } else {
@@ -274,6 +316,14 @@ class ControllerCatalogCategory extends Controller {
         $data['sort_sort_order'] = $this->url->link('catalog/category', 'token=' . $this->session->data['token'] . '&sort=sort_order' . $url, true);
 
         $url = '';
+
+        if (isset($this->request->get['filter_name'])) {
+            $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+        }
+
+        if (isset($this->request->get['filter_parent'])) {
+            $url .= '&filter_parent=' . urlencode(html_entity_decode($this->request->get['filter_parent'], ENT_QUOTES, 'UTF-8'));
+        }
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
@@ -292,6 +342,9 @@ class ControllerCatalogCategory extends Controller {
         $data['pagination'] = $pagination->render();
 
         $data['results'] = sprintf($this->language->get('text_pagination'), ($category_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($category_total - $this->config->get('config_limit_admin'))) ? $category_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $category_total, ceil($category_total / $this->config->get('config_limit_admin')));
+
+        $data['filter_name'] = $filter_name;
+        $data['filter_parent'] = $filter_parent;
 
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -340,6 +393,14 @@ class ControllerCatalogCategory extends Controller {
         }
 
         $url = '';
+
+        if (isset($this->request->get['filter_name'])) {
+            $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+        }
+
+        if (isset($this->request->get['filter_parent'])) {
+            $url .= '&filter_parent=' . urlencode(html_entity_decode($this->request->get['filter_parent'], ENT_QUOTES, 'UTF-8'));
+        }
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
@@ -557,6 +618,10 @@ class ControllerCatalogCategory extends Controller {
 
             if ($url_alias_info && !isset($this->request->get['category_id'])) {
                 $this->error['keyword'] = sprintf($this->language->get('error_keyword'));
+            }
+
+            if ($this->error && !isset($this->error['warning'])) {
+                $this->error['warning'] = $this->language->get('error_warning');
             }
         }
 

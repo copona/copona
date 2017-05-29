@@ -1,6 +1,6 @@
 <?php
 // Registry
-$registry = new Registry();
+$registry = Registry::getInstance();
 
 // Config
 $config = new Config();
@@ -18,6 +18,10 @@ if ($config->has('action_event')) {
         $event->register($key, new Action($value));
     }
 }
+
+// Hook
+$hook = new Hook($registry);
+$registry->set('hook', $hook);
 
 // Loader
 $loader = new Loader($registry);
@@ -54,7 +58,8 @@ $registry->set('cache', new Cache($config->get('cache_type'), $config->get('cach
 
 // Url
 if ($config->get('url_autostart')) {
-    $registry->set('url', new Url($config->get('site_base'), $config->get('site_ssl'), $registry));
+    $url = new Url($config->get('site_base'), $config->get('site_ssl'), $registry);
+    $registry->set('url', $url);
 }
 
 // Copona seo urls
@@ -63,11 +68,15 @@ if ($config->get('url_autostart')) {
 }
 
 // Language
-
 $language = new Language($config->get('language_default'), $registry);
 $language->load($config->get('language_default'));
 $registry->set('language', $language);
 
+if ($config->get('url_autostart')) {
+// Breadcrumbs
+    $breadcrumbs = new Breadcrumbs($registry);
+    $registry->set('breadcrumbs', $breadcrumbs);
+}
 // Document
 $registry->set('document', new Document());
 

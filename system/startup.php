@@ -2,32 +2,24 @@
 // Error Reporting
 error_reporting(E_ALL);
 
-// DEBUG functions
+// Debug helper
 require_once(DIR_SYSTEM . 'helper/debug.php');
+
+// Composer Autoloader
+if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
+    require_once(DIR_SYSTEM . '../vendor/autoload.php');
+} else {
+    die('Please, execute composer install');
+}
+
+//Errors handler
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
 
 // Check Version
 if (version_compare(phpversion(), '5.6.0', '<') == true) {
     exit('PHP5.6+ Required');
-}
-
-// Magic Quotes Fix
-if (ini_get('magic_quotes_gpc')) {
-
-    function clean($data) {
-        if (is_array($data)) {
-            foreach ($data as $key => $value) {
-                $data[clean($key)] = clean($value);
-            }
-        } else {
-            $data = stripslashes($data);
-        }
-
-        return $data;
-    }
-
-    $_GET = clean($_GET);
-    $_POST = clean($_POST);
-    $_COOKIE = clean($_COOKIE);
 }
 
 if (!ini_get('date.timezone')) {
@@ -60,14 +52,14 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 }
 
 // Check if SSL
-if($_SERVER['REQUEST_SCHEME'] == 'https') {
+if (!empty($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https') {
     $_SERVER['HTTPS'] = true;
 } else {
     $_SERVER['HTTPS'] = false;
 }
 
 // Universal Host redirect to correct hostname
-if ($_SERVER['HTTP_HOST'] != parse_url(HTTP_SERVER)['host'] && $_SERVER['HTTP_HOST'] != parse_url(HTTP_SERVER)['host']) {
+if (defined('HTTP_HOST') && defined('HTTPS_HOST') && $_SERVER['HTTP_HOST'] != parse_url(HTTPS_SERVER)['host'] && $_SERVER['HTTP_HOST'] != parse_url(HTTP_SERVER)['host']) {
     header("Location: " . ($_SERVER['HTTPS'] ? HTTPS_SERVER : HTTP_SERVER) . ltrim('/', $_SERVER['REQUEST_URI']));
 }
 
@@ -92,11 +84,6 @@ function modification($filename) {
     return $filename;
 }
 
-// Autoloader
-if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
-    require_once(DIR_SYSTEM . '../vendor/autoload.php');
-}
-
 function library($class) {
     $file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
 
@@ -116,6 +103,7 @@ spl_autoload_extensions('.php');
 require_once(modification(DIR_SYSTEM . 'engine/action.php'));
 require_once(modification(DIR_SYSTEM . 'engine/controller.php'));
 require_once(modification(DIR_SYSTEM . 'engine/event.php'));
+require_once(modification(DIR_SYSTEM . 'engine/hook.php'));
 require_once(modification(DIR_SYSTEM . 'engine/front.php'));
 require_once(modification(DIR_SYSTEM . 'engine/loader.php'));
 require_once(modification(DIR_SYSTEM . 'engine/model.php'));

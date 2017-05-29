@@ -3,13 +3,14 @@ class ControllerExtensionShippingWeight extends Controller {
     private $error = array();
 
     public function index() {
-        $this->load->language('extension/shipping/weight');
+        $data = $this->load->language('extension/shipping/weight');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+            //prd($this->request->post);
             $this->model_setting_setting->editSetting('weight', $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -18,23 +19,6 @@ class ControllerExtensionShippingWeight extends Controller {
         }
 
         $data['heading_title'] = $this->language->get('heading_title');
-
-        $data['text_edit'] = $this->language->get('text_edit');
-        $data['text_none'] = $this->language->get('text_none');
-        $data['text_enabled'] = $this->language->get('text_enabled');
-        $data['text_disabled'] = $this->language->get('text_disabled');
-
-        $data['entry_rate'] = $this->language->get('entry_rate');
-        $data['entry_tax_class'] = $this->language->get('entry_tax_class');
-        $data['entry_status'] = $this->language->get('entry_status');
-        $data['entry_sort_order'] = $this->language->get('entry_sort_order');
-
-        $data['help_rate'] = $this->language->get('help_rate');
-
-        $data['button_save'] = $this->language->get('button_save');
-        $data['button_cancel'] = $this->language->get('button_cancel');
-
-        $data['tab_general'] = $this->language->get('tab_general');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -67,7 +51,21 @@ class ControllerExtensionShippingWeight extends Controller {
 
         $geo_zones = $this->model_localisation_geo_zone->getGeoZones();
 
+        $this->load->model('localisation/language');
+
+        $languages = $this->model_localisation_language->getLanguages();
+        $data['languages'] = $languages;
+        //pr($this->request->post);
+        // pr($data['languages']);
         foreach ($geo_zones as $geo_zone) {
+            foreach ($languages as $language) {
+                $data["weight_" . $language['language_id'] . "_" . $geo_zone['geo_zone_id'] . "_display"] = !empty(
+                        $this->request->post["weight_" . $language['language_id'] . "_" . $geo_zone['geo_zone_id'] . "_display"]) ?
+                    $this->request->post["weight_" . $language['language_id'] . "_" . $geo_zone['geo_zone_id'] . "_display"] :
+                    $this->config->get("weight_" . $language['language_id'] . "_" . $geo_zone['geo_zone_id'] . "_display");
+            }
+
+            //prd($data);
             if (isset($this->request->post['weight_' . $geo_zone['geo_zone_id'] . '_rate'])) {
                 $data['weight_' . $geo_zone['geo_zone_id'] . '_rate'] = $this->request->post['weight_' . $geo_zone['geo_zone_id'] . '_rate'];
             } else {
@@ -81,8 +79,10 @@ class ControllerExtensionShippingWeight extends Controller {
             }
         }
 
-        $data['geo_zones'] = $geo_zones;
+        //prd($data);
 
+        $data['geo_zones'] = $geo_zones;
+        $data['languages'] = $languages;
         if (isset($this->request->post['weight_tax_class_id'])) {
             $data['weight_tax_class_id'] = $this->request->post['weight_tax_class_id'];
         } else {

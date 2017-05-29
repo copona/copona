@@ -14,6 +14,7 @@ class Cart {
         $this->db = $registry->get('db');
         $this->tax = $registry->get('tax');
         $this->weight = $registry->get('weight');
+        $this->hook = $registry->get('hook');
 
         // Remove all the expired carts with no customer ID
         $this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE (api_id > '0' OR customer_id = '0') AND date_added < DATE_SUB(NOW(), INTERVAL 1 HOUR)");
@@ -56,9 +57,14 @@ class Cart {
                 $option_data = array();
 
                 foreach (json_decode($cart['option']) as $product_option_id => $value) {
-                    $option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, o.type FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$cart['product_id'] . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+                    $option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, od.display, o.type FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$cart['product_id'] . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+
 
                     if ($option_query->num_rows) {
+                        if ($option_query->row['display'] != "") {
+                            $option_query->row['name'] = $option_query->row['display'];
+                        }
+
                         if ($option_query->row['type'] == 'select' || $option_query->row['type'] == 'radio') {
                             $option_value_query = $this->db->query("SELECT pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$value . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
@@ -105,7 +111,17 @@ class Cart {
                             }
                         } elseif ($option_query->row['type'] == 'checkbox' && is_array($value)) {
                             foreach ($value as $product_option_value_id) {
-                                $option_value_query = $this->db->query("SELECT pov.option_value_id, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix, ovd.name FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (pov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+                                $option_value_query = $this->db->query("SELECT pov.option_value_id"
+                                    . ", pov.quantity, pov.subtract, pov.price, pov.price_prefix"
+                                    . ", pov.points"
+                                    . ", pov.points_prefix"
+                                    . ", pov.weight"
+                                    . ", pov.weight_prefix"
+                                    . ", ovd.name FROM " . DB_PREFIX . "product_option_value pov "
+                                    . "LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (pov.option_value_id = ovd.option_value_id) "
+                                    . "WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' "
+                                    . "AND pov.product_option_id = '" . (int)$product_option_id . "' "
+                                    . "AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
                                 if ($option_value_query->num_rows) {
                                     if ($option_value_query->row['price_prefix'] == '+') {
@@ -274,6 +290,7 @@ class Cart {
             }
         }
         //pr($this->dd_count);
+        $this->hook->getHook('system/library/cart/cart/getProducts/beforeafter', $product_data);
         return $product_data;
     }
 
@@ -360,7 +377,6 @@ class Cart {
         $total = 0;
 
         foreach ($this->cartProducts as $product) {
-            pr($this->dd_count);
             $total += $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'];
         }
 

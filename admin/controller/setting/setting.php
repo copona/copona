@@ -25,7 +25,8 @@ class ControllerSettingSetting extends Controller {
     }
 
     public function index() {
-        $data = $this->load->language('setting/setting');
+        $data = $this->load->language('catalog/product');
+        $data = array_merge($data, $this->load->language('setting/setting'));
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -325,6 +326,18 @@ class ControllerSettingSetting extends Controller {
             $data['config_product_count'] = $this->request->post['config_product_count'];
         } else {
             $data['config_product_count'] = $this->config->get('config_product_count');
+        }
+
+
+        // part numbers adminisitration
+
+        $data['partnumbers'] = ['sku', 'upc', 'ean', 'jan', 'isbn', 'mpn' ];
+        foreach ($data['partnumbers'] as $partnumber) {
+            if (isset($this->request->post['config_use_' . $partnumber])) {
+                $data['config_use_' . $partnumber] = $this->request->post['config_use_' . $partnumber];
+            } else {
+                $data['config_use_' . $partnumber] = $this->config->get('config_use_' . $partnumber);
+            }
         }
 
         if (isset($this->request->post['config_review_status'])) {
@@ -849,6 +862,17 @@ class ControllerSettingSetting extends Controller {
         } else {
             $data['config_error_filename'] = $this->config->get('config_error_filename');
         }
+
+        // Default tax class
+        $this->load->model('localisation/tax_class');
+        $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
+        if (isset($this->request->post['config_tax_class_id'])) {
+            $data['config_tax_class_id'] = $this->request->post['config_tax_class_id'];
+        } else {
+            $data['config_tax_class_id'] = $this->config->get('config_tax_class_id');
+        }
+        // End default tax class
+
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');

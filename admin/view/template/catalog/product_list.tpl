@@ -154,7 +154,12 @@
                                 <span class="label label-success"><?php echo $product['quantity']; ?></span>
                             <?php } ?></td>
                           <td class="text-left"><?php echo $product['status']; ?></td>
-                          <td class="text-right"><a href="<?php echo $product['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                          <td class="text-right">
+                            <button class="copy-one-product btn btn-default" type="submit" form="form-product"
+                                    formaction="<?php echo $copy; ?>"
+                                    data-toggle="tooltip" title=""
+                                    data-original-title="Copy"><i class="fa fa-copy"></i></button>
+                            <a href="<?php echo $product['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                         </tr>
                     <?php } ?>
                 <?php } else { ?>
@@ -256,5 +261,13 @@ $('#button-filter').on('click', function () {
               $('input[name=\'filter_model\']').val(item['label']);
           }
       });
+
+      $('.copy-one-product').on('click', function (e) {
+          // e.preventDefault();
+          $('input[name=selected\\[\\]]').prop("checked", false);
+          $(this).parent().parent().find('input[name=selected\\[\\]]').prop("checked", true);
+      });
+
+
       //--></script></div>
 <?php echo $footer; ?>

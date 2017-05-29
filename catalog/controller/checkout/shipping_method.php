@@ -1,14 +1,42 @@
 <?php
 class ControllerCheckoutShippingMethod extends Controller {
+    public function __construct($params) {
+        parent::__construct($params);
+        $this->load->model('extension/extension');
+        $this->load->model('localisation/location');
+    }
 
     public function index() {
-        $this->load->language('checkout/checkout');
+        $data = $this->load->language('checkout/checkout');
+
+        /*
+        $this->session->data['shipping_method_group'] = '';
+        if ($this->customer->isLogged() && isset($this->session->data['shipping_address_id'])) {
+            $shipping_address = $this->model_account_address->getAddress($this->session->data['shipping_address_id']);
+        } elseif (isset($this->request->post['zone_id'])) {
+            $shipping_address['zone_id'] = (int)$this->request->post['zone_id'];
+            $this->session->data['guest']['shipping']['zone_id'] = (int)$this->request->post['zone_id'];
+            $shipping_address['country_id'] = (int)$this->request->post['country_id'];
+            $this->session->data['guest']['shipping']['country_id'] = (int)$this->request->post['country_id'];
+        } elseif (isset($this->session->data['guest']) && isset($this->session->data['guest']['shipping'])) {
+            $shipping_address = $this->session->data['guest']['shipping'];
+        } else {
+            $shipping_address['country_id'] = $this->config->get('config_country_id');
+            $shipping_address['zone_id'] = $this->config->get('config_zone_id');
+        }
+        */
+        if(empty($this->session->data['shipping_address']) ) {
+            $this->session->data['shipping_address'] = $this->model_localisation_location
+                ->getStoreAddress();
+        };
+
+
+
+        $this->load->model('extension/extension');
 
         if (isset($this->session->data['shipping_address'])) {
             // Shipping Methods
             $method_data = array();
-
-            $this->load->model('extension/extension');
 
             $results = $this->model_extension_extension->getExtensions('shipping');
 
@@ -36,6 +64,8 @@ class ControllerCheckoutShippingMethod extends Controller {
             }
 
             array_multisort($sort_order, SORT_ASC, $method_data);
+
+            //prd($method_data); 
 
             $this->session->data['shipping_methods'] = $method_data;
         }
@@ -94,7 +124,7 @@ class ControllerCheckoutShippingMethod extends Controller {
         }
 
         // Validate minimum quantity requirements.
-        $products = $this->cart->cartProducts;
+        $products = $this->cart->getProducts();
 
         foreach ($products as $product) {
             $product_total = 0;
@@ -127,6 +157,16 @@ class ControllerCheckoutShippingMethod extends Controller {
 
             $this->session->data['comment'] = strip_tags($this->request->post['comment']);
         }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    /* COPONA */
+    public function getZonesByCountryId() {
+        $json = array();
+        $this->load->model('localisation/zone');
+        $json = $this->model_localisation_zone->getZonesByCountryId($this->request->post['country_id']);
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));

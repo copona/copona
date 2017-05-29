@@ -22,8 +22,6 @@
     <link href="view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen" />
     <link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="screen" />
 
-
-    <script src="view/javascript/ckeditor/ckeditor.js" type="text/javascript"></script>
     <?php foreach ($styles as $style) { ?>
         <link type="text/css" href="<?php echo $style['href']; ?>" rel="<?php echo $style['rel']; ?>" media="<?php echo $style['media']; ?>" />
     <?php } ?>
@@ -36,7 +34,14 @@
     <?php } ?>
   </head>
   <body>
-    <div id="container">
+
+  <?php if ($error_secure) { ?>
+    <div class="alert alert-danger secure-warning">
+      <span class="secure-message"><?php echo $error_secure; ?></span>
+    </div>
+  <?php } ?>
+
+  <div id="container">
       <header id="header" class="navbar navbar-static-top">
         <div class="navbar-header">
             <?php if ($logged) { ?>

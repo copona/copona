@@ -22,7 +22,7 @@ class Session {
             ini_set('session.use_trans_sid', 'Off');
             ini_set('session.cookie_httponly', 'On');
 
-            if (isset($_COOKIE[session_name()]) && !preg_match('/^[a-zA-Z0-9,\-]{22,52}$/', $_COOKIE[session_name()])) {
+            if (isset($_COOKIE[session_name()]) && !preg_match('/^[a-zA-Z0-9,\-]+$/', $_COOKIE[session_name()])) {
                 exit('Error: Invalid session ID!');
             }
 
@@ -58,14 +58,10 @@ class Session {
     }
 
     public function createId() {
-        if (method_exists($this->adaptor, 'create_sid')) {
-            return $this->adaptor->create_sid();
-        } elseif (function_exists('random_bytes')) {
+        if (function_exists('random_bytes')) {
             return substr(bin2hex(random_bytes(26)), 0, 26);
         } elseif (function_exists('openssl_random_pseudo_bytes')) {
             return substr(bin2hex(openssl_random_pseudo_bytes(26)), 0, 26);
-        } else {
-            return substr(bin2hex(mcrypt_create_iv(26, MCRYPT_DEV_URANDOM)), 0, 26);
         }
     }
 

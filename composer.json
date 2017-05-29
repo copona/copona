@@ -2,8 +2,8 @@
 	"name": "copona/copona",
     "type": "project",
     "description": "A free shopping cart system, based on OpenCart (http://www.opencart.com)",
-    "keywords": ["copona", "opencart", "ecommerce", "framework", "opensource"],
-    "homepage": "http://www.opencart.com",
+    "keywords": ["copona", "ecommerce", "framework", "opensource"],
+    "homepage": "https://github.com/copona/copona",
     "license": "GPL-3.0+",
     "require": {
         "cardinity/cardinity-sdk-php": "^1.0",
@@ -13,6 +13,7 @@
         "klarna/kco_rest": "^2.2",
         "php": ">=5.6.0",
         "phpmailer/phpmailer": "^5.2",
-		"robmorgan/phinx": "^0.6.6"
+		"robmorgan/phinx": "^0.6.6",
+		"filp/whoops": "^2.1"
     }
 }

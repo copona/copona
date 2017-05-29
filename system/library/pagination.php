@@ -10,8 +10,8 @@ class Pagination {
     public $text_last = '&gt;|';
     public $text_next = '&gt;';
     public $text_prev = '&lt;';
-    public $next_hide = false;
-    public $prev_hide = false;
+    public $next_hide = true;
+    public $prev_hide = true;
 
     public function render() {
         $total = $this->total;
@@ -36,16 +36,16 @@ class Pagination {
         $output = '<ul class="pagination">';
 
         if ($page > 1) {
-            $output .= '<li class="first"><a href="' . str_replace(array(
+            $output .= '<li class="first"><a class="fa fa-angle-double-left" href="' . str_replace(array(
                     '&amp;page={page}',
-                    '&page={page}' ), '', $this->url) . '">' . $this->text_first . '</a></li>';
+                    '&page={page}' ), '', $this->url) . '"' . $this->text_first . '</a></li>';
 
             if ($page - 1 === 1) {
-                $output .=!$this->prev_hide ? '<li><a href="' . str_replace(array(
+                $output .=!$this->prev_hide ? '<li><a class="fa fa-angle-left" href="' . str_replace(array(
                         '&amp;page={page}',
-                        '&page={page}' ), '', $this->url) . '">' . $this->text_prev . '</a></li>' : false;
+                        '&page={page}' ), '', $this->url) . '"' . $this->text_prev . '</a></li>' : false;
             } else {
-                $output .=!$this->prev_hide ? '<li><a href="' . str_replace('{page}', $page - 1, $this->url) . '">' . $this->text_prev . '</a></li>' : false;
+                $output .=!$this->prev_hide ? '<li><a class="fa fa-angle-left" href="' . str_replace('{page}', $page - 1, $this->url) . '"' . $this->text_prev . '</a></li>' : false;
             }
         }
 
@@ -73,6 +73,7 @@ class Pagination {
                     $output .= '<li class="active"><span>' . $i . '</span></li>';
                 } else {
                     if ($i === 1) {
+
                         $output .= '<li><a href="' . str_replace(array( '&amp;page={page}',
                                 '&page={page}' ), '', $this->url) . '">' . $i . '</a></li>';
                     } else {
@@ -83,8 +84,8 @@ class Pagination {
         }
 
         if ($page < $num_pages) {
-            $output .=!$this->next_hide ? '<li><a href="' . str_replace('{page}', $page + 1, $this->url) . '">' . $this->text_next . '</a></li>' : false;
-            $output .= '<li class="last"><a href="' . str_replace('{page}', $num_pages, $this->url) . '">' . $this->text_last . '</a></li>';
+            $output .=!$this->next_hide ? '<li><a class="fa fa-angle-right" href="' . str_replace('{page}', $page + 1, $this->url) . '"' . $this->text_next . '</a></li>' : false;
+            $output .= '<li class="last"><a class="fa fa-angle-double-right" href="' . str_replace('{page}', $num_pages, $this->url) . '">' . $this->text_last . '</a></li>';
         }
 
         $output .= '</ul>';

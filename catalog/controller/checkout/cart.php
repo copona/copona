@@ -2,7 +2,9 @@
 class ControllerCheckoutCart extends Controller {
 
     public function index() {
-        $this->load->language('checkout/cart');
+        $data = $this->load->language('checkout/cart');
+
+
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -20,22 +22,6 @@ class ControllerCheckoutCart extends Controller {
 
         if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
             $data['heading_title'] = $this->language->get('heading_title');
-
-            $data['text_recurring_item'] = $this->language->get('text_recurring_item');
-            $data['text_next'] = $this->language->get('text_next');
-            $data['text_next_choice'] = $this->language->get('text_next_choice');
-
-            $data['column_image'] = $this->language->get('column_image');
-            $data['column_name'] = $this->language->get('column_name');
-            $data['column_model'] = $this->language->get('column_model');
-            $data['column_quantity'] = $this->language->get('column_quantity');
-            $data['column_price'] = $this->language->get('column_price');
-            $data['column_total'] = $this->language->get('column_total');
-
-            $data['button_update'] = $this->language->get('button_update');
-            $data['button_remove'] = $this->language->get('button_remove');
-            $data['button_shopping'] = $this->language->get('button_shopping');
-            $data['button_checkout'] = $this->language->get('button_checkout');
 
             if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
                 $data['error_warning'] = $this->language->get('error_stock');
@@ -165,6 +151,9 @@ class ControllerCheckoutCart extends Controller {
                 );
             }
 
+            // Traverse prepared products array for checkout template
+            $this->hook->getHook('checkout/cart/index/afterProducts', $data['products']);
+
             // Gift Voucher
             $data['vouchers'] = array();
 
@@ -235,6 +224,7 @@ class ControllerCheckoutCart extends Controller {
             $data['continue'] = $this->url->link('common/home');
 
             $data['checkout'] = $this->url->link('checkout/checkout', '', true);
+            $data['checkout_guest'] = $this->url->link('checkout/checkout/guest', '', true);
 
             $this->load->model('extension/extension');
 
@@ -318,6 +308,11 @@ class ControllerCheckoutCart extends Controller {
                 }
             }
 
+            if ($this->config->get('config_stock_checkout') == false && $product_info['quantity'] < 1) {
+                $json['error']['stock'] = $this->language->get('error_stock');
+            }
+
+
             if (isset($this->request->post['recurring_id'])) {
                 $recurring_id = $this->request->post['recurring_id'];
             } else {
@@ -339,6 +334,10 @@ class ControllerCheckoutCart extends Controller {
             }
 
             if (!$json) {
+
+                $hook_data = ['product_id' => (int)$this->request->post['product_id'] ];
+                $this->hook->getHook('checkout/cart/add/beforeadd', $hook_data);
+
                 $this->cart->add($this->request->post['product_id'], $quantity, $option, $recurring_id);
 
                 $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('checkout/cart'));
@@ -393,7 +392,10 @@ class ControllerCheckoutCart extends Controller {
                     array_multisort($sort_order, SORT_ASC, $totals);
                 }
 
-                $json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
+
+                $json_total = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
+
+                //$json['total'] = '<span id="cart-total"><i class="fa fa-shopping-cart"></i>' . $json_total . '</span>';
             } else {
                 $json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']));
             }

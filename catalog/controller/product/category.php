@@ -102,7 +102,9 @@ class ControllerProductCategory extends Controller {
         } elseif (!isset($this->request->get['path']) && !$category_info) {
             $show_category = true;
             $category_name = 'Product Catalog';
-            $category_meta_title = '';
+            $category_meta_title = (!empty($this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')]) ?
+                    $this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')] . ' - ' : '') .
+                $this->config->get('config_name');
             $category_meta_description = '';
             $category_meta_keyword = '';
             $category_path = '';
@@ -184,9 +186,9 @@ class ControllerProductCategory extends Controller {
 
             foreach ($results as $result) {
                 if ($result['image']) {
-                    $image = $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                    $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
                 } else {
-                    $image = $this->model_tool_image->cropsize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                    $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
                 }
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -214,18 +216,24 @@ class ControllerProductCategory extends Controller {
                 }
 
                 $category_path = $this->model_catalog_category->getCategoryPath($category_id, $result['product_id']);
-
                 $data['products'][] = array(
-                    'product_id'  => $result['product_id'],
-                    'thumb'       => $image,
-                    'name'        => $result['name'],
-                    'description' => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
-                    'price'       => $price,
-                    'special'     => $special,
-                    'tax'         => $tax,
-                    'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
-                    'rating'      => $result['rating'],
-                    'href'        => $this->url->link('product/product', ($category_path ? 'path=' . $category_path . '&' : '') . 'product_id=' . $result['product_id'] . $url)
+                    'product_id'     => $result['product_id'],
+                    'thumb'          => $image,
+                    'name'           => $result['name'],
+                    'description'    => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
+                    'price'          => $price,
+                    'special'        => $special,
+                    'tax'            => $tax,
+                    'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,
+                    'rating'         => $result['rating'],
+                    'quantity'       => $result['quantity'],
+                    'href'           => $this->url->link('product/product', ($category_path ? 'path=' . $category_path . '&' : '') . 'product_id=' . $result['product_id'] . $url),
+                    'group_products' => $this->model_catalog_product->getProducts(
+                        [
+                            'group_products'   => true,
+                            'product_group_id' => $result['product_group_id'],
+                            'product_id'       => $result['product_id'] ]
+                    ),
                 );
             }
 
@@ -350,8 +358,8 @@ class ControllerProductCategory extends Controller {
             $pagination->limit = $limit;
             $pagination->text_first = '';
             $pagination->text_last = '';
-            $pagination->prev_hide = true;
-            $pagination->next_hide = true;
+            $pagination->prev_hide = $this->config->get('theme_default_pagination_prev_hide') === null ? false : $this->config->get('theme_default_pagination_prev_hide');
+            $pagination->next_hide = $this->config->get('theme_default_pagination_next_hide') === null ? false : $this->config->get('theme_default_pagination_next_hide');
             $pagination->url = $this->url->link('product/category', ($category_info ? 'path=' . $category_path : '') . $url . '&page={page}');
 
             $data['pagination'] = $pagination->render();

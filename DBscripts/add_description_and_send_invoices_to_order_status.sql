@@ -1,1 +1,0 @@
-ALTER TABLE `oc_order_status` ADD `description` TEXT NOT NULL AFTER `send_invoice`, ADD `send_invoice` TINYINT NOT NULL DEFAULT '0' AFTER `description`;
