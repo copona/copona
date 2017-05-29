@@ -17,23 +17,12 @@
     <?php if ($keywords) { ?>
         <meta name="keywords" content= "<?php echo $keywords; ?>" />
     <?php } ?>
-    <script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
-    <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
-    <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
-    <!-- Default theme "fixes" and additions -->
-    <link href="catalog/view/theme/default/stylesheet/additional.css" rel="stylesheet">
-    <!-- Simplica theme default Stylesheet -->
-    <link href="catalog/view/theme/<?= $theme_directory; ?>/stylesheet/stylesheet.css" rel="stylesheet">
-    <link href="catalog/view/theme/<?= $theme_directory; ?>/stylesheet/owl.carousel.css" rel="stylesheet">
-    <!-- Simplica theme "fixes" and additions -->
-    <link href="catalog/view/theme/<?= $theme_directory; ?>/stylesheet/additional.css" rel="stylesheet">
+      
     <?php foreach ($styles as $style) { ?>
         <link href="<?php echo $style['href']; ?>" type="text/css" rel="<?php echo $style['rel']; ?>" media="<?php echo $style['media']; ?>" />
     <?php } ?>
-    <script src="catalog/view/javascript/common.js" type="text/javascript"></script>
-    <?php foreach ($links as $link) { ?>
+
+    <?php foreach ($links as $link) { ?> 
         <link href="<?php echo $link['href']; ?>" rel="<?php echo $link['rel']; ?>" />
     <?php } ?>
     <?php foreach ($scripts as $script) { ?>
@@ -62,7 +51,7 @@
                         <li><a href="<?php echo $order; ?>"><?php echo $text_order; ?></a></li>
                         <li><a href="<?php echo $transaction; ?>"><?php echo $text_transaction; ?></a></li>
                         <li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>
-                        <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
+                        <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li> 
                     <?php } else { ?>
                         <li><a href="<?php echo $register; ?>"><?php echo $text_register; ?></a></li>
                         <li><a href="<?php echo $login; ?>"><?php echo $text_login; ?></a></li>
