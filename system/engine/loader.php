@@ -75,7 +75,6 @@ final class Loader {
                         '_',
                         '', '' ), (string)$route), $proxy);
             } else {
-                prd($file);
                 throw new \Exception('Error: Could not load model ' . $route . '!');
             }
         }
