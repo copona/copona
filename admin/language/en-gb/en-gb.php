@@ -160,3 +160,4 @@ $_['text_extensions'] = 'Extensions';
 
 $_['entry_display'] = 'Display Name';
 $_['entry_display_placeholder'] = 'Display Name (Optional)';
+$_['text_other_information'] = 'Other information';
