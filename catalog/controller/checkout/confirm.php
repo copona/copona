@@ -116,6 +116,9 @@ class ControllerCheckoutConfirm extends Controller {
             $data1['invoice_prefix'] = $this->config->get('config_invoice_prefix');
             $data1['store_id'] = $this->config->get('config_store_id');
             $data1['store_name'] = $this->config->get('config_name');
+
+            $data1['serial'] = $this->session->data['guest']['serial'];
+
             if ($data1['store_id']) {
                 $data1['store_url'] = $this->config->get('config_url');
             } else {
@@ -140,6 +143,7 @@ class ControllerCheckoutConfirm extends Controller {
                 $data1['customer_group_id'] = $this->session->data['guest']['customer_group_id'];
                 $data1['firstname'] = $this->session->data['guest']['firstname'];
                 $data1['lastname'] = $this->session->data['guest']['lastname'];
+
                 $data1['email'] = $this->session->data['guest']['email'];
                 $data1['telephone'] = $this->session->data['guest']['telephone'];
                 $data1['fax'] = $this->session->data['guest']['fax'];
@@ -345,7 +349,6 @@ class ControllerCheckoutConfirm extends Controller {
 
             $this->load->model('checkout/order');
             $this->session->data['order_id'] = $this->model_checkout_order->addOrder($data1);
-
             $data['column_name'] = $this->language->get('column_name');
             $data['column_model'] = $this->language->get('column_model');
             $data['column_quantity'] = $this->language->get('column_quantity');
