@@ -15,9 +15,10 @@
 
 function saveAndContinue(e) {
     e.preventDefault();
+    forms = $('#form-product, #form-category, #form-featured, #form-flat, #form-setting');
 
-    $('#form-product, #form-category, #form-featured, #form-flat').append('<input type="hidden" name="save_continue" value="1"  />');
-    $('#form-product, #form-category, #form-featured, #form-flat').submit();
+    forms.append('<input type="hidden" name="save_continue" value="1"  />');
+    forms.submit();
 }
 
 function getURLVar(key) {

@@ -42,7 +42,10 @@ class ControllerSettingSetting extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('setting/store', 'token=' . $this->session->data['token'], true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+                $this->response->redirect($this->url->link('setting/setting', '&token=' . $this->session->data['token'], true));
+            else
+                $this->response->redirect($this->url->link('setting/store', 'token=' . $this->session->data['token'], true));
         }
 
         $errors = array(
