@@ -841,7 +841,7 @@ class ModelCheckoutOrder extends Model {
                     $mail->send();
 
                     // Send to additional alert emails
-                    $emails = explode(',', $this->config->get('config_alert_email'));
+                    $emails = explode(',', $this->config->get('config_mail_alert_email'));
 
                     foreach ($emails as $email) {
                         if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
