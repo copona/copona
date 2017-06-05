@@ -14,11 +14,18 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 * Getting project files
     * With Git (recommended)
         * install git [guide](http://rogerdudler.github.io/git-guide)
+		* install composer [guide](https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies)
         * execute commands: 
+		* cd to webroot, like:
+		    * `cd /var/www/public_html`
         * `git clone https://github.com/Copona/copona.git .`
         * `git config user.name "Your Name"`
         * `git config user.email youremail@yourdomain.org`
         * `git config core.fileMode false`
+		* `composer install`
+		* open installation `http://domain/install`
+		* After successful installation, run DB migration from webroot folder: 
+		    * `php vendor/bin/phinx migrate`
     * Download files
         * [Click here to download master branch](https://github.com/copona/copona/archive/master.zip)
 * Prepared environment
@@ -35,8 +42,8 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
         * Install Composer [https://getcomposer.org/](https://getcomposer.org/)
         * From the command prompt, execute:
             * Execute composer `composer install`
-            * Execute migration `php vendor/bin/phinx migrate`
 * navigate to WEB address `http://domain-OR-IPaddress/` or `http://domain-OR-IPaddress/subfolder-where-you-cloned`
+	* Execute migration `php vendor/bin/phinx migrate`
 * If all the requirements have been met, fill the form and enjoy!
 
 ## Update

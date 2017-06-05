@@ -1,6 +1,6 @@
 <?php
 // Registry
-$registry = new Registry();
+$registry = Registry::getInstance();
 
 // Config
 $config = new Config();

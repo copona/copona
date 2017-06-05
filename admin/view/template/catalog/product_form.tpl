@@ -1,5 +1,5 @@
 <?php echo $header; ?><?php echo $column_left; ?>
-<div id="content">
+<div id="content" class="product-edit">
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">

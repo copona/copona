@@ -75,8 +75,6 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
 
         $data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=payment', true);
 
-        $this->load->model('localisation/language');
-
         foreach ($languages as $language) {
             if (isset($this->request->post['bank_transfer_bank' . $language['language_id']])) {
                 $data['bank_transfer_bank' . $language['language_id']] = $this->request->post['bank_transfer_bank' . $language['language_id']];

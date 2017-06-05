@@ -75,6 +75,20 @@
                 </div>
                 <?php foreach ($geo_zones as $geo_zone) { ?>
                     <div class="tab-pane" id="tab-geo-zone<?php echo $geo_zone['geo_zone_id']; ?>">
+                        <?php foreach ($languages as $language) { ?>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input-bank<?php echo $language['language_id']; ?>"><?php echo $weight_based_shipping; ?></label>
+                            <div class="col-sm-10">
+                              <div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
+
+                                <textarea name="weight_<?php echo $language['language_id'] . '_' . $geo_zone['geo_zone_id']; ?>_display" cols="80" rows="10" placeholder="<?php echo $entry_sort_order; ?>" id="input-bank<?php echo $language['language_id']; ?>" class="form-control"><?php
+                                    echo isset(${"weight_" . $language['language_id'] . "_" . $geo_zone['geo_zone_id'] . "_display"}) ?
+                                        ${"weight_" . $language['language_id'] . '_' . $geo_zone['geo_zone_id'] . "_display"} : '';
+                                    ?></textarea>
+                              </div>
+                            </div>
+                          </div>
+                      <?php } ?>
                       <div class="form-group">
                         <label class="col-sm-2 control-label" for="input-rate<?php echo $geo_zone['geo_zone_id']; ?>"><span data-toggle="tooltip" title="<?php echo $help_rate; ?>"><?php echo $entry_rate; ?></span></label>
                         <div class="col-sm-10">

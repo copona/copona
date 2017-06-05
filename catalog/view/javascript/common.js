@@ -1,14 +1,10 @@
 function getURLVar(key) {
     var value = [];
-
     var query = String(document.location).split('?');
-
     if (query[1]) {
         var part = query[1].split('&');
-
         for (i = 0; i < part.length; i++) {
             var data = part[i].split('=');
-
             if (data[0] && data[1]) {
                 value[data[0]] = data[1];
             }
@@ -51,83 +47,65 @@ function deleteCookie(name) {
     setCookie(name, "", -1);
 }
 
-
+// http://stackoverflow.com/questions/1909441/how-to-delay-the-keyup-handler-until-the-user-stops-typing
+var delay = (function () {
+    var timer = 0;
+    return function (callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
+})();
 $(document).ready(function () {
-    // Highlight any found errors
+// Highlight any found errors
     $('.text-danger').each(function () {
         var element = $(this).parent().parent();
-
         if (element.hasClass('form-group')) {
             element.addClass('has-error');
         }
     });
-
     // Currency
     $('#form-currency .currency-select').on('click', function (e) {
         e.preventDefault();
-
         $('#form-currency input[name=\'code\']').val($(this).attr('name'));
-
         $('#form-currency').submit();
     });
-
-    // Language
-    $('#form-language .language-select').on('click', function (e) {
-        e.preventDefault();
-
-        $('#form-language input[name=\'code\']').val($(this).attr('name'));
-
-        $('#form-language').submit();
-    });
-
     /* Search */
     $('#search input[name=\'search\']').parent().find('button').on('click', function () {
         var site_host = $('base').attr('href') ? $('base').attr('href') : location.protocol + "//" + location.host + '/';
         var url = site_host + 'index.php?route=product/search';
-
         var value = $('header #search input[name=\'search\']').val();
-
         if (value) {
             url += '&search=' + encodeURIComponent(value);
         }
 
         location = url;
     });
-
     $('#search input[name=\'search\']').on('keydown', function (e) {
         if (e.keyCode == 13) {
             $('header #search input[name=\'search\']').parent().find('button').trigger('click');
         }
     });
-
     // Menu
     $('#menu .dropdown-menu').each(function () {
         var menu = $('#menu').offset();
         var dropdown = $(this).parent().offset();
-
         var i = (dropdown.left + $(this).outerWidth()) - (menu.left + $('#menu').outerWidth());
-
         if (i > 0) {
             $(this).css('margin-left', '-' + (i + 10) + 'px');
         }
     });
-
     // Product List
     $('#list-view').click(function () {
         $('#content .product-grid > .clearfix').remove();
-
         $('#content .row > .product-grid').attr('class', 'product-layout product-list col-xs-12');
         $('#grid-view').removeClass('active');
         $('#list-view').addClass('active');
-
         localStorage.setItem('display', 'list');
     });
-
     // Product Grid
     $('#grid-view').click(function () {
-        // What a shame bootstrap does not take into account dynamically loaded columns
+// What a shame bootstrap does not take into account dynamically loaded columns
         var cols = $('#column-right, #column-left').length;
-
         if (cols == 2) {
             $('#content .product-list').attr('class', 'product-layout product-grid col-lg-6 col-md-6 col-sm-12 col-xs-12');
         } else if (cols == 1) {
@@ -138,10 +116,8 @@ $(document).ready(function () {
 
         $('#list-view').removeClass('active');
         $('#grid-view').addClass('active');
-
         localStorage.setItem('display', 'grid');
     });
-
     if (localStorage.getItem('display') == 'list') {
         $('#list-view').trigger('click');
         $('#list-view').addClass('active');
@@ -150,25 +126,23 @@ $(document).ready(function () {
         $('#grid-view').addClass('active');
     }
 
-    // Checkout
+// Checkout
     $(document).on('keydown', '#collapse-checkout-option input[name=\'email\'], #collapse-checkout-option input[name=\'password\']', function (e) {
         if (e.keyCode == 13) {
             $('#collapse-checkout-option #button-login').trigger('click');
         }
     });
-
     // tooltips on hover
     $('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
-
     // Makes tooltips work on ajax generated content
     $(document).ajaxStop(function () {
         $('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
     });
 });
-
 // Cart add remove functions
 var cart = {
     'add': function (product_id, quantity) {
+        $("alert-success").remove();
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
             type: 'post',
@@ -182,19 +156,18 @@ var cart = {
             },
             success: function (json) {
                 $('.alert, .text-danger').remove();
-
                 if (json['redirect']) {
                     location = json['redirect'];
                 }
 
                 if (json['success']) {
-                    $('#content').parent().before('<div class="alert alert-success alert-cart"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                    // Need to set timeout otherwise it wont update the total
+                    $('.breadcrumb').after('<div class="alert alert-success alert-success-addtocart">' +
+                            json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
                     setTimeout(function () {
-                        $('#cart').load('index.php?route=common/cart/info');
-                    }, 100);
+                        $('.alert-success-addtocart').fadeOut(500);
+                    }, 3000);
 
+                    $('#cart').load('index.php?route=common/cart/info');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -219,7 +192,6 @@ var cart = {
                 setTimeout(function () {
                     $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
                 }, 100);
-
                 if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
                     location = 'index.php?route=checkout/cart';
                 } else {
@@ -248,7 +220,6 @@ var cart = {
                 setTimeout(function () {
                     $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
                 }, 100);
-
                 if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
                     location = 'index.php?route=checkout/cart';
                 } else {
@@ -283,7 +254,6 @@ var voucher = {
                 setTimeout(function () {
                     $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
                 }, 100);
-
                 if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
                     location = 'index.php?route=checkout/cart';
                 } else {
@@ -306,7 +276,6 @@ var wishlist = {
             dataType: 'json',
             success: function (json) {
                 $('.alert').remove();
-
                 if (json['redirect']) {
                     location = json['redirect'];
                 }
@@ -317,7 +286,6 @@ var wishlist = {
 
                 $('#wishlist-total span').html(json['total']);
                 $('#wishlist-total').attr('title', json['total']);
-
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -338,12 +306,9 @@ var compare = {
             dataType: 'json',
             success: function (json) {
                 $('.alert').remove();
-
                 if (json['success']) {
                     $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
                     $('#compare-total').html(json['total']);
-
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -359,11 +324,8 @@ var compare = {
 /* Agree to Terms */
 $(document).delegate('.agree', 'click', function (e) {
     e.preventDefault();
-
     $('#modal-agree').remove();
-
     var element = this;
-
     $.ajax({
         url: $(element).attr('href'),
         type: 'get',
@@ -380,37 +342,29 @@ $(document).delegate('.agree', 'click', function (e) {
             html += '    </div>';
             html += '  </div>';
             html += '</div>';
-
             $('body').append(html);
-
             $('#modal-agree').modal('show');
         }
     });
 });
-
 // Autocomplete */
 (function ($) {
     $.fn.autocomplete = function (option) {
         return this.each(function () {
             this.timer = null;
             this.items = new Array();
-
             $.extend(this, option);
-
             $(this).attr('autocomplete', 'off');
-
             // Focus
             $(this).on('focus', function () {
                 this.request();
             });
-
             // Blur
             $(this).on('blur', function () {
                 setTimeout(function (object) {
                     object.hide();
                 }, 200, this);
             });
-
             // Keydown
             $(this).on('keydown', function (event) {
                 switch (event.keyCode) {
@@ -422,13 +376,10 @@ $(document).delegate('.agree', 'click', function (e) {
                         break;
                 }
             });
-
             // Click
             this.click = function (event) {
                 event.preventDefault();
-
                 value = $(event.target).parent().attr('data-value');
-
                 if (value && this.items[value]) {
                     this.select(this.items[value]);
                 }
@@ -437,12 +388,10 @@ $(document).delegate('.agree', 'click', function (e) {
             // Show
             this.show = function () {
                 var pos = $(this).position();
-
                 $(this).siblings('ul.dropdown-menu').css({
                     top: pos.top + $(this).outerHeight(),
                     left: pos.left
                 });
-
                 $(this).siblings('ul.dropdown-menu').show();
             }
 
@@ -454,7 +403,6 @@ $(document).delegate('.agree', 'click', function (e) {
             // Request
             this.request = function () {
                 clearTimeout(this.timer);
-
                 this.timer = setTimeout(function (object) {
                     object.source($(object).val(), $.proxy(object.response, object));
                 }, 200, this);
@@ -463,7 +411,6 @@ $(document).delegate('.agree', 'click', function (e) {
             // Response
             this.response = function (json) {
                 html = '';
-
                 if (json.length) {
                     for (i = 0; i < json.length; i++) {
                         this.items[json[i]['value']] = json[i];
@@ -477,7 +424,6 @@ $(document).delegate('.agree', 'click', function (e) {
 
                     // Get all the ones with a categories
                     var category = new Array();
-
                     for (i = 0; i < json.length; i++) {
                         if (json[i]['category']) {
                             if (!category[json[i]['category']]) {
@@ -492,7 +438,6 @@ $(document).delegate('.agree', 'click', function (e) {
 
                     for (i in category) {
                         html += '<li class="dropdown-header">' + category[i]['name'] + '</li>';
-
                         for (j = 0; j < category[i]['item'].length; j++) {
                             html += '<li data-value="' + category[i]['item'][j]['value'] + '"><a href="#">&nbsp;&nbsp;&nbsp;' + category[i]['item'][j]['label'] + '</a></li>';
                         }
@@ -510,7 +455,8 @@ $(document).delegate('.agree', 'click', function (e) {
 
             $(this).after('<ul class="dropdown-menu"></ul>');
             $(this).siblings('ul.dropdown-menu').delegate('a', 'click', $.proxy(this.click, this));
-
         });
     }
+
+
 })(window.jQuery);

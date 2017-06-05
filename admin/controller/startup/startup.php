@@ -16,9 +16,6 @@ class ControllerStartupStartup extends Controller {
         // Language
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE code = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
 
-
-        //pr("SELECT * FROM `" . DB_PREFIX . "language` WHERE directory = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
-
         if ($query->num_rows) {
             $this->config->set('config_language_id', $query->row['language_id']);
             $this->config->set('config_admin_language_locale', $query->row['locale']);
@@ -28,16 +25,9 @@ class ControllerStartupStartup extends Controller {
             $code = 'en'; // $this->config->get('config_admin_language');
         }
 
-        //pr($code);
-        //prd($query->rows);
-        //pr($this->config->get('config_admin_language'));
         // Language
-        //prd($language_directory);
 
         $language = new Language($code, $this->registry);
-
-        //prd($language_directory);
-
         $language->load($code);
         $this->registry->set('language', $language);
 
@@ -75,6 +65,14 @@ class ControllerStartupStartup extends Controller {
         // Encryption
         $this->registry->set('encryption', new Encryption($this->config->get('config_encryption')));
 
+
+        $this->config->set('theme_name', !empty($this->config->get('theme_default_directory')) ? $this->config->get('theme_default_directory') : 'default');
+        $this->config->set('theme_uri', DIR_CATALOG . "view/theme/" . $this->config->get('theme_name'));
+
+        //Theme settings override
+        if (file_exists($this->config->get('theme_uri') . '/functions.php')) {
+            require_once($this->config->get('theme_uri') . '/functions.php');
+        }
     }
 
 }

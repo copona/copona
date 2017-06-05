@@ -6,6 +6,7 @@ class Language extends Controller {
     private $db;
     private $config;
     private $languages;
+    private $theme_language = [];
 
     public function __construct($code = 'en', $registry) {
 
@@ -28,6 +29,16 @@ class Language extends Controller {
 
         $this->directory = $this->languages[$this->code];
         !$this->directory ? !pr($this->languages) && !pr($this->code) : false;
+
+        // Theme translation override
+        if($this->config->get('theme_name')) {
+            $themes_language_file = DIR_TEMPLATE . $this->config->get('theme_name') . "/language/" . $this->directory . '.php';
+            if (is_file($themes_language_file)) {
+                require_once($themes_language_file);
+                $this->theme_language = $_;
+            }
+        }
+
     }
 
     public function get($key) {
@@ -54,7 +65,19 @@ class Language extends Controller {
         }
         $_ = array();
 
-        $file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
+
+        $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
+        // TODO: optimize this!
+        defined('DIR_CATALOG')
+            ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/language/".$this->directory."/" .$filename . ".php")
+            : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/language/".$this->directory."/" . $filename . ".php");
+
+        if(!empty($extension_files[0])) {
+            $file = $extension_files[0];
+        } else {
+            $file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
+        }
+
         if (is_file($file)) {
             require($file);
         } elseif (is_file(DIR_TEMPLATE . $filename . '/' . $this->directory . '.php')) {
@@ -70,7 +93,10 @@ class Language extends Controller {
         }
 
         $this->data = array_merge($this->data, $_);
-
+        // TODO: arrayis merged every time, to override same keys from theme settings
+        // must be optimized.
+        $this->data = array_merge($this->data, $this->theme_language);
+        //pr($this->data );
         $data = array_merge($data, $this->data);
 
         return $this->data;

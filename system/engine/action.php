@@ -3,19 +3,30 @@ class Action {
     private $id;
     private $route;
     private $method = 'index';
+    public $extension_file;
 
     public function __construct($route) {
         $this->id = $route;
 
         $parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
 
+        $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
+
         // Break apart the route
         while ($parts) {
+
+            // TODO: optimize this! Probably - with a new variable. Also needed in Extension controller in admin.
+            defined('DIR_CATALOG')
+                ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/controller/" . implode('/', $parts) . ".php")
+                : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/controller/" . implode('/', $parts) . ".php");
+
             $file = DIR_APPLICATION . 'controller/' . implode('/', $parts) . '.php';
 
-            if (is_file($file)) {
+            if (is_file($file) || !empty($extension_files[0])) {
+                if(!empty($extension_files[0])) {
+                    $this->extension_file = $extension_files[0];
+                }
                 $this->route = implode('/', $parts);
-
                 break;
             } else {
                 $this->method = array_pop($parts);
@@ -33,7 +44,11 @@ class Action {
             return new \Exception('Error: Calls to magic methods are not allowed!');
         }
 
-        $file = DIR_APPLICATION . 'controller/' . $this->route . '.php';
+        if(!empty($this->extension_file)) {
+            $file = $this->extension_file;
+        } else {
+            $file = DIR_APPLICATION . 'controller/' . $this->route . '.php';
+        }
         $class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $this->route);
 
         // Initialize the class

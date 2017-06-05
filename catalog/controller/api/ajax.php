@@ -12,4 +12,16 @@ class ControllerApiAjax extends Controller {
         }
     }
 
+    /*
+     * Ajax method for Product ajax requests.
+     * Method can be redirected, using POST "route" variable. But this is done then in Hook.
+     */
+
+    public function product() {
+        $data = [ ];
+        $data['success'] = true;
+        $this->hook->getHook('api/ajax/product', $data);
+        $this->response->setOutput(json_encode($data));
+    }
+
 }

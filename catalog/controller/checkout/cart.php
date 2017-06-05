@@ -308,6 +308,11 @@ class ControllerCheckoutCart extends Controller {
                 }
             }
 
+            if ($this->config->get('config_stock_checkout') == false && $product_info['quantity'] < 1) {
+                $json['error']['stock'] = $this->language->get('error_stock');
+            }
+
+
             if (isset($this->request->post['recurring_id'])) {
                 $recurring_id = $this->request->post['recurring_id'];
             } else {
@@ -392,7 +397,6 @@ class ControllerCheckoutCart extends Controller {
 
                 //$json['total'] = '<span id="cart-total"><i class="fa fa-shopping-cart"></i>' . $json_total . '</span>';
             } else {
-
                 $json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']));
             }
         }

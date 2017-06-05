@@ -71,3 +71,11 @@
 .category-layout .category-thumb .caption {
     text-align: center;
 }
+
+#top .language-select img {
+	height: 16px;
+}
+
+span.error input{
+    border:  1px solid red;
+}
