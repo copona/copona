@@ -255,6 +255,7 @@ class ControllerProductProduct extends Controller {
             $data['reward'] = $product_info['reward'];
             $data['points'] = $product_info['points'];
             $data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
+            $data['short_description'] = utf8_substr(trim(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get($this->config->get('config_theme') . '_product_short_description_length')) . '..';
 
             if ($product_info['quantity'] <= 0) {
                 $data['stock'] = $product_info['stock_status'];
@@ -463,7 +464,12 @@ class ControllerProductProduct extends Controller {
 
             // Content Meta
 
-            if (isset($product_info['content_meta'])) {
+            if (!empty($product_info['content_meta'])) {
+                // Define content meta in $data array;
+                foreach($product_info['content_meta'] as $key => $value){
+                    $data['content_meta'][$key] = $value;
+                }
+
                 if (isset($product_info['content_meta']['product_video'])) {
                     foreach ($product_info['content_meta']['product_video'] as $product_video) {
                         $video = html_entity_decode($product_video['video'][$this->config->get('config_language_id')], ENT_QUOTES, 'UTF-8');

@@ -654,7 +654,7 @@ class ControllerCatalogProduct extends Controller {
         }
 
         $filter = array();
-        // Ja ir izveidota produktu grupa
+        // If product group exists
         if (isset($product_info['product_group_id']) && $product_info['product_group_id']) {
             $filter['product_group_id'] = $product_info['product_group_id'];
             $data['product_group_id'] = $product_info['product_group_id'];
@@ -664,6 +664,7 @@ class ControllerCatalogProduct extends Controller {
 
         $data['product_group_products'] = array();
 
+        $data['custom_fields'] = $this->getCustomFields();
 
         // add self as "grouped" - you cannot choose product as group to itself
         $data['group_products'] = "," . (isset($this->request->get['product_id']) ? (int)$this->request->get['product_id'] : "") . ",";
@@ -1473,5 +1474,32 @@ class ControllerCatalogProduct extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
+
+    protected function getCustomFields() {
+
+        $data = $this->load->language('catalog/product');
+        $data['product_id'] = !isset($this->request->get['product_id']) ? 0 : (int)$this->request->get['product_id'];
+        $data['token'] = $this->session->data['token'];
+
+        $this->load->model('localisation/language');
+        $data['languages'] = $this->model_localisation_language->getLanguages();
+
+        if (isset($this->request->post['product_description'])) {
+            $data['product_description'] = $this->request->post['product_description'];
+        } elseif (isset($this->request->get['product_id'])) {
+            $data['product_description'] = $this->model_catalog_product->getProductDescriptions($this->request->get['product_id']);
+        } else {
+            $data['product_description'] = array();
+        }
+
+        // Content meta
+        $data['content_meta'] = $this->model_catalog_product->getContentMeta($this->request->get['product_id']);
+
+        return $this->load->view('catalog/product_form_custom_fields', $data);
+    }
+
+
+
 
 }
