@@ -1494,11 +1494,7 @@ class ControllerCatalogProduct extends Controller {
         }
 
         // Content meta
-        if (!empty($product_info)) {
-            $data['content_meta'] = $this->model_catalog_product->getContentMeta($this->request->get['product_id']);
-        } else {
-            $data['content_meta'] = '';
-        }
+        $data['content_meta'] = $this->model_catalog_product->getContentMeta($this->request->get['product_id']);
 
         return $this->load->view('catalog/product_form_custom_fields', $data);
     }

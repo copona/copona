@@ -1,5 +1,5 @@
 <?php echo $header; ?><?php echo $column_left; ?>
-<div id="content" class="product-edit">
+<div id="content">
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
@@ -1158,8 +1158,8 @@
             </div>
 
             <div class="tab-pane" id="tab-custom_fields">
-              <div class="table-responsive">
-                <?php pr($custom_fields) ;?>
+              <div class="row">
+                <?php echo !empty($custom_fields) ? $custom_fields : 'There are no Custom fields defined! '   ;?>
               </div>
             </div>
 
