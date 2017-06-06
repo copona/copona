@@ -1,8 +1,10 @@
 <?php
-class ControllerLocalisationCurrency extends Controller {
+class ControllerLocalisationCurrency extends Controller
+{
     private $error = array();
 
-    public function index() {
+    public function index()
+    {
         $this->load->language('localisation/currency');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +14,8 @@ class ControllerLocalisationCurrency extends Controller {
         $this->getList();
     }
 
-    public function add() {
+    public function add()
+    {
         $this->load->language('localisation/currency');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -38,13 +41,15 @@ class ControllerLocalisationCurrency extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true));
+            $this->response->redirect($this->url->link('localisation/currency',
+              'token=' . $this->session->data['token'] . $url, true));
         }
 
         $this->getForm();
     }
 
-    public function edit() {
+    public function edit()
+    {
         $this->load->language('localisation/currency');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -70,13 +75,15 @@ class ControllerLocalisationCurrency extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true));
+            $this->response->redirect($this->url->link('localisation/currency',
+              'token=' . $this->session->data['token'] . $url, true));
         }
 
         $this->getForm();
     }
 
-    public function delete() {
+    public function delete()
+    {
         $this->load->language('localisation/currency');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -104,13 +111,15 @@ class ControllerLocalisationCurrency extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true));
+            $this->response->redirect($this->url->link('localisation/currency',
+              'token=' . $this->session->data['token'] . $url, true));
         }
 
         $this->getList();
     }
 
-    public function refresh() {
+    public function refresh()
+    {
         $this->load->language('localisation/currency');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -136,13 +145,14 @@ class ControllerLocalisationCurrency extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true));
+            //$this->response->redirect($this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true));
         }
 
         $this->getList();
     }
 
-    protected function getList() {
+    protected function getList()
+    {
         if (isset($this->request->get['sort'])) {
             $sort = $this->request->get['sort'];
         } else {
@@ -178,26 +188,29 @@ class ControllerLocalisationCurrency extends Controller {
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true)
+          'text' => $this->language->get('text_home'),
+          'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true)
         );
 
         $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true)
+          'text' => $this->language->get('heading_title'),
+          'href' => $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true)
         );
 
-        $data['add'] = $this->url->link('localisation/currency/add', 'token=' . $this->session->data['token'] . $url, true);
-        $data['delete'] = $this->url->link('localisation/currency/delete', 'token=' . $this->session->data['token'] . $url, true);
-        $data['refresh'] = $this->url->link('localisation/currency/refresh', 'token=' . $this->session->data['token'] . $url, true);
+        $data['add'] = $this->url->link('localisation/currency/add', 'token=' . $this->session->data['token'] . $url,
+          true);
+        $data['delete'] = $this->url->link('localisation/currency/delete',
+          'token=' . $this->session->data['token'] . $url, true);
+        $data['refresh'] = $this->url->link('localisation/currency/refresh',
+          'token=' . $this->session->data['token'] . $url, true);
 
         $data['currencies'] = array();
 
         $filter_data = array(
-            'sort'  => $sort,
-            'order' => $order,
-            'start' => ($page - 1) * $this->config->get('config_limit_admin'),
-            'limit' => $this->config->get('config_limit_admin')
+          'sort'  => $sort,
+          'order' => $order,
+          'start' => ($page - 1) * $this->config->get('config_limit_admin'),
+          'limit' => $this->config->get('config_limit_admin')
         );
 
         $currency_total = $this->model_localisation_currency->getTotalCurrencies();
@@ -206,12 +219,13 @@ class ControllerLocalisationCurrency extends Controller {
 
         foreach ($results as $result) {
             $data['currencies'][] = array(
-                'currency_id'   => $result['currency_id'],
-                'title'         => $result['title'] . (($result['code'] == $this->config->get('config_currency')) ? $this->language->get('text_default') : null),
-                'code'          => $result['code'],
-                'value'         => $result['value'],
-                'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
-                'edit'          => $this->url->link('localisation/currency/edit', 'token=' . $this->session->data['token'] . '&currency_id=' . $result['currency_id'] . $url, true)
+              'currency_id'   => $result['currency_id'],
+              'title'         => $result['title'] . (($result['code'] == $this->config->get('config_currency')) ? $this->language->get('text_default') : null),
+              'code'          => $result['code'],
+              'value'         => $result['value'],
+              'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
+              'edit'          => $this->url->link('localisation/currency/edit',
+                'token=' . $this->session->data['token'] . '&currency_id=' . $result['currency_id'] . $url, true)
             );
         }
 
@@ -264,10 +278,14 @@ class ControllerLocalisationCurrency extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['sort_title'] = $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . '&sort=title' . $url, true);
-        $data['sort_code'] = $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . '&sort=code' . $url, true);
-        $data['sort_value'] = $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . '&sort=value' . $url, true);
-        $data['sort_date_modified'] = $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . '&sort=date_modified' . $url, true);
+        $data['sort_title'] = $this->url->link('localisation/currency',
+          'token=' . $this->session->data['token'] . '&sort=title' . $url, true);
+        $data['sort_code'] = $this->url->link('localisation/currency',
+          'token=' . $this->session->data['token'] . '&sort=code' . $url, true);
+        $data['sort_value'] = $this->url->link('localisation/currency',
+          'token=' . $this->session->data['token'] . '&sort=value' . $url, true);
+        $data['sort_date_modified'] = $this->url->link('localisation/currency',
+          'token=' . $this->session->data['token'] . '&sort=date_modified' . $url, true);
 
         $url = '';
 
@@ -283,11 +301,15 @@ class ControllerLocalisationCurrency extends Controller {
         $pagination->total = $currency_total;
         $pagination->page = $page;
         $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url = $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url . '&page={page}', true);
+        $pagination->url = $this->url->link('localisation/currency',
+          'token=' . $this->session->data['token'] . $url . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($currency_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($currency_total - $this->config->get('config_limit_admin'))) ? $currency_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $currency_total, ceil($currency_total / $this->config->get('config_limit_admin')));
+        $data['results'] = sprintf($this->language->get('text_pagination'),
+          ($currency_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0,
+          ((($page - 1) * $this->config->get('config_limit_admin')) > ($currency_total - $this->config->get('config_limit_admin'))) ? $currency_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')),
+          $currency_total, ceil($currency_total / $this->config->get('config_limit_admin')));
 
         $data['sort'] = $sort;
         $data['order'] = $order;
@@ -299,7 +321,8 @@ class ControllerLocalisationCurrency extends Controller {
         $this->response->setOutput($this->load->view('localisation/currency_list', $data));
     }
 
-    protected function getForm() {
+    protected function getForm()
+    {
         $data['heading_title'] = $this->language->get('heading_title');
 
         $data['text_form'] = !isset($this->request->get['currency_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
@@ -358,22 +381,26 @@ class ControllerLocalisationCurrency extends Controller {
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true)
+          'text' => $this->language->get('text_home'),
+          'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true)
         );
 
         $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true)
+          'text' => $this->language->get('heading_title'),
+          'href' => $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true)
         );
 
         if (!isset($this->request->get['currency_id'])) {
-            $data['action'] = $this->url->link('localisation/currency/add', 'token=' . $this->session->data['token'] . $url, true);
+            $data['action'] = $this->url->link('localisation/currency/add',
+              'token=' . $this->session->data['token'] . $url, true);
         } else {
-            $data['action'] = $this->url->link('localisation/currency/edit', 'token=' . $this->session->data['token'] . '&currency_id=' . $this->request->get['currency_id'] . $url, true);
+            $data['action'] = $this->url->link('localisation/currency/edit',
+              'token=' . $this->session->data['token'] . '&currency_id=' . $this->request->get['currency_id'] . $url,
+              true);
         }
 
-        $data['cancel'] = $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true);
+        $data['cancel'] = $this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url,
+          true);
 
         if (isset($this->request->get['currency_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $currency_info = $this->model_localisation_currency->getCurrency($this->request->get['currency_id']);
@@ -442,7 +469,8 @@ class ControllerLocalisationCurrency extends Controller {
         $this->response->setOutput($this->load->view('localisation/currency_form', $data));
     }
 
-    protected function validateForm() {
+    protected function validateForm()
+    {
         if (!$this->user->hasPermission('modify', 'localisation/currency')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
@@ -458,7 +486,8 @@ class ControllerLocalisationCurrency extends Controller {
         return !$this->error;
     }
 
-    protected function validateDelete() {
+    protected function validateDelete()
+    {
         if (!$this->user->hasPermission('modify', 'localisation/currency')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
@@ -491,7 +520,8 @@ class ControllerLocalisationCurrency extends Controller {
         return !$this->error;
     }
 
-    protected function validateRefresh() {
+    protected function validateRefresh()
+    {
         if (!$this->user->hasPermission('modify', 'localisation/currency')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }

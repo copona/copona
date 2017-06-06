@@ -8,7 +8,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
             $this->response->redirect($this->url->link('account/login', '', true));
         }
 
-        $this->load->language('extension/credit_card/sagepay_server');
+        $data = $this->load->language('extension/credit_card/sagepay_server');
 
         $this->load->model('extension/payment/sagepay_server');
 
@@ -40,20 +40,6 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
         } else {
             $data['error_warning'] = '';
         }
-
-        $data['heading_title'] = $this->language->get('heading_title');
-
-        $data['column_type'] = $this->language->get('column_type');
-        $data['column_digits'] = $this->language->get('column_digits');
-        $data['column_expiry'] = $this->language->get('column_expiry');
-
-        $data['text_empty'] = $this->language->get('text_empty');
-        $data['text_loading'] = $this->language->get('text_loading');
-
-        $data['button_delete'] = $this->language->get('button_delete');
-        $data['button_new_card'] = $this->language->get('button_new_card');
-        $data['button_delete'] = $this->language->get('button_delete');
-        $data['button_back'] = $this->language->get('button_back');
 
         if ($this->config->get('sagepay_server_card')) {
             $data['cards'] = $this->model_extension_payment_sagepay_server->getCards($this->customer->getId());

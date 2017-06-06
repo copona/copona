@@ -32,10 +32,11 @@
                         <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $image['description']; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $image['description']; ?>" alt="<?php echo $image['description']; ?>" /></a></li>
                     <?php } ?>
                 <?php } ?>
-                <?php if ($product_videos) { ?>
+                <?php
+                if ($product_videos) { ?>
                     <?php foreach ($product_videos as $video) { ?>
-                        <li class="image-additional"><a class="video" href="https://www.youtube.com/watch?v=ARM42-eorzE">
-                            <img style="width:83px; height: 55px;" src="<?php echo $video['video_src'] ?>" title="<?php echo $heading_title . " "; ?>" alt="<?= $heading_title ?>" /></a>
+                        <li class="image-additional"><a class="video" href="<?=$video['video']?>">
+                            <img style="" src="<?php echo $video['video_src'] ?>" title="<?php echo $heading_title . " "; ?>" alt="<?= $heading_title ?>" /></a>
                         </li>
                     <?php } ?>
 

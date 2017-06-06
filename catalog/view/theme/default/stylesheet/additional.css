@@ -52,6 +52,13 @@
     margin: 0 auto; /* Centering images */
 
 }
+
+.image-additional .video img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 .over{
      position: absolute;
     bottom: 0;

@@ -2,11 +2,7 @@
 class ControllerExtensionPaymentFirstdata extends Controller {
 
     public function index() {
-        $this->load->language('extension/payment/firstdata');
-
-        $data['button_confirm'] = $this->language->get('button_confirm');
-        $data['text_new_card'] = $this->language->get('text_new_card');
-        $data['text_store_card'] = $this->language->get('text_store_card');
+        $data = $this->load->language('extension/payment/firstdata');
 
         $this->load->model('checkout/order');
         $this->load->model('extension/payment/firstdata');
