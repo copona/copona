@@ -1,7 +1,9 @@
 <?php
-class ModelExtensionPaymentRealexRemote extends Model {
+class ModelExtensionPaymentRealexRemote extends Model
+{
 
-    public function getMethod($address, $total) {
+    public function getMethod($address, $total)
+    {
         $this->load->language('extension/payment/realex_remote');
 
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('realex_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
@@ -20,17 +22,18 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
         if ($status) {
             $method_data = array(
-                'code'       => 'realex_remote',
-                'title'      => $this->language->get('text_title'),
-                'terms'      => '',
-                'sort_order' => $this->config->get('realex_remote_sort_order')
+              'code'       => 'realex_remote',
+              'title'      => $this->language->get('text_title'),
+              'terms'      => '',
+              'sort_order' => $this->config->get('realex_remote_sort_order')
             );
         }
 
         return $method_data;
     }
 
-    public function checkEnrollment($account, $amount, $currency, $order_ref) {
+    public function checkEnrollment($account, $amount, $currency, $order_ref)
+    {
         $timestamp = strftime("%Y%m%d%H%M%S");
         $merchant_id = $this->config->get('realex_remote_merchant_id');
         $secret = $this->config->get('realex_remote_secret');
@@ -75,7 +78,17 @@ class ModelExtensionPaymentRealexRemote extends Model {
         return simplexml_load_string($response);
     }
 
-    public function enrollmentSignature($account, $amount, $currency, $order_ref, $card_number, $card_expire, $card_type, $card_name, $pares) {
+    public function enrollmentSignature(
+      $account,
+      $amount,
+      $currency,
+      $order_ref,
+      $card_number,
+      $card_expire,
+      $card_type,
+      $card_name,
+      $pares
+    ) {
         $this->load->model('checkout/order');
 
         $timestamp = strftime("%Y%m%d%H%M%S");
@@ -123,7 +136,23 @@ class ModelExtensionPaymentRealexRemote extends Model {
         return simplexml_load_string($response);
     }
 
-    public function capturePayment($account, $amount, $currency, $order_id, $order_ref, $card_number, $expire, $name, $type, $cvv, $issue, $eci_ref, $eci = '', $cavv = '', $xid = '') {
+    public function capturePayment(
+      $account,
+      $amount,
+      $currency,
+      $order_id,
+      $order_ref,
+      $card_number,
+      $expire,
+      $name,
+      $type,
+      $cvv,
+      $issue,
+      $eci_ref,
+      $eci = '',
+      $cavv = '',
+      $xid = ''
+    ) {
         $this->load->model('checkout/order');
 
         $timestamp = strftime("%Y%m%d%H%M%S");
@@ -195,7 +224,9 @@ class ModelExtensionPaymentRealexRemote extends Model {
             if ((isset($order_info['payment_iso_code_2']) && !empty($order_info['payment_iso_code_2'])) || (isset($order_info['payment_postcode']) && !empty($order_info['payment_postcode']))) {
                 $xml .= '<address type="billing">';
                 if ((isset($order_info['payment_postcode']) && !empty($order_info['payment_postcode']))) {
-                    $xml .= '<code>' . filter_var($order_info['payment_postcode'], FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var($order_info['payment_address_1'], FILTER_SANITIZE_NUMBER_INT) . '</code>';
+                    $xml .= '<code>' . filter_var($order_info['payment_postcode'],
+                        FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var($order_info['payment_address_1'],
+                        FILTER_SANITIZE_NUMBER_INT) . '</code>';
                 }
                 if ((isset($order_info['payment_iso_code_2']) && !empty($order_info['payment_iso_code_2']))) {
                     $xml .= '<country>' . $order_info['payment_iso_code_2'] . '</country>';
@@ -205,7 +236,9 @@ class ModelExtensionPaymentRealexRemote extends Model {
             if ((isset($order_info['shipping_iso_code_2']) && !empty($order_info['shipping_iso_code_2'])) || (isset($order_info['shipping_postcode']) && !empty($order_info['shipping_postcode']))) {
                 $xml .= '<address type="shipping">';
                 if ((isset($order_info['shipping_postcode']) && !empty($order_info['shipping_postcode']))) {
-                    $xml .= '<code>' . filter_var($order_info['shipping_postcode'], FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var($order_info['shipping_address_1'], FILTER_SANITIZE_NUMBER_INT) . '</code>';
+                    $xml .= '<code>' . filter_var($order_info['shipping_postcode'],
+                        FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var($order_info['shipping_address_1'],
+                        FILTER_SANITIZE_NUMBER_INT) . '</code>';
                 }
                 if ((isset($order_info['shipping_iso_code_2']) && !empty($order_info['shipping_iso_code_2']))) {
                     $xml .= '<country>' . $order_info['shipping_iso_code_2'] . '</country>';
@@ -270,7 +303,8 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
         if ($this->config->get('realex_remote_card_data_status') == 1) {
             $message .= '<br /><strong>' . $this->language->get('entry_cc_type') . ':</strong> ' . (string)$type;
-            $message .= '<br /><strong>' . $this->language->get('text_last_digits') . ':</strong> ' . (string)substr($card_number, -4);
+            $message .= '<br /><strong>' . $this->language->get('text_last_digits') . ':</strong> ' . (string)substr($card_number,
+                -4);
             $message .= '<br /><strong>' . $this->language->get('entry_cc_expire_date') . ':</strong> ' . (string)$expire;
             $message .= '<br /><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$name;
 
@@ -294,10 +328,12 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
             if ($this->config->get('realex_remote_auto_settle') == 1) {
                 $this->addTransaction($realex_order_id, 'payment', $order_info);
-                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('realex_remote_order_status_success_settled_id'), $message);
+                $this->model_checkout_order->addOrderHistory($order_id,
+                  $this->config->get('realex_remote_order_status_success_settled_id'), $message);
             } else {
                 $this->addTransaction($realex_order_id, 'auth', 0);
-                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('realex_remote_order_status_success_unsettled_id'), $message);
+                $this->model_checkout_order->addOrderHistory($order_id,
+                  $this->config->get('realex_remote_order_status_success_unsettled_id'), $message);
             }
         } elseif ($response->result == "101") {
             // Decline
@@ -325,30 +361,36 @@ class ModelExtensionPaymentRealexRemote extends Model {
         return $response;
     }
 
-    public function addOrder($order_info, $response, $account, $order_ref) {
+    public function addOrder($order_info, $response, $account, $order_ref)
+    {
         if ($this->config->get('realex_remote_auto_settle') == 1) {
             $settle_status = 1;
         } else {
             $settle_status = 0;
         }
 
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "realex_remote_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `settle_type` = '" . (int)$this->config->get('realex_remote_auto_settle') . "', `order_ref` = '" . $this->db->escape($order_ref) . "', `order_ref_previous` = '" . $this->db->escape($order_ref) . "', `date_added` = now(), `date_modified` = now(), `capture_status` = '" . (int)$settle_status . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `pasref` = '" . $this->db->escape($response->pasref) . "', `pasref_previous` = '" . $this->db->escape($response->pasref) . "', `authcode` = '" . $this->db->escape($response->authcode) . "', `account` = '" . $this->db->escape($account) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) . "'");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "realex_remote_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `settle_type` = '" . (int)$this->config->get('realex_remote_auto_settle') . "', `order_ref` = '" . $this->db->escape($order_ref) . "', `order_ref_previous` = '" . $this->db->escape($order_ref) . "', `date_added` = now(), `date_modified` = now(), `capture_status` = '" . (int)$settle_status . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `pasref` = '" . $this->db->escape($response->pasref) . "', `pasref_previous` = '" . $this->db->escape($response->pasref) . "', `authcode` = '" . $this->db->escape($response->authcode) . "', `account` = '" . $this->db->escape($account) . "', `total` = '" . $this->currency->format($order_info['total'],
+            $order_info['currency_code'], $order_info['currency_value'], false) . "'");
 
         return $this->db->getLastId();
     }
 
-    public function addTransaction($realex_remote_order_id, $type, $order_info) {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "realex_remote_order_transaction` SET `realex_remote_order_id` = '" . (int)$realex_remote_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) . "'");
+    public function addTransaction($realex_remote_order_id, $type, $order_info)
+    {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "realex_remote_order_transaction` SET `realex_remote_order_id` = '" . (int)$realex_remote_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'],
+            $order_info['currency_code'], $order_info['currency_value'], false) . "'");
     }
 
-    public function logger($message) {
+    public function logger($message)
+    {
         if ($this->config->get('realex_remote_debug') == 1) {
             $log = new Log('realex_remote.log');
             $log->write($message);
         }
     }
 
-    public function addHistory($order_id, $order_status_id, $comment) {
+    public function addHistory($order_id, $order_status_id, $comment)
+    {
         $this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '" . (int)$order_status_id . "', notify = '0', comment = '" . $this->db->escape($comment) . "', date_added = NOW()");
     }
 
