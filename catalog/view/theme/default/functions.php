@@ -13,6 +13,7 @@ $template_config_settings = array(
     'theme_default_product_category_list_resize'  => 'resize',
     'theme_default_product_info_thumb_resize'     => 'resize',
     'theme_default_product_info_image_mid_resize' => 'resize',
+    'theme_default_extension_module_featured'     => 'resize',
     'theme_default_product_short_description_length' => 250,
     // 'theme_default_image_category_width'       => 80,
     // 'theme_default_image_category_height'      => 80,
@@ -35,6 +36,8 @@ foreach ($template_config_settings as $key => $val) {
  */
 
 $this->hook->setHook('product/index/after', 'default_remove_image');
+$this->hook->setHook('product/index/after', 'content_meta');
+
 
 /*
  * callback functions
@@ -56,3 +59,27 @@ function default_remove_image(&$data, &$registry) {
       $data['thumb'] = '';
      */
 }
+
+function content_meta(&$data, &$registry) {
+    $config = $registry->get('config');
+    $url = $registry->get('url');
+    if(!empty($data['content_meta'])){
+        foreach($data['content_meta'] as $meta_type => $val){
+            // Product Videos
+            if($meta_type == 'product_video'){
+                $data['product_videos'] = [];
+                foreach($val as $video){
+                    $data['product_videos'][] = [
+                      'video'     => 'https://www.youtube.com/watch?v=' . $video['video'][$config->get('config_language_id')] . '',
+                      'video_src' => $url->link('common/youtube', 'inpt=' .  $video['video'][$config->get('config_language_id')] . '&quality=hq&play')             //   HTTPS_SERVER . 'youtube/yt-thumb.php?inpt=' . $video . '&quality=hq&play"'
+                    ];
+
+                }
+            }
+        }
+    }
+
+}
+
+
+

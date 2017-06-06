@@ -7,7 +7,7 @@ class ControllerAccountRegister extends Controller {
             $this->response->redirect($this->url->link('account/account', '', true));
         }
 
-        $this->load->language('account/register');
+        $data = $this->load->language('account/register');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -65,35 +65,6 @@ class ControllerAccountRegister extends Controller {
         $data['heading_title'] = $this->language->get('heading_title');
 
         $data['text_account_already'] = sprintf($this->language->get('text_account_already'), $this->url->link('account/login', '', true));
-        $data['text_your_details'] = $this->language->get('text_your_details');
-        $data['text_your_address'] = $this->language->get('text_your_address');
-        $data['text_your_password'] = $this->language->get('text_your_password');
-        $data['text_newsletter'] = $this->language->get('text_newsletter');
-        $data['text_yes'] = $this->language->get('text_yes');
-        $data['text_no'] = $this->language->get('text_no');
-        $data['text_select'] = $this->language->get('text_select');
-        $data['text_none'] = $this->language->get('text_none');
-        $data['text_loading'] = $this->language->get('text_loading');
-
-        $data['entry_customer_group'] = $this->language->get('entry_customer_group');
-        $data['entry_firstname'] = $this->language->get('entry_firstname');
-        $data['entry_lastname'] = $this->language->get('entry_lastname');
-        $data['entry_email'] = $this->language->get('entry_email');
-        $data['entry_telephone'] = $this->language->get('entry_telephone');
-        $data['entry_fax'] = $this->language->get('entry_fax');
-        $data['entry_company'] = $this->language->get('entry_company');
-        $data['entry_address_1'] = $this->language->get('entry_address_1');
-        $data['entry_address_2'] = $this->language->get('entry_address_2');
-        $data['entry_postcode'] = $this->language->get('entry_postcode');
-        $data['entry_city'] = $this->language->get('entry_city');
-        $data['entry_country'] = $this->language->get('entry_country');
-        $data['entry_zone'] = $this->language->get('entry_zone');
-        $data['entry_newsletter'] = $this->language->get('entry_newsletter');
-        $data['entry_password'] = $this->language->get('entry_password');
-        $data['entry_confirm'] = $this->language->get('entry_confirm');
-
-        $data['button_continue'] = $this->language->get('button_continue');
-        $data['button_upload'] = $this->language->get('button_upload');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];

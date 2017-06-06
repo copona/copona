@@ -1066,7 +1066,7 @@ CREATE TABLE `oc_currency` (
   `symbol_left` varchar(64) NOT NULL,
   `symbol_right` varchar(64) NOT NULL,
   `decimal_place` char(1) NOT NULL,
-  `value` float(15,8) NOT NULL,
+  `value` double(15,8) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`currency_id`)
