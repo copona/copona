@@ -145,8 +145,7 @@ class ControllerLocalisationCurrency extends Controller
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link('localisation/currency',
-              'token=' . $this->session->data['token'] . $url, true));
+            //$this->response->redirect($this->url->link('localisation/currency', 'token=' . $this->session->data['token'] . $url, true));
         }
 
         $this->getList();
