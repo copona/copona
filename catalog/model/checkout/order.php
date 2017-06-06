@@ -4,6 +4,7 @@ class ModelCheckoutOrder extends Model {
     public function __construct($parms) {
         parent::__construct($parms);
         $this->load->model("catalog/content");
+        $this->load->model('setting/setting');
     }
 
     public function addOrder($data) {
@@ -745,7 +746,7 @@ class ModelCheckoutOrder extends Model {
                 $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
                 $mail->setTo($order_info['email']);
-                $mail->setFrom($this->config->get('config_email'));
+                $mail->setFrom($this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']));
                 $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
                 $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
                 $mail->setHtml($this->load->view('mail/order', $data));
@@ -832,8 +833,8 @@ class ModelCheckoutOrder extends Model {
                     $mail->smtp_port = $this->config->get('config_mail_smtp_port');
                     $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-                    $mail->setTo($this->config->get('config_email'));
-                    $mail->setFrom($this->config->get('config_email'));
+                    $mail->setTo($this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']));
+                    $mail->setFrom($this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']));
                     $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
                     $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
                     $mail->setHtml($this->load->view('mail/order', $data));
@@ -892,7 +893,7 @@ class ModelCheckoutOrder extends Model {
                 $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
                 $mail->setTo($order_info['email']);
-                $mail->setFrom($this->config->get('config_email'));
+                $mail->setFrom($this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']));
                 $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
                 $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
                 $mail->setText($message);
