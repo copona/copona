@@ -7,7 +7,7 @@ class ControllerAffiliateLogin extends Controller {
             $this->response->redirect($this->url->link('affiliate/account', '', true));
         }
 
-        $this->load->language('affiliate/login');
+        $data = $this->load->language('affiliate/login');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -54,17 +54,6 @@ class ControllerAffiliateLogin extends Controller {
         $data['heading_title'] = $this->language->get('heading_title');
 
         $data['text_description'] = sprintf($this->language->get('text_description'), $this->config->get('config_name'), $this->config->get('config_name'), $this->config->get('config_affiliate_commission') . '%');
-        $data['text_new_affiliate'] = $this->language->get('text_new_affiliate');
-        $data['text_register_account'] = $this->language->get('text_register_account');
-        $data['text_returning_affiliate'] = $this->language->get('text_returning_affiliate');
-        $data['text_i_am_returning_affiliate'] = $this->language->get('text_i_am_returning_affiliate');
-        $data['text_forgotten'] = $this->language->get('text_forgotten');
-
-        $data['entry_email'] = $this->language->get('entry_email');
-        $data['entry_password'] = $this->language->get('entry_password');
-
-        $data['button_continue'] = $this->language->get('button_continue');
-        $data['button_login'] = $this->language->get('button_login');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];

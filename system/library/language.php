@@ -33,9 +33,10 @@ class Language extends Controller {
         // Theme translation override
         if($this->config->get('theme_name')) {
             $themes_language_file = DIR_TEMPLATE . $this->config->get('theme_name') . "/language/" . $this->directory . '.php';
+
             if (is_file($themes_language_file)) {
-                require_once($themes_language_file);
-                $this->theme_language = $_;
+                require($themes_language_file);
+                !empty($_) ? $this->theme_language = $_ : false;
             }
         }
 

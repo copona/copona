@@ -17,4 +17,13 @@ class ModelSettingSetting extends Model {
         return $data;
     }
 
+    public function getSettingValue($key, $store_id = 0) {
+        $query = $this->db->query("SELECT value FROM " . DB_PREFIX . "setting WHERE store_id = '" . (int)$store_id . "' AND `key` = '" . $this->db->escape($key) . "'");
+        if ($query->num_rows) {
+            return $query->row['value'];
+        } else {
+            return null;
+        }
+    }
+
 }

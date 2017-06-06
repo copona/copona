@@ -1,7 +1,9 @@
 <?php
-class ModelExtensionPaymentSagePayUS extends Model {
+class ModelExtensionPaymentSagePayUS extends Model
+{
 
-    public function getMethod($address, $total) {
+    public function getMethod($address, $total)
+    {
         $this->load->language('extension/payment/sagepay_us');
 
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('sagepay_us_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
@@ -20,10 +22,10 @@ class ModelExtensionPaymentSagePayUS extends Model {
 
         if ($status) {
             $method_data = array(
-                'code'       => 'sagepay_us',
-                'title'      => $this->language->get('text_title'),
-                'terms'      => '',
-                'sort_order' => $this->config->get('sagepay_us_sort_order')
+              'code'       => 'sagepay_us',
+              'title'      => $this->language->get('text_title'),
+              'terms'      => '',
+              'sort_order' => $this->config->get('sagepay_us_sort_order')
             );
         }
 

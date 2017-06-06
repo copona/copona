@@ -469,18 +469,8 @@ class ControllerProductProduct extends Controller {
                 foreach($product_info['content_meta'] as $key => $value){
                     $data['content_meta'][$key] = $value;
                 }
-
-                if (isset($product_info['content_meta']['product_video'])) {
-                    foreach ($product_info['content_meta']['product_video'] as $product_video) {
-                        $video = html_entity_decode($product_video['video'][$this->config->get('config_language_id')], ENT_QUOTES, 'UTF-8');
-                        $data['product_videos'][] = array(
-                            'video'     => 'https://www.youtube.com/watch?v=' . $video . '',
-                            'video_src' => $this->url->link('common/youtube', 'inpt=' . $video . '&quality=hq&play')             //   HTTPS_SERVER . 'youtube/yt-thumb.php?inpt=' . $video . '&quality=hq&play"'
-                        );
-                    }
-                } else {
-                    $data['product_videos'] = '';
-                }
+            } else {
+                $data['content_meta'] = '';
             }
 
             $this->model_catalog_product->updateViewed($product_id);
