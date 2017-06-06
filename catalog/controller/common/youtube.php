@@ -143,11 +143,11 @@ class ControllerCommonYoutube extends Controller {
 //http://www.husis.lv/youtube/yt-thumb.php?inpt=Y_j2mCzb1es&play&refresh
 // OUTPUT TO 'i' FOLDER
 
-        $thumb = imagecreatetruecolor(83, 55);
+        $thumb = imagecreatetruecolor($this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
 
 
 // Resize
-        imagecopyresampled($thumb, $output, 0, 0, 0, 0, 83, 55, $imageWidth, $imageHeight);
+        imagecopyresampled($thumb, $output, 0, 0, 0, 0, $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'), $imageWidth, $imageHeight);
         $output = $thumb;
 
 
