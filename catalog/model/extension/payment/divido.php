@@ -1,14 +1,17 @@
 <?php
-class ModelExtensionPaymentDivido extends Model {
+class ModelExtensionPaymentDivido extends Model
+{
     const CACHE_KEY_PLANS = 'divido_plans';
 
-    public function setMerchant($api_key) {
+    public function setMerchant($api_key)
+    {
         if ($api_key) {
             Divido::setMerchant($api_key);
         }
     }
 
-    public function getMethod($payment_address, $total) {
+    public function getMethod($payment_address, $total)
+    {
         $this->load->language('extension/payment/divido');
         $this->load->model('localisation/currency');
 
@@ -50,31 +53,35 @@ class ModelExtensionPaymentDivido extends Model {
         }
 
         $method_data = array(
-            'code'       => 'divido',
-            'title'      => $title,
-            'terms'      => '',
-            'sort_order' => $this->config->get('divido_sort_order')
+          'code'       => 'divido',
+          'title'      => $title,
+          'terms'      => '',
+          'sort_order' => $this->config->get('divido_sort_order')
         );
 
         return $method_data;
     }
 
-    public function getProductSettings($product_id) {
+    public function getProductSettings($product_id)
+    {
         return $this->db->query("SELECT `display`, `plans` FROM `" . DB_PREFIX . "divido_product` WHERE `product_id` = '" . (int)$product_id . "'")->row;
     }
 
-    public function isEnabled() {
+    public function isEnabled()
+    {
         $api_key = $this->config->get('divido_api_key');
         $enabled = $this->config->get('divido_status');
 
         return !empty($api_key) && $enabled == 1;
     }
 
-    public function hashOrderId($order_id, $salt) {
+    public function hashOrderId($order_id, $salt)
+    {
         return hash('sha256', $order_id . $salt);
     }
 
-    public function saveLookup($order_id, $salt, $proposal_id = null, $application_id = null, $deposit_amount = null) {
+    public function saveLookup($order_id, $salt, $proposal_id = null, $application_id = null, $deposit_amount = null)
+    {
         $order_id = (int)$order_id;
         $salt = $this->db->escape($salt);
         $proposal_id = $this->db->escape($proposal_id);
@@ -111,11 +118,13 @@ class ModelExtensionPaymentDivido extends Model {
         $this->db->query($query_upsert);
     }
 
-    public function getLookupByOrderId($order_id) {
+    public function getLookupByOrderId($order_id)
+    {
         return $this->db->query("SELECT * FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = " . $order_id);
     }
 
-    public function getGlobalSelectedPlans() {
+    public function getGlobalSelectedPlans()
+    {
         $all_plans = $this->getAllPlans();
         $display_plans = $this->config->get('divido_planselection');
 
@@ -138,7 +147,8 @@ class ModelExtensionPaymentDivido extends Model {
         return $plans;
     }
 
-    public function getAllPlans() {
+    public function getAllPlans()
+    {
         if ($plans = $this->cache->get(self::CACHE_KEY_PLANS)) {
             // OpenCart 2.1 decodes json objects to associative arrays so we
             // need to make sure we're getting a list of simple objects back.
@@ -186,7 +196,8 @@ class ModelExtensionPaymentDivido extends Model {
         return $plans_plain;
     }
 
-    public function getCartPlans($cart) {
+    public function getCartPlans($cart)
+    {
         $plans = array();
         $products = $cart->getProducts();
         foreach ($products as $product) {
@@ -199,7 +210,8 @@ class ModelExtensionPaymentDivido extends Model {
         return $plans;
     }
 
-    public function getPlans($default_plans) {
+    public function getPlans($default_plans)
+    {
         if ($default_plans) {
             $plans = $this->getGlobalSelectedPlans();
         } else {
@@ -209,16 +221,17 @@ class ModelExtensionPaymentDivido extends Model {
         return $plans;
     }
 
-    public function getOrderTotals() {
+    public function getOrderTotals()
+    {
         $totals = array();
         $taxes = $this->cart->getTaxes();
         $total = 0;
 
         // Because __call can not keep var references so we put them into an array.
         $total_data = array(
-            'totals' => &$totals,
-            'taxes'  => &$taxes,
-            'total'  => &$total
+          'totals' => &$totals,
+          'taxes'  => &$taxes,
+          'total'  => &$total
         );
 
         $this->load->model('extension/extension');
@@ -250,10 +263,11 @@ class ModelExtensionPaymentDivido extends Model {
 
         array_multisort($sort_order, SORT_ASC, $totals);
 
-        return array( $total, $totals );
+        return array($total, $totals);
     }
 
-    public function getProductPlans($product_id) {
+    public function getProductPlans($product_id)
+    {
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
@@ -278,8 +292,8 @@ class ModelExtensionPaymentDivido extends Model {
 
         if (empty($settings)) {
             $settings = array(
-                'display' => 'default',
-                'plans'   => '',
+              'display' => 'default',
+              'plans'   => '',
             );
         }
 
@@ -290,7 +304,8 @@ class ModelExtensionPaymentDivido extends Model {
         $price = 0;
         if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
             $base_price = !empty($product_info['special']) ? $product_info['special'] : $product_info['price'];
-            $price = $this->tax->calculate($base_price, $product_info['tax_class_id'], $this->config->get('config_tax'));
+            $price = $this->tax->calculate($base_price, $product_info['tax_class_id'],
+              $this->config->get('config_tax'));
         }
 
         if ($product_selection == 'threshold' && !empty($price_threshold) && $price < $price_threshold) {

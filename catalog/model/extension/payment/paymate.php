@@ -1,7 +1,9 @@
 <?php
-class ModelExtensionPaymentPayMate extends Model {
+class ModelExtensionPaymentPayMate extends Model
+{
 
-    public function getMethod($address, $total) {
+    public function getMethod($address, $total)
+    {
         $this->load->language('extension/payment/paymate');
 
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('paymate_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
@@ -17,11 +19,11 @@ class ModelExtensionPaymentPayMate extends Model {
         }
 
         $currencies = array(
-            'AUD',
-            'NZD',
-            'USD',
-            'EUR',
-            'GBP'
+          'AUD',
+          'NZD',
+          'USD',
+          'EUR',
+          'GBP'
         );
 
         if (!in_array(strtoupper($this->session->data['currency']), $currencies)) {
@@ -32,10 +34,10 @@ class ModelExtensionPaymentPayMate extends Model {
 
         if ($status) {
             $method_data = array(
-                'code'       => 'paymate',
-                'title'      => $this->language->get('text_title'),
-                'terms'      => '',
-                'sort_order' => $this->config->get('paymate_sort_order')
+              'code'       => 'paymate',
+              'title'      => $this->language->get('text_title'),
+              'terms'      => '',
+              'sort_order' => $this->config->get('paymate_sort_order')
             );
         }
 
