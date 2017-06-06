@@ -3,7 +3,7 @@ class ControllerExtensionPaymentMastercardPGS extends Controller {
 	public function index() {
 		$this->load->model('extension/payment/mastercard_pgs');
 
-		$this->load->language('extension/payment/mastercard_pgs');
+		$data = $this->load->language('extension/payment/mastercard_pgs');
 
 		$data['button_confirm'] = $this->language->get('button_confirm');
 

@@ -689,7 +689,7 @@ class ModelCheckoutOrder extends Model {
 
                 $text .= "\n";
 
-                $text .= $language->get('textnew_order_total') . "\n";
+                $text .= $language->get('text_order_total') . "\n";
 
                 foreach ($order_total_query->rows as $total) {
                     $text .= $total['title'] . ': ' . html_entity_decode($this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value']), ENT_NOQUOTES, 'UTF-8') . "\n";
@@ -698,22 +698,22 @@ class ModelCheckoutOrder extends Model {
                 $text .= "\n";
 
                 if ($order_info['customer_id']) {
-                    $text .= $language->get('textnew_link') . "\n";
+                    $text .= $language->get('text_link') . "\n";
                     $text .= $order_info['store_url'] . 'index.php?route=account/order/info&order_id=' . $order_id . "\n\n";
                 }
 
                 if ($download_status) {
-                    $text .= $language->get('textnew_download') . "\n";
+                    $text .= $language->get('text_download') . "\n";
                     $text .= $order_info['store_url'] . 'index.php?route=account/download' . "\n\n";
                 }
 
                 // Comment
                 if ($order_info['comment']) {
-                    $text .= $language->get('textnew_comment') . "\n\n";
+                    $text .= $language->get('text_comment') . "\n\n";
                     $text .= $order_info['comment'] . "\n\n";
                 }
 
-                $text .= $language->get('textnew_footer') . "\n\n";
+                $text .= $language->get('text_footer') . "\n\n";
 
                 $mail = new Mail();
                 $mail->protocol = $this->config->get('config_mail_protocol');
@@ -734,10 +734,10 @@ class ModelCheckoutOrder extends Model {
 
                 // Admin Alert Mail
                 if (in_array('order', (array)$this->config->get('config_mail_alert'))) {
-                    $subject = sprintf($language->get('textnew_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'), $order_id);
+                    $subject = sprintf($language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'), $order_id);
 
                     // HTML Mail
-                    $data['text_greeting'] = $language->get('textnew_received');
+                    $data['text_greeting'] = $language->get('text_received');
 
                     if ($comment) {
                         if ($order_info['comment']) {
@@ -762,11 +762,11 @@ class ModelCheckoutOrder extends Model {
                     $data['download'] = '';
 
                     // Text
-                    $text = $language->get('textnew_received') . "\n\n";
-                    $text .= $language->get('textnew_order_id') . ' ' . $order_id . "\n";
-                    $text .= $language->get('textnew_date_added') . ' ' . date($language->get('date_format_short'), strtotime($order_info['date_added'])) . "\n";
-                    $text .= $language->get('textnew_order_status') . ' ' . $order_status . "\n\n";
-                    $text .= $language->get('textnew_products') . "\n";
+                    $text = $language->get('text_received') . "\n\n";
+                    $text .= $language->get('text_order_id') . ' ' . $order_id . "\n";
+                    $text .= $language->get('text_date_added') . ' ' . date($language->get('date_format_short'), strtotime($order_info['date_added'])) . "\n";
+                    $text .= $language->get('text_order_status') . ' ' . $order_status . "\n\n";
+                    $text .= $language->get('text_products') . "\n";
 
                     foreach ($order_product_query->rows as $product) {
                         $text .= $product['quantity'] . 'x ' . $product['name'] . ' (' . $product['model'] . ') ' . html_entity_decode($this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']), ENT_NOQUOTES, 'UTF-8') . "\n";
@@ -790,7 +790,7 @@ class ModelCheckoutOrder extends Model {
 
                     $text .= "\n";
 
-                    $text .= $language->get('textnew_order_total') . "\n";
+                    $text .= $language->get('text_order_total') . "\n";
 
                     foreach ($order_total_query->rows as $total) {
                         $text .= $total['title'] . ': ' . html_entity_decode($this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value']), ENT_NOQUOTES, 'UTF-8') . "\n";
@@ -799,7 +799,7 @@ class ModelCheckoutOrder extends Model {
                     $text .= "\n";
 
                     if ($order_info['comment']) {
-                        $text .= $language->get('textnew_comment') . "\n\n";
+                        $text .= $language->get('text_comment') . "\n\n";
                         $text .= $order_info['comment'] . "\n\n";
                     }
 
