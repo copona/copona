@@ -33,7 +33,7 @@
                     <?php } ?>
                 <?php } ?>
                 <?php
-                if ($product_videos) { ?>
+                if (!empty($product_videos)) { ?>
                     <?php foreach ($product_videos as $video) { ?>
                       <li class="image-additional"><a class="video" href="<?=$video['video']?>">
                           <img style="" src="<?php echo $video['video_src'] ?>" title="<?php echo $heading_title . " "; ?>" alt="<?= $heading_title ?>" /></a>
