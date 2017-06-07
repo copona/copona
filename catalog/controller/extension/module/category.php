@@ -49,6 +49,7 @@ class ControllerExtensionModuleCategory extends Controller {
                 'active'      => (in_array($category['category_id'], $parts) ? true : false)
             );
         }
+
         $data['category_path'] = $parts;
         return $this->load->view('extension/module/category', $data);
     }
@@ -60,7 +61,6 @@ class ControllerExtensionModuleCategory extends Controller {
             $parts = array();
         }
 
-
         $this->load->model('catalog/category');
         $children = $this->model_catalog_category->getCategories($category_id);
         foreach ($children as $child) {
@@ -69,7 +69,8 @@ class ControllerExtensionModuleCategory extends Controller {
                 'name'        => $child['name'],
                 'children'    => $this->getChildren($child['category_id']),
                 'href'        => $this->url->link('product/category', 'path=' . $this->model_catalog_category->getCategoryPath($child['category_id'])),
-                'active'      => (in_array($child['category_id'], $parts) ? true : false)
+                'active'      => (in_array($child['category_id'], $parts) ? true : false),
+                'level'       => count(explode('_', (string)$this->model_catalog_category->getCategoryPath($child['category_id'])))
             );
         }
 
