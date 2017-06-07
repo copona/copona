@@ -1,3 +1,4 @@
 <?php
-$_['text_title'] = 'Omniva package box';
+// Text
+$_['text_title'] = 'Weight Based Shipping';
 $_['text_weight'] = 'Weight:';
