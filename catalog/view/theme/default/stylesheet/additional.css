@@ -179,3 +179,13 @@ span.error input{
     color: #999;
     white-space: normal;
 }
+
+
+/* Manufacturer list*/
+.manufacturer-list li {
+    list-style:none;
+    float:left;
+    padding-right: 15px;
+}
+
+/* Manufacturer list*/

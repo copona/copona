@@ -7,6 +7,7 @@ class Url
     private $code = '';
     private $url_parts = [
         'filter',
+        'manufacturer_id',
         'sort',
         'order',
         'page',

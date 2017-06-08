@@ -11,6 +11,8 @@ class ControllerProductCategory extends Controller
 
         $this->load->model('catalog/category');
 
+        $this->load->model('catalog/manufacturer');
+
         $this->load->model('catalog/product');
 
         $this->load->model('tool/image');
@@ -19,6 +21,7 @@ class ControllerProductCategory extends Controller
 
         $params['sort'] = $params['sort'] ? $params['sort'] : 'p.sort_order';
         $params['filter'] = $params['filter'] ? $params['filter'] : '';
+        $params['manufacturer_id'] = $params['manufacturer_id'] ? $params['manufacturer_id'] : '';
         $params['order'] = $params['order'] ? $params['order'] : 'ASC';
         $params['page'] = $params['page'] ? $params['page'] : 1;
         $params['limit'] = $params['limit'] ? (int)$params['limit'] : $this->config->get($this->config->get('config_theme') . '_product_limit');
@@ -140,6 +143,7 @@ class ControllerProductCategory extends Controller
                 'filter_category_id'  => $category_id,
                 'filter_sub_category' => true,
                 'filter_filter'       => $params['filter'],
+                'filter_manufacturer_id'  => $params['manufacturer_id'],
                 'sort'                => $params['sort'],
                 'order'               => $params['order'],
                 'start'               => ($params['page'] - 1) * $params['limit'],
@@ -150,6 +154,7 @@ class ControllerProductCategory extends Controller
             $results = $this->model_catalog_product->getProducts($filter_data);
 
             foreach ($results as $result) {
+
                 if ($result['image']) {
                     $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}($result['image'],
 
@@ -342,7 +347,31 @@ class ControllerProductCategory extends Controller
                 );
             }
 
-            $url = "&" . $this->url->getPartly(['filter', 'sort', 'order', 'limit'], true);
+            $url_pattern = $this->url->getPartly(['path', 'filter', 'sort', 'order', 'limit']);
+
+            // Manufacturers
+            // $manufacturers = $this->model_catalog_manufacturer->getManufacturers();
+
+            $manufacturers = $this->model_catalog_manufacturer->getManufacturersByCategory( $category_id );
+            $data['manufacturers'] = [];
+
+            foreach ($manufacturers as $manufacturer) {
+                $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}($manufacturer['image'],
+                    $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
+                    $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+
+                $url_pattern['manufacturer_id'] = $manufacturer['manufacturer_id'];
+                $data['manufacturers'][] = [
+                    'manufacturer_id' => $manufacturer['manufacturer_id'],
+                    'name'            => $manufacturer['name'],
+                    'image'           => $image,
+                    'href'            => $this->url->link('product/category', $this->url->setRequest($url_pattern)),
+                ];
+            }
+
+            $url_pattern = $this->url->getPartly(['filter', 'manufacturer_id', 'sort', 'order', 'limit']);
+            $url_pattern['page'] =  "{page}";
+            $url_pattern['path'] =  $category_info ? $category_path : '' ;
 
             $pagination = new Pagination();
             $pagination->total = $product_total;
@@ -352,8 +381,7 @@ class ControllerProductCategory extends Controller
             $pagination->text_last = '';
             $pagination->prev_hide = $this->config->get('theme_default_pagination_prev_hide') === null ? false : $this->config->get('theme_default_pagination_prev_hide');
             $pagination->next_hide = $this->config->get('theme_default_pagination_next_hide') === null ? false : $this->config->get('theme_default_pagination_next_hide');
-            $pagination->url = $this->url->link('product/category',
-                ($category_info ? 'path=' . $category_path : '') . $url . '&page={page}');
+            $pagination->url = $this->url->link('product/category', $this->url->setRequest($url_pattern) );
 
 
             $data['pagination'] = $pagination->render();
