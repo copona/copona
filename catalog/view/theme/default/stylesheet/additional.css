@@ -101,6 +101,15 @@ span.error input{
     list-style: none;
 }
 
+.category-item > a > .fa{
+    float: right;
+    line-height: 25px;
+}
+
+.mega-dropdown-menu ul li .all-categories{
+    color: #007acc;
+}
+
 .mega-dropdown-menu > li ul > li > a:hover,
 .mega-dropdown-menu > li ul > li > a:focus {
     text-decoration: none;
@@ -114,7 +123,15 @@ span.error input{
     white-space: normal;
     font-weight: bold;
     padding: 3px 0px;
+}
 
+.mega-dropdown-menu .dropdown-header a {
+    border:0px;
+    padding:0;
+}
+.mega-dropdown-menu .dropdown-header a:hover, .dropdown-menu .child_3 li > a:hover {
+    background: transparent;
+    border: 0;
 }
 
 .mega-dropdown-menu {
@@ -130,7 +147,6 @@ span.error input{
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-
     left: 25%;
     top: 0;
     right: 0;

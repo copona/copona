@@ -2,8 +2,8 @@
 class ControllerExtensionModuleCategory extends Controller {
 
     public function index() {
-        $this->load->language('extension/module/category');
 
+        $data = array_merge(array(), $this->language->load('extension/module/category'));
         $data['heading_title'] = $this->language->get('heading_title');
 
         if (isset($this->request->get['path'])) {
