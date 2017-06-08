@@ -221,9 +221,9 @@ class ModelCatalogProduct extends Model {
         }
 
         if (isset($data['order']) && ($data['order'] == 'DESC')) {
-            $sql .= " DESC, LCASE(pd.name) DESC";
+            $sql .= " DESC, LCASE(pd.name) DESC, p.product_id DESC";
         } else {
-            $sql .= " ASC, LCASE(pd.name) ASC";
+            $sql .= " ASC, LCASE(pd.name) ASC, p.product_id ASC";
         }
 
         if (isset($data['start']) || isset($data['limit'])) {

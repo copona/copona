@@ -138,7 +138,14 @@ $(document).ready(function () {
     $(document).ajaxStop(function () {
         $('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
     });
-});
+
+    /* Simplica Theme Mega Menu start */
+    $('.mega-dropdown-menu').on ('click', function(e) {
+        e.stopPropagation()
+    });
+    /* Simplica Theme Mega Menu end */
+
+}); // end document.ready
 // Cart add remove functions
 var cart = {
     'add': function (product_id, quantity) {
