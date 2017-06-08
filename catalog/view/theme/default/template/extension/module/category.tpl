@@ -1,27 +1,39 @@
-<?php
-
-function getChildren($children = array(), $category_path) {
-    $html = '';
-
-    if ($children) {
-        foreach ($children as $child) {
-            $html .= '<a href="' . $child['href'] . '" class="list-group-item ' . (in_array($child['category_id'], $category_path) ? 'active' : '') . '">&nbsp;&nbsp;&nbsp;- ' . $child['name'] . '</a>';
-            $html .= getChildren($child['children'], $category_path);
-        }
-        return $html;
-    } else {
-        return false;
-    }
-}
-?>
-
 <div class="list-group">
     <?php foreach ($categories as $category) { ?>
-        <?php if (in_array($category['category_id'], $category_path)) { ?>
-          <a href="<?php echo $category['href']; ?>" class="list-group-item active"><?php echo $category['name']; ?></a>
-          <?php echo getChildren($category['children'], $category_path); ?>
-      <?php } else { ?>
-          <a href="<?php echo $category['href']; ?>" class="list-group-item"><?php echo $category['name']; ?></a>
-      <?php } ?>
-  <?php } ?>
+      <div class="category-item">
+          <?php if ($category['children']) { ?>
+            <a href="#" class="dropdown-toggle list-group-item" data-toggle="dropdown"
+              aria-expanded="true"><?php echo $category['name'] ?> <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+            <div class="dropdown-menu mega-dropdown-menu">
+                <?php $column_count = 2; ?>
+                <?php $column_childs = 4; ?>
+                <?php for ( $i = 0; $i < count ($category['children']); $i = $i + $column_count) { ?>
+                  <div class="row">
+                      <?php foreach (array_slice($category['children'], $i, $column_count) as $child_2) { ?>
+                        <div class="col-sm-<?=floor(12/$column_count)?>">
+                          <div class="dropdown-header"><a href="<?=$child_2['href'] ?>"><?= $child_2['name'] ?></a> </div>
+                            <?php if ($child_2['children']) { ?>
+                              <ul class="child_3">
+                                  <?php
+                                  $i2 = 0;
+                                  foreach ($child_2['children'] as $child_3) { ?>
+                                    <li><a href="<?= $child_3['href'] ?>"><?php echo $child_3['name'] ?></a>
+                                    </li>
+                                      <?php if (count($child_2['children']) > $i2 && $i2++ > $column_childs) { ?>
+                                      <li><a href="<?= $child_2['href'] ?>"><strong class="all-categories"><small><?php echo $text_all_categories ?></small></strong></a></li>
+                                          <?php break;
+                                      }
+                                  } ?>
+                              </ul>
+                            <?php } ?>
+                        </div>
+                      <?php } ?>
+                  </div>
+                <?php } ?>
+            </div>
+          <?php } else { ?>
+            <a href="<?= $category['href'] ?>" class="list-group-item"><?php echo $category['name'] ?></a>
+          <?php } ?>
+      </div>
+    <?php } ?>
 </div>
