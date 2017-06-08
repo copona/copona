@@ -73,7 +73,7 @@ class ControllerProductCategory extends Controller
             $category_name = 'Product Catalog';
             $category_meta_title = (!empty($this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')]) ?
                     $this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')] . ' - ' : '') .
-                $this->config->get('config_name');
+                                   $this->config->get('config_name');
             $category_meta_description = '';
             $category_meta_keyword = '';
             $category_path = '';
@@ -130,7 +130,7 @@ class ControllerProductCategory extends Controller
                 $data['categories'][] = array(
 
                     'name' => $result['name'] . ($this->config->get('config_product_count') ? '&nbsp;(' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-                    'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern) )
+                    'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
                 );
             }
 
