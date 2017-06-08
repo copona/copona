@@ -5,7 +5,7 @@
             <a href="#" class="dropdown-toggle list-group-item" data-toggle="dropdown"
               aria-expanded="true"><?php echo $category['name'] ?> <i class="fa fa-caret-right" aria-hidden="true"></i></a>
             <div class="dropdown-menu mega-dropdown-menu">
-                <?php $column_count = 2; ?>
+                <?php $column_count = 4; ?>
                 <?php $column_childs = 4; ?>
                 <?php for ($i = 0; $i < count($category['children']); $i = $i + $column_count) { ?>
                   <div class="row">

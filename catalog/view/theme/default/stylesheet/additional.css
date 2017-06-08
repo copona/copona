@@ -3,6 +3,17 @@
 }
 
 .alert.alert-cart{ position: fixed; top: 30px; z-index: 9999; right: 50px;}
+.alert-success-addtocart {
+    position: fixed;
+    right: 30px;
+    top: 60px;
+    z-index: 999;
+    border: 2px solid #0f75bc;
+    background-color: #fff;
+    font-size: 120%;
+    width: 200px;
+}
+
 .close { font-size: 36px; }
 .relative { position: relative;}
 /* grouped Products */
