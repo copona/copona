@@ -69,8 +69,6 @@ class ControllerExtensionExtensionShipping extends Controller {
             $data['success'] = '';
         }
 
-        $this->load->model('extension/extension');
-
         $extensions = $this->model_extension_extension->getInstalled('shipping');
         $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
 

@@ -50,17 +50,8 @@ class ControllerExtensionExtensionFeed extends Controller {
     }
 
     protected function getList() {
+        $data=  $this->load->language('extension/extension/feed');
         $data['heading_title'] = $this->language->get('heading_title');
-
-        $data['text_no_results'] = $this->language->get('text_no_results');
-
-        $data['column_name'] = $this->language->get('column_name');
-        $data['column_status'] = $this->language->get('column_status');
-        $data['column_action'] = $this->language->get('column_action');
-
-        $data['button_edit'] = $this->language->get('button_edit');
-        $data['button_install'] = $this->language->get('button_install');
-        $data['button_uninstall'] = $this->language->get('button_uninstall');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -77,11 +68,16 @@ class ControllerExtensionExtensionFeed extends Controller {
         }
 
         $extensions = $this->model_extension_extension->getInstalled('feed');
+        $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
 
         foreach ($extensions as $key => $value) {
-            if (!is_file(DIR_APPLICATION . 'controller/extension/feed/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/feed/' . $value . '.php')) {
-                $this->model_extension_extension->uninstall('feed', $value);
 
+            $extension_files = glob($extensions_dir . "/extensions/*/*/admin/controller/extension/feed/" . $value . ".php");
+
+            if (!is_file(DIR_APPLICATION . 'controller/extension/feed/' . $value . '.php')
+                && !is_file(DIR_APPLICATION . 'controller/feed/' . $value . '.php')
+                && empty($extension_files[0])) {
+                $this->model_extension_extension->uninstall('feed', $value);
                 unset($extensions[$key]);
             }
         }
@@ -89,7 +85,10 @@ class ControllerExtensionExtensionFeed extends Controller {
         $data['extensions'] = array();
 
         // Compatibility code for old extension folders
-        $files = glob(DIR_APPLICATION . 'controller/{extension/feed,feed}/*.php', GLOB_BRACE);
+        $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
+        // Compatibility code for old extension folders
+        $files = glob('{' . DIR_APPLICATION . 'controller/{extension/feed,feed}/*.php,'
+                      . $extensions_dir . '/extensions/*/*/admin/controller/extension/feed/*.php}', GLOB_BRACE);
 
         if ($files) {
             foreach ($files as $file) {
