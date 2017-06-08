@@ -1,11 +1,13 @@
 <?php
-class Url {
+class Url
+{
     private $url;
     private $ssl;
     private $rewrite = array();
     private $code = '';
 
-    public function __construct($url, $ssl = '', $registry) {
+    public function __construct($url, $ssl = '', $registry)
+    {
 
         $this->config = $registry->get('config');
         $this->session = $registry->get('session');
@@ -16,11 +18,13 @@ class Url {
         $this->code = ($this->config->get('config_seo_url') ? $this->session->data['language'] : '');
     }
 
-    public function addRewrite($rewrite) {
+    public function addRewrite($rewrite)
+    {
         $this->rewrite[] = $rewrite;
     }
 
-    public function link($route, $args = '', $secure = false) {
+    public function link($route, $args = '', $secure = false)
+    {
         $code = $this->code ? $this->code . "/" : '';
         if ($_SERVER['HTTPS'] == true) {
             $url = $this->ssl . $code . 'index.php?route=' . $route;
@@ -43,7 +47,8 @@ class Url {
         return $url;
     }
 
-    public function externalLink($link = '') {
+    public function externalLink($link = '')
+    {
         if ($link) {
             $external_link = parse_url($link);
             if (isset($external_link['scheme'])) {
