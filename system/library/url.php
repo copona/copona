@@ -5,12 +5,22 @@ class Url
     private $ssl;
     private $rewrite = array();
     private $code = '';
+    private $url_parts = [
+        'filter',
+        'sort',
+        'order',
+        'page',
+        'limit',
+        'path',
+        'route'
+    ];
 
     public function __construct($url, $ssl = '', $registry)
     {
 
         $this->config = $registry->get('config');
         $this->session = $registry->get('session');
+        $this->request = $registry->get('request');
 
         $this->url = $url;
         $this->ssl = $ssl;
@@ -63,4 +73,53 @@ class Url
         return $ex_link;
     }
 
+    /**
+     * We need some methods for urls:
+     * 1. return partly built URL from CURRENT get params in format key=val&key1=val1...
+     * 2. return ARRAY of needed keys from current get url, to be able to override them
+     * 3. additional: pass all parameters in once, and build url
+     */
+
+    public function getParams()
+    {
+        $result = [];
+        foreach ($this->url_parts as $key) {
+            $result[$key] = isset($this->request->get[$key]) ? $this->request->get[$key] : '';
+        }
+        return $result;
+    }
+
+    public function getPartly($data, $string = false)
+    {
+        // $this->url_parts
+        $result = [];
+        foreach ($data as $key) {
+            if (isset($this->request->get[$key])) {
+                $result[$key] = $this->request->get[$key];
+            }
+        }
+
+        if ($string) {
+            return http_build_query($result);
+        } else {
+            return $result;
+        }
+    }
+
+    public function setRequest($data, $string = true)
+    {
+        //prd($data);
+
+        // $this->url_parts
+        $result = [];
+        foreach ($data as $key => $val) {
+            $result[$key] = $val;
+        }
+
+        if ($string) {
+            return http_build_query($result);
+        } else {
+            return $result;
+        }
+    }
 }
