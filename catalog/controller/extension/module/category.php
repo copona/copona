@@ -1,7 +1,9 @@
 <?php
-class ControllerExtensionModuleCategory extends Controller {
+class ControllerExtensionModuleCategory extends Controller
+{
 
-    public function index() {
+    public function index()
+    {
 
         $data = array_merge(array(), $this->language->load('extension/module/category'));
         $data['heading_title'] = $this->language->get('heading_title');
@@ -33,7 +35,6 @@ class ControllerExtensionModuleCategory extends Controller {
         $categories = $this->model_catalog_category->getCategories(0);
 
         foreach ($categories as $category) {
-            $children_data = array();
             $children_data = $this->getChildren($category['category_id']);
 
             $filter_data = array(
@@ -50,11 +51,14 @@ class ControllerExtensionModuleCategory extends Controller {
             );
         }
 
+        // prd( $data['categories']);
         $data['category_path'] = $parts;
+
         return $this->load->view('extension/module/category', $data);
     }
 
-    function getChildren($category_id, $children_data = array()) {
+    function getChildren($category_id, $children_data = array())
+    {
         if (isset($this->request->get['path'])) {
             $parts = explode('_', (string)$this->request->get['path']);
         } else {
@@ -68,9 +72,12 @@ class ControllerExtensionModuleCategory extends Controller {
                 'category_id' => $child['category_id'],
                 'name'        => $child['name'],
                 'children'    => $this->getChildren($child['category_id']),
-                'href'        => $this->url->link('product/category', 'path=' . $this->model_catalog_category->getCategoryPath($child['category_id'])),
+                'total'       => $this->model_catalog_product->getTotalProducts(['filter_category_id' => $child['category_id']]),
+                'href'        => $this->url->link('product/category',
+                    'path=' . $this->model_catalog_category->getCategoryPath($child['category_id'])),
                 'active'      => (in_array($child['category_id'], $parts) ? true : false),
-                'level'       => count(explode('_', (string)$this->model_catalog_category->getCategoryPath($child['category_id'])))
+                'level'       => count(explode('_',
+                    (string)$this->model_catalog_category->getCategoryPath($child['category_id'])))
             );
         }
 
