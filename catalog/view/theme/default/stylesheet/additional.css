@@ -152,6 +152,7 @@ span.error input{
     right: 0;
     border: 1px solid #f0f0f0;
     width: auto;
+    margin-bottom: 50px;
 }
 
 .mega-dropdown-menu li > a:hover {
