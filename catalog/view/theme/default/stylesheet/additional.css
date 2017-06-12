@@ -200,3 +200,33 @@ span.error input{
 }
 
 /* Manufacturer list*/
+
+/* Slideshow styles */
+.banner-slideshow .item {
+    position: relative;
+}
+.banner-slideshow h2, .banner-slideshow span {color:#EEEEEE;}
+.banner-slideshow .item .banner-text {
+    position: absolute;
+    bottom: 0;
+    background:#000;
+    padding:10px;
+    color:#EEEEEE;
+    min-width:25%;
+    opacity: 0.8;
+}
+.banner-slideshow .item a.banner-text:hover, .banner-slideshow .item .banner-text h2:hover{
+    color:#007acc;
+}
+
+.banner-slideshow .item .banner-text h2{
+    font-weight:bold;
+    margin:0 0 10px 0;
+}
+.banner-slideshow .item .banner-text span{
+    text-decoration: none;
+    font-size:14px;
+}
+
+
+/* Slideshow styles */

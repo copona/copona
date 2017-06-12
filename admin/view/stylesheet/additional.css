@@ -34,3 +34,9 @@ form#form-category tbody td.name a
 .secure-warning em {
 	text-decoration: underline;
 }
+
+/* Banner styles */
+#form-banner textarea {
+	width:100%;
+	height:70px;
+}
