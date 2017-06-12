@@ -32,7 +32,7 @@ class ControllerProductCategory extends Controller
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/home')
         );
-
+        $url = '';
         if (isset($this->request->get['path'])) {
 
             $url = $this->url->getPartly(['sort', 'order', 'limit'], true);
@@ -197,8 +197,8 @@ class ControllerProductCategory extends Controller
                 }
 
                 $category_path = $this->model_catalog_category->getCategoryPath($category_id, $result['product_id']);
-                $data['products'][] = array(
 
+                $data['products'][] = array(
                     'product_id'     => $result['product_id'],
                     'thumb'          => $image,
                     'name'           => $result['name'],

@@ -64,12 +64,15 @@ class ModelCatalogManufacturer extends Model
 
     public function getManufacturersByCategory($category_id)
     {
+        $category_ids = [];
         $sql = "select cp.* from " . DB_PREFIX . "category_path cp where cp.path_id = " . (int)$category_id;
         $query = $this->db->query($sql);
-        foreach($query->rows as $row) {
-            $category_ids[] = $row['category_id'];
-        }
 
+        if ($query->rows) {
+            foreach ($query->rows as $row) {
+                $category_ids[] = $row['category_id'];
+            }
+        }
         $category_ids = implode(",", $category_ids);
 
         $sql = "SELECT m.manufacturer_id, m.name, m.image, COUNT(p.product_id) AS products_total FROM " . DB_PREFIX . "product_to_category AS pc ";
@@ -77,9 +80,12 @@ class ModelCatalogManufacturer extends Model
         $sql .= " LEFT JOIN " . DB_PREFIX . "manufacturer AS m ON m.manufacturer_id = p.manufacturer_id ";
         // attributes_filter
 
-        $sql .= " WHERE pc.category_id IN (" . $category_ids . ") ";
-
-        $sql .= " AND p.status = 1  GROUP BY m.manufacturer_id ORDER BY m.name ASC";
+        if ($category_ids) {
+            $sql .= " WHERE pc.category_id IN (" . $category_ids . ") ";
+            $sql .= " AND p.status = 1  GROUP BY m.manufacturer_id ORDER BY m.name ASC";
+        } else {
+            $sql .= " WHERE p.status = 1  GROUP BY m.manufacturer_id ORDER BY m.name ASC";
+        }
 
 
         $query = $this->db->query($sql);
