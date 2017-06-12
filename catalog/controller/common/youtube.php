@@ -29,6 +29,11 @@ class ControllerCommonYoutube extends Controller {
         // Youtube image file path
         $file_path = 'image/catalog/_media/youtube/';
 
+        // create dir if not exist
+        if(!file_exists($file_path)){
+            mkdir(DIR_IMAGE . 'catalog/_media/youtube/i', 0755, true);
+        }
+
 // PARAMETERS
         $is_url = false;
         $quality = $_REQUEST['quality'];
@@ -114,7 +119,7 @@ class ControllerCommonYoutube extends Controller {
 
 // ADD THE PLAY ICON
 
-        $play_icon = $show_play_icon ? $file_path . "play-" : $file_path . "noplay-";
+        $play_icon = $show_play_icon ? 'image/yt-icons/' . "play-" : 'image/yt-icons/' . "noplay-";
         $play_icon .= $quality . ".png";
 
         $logoImage = imagecreatefrompng($play_icon);
