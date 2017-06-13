@@ -10,6 +10,7 @@ class ControllerExtensionShippingWeight extends Controller {
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+            //prd($this->request->post);
             $this->model_setting_setting->editSetting('weight', $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -50,7 +51,21 @@ class ControllerExtensionShippingWeight extends Controller {
 
         $geo_zones = $this->model_localisation_geo_zone->getGeoZones();
 
+        $this->load->model('localisation/language');
+
+        $languages = $this->model_localisation_language->getLanguages();
+        $data['languages'] = $languages;
+        //pr($this->request->post);
+        // pr($data['languages']);
         foreach ($geo_zones as $geo_zone) {
+            foreach ($languages as $language) {
+                $data["weight_" . $language['language_id'] . "_" . $geo_zone['geo_zone_id'] . "_display"] = !empty(
+                        $this->request->post["weight_" . $language['language_id'] . "_" . $geo_zone['geo_zone_id'] . "_display"]) ?
+                    $this->request->post["weight_" . $language['language_id'] . "_" . $geo_zone['geo_zone_id'] . "_display"] :
+                    $this->config->get("weight_" . $language['language_id'] . "_" . $geo_zone['geo_zone_id'] . "_display");
+            }
+
+            //prd($data);
             if (isset($this->request->post['weight_' . $geo_zone['geo_zone_id'] . '_rate'])) {
                 $data['weight_' . $geo_zone['geo_zone_id'] . '_rate'] = $this->request->post['weight_' . $geo_zone['geo_zone_id'] . '_rate'];
             } else {
@@ -64,8 +79,10 @@ class ControllerExtensionShippingWeight extends Controller {
             }
         }
 
-        $data['geo_zones'] = $geo_zones;
+        //prd($data);
 
+        $data['geo_zones'] = $geo_zones;
+        $data['languages'] = $languages;
         if (isset($this->request->post['weight_tax_class_id'])) {
             $data['weight_tax_class_id'] = $this->request->post['weight_tax_class_id'];
         } else {

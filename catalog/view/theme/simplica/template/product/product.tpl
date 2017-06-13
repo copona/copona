@@ -29,9 +29,17 @@
                 <?php } ?>
                 <?php if ($images) { ?>
                     <?php foreach ($images as $image) { ?>
-                        <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+                        <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $image['description']; ?>"> <img src="<?php echo $image['thumb']; ?>" title="title="<?php echo $image['description']; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
                     <?php } ?>
                 <?php } ?>
+                <?php
+                if (!empty($product_videos)) { ?>
+                    <?php foreach ($product_videos as $video) { ?>
+                      <li class="image-additional"><a class="video" href="<?=$video['video']?>">
+                          <img style="" src="<?php echo $video['video_src'] ?>" title="<?php echo $heading_title . " "; ?>" alt="<?= $heading_title ?>" /></a>
+                      </li>
+                    <?php } ?>
+                  <?php } ?>
               </ul>
           <?php } ?>
           <ul class="nav nav-tabs">
@@ -432,6 +440,7 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 //--></script>
 <script type="text/javascript"><!--
     $('#button-cart').on('click', function () {
+        $("alert-success").remove();
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
             type: 'post',
@@ -469,11 +478,17 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
                 }
 
                 if (json['success']) {
-                    $('.breadcrumb').after('<div class="alert alert-success">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('.breadcrumb')
+                            .after($('<div class="alert alert-success">' + json['success'] +
+                                    '<button type="button" class="close" data-dismiss="alert">&times;</button></div>')
+                                    .hide()
+                                    .fadeIn(1000));
+
+                    delay(function () {
+                        $('.alert-success').fadeOut(500);
+                    }, 3000);
 
                     $('#cart > button').html('<i class="fa fa-shopping-cart"></i> ' + json['total']);
-
-                    $('html, body').animate({scrollTop: 0}, 'slow');
 
                     $('#cart > ul').load('index.php?route=common/cart/info ul li');
                 }
@@ -595,12 +610,21 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 
     $(document).ready(function () {
         $('.thumbnails').magnificPopup({
-            type: 'image',
             delegate: 'a',
-            gallery: {
-                enabled: true
-            }
+            callbacks: {
+                elementParse: function (item) {
+                    // the class name
+                    if (item.el.context.className == 'video') {
+                        item.type = 'iframe';
+                    } else {
+                        item.type = 'image';
+                    }
+                }
+            },
+            gallery: {enabled: true},
+            type: 'image',
         });
+
     });
 //--></script>
 <?php echo $footer; ?>

@@ -1,7 +1,9 @@
 <?php
-class ControllerStartupSeoUrl extends Controller {
+class ControllerStartupSeoUrl extends Controller
+{
 
-    public function index() {
+    public function index()
+    {
         // Add rewrite to url class
         if ($this->config->get('config_seo_url')) {
             $this->url->addRewrite($this);
@@ -15,7 +17,6 @@ class ControllerStartupSeoUrl extends Controller {
             if (utf8_strlen(end($parts)) == 0) {
                 array_pop($parts);
             }
-
 
 
             foreach ($parts as $part) {
@@ -74,7 +75,8 @@ class ControllerStartupSeoUrl extends Controller {
         }
     }
 
-    public function rewrite($link) {
+    public function rewrite($link)
+    {
 
         $url_info = parse_url(str_replace('&amp;', '&', $link));
 
@@ -130,7 +132,7 @@ class ControllerStartupSeoUrl extends Controller {
             }
 
             return $url_info['scheme'] . '://' . $url_info['host'] . (isset($url_info['port']) ? ':' . $url_info['port'] : '')
-                . str_replace('/index.php', '', $url_info['path']) . $url . $query;
+              . str_replace('/index.php', '', $url_info['path']) . $url . $query;
         } else {
             return $link;
         }

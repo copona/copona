@@ -42,6 +42,7 @@
             <li><a href="#tab-special" data-toggle="tab"><?php echo $tab_special; ?></a></li>
             <li><a href="#tab-reward" data-toggle="tab"><?php echo $tab_reward; ?></a></li>
             <li><a href="#tab-design" data-toggle="tab"><?php echo $tab_design; ?></a></li>
+            <li><a href="#tab-custom_fields" data-toggle="tab"><?php echo $tab_custom_fields; ?></a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
@@ -1155,6 +1156,13 @@
                 </table>
               </div>
             </div>
+
+            <div class="tab-pane" id="tab-custom_fields">
+              <div class="row">
+                <?php echo !empty($custom_fields) ? $custom_fields : 'There are no Custom fields defined! '   ;?>
+              </div>
+            </div>
+
           </div>
         </form>
 

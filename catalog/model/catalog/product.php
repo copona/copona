@@ -133,6 +133,7 @@ class ModelCatalogProduct extends Model {
             $sql .= " AND (";
 
             if (!empty($data['filter_name'])) {
+                $data['filter_name'] = trim($data['filter_name']);
                 $implode = array();
 
                 $words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_name'])));
@@ -155,6 +156,7 @@ class ModelCatalogProduct extends Model {
             }
 
             if (!empty($data['filter_tag'])) {
+                $data['filter_tag'] = trim($data['filter_tag']);
                 $implode = array();
 
                 $words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_tag'])));
@@ -169,7 +171,7 @@ class ModelCatalogProduct extends Model {
             }
 
             if (!empty($data['filter_name'])) {
-                $sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+                $sql .= " OR LCASE(p.model) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "%'";
                 $sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
                 $sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
                 $sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
@@ -219,9 +221,9 @@ class ModelCatalogProduct extends Model {
         }
 
         if (isset($data['order']) && ($data['order'] == 'DESC')) {
-            $sql .= " DESC, LCASE(pd.name) DESC";
+            $sql .= " DESC, LCASE(pd.name) DESC, p.product_id DESC";
         } else {
-            $sql .= " ASC, LCASE(pd.name) ASC";
+            $sql .= " ASC, LCASE(pd.name) ASC, p.product_id ASC";
         }
 
         if (isset($data['start']) || isset($data['limit'])) {
@@ -427,6 +429,7 @@ class ModelCatalogProduct extends Model {
             );
         }
 
+        $this->hook->getHook('model/catalog/product/getProductOptions/after', $product_option_data);
         return $product_option_data;
     }
 

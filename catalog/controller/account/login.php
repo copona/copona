@@ -4,6 +4,7 @@ class ControllerAccountLogin extends Controller {
 
     public function index() {
         $this->load->model('account/customer');
+        $data = $this->load->language('account/login');
 
         // Login override for admin users
         if (!empty($this->request->get['token'])) {
@@ -46,8 +47,6 @@ class ControllerAccountLogin extends Controller {
         if ($this->customer->isLogged()) {
             $this->response->redirect($this->url->link('account/account', '', true));
         }
-
-        $this->load->language('account/login');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -119,18 +118,6 @@ class ControllerAccountLogin extends Controller {
 
         $data['heading_title'] = $this->language->get('heading_title');
 
-        $data['text_new_customer'] = $this->language->get('text_new_customer');
-        $data['text_register'] = $this->language->get('text_register');
-        $data['text_register_account'] = $this->language->get('text_register_account');
-        $data['text_returning_customer'] = $this->language->get('text_returning_customer');
-        $data['text_i_am_returning_customer'] = $this->language->get('text_i_am_returning_customer');
-        $data['text_forgotten'] = $this->language->get('text_forgotten');
-
-        $data['entry_email'] = $this->language->get('entry_email');
-        $data['entry_password'] = $this->language->get('entry_password');
-
-        $data['button_continue'] = $this->language->get('button_continue');
-        $data['button_login'] = $this->language->get('button_login');
 
         if (isset($this->session->data['error'])) {
             $data['error_warning'] = $this->session->data['error'];

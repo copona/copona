@@ -194,6 +194,8 @@ class ControllerInstallStep3 extends Controller {
 
             $this->model_install_install->database($this->request->post);
 
+            $this->model_install_install->migration($this->request->post);
+
             $this->response->redirect($this->url->link('install/step_4'));
 		}
 

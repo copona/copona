@@ -10,7 +10,8 @@ class ModelLocalisationLanguage extends Model {
             . ", directory = '" . $this->db->escape($data['directory']) . "'"
             . ", status = '" . (int)$data['status'] . "'");
 
-        $this->cache->delete('language');
+        $this->cache->delete('catalog.language');
+        $this->cache->delete('admin.language');
 
         $language_id = $this->db->getLastId();
 
@@ -229,13 +230,15 @@ class ModelLocalisationLanguage extends Model {
             $this->db->query("UPDATE " . DB_PREFIX . "setting SET value = '" . $this->db->escape($data['code']) . "' WHERE `key` = 'config_admin_language' AND value = '" . $this->db->escape($language_query->row['code']) . "'");
         }
 
-        $this->cache->delete('language');
+        $this->cache->delete('catalog.language');
+        $this->cache->delete('admin.language');
     }
 
     public function deleteLanguage($language_id) {
         $this->db->query("DELETE FROM " . DB_PREFIX . "language WHERE language_id = '" . (int)$language_id . "'");
 
-        $this->cache->delete('language');
+        $this->cache->delete('catalog.language');
+        $this->cache->delete('admin.language');
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "attribute_description WHERE language_id = '" . (int)$language_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "attribute_group_description WHERE language_id = '" . (int)$language_id . "'");
@@ -339,7 +342,7 @@ class ModelLocalisationLanguage extends Model {
 
             return $query->rows;
         } else {
-            $language_data = $this->cache->get('language');
+            $language_data = $this->cache->get('admin.language');
 
             if (!$language_data) {
                 $language_data = array();
@@ -359,7 +362,7 @@ class ModelLocalisationLanguage extends Model {
                     );
                 }
 
-                $this->cache->set('language', $language_data);
+                $this->cache->set('admin.language', $language_data);
             }
 
             return $language_data;

@@ -46,8 +46,10 @@ class ControllerExtensionExtension extends Controller {
             $this->load->language('extension/extension/' . $extension);
 
             if ($this->user->hasPermission('access', 'extension/extension/' . $extension)) {
-                $files = glob(DIR_APPLICATION . 'controller/{extension/' . $extension . ',' . $extension . '}/*.php', GLOB_BRACE);
-
+                $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
+                $files = glob('{' . DIR_APPLICATION . 'controller/{extension/' . $extension . ',' . $extension . '}/*.php,'
+                    . $extensions_dir . '/extensions/*/*/admin/controller/extension/'.$extension.'/*.php}', GLOB_BRACE);
+//        pr($files);
                 $data['categories'][] = array(
                     'code' => $extension,
                     'text' => $this->language->get('heading_title') . ' (' . count($files) . ')',

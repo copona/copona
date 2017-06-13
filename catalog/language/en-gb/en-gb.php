@@ -115,3 +115,4 @@ $_['entry_tax'] = 'Tax ID';
 $_['entry_password'] = 'Password';
 $_['entry_confirm'] = 'Password Confirm';
 $_['entry_customer_group'] = 'Customer Group';
+$_['text_newsletter'] = 'Newsletter';

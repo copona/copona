@@ -10,6 +10,7 @@
 /catalog/controller/*/_*
 /.vs
 Search-Replace-DB-master*
+/extensions
 
 # XML filesimport
 catalog/controller/xml/*.xml
@@ -67,9 +68,6 @@ catalog/controller/xml/*.xml
 !/image/cache/index.html
 !/image/no_image.jpg
 
-# Force ignore individual files
-*-gitignore*
-!.gitignore
 /nbproject/
 
 # Ignore Composer Vendor Files
@@ -148,3 +146,7 @@ crashlytics-build.properties
 fabric.properties
 
 .DS_Store
+
+# Force ignore individual files
+*-gitignore*
+!.gitignore

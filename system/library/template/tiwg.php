@@ -28,8 +28,7 @@ final class PHP {
             return ob_get_clean();
         }
 
-        trigger_error('Error: Could not load template ' . $file . '!');
-        exit();
+        throw new \Exception('Error: Could not load template ' . $file . '!');
     }
 
 }

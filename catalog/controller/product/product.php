@@ -255,6 +255,7 @@ class ControllerProductProduct extends Controller {
             $data['reward'] = $product_info['reward'];
             $data['points'] = $product_info['points'];
             $data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
+            $data['short_description'] = utf8_substr(trim(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get($this->config->get('config_theme') . '_product_short_description_length')) . '..';
 
             if ($product_info['quantity'] <= 0) {
                 $data['stock'] = $product_info['stock_status'];
@@ -436,7 +437,7 @@ class ControllerProductProduct extends Controller {
                     'product_id'  => $result['product_id'],
                     'thumb'       => $image,
                     'name'        => $result['name'],
-                    'description' => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
+                    'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
                     'price'       => $price,
                     'special'     => $special,
                     'tax'         => $tax,
@@ -463,18 +464,13 @@ class ControllerProductProduct extends Controller {
 
             // Content Meta
 
-            if (isset($product_info['content_meta'])) {
-                if (isset($product_info['content_meta']['product_video'])) {
-                    foreach ($product_info['content_meta']['product_video'] as $product_video) {
-                        $video = html_entity_decode($product_video['video'][$this->config->get('config_language_id')], ENT_QUOTES, 'UTF-8');
-                        $data['product_videos'][] = array(
-                            'video'     => 'https://www.youtube.com/watch?v=' . $video . '',
-                            'video_src' => $this->url->link('common/youtube', 'inpt=' . $video . '&quality=hq&play')             //   HTTPS_SERVER . 'youtube/yt-thumb.php?inpt=' . $video . '&quality=hq&play"'
-                        );
-                    }
-                } else {
-                    $data['product_videos'] = '';
+            if (!empty($product_info['content_meta'])) {
+                // Define content meta in $data array;
+                foreach($product_info['content_meta'] as $key => $value){
+                    $data['content_meta'][$key] = $value;
                 }
+            } else {
+                $data['content_meta'] = '';
             }
 
             $this->model_catalog_product->updateViewed($product_id);

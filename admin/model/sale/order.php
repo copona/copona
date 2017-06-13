@@ -1,6 +1,11 @@
 <?php
 class ModelSaleOrder extends Model {
 
+    public function __construct($parms) {
+        parent::__construct($parms);
+        $this->load->model("catalog/content");
+    }
+
     public function deleteOrder($order_id) {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order` WHERE order_id = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_product` WHERE order_id = '" . (int)$order_id . "'");
@@ -92,6 +97,7 @@ class ModelSaleOrder extends Model {
                 $language_code = $this->config->get('config_language');
             }
 
+            //prd($this->model_catalog_content->getContentMeta($order_id, "order"));
             return array(
                 'order_id'                => $order_query->row['order_id'],
                 'invoice_no'              => $order_query->row['invoice_no'],
@@ -163,7 +169,8 @@ class ModelSaleOrder extends Model {
                 'user_agent'              => $order_query->row['user_agent'],
                 'accept_language'         => $order_query->row['accept_language'],
                 'date_added'              => $order_query->row['date_added'],
-                'date_modified'           => $order_query->row['date_modified']
+                'date_modified'           => $order_query->row['date_modified'],
+                'serial'                  => $this->model_catalog_content->getContentMeta($order_id, "order"),
             );
         } else {
             return;

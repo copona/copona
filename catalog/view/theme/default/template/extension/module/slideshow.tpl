@@ -1,11 +1,19 @@
-<div id="slideshow<?php echo $module; ?>" class="owl-carousel" style="opacity: 1;">
+<div id="slideshow<?php echo $module; ?>" class="banner-slideshow owl-carousel" style="opacity: 1;">
     <?php foreach ($banners as $banner) { ?>
       <div class="item">
           <?php if ($banner['link']) { ?>
-            <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" /></a>
-        <?php } else { ?>
-            <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" />
-        <?php } ?>
+              <?php if ($banner['title']) { ?>
+              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive"/>
+              <a class="banner-text" href="<?=$banner['link'] ?>">
+                <h2><?php echo $banner['title']; ?></h2>
+                  <?=($banner['description'] ? "<span>" . $banner['description'] . "</span>" : '' ); ?>
+              </a>
+              <?php } else { ?>
+              <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive"/></a>
+              <?php } ?>
+          <?php } else { ?>
+            <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive"/>
+          <?php } ?>
       </div>
   <?php } ?>
 </div>

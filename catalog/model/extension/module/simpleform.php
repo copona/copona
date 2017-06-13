@@ -66,7 +66,7 @@ class ModelExtensionModuleSimpleform extends Model {
             $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
             $mail->send();
 
-            $emails = explode(',', $this->config->get('config_alert_emails'));
+            $emails = explode(',', $this->config->get('config_mail_alert_emails'));
 
             foreach ($emails as $email) {
                 if (strlen($email) > 0 && preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $email)) {

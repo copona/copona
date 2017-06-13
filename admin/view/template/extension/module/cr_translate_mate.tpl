@@ -17,13 +17,13 @@
             'admin'   => 'backend' ) as $k => $v) {
                 ?>
               <label class="btn btn-default <?php if ($interface == $k) { echo 'active'; } ?>">
-                <input type="radio" name="interface" value="<?php e($k); ?>" autocomplete="off" <?php if ($interface == "$k") { echo 'checked'; } ?>> <?php e(${'tab_' . $v}); ?>
+                <input type="radio" name="interface" value="<?php e($k); ?>" autocomplete="translate-interface" <?php if ($interface == "$k") { echo 'checked'; } ?>> <?php e(${'tab_' . $v}); ?>
               </label>
           <?php } // end foreach (array('catalog'=>'frontend', 'admin'=>'backend') as $k=>$v )    ?>
         </div>
 
         <label class="btn btn-primary">
-          <input type="checkbox" name="notTranslated" id="notTranslated" autocomplete="off"> <?php e($text_not_translated_only); ?>
+          <input type="checkbox" name="notTranslated" id="notTranslated" autocomplete="translate-interface"> <?php e($text_not_translated_only); ?>
         </label>
       </div>
     </div><!-- end .container-fluid -->
@@ -105,7 +105,7 @@
 <div id="notTranslatedTemplate">
   <span class="notTranslatedSpan text-danger"><?php e($text_not_translated); ?></span>
 </div>
-<!-- javascript --><?php // declare php variables here       ?>
+<!-- javascript --><?php // declare php variables here        ?>
 <script type="text/javascript">
     var crtm = {// cr_translate_mate object
         url: "<?php echo html_entity_decode($action); ?>",

@@ -32,10 +32,11 @@
                         <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $image['description']; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $image['description']; ?>" alt="<?php echo $image['description']; ?>" /></a></li>
                     <?php } ?>
                 <?php } ?>
-                <?php if ($product_videos) { ?>
+                <?php
+                if (!empty($product_videos)) { ?>
                     <?php foreach ($product_videos as $video) { ?>
-                        <li class="image-additional"><a class="video" href="https://www.youtube.com/watch?v=ARM42-eorzE">
-                            <img style="width:83px; height: 55px;" src="<?php echo $video['video_src'] ?>" title="<?php echo $heading_title . " "; ?>" alt="<?= $heading_title ?>" /></a>
+                        <li class="image-additional"><a class="video" href="<?=$video['video']?>">
+                            <img style="" src="<?php echo $video['video_src'] ?>" title="<?php echo $heading_title . " "; ?>" alt="<?= $heading_title ?>" /></a>
                         </li>
                     <?php } ?>
 
@@ -439,6 +440,7 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 //--></script>
 <script type="text/javascript"><!--
     $('#button-cart').on('click', function () {
+        $("alert-success").remove();
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
             type: 'post',
@@ -476,10 +478,14 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
                 }
 
                 if (json['success']) {
-                    $('.breadcrumb').after('<div class="alert alert-success">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                    $('html, body').animate({scrollTop: 0}, 'slow');
-
+                    $('.breadcrumb')
+                            .after($('<div class="alert alert-success">' + json['success'] +
+                                    '<button type="button" class="close" data-dismiss="alert">&times;</button></div>')
+                                    .hide()
+                                    .fadeIn(200));
+                    delay(function () {
+                        $('.alert-success').fadeOut(500);
+                    }, 3000);
                     $('#cart').load('index.php?route=common/cart/info');
                 }
             },
@@ -488,6 +494,7 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
             }
         });
     });
+
 //--></script>
 <script type="text/javascript"><!--
     $('.date').datetimepicker({

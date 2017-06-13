@@ -42,7 +42,10 @@ class ControllerSettingSetting extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('setting/store', 'token=' . $this->session->data['token'], true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+                $this->response->redirect($this->url->link('setting/setting', '&token=' . $this->session->data['token'], true));
+            else
+                $this->response->redirect($this->url->link('setting/store', 'token=' . $this->session->data['token'], true));
         }
 
         $errors = array(
@@ -771,10 +774,10 @@ class ControllerSettingSetting extends Controller {
             'value' => 'review'
         );
 
-        if (isset($this->request->post['config_alert_email'])) {
-            $data['config_alert_email'] = $this->request->post['config_alert_email'];
+        if (isset($this->request->post['config_mail_alert_email'])) {
+            $data['config_mail_alert_email'] = $this->request->post['config_mail_alert_email'];
         } else {
-            $data['config_alert_email'] = $this->config->get('config_alert_email');
+            $data['config_mail_alert_email'] = $this->config->get('config_mail_alert_email');
         }
 
         if (isset($this->request->post['config_secure'])) {
