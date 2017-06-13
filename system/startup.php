@@ -14,7 +14,13 @@ if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
 
 //Errors handler
 $whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+if(Whoops\Util\Misc::isAjaxRequest()) { //ajax
+    $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
+} else if(Whoops\Util\Misc::isCommandLine()) { //command line
+    $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler);
+} else { //html
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+}
 $whoops->register();
 
 // Check Version
