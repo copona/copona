@@ -58,7 +58,11 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 }
 
 // Check if SSL
-if (!empty($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https') {
+if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
+    $_SERVER['HTTPS'] = true;
+} else if (!empty($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https') {
+    $_SERVER['HTTPS'] = true;
+} else if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
     $_SERVER['HTTPS'] = true;
 } else {
     $_SERVER['HTTPS'] = false;
