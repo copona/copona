@@ -1,6 +1,6 @@
 <?php
-// Version
-define('VERSION', '2.3.0.3_rc');
+//Public dir
+define('DIR_PUBLIC', __DIR__);
 
 // Configuration
 if (is_file('config.php')) {

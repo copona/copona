@@ -2,6 +2,10 @@
 // Error Reporting
 error_reporting(E_ALL);
 
+// Version
+define('VERSION', '2.3.0.3_rc');
+define('COPONA_VERSION', 'dev');
+
 // Debug helper
 require_once(DIR_SYSTEM . 'helper/debug.php');
 
@@ -12,11 +16,15 @@ if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
     die('Please, execute composer install');
 }
 
+//Dotenv
+$dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
+$dotenv->load();
+
 //Errors handler
 $whoops = new \Whoops\Run;
-if(Whoops\Util\Misc::isAjaxRequest()) { //ajax
+if (Whoops\Util\Misc::isAjaxRequest()) { //ajax
     $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
-} else if(Whoops\Util\Misc::isCommandLine()) { //command line
+} else if (Whoops\Util\Misc::isCommandLine()) { //command line
     $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler);
 } else { //html
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
@@ -74,7 +82,8 @@ if (defined('HTTP_HOST') && defined('HTTPS_HOST') && $_SERVER['HTTP_HOST'] != pa
 }
 
 // Modification Override
-function modification($filename) {
+function modification($filename)
+{
     if (defined('DIR_CATALOG')) {
         $file = DIR_MODIFICATION . 'admin/' . substr($filename, strlen(DIR_APPLICATION));
     } elseif (defined('DIR_OPENCART')) {
@@ -94,7 +103,8 @@ function modification($filename) {
     return $filename;
 }
 
-function library($class) {
+function library($class)
+{
     $file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
 
     if (is_file($file)) {
@@ -126,6 +136,7 @@ require_once(DIR_SYSTEM . 'helper/text.php');
 require_once(DIR_SYSTEM . 'helper/utf8.php');
 require_once(DIR_SYSTEM . 'helper/json.php');
 
-function start($application_config) {
+function start($application_config)
+{
     require_once(DIR_SYSTEM . 'framework.php');
 }

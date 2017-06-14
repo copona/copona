@@ -1,6 +1,7 @@
 <?php
 
-function token($length = 32) {
+function token($length = 32)
+{
     // Create random token
     $string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -22,7 +23,8 @@ function token($length = 32) {
  */
 if (!function_exists('hash_equals')) {
 
-    function hash_equals($known_string, $user_string) {
+    function hash_equals($known_string, $user_string)
+    {
         $known_string = (string)$known_string;
         $user_string = (string)$user_string;
 
@@ -39,4 +41,9 @@ if (!function_exists('hash_equals')) {
         }
     }
 
+}
+
+function env($key, $default = null)
+{
+    return getenv($key) ? getenv($key) : $default;
 }

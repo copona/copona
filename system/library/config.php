@@ -1,31 +1,9 @@
 <?php
-class Config {
-    private $data = array();
 
-    public function get($key) {
-        return (isset($this->data[$key]) ? $this->data[$key] : null);
+class Config extends \Noodlehaus\Config
+{
+    public function __construct($data)
+    {
+        parent::__construct($data);
     }
-
-    public function set($key, $value) {
-        $this->data[$key] = $value;
-    }
-
-    public function has($key) {
-        return isset($this->data[$key]);
-    }
-
-    public function load($filename) {
-        $file = DIR_CONFIG . $filename . '.php';
-
-        if (file_exists($file)) {
-            $_ = array();
-
-            require($file);
-
-            $this->data = array_merge($this->data, $_);
-        } else {
-            throw new Exception('Error: Could not load config ' . $filename . '!');
-        }
-    }
-
 }

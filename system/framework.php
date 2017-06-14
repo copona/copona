@@ -3,9 +3,7 @@
 $registry = Registry::getInstance();
 
 // Config
-$config = new Config();
-$config->load('default');
-$config->load($application_config);
+$config = new Config(DIR_PUBLIC . '/config');
 $registry->set('config', $config);
 
 // Event
@@ -13,8 +11,8 @@ $event = new Event($registry);
 $registry->set('event', $event);
 
 // Event Register
-if ($config->has('action_event')) {
-    foreach ($config->get('action_event') as $key => $value) {
+if ($config->has($application_config . '.action_event')) {
+    foreach ($config->get($application_config . '.action_event') as $key => $value) {
         $event->register($key, new Action($value));
     }
 }
@@ -36,8 +34,20 @@ $response->addHeader('Content-Type: text/html; charset=utf-8');
 $registry->set('response', $response);
 
 // Database
-if ($config->get('db_autostart')) {
-    $registry->set('db', new DB($config->get('db_type'), $config->get('db_hostname'), $config->get('db_username'), $config->get('db_password'), $config->get('db_database'), $config->get('db_port')));
+if ($config->get($application_config . '.db_autostart')) {
+
+    $default_connection = $config->get('database.default_connection') ? $config->get('database.default_connection') : 'default';
+    $db_config = $config->get('database.' . $default_connection);
+
+    $registry->set('db', new DB(
+            $db_config['db_type'],
+            $db_config['db_hostname'],
+            $db_config['db_username'],
+            $db_config['db_password'],
+            $db_config['db_database'],
+            $db_config['db_port'])
+    );
+
     if (!$registry->get('db')->query('SHOW TABLES LIKE \'' . DB_PREFIX . 'setting\'')->rows) {
         //no table setting.
         die('Check Config file for correct Database connection!');
@@ -47,14 +57,14 @@ if ($config->get('db_autostart')) {
 // Session
 $session = new Session();
 
-if ($config->get('session_autostart')) {
+if ($config->get('session.session_autostart')) {
     $session->start();
 }
 
 $registry->set('session', $session);
 
 // Cache
-$registry->set('cache', new Cache($config->get('cache_type'), $config->get('cache_expire')));
+$registry->set('cache', new Cache($config->get('cache.cache_type'), $config->get('cache.cache_expire')));
 
 // Url
 if ($config->get('url_autostart')) {
@@ -72,8 +82,8 @@ $language = new Language($config->get('language_default'), $registry);
 $language->load($config->get('language_default'));
 $registry->set('language', $language);
 
-if ($config->get('url_autostart')) {
 // Breadcrumbs
+if ($config->get('url_autostart')) {
     $breadcrumbs = new Breadcrumbs($registry);
     $registry->set('breadcrumbs', $breadcrumbs);
 }
@@ -112,15 +122,15 @@ if ($config->has('model_autoload')) {
 $controller = new Front($registry);
 
 // Pre Actions
-if ($config->has('action_pre_action')) {
-    foreach ($config->get('action_pre_action') as $value) {
+if ($config->has($application_config . '.action_pre_action')) {
+    foreach ($config->get($application_config . '.action_pre_action') as $value) {
         $controller->addPreAction(new Action($value));
     }
 }
 
 // Dispatch
-$controller->dispatch(new Action($config->get('action_router')), new Action($config->get('action_error')));
+$controller->dispatch(new Action($config->get($application_config . '.action_router')), new Action($config->get($application_config . '.action_error')));
 
 // Output
-$response->setCompression($config->get('config_compression'));
+$response->setCompression($config->get($application_config . '.config_compression'));
 $response->output();
