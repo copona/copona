@@ -8,7 +8,9 @@
 </style>
 
 
-<?php if ($error_warning) { ?>
+<?php
+if ($error_warning) {
+    ?>
     <div class="warning"><?php echo $error_warning; ?></div>
 <?php } ?>
 
@@ -20,7 +22,7 @@
             <?php if (isset($shipping_method['group_title'])) { ?>
                 <p><strong><?php echo $shipping_method['group_title'] ?><p></strong>
                 <?php } ?>
-                <?php foreach ($shipping_method['quote'] as $key => $quote) { ?>
+                <?php foreach ($shipping_method['quote'] as $key => $quote) { (isset($quote['show_address']) ? $show_address = $quote['show_address'] : '' ); ?>
                 <div class="radio">
                   <label>
                       <?php if ($quote['code'] == $code || !$code) { ?>

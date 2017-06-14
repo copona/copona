@@ -34,7 +34,6 @@
     <div class="row">
         <?php //echo $content_top;?>
       <div id="content" class="content-cart">
-          <?= $cart; ?>
         <div class="onepage-checkout">
           <form action="<?php echo $action; ?>" class="form" method="post">
             <div id="step1">
@@ -256,4 +255,10 @@
       <?php echo $column_right; ?></div>
   </div>
 </div>
+<script>
+
+    cart.get();
+
+
+</script>
 <?php echo $footer; ?>

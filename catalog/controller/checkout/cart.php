@@ -4,8 +4,6 @@ class ControllerCheckoutCart extends Controller {
     public function index() {
         $data = $this->load->language('checkout/cart');
 
-
-
         $this->document->setTitle($this->language->get('heading_title'));
 
         $data['breadcrumbs'] = array();
@@ -242,14 +240,18 @@ class ControllerCheckoutCart extends Controller {
                 }
             }
 
-            $data['column_left'] = $this->load->controller('common/column_left');
-            $data['column_right'] = $this->load->controller('common/column_right');
-            $data['content_top'] = $this->load->controller('common/content_top');
-            $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer'] = $this->load->controller('common/footer');
-            $data['header'] = $this->load->controller('common/header');
+            if (isset($this->request->post['checkout'])) {
+                echo $this->response->setOutput($this->load->view('checkout/cart_info', $data));
+            } else {
+                $data['column_left'] = $this->load->controller('common/column_left');
+                $data['column_right'] = $this->load->controller('common/column_right');
+                $data['content_top'] = $this->load->controller('common/content_top');
+                $data['content_bottom'] = $this->load->controller('common/content_bottom');
+                $data['footer'] = $this->load->controller('common/footer');
+                $data['header'] = $this->load->controller('common/header');
 
-            $this->response->setOutput($this->load->view('checkout/cart', $data));
+                $this->response->setOutput($this->load->view('checkout/cart', $data));
+            }
         } else {
             $data['heading_title'] = $this->language->get('heading_title');
 
@@ -414,6 +416,11 @@ class ControllerCheckoutCart extends Controller {
         if (!empty($this->request->post['quantity'])) {
             foreach ($this->request->post['quantity'] as $key => $value) {
                 $this->cart->update($key, $value);
+            }
+            if (!empty($this->request->post['method']) && $this->request->post['method'] == 'ajax') {
+                $json['status'] = 'OK';
+                echo json_encode($json);
+                return false;
             }
 
             $this->session->data['success'] = $this->language->get('text_remove');
