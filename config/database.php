@@ -10,12 +10,12 @@ return [
          * mpdo, mssql, mysql, mysqli or postgre
          */
         'default' => [
-            'db_type'      => env('DB_DRIVER', ''),
-            'db_hostname'  => DB_HOSTNAME,
-            'db_username'  => DB_USERNAME,
-            'db_password'  => DB_PASSWORD,
-            'db_database'  => DB_DATABASE,
-            'db_port'      => DB_PORT,
+            'db_type'      => env('DB_DRIVER', 'mysql'),
+            'db_hostname'  => env('DB_HOSTNAME', 'localhost'),
+            'db_username'  => env('DB_USERNAME', 'root'),
+            'db_password'  => env('DB_PASSWORD', 'root'),
+            'db_database'  => env('DB_DATABASE', 'copona'),
+            'db_port'      => env('DB_PORT', '3306'),
         ]
     ]
 ];

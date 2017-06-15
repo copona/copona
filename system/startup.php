@@ -6,15 +6,15 @@ error_reporting(E_ALL);
 define('VERSION', '2.3.0.3_rc');
 define('COPONA_VERSION', 'dev');
 
-// Debug helper
-require_once(DIR_SYSTEM . 'helper/debug.php');
-
 // Composer Autoloader
 if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
     require_once(DIR_SYSTEM . '../vendor/autoload.php');
 } else {
     die('Please, execute composer install');
 }
+
+// Debug helper
+require_once(DIR_SYSTEM . 'helper/debug.php');
 
 //Dotenv
 $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
