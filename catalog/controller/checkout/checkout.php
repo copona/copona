@@ -30,7 +30,7 @@ class ControllerCheckoutCheckout extends Controller {
         'bank_name',
         'bank_code',
         'bank_account',
-        // 'serial' - IS HARDCODED as an array
+        'serial' //- IS HARDCODED as an array
     );
 
     public function index() {
@@ -132,7 +132,6 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
     function guest() {
-
 
         $data = $this->load->language('checkout/checkout');
         $this->document->setTitle($this->language->get('heading_title'));
@@ -336,7 +335,6 @@ class ControllerCheckoutCheckout extends Controller {
 
         $data['session'] = $this->session->data;
 
-
         $this->response->setOutput($this->load->view('checkout/guest', $data));
     }
 
@@ -430,8 +428,8 @@ class ControllerCheckoutCheckout extends Controller {
 
         foreach ($this->request->post as $key => $val) {
             if (in_array($key, $this->allowed_post_values)) {
-                $this->session->data['guest'][$key] = strip_tags($val);
-                $this->session->data[$key] = strip_tags($val);
+                $this->session->data['guest'][$key] = (is_array($val) ? preg_replace("/<.+>/sU", "", $val) : strip_tags($val));
+                $this->session->data[$key] = (is_array($val) ? preg_replace("/<.+>/sU", "", $val) : strip_tags($val));
             }
         }
 
@@ -466,7 +464,7 @@ class ControllerCheckoutCheckout extends Controller {
         if (!empty($this->request->post['shipping_method'])) {
             $shipping = explode('.', $this->request->post['shipping_method']);
 
-            //pr( $this->session->data['shipping_methods']  );            
+            //pr( $this->session->data['shipping_methods']  );
             //pr( $this->session->data['shipping_methods'][$shipping[0]]['quote'] );            
         //    pr($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]]); 
             if (!isset($shipping[0]) || !isset($shipping[1]) || 
@@ -477,7 +475,7 @@ class ControllerCheckoutCheckout extends Controller {
             $this->error['warning'] = $this->language->get('error_shipping');
         }
 
-        //pr($this->error); 
+        //pr($this->error);
 
         if (!$this->error) {
             return true;
