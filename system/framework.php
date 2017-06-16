@@ -49,11 +49,6 @@ if ($config->get($application_config . '.db_autostart')) {
         $db_config['db_database'],
         $db_config['db_port'])
     );
-
-    if (!$registry->get('db')->query('SHOW TABLES LIKE \'' . DB_PREFIX . 'setting\'')->rows) {
-        //no table setting.
-        die('Check Config file for correct Database connection!');
-    }
 }
 
 // Session

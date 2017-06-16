@@ -1,16 +1,12 @@
 # Config and Htaccess Files
-/.htaccess
-/install/.htaccess
 /.htpasswd
-/config.php
 .env
-/admin/config.php
 /catalog/controller/xml
 /catalog/model/xml
 /catalog/controller/*/_*
 /.vs
 Search-Replace-DB-master*
-/extensions
+/extensions/*
 
 # XML filesimport
 catalog/controller/xml/*.xml
