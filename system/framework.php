@@ -2,8 +2,7 @@
 // Registry
 $registry = Registry::getInstance();
 
-// Config
-$config = new Config(DIR_PUBLIC . '/config');
+// Register Config
 $registry->set('config', $config);
 
 // Event
@@ -35,9 +34,6 @@ $registry->set('response', $response);
 
 // Database
 if ($config->get($application_config . '.db_autostart')) {
-
-    $default_connection = $config->get('database.default_connection') ? $config->get('database.default_connection') : 'default';
-    $db_config = $config->get('database.' . $default_connection);
 
     $registry->set('db', new DB(
             $db_config['db_type'],
