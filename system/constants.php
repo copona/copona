@@ -32,11 +32,18 @@ if(APPLICATION != 'install') {
     define('HTTPS_CATALOG', 'https://' . BASE_URL_CATALOG);
 
     // DIR
-    define('DIR_APPLICATION', DIR_PUBLIC . '/catalog/');
+    define('DIR_APPLICATION', DIR_PUBLIC . '/' . APPLICATION . '/');
+    define('DIR_CATALOG', DIR_PUBLIC . '/catalog/');
     define('DIR_SYSTEM', DIR_PUBLIC . '/system/');
     define('DIR_IMAGE', DIR_PUBLIC . '/image/');
-    define('DIR_LANGUAGE', DIR_PUBLIC . '/catalog/language/');
-    define('DIR_TEMPLATE', DIR_PUBLIC . '/catalog/view/theme/');
+    define('DIR_LANGUAGE', DIR_PUBLIC . '/'.APPLICATION.'/language/');
+
+    if(APPLICATION == 'catalog') {
+        define('DIR_TEMPLATE', DIR_PUBLIC . '/catalog/view/theme/');
+    } else {
+        define('DIR_TEMPLATE', DIR_PUBLIC . '/admin/view/template/');
+    }
+
     define('DIR_CONFIG', DIR_PUBLIC . '/config/');
     define('DIR_CACHE', DIR_PUBLIC . '/system/storage/cache/');
     define('DIR_DOWNLOAD', DIR_PUBLIC . '/system/storage/download/');
