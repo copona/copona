@@ -50,6 +50,7 @@ class ControllerCheckoutShippingMethod extends Controller {
                         $method_data[$result['code']] = array(
                             'title'      => $quote['title'],
                             'quote'      => $quote['quote'],
+                            'sub_quote'      => (!empty($quote['sub_quote']) && $quote['sub_quote'] ? $quote['sub_quote'] : ''),
                             'sort_order' => $quote['sort_order'],
                             'error'      => $quote['error']
                         );

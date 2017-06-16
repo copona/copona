@@ -1,6 +1,8 @@
 # Copona
 
-Copona is open source PHP digital e-commerce platform inspired and based on Opecnart http://www.opencart.com.
+Copona is open source PHP digital e-commerce platform inspired and based on Opencart http://www.opencart.com.
+
+Good alternative to Opencart, Woocommerce and Prestashop. Read our Wiki for more information on changes and advantages over competitors.
 
 Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **feature requests** here https://github.com/Copona/copona/issues. Our team will be happy to assist!
 
