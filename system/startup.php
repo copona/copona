@@ -2,67 +2,11 @@
 // Error Reporting
 error_reporting(E_ALL);
 
-// Version
-define('VERSION', '2.3.0.3_rc');
-define('COPONA_VERSION', 'dev');
-
-// Composer Autoloader
-if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
-    require_once(DIR_SYSTEM . '../vendor/autoload.php');
-} else {
-    die('Please, execute composer install');
-}
+require_once DIR_PUBLIC . '/system/constants.php';
+require_once DIR_PUBLIC . '/system/autoload.php';
 
 //Init Config
 $config = new Config(DIR_PUBLIC . '/config');
-
-//default connection
-$default_connection = $config->get('database.default_connection') ? $config->get('database.default_connection') : 'default';
-$db_config = $config->get('database.' . $default_connection);
-
-define('APPLICATION', basename(realpath('')) == 'admin' ? 'admin' : 'catalog');
-
-//Get port
-$server_port = '';
-if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] != 80) && $_SERVER['SERVER_PORT'] != 443) {
-    $server_port = ':' . $_SERVER['SERVER_PORT'];
-}
-
-//define domain url constant
-define('DOMAIN_NAME', isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] . $server_port : null);
-$parse_url = parse_url($_SERVER['SCRIPT_NAME']);
-define('BASE_URI', str_replace(['index.php', '//'], '', $parse_url['path']));
-define('BASE_URL', DOMAIN_NAME . BASE_URI);
-define('BASE_URL_CATALOG', (str_replace(['index.php', 'admin', '//'], '', BASE_URL)));
-
-// HTTP
-define('HTTP_SERVER', 'http://' . BASE_URL);
-define('HTTP_CATALOG', 'http://' . BASE_URL_CATALOG);
-
-// HTTPS
-define('HTTPS_SERVER', 'https://' . BASE_URL);
-define('HTTPS_CATALOG', 'https://' . BASE_URL_CATALOG);
-
-// DIR
-define('DIR_APPLICATION', DIR_PUBLIC . '/catalog/');
-define('DIR_SYSTEM', DIR_PUBLIC . '/system/');
-define('DIR_IMAGE', DIR_PUBLIC . '/image/');
-define('DIR_LANGUAGE', DIR_PUBLIC . '/catalog/language/');
-define('DIR_TEMPLATE', DIR_PUBLIC . '/catalog/view/theme/');
-define('DIR_CONFIG', DIR_PUBLIC . '/system/config/');
-define('DIR_CACHE', DIR_PUBLIC . '/system/storage/cache/');
-define('DIR_DOWNLOAD', DIR_PUBLIC . '/system/storage/download/');
-define('DIR_LOGS', DIR_PUBLIC . '/system/storage/logs/');
-define('DIR_MODIFICATION', DIR_PUBLIC . '/system/storage/modification/');
-define('DIR_UPLOAD', DIR_PUBLIC . '/system/storage/upload/');
-
-
-
-
-
-
-// Debug helper
-require_once(DIR_SYSTEM . 'helper/debug.php');
 
 //Dotenv
 $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
@@ -151,22 +95,6 @@ function modification($filename)
     return $filename;
 }
 
-function library($class)
-{
-    $file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
-
-    if (is_file($file)) {
-        include_once(modification($file));
-
-        return true;
-    } else {
-        return false;
-    }
-}
-
-spl_autoload_register('library');
-spl_autoload_extensions('.php');
-
 // Engine
 require_once(modification(DIR_SYSTEM . 'engine/action.php'));
 require_once(modification(DIR_SYSTEM . 'engine/controller.php'));
@@ -177,12 +105,6 @@ require_once(modification(DIR_SYSTEM . 'engine/loader.php'));
 require_once(modification(DIR_SYSTEM . 'engine/model.php'));
 require_once(modification(DIR_SYSTEM . 'engine/registry.php'));
 require_once(modification(DIR_SYSTEM . 'engine/proxy.php'));
-
-// Helper
-require_once(DIR_SYSTEM . 'helper/general.php');
-require_once(DIR_SYSTEM . 'helper/text.php');
-require_once(DIR_SYSTEM . 'helper/utf8.php');
-require_once(DIR_SYSTEM . 'helper/json.php');
 
 function start($application_config)
 {

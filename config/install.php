@@ -3,7 +3,7 @@
 return [
     'install' => [
 
-        'db_autostart'   => true,
+        'db_autostart'   => false,
 
         /**
          * Actions

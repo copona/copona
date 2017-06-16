@@ -3,6 +3,7 @@
 $registry = Registry::getInstance();
 
 // Register Config
+global $config;
 $registry->set('config', $config);
 
 // Event
@@ -34,6 +35,11 @@ $registry->set('response', $response);
 
 // Database
 if ($config->get($application_config . '.db_autostart')) {
+
+    //default connection
+    $default_connection = $config->get('database.default_connection') ? $config->get('database.default_connection') : 'default';
+    $db_config = $config->get('database.' . $default_connection);
+    define('DB_PREFIX', $db_config['db_prefix']);
 
     $registry->set('db', new DB(
             $db_config['db_type'],
@@ -128,5 +134,5 @@ if ($config->has($application_config . '.action_pre_action')) {
 $controller->dispatch(new Action($config->get($application_config . '.action_router')), new Action($config->get($application_config . '.action_error')));
 
 // Output
-$response->setCompression($config->get($application_config . '.config_compression'));
+$response->setCompression($config->get('config_compression'));
 $response->output();
