@@ -4,11 +4,11 @@
 define('VERSION', '2.3.0.3_rc');
 define('COPONA_VERSION', 'dev');
 
-if(!defined('APPLICATION')) {
+if (!defined('APPLICATION')) {
     define('APPLICATION', basename(realpath('')) ? basename(realpath('')) : 'catalog');
 }
 
-if(APPLICATION != 'install') {
+if (APPLICATION != 'install') {
 
     //Get port
     $server_port = '';
@@ -24,21 +24,21 @@ if(APPLICATION != 'install') {
     define('BASE_URL_CATALOG', (str_replace(['index.php', 'admin', '//'], '', BASE_URL)));
 
     // HTTP
-    define('HTTP_SERVER', 'http://' . BASE_URL);
-    define('HTTP_CATALOG', 'http://' . BASE_URL_CATALOG);
+    define('HTTP_SERVER', 'http://' . rtrim(BASE_URL, '/') . '/');
+    define('HTTP_CATALOG', 'http://' . rtrim(BASE_URL_CATALOG, '/') . '/');
 
     // HTTPS
-    define('HTTPS_SERVER', 'https://' . BASE_URL);
-    define('HTTPS_CATALOG', 'https://' . BASE_URL_CATALOG);
+    define('HTTPS_SERVER', 'https://' . rtrim(BASE_URL, '/') . '/');
+    define('HTTPS_CATALOG', 'https://' . rtrim(BASE_URL_CATALOG, '/') . '/');
 
     // DIR
     define('DIR_APPLICATION', DIR_PUBLIC . '/' . APPLICATION . '/');
     define('DIR_CATALOG', DIR_PUBLIC . '/catalog/');
     define('DIR_SYSTEM', DIR_PUBLIC . '/system/');
     define('DIR_IMAGE', DIR_PUBLIC . '/image/');
-    define('DIR_LANGUAGE', DIR_PUBLIC . '/'.APPLICATION.'/language/');
+    define('DIR_LANGUAGE', DIR_PUBLIC . '/' . APPLICATION . '/language/');
 
-    if(APPLICATION == 'catalog') {
+    if (APPLICATION == 'catalog') {
         define('DIR_TEMPLATE', DIR_PUBLIC . '/catalog/view/theme/');
     } else {
         define('DIR_TEMPLATE', DIR_PUBLIC . '/admin/view/template/');
