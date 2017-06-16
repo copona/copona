@@ -14,6 +14,7 @@ $_['text_store'] = 'Store';
 $_['text_date_added'] = 'Date Added';
 $_['text_payment_method'] = 'Payment Method';
 $_['text_shipping_method'] = 'Shipping Method';
+$_['text_other_information'] = 'Other information';
 $_['text_customer'] = 'Customer';
 $_['text_customer_group'] = 'Customer Group';
 $_['text_email'] = 'E-Mail';
