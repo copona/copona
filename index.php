@@ -5,18 +5,13 @@ define('DIR_PUBLIC', __DIR__);
 //Set application
 define('APPLICATION', 'catalog');
 
-// Configuration
-if (is_file('config.php')) {
-	require_once('config.php');
-}
-
 // Install
-if (!defined('DIR_APPLICATION')) {
+if (!file_exists(DIR_PUBLIC . '/.env') && is_dir(DIR_PUBLIC . '/install/')) {
 	header('Location: install/index.php');
 	exit;
 }
 
 // Startup
-require_once(DIR_SYSTEM . 'startup.php');
+require_once(DIR_PUBLIC . '/system/startup.php');
 
 start(APPLICATION);

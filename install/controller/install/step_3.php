@@ -19,17 +19,17 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . '\');' . "\n\n";
 
 			$output .= '// DIR' . "\n";
-			$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'catalog/\');' . "\n";
-			$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_OPENCART . 'system/\');' . "\n";
-			$output .= 'define(\'DIR_IMAGE\', \'' . DIR_OPENCART . 'image/\');' . "\n";
-			$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_OPENCART . 'catalog/language/\');' . "\n";
-			$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_OPENCART . 'catalog/view/theme/\');' . "\n";
-			$output .= 'define(\'DIR_CONFIG\', \'' . DIR_OPENCART . 'system/config/\');' . "\n";
-			$output .= 'define(\'DIR_CACHE\', \'' . DIR_OPENCART . 'system/storage/cache/\');' . "\n";
-			$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_OPENCART . 'system/storage/download/\');' . "\n";
-			$output .= 'define(\'DIR_LOGS\', \'' . DIR_OPENCART . 'system/storage/logs/\');' . "\n";
-			$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_OPENCART . 'system/storage/modification/\');' . "\n";
-			$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_OPENCART . 'system/storage/upload/\');' . "\n\n";
+			$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_COPONA . 'catalog/\');' . "\n";
+			$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_COPONA . 'system/\');' . "\n";
+			$output .= 'define(\'DIR_IMAGE\', \'' . DIR_COPONA . 'image/\');' . "\n";
+			$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_COPONA . 'catalog/language/\');' . "\n";
+			$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_COPONA . 'catalog/view/theme/\');' . "\n";
+			$output .= 'define(\'DIR_CONFIG\', \'' . DIR_COPONA . 'system/config/\');' . "\n";
+			$output .= 'define(\'DIR_CACHE\', \'' . DIR_COPONA . 'system/storage/cache/\');' . "\n";
+			$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_COPONA . 'system/storage/download/\');' . "\n";
+			$output .= 'define(\'DIR_LOGS\', \'' . DIR_COPONA . 'system/storage/logs/\');' . "\n";
+			$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_COPONA . 'system/storage/modification/\');' . "\n";
+			$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_COPONA . 'system/storage/upload/\');' . "\n\n";
 
 			$output .= '// CACHE' . "\n";
 			$output .= 'define(\'CACHE_EXPIRE\', 3600);' . "\n\n";
@@ -49,11 +49,11 @@ class ControllerInstallStep3 extends Controller {
             $output .= '// This directory should NOT be readable by the world!' . "\n";
             $output .= 'define(\'MODE\', \'production\');' . "\n";
 
-			if (!file_exists(DIR_OPENCART . 'config.php')) {
-				touch(DIR_OPENCART . 'config.php');
+			if (!file_exists(DIR_COPONA . 'config.php')) {
+				touch(DIR_COPONA . 'config.php');
 			}
 
-			$file = fopen(DIR_OPENCART . 'config.php', 'w');
+			$file = fopen(DIR_COPONA . 'config.php', 'w');
 
 			fwrite($file, $output);
 
@@ -69,18 +69,18 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'HTTPS_CATALOG\', \'' . $https_server . '\');' . "\n\n";
 
 			$output .= '// DIR' . "\n";
-			$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'admin/\');' . "\n";
-			$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_OPENCART . 'system/\');' . "\n";
-			$output .= 'define(\'DIR_IMAGE\', \'' . DIR_OPENCART . 'image/\');' . "\n";
-			$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_OPENCART . 'admin/language/\');' . "\n";
-			$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_OPENCART . 'admin/view/template/\');' . "\n";
-			$output .= 'define(\'DIR_CONFIG\', \'' . DIR_OPENCART . 'system/config/\');' . "\n";
-			$output .= 'define(\'DIR_CACHE\', \'' . DIR_OPENCART . 'system/storage/cache/\');' . "\n";
-			$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_OPENCART . 'system/storage/download/\');' . "\n";
-			$output .= 'define(\'DIR_LOGS\', \'' . DIR_OPENCART . 'system/storage/logs/\');' . "\n";
-			$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_OPENCART . 'system/storage/modification/\');' . "\n";
-			$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_OPENCART . 'system/storage/upload/\');' . "\n";
-			$output .= 'define(\'DIR_CATALOG\', \'' . DIR_OPENCART . 'catalog/\');' . "\n\n";
+			$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_COPONA . 'admin/\');' . "\n";
+			$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_COPONA . 'system/\');' . "\n";
+			$output .= 'define(\'DIR_IMAGE\', \'' . DIR_COPONA . 'image/\');' . "\n";
+			$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_COPONA . 'admin/language/\');' . "\n";
+			$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_COPONA . 'admin/view/template/\');' . "\n";
+			$output .= 'define(\'DIR_CONFIG\', \'' . DIR_COPONA . 'system/config/\');' . "\n";
+			$output .= 'define(\'DIR_CACHE\', \'' . DIR_COPONA . 'system/storage/cache/\');' . "\n";
+			$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_COPONA . 'system/storage/download/\');' . "\n";
+			$output .= 'define(\'DIR_LOGS\', \'' . DIR_COPONA . 'system/storage/logs/\');' . "\n";
+			$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_COPONA . 'system/storage/modification/\');' . "\n";
+			$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_COPONA . 'system/storage/upload/\');' . "\n";
+			$output .= 'define(\'DIR_CATALOG\', \'' . DIR_COPONA . 'catalog/\');' . "\n\n";
 
 			$output .= '// CACHE' . "\n";
 			$output .= 'define(\'CACHE_EXPIRE\', 3600);' . "\n\n";
@@ -100,11 +100,11 @@ class ControllerInstallStep3 extends Controller {
             $output .= '// This directory should NOT be readable by the world!' . "\n";
             $output .= 'define(\'MODE\', \'production\');' . "\n";
 
-			if (!file_exists(DIR_OPENCART . 'admin/config.php')) {
-				touch(DIR_OPENCART . 'admin/config.php');
+			if (!file_exists(DIR_COPONA . 'admin/config.php')) {
+				touch(DIR_COPONA . 'admin/config.php');
 			}
 
-			$file = fopen(DIR_OPENCART . 'admin/config.php', 'w');
+			$file = fopen(DIR_COPONA . 'admin/config.php', 'w');
 
 			fwrite($file, $output);
 
@@ -121,7 +121,7 @@ class ControllerInstallStep3 extends Controller {
 
             $rewrite = strpos($phpinfo, "mod_rewrite");
 
-            if(strstr(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache') && $rewrite && !file_exists(DIR_OPENCART . '.htaccess')) {
+            if(strstr(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache') && $rewrite && !file_exists(DIR_COPONA . '.htaccess')) {
 
 
                 $output = "# 1.To use URL Alias you need to be running apache with mod_rewrite enabled. \n\n";
@@ -181,11 +181,11 @@ class ControllerInstallStep3 extends Controller {
                 $output .= "# 7. disable open_basedir limitations \n";
                 $output .= "# php_admin_value open_basedir none";
 
-                if (!file_exists(DIR_OPENCART . '.htaccess')) {
-                    touch(DIR_OPENCART . '.htaccess');
+                if (!file_exists(DIR_COPONA . '.htaccess')) {
+                    touch(DIR_COPONA . '.htaccess');
                 }
 
-                $file = fopen(DIR_OPENCART . '.htaccess', 'w');
+                $file = fopen(DIR_COPONA . '.htaccess', 'w');
 
                 fwrite($file, $output);
 
@@ -417,12 +417,12 @@ class ControllerInstallStep3 extends Controller {
 
 		/* TODO:
 		  We have already checked the availabliliity of file. This is useless.
-		  if (!is_writable(DIR_OPENCART . 'config.php') || ( file_exists() ) {
-		  $this->error['warning'] = $this->language->get('error_config') . DIR_OPENCART . 'config.php!';
+		  if (!is_writable(DIR_COPONA . 'config.php') || ( file_exists() ) {
+		  $this->error['warning'] = $this->language->get('error_config') . DIR_COPONA . 'config.php!';
 		  }
 
-		  if (!is_writable(DIR_OPENCART . 'admin/config.php')) {
-		  $this->error['warning'] = $this->language->get('error_config') . DIR_OPENCART . 'admin/config.php!';
+		  if (!is_writable(DIR_COPONA . 'admin/config.php')) {
+		  $this->error['warning'] = $this->language->get('error_config') . DIR_COPONA . 'admin/config.php!';
 		  }
 		 */
 

@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('DIR_OPENCART')) {
+if (!defined('DIR_COPONA')) {
     require_once __DIR__ . "/config.php";
 }
 

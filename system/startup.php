@@ -5,8 +5,18 @@ error_reporting(E_ALL);
 require_once DIR_PUBLIC . '/system/constants.php';
 require_once DIR_PUBLIC . '/system/autoload.php';
 
+// Check if Installed
+if (
+  !file_exists(DIR_PUBLIC . '/.env') &&
+  is_dir(DIR_PUBLIC . '/install/') &&
+  !defined('DIR_COPONA')
+) {
+    header('Location: install/index.php');
+    exit;
+}
+
 //Init Config
-$config = new Config(DIR_PUBLIC . '/config');
+$config = new Config(DIR_CONFIG);
 
 //Dotenv
 $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
@@ -78,7 +88,7 @@ function modification($filename)
 {
     if (defined('DIR_CATALOG')) {
         $file = DIR_MODIFICATION . 'admin/' . substr($filename, strlen(DIR_APPLICATION));
-    } elseif (defined('DIR_OPENCART')) {
+    } elseif (defined('DIR_COPONA')) {
         $file = DIR_MODIFICATION . 'install/' . substr($filename, strlen(DIR_APPLICATION));
     } else {
         $file = DIR_MODIFICATION . 'catalog/' . substr($filename, strlen(DIR_APPLICATION));

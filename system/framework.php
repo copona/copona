@@ -42,12 +42,12 @@ if ($config->get($application_config . '.db_autostart')) {
     define('DB_PREFIX', $db_config['db_prefix']);
 
     $registry->set('db', new DB(
-            $db_config['db_type'],
-            $db_config['db_hostname'],
-            $db_config['db_username'],
-            $db_config['db_password'],
-            $db_config['db_database'],
-            $db_config['db_port'])
+        $db_config['db_type'],
+        $db_config['db_hostname'],
+        $db_config['db_username'],
+        $db_config['db_password'],
+        $db_config['db_database'],
+        $db_config['db_port'])
     );
 
     if (!$registry->get('db')->query('SHOW TABLES LIKE \'' . DB_PREFIX . 'setting\'')->rows) {
@@ -129,9 +129,11 @@ if ($config->has($application_config . '.action_pre_action')) {
         $controller->addPreAction(new Action($value));
     }
 }
-
 // Dispatch
-$controller->dispatch(new Action($config->get($application_config . '.action_router')), new Action($config->get($application_config . '.action_error')));
+$controller->dispatch(
+  new Action($config->get($application_config . '.action_router')),
+  new Action($config->get($application_config . '.action_error'))
+);
 
 // Output
 $response->setCompression($config->get('config_compression'));

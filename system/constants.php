@@ -37,7 +37,7 @@ if(APPLICATION != 'install') {
     define('DIR_IMAGE', DIR_PUBLIC . '/image/');
     define('DIR_LANGUAGE', DIR_PUBLIC . '/catalog/language/');
     define('DIR_TEMPLATE', DIR_PUBLIC . '/catalog/view/theme/');
-    define('DIR_CONFIG', DIR_PUBLIC . '/system/config/');
+    define('DIR_CONFIG', DIR_PUBLIC . '/config/');
     define('DIR_CACHE', DIR_PUBLIC . '/system/storage/cache/');
     define('DIR_DOWNLOAD', DIR_PUBLIC . '/system/storage/download/');
     define('DIR_LOGS', DIR_PUBLIC . '/system/storage/logs/');

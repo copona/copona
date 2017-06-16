@@ -12,8 +12,8 @@ class ModelUpgrade1006 extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `key` = 'config_theme', value = 'theme_default' WHERE `key` = 'config_template' AND `value` = 'default'");
 
 		// Update the config.php by adding a DB_PORT
-		if (is_file(DIR_OPENCART . 'config.php')) {
-			$files = glob(DIR_OPENCART . '{config.php,admin/config.php}', GLOB_BRACE);
+		if (is_file(DIR_COPONA . 'config.php')) {
+			$files = glob(DIR_COPONA . '{config.php,admin/config.php}', GLOB_BRACE);
 
 			foreach ($files as $file) {
 				$upgrade = true;
@@ -50,8 +50,8 @@ class ModelUpgrade1006 extends Model {
 		}
 
 		// Update the config.php to add /storage/ to paths
-		if (is_file(DIR_OPENCART . 'config.php')) {
-			$files = glob(DIR_OPENCART . '{config.php,admin/config.php}', GLOB_BRACE);
+		if (is_file(DIR_COPONA . 'config.php')) {
+			$files = glob(DIR_COPONA . '{config.php,admin/config.php}', GLOB_BRACE);
 
 			foreach ($files as $file) {
 				$upgrade = true;
@@ -150,8 +150,8 @@ class ModelUpgrade1006 extends Model {
 		}
 
 		// Merge download or system/download to system/storage/download
-		if (file_exists(DIR_OPENCART . 'download')) {
-			$this->recursive_move(DIR_OPENCART . 'download', DIR_SYSTEM . 'storage/download');
+		if (file_exists(DIR_COPONA . 'download')) {
+			$this->recursive_move(DIR_COPONA . 'download', DIR_SYSTEM . 'storage/download');
 		}
 
 		if (file_exists(DIR_SYSTEM . 'download')) {
