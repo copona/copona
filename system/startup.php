@@ -19,8 +19,10 @@ if (
 $config = new Config(DIR_CONFIG);
 
 //Dotenv
-$dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
-$dotenv->load();
+if(file_exists(DIR_PUBLIC . '/.env')) {
+    $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
+    $dotenv->load();
+}
 
 //Errors handler
 $whoops = new \Whoops\Run;

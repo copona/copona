@@ -52,8 +52,7 @@ class ControllerInstallStep2 extends Controller {
         $data['iconv'] = function_exists('iconv');
 		$data['mbstring'] = extension_loaded('mbstring');
 
-		$data['config_catalog'] = DIR_COPONA . 'config.php';
-		$data['config_admin'] = DIR_COPONA . 'admin/config.php';
+		$data['config_env'] = DIR_COPONA . '.env';
 
 		$data['image'] = DIR_COPONA . 'image';
 		$data['image_cache'] = DIR_COPONA . 'image/cache';
@@ -129,20 +128,10 @@ class ControllerInstallStep2 extends Controller {
 			$this->error['warning'] = $this->language->get('error_mbstring');
 		}
 
-		if (!file_exists(DIR_COPONA . 'config.php')) {
-			//$this->error['warning'] = $this->language->get('error_catalog_exist');
-		} elseif (!is_writable(DIR_COPONA . 'config.php')) {
-			$this->error['warning'] = $this->language->get('error_catalog_writable');
-		} elseif (filesize(DIR_COPONA . 'config.php') > 0) {
-			$this->error['warning'] = "Application 'config.php' file already exists.";
-		}
-
-		if (!file_exists(DIR_COPONA . 'admin/config.php')) {
-			//$this->error['warning'] = $this->language->get('error_admin_exist');
-		} elseif (!is_writable(DIR_COPONA . 'admin/config.php')) {
-			$this->error['warning'] = $this->language->get('error_admin_writable');
-		} elseif (filesize(DIR_COPONA . 'admin/config.php') > 0) {
-			$this->error['warning'] = "Application 'admin/config.php' file already exists.";
+		if (!is_writable(DIR_COPONA . '.env')) {
+			$this->error['warning'] = $this->language->get('error_env_writable');
+		} elseif (filesize(DIR_COPONA . '.env') > 0) {
+			$this->error['warning'] = "File '.env' already exists.";
 		}
 
 		if (!is_writable(DIR_COPONA . 'image')) {
