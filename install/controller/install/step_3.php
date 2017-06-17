@@ -10,7 +10,7 @@ class ControllerInstallStep3 extends Controller
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->load->model('install/install');
 
-            $output = "APP_ENV=production
+            $output = "APP_ENV=dev
 
 DB_DRIVER=" . addslashes($this->request->post['db_driver']) . "
 DB_HOSTNAME=" . addslashes($this->request->post['db_hostname']) . "
@@ -30,23 +30,6 @@ DB_PREFIX=" . addslashes($this->request->post['db_prefix']) . "
             fwrite($file, $output);
 
             fclose($file);
-
-//            $aux = '// DEBUGGING' . "\n";
-//            $aux .= '// Set to \'debug\' to enable query logging; use with extreme caution' . "\n";
-//            $aux .= '// This logs all queries to the directory specified in DIR_LOGS.' . "\n";
-//            $aux .= '// This directory should NOT be readable by the world!' . "\n";
-//            $aux .= 'define(\'MODE\', \'production\');' . "\n";
-
-
-            /* create .htaccess file */
-
-            /* check if mod_rewrite is enabled - checking phpinfo rather than apache_get_modules for greater compatibility */
-
-            ob_start();
-            phpinfo();
-            $phpinfo = ob_get_contents();
-            ob_end_clean();
-            $rewrite = strpos($phpinfo, "mod_rewrite");
 
             $this->model_install_install->database($this->request->post);
 
