@@ -16,7 +16,7 @@ if (
 }
 
 //Init Config
-$config = new Config(DIR_CONFIG);
+$config = new ConfigManager(DIR_CONFIG);
 
 //Dotenv
 if(file_exists(DIR_PUBLIC . '/.env')) {
