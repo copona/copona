@@ -17,11 +17,12 @@ RewriteEngine On
 ##
 ## Black list protected files
 ##
-RewriteRule ^config/.* index.php [L,NC]
-RewriteRule ^vendor/.* index.php [L,NC]
-RewriteRule ^migrations/.* index.php [L,NC]
-RewriteRule ^system/storage/modification/.* index.php [L,NC]
-RewriteRule ^system/storage/logs/.* index.php [L,NC]
+RewriteRule ^config/.* index.php?route=error/not_found [L]
+RewriteRule ^vendor/.* index.php?route=error/not_found [L]
+RewriteRule ^migrations/.* index.php?route=error/not_found [L]
+RewriteRule ^system/storage/modification/.* index.php?route=error/not_found [L]
+RewriteRule ^system/storage/logs/.* index.php?route=error/not_found [L]
+RewriteRule ^.env index.php?route=error/not_found [L]
 
 RewriteCond %{REQUEST_URI} !\.(css|png|jpg|jpeg|gif|bmp|tiff|svg)$
 RewriteRule ^storage/.* index.php [L,NC]
