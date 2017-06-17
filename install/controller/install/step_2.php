@@ -130,9 +130,9 @@ class ControllerInstallStep2 extends Controller
             $this->error['warning'] = $this->language->get('error_mbstring');
         }
 
-        if (!is_writable(DIR_COPONA . '.env')) {
+        if (is_file(DIR_COPONA . '.env') && !is_writable(DIR_COPONA . '.env')) {
             $this->error['warning'] = $this->language->get('error_env_writable');
-        } elseif (filesize(DIR_COPONA . '.env') > 0) {
+        } elseif (is_file(DIR_COPONA . '.env') && filesize(DIR_COPONA . '.env') > 0) {
             $this->error['warning'] = "File '.env' already exists.";
         }
 

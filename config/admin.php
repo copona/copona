@@ -3,7 +3,7 @@
 return [
     'admin' => [
 
-        'db_autostart' => true,
+        'db_autostart'      => true,
 
         /**
          * Pre actions

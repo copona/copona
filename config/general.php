@@ -1,6 +1,17 @@
 <?php
 
 return [
+
+    /**
+     * App Env
+     */
+    'app_env'               => env('APP_ENV', 'production'),
+
+    /**
+     * Debug mode
+     */
+    'debug'                 => true,
+
     /**
      * Site
      */
