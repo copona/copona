@@ -14,6 +14,5 @@ return [
         'mail_smtp_timeout'  => 5,
         'mail_verp'          => false,
         'mail_parameter'     => '',
-
     ]
 ];
