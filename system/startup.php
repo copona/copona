@@ -15,14 +15,14 @@ if (
     exit;
 }
 
-//Init Config
-$config = new ConfigManager(DIR_CONFIG);
-
 //Dotenv
 if(file_exists(DIR_PUBLIC . '/.env')) {
     $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
     $dotenv->load();
 }
+
+//Init Config
+$config = new ConfigManager(DIR_CONFIG);
 
 //Errors handler
 if($config->get('debug') == true) {
