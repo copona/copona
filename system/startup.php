@@ -25,15 +25,17 @@ if(file_exists(DIR_PUBLIC . '/.env')) {
 }
 
 //Errors handler
-$whoops = new \Whoops\Run;
-if (Whoops\Util\Misc::isAjaxRequest()) { //ajax
-    $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
-} else if (Whoops\Util\Misc::isCommandLine()) { //command line
-    $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler);
-} else { //html
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+if($config->get('debug') == true) {
+    $whoops = new \Whoops\Run;
+    if (Whoops\Util\Misc::isAjaxRequest()) { //ajax
+        $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
+    } else if (Whoops\Util\Misc::isCommandLine()) { //command line
+        $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler);
+    } else { //html
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    }
+    $whoops->register();
 }
-$whoops->register();
 
 // Check Version
 if (version_compare(phpversion(), '5.6.0', '<') == true) {

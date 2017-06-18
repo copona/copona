@@ -10,7 +10,7 @@ return [
     /**
      * Debug mode
      */
-    'debug'                 => true,
+    'debug'                 => env('APP_ENV') == 'production' ? false : true,
 
     /**
      * Site
@@ -37,7 +37,7 @@ return [
     /**
      * Error
      */
-    'config_error_display'  => true,
+    'config_error_display'  => env('APP_ENV') == 'production' ? false : true,
     'config_error_log'      => true,
     'config_error_filename' => 'error.log',
 
