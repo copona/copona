@@ -61,7 +61,7 @@ class ModelInstallInstall extends Model
             $db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_api_id', value = '" . (int)$api_id . "'");
 
             //Enable seo url if .htaccess exist
-            if (file_exists(DIR_OPENCART . '/.htaccess')) {
+            if (file_exists(DIR_COPONA . '/.htaccess')) {
                 $db->query("UPDATE `" . $data['db_prefix'] . "setting` SET value = '1' WHERE `key` = 'config_seo_url'");
             }
         }
@@ -82,7 +82,7 @@ class ModelInstallInstall extends Model
         define('DB_PREFIX', addslashes($this->request->post['db_prefix']));
 
         //migrations path inside extension
-        $_SERVER['PHINX_MIGRATION_PATH'] = realpath(DIR_OPENCART . 'migrations');
+        $_SERVER['PHINX_MIGRATION_PATH'] = realpath(DIR_COPONA . 'migrations');
 
         //init phinx
         $app = new \Phinx\Console\PhinxApplication();
@@ -92,7 +92,7 @@ class ModelInstallInstall extends Model
         $wrap->setOption('parser', 'php');
 
         //set config file
-        $wrap->setOption('configuration', DIR_OPENCART . 'phinx.php');
+        $wrap->setOption('configuration', DIR_COPONA . 'phinx.php');
 
         return $wrap->getMigrate('default');
     }

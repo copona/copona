@@ -1,18 +1,22 @@
 <?php
-final class Front {
+final class Front
+{
     private $registry;
     private $pre_action = array();
     private $error;
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         $this->registry = $registry;
     }
 
-    public function addPreAction(Action $pre_action) {
+    public function addPreAction(Action $pre_action)
+    {
         $this->pre_action[] = $pre_action;
     }
 
-    public function dispatch(Action $action, Action $error) {
+    public function dispatch(Action $action, Action $error)
+    {
         $this->error = $error;
 
         foreach ($this->pre_action as $pre_action) {
@@ -30,7 +34,8 @@ final class Front {
         }
     }
 
-    private function execute(Action $action) {
+    private function execute(Action $action)
+    {
         $result = $action->execute($this->registry);
 
         if ($result instanceof Action) {
@@ -38,6 +43,7 @@ final class Front {
         }
 
         if ($result instanceof Exception) {
+            throw $result;
             $action = $this->error;
 
             $this->error = null;

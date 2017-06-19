@@ -2,26 +2,40 @@
 // Error Reporting
 error_reporting(E_ALL);
 
-// Debug helper
-require_once(DIR_SYSTEM . 'helper/debug.php');
+require_once DIR_PUBLIC . '/system/constants.php';
+require_once DIR_PUBLIC . '/system/autoload.php';
 
-// Composer Autoloader
-if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
-    require_once(DIR_SYSTEM . '../vendor/autoload.php');
-} else {
-    die('Please, execute composer install');
+// Check if Installed
+if (
+  !file_exists(DIR_PUBLIC . '/.env') &&
+  is_dir(DIR_PUBLIC . '/install/') &&
+  !defined('DIR_COPONA')
+) {
+    header('Location: install/index.php');
+    exit;
 }
+
+//Dotenv
+if(file_exists(DIR_PUBLIC . '/.env')) {
+    $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
+    $dotenv->load();
+}
+
+//Init Config
+$config = new ConfigManager(DIR_CONFIG);
 
 //Errors handler
-$whoops = new \Whoops\Run;
-if(Whoops\Util\Misc::isAjaxRequest()) { //ajax
-    $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
-} else if(Whoops\Util\Misc::isCommandLine()) { //command line
-    $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler);
-} else { //html
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+if($config->get('debug') == true) {
+    $whoops = new \Whoops\Run;
+    if (Whoops\Util\Misc::isAjaxRequest()) { //ajax
+        $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
+    } else if (Whoops\Util\Misc::isCommandLine()) { //command line
+        $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler);
+    } else { //html
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    }
+    $whoops->register();
 }
-$whoops->register();
 
 // Check Version
 if (version_compare(phpversion(), '5.6.0', '<') == true) {
@@ -74,10 +88,11 @@ if (defined('HTTP_HOST') && defined('HTTPS_HOST') && $_SERVER['HTTP_HOST'] != pa
 }
 
 // Modification Override
-function modification($filename) {
+function modification($filename)
+{
     if (defined('DIR_CATALOG')) {
         $file = DIR_MODIFICATION . 'admin/' . substr($filename, strlen(DIR_APPLICATION));
-    } elseif (defined('DIR_OPENCART')) {
+    } elseif (defined('DIR_COPONA')) {
         $file = DIR_MODIFICATION . 'install/' . substr($filename, strlen(DIR_APPLICATION));
     } else {
         $file = DIR_MODIFICATION . 'catalog/' . substr($filename, strlen(DIR_APPLICATION));
@@ -94,21 +109,6 @@ function modification($filename) {
     return $filename;
 }
 
-function library($class) {
-    $file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
-
-    if (is_file($file)) {
-        include_once(modification($file));
-
-        return true;
-    } else {
-        return false;
-    }
-}
-
-spl_autoload_register('library');
-spl_autoload_extensions('.php');
-
 // Engine
 require_once(modification(DIR_SYSTEM . 'engine/action.php'));
 require_once(modification(DIR_SYSTEM . 'engine/controller.php'));
@@ -120,12 +120,7 @@ require_once(modification(DIR_SYSTEM . 'engine/model.php'));
 require_once(modification(DIR_SYSTEM . 'engine/registry.php'));
 require_once(modification(DIR_SYSTEM . 'engine/proxy.php'));
 
-// Helper
-require_once(DIR_SYSTEM . 'helper/general.php');
-require_once(DIR_SYSTEM . 'helper/text.php');
-require_once(DIR_SYSTEM . 'helper/utf8.php');
-require_once(DIR_SYSTEM . 'helper/json.php');
-
-function start($application_config) {
+function start($application_config)
+{
     require_once(DIR_SYSTEM . 'framework.php');
 }

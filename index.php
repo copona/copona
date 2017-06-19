@@ -1,19 +1,11 @@
 <?php
-// Version
-define('VERSION', '2.3.0.3_rc');
+//Public dir
+define('DIR_PUBLIC', __DIR__);
 
-// Configuration
-if (is_file('config.php')) {
-	require_once('config.php');
-}
-
-// Install
-if (!defined('DIR_APPLICATION')) {
-	header('Location: install/index.php');
-	exit;
-}
+//Set application
+define('APPLICATION', 'catalog');
 
 // Startup
-require_once(DIR_SYSTEM . 'startup.php');
+require_once(DIR_PUBLIC . '/system/startup.php');
 
-start('catalog');
+start(APPLICATION);
