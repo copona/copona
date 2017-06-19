@@ -7,17 +7,30 @@ if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
     die('Please, execute composer install');
 }
 
-//Libraries Autoload
+/**
+ * Libraries Autoload
+ * @TODO change this to PSR-4
+ *
+ * @param $class
+ * @return bool
+ */
 function library($class)
 {
-    $file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
+    $file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', $class) . '.php';
 
     if (is_file($file)) {
         include_once(modification($file));
-
         return true;
     } else {
-        return false;
+
+        $file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
+
+        if (is_file($file)) {
+            include_once(modification($file));
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
