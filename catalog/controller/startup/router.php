@@ -6,7 +6,7 @@ class ControllerStartupRouter extends Controller {
         if (isset($this->request->get['route']) && $this->request->get['route'] != 'startup/router') {
             $route = $this->request->get['route'];
         } else {
-            $route = $this->config->get('action_default');
+            $route = $this->config->get('catalog.action_default');
         }
 
         // Sanitize the call

@@ -33,7 +33,7 @@ $options = get_options($argv);
 // DIR
 define('DIR_APPLICATION', str_replace('\\', '/', realpath(dirname(__FILE__))) . '/');
 define('DIR_SYSTEM', str_replace('\\', '/', realpath(dirname(__FILE__) . '/../')) . '/system/');
-define('DIR_OPENCART', str_replace('\\', '/', realpath(DIR_APPLICATION . '../')) . '/');
+define('DIR_COPONA', str_replace('\\', '/', realpath(DIR_APPLICATION . '../')) . '/');
 define('DIR_DATABASE', DIR_SYSTEM . 'database/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/template/');
@@ -256,18 +256,18 @@ function write_config_files($options) {
 	$output .= 'define(\'HTTPS_SERVER\', \'' . $https_server . '\');' . "\n";
 
 	$output .= '// DIR' . "\n";
-	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'catalog/\');' . "\n";
-	$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_OPENCART . 'system/\');' . "\n";
-	$output .= 'define(\'DIR_DATABASE\', \'' . DIR_OPENCART . 'system/database/\');' . "\n";
-	$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_OPENCART . 'catalog/language/\');' . "\n";
-	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_OPENCART . 'catalog/view/theme/\');' . "\n";
-	$output .= 'define(\'DIR_CONFIG\', \'' . DIR_OPENCART . 'system/config/\');' . "\n";
-	$output .= 'define(\'DIR_IMAGE\', \'' . DIR_OPENCART . 'image/\');' . "\n";
-	$output .= 'define(\'DIR_CACHE\', \'' . DIR_OPENCART . 'system/storage/cache/\');' . "\n";
-	$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_OPENCART . 'system/storage/download/\');' . "\n";
-	$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_OPENCART . 'system/storage/upload/\');' . "\n";
-	$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_OPENCART . 'system/storage/modification/\');' . "\n";
-	$output .= 'define(\'DIR_LOGS\', \'' . DIR_OPENCART . 'system/storage/logs/\');' . "\n\n";
+	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_COPONA . 'catalog/\');' . "\n";
+	$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_COPONA . 'system/\');' . "\n";
+	$output .= 'define(\'DIR_DATABASE\', \'' . DIR_COPONA . 'system/database/\');' . "\n";
+	$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_COPONA . 'catalog/language/\');' . "\n";
+	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_COPONA . 'catalog/view/theme/\');' . "\n";
+	$output .= 'define(\'DIR_CONFIG\', \'' . DIR_COPONA . 'system/config/\');' . "\n";
+	$output .= 'define(\'DIR_IMAGE\', \'' . DIR_COPONA . 'image/\');' . "\n";
+	$output .= 'define(\'DIR_CACHE\', \'' . DIR_COPONA . 'system/storage/cache/\');' . "\n";
+	$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_COPONA . 'system/storage/download/\');' . "\n";
+	$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_COPONA . 'system/storage/upload/\');' . "\n";
+	$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_COPONA . 'system/storage/modification/\');' . "\n";
+	$output .= 'define(\'DIR_LOGS\', \'' . DIR_COPONA . 'system/storage/logs/\');' . "\n\n";
 
 	$output .= '// DB' . "\n";
 	$output .= 'define(\'DB_DRIVER\', \'' . addslashes($options['db_driver']) . '\');' . "\n";
@@ -284,7 +284,7 @@ function write_config_files($options) {
     $output .= '// This directory should NOT be readable by the world!' . "\n";
     $output .= 'define(\'MODE\', \'production\');' . "\n";
 
-	$file = fopen(DIR_OPENCART . 'config.php', 'w');
+	$file = fopen(DIR_COPONA . 'config.php', 'w');
 
 	fwrite($file, $output);
 
@@ -300,19 +300,19 @@ function write_config_files($options) {
 	$output .= 'define(\'HTTPS_CATALOG\', \'' . $https_server . '\');' . "\n";
 
 	$output .= '// DIR' . "\n";
-	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_OPENCART . 'admin/\');' . "\n";
-	$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_OPENCART . 'system/\');' . "\n";
-	$output .= 'define(\'DIR_DATABASE\', \'' . DIR_OPENCART . 'system/database/\');' . "\n";
-	$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_OPENCART . 'admin/language/\');' . "\n";
-	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_OPENCART . 'admin/view/template/\');' . "\n";
-	$output .= 'define(\'DIR_CONFIG\', \'' . DIR_OPENCART . 'system/config/\');' . "\n";
-	$output .= 'define(\'DIR_IMAGE\', \'' . DIR_OPENCART . 'image/\');' . "\n";
-	$output .= 'define(\'DIR_CACHE\', \'' . DIR_OPENCART . 'system/storage/cache/\');' . "\n";
-	$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_OPENCART . 'system/storage/download/\');' . "\n";
-	$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_OPENCART . 'system/storage/upload/\');' . "\n";
-	$output .= 'define(\'DIR_LOGS\', \'' . DIR_OPENCART . 'system/storage/logs/\');' . "\n";
-	$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_OPENCART . 'system/storage/modification/\');' . "\n";
-	$output .= 'define(\'DIR_CATALOG\', \'' . DIR_OPENCART . 'catalog/\');' . "\n\n";
+	$output .= 'define(\'DIR_APPLICATION\', \'' . DIR_COPONA . 'admin/\');' . "\n";
+	$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_COPONA . 'system/\');' . "\n";
+	$output .= 'define(\'DIR_DATABASE\', \'' . DIR_COPONA . 'system/database/\');' . "\n";
+	$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_COPONA . 'admin/language/\');' . "\n";
+	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_COPONA . 'admin/view/template/\');' . "\n";
+	$output .= 'define(\'DIR_CONFIG\', \'' . DIR_COPONA . 'system/config/\');' . "\n";
+	$output .= 'define(\'DIR_IMAGE\', \'' . DIR_COPONA . 'image/\');' . "\n";
+	$output .= 'define(\'DIR_CACHE\', \'' . DIR_COPONA . 'system/storage/cache/\');' . "\n";
+	$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_COPONA . 'system/storage/download/\');' . "\n";
+	$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_COPONA . 'system/storage/upload/\');' . "\n";
+	$output .= 'define(\'DIR_LOGS\', \'' . DIR_COPONA . 'system/storage/logs/\');' . "\n";
+	$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_COPONA . 'system/storage/modification/\');' . "\n";
+	$output .= 'define(\'DIR_CATALOG\', \'' . DIR_COPONA . 'catalog/\');' . "\n\n";
 
 	$output .= '// DB' . "\n";
 	$output .= 'define(\'DB_DRIVER\', \'' . addslashes($options['db_driver']) . '\');' . "\n";
@@ -329,7 +329,7 @@ function write_config_files($options) {
     $output .= '// This directory should NOT be readable by the world!' . "\n";
     $output .= 'define(\'MODE\', \'production\');' . "\n";
 
-	$file = fopen(DIR_OPENCART . 'admin/config.php', 'w');
+	$file = fopen(DIR_COPONA . 'admin/config.php', 'w');
 
 	fwrite($file, $output);
 
@@ -339,12 +339,12 @@ function write_config_files($options) {
 
 function dir_permissions() {
 	$dirs = array(
-		DIR_OPENCART . 'image/',
-		DIR_OPENCART . 'system/storage/download/',
-		DIR_OPENCART . 'system/storage/upload/',
-		DIR_OPENCART . 'system/storage/cache/',
-		DIR_OPENCART . 'system/storage/logs/',
-		DIR_OPENCART . 'system/storage/modification/',
+		DIR_COPONA . 'image/',
+		DIR_COPONA . 'system/storage/download/',
+		DIR_COPONA . 'system/storage/upload/',
+		DIR_COPONA . 'system/storage/cache/',
+		DIR_COPONA . 'system/storage/logs/',
+		DIR_COPONA . 'system/storage/modification/',
 	);
 	exec('chmod o+w -R ' . implode(' ', $dirs));
 }
@@ -360,7 +360,7 @@ switch ($subcommand) {
 case "install":
 	try {
 		$options = get_options($argv);
-		define('HTTP_OPENCART', $options['http_server']);
+		define('HTTP_COPONA', $options['http_server']);
 		$valid = valid($options);
 		if (!$valid[0]) {
 			echo "FAILED! Following inputs were missing or invalid: ";
