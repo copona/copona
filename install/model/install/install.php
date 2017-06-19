@@ -71,16 +71,8 @@ class ModelInstallInstall extends Model
      * Execute phinx migration
      * @return string
      */
-    public function migration($data)
+    public function migration()
     {
-        define('DB_DRIVER', $data['db_driver']);
-        define('DB_HOSTNAME', htmlspecialchars_decode($data['db_hostname']));
-        define('DB_USERNAME', htmlspecialchars_decode($data['db_username']));
-        define('DB_PASSWORD', htmlspecialchars_decode($data['db_password']));
-        define('DB_DATABASE', htmlspecialchars_decode($data['db_database']));
-        define('DB_PORT', $data['db_port']);
-        define('DB_PREFIX', addslashes($this->request->post['db_prefix']));
-
         //migrations path inside extension
         $_SERVER['PHINX_MIGRATION_PATH'] = realpath(DIR_COPONA . 'migrations');
 
