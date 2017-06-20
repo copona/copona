@@ -6,9 +6,7 @@ $template_config_settings = array(
     // 'theme_default_image_category_width'       => 80,
     // 'theme_default_image_category_height'      => 80,
 );
-
-
-if(!defined('HTTP_CATALOG')) {
+if(APPLICATION == 'catalog') {
     // we are in catalog.
 //
     $this->document->addStyleVersioned('catalog/view/javascript/bootstrap/css/bootstrap.min.css');

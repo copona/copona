@@ -33,7 +33,7 @@ DB_PREFIX=" . addslashes($this->request->post['db_prefix']) . "
 
             $this->model_install_install->database($this->request->post);
 
-            $this->model_install_install->migration($this->request->post);
+            $this->model_install_install->migration();
 
             $this->response->redirect($this->url->link('install/step_4'));
         }
