@@ -110,7 +110,7 @@
             </div>
           </div>
           <div class="row">
-              <?php foreach ($products as $product) { ?>
+              <?php foreach ($products as $product) { if($product['product_id']!=''){ ?>
                 <div class="product-layout product-list col-xs-12">
                   <div class="product-thumb">
                     <div class="image"><a data-toggle="tooltip" href="<?php echo $product['href']; ?>" title="<?php echo $product['name']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a>
@@ -151,7 +151,7 @@
                     </div>
                   </div>
                 </div>
-            <?php } ?>
+            <?php }} ?>
           </div>
           <div class="row">
             <div class="col-sm-7 text-left"><?php echo $pagination; ?></div>
