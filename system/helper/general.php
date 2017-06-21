@@ -42,15 +42,3 @@ if (!function_exists('hash_equals')) {
     }
 
 }
-
-/**
- * Get Env
- *
- * @param $key
- * @param null $default
- * @return array|false|null|string
- */
-function env($key, $default = null)
-{
-    return getenv($key) ? getenv($key) : $default;
-}
