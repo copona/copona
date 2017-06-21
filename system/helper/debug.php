@@ -1,5 +1,29 @@
 <?php
-!defined('DEBUG') ? define('DEBUG', true) : '';
+
+// Credits: https://stackoverflow.com/a/9220624
+function strposa($haystack, $needle) {
+    if(!is_array($haystack)) $haystack = array($haystack);
+    foreach($haystack as $val) {
+        //echo strpos($val, $needle);
+        if(strpos($val, $needle) !== false) return true;
+    }
+    return false;
+}
+
+$ips = explode(",", DEBUG_IP);
+
+if(!defined('DEBUG')) {
+    if(defined('DEBUG_IP') && strposa( $ips , $_SERVER['REMOTE_ADDR'])){
+        define('DEBUG', true);
+    } else {
+        define('DEBUG', false);
+    }
+} else{
+    define('DEBUG', false);
+}
+
+
+
 
 if (!function_exists('pr')) {
 
