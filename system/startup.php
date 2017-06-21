@@ -5,6 +5,48 @@ error_reporting(E_ALL);
 require_once DIR_PUBLIC . '/system/constants.php';
 require_once DIR_PUBLIC . '/system/autoload.php';
 
+if(!function_exists('env')) {
+    /**
+     * Get Env
+     *
+     * @param      $key
+     * @param null $default
+     * @return array|false|null|string
+     */
+    function env($key, $default = null)
+    {
+        $value = getenv($key);
+        if ($value === false) {
+            return value($default);
+        }
+        switch (strtolower($value)) {
+            case 'true':
+            case '(true)':
+                return true;
+            case 'false':
+            case '(false)':
+                return false;
+            case 'empty':
+            case '(empty)':
+                return '';
+            case 'null':
+            case '(null)':
+                return;
+        }
+
+        if (strlen($value) > 1 && $value[0] == '"' && $value[strlen($value) - 1] == '"') {
+            return substr($value, 1, -1);
+        }
+
+        //check is array
+        if (strlen($value) > 1 && $value[0] == '[' && $value[strlen($value) - 1] == ']') {
+            $value = explode(',', substr($value, 1, -1));
+        }
+
+        return $value;
+    }
+}
+
 // Check if Installed
 if (
   !file_exists(DIR_PUBLIC . '/.env') &&
@@ -19,48 +61,6 @@ if (
 if(file_exists(DIR_PUBLIC . '/.env')) {
     $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
     $dotenv->load();
-
-    if(!function_exists('env')) {
-        /**
-         * Get Env
-         *
-         * @param      $key
-         * @param null $default
-         * @return array|false|null|string
-         */
-        function env($key, $default = null)
-        {
-            $value = getenv($key);
-            if ($value === false) {
-                return value($default);
-            }
-            switch (strtolower($value)) {
-                case 'true':
-                case '(true)':
-                    return true;
-                case 'false':
-                case '(false)':
-                    return false;
-                case 'empty':
-                case '(empty)':
-                    return '';
-                case 'null':
-                case '(null)':
-                    return;
-            }
-
-            if (strlen($value) > 1 && $value[0] == '"' && $value[strlen($value) - 1] == '"') {
-                return substr($value, 1, -1);
-            }
-
-            //check is array
-            if (strlen($value) > 1 && $value[0] == '[' && $value[strlen($value) - 1] == ']') {
-                $value = explode(',', substr($value, 1, -1));
-            }
-
-            return $value;
-        }
-    }
 }
 
 //Init Config
