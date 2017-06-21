@@ -41,6 +41,7 @@ if (!function_exists('env')) {
         //check is array
         if (strlen($value) > 1 && $value[0] == '[' && $value[strlen($value) - 1] == ']') {
             $value = explode(',', substr($value, 1, -1));
+            return array_filter($value);
         }
 
         return $value;
