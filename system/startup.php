@@ -24,8 +24,15 @@ if(file_exists(DIR_PUBLIC . '/.env')) {
 //Init Config
 $config = new ConfigManager(DIR_CONFIG);
 
+// Helper
+require_once(DIR_SYSTEM . 'helper/debug.php');
+require_once(DIR_SYSTEM . 'helper/general.php');
+require_once(DIR_SYSTEM . 'helper/text.php');
+require_once(DIR_SYSTEM . 'helper/utf8.php');
+require_once(DIR_SYSTEM . 'helper/json.php');
+
 //Errors handler
-if($config->get('debug') == true) {
+if($config->get('debug.mode') == true) {
     $whoops = new \Whoops\Run;
     if (Whoops\Util\Misc::isAjaxRequest()) { //ajax
         $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
