@@ -8,11 +8,6 @@ return [
     'app_env'               => env('APP_ENV', 'production'),
 
     /**
-     * Debug mode
-     */
-    'debug'                 => env('APP_ENV') == 'production' ? false : true,
-
-    /**
      * Site
      */
     'site_base'             => HTTP_SERVER,

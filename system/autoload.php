@@ -36,10 +36,3 @@ function library($class)
 
 spl_autoload_register('library');
 spl_autoload_extensions('.php');
-
-// Helper
-require_once(DIR_SYSTEM . 'helper/debug.php');
-require_once(DIR_SYSTEM . 'helper/general.php');
-require_once(DIR_SYSTEM . 'helper/text.php');
-require_once(DIR_SYSTEM . 'helper/utf8.php');
-require_once(DIR_SYSTEM . 'helper/json.php');
