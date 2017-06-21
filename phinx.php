@@ -4,7 +4,10 @@ if (!defined('DIR_COPONA')) {
     define('DIR_PUBLIC', __DIR__);
     require_once DIR_PUBLIC . "/system/startup.php";
 }
-
+if (file_exists(DIR_PUBLIC . '/.env')) {
+    $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
+    $dotenv->load();
+}
 $migration_path = DIR_PUBLIC . "/migrations";
 
 $config = new ConfigManager(DIR_CONFIG);
