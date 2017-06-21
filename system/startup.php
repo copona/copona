@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require_once DIR_PUBLIC . '/system/constants.php';
 require_once DIR_PUBLIC . '/system/autoload.php';
 
-if(!function_exists('env')) {
+if (!function_exists('env')) {
     /**
      * Get Env
      *
@@ -17,7 +17,7 @@ if(!function_exists('env')) {
     {
         $value = getenv($key);
         if ($value === false) {
-            return value($default);
+            return $default;
         }
         switch (strtolower($value)) {
             case 'true':
@@ -49,16 +49,16 @@ if(!function_exists('env')) {
 
 // Check if Installed
 if (
-  !file_exists(DIR_PUBLIC . '/.env') &&
-  is_dir(DIR_PUBLIC . '/install/') &&
-  !defined('DIR_COPONA')
+    !file_exists(DIR_PUBLIC . '/.env') &&
+    is_dir(DIR_PUBLIC . '/install/') &&
+    !defined('DIR_COPONA')
 ) {
     header('Location: install/index.php');
     exit;
 }
 
 //Dotenv
-if(file_exists(DIR_PUBLIC . '/.env')) {
+if (file_exists(DIR_PUBLIC . '/.env')) {
     $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
     $dotenv->load();
 }
@@ -74,7 +74,7 @@ require_once(DIR_SYSTEM . 'helper/utf8.php');
 require_once(DIR_SYSTEM . 'helper/json.php');
 
 //Errors handler
-if($config->get('debug.mode') == true) {
+if ($config->get('debug.mode') == true) {
     $whoops = new \Whoops\Run;
     if (Whoops\Util\Misc::isAjaxRequest()) { //ajax
         $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
