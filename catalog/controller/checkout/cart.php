@@ -59,7 +59,7 @@ class ControllerCheckoutCart extends Controller {
             $data['products'] = array();
 
             $products = $this->cart->cartProducts;
- 
+
             foreach ($products as $product) {
                 $product_total = 0;
 
@@ -254,6 +254,7 @@ class ControllerCheckoutCart extends Controller {
                 $this->response->setOutput($this->load->view('checkout/cart', $data));
             }
         } else {
+
             $data['heading_title'] = $this->language->get('heading_title');
 
             $data['text_error'] = $this->language->get('text_empty');
@@ -270,6 +271,9 @@ class ControllerCheckoutCart extends Controller {
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
             $data['footer'] = $this->load->controller('common/footer');
             $data['header'] = $this->load->controller('common/header');
+
+            // Not found for checkout template
+            $this->hook->getHook('checkout/cart/index/afterProducts', $data['products']);
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
