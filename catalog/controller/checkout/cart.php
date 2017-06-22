@@ -59,7 +59,7 @@ class ControllerCheckoutCart extends Controller {
             $data['products'] = array();
 
             $products = $this->cart->cartProducts;
-
+ 
             foreach ($products as $product) {
                 $product_total = 0;
 
@@ -135,6 +135,7 @@ class ControllerCheckoutCart extends Controller {
 
                 $data['products'][] = array(
                     'cart_id'   => $product['cart_id'],
+                    'product_id'   => $product['product_id'],
                     'thumb'     => $image,
                     'name'      => $product['name'],
                     'model'     => $product['model'],
