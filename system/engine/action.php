@@ -1,4 +1,5 @@
 <?php
+
 class Action
 {
     private $id;
@@ -19,10 +20,10 @@ class Action
 
             // TODO: optimize this! Probably - with a new variable. Also needed in Extension controller in admin.
             APPLICATION == 'admin'
-              ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/controller/" . implode('/',
-                $parts) . ".php")
-              : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/controller/" . implode('/',
-                $parts) . ".php");
+                ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/controller/" . implode('/',
+                    $parts) . ".php")
+                : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/controller/" . implode('/',
+                    $parts) . ".php");
 
             $file = DIR_APPLICATION . 'controller/' . implode('/', $parts) . '.php';
 
