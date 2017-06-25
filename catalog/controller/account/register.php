@@ -11,9 +11,9 @@ class ControllerAccountRegister extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
-        $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/jquery/datetimepicker/moment.js');
+        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
+        $this->document->addStyle('themes/' . $this->config->get('theme_name') . '/assets/vendor/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
         $this->load->model('account/customer');
 

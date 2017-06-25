@@ -976,8 +976,8 @@ class ControllerSettingSetting extends Controller {
             $theme = basename($this->request->get['theme']);
         }
 
-        if (is_file(DIR_CATALOG . 'view/theme/' . $theme . '/image/' . $theme . '.png')) {
-            $this->response->setOutput($server . 'catalog/view/theme/' . $theme . '/image/' . $theme . '.png');
+        if (is_file(DIR_PUBLIC . '/themes/' . $theme . '/assets/img/' . $theme . '.png')) {
+            $this->response->setOutput($server . 'themes/' . $theme . '/assets/img/' . $theme . '.png');
         } else {
             $this->response->setOutput($server . 'image/no_image.png');
         }
