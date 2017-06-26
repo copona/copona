@@ -8,20 +8,20 @@ if (!defined('APPLICATION')) {
     define('APPLICATION', basename(realpath('')) ? basename(realpath('')) : 'catalog');
 }
 
+//Get port
+$server_port = '';
+if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] != 80) && $_SERVER['SERVER_PORT'] != 443) {
+    $server_port = ':' . $_SERVER['SERVER_PORT'];
+}
+
+//define domain url constant
+define('DOMAIN_NAME', isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] . $server_port : null);
+$parse_url = parse_url($_SERVER['SCRIPT_NAME']);
+define('BASE_URI', str_replace(['index.php', '//'], '', $parse_url['path']));
+define('BASE_URL', DOMAIN_NAME . BASE_URI);
+define('BASE_URL_CATALOG', (str_replace(['index.php', 'admin', '//'], '', BASE_URL)));
+
 if (APPLICATION != 'install') {
-
-    //Get port
-    $server_port = '';
-    if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] != 80) && $_SERVER['SERVER_PORT'] != 443) {
-        $server_port = ':' . $_SERVER['SERVER_PORT'];
-    }
-
-    //define domain url constant
-    define('DOMAIN_NAME', isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] . $server_port : null);
-    $parse_url = parse_url($_SERVER['SCRIPT_NAME']);
-    define('BASE_URI', str_replace(['index.php', '//'], '', $parse_url['path']));
-    define('BASE_URL', DOMAIN_NAME . BASE_URI);
-    define('BASE_URL_CATALOG', (str_replace(['index.php', 'admin', '//'], '', BASE_URL)));
 
     // HTTP
     define('HTTP_SERVER', 'http://' . rtrim(BASE_URL, '/') . '/');
