@@ -44,10 +44,14 @@ if (APPLICATION != 'install') {
         define('DIR_TEMPLATE', DIR_PUBLIC . '/admin/view/template/');
     }
 
+    define('PATH_STORAGE', 'storage/');
+    define('PATH_CACHE', PATH_STORAGE . 'cache/');
+
     define('DIR_CONFIG', DIR_PUBLIC . '/config/');
-    define('DIR_CACHE', DIR_PUBLIC . '/system/storage/cache/');
-    define('DIR_DOWNLOAD', DIR_PUBLIC . '/system/storage/download/');
-    define('DIR_LOGS', DIR_PUBLIC . '/system/storage/logs/');
-    define('DIR_MODIFICATION', DIR_PUBLIC . '/system/storage/modification/');
-    define('DIR_UPLOAD', DIR_PUBLIC . '/system/storage/upload/');
+    define('DIR_STORAGE', DIR_PUBLIC . '/' . PATH_STORAGE);
+    define('DIR_CACHE', DIR_STORAGE . 'cache/');
+    define('DIR_DOWNLOAD', DIR_STORAGE . 'download/');
+    define('DIR_LOGS', DIR_STORAGE . 'logs/');
+    define('DIR_MODIFICATION', DIR_STORAGE . 'modification/');
+    define('DIR_UPLOAD', DIR_STORAGE . 'upload/');
 }

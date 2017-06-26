@@ -1,22 +1,23 @@
 <?php
-class ModelToolImage extends Model {
 
-    public function resize($filename, $width, $height) {
+class ModelToolImage extends Model
+{
 
-
-        if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/',realpath(DIR_IMAGE) . DIRECTORY_SEPARATOR . $filename), 0, strlen(DIR_IMAGE . $filename)) != str_replace('\\', '/', DIR_IMAGE . $filename)) {
+    public function resize($filename, $width, $height)
+    {
+        if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE) . DIRECTORY_SEPARATOR . $filename), 0, strlen(DIR_IMAGE . $filename)) != str_replace('\\', '/', DIR_IMAGE . $filename)) {
             return;
         }
 
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
         $image_old = $filename;
-        $image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
+        $image_new = 'image/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
 
-        if (!is_file(DIR_IMAGE . $image_new) || (filectime(DIR_IMAGE . $image_old) > filectime(DIR_IMAGE . $image_new))) {
+        if (!is_file(DIR_CACHE . $image_new) || (filectime(DIR_IMAGE . $image_old) > filectime(DIR_CACHE . $image_new))) {
             list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
 
-            if (!in_array($image_type, array( IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF ))) {
+            if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {
                 return DIR_IMAGE . $image_old;
             }
 
@@ -27,31 +28,32 @@ class ModelToolImage extends Model {
             foreach ($directories as $directory) {
                 $path = $path . '/' . $directory;
 
-                if (!is_dir(DIR_IMAGE . $path)) {
-                    @mkdir(DIR_IMAGE . $path, 0777);
+                if (!is_dir(DIR_CACHE . $path)) {
+                    @mkdir(DIR_CACHE . $path, $this->config->get('directory_permission', '0777'));
                 }
             }
 
             if ($width_orig != $width || $height_orig != $height) {
                 $image = new Image(DIR_IMAGE . $image_old);
                 $image->resize($width, $height);
-                $image->save(DIR_IMAGE . $image_new);
+                $image->save(DIR_CACHE . $image_new);
             } else {
-                copy(DIR_IMAGE . $image_old, DIR_IMAGE . $image_new);
+                copy(DIR_IMAGE . $image_old, DIR_CACHE . $image_new);
             }
         }
 
         $image_new = str_replace(' ', '%20', $image_new); // fix bug when attach image on email (gmail.com). it is automatic changing space " " to +
 
         if ($this->request->server['HTTPS']) {
-            return $this->config->get('config_ssl') . 'image/' . $image_new;
+            return $this->config->get('config_ssl') . PATH_CACHE . $image_new;
         } else {
-            return $this->config->get('config_url') . 'image/' . $image_new;
+            return $this->config->get('config_url') . PATH_CACHE . $image_new;
         }
     }
 
     // Function to resize image with one given max size.
-    public function onesize($filename, $maxsize) {
+    public function onesize($filename, $maxsize)
+    {
 
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
@@ -61,9 +63,9 @@ class ModelToolImage extends Model {
         $extension = $info['extension'];
 
         $old_image = $filename;
-        $new_image = 'cache/' . substr($filename, 0, strrpos($filename, '.')) . '-max-' . $maxsize . '.' . $extension;
+        $new_image = 'image/' . substr($filename, 0, strrpos($filename, '.')) . '-max-' . $maxsize . '.' . $extension;
 
-        if (!file_exists(DIR_IMAGE . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_IMAGE . $new_image)) || filesize(DIR_IMAGE . $new_image) < 1) {
+        if (!file_exists(DIR_CACHE . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_CACHE . $new_image)) || filesize(DIR_CACHE . $new_image) < 1) {
             $path = '';
 
             $directories = explode('/', dirname(str_replace('../', '', $new_image)));
@@ -71,14 +73,14 @@ class ModelToolImage extends Model {
             foreach ($directories as $directory) {
                 $path = $path . '/' . $directory;
 
-                if (!file_exists(DIR_IMAGE . $path)) {
-                    @mkdir(DIR_IMAGE . $path, 0777);
+                if (!file_exists(DIR_CACHE . $path)) {
+                    @mkdir(DIR_CACHE . $path, $this->config->get('directory_permission', '0777'));
                 }
             }
 
             $image = new Image(DIR_IMAGE . $old_image);
             $image->onesize($maxsize);
-            $image->save(DIR_IMAGE . $new_image);
+            $image->save(DIR_CACHE . $new_image);
         }
 
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
@@ -86,21 +88,20 @@ class ModelToolImage extends Model {
             if (defined('HTTPS_IMAGE')) {
                 return HTTPS_IMAGE . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
             } else {
-                return $this->config->get('config_ssl') . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
-                ;
+                return $this->config->get('config_ssl') . PATH_CACHE . implode('/', array_map('rawurlencode', explode('/', $new_image)));;
             }
         } else {
             if (defined('HTTP_IMAGE')) {
                 return HTTP_IMAGE . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
             } else {
-                return $this->config->get('config_url') . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
-                ;
+                return $this->config->get('config_url') . PATH_CACHE . implode('/', array_map('rawurlencode', explode('/', $new_image)));;
             }
         }
     }
 
     // Function to crop an image with given dimensions. What doesn/t fit will be cut off.
-    public function cropsize($filename, $width, $height, $watermark = false, $position = 'middle') {
+    public function cropsize($filename, $width, $height, $watermark = false, $position = 'middle')
+    {
 
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
@@ -110,9 +111,9 @@ class ModelToolImage extends Model {
         $extension = $info['extension'];
 
         $old_image = $filename;
-        $new_image = 'cache/' . substr($filename, 0, strrpos($filename, '.')) . '-cr-' . $width . 'x' . $height . '.' . $extension;
+        $new_image = 'image/' . substr($filename, 0, strrpos($filename, '.')) . '-cr-' . $width . 'x' . $height . '.' . $extension;
 
-        if (!file_exists(DIR_IMAGE . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_IMAGE . $new_image)) || filesize(DIR_IMAGE . $new_image) < 1) {
+        if (!file_exists(DIR_CACHE . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_CACHE . $new_image)) || filesize(DIR_CACHE . $new_image) < 1) {
             $path = '';
 
             $directories = explode('/', dirname(str_replace('../', '', $new_image)));
@@ -120,8 +121,8 @@ class ModelToolImage extends Model {
             foreach ($directories as $directory) {
                 $path = $path . '/' . $directory;
 
-                if (!file_exists(DIR_IMAGE . $path)) {
-                    @mkdir(DIR_IMAGE . $path, 0777);
+                if (!file_exists(DIR_CACHE . $path)) {
+                    @mkdir(DIR_CACHE . $path, $this->config->get('directory_permission', '0777'));
                 }
             }
 
@@ -131,7 +132,7 @@ class ModelToolImage extends Model {
                 $image->addwatermark($position);
             }
 
-            $image->save(DIR_IMAGE . $new_image);
+            $image->save(DIR_CACHE . $new_image);
         }
 
 
@@ -140,20 +141,19 @@ class ModelToolImage extends Model {
             if (defined('HTTPS_IMAGE')) {
                 return HTTPS_IMAGE . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
             } else {
-                return $this->config->get('config_ssl') . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
-                ;
+                return $this->config->get('config_ssl') . PATH_CACHE . implode('/', array_map('rawurlencode', explode('/', $new_image)));;
             }
         } else {
             if (defined('HTTP_IMAGE')) {
                 return HTTP_IMAGE . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
             } else {
-                return $this->config->get('config_url') . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
-                ;
+                return $this->config->get('config_url') . PATH_CACHE . implode('/', array_map('rawurlencode', explode('/', $new_image)));;
             }
         }
     }
 
-    public function propsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle') {
+    public function propsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
+    {
 
 
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
@@ -165,9 +165,9 @@ class ModelToolImage extends Model {
         $extension = $info['extension'];
 
         $old_image = $filename;
-        $new_image = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
+        $new_image = 'image/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
 
-        if (!file_exists(DIR_IMAGE . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_IMAGE . $new_image)) || filesize(DIR_IMAGE . $new_image) < 1) {
+        if (!file_exists(DIR_CACHE . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_CACHE . $new_image)) || filesize(DIR_CACHE . $new_image) < 1) {
             $path = '';
 
             $directories = explode('/', dirname(str_replace('../', '', $new_image)));
@@ -175,8 +175,8 @@ class ModelToolImage extends Model {
             foreach ($directories as $directory) {
                 $path = $path . '/' . $directory;
 
-                if (!file_exists(DIR_IMAGE . $path)) {
-                    @mkdir(DIR_IMAGE . $path, 0777);
+                if (!file_exists(DIR_CACHE . $path)) {
+                    @mkdir(DIR_CACHE . $path, $this->config->get('directory_permission', '0777'));
                 }
             }
 
@@ -189,13 +189,11 @@ class ModelToolImage extends Model {
                     $image->addwatermark($position);
                 }
 
-
-                $image->save(DIR_IMAGE . $new_image);
+                $image->save(DIR_CACHE . $new_image);
             } else {
-                copy(DIR_IMAGE . $old_image, DIR_IMAGE . $new_image);
+                copy(DIR_IMAGE . $old_image, DIR_CACHE . $new_image);
             }
         }
-
 
 
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
@@ -203,20 +201,19 @@ class ModelToolImage extends Model {
             if (defined('HTTPS_IMAGE')) {
                 return HTTPS_IMAGE . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
             } else {
-                return $this->config->get('config_ssl') . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
-                ;
+                return $this->config->get('config_ssl') . PATH_CACHE . implode('/', array_map('rawurlencode', explode('/', $new_image)));;
             }
         } else {
             if (defined('HTTP_IMAGE')) {
                 return HTTP_IMAGE . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
             } else {
-                return $this->config->get('config_url') . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
-                ;
+                return $this->config->get('config_url') . PATH_CACHE . implode('/', array_map('rawurlencode', explode('/', $new_image)));;
             }
         }
     }
 
-    public function downsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle') {
+    public function downsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
+    {
 
 
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
@@ -228,9 +225,9 @@ class ModelToolImage extends Model {
         $extension = $info['extension'];
 
         $old_image = $filename;
-        $new_image = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
+        $new_image = 'image/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
 
-        if (!file_exists(DIR_IMAGE . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_IMAGE . $new_image)) || filesize(DIR_IMAGE . $new_image) < 1) {
+        if (!file_exists(DIR_CACHE . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_CACHE . $new_image)) || filesize(DIR_CACHE . $new_image) < 1) {
             $path = '';
 
             $directories = explode('/', dirname(str_replace('../', '', $new_image)));
@@ -238,8 +235,8 @@ class ModelToolImage extends Model {
             foreach ($directories as $directory) {
                 $path = $path . '/' . $directory;
 
-                if (!file_exists(DIR_IMAGE . $path)) {
-                    @mkdir(DIR_IMAGE . $path, 0777);
+                if (!file_exists(DIR_CACHE . $path)) {
+                    @mkdir(DIR_CACHE . $path, $this->config->get('directory_permission', 0777));
                 }
             }
 
@@ -253,12 +250,11 @@ class ModelToolImage extends Model {
                 }
 
 
-                $image->save(DIR_IMAGE . $new_image);
+                $image->save(DIR_CACHE . $new_image);
             } else {
-                copy(DIR_IMAGE . $old_image, DIR_IMAGE . $new_image);
+                copy(DIR_IMAGE . $old_image, DIR_CACHE . $new_image);
             }
         }
-
 
 
         $new_image = implode('/', array_map('rawurlencode', explode('/', $new_image)));
@@ -273,8 +269,7 @@ class ModelToolImage extends Model {
                 if (defined('HTTPS_IMAGE')) {
                     return HTTPS_IMAGE . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
                 } else {
-                    return $this->config->get('config_ssl') . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
-                    ;
+                    return $this->config->get('config_ssl') . PATH_CACHE . implode('/', array_map('rawurlencode', explode('/', $new_image)));;
                 }
             }
         } else {
@@ -284,8 +279,7 @@ class ModelToolImage extends Model {
                 if (defined('HTTP_IMAGE')) {
                     return HTTP_IMAGE . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
                 } else {
-                    return $this->config->get('config_url') . 'image/' . implode('/', array_map('rawurlencode', explode('/', $new_image)));
-                    ;
+                    return $this->config->get('config_url') . PATH_CACHE . implode('/', array_map('rawurlencode', explode('/', $new_image)));;
                 }
             }
         }

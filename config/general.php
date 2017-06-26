@@ -14,6 +14,11 @@ return [
     'site_ssl'              => HTTPS_SERVER,
 
     /**
+     * Permission Dir
+     */
+    'directory_permission'        => 0755,
+
+    /**
      * Url
      */
     'url_autostart'         => true,

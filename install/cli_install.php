@@ -263,11 +263,11 @@ function write_config_files($options) {
 	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_COPONA . 'catalog/view/theme/\');' . "\n";
 	$output .= 'define(\'DIR_CONFIG\', \'' . DIR_COPONA . 'system/config/\');' . "\n";
 	$output .= 'define(\'DIR_IMAGE\', \'' . DIR_COPONA . 'image/\');' . "\n";
-	$output .= 'define(\'DIR_CACHE\', \'' . DIR_COPONA . 'system/storage/cache/\');' . "\n";
-	$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_COPONA . 'system/storage/download/\');' . "\n";
-	$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_COPONA . 'system/storage/upload/\');' . "\n";
-	$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_COPONA . 'system/storage/modification/\');' . "\n";
-	$output .= 'define(\'DIR_LOGS\', \'' . DIR_COPONA . 'system/storage/logs/\');' . "\n\n";
+	$output .= 'define(\'DIR_CACHE\', \'' . DIR_COPONA . 'storage/cache/\');' . "\n";
+	$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_COPONA . 'storage/download/\');' . "\n";
+	$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_COPONA . 'storage/upload/\');' . "\n";
+	$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_COPONA . 'storage/modification/\');' . "\n";
+	$output .= 'define(\'DIR_LOGS\', \'' . DIR_COPONA . 'storage/logs/\');' . "\n\n";
 
 	$output .= '// DB' . "\n";
 	$output .= 'define(\'DB_DRIVER\', \'' . addslashes($options['db_driver']) . '\');' . "\n";
@@ -307,11 +307,11 @@ function write_config_files($options) {
 	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_COPONA . 'admin/view/template/\');' . "\n";
 	$output .= 'define(\'DIR_CONFIG\', \'' . DIR_COPONA . 'system/config/\');' . "\n";
 	$output .= 'define(\'DIR_IMAGE\', \'' . DIR_COPONA . 'image/\');' . "\n";
-	$output .= 'define(\'DIR_CACHE\', \'' . DIR_COPONA . 'system/storage/cache/\');' . "\n";
-	$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_COPONA . 'system/storage/download/\');' . "\n";
-	$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_COPONA . 'system/storage/upload/\');' . "\n";
-	$output .= 'define(\'DIR_LOGS\', \'' . DIR_COPONA . 'system/storage/logs/\');' . "\n";
-	$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_COPONA . 'system/storage/modification/\');' . "\n";
+	$output .= 'define(\'DIR_CACHE\', \'' . DIR_COPONA . 'storage/cache/\');' . "\n";
+	$output .= 'define(\'DIR_DOWNLOAD\', \'' . DIR_COPONA . 'storage/download/\');' . "\n";
+	$output .= 'define(\'DIR_UPLOAD\', \'' . DIR_COPONA . 'storage/upload/\');' . "\n";
+	$output .= 'define(\'DIR_LOGS\', \'' . DIR_COPONA . 'storage/logs/\');' . "\n";
+	$output .= 'define(\'DIR_MODIFICATION\', \'' . DIR_COPONA . 'storage/modification/\');' . "\n";
 	$output .= 'define(\'DIR_CATALOG\', \'' . DIR_COPONA . 'catalog/\');' . "\n\n";
 
 	$output .= '// DB' . "\n";
@@ -340,11 +340,11 @@ function write_config_files($options) {
 function dir_permissions() {
 	$dirs = array(
 		DIR_COPONA . 'image/',
-		DIR_COPONA . 'system/storage/download/',
-		DIR_COPONA . 'system/storage/upload/',
-		DIR_COPONA . 'system/storage/cache/',
-		DIR_COPONA . 'system/storage/logs/',
-		DIR_COPONA . 'system/storage/modification/',
+		DIR_COPONA . 'storage/download/',
+		DIR_COPONA . 'storage/upload/',
+		DIR_COPONA . 'storage/cache/',
+		DIR_COPONA . 'storage/logs/',
+		DIR_COPONA . 'storage/modification/',
 	);
 	exec('chmod o+w -R ' . implode(' ', $dirs));
 }
