@@ -11,40 +11,28 @@ class ModelToolImage extends Model
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
         $image_old = $filename;
-        $image_new = 'image/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . $width . 'x' . $height . '.' . $extension;
+        $image_new = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . $width . 'x' . $height . '.' . $extension;
 
-        if (!is_file(DIR_CACHE . $image_new) || (filectime(DIR_IMAGE . $image_old) > filectime(DIR_CACHE . $image_new))) {
+        if (!is_file(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $image_new) || (filectime(DIR_IMAGE . $image_old) > filectime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $image_new))) {
             list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
 
             if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {
                 return DIR_IMAGE . $image_old;
             }
 
-            $path = '';
-
-            $directories = explode('/', dirname($image_new));
-
-            foreach ($directories as $directory) {
-                $path = $path . '/' . $directory;
-
-                if (!is_dir(DIR_CACHE . $path)) {
-                    @mkdir(DIR_CACHE . $path, $this->config->get('directory_permission', '0777'));
-                }
+            if (!is_dir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($image_new))) {
+                @mkdir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($image_new), $this->config->get('directory_permission', 0777), true);
             }
 
             if ($width_orig != $width || $height_orig != $height) {
                 $image = new Image(DIR_IMAGE . $image_old);
                 $image->resize($width, $height);
-                $image->save(DIR_CACHE . $image_new);
+                $image->save(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $image_new);
             } else {
-                copy(DIR_IMAGE . $image_old, DIR_CACHE . $image_new);
+                copy(DIR_IMAGE . $image_old, DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $image_new);
             }
         }
 
-        if ($this->request->server['HTTPS']) {
-            return HTTPS_CATALOG . PATH_CACHE . $image_new;
-        } else {
-            return HTTP_CATALOG . PATH_CACHE . $image_new;
-        }
+        return $this->url->getImageUrl($image_new);
     }
 }

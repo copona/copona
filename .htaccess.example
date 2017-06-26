@@ -20,8 +20,7 @@ RewriteEngine On
 RewriteRule ^config/.* index.php?route=error/not_found [L]
 RewriteRule ^vendor/.* index.php?route=error/not_found [L]
 RewriteRule ^migrations/.* index.php?route=error/not_found [L]
-RewriteRule ^storage/modification/.* index.php?route=error/not_found [L]
-RewriteRule ^storage/logs/.* index.php?route=error/not_found [L]
+RewriteRule ^storage/private/.* index.php?route=error/not_found [L]
 RewriteRule ^.env index.php?route=error/not_found [L]
 
 RewriteCond %{REQUEST_URI} !\.(css|png|jpg|jpeg|gif|bmp|tiff|svg)$

@@ -16,7 +16,22 @@ return [
     /**
      * Permission Dir
      */
-    'directory_permission'        => 0755,
+    'directory_permission'  => 0755,
+
+    /**
+     * Image cache path
+     *
+     * The public path where the thumbs will be generated
+     */
+    'image_cache_path'      => PATH_CACHE_PUBLIC . 'image/',
+
+    /**
+     * Image base URL
+     *
+     * You can modify the base url of the images
+     * Do not add protocol https or http
+     */
+    'image_base_url'     => DOMAIN_NAME . '/' . PATH_CACHE_PUBLIC . 'image/',
 
     /**
      * Url

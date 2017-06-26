@@ -20,7 +20,6 @@ catalog/controller/xml/*.xml
 
 # Image Cache Files
 /image/data/
-/image/cache/*
 /image/catalog/*
 !/image/catalog/cart.copona.png
 !/image/catalog/cart.png

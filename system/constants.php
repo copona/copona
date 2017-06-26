@@ -45,13 +45,21 @@ if (APPLICATION != 'install') {
     }
 
     define('PATH_STORAGE', 'storage/');
-    define('PATH_CACHE', PATH_STORAGE . 'cache/');
+    define('PATH_STORAGE_PUBLIC', PATH_STORAGE . 'public/');
+    define('PATH_STORAGE_PRIVATE', PATH_STORAGE . 'private/');
+    define('PATH_CACHE_PUBLIC', PATH_STORAGE_PUBLIC . 'cache/');
+    define('PATH_CACHE_PRIVATE', PATH_STORAGE_PRIVATE . 'cache/');
 
     define('DIR_CONFIG', DIR_PUBLIC . '/config/');
-    define('DIR_STORAGE', DIR_PUBLIC . '/' . PATH_STORAGE);
-    define('DIR_CACHE', DIR_STORAGE . 'cache/');
-    define('DIR_DOWNLOAD', DIR_STORAGE . 'download/');
-    define('DIR_LOGS', DIR_STORAGE . 'logs/');
-    define('DIR_MODIFICATION', DIR_STORAGE . 'modification/');
-    define('DIR_UPLOAD', DIR_STORAGE . 'upload/');
+
+    define('DIR_STORAGE_PUBLIC', DIR_PUBLIC . '/' . PATH_STORAGE_PUBLIC);
+    define('DIR_STORAGE_PRIVATE', DIR_PUBLIC . '/' . PATH_STORAGE_PRIVATE);
+
+    define('DIR_CACHE_PUBLIC', DIR_PUBLIC . '/' . PATH_CACHE_PUBLIC);
+    define('DIR_CACHE_PRIVATE', DIR_PUBLIC . '/' . PATH_CACHE_PRIVATE);
+
+    define('DIR_DOWNLOAD', DIR_STORAGE_PRIVATE . 'download/');
+    define('DIR_LOGS', DIR_STORAGE_PRIVATE . 'logs/');
+    define('DIR_MODIFICATION', DIR_STORAGE_PRIVATE . 'modification/');
+    define('DIR_UPLOAD', DIR_STORAGE_PRIVATE . 'upload/');
 }
