@@ -294,7 +294,7 @@ function html_to_plaintext($string = '', $newlines = false)
     $string = strip_tags($string);
 
     // if we want to LEAVE newlines, to be outputted then as eg <br />
-    $pattern = $newlines ? '/\h+/' : '/\s\s+/';
+    $pattern = $newlines ? '/[[:blank:]]+/' : '/\s\s+/';
 
     $string = trim(preg_replace($pattern, ' ', $string));
     return $string;
@@ -309,8 +309,6 @@ function html_to_plaintext($string = '', $newlines = false)
 
 function strip2words($short_description = '', $string_length = 200, $newlines = false)
 {
-    $d = $short_description;
-
     $short_description = html_to_plaintext($short_description, $newlines);
     $str_prefix = '';
     $short_description = $str_prefix . (mb_strlen($short_description) > $string_length ?
