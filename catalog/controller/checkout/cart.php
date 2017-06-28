@@ -273,7 +273,7 @@ class ControllerCheckoutCart extends Controller {
             $data['header'] = $this->load->controller('common/header');
 
             // Not found for checkout template
-            $this->hook->getHook('checkout/cart/index/afterProducts', $data['products']);
+            $this->hook->getHook('checkout/cart/index/notFound', $data['products']);
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
