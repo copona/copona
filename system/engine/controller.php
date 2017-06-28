@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @property string $id
  * @property string $template
@@ -111,18 +112,22 @@
  * @property ModelUserUserGroup $model_user_user_group
  * @property ModelUserUser $model_user_user
  * */
-abstract class Controller {
+abstract class Controller
+{
     protected $registry;
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         $this->registry = $registry;
     }
 
-    public function __get($key) {
+    public function __get($key)
+    {
         return $this->registry->get($key);
     }
 
-    public function __set($key, $value) {
+    public function __set($key, $value)
+    {
         $this->registry->set($key, $value);
     }
 

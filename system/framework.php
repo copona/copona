@@ -18,15 +18,16 @@ if ($config->has($application_config . '.action_event')) {
 }
 
 // Hook
-$hook = new Hook($registry);
-$registry->set('hook', $hook);
+$registry->singleton('hook', function ($registry) {
+    return new Hook($registry);
+});
 
 // Loader
 $loader = new Loader($registry);
 $registry->set('load', $loader);
 
 // Request
-$registry->set('request', new Request());
+$registry->singleton('request', Request::class);
 
 // Response
 $response = new Response();
@@ -41,51 +42,54 @@ if ($config->get($application_config . '.db_autostart')) {
     $db_config = $config->get('database.' . $default_connection);
     define('DB_PREFIX', $db_config['db_prefix']);
 
-    $registry->set('db', new DB(
-        $db_config['db_type'],
-        $db_config['db_hostname'],
-        $db_config['db_username'],
-        $db_config['db_password'],
-        $db_config['db_database'],
-        $db_config['db_port'])
-    );
+    $registry->singleton('db', function ($registry) use ($db_config) {
+        return new DB(
+            $db_config['db_type'],
+            $db_config['db_hostname'],
+            $db_config['db_username'],
+            $db_config['db_password'],
+            $db_config['db_database'],
+            $db_config['db_port']
+        );
+    });
 }
 
 // Session
-$session = new Session();
-
-if ($config->get('session.session_autostart')) {
+$registry->singleton('session', function ($registry) {
+    $session = new Session();
     $session->start();
-}
-
-$registry->set('session', $session);
+    return $session;
+});
 
 // Cache
-$registry->set('cache', new Cache($config->get('cache.cache_type'), $config->get('cache.cache_expire')));
+$registry->singleton('cache', function ($registry) use ($config) {
+    return new Cache($config->get('cache.cache_type'), $config->get('cache.cache_expire'));
+});
 
 // Url
-if ($config->get('url_autostart')) {
-    $url = new Url($config->get('site_base'), $config->get('site_ssl'), $registry);
-    $registry->set('url', $url);
-}
+$registry->singleton('url', function ($registry) use ($config) {
+    return new Url($config->get('site_base'), $config->get('site_ssl'), $registry);
+});
 
 // Copona seo urls
-if ($config->get('url_autostart')) {
-    $registry->set('seourl', new seoUrl($registry));
-}
+$registry->singleton('seourl', function ($registry) {
+    return new seoUrl($registry);
+});
 
 // Language
-$language = new Language($config->get('language_default'), $registry);
-$language->load($config->get('language_default'));
-$registry->set('language', $language);
+$registry->singleton('language', function ($registry) use ($config) {
+    $language = new Language($config->get('language_default'), $registry);
+    $language->load($config->get('language_default'));
+    return $language;
+});
 
 // Breadcrumbs
-if ($config->get('url_autostart')) {
-    $breadcrumbs = new Breadcrumbs($registry);
-    $registry->set('breadcrumbs', $breadcrumbs);
-}
+$registry->bind('breadcrumbs', function ($registry) {
+    return new Breadcrumbs($registry);
+});
+
 // Document
-$registry->set('document', new Document());
+$registry->singleton('document', Document::class);
 
 // Config Autoload
 if ($config->has('config_autoload')) {
@@ -126,8 +130,8 @@ if ($config->has($application_config . '.action_pre_action')) {
 }
 // Dispatch
 $controller->dispatch(
-  new Action($config->get($application_config . '.action_router')),
-  new Action($config->get($application_config . '.action_error'))
+    new Action($config->get($application_config . '.action_router')),
+    new Action($config->get($application_config . '.action_error'))
 );
 
 // Output
