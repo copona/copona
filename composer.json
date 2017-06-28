@@ -24,7 +24,8 @@
     "vlucas/phpdotenv": "^2.4",
     "illuminate/container": "^5.4",
     "twig/twig": "~1.0",
-    "symfony/finder": "^3.3"
+    "symfony/finder": "^3.3",
+    "illuminate/support": "^5.4"
   },
   "autoload": {
     "psr-4": {
