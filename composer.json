@@ -22,7 +22,8 @@
     "filp/whoops": "^2.1",
     "hassankhan/config": "^0.10.0",
     "vlucas/phpdotenv": "^2.4",
-    "illuminate/container": "^5.4"
+    "illuminate/container": "^5.4",
+    "twig/twig": "~1.0"
   },
   "autoload": {
     "psr-4": {
