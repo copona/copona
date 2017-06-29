@@ -479,18 +479,14 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 
                 if (json['success']) {
                     $('.breadcrumb')
-                            .after($('<div class="alert alert-success">' + json['success'] +
-                                    '<button type="button" class="close" data-dismiss="alert">&times;</button></div>')
-                                    .hide()
-                                    .fadeIn(1000));
-
+                        .after($('<div class="alert alert-success">' + json['success'] +
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button></div>')
+                            .hide()
+                            .fadeIn(200));
                     delay(function () {
                         $('.alert-success').fadeOut(500);
                     }, 3000);
-
-                    $('#cart > button').html('<i class="fa fa-shopping-cart"></i> ' + json['total']);
-
-                    $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                    $('#cart').load('index.php?route=common/cart/info');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {

@@ -25,7 +25,7 @@ final class PHP
         // pr($template);
         // TODO: optimize this!
         if(APPLICATION == 'catalog') {
-            $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/catalog/view/theme/" . $template . ".php");
+            $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/catalog/view/theme/" . $template);
         } else {
             $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/admin/view/template/" . $template);
         }

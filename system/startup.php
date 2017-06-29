@@ -5,18 +5,61 @@ error_reporting(E_ALL);
 require_once DIR_PUBLIC . '/system/constants.php';
 require_once DIR_PUBLIC . '/system/autoload.php';
 
+if (!function_exists('env')) {
+    /**
+     * Get Env
+     *
+     * @param      $key
+     * @param null $default
+     * @return array|false|null|string
+     */
+    function env($key, $default = null)
+    {
+        $value = getenv($key);
+        if ($value === false) {
+            return $default;
+        }
+        switch (strtolower($value)) {
+            case 'true':
+            case '(true)':
+                return true;
+            case 'false':
+            case '(false)':
+                return false;
+            case 'empty':
+            case '(empty)':
+                return '';
+            case 'null':
+            case '(null)':
+                return;
+        }
+
+        if (strlen($value) > 1 && $value[0] == '"' && $value[strlen($value) - 1] == '"') {
+            return substr($value, 1, -1);
+        }
+
+        //check is array
+        if (strlen($value) > 1 && $value[0] == '[' && $value[strlen($value) - 1] == ']') {
+            $value = explode(',', substr($value, 1, -1));
+            return array_filter($value);
+        }
+
+        return $value;
+    }
+}
+
 // Check if Installed
 if (
-  !file_exists(DIR_PUBLIC . '/.env') &&
-  is_dir(DIR_PUBLIC . '/install/') &&
-  !defined('DIR_COPONA')
+    !file_exists(DIR_PUBLIC . '/.env') &&
+    is_dir(DIR_PUBLIC . '/install/') &&
+    !defined('DIR_COPONA')
 ) {
     header('Location: install/index.php');
     exit;
 }
 
 //Dotenv
-if(file_exists(DIR_PUBLIC . '/.env')) {
+if (file_exists(DIR_PUBLIC . '/.env')) {
     $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
     $dotenv->load();
 }
@@ -24,8 +67,15 @@ if(file_exists(DIR_PUBLIC . '/.env')) {
 //Init Config
 $config = new ConfigManager(DIR_CONFIG);
 
+// Helper
+require_once(DIR_SYSTEM . 'helper/debug.php');
+require_once(DIR_SYSTEM . 'helper/general.php');
+require_once(DIR_SYSTEM . 'helper/text.php');
+require_once(DIR_SYSTEM . 'helper/utf8.php');
+require_once(DIR_SYSTEM . 'helper/json.php');
+
 //Errors handler
-if($config->get('debug') == true) {
+if ($config->get('debug.mode') == true) {
     $whoops = new \Whoops\Run;
     if (Whoops\Util\Misc::isAjaxRequest()) { //ajax
         $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);

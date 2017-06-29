@@ -1,4 +1,5 @@
 <?php
+
 final class Front
 {
     private $registry;

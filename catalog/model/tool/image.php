@@ -2,7 +2,9 @@
 class ModelToolImage extends Model {
 
     public function resize($filename, $width, $height) {
-        if (!is_file(DIR_IMAGE . $filename) || realpath(DIR_IMAGE) . DIRECTORY_SEPARATOR . $filename != realpath(DIR_IMAGE . $filename)) {
+
+
+        if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/',realpath(DIR_IMAGE) . DIRECTORY_SEPARATOR . $filename), 0, strlen(DIR_IMAGE . $filename)) != str_replace('\\', '/', DIR_IMAGE . $filename)) {
             return;
         }
 

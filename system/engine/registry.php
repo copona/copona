@@ -1,9 +1,7 @@
 <?php
 
-final class Registry
+class Registry extends \Illuminate\Container\Container
 {
-    private $data = array();
-
     public static function getInstance()
     {
         static $instance = null;
@@ -28,16 +26,16 @@ final class Registry
 
     public function get($key)
     {
-        return (isset($this->data[$key]) ? $this->data[$key] : null);
+        return $this->make($key);
     }
 
     public function set($key, $value)
     {
-        $this->data[$key] = $value;
+        $this->instance($key, $value);
     }
 
     public function has($key)
     {
-        return isset($this->data[$key]);
+        return isset($this->instances[$key]) ? true : false;
     }
 }
