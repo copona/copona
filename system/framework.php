@@ -18,7 +18,7 @@ if ($config->has($application_config . '.action_event')) {
 }
 
 // Hook
-$registry->bind('hook', function ($registry) {
+$registry->singleton('hook', function ($registry) {
     return new Hook($registry);
 });
 
@@ -27,7 +27,7 @@ $loader = new Loader($registry);
 $registry->set('load', $loader);
 
 // Request
-$registry->bind('request', Request::class);
+$registry->singleton('request', Request::class);
 
 // Response
 $response = new Response();
