@@ -1,4 +1,5 @@
 <?php
+
 class ControllerInstallStep2 extends Controller
 {
     private $error = array();
@@ -30,9 +31,9 @@ class ControllerInstallStep2 extends Controller
         $data['session_auto_start'] = ini_get('session_auto_start');
 
         $db = array(
-          'mysqli',
-          'pgsql',
-          'pdo'
+            'mysqli',
+            'pgsql',
+            'pdo'
         );
 
         if (!array_filter($db, 'extension_loaded')) {
@@ -56,14 +57,25 @@ class ControllerInstallStep2 extends Controller
         $data['config_env'] = DIR_COPONA . '.env';
 
         $data['image'] = DIR_COPONA . 'image';
-        $data['image_cache'] = DIR_COPONA . 'image/cache';
         $data['image_catalog'] = DIR_COPONA . 'image/catalog';
+        $data['image_cache'] = DIR_CACHE_PUBLIC . 'image';
+        $data['cache_public'] = DIR_CACHE_PUBLIC;
+        $data['cache_private'] = DIR_CACHE_PRIVATE;
+        $data['logs'] = DIR_LOGS;
+        $data['download'] = DIR_DOWNLOAD;
+        $data['upload'] = DIR_UPLOAD;
+        $data['modification'] = DIR_MODIFICATION;
 
-        $data['cache'] = DIR_SYSTEM . 'storage/cache';
-        $data['logs'] = DIR_SYSTEM . 'storage/logs';
-        $data['download'] = DIR_SYSTEM . 'storage/download';
-        $data['upload'] = DIR_SYSTEM . 'storage/upload';
-        $data['modification'] = DIR_SYSTEM . 'storage/modification';
+        //create folder if not exist
+        @mkdir($data['image'], $this->config->get('directory_permission', 0777), true);
+        @mkdir($data['image_catalog'], $this->config->get('directory_permission', 0777), true);
+        @mkdir($data['image_cache'], $this->config->get('directory_permission', 0777), true);
+        @mkdir($data['cache_public'], $this->config->get('directory_permission', 0777), true);
+        @mkdir($data['cache_public'], $this->config->get('directory_permission', 0777), true);
+        @mkdir($data['logs'], $this->config->get('directory_permission', 0777), true);
+        @mkdir($data['download'], $this->config->get('directory_permission', 0777), true);
+        @mkdir($data['upload'], $this->config->get('directory_permission', 0777), true);
+        @mkdir($data['modification'], $this->config->get('directory_permission', 0777), true);
 
         $data['back'] = $this->url->link('install/step_1');
 
@@ -89,9 +101,9 @@ class ControllerInstallStep2 extends Controller
         }
 
         $db = array(
-          'mysqli',
-          'pdo',
-          'pgsql'
+            'mysqli',
+            'pdo',
+            'pgsql'
         );
 
         if (!array_filter($db, 'extension_loaded')) {
@@ -140,7 +152,7 @@ class ControllerInstallStep2 extends Controller
             $this->error['warning'] = $this->language->get('error_image');
         }
 
-        if (!is_writable(DIR_COPONA . 'image/cache')) {
+        if (!is_writable(DIR_CACHE_PUBLIC . 'image')) {
             $this->error['warning'] = $this->language->get('error_image_cache');
         }
 
@@ -148,23 +160,27 @@ class ControllerInstallStep2 extends Controller
             $this->error['warning'] = $this->language->get('error_image_catalog');
         }
 
-        if (!is_writable(DIR_SYSTEM . 'storage/cache')) {
-            $this->error['warning'] = $this->language->get('error_cache');
+        if (!is_writable(DIR_CACHE_PRIVATE)) {
+            $this->error['warning'] = $this->language->get('error_cache_private');
         }
 
-        if (!is_writable(DIR_SYSTEM . 'storage/logs')) {
+        if (!is_writable(DIR_CACHE_PUBLIC)) {
+            $this->error['warning'] = $this->language->get('error_cache_public');
+        }
+
+        if (!is_writable(DIR_LOGS)) {
             $this->error['warning'] = $this->language->get('error_log');
         }
 
-        if (!is_writable(DIR_SYSTEM . 'storage/download')) {
+        if (!is_writable(DIR_DOWNLOAD)) {
             $this->error['warning'] = $this->language->get('error_download');
         }
 
-        if (!is_writable(DIR_SYSTEM . 'storage/upload')) {
+        if (!is_writable(DIR_UPLOAD)) {
             $this->error['warning'] = $this->language->get('error_upload');
         }
 
-        if (!is_writable(DIR_SYSTEM . 'storage/modification')) {
+        if (!is_writable(DIR_MODIFICATION)) {
             $this->error['warning'] = $this->language->get('error_modification');
         }
 
