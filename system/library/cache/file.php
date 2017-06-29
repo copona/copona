@@ -10,6 +10,10 @@ class File
     {
         $this->expire = $expire;
 
+        if (!is_dir(DIR_CACHE_PRIVATE)) {
+            mkdir(DIR_CACHE_PRIVATE, \Config::get('directory_permission', 0777), true);
+        }
+
         $files = glob(DIR_CACHE_PRIVATE . 'cache.*');
 
         if ($files) {
@@ -50,7 +54,8 @@ class File
     {
         $this->delete($key);
 
-        $file = DIR_CACHE_PRIVATE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.' . (time() + $this->expire);
+        $file = DIR_CACHE_PRIVATE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '',
+            $key) . '.' . (time() + $this->expire);
 
         $handle = fopen($file, 'w');
 
