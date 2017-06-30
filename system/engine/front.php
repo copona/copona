@@ -1,5 +1,7 @@
 <?php
 
+use \Copona\System\Engine\Action;
+
 final class Front
 {
     private $registry;

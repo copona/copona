@@ -33,7 +33,7 @@ class Loader
         }
 
         if (!$output) {
-            $action = new Action($route);
+            $action = new \Action($route);
             $output = $action->execute($this->registry, array(&$data));
         }
 
@@ -44,7 +44,7 @@ class Loader
           &$output
         ));
 
-        if ($output instanceof \Exception) {
+        if ($output instanceof Exception) {
             return false;
         }
 
@@ -106,13 +106,6 @@ class Loader
         ));
     }
 
-    /**
-     * Load views
-     *
-     * @param $route
-     * @param array $data
-     * @return string
-     */
     public function view($route, $data = [])
     {
         // Sanitize the call
@@ -136,9 +129,8 @@ class Loader
             if (APPLICATION == 'admin') {
 
                 foreach ($extensions_support as $ext) {
-                    if (file_exists(DIR_TEMPLATE . $route . '.' . $ext)) {
+                    if(file_exists(DIR_TEMPLATE . $route . '.' . $ext)) {
                         $file = DIR_TEMPLATE . $route . '.' . $ext;
-                        break;
                     }
                 }
 
@@ -157,10 +149,8 @@ class Loader
                 foreach ($extensions_support as $ext) {
                     if (is_file(DIR_TEMPLATE . $theme . '/template/' . $route . '.' . $ext)) {
                         $file = DIR_TEMPLATE . $theme . '/template/' . $route . '.' . $ext;
-                        break;
                     } else {
                         $file = DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext;
-                        break;
                     }
                 }
             }

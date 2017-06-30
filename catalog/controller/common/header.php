@@ -56,8 +56,6 @@ class ControllerCommonHeader extends Controller {
             $data['logo'] = '';
         }
 
-
-
         $data['text_home'] = $this->language->get('text_home');
 
         // Wishlist
@@ -161,8 +159,6 @@ class ControllerCommonHeader extends Controller {
         } else {
             $data['class'] = 'common-home';
         }
-
-        // $data["breadcrumbs"] = $this->breadcrumbs->getPath();
 
         return $this->load->view('common/header', $data);
     }

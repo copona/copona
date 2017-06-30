@@ -1,5 +1,7 @@
 <?php
 
+namespace Copona\System\Engine;
+
 class Action
 {
     private $id;
@@ -20,10 +22,10 @@ class Action
 
             // TODO: optimize this! Probably - with a new variable. Also needed in Extension controller in admin.
             APPLICATION == 'admin'
-                ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/controller/" . implode('/',
-                    $parts) . ".php")
-                : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/controller/" . implode('/',
-                    $parts) . ".php");
+              ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/controller/" . implode('/',
+                $parts) . ".php")
+              : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/controller/" . implode('/',
+                $parts) . ".php");
 
             $file = DIR_APPLICATION . 'controller/' . implode('/', $parts) . '.php';
 
@@ -67,7 +69,7 @@ class Action
             return new \Exception('Error: Could not call ' . $this->route . '/' . $this->method . '!');
         }
 
-        $reflection = new ReflectionClass($class);
+        $reflection = new \ReflectionClass($class);
 
         if ($reflection->hasMethod($this->method) && $reflection->getMethod($this->method)->getNumberOfRequiredParameters() <= count($args)) {
             return call_user_func_array(array($controller, $this->method), $args);
