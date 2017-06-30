@@ -8,6 +8,9 @@
 /.vs
 Search-Replace-DB-master*
 /extensions/*
+/sitemaps/
+sitemap.xml
+sitemap.xsl
 
 # XML filesimport
 catalog/controller/xml/*.xml
