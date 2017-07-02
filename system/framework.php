@@ -6,6 +6,11 @@ $registry = Registry::getInstance();
 global $config;
 $registry->set('config', $config);
 
+//Extension
+use \Copona\System\Library\Extension\ExtensionManager;
+$extension = ExtensionManager::getInstance();
+$registry->set('extension', $extension);
+
 // Event
 $event = new Event($registry);
 $registry->set('event', $event);
@@ -26,11 +31,6 @@ $registry->singleton('hook', function ($registry) {
 use \Copona\System\Engine\Loader;
 $loader = new Loader($registry);
 $registry->set('load', $loader);
-
-//Extension
-use \Copona\System\Library\Extension\ExtensionManager;
-$extension = ExtensionManager::getInstance();
-$registry->set('extension', $extension);
 
 // Request
 $registry->singleton('request', Request::class);

@@ -162,11 +162,17 @@ class ExtensionManager
         }
     }
 
+    /**
+     * Find by controller
+     *
+     * @param $controller_name
+     * @return mixed
+     */
     public static function findController($controller_name)
     {
         $filesCollection = self::$extensionCollection->pluck('files')->toArray();
 
-        $controller = preg_quote(DIR_APPLICATION . 'controller/' . $controller_name, '/');
+        $controller = preg_quote(APPLICATION . '/' . 'controller/' . $controller_name, '/');
 
         $filesInterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($filesCollection));
         $files = iterator_to_array($filesInterator, false);
