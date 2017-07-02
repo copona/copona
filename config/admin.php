@@ -23,5 +23,10 @@ return [
         'action_default'    => 'common/dashboard',
         'action_router'     => 'startup/router',
         'action_error'      => 'error/not_found',
+
+        /**
+         * Action Events
+         */
+        'action_event'      => [],
     ]
 ];
