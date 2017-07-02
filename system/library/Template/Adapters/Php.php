@@ -2,7 +2,6 @@
 
 namespace Copona\System\Library\Template\Adapters;
 
-
 use Copona\System\Library\Template\Interfaces\TemplateAdapterInterface;
 
 class Php implements TemplateAdapterInterface
@@ -23,7 +22,7 @@ class Php implements TemplateAdapterInterface
 
             return ob_get_clean();
         } else {
-            throw new \Exception('Error: Could not load template ' . $template_file . '!');
+            throw new \RuntimeException('Error: Could not load template ' . $template_file . '!');
         }
     }
 

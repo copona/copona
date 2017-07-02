@@ -34,7 +34,7 @@ class Loader
 
         if (!$output) {
             $action = new Action($route);
-            $output = $action->execute($this->registry, array(&$data));
+            $output = $action->execute($this->registry, $data);
         }
 
         // Trigger the post events

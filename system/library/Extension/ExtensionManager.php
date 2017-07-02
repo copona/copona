@@ -161,4 +161,20 @@ class ExtensionManager
             }
         }
     }
+
+    public static function findController($controller_name)
+    {
+        $filesCollection = self::$extensionCollection->pluck('files')->toArray();
+
+        $controller = preg_quote(DIR_APPLICATION . 'controller/' . $controller_name, '/');
+
+        $filesInterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($filesCollection));
+        $files = iterator_to_array($filesInterator, false);
+
+        $extensions_file = preg_grep("/\b$controller\b/i", $files);
+
+        if ($extensions_file && count($extensions_file)) {
+            return reset($extensions_file);
+        }
+    }
 }
