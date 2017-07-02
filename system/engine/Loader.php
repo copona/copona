@@ -44,7 +44,7 @@ class Loader
           &$output
         ));
 
-        if ($output instanceof \Exception) {
+        if ($output instanceof \RuntimeException) {
             return false;
         }
 
@@ -96,7 +96,7 @@ class Loader
                     ''
                   ), (string)$route), $proxy);
             } else {
-                throw new \Exception('Error: Could not load model ' . $route . '!');
+                throw new \RuntimeException('Error: Could not load model ' . $route . '!');
             }
         }
 
@@ -133,7 +133,7 @@ class Loader
                 $route = substr($route, 0, -3);
             }
 
-            if (APPLICATION == 'admin') {
+            if (APPLICATION != 'catalog') {
 
                 foreach ($extensions_support as $ext) {
                     if (file_exists(DIR_TEMPLATE . $route . '.' . $ext)) {
@@ -145,7 +145,7 @@ class Loader
             } else {
 
                 if (!\Config::get(\Config::get('config_theme') . '_status')) {
-                    throw new Exception('Error: A theme has not been assigned to this store!');
+                    throw new \RuntimeException('Error: A theme has not been assigned to this store!');
                 }
 
                 if (\Config::get('config_theme') == 'theme_default') {
@@ -182,7 +182,7 @@ class Loader
 
             $this->registry->set(basename($route), new $class($this->registry));
         } else {
-            throw new \Exception('Error: Could not load library ' . $route . '!');
+            throw new \RuntimeException('Error: Could not load library ' . $route . '!');
         }
     }
 
@@ -193,7 +193,7 @@ class Loader
         if (is_file($file)) {
             include_once($file);
         } else {
-            throw new \Exception('Error: Could not load helper ' . $route . '!');
+            throw new \RuntimeException('Error: Could not load helper ' . $route . '!');
         }
     }
 
@@ -271,7 +271,7 @@ class Loader
 
                     $model[$route] = new $class($registry);
                 } else {
-                    throw new \Exception('Error: Could not load model ' . substr($route, 0,
+                    throw new \RuntimeException('Error: Could not load model ' . substr($route, 0,
                         strrpos($route, '/')) . '!');
                 }
             }
@@ -283,7 +283,7 @@ class Loader
             if (is_callable($callable)) {
                 $output = call_user_func_array($callable, $args);
             } else {
-                throw new \Exception('Error: Could not call model/' . $route . '!');
+                throw new \RuntimeException('Error: Could not call model/' . $route . '!');
             }
 
             // Trigger the post events
