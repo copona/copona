@@ -52,9 +52,9 @@ catalog/controller/xml/*.xml
 /system/storage/logs/*
 
 # Templates
-/catalog/view/theme/*
-!/catalog/view/theme/default/
-!/catalog/view/theme/simplica/
+/themes/*
+!/themes/default/
+!/themes/simplica/
 
 # Languages
 /catalog/language/*

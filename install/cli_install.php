@@ -260,7 +260,7 @@ function write_config_files($options) {
 	$output .= 'define(\'DIR_SYSTEM\', \'' . DIR_COPONA . 'system/\');' . "\n";
 	$output .= 'define(\'DIR_DATABASE\', \'' . DIR_COPONA . 'system/database/\');' . "\n";
 	$output .= 'define(\'DIR_LANGUAGE\', \'' . DIR_COPONA . 'catalog/language/\');' . "\n";
-	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_COPONA . 'catalog/view/theme/\');' . "\n";
+	$output .= 'define(\'DIR_TEMPLATE\', \'' . DIR_COPONA . 'themes/\');' . "\n";
 	$output .= 'define(\'DIR_CONFIG\', \'' . DIR_COPONA . 'system/config/\');' . "\n";
 	$output .= 'define(\'DIR_IMAGE\', \'' . DIR_COPONA . 'image/\');' . "\n";
 	$output .= 'define(\'DIR_CACHE\', \'' . DIR_COPONA . 'system/storage/cache/\');' . "\n";
