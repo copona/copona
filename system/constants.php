@@ -39,7 +39,7 @@ if (APPLICATION != 'install') {
     define('DIR_LANGUAGE', DIR_PUBLIC . '/' . APPLICATION . '/language/');
 
     if (APPLICATION == 'catalog') {
-        define('PATH_TEMPLATE', 'catalog/view/theme/');
+        define('PATH_TEMPLATE', 'themes/');
         define('DIR_TEMPLATE', DIR_PUBLIC . '/' . PATH_TEMPLATE);
     } else {
         define('PATH_TEMPLATE', 'admin/view/template/');

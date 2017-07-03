@@ -886,7 +886,7 @@ class ControllerExtensionStore extends Controller {
                 'catalog/controller/extension/',
                 'catalog/language/extension/',
                 'catalog/model/extension/',
-                'catalog/view/theme/'
+                'themes/'
             );
 
             $safe = false;
