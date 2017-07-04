@@ -3,7 +3,15 @@
 $ips = Config::get('debug.allow_ip', []);
 $debug_mode = Config::get('debug.mode');
 
-if (count($ips) && array_search($_SERVER['REMOTE_ADDR'], $ips) === false) {
+if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+    $client_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+} else if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+    $client_ip = $_SERVER["REMOTE_ADDR"];
+} else if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
+    $client_ip = $_SERVER["HTTP_CLIENT_IP"];
+}
+
+if (count($ips) && array_search($client_ip, $ips) === false) {
     $debug_mode = false;
 }
 
