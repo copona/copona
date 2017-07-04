@@ -46,6 +46,12 @@ class ControllerExtensionShippingPickup extends Controller {
 
         $data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=shipping', true);
 
+        if (isset($this->request->post['pickup_name'])) {
+            $data['pickup_name'] = $this->request->post['pickup_name'];
+        } else {
+            $data['pickup_name'] = $this->config->get('pickup_name');
+        }
+
         if (isset($this->request->post['pickup_geo_zone_id'])) {
             $data['pickup_geo_zone_id'] = $this->request->post['pickup_geo_zone_id'];
         } else {

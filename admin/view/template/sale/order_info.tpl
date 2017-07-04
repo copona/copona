@@ -35,9 +35,18 @@
               <?php if ($shipping_method) { ?>
                   <tr>
                     <td><button data-toggle="tooltip" title="<?php echo $text_shipping_method; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
-                    <td><?php echo $shipping_method; ?></td>
+                    <td><?php echo htmlspecialchars( $shipping_method ); ?></td>
                   </tr>
               <?php } ?>
+              <?php if (!empty($serial)) { ?>
+                  <tr>
+                    <td><button data-toggle="tooltip" title="<?php echo $text_other_information; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
+                    <td><?php foreach ($serial as $key => $val) { ?>
+                          <?= $key; ?>: <strong><?=  $val; ?></strong><br />
+                      <?php } ?></td>
+                  </tr>
+              <?php } ?>
+
             </tbody>
           </table>
         </div>
@@ -619,34 +628,9 @@ $(document).delegate('#button-ip-add', 'click', function () {
           });
       });
 
-      function changeStatus() {
-          var status_id = $('select[name="order_status_id"]').val();
 
-          $('#openbay-info').remove();
 
-          $.ajax({
-              url: 'index.php?route=extension/openbay/getorderinfo&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>&status_id=' + status_id,
-              dataType: 'html',
-              success: function (html) {
-                  $('#history').after(html);
-              }
-          });
-      }
 
-      function addOrderInfo() {
-          var status_id = $('select[name="order_status_id"]').val();
-
-          $.ajax({
-              url: 'index.php?route=extension/openbay/addorderinfo&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>&status_id=' + status_id,
-              type: 'post',
-              dataType: 'html',
-              data: $(".openbay-data").serialize()
-          });
-      }
-
-      $(document).ready(function () {
-          changeStatus();
-      });
 
       $('select[name="order_status_id"]').change(function () {
           changeStatus();

@@ -1,15 +1,16 @@
 # Config and Htaccess Files
 /.htaccess
-/install/.htaccess
 /.htpasswd
-/config.php
 .env
-/admin/config.php
 /catalog/controller/xml
 /catalog/model/xml
 /catalog/controller/*/_*
 /.vs
 Search-Replace-DB-master*
+/extensions/*
+/sitemaps/
+sitemap.xml
+sitemap.xsl
 
 # XML filesimport
 catalog/controller/xml/*.xml
@@ -51,9 +52,9 @@ catalog/controller/xml/*.xml
 /system/storage/logs/*
 
 # Templates
-/catalog/view/theme/*
-!/catalog/view/theme/default/
-!/catalog/view/theme/simplica/
+/themes/*
+!/themes/default/
+!/themes/simplica/
 
 # Languages
 /catalog/language/*
@@ -67,9 +68,6 @@ catalog/controller/xml/*.xml
 !/image/cache/index.html
 !/image/no_image.jpg
 
-# Force ignore individual files
-*-gitignore*
-!.gitignore
 /nbproject/
 
 # Ignore Composer Vendor Files
@@ -148,3 +146,7 @@ crashlytics-build.properties
 fabric.properties
 
 .DS_Store
+
+# Force ignore individual files
+*-gitignore*
+!.gitignore

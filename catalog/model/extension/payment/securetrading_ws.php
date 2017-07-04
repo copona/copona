@@ -1,7 +1,9 @@
 <?php
-class ModelExtensionPaymentSecureTradingWs extends Model {
+class ModelExtensionPaymentSecureTradingWs extends Model
+{
 
-    public function getMethod($address, $total) {
+    public function getMethod($address, $total)
+    {
         $this->load->language('extension/payment/securetrading_ws');
 
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('securetrading_ws_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
@@ -20,34 +22,35 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
         if ($status) {
             $method_data = array(
-                'code'       => 'securetrading_ws',
-                'title'      => $this->language->get('text_title'),
-                'terms'      => '',
-                'sort_order' => $this->config->get('securetrading_ws_sort_order')
+              'code'       => 'securetrading_ws',
+              'title'      => $this->language->get('text_title'),
+              'terms'      => '',
+              'sort_order' => $this->config->get('securetrading_ws_sort_order')
             );
         }
 
         return $method_data;
     }
 
-    public function call($data) {
+    public function call($data)
+    {
         $ch = curl_init();
 
         $defaults = array(
-            CURLOPT_POST           => 1,
-            CURLOPT_HEADER         => 0,
-            CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_URL            => 'https://webservices.securetrading.net/xml/',
-            CURLOPT_FRESH_CONNECT  => 1,
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_FORBID_REUSE   => 1,
-            CURLOPT_TIMEOUT        => 15,
-            CURLOPT_HTTPHEADER     => array(
-                'User-Agent: OpenCart - Secure Trading WS',
-                'Content-Length: ' . strlen($data),
-                'Authorization: Basic ' . base64_encode($this->config->get('securetrading_ws_username') . ':' . $this->config->get('securetrading_ws_password')),
-            ),
-            CURLOPT_POSTFIELDS     => $data,
+          CURLOPT_POST           => 1,
+          CURLOPT_HEADER         => 0,
+          CURLOPT_SSL_VERIFYPEER => 0,
+          CURLOPT_URL            => 'https://webservices.securetrading.net/xml/',
+          CURLOPT_FRESH_CONNECT  => 1,
+          CURLOPT_RETURNTRANSFER => 1,
+          CURLOPT_FORBID_REUSE   => 1,
+          CURLOPT_TIMEOUT        => 15,
+          CURLOPT_HTTPHEADER     => array(
+            'User-Agent: OpenCart - Secure Trading WS',
+            'Content-Length: ' . strlen($data),
+            'Authorization: Basic ' . base64_encode($this->config->get('securetrading_ws_username') . ':' . $this->config->get('securetrading_ws_password')),
+          ),
+          CURLOPT_POSTFIELDS     => $data,
         );
 
         curl_setopt_array($ch, $defaults);
@@ -63,21 +66,25 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         return $response;
     }
 
-    public function getOrder($order_id) {
+    public function getOrder($order_id)
+    {
         $qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_ws_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         return $qry->row;
     }
 
-    public function addMd($order_id, $md) {
+    public function addMd($order_id, $md)
+    {
         $this->db->query("INSERT INTO " . DB_PREFIX . "securetrading_ws_order SET order_id = " . (int)$order_id . ", md = '" . $this->db->escape($md) . "', `created` = now(), `modified` = now()");
     }
 
-    public function removeMd($md) {
+    public function removeMd($md)
+    {
         $this->db->query("DELETE FROM " . DB_PREFIX . "securetrading_ws_order WHERE md = '" . $this->db->escape($md) . "'");
     }
 
-    public function updateReference($order_id, $transaction_reference) {
+    public function updateReference($order_id, $transaction_reference)
+    {
         $this->db->query("UPDATE " . DB_PREFIX . "securetrading_ws_order SET transaction_reference = '" . $this->db->escape($transaction_reference) . "' WHERE order_id = " . (int)$order_id);
 
         if ($this->db->countAffected() == 0) {
@@ -85,7 +92,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         }
     }
 
-    public function getOrderId($md) {
+    public function getOrderId($md)
+    {
         $row = $this->db->query("SELECT order_id FROM " . DB_PREFIX . "securetrading_ws_order WHERE md = '" . $this->db->escape($md) . "' LIMIT 1")->row;
 
         if (isset($row['order_id']) && !empty($row['order_id'])) {
@@ -95,7 +103,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         }
     }
 
-    public function confirmOrder($order_id, $order_status_id, $comment = '', $notify = false) {
+    public function confirmOrder($order_id, $order_status_id, $comment = '', $notify = false)
+    {
         $this->load->model('checkout/order');
 
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = 0 WHERE order_id = " . (int)$order_id);
@@ -130,7 +139,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_ws_order_transaction` SET `securetrading_ws_order_id` = '" . (int)$securetrading_ws_order['securetrading_ws_order_id'] . "', `amount` = '" . $amount . "', type = '" . $trans_type . "',  `created` = now()");
     }
 
-    public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false) {
+    public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false)
+    {
         $this->load->model('checkout/order');
 
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = " . (int)$order_status_id . " WHERE order_id = " . (int)$order_id);
@@ -138,7 +148,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         $this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
     }
 
-    public function logger($message) {
+    public function logger($message)
+    {
         $log = new Log('secure.log');
         $log->write($message);
     }

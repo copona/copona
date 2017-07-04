@@ -56,10 +56,10 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
             $data['error_connection'] = $this->language->get('error_connection');
         }
 
-        if (file_exists(DIR_APPLICATION . 'view/theme/' . $this->config->get('config_template') . '/stylesheet/stylesheet.css')) {
-            $data['stylesheet'] = '/catalog/view/theme/' . $this->config->get('config_template') . '/stylesheet/stylesheet.css';
+        if (file_exists(DIR_APPLICATION . 'themes/' . $this->config->get('config_template') . '/assets/css/stylesheet.css')) {
+            $data['stylesheet'] = '/themes/' . $this->config->get('config_template') . '/assets/css/stylesheet.css';
         } else {
-            $data['stylesheet'] = '/catalog/view/theme/default/stylesheet/stylesheet.css';
+            $data['stylesheet'] = '/themes/default/assets/css/stylesheet.css';
         }
 
         $this->response->setOutput($this->load->view('extension/payment/pp_pro_iframe_body', $data));

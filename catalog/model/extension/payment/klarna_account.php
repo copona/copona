@@ -1,7 +1,9 @@
 <?php
-class ModelExtensionPaymentKlarnaAccount extends Model {
+class ModelExtensionPaymentKlarnaAccount extends Model
+{
 
-    public function getMethod($address, $total) {
+    public function getMethod($address, $total)
+    {
         $this->load->language('extension/payment/klarna_account');
 
         $status = true;
@@ -29,19 +31,20 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
 
             // Maps countries to currencies
             $country_to_currency = array(
-                'NOR' => 'NOK',
-                'SWE' => 'SEK',
-                'FIN' => 'EUR',
-                'DNK' => 'DKK',
-                'DEU' => 'EUR',
-                'NLD' => 'EUR'
+              'NOR' => 'NOK',
+              'SWE' => 'SEK',
+              'FIN' => 'EUR',
+              'DNK' => 'DKK',
+              'DEU' => 'EUR',
+              'NLD' => 'EUR'
             );
 
             if (!isset($country_to_currency[$address['iso_code_3']]) || !$this->currency->has($country_to_currency[$address['iso_code_3']])) {
                 $status = false;
             }
 
-            if ($address['iso_code_3'] == 'NLD' && $this->currency->has('EUR') && $this->currency->format($total, 'EUR', '', false) > 250.00) {
+            if ($address['iso_code_3'] == 'NLD' && $this->currency->has('EUR') && $this->currency->format($total, 'EUR',
+                '', false) > 250.00) {
                 $status = false;
             }
         }
@@ -64,7 +67,7 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
                 // 1 - Account
                 // 2 - Special
                 // 3 - Fixed
-                if (!in_array($pclass['type'], array( 0, 1, 3 ))) {
+                if (!in_array($pclass['type'], array(0, 1, 3))) {
                     continue;
                 }
 
@@ -173,17 +176,21 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
 
         if ($status) {
             $method = array(
-                'code'       => 'klarna_account',
-                'title'      => sprintf($this->language->get('text_title'), $this->currency->format($this->currency->convert($payment_option[0]['monthly_cost'], $country_to_currency[$address['iso_code_3']], $this->session->data['currency']), 1, 1)),
-                'terms'      => sprintf($this->language->get('text_terms'), $klarna_account[$address['iso_code_3']]['merchant'], strtolower($address['iso_code_2'])),
-                'sort_order' => $klarna_account[$address['iso_code_3']]['sort_order'],
+              'code'       => 'klarna_account',
+              'title'      => sprintf($this->language->get('text_title'),
+                $this->currency->format($this->currency->convert($payment_option[0]['monthly_cost'],
+                  $country_to_currency[$address['iso_code_3']], $this->session->data['currency']), 1, 1)),
+              'terms'      => sprintf($this->language->get('text_terms'),
+                $klarna_account[$address['iso_code_3']]['merchant'], strtolower($address['iso_code_2'])),
+              'sort_order' => $klarna_account[$address['iso_code_3']]['sort_order'],
             );
         }
 
         return $method;
     }
 
-    private function getLowestPaymentAccount($country) {
+    private function getLowestPaymentAccount($country)
+    {
         switch ($country) {
             case 'SWE':
                 $amount = 50.0;

@@ -29,6 +29,11 @@ class ControllerCommonYoutube extends Controller {
         // Youtube image file path
         $file_path = 'image/catalog/_media/youtube/';
 
+        // create dir if not exist
+        if(!file_exists($file_path)){
+            mkdir(DIR_IMAGE . 'catalog/_media/youtube/i', 0755, true);
+        }
+
 // PARAMETERS
         $is_url = false;
         $quality = $_REQUEST['quality'];
@@ -114,7 +119,7 @@ class ControllerCommonYoutube extends Controller {
 
 // ADD THE PLAY ICON
 
-        $play_icon = $show_play_icon ? $file_path . "play-" : $file_path . "noplay-";
+        $play_icon = $show_play_icon ? 'image/yt-icons/' . "play-" : 'image/yt-icons/' . "noplay-";
         $play_icon .= $quality . ".png";
 
         $logoImage = imagecreatefrompng($play_icon);
@@ -143,11 +148,11 @@ class ControllerCommonYoutube extends Controller {
 //http://www.husis.lv/youtube/yt-thumb.php?inpt=Y_j2mCzb1es&play&refresh
 // OUTPUT TO 'i' FOLDER
 
-        $thumb = imagecreatetruecolor(83, 55);
+        $thumb = imagecreatetruecolor($this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
 
 
 // Resize
-        imagecopyresampled($thumb, $output, 0, 0, 0, 0, 83, 55, $imageWidth, $imageHeight);
+        imagecopyresampled($thumb, $output, 0, 0, 0, 0, $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'), $imageWidth, $imageHeight);
         $output = $thumb;
 
 

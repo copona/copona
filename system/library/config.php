@@ -1,32 +1,74 @@
 <?php
-class Config {
-    private $data = array();
 
-    public function get($key) {
-        return (isset($this->data[$key]) ? $this->data[$key] : null);
+class Config
+{
+    /**
+     * @var \Noodlehaus\Config
+     */
+    private static $config;
+
+    /**
+     * @param $config
+     */
+    public static function setConfig($config)
+    {
+        self::$config = $config;
     }
 
-    public function set($key, $value) {
-        $this->data[$key] = $value;
-    }
-
-    public function has($key) {
-        return isset($this->data[$key]);
-    }
-
-    public function load($filename) {
-        $file = DIR_CONFIG . $filename . '.php';
-
-        if (file_exists($file)) {
-            $_ = array();
-
-            require($file);
-
-            $this->data = array_merge($this->data, $_);
-        } else {
-            trigger_error('Error: Could not load config ' . $filename . '!');
-            exit();
+    /**
+     * @return \Noodlehaus\Config
+     */
+    public static function getConfig()
+    {
+        if (null === self::$config) {
+            self::$config = new ConfigManager(DIR_CONFIG);
         }
+
+        return self::$config;
     }
 
+    /**
+     * Get config
+     *
+     * @param $key
+     * @param null $default
+     * @return mixed
+     */
+    public static function get($key, $default = null)
+    {
+        return self::getConfig()->get($key, $default);
+    }
+
+    /**
+     * Set value in config
+     *
+     * @param $key
+     * @param $value
+     * @return mixed
+     */
+    public static function set($key, $value)
+    {
+        self::getConfig()->set($key, $value);
+    }
+
+    /**
+     * Check has config
+     *
+     * @param $key
+     * @return mixed
+     */
+    public static function has($key)
+    {
+        return self::getConfig()->has($key);
+    }
+
+    /**
+     * Get all config
+     *
+     * @return mixed
+     */
+    public static function all()
+    {
+        return self::getConfig()->all();
+    }
 }

@@ -259,20 +259,10 @@
             </thead>
             <tbody>
               <tr>
-                <td><?php echo $config_catalog; ?></td>
-                <td class="text-center"><?php if (!file_exists($config_catalog)) { ?>
+                <td><?php echo $config_env; ?></td>
+                <td class="text-center"><?php if (!file_exists($config_env)) { ?>
                   <span class="text-success"><?php echo $text_will_be_created; ?></span>
-                  <?php } elseif (!is_writable($config_catalog)) { ?>
-                  <span class="text-danger"><?php echo $text_unwritable; ?></span>
-                  <?php } else { ?>
-                  <span class="text-success"><?php echo $text_writable; ?></span>
-                  <?php } ?></td>
-              </tr>
-              <tr>
-                <td><?php echo $config_admin; ?></td>
-                <td class="text-center"><?php if (!file_exists($config_admin)) { ?>
-                  <span class="text-success"><?php echo $text_will_be_created; ?></span>
-                  <?php } elseif (!is_writable($config_admin)) { ?>
+                  <?php } elseif (!is_writable($config_env)) { ?>
                   <span class="text-danger"><?php echo $text_unwritable; ?></span>
                   <?php } else { ?>
                   <span class="text-success"><?php echo $text_writable; ?></span>

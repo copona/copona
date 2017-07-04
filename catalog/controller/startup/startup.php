@@ -1,7 +1,10 @@
 <?php
-class ControllerStartupStartup extends Controller {
 
-    public function index() {
+class ControllerStartupStartup extends Controller
+{
+
+    public function index()
+    {
         // Store
         if ($this->request->server['HTTPS']) {
             $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`ssl`, 'www.', '') = '" . $this->db->escape('https://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
@@ -240,5 +243,4 @@ class ControllerStartupStartup extends Controller {
         // Encryption
         $this->registry->set('encryption', new Encryption($this->config->get('config_encryption')));
     }
-
 }

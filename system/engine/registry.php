@@ -1,17 +1,41 @@
 <?php
-final class Registry {
-    private $data = array();
 
-    public function get($key) {
-        return (isset($this->data[$key]) ? $this->data[$key] : null);
+class Registry extends \Illuminate\Container\Container
+{
+    public static function getInstance()
+    {
+        static $instance = null;
+        if (null === $instance) {
+            $instance = new static();
+        }
+
+        return $instance;
     }
 
-    public function set($key, $value) {
-        $this->data[$key] = $value;
+    protected function __construct()
+    {
     }
 
-    public function has($key) {
-        return isset($this->data[$key]);
+    private function __clone()
+    {
     }
 
+    private function __wakeup()
+    {
+    }
+
+    public function get($key)
+    {
+        return $this->make($key);
+    }
+
+    public function set($key, $value)
+    {
+        $this->instance($key, $value);
+    }
+
+    public function has($key)
+    {
+        return isset($this->instances[$key]) ? true : false;
+    }
 }

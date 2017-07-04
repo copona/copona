@@ -26,6 +26,12 @@
       <div class="panel-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-pickup" class="form-horizontal">
           <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-name"><?php echo $entry_name; ?></label>
+            <div class="col-sm-10">
+              <input type="text" name="pickup_name" value="<?php echo $pickup_name; ?>" placeholder="<?php echo $entry_name; ?>" id="input-name" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone"><?php echo $entry_geo_zone; ?></label>
             <div class="col-sm-10">
               <select name="pickup_geo_zone_id" id="input-geo-zone" class="form-control">

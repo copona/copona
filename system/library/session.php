@@ -1,9 +1,12 @@
 <?php
-class Session {
+
+class Session
+{
     public $session_id = '';
     public $data = array();
 
-    public function __construct($adaptor = 'native') {
+    public function __construct($adaptor = 'native')
+    {
         $class = 'Session\\' . $adaptor;
 
         if (class_exists($class)) {
@@ -31,7 +34,8 @@ class Session {
         }
     }
 
-    public function start($key = 'default', $value = '') {
+    public function start($key = 'default', $value = '')
+    {
         if ($value) {
             $this->session_id = $value;
         } elseif (isset($_COOKIE[$key])) {
@@ -53,11 +57,13 @@ class Session {
         return $this->session_id;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->session_id;
     }
 
-    public function createId() {
+    public function createId()
+    {
         if (function_exists('random_bytes')) {
             return substr(bin2hex(random_bytes(26)), 0, 26);
         } elseif (function_exists('openssl_random_pseudo_bytes')) {
@@ -65,7 +71,8 @@ class Session {
         }
     }
 
-    public function destroy($key = 'default') {
+    public function destroy($key = 'default')
+    {
         if (isset($_SESSION[$key])) {
             unset($_SESSION[$key]);
         }

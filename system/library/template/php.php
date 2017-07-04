@@ -2,10 +2,12 @@
 
 namespace Template;
 
-final class PHP {
+final class PHP
+{
     private $data = array();
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         $this->config = $registry->get('config');
         //$this->db = $registry->get('db');
         //$this->request = $registry->get('request');
@@ -13,12 +15,27 @@ final class PHP {
         $this->request = $registry->get('request');
     }
 
-    public function set($key, $value) {
+    public function set($key, $value)
+    {
         $this->data[$key] = $value;
     }
 
-    public function render($template) {
-        $file = DIR_TEMPLATE . $template;
+    public function render($template)
+    {
+        // pr($template);
+        // TODO: optimize this!
+        if(APPLICATION == 'catalog') {
+            $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/themes/" . $template);
+        } else {
+            $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/admin/view/template/" . $template);
+        }
+
+        // First, let's check for Extension template
+        if (!empty($extension_files[0])) {
+            $file = $extension_files[0];
+        } else {
+            $file = DIR_TEMPLATE . $template;
+        }
 
         if (is_file($file)) {
             extract($this->data);
@@ -28,10 +45,8 @@ final class PHP {
             require($file);
 
             return ob_get_clean();
+        } else {
+            throw new \Exception('Error: Could not load template ' . $file . '!');
         }
-
-        trigger_error('Error: Could not load template ' . $file . '!');
-        exit();
     }
-
 }

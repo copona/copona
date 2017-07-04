@@ -3,6 +3,7 @@ class ModelExtensionShippingWeight extends Model {
 
     public function getQuote($address) {
         $this->load->language('extension/shipping/weight');
+        $language_id = $this->config->get('config_language_id');
 
         $quote_data = array();
 
@@ -27,6 +28,8 @@ class ModelExtensionShippingWeight extends Model {
 
                 $rates = explode(',', $this->config->get('weight_' . $result['geo_zone_id'] . '_rate'));
 
+
+
                 foreach ($rates as $rate) {
                     $data = explode(':', $rate);
 
@@ -38,11 +41,14 @@ class ModelExtensionShippingWeight extends Model {
                         break;
                     }
                 }
+                $result['name'] = !empty($this->config->get('weight_' . $language_id . "_" . $result['geo_zone_id'] . '_display')) ?
+                    $this->config->get('weight_' . $language_id . "_" . $result['geo_zone_id'] . '_display') :
+                    $result['name'];
 
                 if ((string)$cost != '') {
                     $quote_data['weight_' . $result['geo_zone_id']] = array(
                         'code'         => 'weight.weight_' . $result['geo_zone_id'],
-                        'title'        => $result['name'] . '  (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')',
+                        'title'        => $result['name'] . ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')',
                         'cost'         => $cost,
                         'tax_class_id' => $this->config->get('weight_tax_class_id'),
                         'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('weight_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])

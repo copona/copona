@@ -1,5 +1,10 @@
 <?php
 class ControllerCheckoutCheckout extends Controller {
+    public function __construct($parms) {
+        parent::__construct($parms);
+        $this->load->model('localisation/country');
+        $this->load->model('localisation/location');
+    }
     private $error = array();
     private $is_redirect = false;
     private $allowed_post_values = array(
@@ -9,6 +14,7 @@ class ControllerCheckoutCheckout extends Controller {
         'telephone',
         'company',
         'country',
+        'country_id',
         'tax_id',
         'company_id',
         'city',
@@ -24,6 +30,7 @@ class ControllerCheckoutCheckout extends Controller {
         'bank_name',
         'bank_code',
         'bank_account',
+        'serial' //- IS HARDCODED as an array
     );
 
     public function index() {
@@ -55,9 +62,9 @@ class ControllerCheckoutCheckout extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
-        $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/moment.js');
+        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
+        $this->document->addStyle('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
 
         // Required by klarna
         if ($this->config->get('klarna_account') || $this->config->get('klarna_invoice')) {
@@ -159,6 +166,7 @@ class ControllerCheckoutCheckout extends Controller {
             $data['error_warning'] = '';
         }
 
+
         if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
             $data['error_warning']['error_stock'] = $this->language->get('error_stock');
         }
@@ -215,13 +223,9 @@ class ControllerCheckoutCheckout extends Controller {
 
         // SHIPPING
         if (isset($this->request->post['shipping_method']) && $this->validateShipping()) {
-
             $shipping = explode('.', $this->request->post['shipping_method']);
             $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
         }
-
-
-
 
         if ($this->request->post && $this->validate('guest')) {
 
@@ -254,6 +258,7 @@ class ControllerCheckoutCheckout extends Controller {
             $data = $this->session->data['guest']['shipping'];
 
             $data['firstname'] = $this->session->data['guest']['firstname'];
+
             $data['lastname'] = $this->session->data['guest']['lastname'];
             $data['company'] = $this->session->data['guest']['company'];
             $data['company_id'] = '';
@@ -269,10 +274,12 @@ class ControllerCheckoutCheckout extends Controller {
             $data['address_format'] = '';
             $this->session->data['guest']['shipping'] = $data;
             $this->session->data['guest']['fax'] = '';
+            //prd($this->session->data['guest']['serial']);
 
             $this->response->redirect($this->url->link('checkout/confirm'));
         } elseif ($this->request->post) {
             $this->session->data['error'] = $this->error;
+
             $this->response->redirect($this->url->link('checkout/checkout/guest', '', 'SSL'));
         } else {
             if (!isset($this->session->data['guest']['shipping'])) {
@@ -287,6 +294,9 @@ class ControllerCheckoutCheckout extends Controller {
             }
 
             $data['cart_total_value'] = round($this->cart->getTotal(), 2);
+            $data['serial'] = !empty($this->session->data['guest']['serial']) ? $this->session->data['guest']['serial'] : [ ];
+
+            // prd($data['country_id']);
 
             if (empty($this->session->data['shipping_method'])) {
                 $data['order_shipping'] = 0;
@@ -297,9 +307,19 @@ class ControllerCheckoutCheckout extends Controller {
         }
 
         $data['shipping'] = 'empty_string_remove_in_controller';
-        $this->load->model('localisation/country');
-        $data['country_id'] = $this->session->data['guest']['shipping']['country_id'];
-        $data['zone_id'] = $this->session->data['guest']['shipping']['zone_id'];
+        
+
+        // $data['country_id'] = $this->session->data['guest']['shipping']['country_id'];
+        // $data['zone_id'] = $this->session->data['guest']['shipping']['zone_id'];
+
+        if(empty($this->session->data['shipping_address'])) {
+            $this->session->data['shipping_address'] = $this->model_localisation_location->getStoreAddress();
+        }   
+        $data['country_id'] = $this->session->data['shipping_address']['country_id'];
+            $data['zone_id'] = $this->session->data['shipping_address']['zone_id'];    
+        
+
+
         $data['countries'] = $this->model_localisation_country->getCountries();
 
 
@@ -310,7 +330,8 @@ class ControllerCheckoutCheckout extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['payment_method'] = $this->load->controller('checkout/payment_method');
-        $data['cart'] = $this->load->controller('checkout/cart');
+
+        //$data['cart'] = $this->load->controller('checkout/cart');
 
         $data['session'] = $this->session->data;
 
@@ -319,6 +340,9 @@ class ControllerCheckoutCheckout extends Controller {
 
     protected function validate($type = '') {
         $data = $this->language->load('checkout/guest');
+
+//        prd($this->request->post['s']);
+
 
         if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
@@ -361,6 +385,12 @@ class ControllerCheckoutCheckout extends Controller {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
+        if (!empty($this->request->post['zone_id'])) {
+            $this->session->data['shipping_address']['zone_id'] = $this->request->post['zone_id'];
+        }
+        if (!empty($this->request->post['country_id'])) {
+            $this->session->data['shipping_address']['country_id'] = $this->request->post['country_id'];
+        }
         if ($this->request->post['payment_method'] == "bank_transfer") {
             if ($this->request->post['customer_group_id'] == "2") {
                 if ((utf8_strlen($this->request->post['company_name']) < 3) || (utf8_strlen($this->request->post['company_name']) > 64)) {
@@ -395,13 +425,19 @@ class ControllerCheckoutCheckout extends Controller {
 
         $shipping_method1 = $this->load->controller('checkout/shipping_method/validate');
         // Save posted values in session
+
         foreach ($this->request->post as $key => $val) {
             if (in_array($key, $this->allowed_post_values)) {
-                $this->session->data['guest'][$key] = strip_tags($val);
-                $this->session->data[$key] = strip_tags($val);
+                $this->session->data['guest'][$key] = (is_array($val) ? preg_replace("/<.+>/sU", "", $val) : strip_tags($val));
+                $this->session->data[$key] = (is_array($val) ? preg_replace("/<.+>/sU", "", $val) : strip_tags($val));
             }
         }
 
+        if (!empty($this->request->post['serial'])) {
+            $this->session->data['guest']['serial'] = $this->request->post['serial'];
+            $this->session->data['serial'] = $this->request->post['serial'];
+        }
+        //prd($this->session->data['serial']);
         if (isset($this->request->post['payment_method'])) {
             $this->session->data['payment_method'] = $this->session->data['payment_methods'][$this->request->post['payment_method']];
         }
@@ -410,7 +446,6 @@ class ControllerCheckoutCheckout extends Controller {
         foreach ($products as $product) {
             if (!$product['stock']) {
                 $this->error['not_ins_stock'] = $this->language->get('error_stock');
-                pr($this->sessioni->data);
                 break;
             }
         }
@@ -423,14 +458,25 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
     protected function validateShipping() {
+
+        
+
         if (!empty($this->request->post['shipping_method'])) {
             $shipping = explode('.', $this->request->post['shipping_method']);
-            if (!isset($shipping[0]) || !isset($shipping[1]) || !isset($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]])) {
+
+            //pr( $this->session->data['shipping_methods']  );
+            //pr( $this->session->data['shipping_methods'][$shipping[0]]['quote'] );            
+        //    pr($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]]); 
+            if (!isset($shipping[0]) || !isset($shipping[1]) || 
+                !isset($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]])) {
                 $this->error['warning'] = $this->language->get('error_shipping');
             }
         } else {
             $this->error['warning'] = $this->language->get('error_shipping');
         }
+
+        //pr($this->error);
+
         if (!$this->error) {
             return true;
         } else {

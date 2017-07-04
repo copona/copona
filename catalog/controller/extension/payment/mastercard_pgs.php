@@ -3,14 +3,9 @@ class ControllerExtensionPaymentMastercardPGS extends Controller {
 	public function index() {
 		$this->load->model('extension/payment/mastercard_pgs');
 
-		$this->load->language('extension/payment/mastercard_pgs');
+		$data = $this->load->language('extension/payment/mastercard_pgs');
 
 		$data['button_confirm'] = $this->language->get('button_confirm');
-
-		$data['text_loading'] = $this->language->get('text_loading');
-		$data['text_new_card'] = $this->language->get('text_new_card');
-		$data['text_existing_card'] = $this->language->get('text_existing_card');
-		$data['text_select_card'] = $this->language->get('text_select_card');
 
 		$data['onclick'] = $this->config->get('mastercard_pgs_onclick');
 

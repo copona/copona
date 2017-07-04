@@ -29,9 +29,9 @@ class ControllerAccountAddress extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
-        $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/moment.js');
+        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
+        $this->document->addStyle('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
 
         $this->load->model('account/address');
 
@@ -69,9 +69,9 @@ class ControllerAccountAddress extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
-        $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/moment.js');
+        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
+        $this->document->addStyle('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
 
         $this->load->model('account/address');
 
@@ -165,6 +165,9 @@ class ControllerAccountAddress extends Controller {
     }
 
     protected function getList() {
+
+        $data = $this->load->language('account/address');
+
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/home')
@@ -185,10 +188,6 @@ class ControllerAccountAddress extends Controller {
         $data['text_address_book'] = $this->language->get('text_address_book');
         $data['text_empty'] = $this->language->get('text_empty');
 
-        $data['button_new_address'] = $this->language->get('button_new_address');
-        $data['button_edit'] = $this->language->get('button_edit');
-        $data['button_delete'] = $this->language->get('button_delete');
-        $data['button_back'] = $this->language->get('button_back');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];

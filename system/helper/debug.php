@@ -1,29 +1,37 @@
 <?php
-!defined('DEBUG') ? define('DEBUG', true) : '';
+
+$ips = Config::get('debug.allow_ip', []);
+$debug_mode = Config::get('debug.mode');
+
+if (count($ips) && array_search($_SERVER['REMOTE_ADDR'], $ips) === false) {
+    $debug_mode = false;
+}
 
 if (!function_exists('pr')) {
 
-    function pr($data = 'w/o variable') {
-        if (defined('DEBUG') && DEBUG == true) {
+    function pr($data = 'w/o variable', $vardump = false)
+    {
+        if (@$GLOBALS['debug_mode']) {
             echo "\n\n";
             echo "<div style='border: 1px solid grey; padding: 5px;'>";
             echo "<span style='color: black; background-color: white; font-size: 12px;'>\nPR data: <strong>" . gettype($data) . "</strong></span>\n";
             echo "<pre style='background-color: #EACCCC; white-space: pre-wrap; font-size: 14px; color: red; padding: 10px; margin: 0; line-height: 14px;'>\n";
 
-            if ($data === '')
+            if ($data === '') {
                 echo "EMPTY STRING\n";
-            elseif ($data === ' ')
+            } elseif ($data === ' ') {
                 echo "SAPCE\n";
-            elseif ($data === 0)
+            } elseif ($data === 0) {
                 echo " 0 \n";
-            elseif ($data === FALSE)
+            } elseif ($data === false) {
                 echo "FALSE \n";
-            elseif ($data === NULL)
+            } elseif ($data === null) {
                 echo "UNDEFINED\n";
-            elseif (gettype($data) == 'string') {
-                print_r(htmlentities($data));
-            } else
+            } elseif (gettype($data) == 'string') {
+                echo !$vardump ? htmlentities($data) : $data;
+            } else {
                 print_r($data);
+            }
             echo "\n</pre>\n";
 
             $debug = debug_backtrace();
@@ -44,27 +52,30 @@ if (!function_exists('pr')) {
 
 if (!function_exists('prd')) {
 
-    function prd($data = 'w/o variable', $vardump = false) {
-        if (defined('DEBUG') && DEBUG == true) {
+    function prd($data = 'w/o variable', $vardump = false)
+    {
+        if (@$GLOBALS['debug_mode']) {
             echo "\n\n";
             echo "<div style='border: 1px solid grey; padding: 5px;'>";
             echo "<span style='color: black; background-color: white; font-size: 12px;'>\nPRD data: <strong>" . gettype($data) . "</strong></span>\n";
             echo "<pre style='white-space: pre-wrap; background-color: #ccc; padding: 10px;  font-size: 14px; color: black; margin: 0; line-height: 14px;'>\n";
 
-            if ($data === '')
+            if ($data === '') {
                 echo "empty STRING\n";
-            elseif ($data === ' ')
+            } elseif ($data === ' ') {
                 echo "empty SPACE\n";
-            elseif ($data === 0)
+            } elseif ($data === 0) {
                 echo " 0 \n";
-            elseif ($data === FALSE)
+            } elseif ($data === false) {
                 echo "FALSE \n";
-            elseif ($data === NULL)
+            } elseif ($data === null) {
                 echo "UNDEFINED\n";
-            elseif (gettype($data) == 'string') {
-                print_r(htmlentities($data));
+            } elseif (gettype($data) == 'string') {
+                echo !$vardump ? htmlentities($data) : $data;
             } else {
-                $vardump ? array_walk_recursive($data, function(&$v) { $v = htmlspecialchars($v); }) : false;
+                $vardump ? array_walk_recursive($data, function (&$v) {
+                    $v = htmlspecialchars($v);
+                }) : false;
                 $vardump ? var_dump($data) : print_r($data);
             }
             echo "\n</pre>\n";
@@ -87,13 +98,12 @@ if (!function_exists('prd')) {
 
 if (!function_exists('dt')) {
 
-    function dt() {
-        if (defined('DEBUG') && DEBUG == true) {
+    function dt()
+    {
+        if (@$GLOBALS['debug_mode']) {
             !isset($_SESSION['dt_start_time']) ? $_SESSION['dt_start_time'] = microtime(true) : false;
             $diff = microtime(true) - $_SESSION['dt_start_time'];
             return $diff;
         }
     }
-
 }
-
