@@ -99,17 +99,19 @@ class Loader
 
                 $this->registry->set($model_name, $model);
 
+                // Trigger the post events
+                $result = $this->registry->get('event')->trigger('model/' . $route . '/after', array(
+                  &$route
+                ));
+
+                return $result ? $result : $model;
+
                 return $model;
 
             } else {
                 throw new \RuntimeException('Error: Could not load model ' . $route . '!');
             }
         }
-
-        // Trigger the post events
-        $this->registry->get('event')->trigger('model/' . $route . '/after', array(
-          &$route
-        ));
     }
 
     /**
