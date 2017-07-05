@@ -29,11 +29,23 @@ define('DIR_IMAGE', DIR_PUBLIC . '/image/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 //define('DIR_TEMPLATE', DIR_APPLICATION . 'view/template/');
 define('DIR_CONFIG', DIR_PUBLIC . '/config/');
-define('DIR_CACHE', DIR_SYSTEM . 'storage/cache/');
-define('DIR_LOGS', DIR_SYSTEM . 'storage/logs/');
-define('DIR_MODIFICATION', DIR_SYSTEM . 'storage/modification/');
-define('DIR_DOWNLOAD', DIR_SYSTEM . 'storage/download/');
-define('DIR_UPLOAD', DIR_SYSTEM . 'storage/upload/');
+
+define('PATH_STORAGE', 'storage/');
+define('PATH_STORAGE_PUBLIC', PATH_STORAGE . 'public/');
+define('PATH_STORAGE_PRIVATE', PATH_STORAGE . 'private/');
+define('PATH_CACHE_PUBLIC', PATH_STORAGE_PUBLIC . 'cache/');
+define('PATH_CACHE_PRIVATE', PATH_STORAGE_PRIVATE . 'cache/');
+
+define('DIR_STORAGE_PUBLIC', DIR_PUBLIC . '/' . PATH_STORAGE_PUBLIC);
+define('DIR_STORAGE_PRIVATE', DIR_PUBLIC . '/' . PATH_STORAGE_PRIVATE);
+
+define('DIR_CACHE_PUBLIC', DIR_PUBLIC . '/' . PATH_CACHE_PUBLIC);
+define('DIR_CACHE_PRIVATE', DIR_PUBLIC . '/' . PATH_CACHE_PRIVATE);
+
+define('DIR_DOWNLOAD', DIR_STORAGE_PRIVATE . 'download/');
+define('DIR_LOGS', DIR_STORAGE_PRIVATE . 'logs/');
+define('DIR_MODIFICATION', DIR_STORAGE_PRIVATE . 'modification/');
+define('DIR_UPLOAD', DIR_STORAGE_PRIVATE . 'upload/');
 
 // Startup
 require_once(DIR_SYSTEM . 'startup.php');

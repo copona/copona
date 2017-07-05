@@ -163,6 +163,15 @@ class ControllerExtensionModuleFeatured extends Controller {
             $data['status'] = '';
         }
 
+
+        if (isset($this->request->post['content_data'])) {
+            $data['content_data'] = $this->request->post['content_data'];
+        } elseif (!empty($module_info['content_data'])) {
+            $data['content_data'] = $module_info['content_data'];
+        } else {
+            $data['content_data'] = '';
+        }
+
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
