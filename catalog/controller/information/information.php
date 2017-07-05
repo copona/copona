@@ -30,8 +30,8 @@ class ControllerInformationInformation extends Controller {
             $this->document->setTitle($information_info['meta_title']);
             $this->document->setDescription($information_info['meta_description']);
             $this->document->setKeywords($information_info['meta_keyword']);
-            $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/magnific/jquery.magnific-popup.min.js');
-            $this->document->addStyle('themes/' . $this->config->get('theme_name') . '/assets/vendor/magnific/magnific-popup.css');
+            $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js');
+            $this->document->addStyle('assets/vendor/magnific/magnific-popup.css');
 
             $data['breadcrumbs'][] = array(
                 'text' => $information_info['title'],
