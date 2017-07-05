@@ -42,5 +42,8 @@
     <p><?php echo $powered; ?></p>
   </div>
 </footer>
+<?php foreach ($scripts as $script) { ?>
+    <script src="<?php echo $script; ?>" type="text/javascript"></script>
+<?php } ?>
 </body>
 </html>
