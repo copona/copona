@@ -135,9 +135,9 @@ class Url
     public function getImageUrl($image)
     {
         if ($this->request->server['HTTPS']) {
-            return 'https://' . $this->config->get('image_base_url', $this->config->get('site_base')) . '/' . $image;
+            return 'https://' . rtrim($this->config->get('image_base_url', $this->config->get('site_base')), '/') . '/' . $image;
         } else {
-            return 'http://' . $this->config->get('image_base_url', $this->config->get('site_ssl')) . '/' . $image;
+            return 'http://' . rtrim($this->config->get('image_base_url', $this->config->get('site_ssl')), '/') . '/' . $image;
         }
     }
 }
