@@ -105,6 +105,20 @@
                 </select>
               </div>
             </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-content-data">Show as DATA</label>
+              <div class="col-sm-10">
+                <div class="checkbox">
+                  <label>
+                      <?php if ($content_data) { ?>
+                        <input type="checkbox" name="content_data" value="1" checked="checked" />
+                      <?php } else { ?>
+                        <input type="checkbox" name="content_data" value="1"/>
+                      <?php } ?>
+                  </label>
+                </div>
+              </div>
+            </div>
         </form>
       </div>
     </div>
