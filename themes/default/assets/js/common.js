@@ -148,7 +148,9 @@ $(document).ready(function () {
 }); // end document.ready
 // Cart add remove functions
 var cart = {
-    'add': function (product_id, quantity) {
+    'add': function (product_id, quantity,e) {
+
+
         $("alert-success").remove();
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
@@ -168,12 +170,15 @@ var cart = {
                 }
 
                 if (json['success']) {
-                    $('.breadcrumb').after('<div class="alert alert-success alert-success-addtocart">' +
-                            json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
-                    setTimeout(function () {
-                        $('.alert-success-addtocart').fadeOut(500);
-                    }, 3000);
-
+                    // $('.breadcrumb').after('<div class="alert alert-success alert-success-addtocart">' +
+                    //         json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
+                    // setTimeout(function () {
+                    //     $('.alert-success-addtocart').fadeOut(500);
+                    // }, 3000);
+                    $(e.target).notify(
+                        "Added to cart",
+                        { position:"right", className: 'success'}
+                    );
                     $('#cart').load('index.php?route=common/cart/info');
                 }
             },
