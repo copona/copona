@@ -8,6 +8,9 @@
 /.vs
 Search-Replace-DB-master*
 /extensions/*
+/sitemaps/
+sitemap.xml
+sitemap.xsl
 
 # XML filesimport
 catalog/controller/xml/*.xml
@@ -48,9 +51,9 @@ catalog/controller/xml/*.xml
 /storage/logs/*
 
 # Templates
-/catalog/view/theme/*
-!/catalog/view/theme/default/
-!/catalog/view/theme/simplica/
+/themes/*
+!/themes/default/
+!/themes/simplica/
 
 # Languages
 /catalog/language/*
