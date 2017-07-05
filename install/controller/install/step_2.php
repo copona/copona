@@ -71,7 +71,7 @@ class ControllerInstallStep2 extends Controller
         @mkdir($data['image_catalog'], $this->config->get('directory_permission', 0777), true);
         @mkdir($data['image_cache'], $this->config->get('directory_permission', 0777), true);
         @mkdir($data['cache_public'], $this->config->get('directory_permission', 0777), true);
-        @mkdir($data['cache_public'], $this->config->get('directory_permission', 0777), true);
+        @mkdir($data['cache_private'], $this->config->get('directory_permission', 0777), true);
         @mkdir($data['logs'], $this->config->get('directory_permission', 0777), true);
         @mkdir($data['download'], $this->config->get('directory_permission', 0777), true);
         @mkdir($data['upload'], $this->config->get('directory_permission', 0777), true);
