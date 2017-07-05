@@ -31,7 +31,7 @@ return [
      * You can modify the base url of the images
      * Do not add protocol https or http
      */
-    'image_base_url'     => DOMAIN_NAME . '/' . PATH_CACHE_PUBLIC . 'image/',
+    'image_base_url'     => rtrim(BASE_URL_CATALOG, '/') . '/' . PATH_CACHE_PUBLIC . 'image',
 
     /**
      * Url
