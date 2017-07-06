@@ -160,7 +160,6 @@ function modification($filename)
 }
 
 // Engine
-require_once(modification(DIR_SYSTEM . 'engine/action.php'));
 require_once(modification(DIR_SYSTEM . 'engine/controller.php'));
 require_once(modification(DIR_SYSTEM . 'engine/event.php'));
 require_once(modification(DIR_SYSTEM . 'engine/hook.php'));
