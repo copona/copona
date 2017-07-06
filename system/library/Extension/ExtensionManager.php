@@ -194,15 +194,15 @@ class ExtensionManager
     /**
      * Find by file in extensions
      *
-     * @param $file
+     * @param $query
      * @return array
      */
-    protected static function findFile($file)
+    public static function findFile($query)
     {
         $filesCollection = self::$extensionCollection->pluck('files')->toArray();
         $filesInterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($filesCollection));
         $files = iterator_to_array($filesInterator, false);
 
-        return preg_grep("/\b$file\b/i", $files);
+        return preg_grep("/\b$query\b/i", $files);
     }
 }

@@ -80,18 +80,11 @@ class ControllerExtensionExtensionDashboard extends Controller {
 
         $extensions = $this->model_extension_extension->getInstalled('dashboard');
 
-        foreach ($extensions as $key => $value) {
-            if (!is_file(DIR_APPLICATION . 'controller/extension/dashboard/' . $value . '.php')) {
-                $this->model_extension_extension->uninstall('dashboard', $value);
-
-                unset($extensions[$key]);
-            }
-        }
-
-        $data['extensions'] = array();
+        $data['extensions'] = [];
 
         // Compatibility code for old extension folders
-        $files = glob(DIR_APPLICATION . 'controller/extension/dashboard/*.php', GLOB_BRACE);
+        $files = glob('{' . DIR_APPLICATION . 'controller/extension/dashboard/*.php,'
+            . $this->config->get('extension.dir') . '/*/*/admin/controller/extension/dashboard/*.php}', GLOB_BRACE);
 
         if ($files) {
             foreach ($files as $file) {

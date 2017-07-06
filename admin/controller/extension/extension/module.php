@@ -125,20 +125,11 @@ class ControllerExtensionExtensionModule extends Controller {
 
         $extensions = $this->model_extension_extension->getInstalled('module');
 
-        foreach ($extensions as $key => $value) {
-            if (!is_file(DIR_APPLICATION . 'controller/extension/module/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/module/' . $value . '.php')) {
-                $this->model_extension_extension->uninstall('module', $value);
-
-                unset($extensions[$key]);
-
-                $this->model_extension_module->deleteModulesByCode($value);
-            }
-        }
-
-        $data['extensions'] = array();
+        $data['extensions'] = [];
 
         // Compatibility code for old extension folders
-        $files = glob(DIR_APPLICATION . 'controller/{extension/module,module}/*.php', GLOB_BRACE);
+        $files = glob('{' . DIR_APPLICATION . 'controller/{extension/module,module}/*.php,'
+            . $this->config->get('extension.dir') . '/*/*/admin/controller/extension/module/*.php}', GLOB_BRACE);
 
         if ($files) {
             foreach ($files as $file) {

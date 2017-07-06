@@ -14,13 +14,16 @@ class Action
     {
         $this->id = $route;
 
-        $info_file = $this->prepareController($route, 2);
+        // Break apart the route
+        $parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
 
-        if (is_file($info_file->file)) {
+        $info_file = $this->prepareController($parts, 2);
+
+        if (is_file($info_file->file) && count($parts) < 3) {
             $this->file = $info_file->file;
             $this->class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $info_file->supposed_class);
         } else {
-            $info_file = $this->prepareController($route, 3);
+            $info_file = $this->prepareController($parts, 3);
             $this->file = $info_file->file;
             $this->class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $info_file->supposed_class);
         }
@@ -61,15 +64,12 @@ class Action
     /**
      * Find and prepare controller file
      *
-     * @param $route
+     * @param array $parts
      * @param int $part_count
      * @return \stdClass
      */
-    private function prepareController($route, $part_count = 2)
+    private function prepareController($parts, $part_count = 2)
     {
-        // Break apart the route
-        $parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
-
         if (is_array($parts) && count($parts) > $part_count) {
             $aux_parts = $parts;
             $supposed_method = end($aux_parts);

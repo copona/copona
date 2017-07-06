@@ -68,27 +68,12 @@ class ControllerExtensionExtensionFeed extends Controller {
         }
 
         $extensions = $this->model_extension_extension->getInstalled('feed');
-        $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
 
-        foreach ($extensions as $key => $value) {
+        $data['extensions'] = [];
 
-            $extension_files = glob($extensions_dir . "/extensions/*/*/admin/controller/extension/feed/" . $value . ".php");
-
-            if (!is_file(DIR_APPLICATION . 'controller/extension/feed/' . $value . '.php')
-                && !is_file(DIR_APPLICATION . 'controller/feed/' . $value . '.php')
-                && empty($extension_files[0])) {
-                $this->model_extension_extension->uninstall('feed', $value);
-                unset($extensions[$key]);
-            }
-        }
-
-        $data['extensions'] = array();
-
-        // Compatibility code for old extension folders
-        $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
         // Compatibility code for old extension folders
         $files = glob('{' . DIR_APPLICATION . 'controller/{extension/feed,feed}/*.php,'
-                      . $extensions_dir . '/extensions/*/*/admin/controller/extension/feed/*.php}', GLOB_BRACE);
+                      . $this->config->get('extension.dir') . '/*/*/admin/controller/extension/feed/*.php}', GLOB_BRACE);
 
         if ($files) {
             foreach ($files as $file) {

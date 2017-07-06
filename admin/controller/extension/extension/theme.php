@@ -78,23 +78,16 @@ class ControllerExtensionExtensionTheme extends Controller {
 
         $extensions = $this->model_extension_extension->getInstalled('theme');
 
-        foreach ($extensions as $key => $value) {
-            if (!is_file(DIR_APPLICATION . 'controller/extension/theme/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/theme/' . $value . '.php')) {
-                $this->model_extension_extension->uninstall('theme', $value);
-
-                unset($extensions[$key]);
-            }
-        }
-
         $this->load->model('setting/store');
         $this->load->model('setting/setting');
 
         $stores = $this->model_setting_store->getStores();
 
-        $data['extensions'] = array();
+        $data['extensions'] = [];
 
         // Compatibility code for old extension folders
-        $files = glob(DIR_APPLICATION . 'controller/{extension/theme,theme}/*.php', GLOB_BRACE);
+        $files = glob('{' . DIR_APPLICATION . 'controller/{extension/theme,theme}/*.php,'
+            . $this->config->get('extension.dir') . '/*/*/admin/controller/extension/theme/*.php}', GLOB_BRACE);
 
         if ($files) {
             foreach ($files as $file) {
