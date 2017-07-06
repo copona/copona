@@ -192,6 +192,23 @@ class ExtensionManager
     }
 
     /**
+     * Find Language
+     *
+     * @param $language_path
+     * @return mixed
+     */
+    public static function findLanguage($language_path)
+    {
+        $language = preg_quote(APPLICATION . '/' . 'language/' . $language_path, '/');
+
+        $extensions_file = self::findFile($language);
+
+        if ($extensions_file && count($extensions_file)) {
+            return reset($extensions_file);
+        }
+    }
+
+    /**
      * Find by file in extensions
      *
      * @param $query
