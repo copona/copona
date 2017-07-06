@@ -35,12 +35,6 @@
   </head>
   <body>
 
-  <?php if ($error_secure) { ?>
-    <div class="alert alert-danger secure-warning">
-      <span class="secure-message"><?php echo $error_secure; ?></span>
-    </div>
-  <?php } ?>
-
   <div id="container">
       <header id="header" class="navbar navbar-static-top">
         <div class="navbar-header">

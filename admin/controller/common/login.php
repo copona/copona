@@ -7,6 +7,13 @@ class ControllerCommonLogin extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Check if accessed over HTTPS connection:
+        if ($_SERVER['HTTPS'] != true && $this->config->get('debug.mode') !== true) {
+            $data['error_secure'] = $this->language->get('error_secure');
+        } else {
+            $data['error_secure'] = '';
+        }
+
         if ($this->user->isLogged() && isset($this->request->get['token']) && ($this->request->get['token'] == $this->session->data['token'])) {
             $this->response->redirect($this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true));
         }

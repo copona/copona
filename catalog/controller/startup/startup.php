@@ -154,7 +154,7 @@ class ControllerStartupStartup extends Controller
         }
 
         //Theme settings override
-        if (file_exists($this->config->get('theme_uri') . '/functions.php')) {
+        if ($this->config->get('theme_name') != 'default' && file_exists($this->config->get('theme_uri') . '/functions.php')) {
             require_once($this->config->get('theme_uri') . '/functions.php');
         }
 

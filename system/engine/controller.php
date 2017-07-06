@@ -7,6 +7,7 @@
  * @property array $data
  * @property string $output
  * @property Loader $load
+ * @property ConfigManager $config
  * @property User $user
  * @property Url $url
  * @property Log $log
