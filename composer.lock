@@ -96,12 +96,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/copona/core.git",
-                "reference": "e464a98ba1d0009c3df117e81bf209d0ae704678"
+                "reference": "128d98f72508ac22e0a92910fd9b2a0238c7f065"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/e464a98ba1d0009c3df117e81bf209d0ae704678",
-                "reference": "e464a98ba1d0009c3df117e81bf209d0ae704678",
+                "url": "https://api.github.com/repos/copona/core/zipball/128d98f72508ac22e0a92910fd9b2a0238c7f065",
+                "reference": "128d98f72508ac22e0a92910fd9b2a0238c7f065",
                 "shasum": ""
             },
             "require": {
@@ -128,12 +128,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Copona\\": "./src",
-                    "Copona\\System\\": "/system/",
-                    "Copona\\System\\Library\\": "/system/library/",
-                    "Copona\\System\\Engine\\": "/system/engine/",
-                    "Extension\\": "/extensions/",
-                    "Theme\\": "/themes/"
+                    "Copona\\": "./src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -149,7 +144,7 @@
                 "framework",
                 "opensource"
             ],
-            "time": "2017-07-11 01:05:41"
+            "time": "2017-07-11 01:17:36"
         },
         {
             "name": "divido/divido-php",

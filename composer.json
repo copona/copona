@@ -12,5 +12,14 @@
   "license": "GPL-3.0+",
   "require": {
     "copona/core": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Copona\\System\\": "./system/",
+      "Copona\\System\\Library\\": "./system/library/",
+      "Copona\\System\\Engine\\": "./system/engine/",
+      "Extension\\": "./extensions/",
+      "Theme\\": "./themes/"
+    }
   }
 }
