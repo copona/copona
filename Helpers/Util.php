@@ -1,10 +1,16 @@
 <?php
 
-namespace Copona\Core\Helpers;
+namespace Copona\Helpers;
 
 
 class Util
 {
+
+    public static function load_cp()
+    {
+        require_once __DIR__ . '/../../cp_bootstrap.php';
+    }
+
     /**
      * Path root project
      *

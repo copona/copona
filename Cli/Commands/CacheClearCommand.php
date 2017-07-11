@@ -2,7 +2,7 @@
 
 namespace Copona\Cli\Commands;
 
-use Copona\Core\Helpers\Util;
+use Copona\Helpers\Util;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,7 +17,7 @@ class CacheClearCommand extends Command
     }
 
     /**
-     * Limpa os caches
+     * Clear cache
      *
      * @param InputInterface $input
      * @param OutputInterface $output
@@ -25,20 +25,15 @@ class CacheClearCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-//        $paths = [
-//            DIR_CACHE,
-//            DIR_VQMOD_STORAGE,
-//            DIR_VQMOD_CACHE,
-//            DIR_IMAGE . 'cache/'
-//        ];
-//
-//        foreach ($paths as $path) {
-//            Util::recursiveRemove($path);
-//        }
+        $paths = [
+            DIR_PUBLIC . '/' . \Config::get('image_cache_path'),
+        ];
 
-//        $output->writeln('Cache successfully clean.');
+        foreach ($paths as $path) {
+            Util::recursiveRemove($path);
+        }
 
-        $output->writeln(Util::pathRoot());
+        $output->writeln('Cache successfully clean.');
 
         return true;
     }
