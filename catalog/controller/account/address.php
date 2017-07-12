@@ -3,11 +3,7 @@ class ControllerAccountAddress extends Controller {
     private $error = array();
 
     public function index() {
-        if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/address', '', true);
-
-            $this->response->redirect($this->url->link('account/login', '', true));
-        }
+        $this->checkCustomerLogin('account/address');
 
         $this->load->language('account/address');
 
