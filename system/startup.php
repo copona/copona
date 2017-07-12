@@ -66,6 +66,7 @@ if (file_exists(DIR_PUBLIC . '/.env')) {
 
 //Init Config
 $config = new ConfigManager(DIR_CONFIG);
+$GLOBALS['config'] = $config;
 
 // Helper
 require_once(DIR_SYSTEM . 'helper/debug.php');
