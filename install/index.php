@@ -51,3 +51,8 @@ define('DIR_UPLOAD', DIR_STORAGE_PRIVATE . 'upload/');
 require_once(DIR_SYSTEM . 'startup.php');
 
 start(APPLICATION);
+
+// Output
+global $response;
+$response->setCompression($config->get('config_compression'));
+$response->output();

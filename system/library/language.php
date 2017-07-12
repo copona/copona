@@ -95,7 +95,6 @@ class Language extends Controller
         } elseif (is_file(DIR_LANGUAGE . $this->default . '/' . $filename . '.php')) {
             require(DIR_LANGUAGE . $this->default . '/' . $filename . '.php');
         } else {
-            //pr($filename);
             require(DIR_LANGUAGE . $this->default . '/' . $this->default . '.php');
         }
 
@@ -103,7 +102,6 @@ class Language extends Controller
         // TODO: arrayis merged every time, to override same keys from theme settings
         // must be optimized.
         $this->data = array_merge($this->data, $this->theme_language);
-        //pr($this->data );
         $data = array_merge($data, $this->data);
 
         return $this->data;

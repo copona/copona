@@ -39,6 +39,7 @@ $registry->singleton('request', Request::class);
 $response = new Response();
 $response->addHeader('Content-Type: text/html; charset=utf-8');
 $registry->set('response', $response);
+$GLOBALS['response'] = $response;
 
 // Database
 if ($config->get($application_config . '.db_autostart')) {
@@ -139,7 +140,3 @@ $controller->dispatch(
     new \Copona\System\Engine\Action($config->get($application_config . '.action_router')),
     new \Copona\System\Engine\Action($config->get($application_config . '.action_error'))
 );
-
-// Output
-$response->setCompression($config->get('config_compression'));
-$response->output();
