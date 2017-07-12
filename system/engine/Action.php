@@ -17,17 +17,9 @@ class Action
         // Break apart the route
         $parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
 
-        $info_file = $this->prepareController($parts, 2);
-
-        if (is_file($info_file->file) && count($parts) < 3) {
-            $this->file = $info_file->file;
-            $this->class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $info_file->supposed_class);
-        } else {
-            $info_file = $this->prepareController($parts, 3);
-            $this->file = $info_file->file;
-            $this->class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $info_file->supposed_class);
-        }
-
+        $info_file = $this->prepareController($parts);
+        $this->file = $info_file->file;
+        $this->class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $info_file->supposed_class);
         $this->method = $info_file->supposed_method;
     }
 
@@ -65,27 +57,30 @@ class Action
      * Find and prepare controller file
      *
      * @param array $parts
-     * @param int $part_count
      * @return \stdClass
      */
-    private function prepareController($parts, $part_count = 2)
+    private function prepareController($parts)
     {
-        if (is_array($parts) && count($parts) > $part_count) {
-            $aux_parts = $parts;
-            $supposed_method = end($aux_parts);
-            array_pop($aux_parts);
-            $supposed_class = implode('/', $aux_parts);
-        } else {
+        $supposed_method = 'index';
+
+        while (count($parts)) {
+
             $supposed_class = implode('/', $parts);
-            $supposed_method = 'index';
-        }
 
-        $extensions_file = ExtensionManager::findController($supposed_class . '.php');
+            $extensions_file = ExtensionManager::findController($supposed_class . '.php');
 
-        if ($extensions_file) {
-            $file = $extensions_file;
-        } else {
-            $file = DIR_APPLICATION . 'controller/' . $supposed_class . '.php';
+            if ($extensions_file) {
+                $file = $extensions_file;
+            } else {
+                $file = DIR_APPLICATION . 'controller/' . $supposed_class . '.php';
+            }
+
+            if(!file_exists($file)) {
+                $supposed_method = end($parts);
+                array_pop($parts);
+            } else {
+                break;
+            }
         }
 
         $object = new \stdClass();
