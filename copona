@@ -11,8 +11,6 @@ foreach (array(__DIR__ . '/../../../autoload.php', __DIR__ . '/../../autoload.ph
 
 \Copona\Helpers\Util::load_cp();
 
-use Symfony\Component\Console\Application;
+use Copona\Cli\LoadCommands;
 
-$application = new Application();
-$application->add(new \Copona\Cli\Commands\CacheClearCommand());
-$application->run();
+$loadCommands = new LoadCommands();
