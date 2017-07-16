@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e2ae60a4ca6adf63bfbc2bd20eb3809f",
+    "hash": "f2ea84b7f410470142516bb49506fe2f",
     "content-hash": "f374f10070836d9221aa18d134f4c0bf",
     "packages": [
         {
@@ -97,12 +97,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/copona/core.git",
-                "reference": "fb4f53032fcc92362dee4f1e4f60cc065310735d"
+                "reference": "e5187f62fa072aa93a1d3b76078f57ce13f63cb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/fb4f53032fcc92362dee4f1e4f60cc065310735d",
-                "reference": "fb4f53032fcc92362dee4f1e4f60cc065310735d",
+                "url": "https://api.github.com/repos/copona/core/zipball/e5187f62fa072aa93a1d3b76078f57ce13f63cb5",
+                "reference": "e5187f62fa072aa93a1d3b76078f57ce13f63cb5",
                 "shasum": ""
             },
             "require": {
@@ -145,7 +145,7 @@
                 "framework",
                 "opensource"
             ],
-            "time": "2017-07-11 03:05:27"
+            "time": "2017-07-16 18:01:29"
         },
         {
             "name": "divido/divido-php",
