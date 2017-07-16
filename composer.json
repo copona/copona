@@ -21,5 +21,10 @@
       "Extension\\": "./extensions/",
       "Theme\\": "./themes/"
     }
+  },
+  "scripts": {
+    "post-create-project-cmd": [
+      "php copona install"
+    ]
   }
 }
