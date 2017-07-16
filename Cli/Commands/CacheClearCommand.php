@@ -33,7 +33,7 @@ class CacheClearCommand extends Command
             Util::recursiveRemove($path);
         }
 
-        $output->writeln('Cache successfully clean.');
+        $output->writeln('<info>Cache successfully clean.</info>');
 
         return true;
     }

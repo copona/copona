@@ -5,10 +5,12 @@ namespace Copona\Helpers;
 
 class Util
 {
-
     public static function load_cp()
     {
-        require_once __DIR__ . '/../../cp_bootstrap.php';
+        define('DIR_PUBLIC', realpath(__DIR__ . '/../../../../../'));
+        define('APPLICATION', 'core');
+
+        require_once(DIR_PUBLIC . '/system/startup.php');
     }
 
     /**
@@ -18,7 +20,7 @@ class Util
      */
     public static function pathRoot()
     {
-        if(!defined('DIR_PUBLIC')) {
+        if (!defined('DIR_PUBLIC')) {
             define('DIR_PUBLIC', realpath(__DIR__ . '/../../../../../'));
         }
 
