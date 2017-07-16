@@ -13,7 +13,9 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 * Composer [https://getcomposer.org/](https://getcomposer.org/)
 
 ## Get started
-`composer create-project copona/copona`
+`composer create-project copona/copona --stability=dev`
+
+`cd copona && php copona install`
 
 ## Installation
 * Getting project files
