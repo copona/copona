@@ -132,4 +132,11 @@ abstract class Controller
         $this->registry->set($key, $value);
     }
 
+    public function checkCustomerLogin($redirect_route, $args = '', $is_secured = true){
+        if (!$this->customer->isLogged()) {
+            $this->session->data['redirect'] = $this->url->link($redirect_route, '', true);
+            $this->response->redirect($this->url->link('account/login', '', true));
+        }
+    }
+
 }

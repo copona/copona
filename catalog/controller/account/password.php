@@ -3,11 +3,7 @@ class ControllerAccountPassword extends Controller {
     private $error = array();
 
     public function index() {
-        if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/password', '', true);
-
-            $this->response->redirect($this->url->link('account/login', '', true));
-        }
+        $this->checkCustomerLogin('account/password');
 
         $this->load->language('account/password');
 
