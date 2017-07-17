@@ -49,10 +49,9 @@ if (!function_exists('env')) {
 }
 
 // Check if Installed
-if (
-    !file_exists(DIR_PUBLIC . '/.env') &&
-    is_dir(DIR_PUBLIC . '/install/') &&
-    !defined('DIR_COPONA')
+if (\Copona\Classes\Install::checkIfInstalled() == false
+    && APPLICATION != 'core' && APPLICATION != 'install'
+    && is_dir(DIR_PUBLIC . '/install/')
 ) {
     header('Location: install/index.php');
     exit;

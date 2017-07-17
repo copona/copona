@@ -350,7 +350,7 @@ INSERT INTO `oc_banner_image` (`banner_image_id`, `banner_id`, `language_id`, `t
 --
 -- Table structure for table `oc_banner_image_description`
 -- TODO: Implement Banner Image Description
-
+DROP TABLE IF EXISTS `oc_banner_image_description`;
 CREATE TABLE `oc_banner_image_description` (
   `banner_image_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
@@ -690,6 +690,7 @@ INSERT INTO `oc_category_to_store` (`category_id`, `store_id`) VALUES
 -- Table structure for table `oc_content_meta`
 --
 
+DROP TABLE IF EXISTS `cp_content_meta`;
 CREATE TABLE `cp_content_meta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2638,6 +2639,7 @@ CREATE TABLE `oc_product_image` (
 -- Table structure for table `oc_product_image`
 -- TODO: implement Image Description
 
+DROP TABLE IF EXISTS `oc_product_image_description`;
 CREATE TABLE `oc_product_image_description` (
   `id` int(11) NOT NULL,
   `product_image_id` int(11) NOT NULL,
@@ -2980,6 +2982,7 @@ CREATE TABLE `oc_product_to_layout` (
 --
 -- Table structure for table `oc_product_to_product`
 --
+DROP TABLE IF EXISTS `oc_product_to_product`;
 CREATE TABLE `oc_product_to_product` (
 `product_group_id` INT(55) NOT NULL AUTO_INCREMENT,
 `product_id` INT(55) NOT NULL,
@@ -3207,6 +3210,7 @@ CREATE TABLE `oc_review` (
 -- Table structure for table `oc_searchRegister`
 -- TODO: implement Search Register statistics
 
+DROP TABLE IF EXISTS `oc_search_register`;
 CREATE TABLE `oc_search_register` (
   `search_id` int(11) NOT NULL,
   `name` text NOT NULL,
@@ -3219,6 +3223,7 @@ CREATE TABLE `oc_search_register` (
 -- Table structure for table `oc_search_table`
 --
 
+DROP TABLE IF EXISTS `oc_search_table`;
 CREATE TABLE `oc_search_table` (
   `text` text NOT NULL,
   `name` varchar(254) NOT NULL,
@@ -3232,6 +3237,7 @@ CREATE TABLE `oc_search_table` (
 -- Table structure for table `oc_search_types`
 --
 
+DROP TABLE IF EXISTS `oc_search_types`;
 CREATE TABLE `oc_search_types` (
   `type_id` tinyint(4) NOT NULL,
   `name` varchar(254) CHARACTER SET latin1 NOT NULL
@@ -3842,6 +3848,7 @@ INSERT INTO `oc_voucher_theme_description` (`voucher_theme_id`, `language_id`, `
 -- Table structure for table `oc_webform`
 -- TODO: implement Webform
 
+DROP TABLE IF EXISTS `oc_webform`;
 CREATE TABLE `oc_webform` (
   `id` int(11) NOT NULL,
   `firstname` varchar(254) NOT NULL,
