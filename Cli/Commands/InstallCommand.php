@@ -3,11 +3,10 @@
 namespace Copona\Cli\Commands;
 
 use Copona\Classes\Install;
+use Copona\Helpers\Command as CommandHelper;
 use Copona\Classes\Requirements;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
@@ -22,6 +21,13 @@ class InstallCommand extends Command
      * @var bool
      */
     protected $reinstall = false;
+
+    /**
+     * Advenced define settings
+     *
+     * @var bool
+     */
+    protected $advenced = false;
 
     protected function configure()
     {
@@ -39,7 +45,7 @@ class InstallCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = $this->prepareIO($input, $output);
+        $io = CommandHelper::prepareIO($input, $output);
 
         $io->title('Install Copona');
 
@@ -48,23 +54,23 @@ class InstallCommand extends Command
             $io->newLine(1);
 
             $helper = $this->getHelper('question');
-            $questionReinstall = new ConfirmationQuestion("<error>Do you want to reinstall again? All database will be erased. (y/N)</error>", false);
+            $questionReinstall = new ConfirmationQuestion("<error>Do you want to reinstall again? All database will be erased. (yes/no) [no]</error>", false);
             $answerReinstall = $helper->ask($input, $output, $questionReinstall);
 
             if ($answerReinstall) {
                 $this->reinstall = true;
-                $this->clear($io, $output);
-                $this->stepOne($io, $output, $input);
+                CommandHelper::clear($io, $output);
+                $this->checkRequirementsStep($io, $output, $input);
                 $output->writeln('<info>Copona successfully installed</info>');
             }
 
         } else {
-            $this->stepOne($io, $output, $input);
+            $this->checkRequirementsStep($io, $output, $input);
             $output->writeln('<info>Copona successfully installed</info>');
         }
     }
 
-    protected function stepOne(SymfonyStyle $io, OutputInterface $output, InputInterface $input)
+    protected function checkRequirementsStep(SymfonyStyle $io, OutputInterface $output, InputInterface $input)
     {
         $io->section('Check your server is set-up correctly');
 
@@ -84,17 +90,17 @@ class InstallCommand extends Command
         $this->tableFour($output);
 
         $helper = $this->getHelper('question');
-        $questionNextStep = new ConfirmationQuestion("<question>Do you want to continue to the next step? (Y/n)</question>", true);
+        $questionNextStep = new ConfirmationQuestion("<question>Do you want to continue to the next step? (yes/no ) [yes]</question>", true);
         $answerNextStep = $helper->ask($input, $output, $questionNextStep);
 
         if ($answerNextStep) {
-            $this->twoStep($io, $output, $input);
+            $this->settingsStep($io, $output, $input);
         }
     }
 
-    protected function twoStep(SymfonyStyle $io, OutputInterface $output, InputInterface $input)
+    protected function settingsStep(SymfonyStyle $io, OutputInterface $output, InputInterface $input)
     {
-        $this->clear($io, $output);
+        CommandHelper::clear($io, $output);
 
         $io->section('Enter your database and administration details');
 
@@ -135,12 +141,26 @@ class InstallCommand extends Command
         $question = new Question('Email');
         $data['email'] = $io->askQuestion($question);
 
-        $this->threeStep($data, $io, $output);
+        $helper = $this->getHelper('question');
+        $questionAdvanced = new ConfirmationQuestion("<info>Do you want to configure advanced settings? (yes/no) [no]</info>", false);
+        $answerAdvanced = $helper->ask($input, $output, $questionAdvanced);
+
+        if ($answerAdvanced) {
+            $io->newLine();
+            $this->advenced = true;
+            $question = new Question('Enviromnent', 'dev');
+            $data['app_env'] = $io->askQuestion($question);
+
+            $questionDebugMode = new ConfirmationQuestion("Debug mode", false);
+            $data['debug_mode'] = $io->askQuestion($questionDebugMode);
+        }
+
+        $this->installationStep($data, $io, $output);
     }
 
-    protected function threeStep(array $data, SymfonyStyle $io, OutputInterface $output)
+    protected function installationStep(array $data, SymfonyStyle $io, OutputInterface $output)
     {
-        $this->clear($io, $output);
+        CommandHelper::clear($io, $output);
 
         $io->section('Installing');
 
@@ -154,7 +174,7 @@ class InstallCommand extends Command
         $progressBar->setMessage('Creating .env');
         $progressBar->start();
 
-        Install::createDotEnv([
+        $env = [
             'APP_ENV'     => 'dev',
             'DB_DRIVER'   => addslashes($data['db_driver']),
             'DB_HOSTNAME' => addslashes($data['db_hostname']),
@@ -163,7 +183,14 @@ class InstallCommand extends Command
             'DB_DATABASE' => addslashes($data['db_database']),
             'DB_PORT'     => addslashes($data['db_port']),
             'DB_PREFIX'   => addslashes($data['db_prefix']),
-        ]);
+        ];
+
+        if ($this->advenced) {
+            $env['APP_ENV'] = $data['app_env'];
+            $env['DEBUG_MODE'] = $data['debug_mode'] ? 'true' : 'false';
+        }
+
+        Install::createDotEnv($env);
         sleep(1);
 
         if ($this->reinstall) {
@@ -195,7 +222,7 @@ class InstallCommand extends Command
 
         $requirements = Requirements::getSettingsPHP();
 
-        $table = $this->makeTableSetting($output, $headers, $requirements);
+        $table = CommandHelper::makeTableSetting($output, $headers, $requirements);
         $table->render();
     }
 
@@ -205,7 +232,7 @@ class InstallCommand extends Command
 
         $requirements = Requirements::getSettingsExtension();
 
-        $table = $this->makeTableSetting($output, $headers, $requirements);
+        $table = CommandHelper::makeTableSetting($output, $headers, $requirements);
         $table->render();
     }
 
@@ -217,7 +244,7 @@ class InstallCommand extends Command
 
         $requirements[] = $config_env;
 
-        $table = $this->makeTablePath($output, $headers, $requirements);
+        $table = CommandHelper::makeTablePath($output, $headers, $requirements);
         $table->render();
     }
 
@@ -229,149 +256,7 @@ class InstallCommand extends Command
 
         unset($requirements['config_env']);
 
-        $table = $this->makeTablePath($output, $headers, $requirements);
+        $table = CommandHelper::makeTablePath($output, $headers, $requirements);
         $table->render();
-    }
-
-    protected function makeTableSetting(OutputInterface $output, array $headers = [], array $requirements = [])
-    {
-        $table = new Table($output);
-
-        $table->setHeaders($headers);
-
-        $rows = [];
-
-        foreach ($requirements as $title => $requirement) {
-
-            if ($requirement['status'] == $requirement['required']) {
-                $rows[] = [
-                    $this->green($title),
-                    $this->green($requirement['current']),
-                    $this->green($requirement['required']),
-                    $this->checkSuccess(''),
-                ];
-            } else {
-                $rows[] = [
-                    $this->red($title),
-                    $this->red($requirement['current']),
-                    $this->red($requirement['required']),
-                    $this->checkFail(''),
-                ];
-            }
-        }
-
-        $table->setRows($rows);
-
-        return $table;
-    }
-
-    protected function makeTablePath(OutputInterface $output, array $headers = [], array $requirements = [])
-    {
-        $table = new Table($output);
-
-        $table->setHeaders($headers);
-
-        $rows = [];
-
-        foreach ($requirements as $requirement) {
-
-            if ($requirement['exists']) {
-                $rows[] = [
-                    $this->green($requirement['path']),
-                    $this->green($requirement['exists']),
-                    $this->checkSuccess(''),
-                ];
-            } else {
-                $rows[] = [
-                    $this->red($requirement['path']),
-                    $this->red($requirement['exists']),
-                    $this->checkFail(''),
-                ];
-            }
-        }
-
-        $table->setRows($rows);
-
-        return $table;
-    }
-
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return SymfonyStyle
-     */
-    protected function prepareIO(InputInterface $input, OutputInterface $output)
-    {
-        $io = new SymfonyStyle($input, $output);
-
-        $style = new OutputFormatterStyle('black', 'red', array('bold'));
-        $io->getFormatter()->setStyle('fail', $style);
-
-        $style = new OutputFormatterStyle('black', 'green', array('bold'));
-        $io->getFormatter()->setStyle('passed', $style);
-
-        return $io;
-    }
-
-    /**
-     * Message in red
-     *
-     * @param $message
-     * @return string
-     */
-    protected function red($message)
-    {
-        if (is_bool($message)) {
-            $message = $message ? 'On' : 'Off';
-        }
-        return "<fg=red> " . $message . "</>";
-    }
-
-    /**
-     * Message in green
-     *
-     * @param $message
-     * @return string
-     */
-    protected function green($message)
-    {
-        if (is_bool($message)) {
-            $message = $message ? 'On' : 'Off';
-        }
-        return "<fg=green> " . $message . "</>";
-    }
-
-    /**
-     * Check like success
-     *
-     * @param $message
-     * @return string
-     */
-    protected function checkSuccess($message)
-    {
-        return "<passed> " . "\xF0\x9F\x91\x8D" . "  </passed> <fg=green>" . $message . "</>";
-    }
-
-    /**
-     * Check unlike Fail
-     *
-     * @param $message
-     * @return string
-     */
-    protected function checkFail($message)
-    {
-        return "<fail> " . "\xF0\x9F\x91\x8E" . "  </fail> <fg=red>" . $message . "</>";
-    }
-
-    /**
-     * Clear screen
-     *
-     * @param SymfonyStyle $io
-     * @param OutputInterface $output
-     */
-    protected function clear(SymfonyStyle $io, OutputInterface $output)
-    {
-        $output->write(sprintf("\033\143"));
-        $io->write(sprintf("\033\143"));
     }
 }
