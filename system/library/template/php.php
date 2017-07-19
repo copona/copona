@@ -2,10 +2,12 @@
 
 namespace Template;
 
-final class PHP {
+final class PHP
+{
     private $data = array();
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         $this->config = $registry->get('config');
         //$this->db = $registry->get('db');
         //$this->request = $registry->get('request');
@@ -13,22 +15,23 @@ final class PHP {
         $this->request = $registry->get('request');
     }
 
-    public function set($key, $value) {
+    public function set($key, $value)
+    {
         $this->data[$key] = $value;
     }
 
-    public function render($template) {
-        $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
-
+    public function render($template)
+    {
         // pr($template);
         // TODO: optimize this!
-        defined('DIR_CATALOG')
-            ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/view/template/" . $template)
-            : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/view/theme/default/template/" . $template . ".php");
-        // pr($extension_files);
+        if(APPLICATION == 'catalog') {
+            $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/themes/" . $template);
+        } else {
+            $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/admin/view/template/" . $template);
+        }
 
         // First, let's check for Extension template
-        if(!empty($extension_files[0])) {
+        if (!empty($extension_files[0])) {
             $file = $extension_files[0];
         } else {
             $file = DIR_TEMPLATE . $template;
@@ -42,9 +45,8 @@ final class PHP {
             require($file);
 
             return ob_get_clean();
+        } else {
+            throw new \Exception('Error: Could not load template ' . $file . '!');
         }
-
-        throw new \Exception('Error: Could not load template ' . $file . '!');
     }
-
 }

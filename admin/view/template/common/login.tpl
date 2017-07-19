@@ -1,4 +1,11 @@
 <?php echo $header; ?>
+
+<?php if ($error_secure) { ?>
+<div class="alert alert-danger secure-warning">
+  <span class="secure-message"><?php echo $error_secure; ?></span>
+</div>
+<?php } ?>
+
 <div id="content">
   <div class="container-fluid"><br />
     <br />

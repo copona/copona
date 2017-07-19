@@ -2,11 +2,7 @@
 class ControllerAccountOrder extends Controller {
 
     public function index() {
-        if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/order', '', true);
-
-            $this->response->redirect($this->url->link('account/login', '', true));
-        }
+        $this->checkCustomerLogin('account/order');
 
         $this->load->language('account/order');
 

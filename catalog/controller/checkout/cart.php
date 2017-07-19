@@ -135,6 +135,7 @@ class ControllerCheckoutCart extends Controller {
 
                 $data['products'][] = array(
                     'cart_id'   => $product['cart_id'],
+                    'product_id'   => $product['product_id'],
                     'thumb'     => $image,
                     'name'      => $product['name'],
                     'model'     => $product['model'],
@@ -247,12 +248,14 @@ class ControllerCheckoutCart extends Controller {
                 $data['column_right'] = $this->load->controller('common/column_right');
                 $data['content_top'] = $this->load->controller('common/content_top');
                 $data['content_bottom'] = $this->load->controller('common/content_bottom');
+                $data['content_data'] = $this->load->controller('common/content_data');
                 $data['footer'] = $this->load->controller('common/footer');
                 $data['header'] = $this->load->controller('common/header');
 
                 $this->response->setOutput($this->load->view('checkout/cart', $data));
             }
         } else {
+
             $data['heading_title'] = $this->language->get('heading_title');
 
             $data['text_error'] = $this->language->get('text_empty');
@@ -269,6 +272,9 @@ class ControllerCheckoutCart extends Controller {
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
             $data['footer'] = $this->load->controller('common/footer');
             $data['header'] = $this->load->controller('common/header');
+
+            // Not found for checkout template
+            $this->hook->getHook('checkout/cart/index/notFound', $data['products']);
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
@@ -311,7 +317,8 @@ class ControllerCheckoutCart extends Controller {
             }
 
             if ($this->config->get('config_stock_checkout') == false && $product_info['quantity'] < 1) {
-                $json['error']['stock'] = $this->language->get('error_stock');
+                // TODO 
+                //$json['error']['stock'] = $this->language->get('error_stock');
             }
 
 
@@ -399,6 +406,7 @@ class ControllerCheckoutCart extends Controller {
 
                 //$json['total'] = '<span id="cart-total"><i class="fa fa-shopping-cart"></i>' . $json_total . '</span>';
             } else {
+               // prd($json);
                 $json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']));
             }
         }
