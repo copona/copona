@@ -21,7 +21,7 @@ class Loader
      * Load Controller
      *
      * @param $route
-     * @param array $data
+     * @param mixed $data
      * @return bool|mixed|null
      */
     public function controller($route, $data = [])

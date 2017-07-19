@@ -18,7 +18,9 @@ class ControllerCommonHeader extends Controller {
 
         foreach ($analytics as $analytic) {
             if ($this->config->get($analytic['code'] . '_status')) {
-                $data['analytics'][] = $this->load->controller('extension/analytics/' . $analytic['code'], $this->config->get($analytic['code'] . '_status'));
+                try {
+                    $data['analytics'][] = $this->load->controller('extension/analytics/' . $analytic['code'], $this->config->get($analytic['code'] . '_status'));
+                } catch (\Copona\Exception\ActionException $e) {}
             }
         }
 

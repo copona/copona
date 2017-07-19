@@ -29,7 +29,13 @@ class Action
         return $this->id;
     }
 
-    public function execute($registry, Array &$args = [])
+    /**
+     * @param $registry
+     * @param mixed $args
+     * @return bool|mixed
+     * @throws ActionException
+     */
+    public function execute($registry, &$args = [])
     {
         // Stop any magical methods being called
         if (substr($this->method, 0, 2) == '__') {
