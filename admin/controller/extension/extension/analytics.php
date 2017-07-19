@@ -28,7 +28,11 @@ class ControllerExtensionExtensionAnalytics extends Controller {
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'analytics/' . $this->request->get['extension']);
 
             // Call install method if it exsits
-            $this->load->controller('extension/analytics/' . $this->request->get['extension'] . '/install');
+            try {
+                $this->load->controller('extension/analytics/' . $this->request->get['extension'] . '/install');
+            } catch (\Copona\Exception\ActionException $e) {
+
+            }
 
             $this->session->data['success'] = $this->language->get('text_success');
         }
@@ -45,7 +49,11 @@ class ControllerExtensionExtensionAnalytics extends Controller {
             $this->model_extension_extension->uninstall('analytics', $this->request->get['extension']);
 
             // Call uninstall method if it exsits
-            $this->load->controller('extension/analytics/' . $this->request->get['extension'] . '/uninstall');
+            try {
+                $this->load->controller('extension/analytics/' . $this->request->get['extension'] . '/uninstall');
+            } catch (\Copona\Exception\ActionException $e) {
+
+            }
 
             $this->session->data['success'] = $this->language->get('text_success');
         }

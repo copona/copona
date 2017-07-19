@@ -23,7 +23,11 @@ class ControllerExtensionExtensionTotal extends Controller {
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/total/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/total/' . $this->request->get['extension']);
 
-            $this->load->controller('extension/total/' . $this->request->get['extension'] . '/install');
+            try {
+                $this->load->controller('extension/total/' . $this->request->get['extension'] . '/install');
+            } catch (\Copona\Exception\ActionException $e) {
+
+            }
 
             $this->session->data['success'] = $this->language->get('text_success');
         }
@@ -39,7 +43,11 @@ class ControllerExtensionExtensionTotal extends Controller {
         if ($this->validate()) {
             $this->model_extension_extension->uninstall('total', $this->request->get['extension']);
 
-            $this->load->controller('extension/total/' . $this->request->get['extension'] . '/uninstall');
+            try {
+                $this->load->controller('extension/total/' . $this->request->get['extension'] . '/uninstall');
+            } catch (\Copona\Exception\ActionException $e) {
+
+            }
 
             $this->session->data['success'] = $this->language->get('text_success');
         }

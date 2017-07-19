@@ -2,6 +2,7 @@
 
 namespace Copona\System\Engine;
 
+use Copona\Exception\ActionException;
 use Copona\System\Library\Extension\ExtensionManager;
 
 class Action
@@ -45,11 +46,11 @@ class Action
             if (is_callable([$controller, $this->method])) {
                 return call_user_func([$controller, $this->method], $args);
             } else {
-                throw new \RuntimeException('Method ' . $this->method . ' not found in Controller ' . $this->class);
+                throw new ActionException('Method ' . $this->method . ' not found in Controller ' . $this->class);
             }
 
         } else {
-            throw new \RuntimeException('Controller ' . $this->file . ' not found.');
+            throw new ActionException('Controller ' . $this->file . ' not found.');
         }
     }
 
@@ -59,7 +60,7 @@ class Action
      * @param array $parts
      * @return \stdClass
      */
-    private function prepareController($parts)
+    private function prepareController(array $parts)
     {
         $supposed_method = 'index';
 
@@ -75,7 +76,7 @@ class Action
                 $file = DIR_APPLICATION . 'controller/' . $supposed_class . '.php';
             }
 
-            if(!file_exists($file)) {
+            if (!file_exists($file)) {
                 $supposed_method = end($parts);
                 array_pop($parts);
             } else {

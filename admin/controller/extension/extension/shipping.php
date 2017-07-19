@@ -30,7 +30,11 @@ class ControllerExtensionExtensionShipping extends Controller
                 'extension/shipping/' . $this->request->get['extension']);
 
             // Call install method if it exsits
-            $this->load->controller('extension/shipping/' . $this->request->get['extension'] . '/install');
+            try {
+                $this->load->controller('extension/shipping/' . $this->request->get['extension'] . '/install');
+            } catch (\Copona\Exception\ActionException $e) {
+
+            }
 
             $this->session->data['success'] = $this->language->get('text_success');
         }
@@ -48,7 +52,11 @@ class ControllerExtensionExtensionShipping extends Controller
             $this->model_extension_extension->uninstall('shipping', $this->request->get['extension']);
 
             // Call uninstall method if it exsits
-            $this->load->controller('extension/shipping/' . $this->request->get['extension'] . '/uninstall');
+            try {
+                $this->load->controller('extension/shipping/' . $this->request->get['extension'] . '/uninstall');
+            } catch (\Copona\Exception\ActionException $e) {
+
+            }
 
             $this->session->data['success'] = $this->language->get('text_success');
         }

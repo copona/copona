@@ -127,7 +127,7 @@ if ($config->has('model_autoload')) {
 }
 
 // Front Controller
-$controller = new Front($registry);
+$controller = new \Copona\System\engine\Front($registry);
 
 // Pre Actions
 if ($config->has($application_config . '.action_pre_action')) {

@@ -1,8 +1,10 @@
 <?php
 
-use \Copona\System\Engine\Action;
+namespace Copona\System\engine;
 
-final class Front
+use Copona\Exception\ActionException;
+
+class Front
 {
     private $registry;
     private $pre_action = array();
@@ -27,7 +29,6 @@ final class Front
 
             if ($result instanceof Action) {
                 $action = $result;
-
                 break;
             }
         }
@@ -39,20 +40,20 @@ final class Front
 
     private function execute(Action $action)
     {
-        $result = $action->execute($this->registry);
+        try {
 
-        if ($result instanceof Action) {
-            return $result;
-        }
+            $result = $action->execute($this->registry);
 
-        if ($result instanceof Exception) {
-            throw $result;
+            if ($result instanceof Action) {
+                return $result;
+            }
+
+        } catch (ActionException $e) {
+
             $action = $this->error;
-
             $this->error = null;
-
             return $action;
+
         }
     }
-
 }
