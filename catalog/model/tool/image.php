@@ -14,7 +14,7 @@ class ModelToolImage extends Model
         $image_old = $filename;
         $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
 
-        if (!is_file(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filectime(DIR_IMAGE . $image_old) > filectime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image))) {
+        if (!is_file(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $image_old) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image))) {
             list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
 
             if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {

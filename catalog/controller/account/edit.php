@@ -119,7 +119,7 @@ class ControllerAccountEdit extends Controller {
 
         if (isset($this->request->post['firstname'])) {
             $data['firstname'] = $this->request->post['firstname'];
-        } elseif (array_key_exists('firstname', $customer_info)) {//changed from elseif (!empty($customer_info))
+        } elseif (array_key_exists('firstname', $customer_info)) {
             $data['firstname'] = $customer_info['firstname'];
         } else {
             $data['firstname'] = '';
@@ -127,7 +127,7 @@ class ControllerAccountEdit extends Controller {
 
         if (isset($this->request->post['lastname'])) {
             $data['lastname'] = $this->request->post['lastname'];
-        } elseif (array_key_exists('lastname', $customer_info)) {//changed from elseif (!empty($customer_info))
+        } elseif (array_key_exists('lastname', $customer_info)) {
             $data['lastname'] = $customer_info['lastname'];
         } else {
             $data['lastname'] = '';
@@ -135,7 +135,7 @@ class ControllerAccountEdit extends Controller {
 
         if (isset($this->request->post['email'])) {
             $data['email'] = $this->request->post['email'];
-        } elseif (array_key_exists('email', $customer_info)) {//changed from elseif (!empty($customer_info))
+        } elseif (array_key_exists('email', $customer_info)) {
             $data['email'] = $customer_info['email'];
         } else {
             $data['email'] = '';
@@ -143,7 +143,7 @@ class ControllerAccountEdit extends Controller {
 
         if (isset($this->request->post['telephone'])) {
             $data['telephone'] = $this->request->post['telephone'];
-        } elseif (array_key_exists('telephone', $customer_info)) {//changed from elseif (!empty($customer_info))
+        } elseif (array_key_exists('telephone', $customer_info)) {
             $data['telephone'] = $customer_info['telephone'];
         } else {
             $data['telephone'] = '';
@@ -151,7 +151,7 @@ class ControllerAccountEdit extends Controller {
 
         if (isset($this->request->post['fax'])) {
             $data['fax'] = $this->request->post['fax'];
-        } elseif (array_key_exists('fax', $customer_info)) {//changed from elseif (!empty($customer_info))
+        } elseif (array_key_exists('fax', $customer_info)) {
             $data['fax'] = $customer_info['fax'];
         } else {
             $data['fax'] = '';
