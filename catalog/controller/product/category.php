@@ -33,9 +33,8 @@ class ControllerProductCategory extends Controller
             'href' => $this->url->link('common/home')
         );
         $url = '';
-//            prd();
+
         if (!empty($this->request->get['path'])) {
-//prd();
 
             $url = $this->url->getPartly(['sort', 'order', 'limit'], true);
             $path = '';
@@ -61,12 +60,9 @@ class ControllerProductCategory extends Controller
         } else {
             $category_id = 0;
         }
-//        prd($category_id);
+
 
         $category_info = $this->model_catalog_category->getCategory($category_id);
-//        pr($this->request->get['path']);
-//        pr($this->request->get['path']);
-
 
         if (!empty($this->request->get['path']) && $category_info) {
             $show_category = true;
@@ -89,7 +85,6 @@ class ControllerProductCategory extends Controller
             $show_category = false;
         }
 
-//prd($show_category);
         if ($show_category) {
             $this->document->setTitle($category_meta_title);
             $this->document->setDescription($category_meta_description);
@@ -98,7 +93,6 @@ class ControllerProductCategory extends Controller
             $data['text_compare'] = sprintf($this->language->get('text_compare'),
 
                 (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
-//            prd();
 
 
             // Set the last category breadcrumb
@@ -453,11 +447,6 @@ class ControllerProductCategory extends Controller
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
-//        pr($this->request->get['path']);
-//        if(empty($this->request->get['path'])){
-//         $url = str_replace('path=', '', $url);
-//        }
-//        pr($url);
     }
 
 }
