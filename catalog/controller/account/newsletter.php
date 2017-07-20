@@ -2,12 +2,7 @@
 class ControllerAccountNewsletter extends Controller {
 
     public function index() {
-        if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/newsletter', '', true);
-
-            $this->response->redirect($this->url->link('account/login', '', true));
-        }
-
+        $this->checkCustomerLogin('account/newsletter');
         $this->load->language('account/newsletter');
 
         $this->document->setTitle($this->language->get('heading_title'));
