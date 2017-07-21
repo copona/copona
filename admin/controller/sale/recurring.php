@@ -479,7 +479,7 @@ class ControllerSaleRecurring extends Controller {
 
             $this->response->setOutput($this->load->view('sale/recurring_info', $data));
         } else {
-            return new Action('error/not_found');
+            return new \Copona\System\Engine\Action('error/not_found');
         }
     }
 

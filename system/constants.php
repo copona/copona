@@ -39,9 +39,11 @@ if (APPLICATION != 'install') {
     define('DIR_LANGUAGE', DIR_PUBLIC . '/' . APPLICATION . '/language/');
 
     if (APPLICATION == 'catalog') {
-        define('DIR_TEMPLATE', DIR_PUBLIC . '/themes/');
+        define('PATH_TEMPLATE', 'themes/');
+        define('DIR_TEMPLATE', DIR_PUBLIC . '/' . PATH_TEMPLATE);
     } else {
-        define('DIR_TEMPLATE', DIR_PUBLIC . '/admin/view/template/');
+        define('PATH_TEMPLATE', 'admin/view/template/');
+        define('DIR_TEMPLATE', DIR_PUBLIC . '/' . PATH_TEMPLATE);
     }
 
     define('PATH_STORAGE', 'storage/');

@@ -109,7 +109,7 @@ class ControllerAccountReset extends Controller {
 
             $this->session->data['error'] = $this->language->get('error_code');
 
-            return new Action('account/login');
+            return new \Copona\System\Engine\Action('account/login');
         }
     }
 

@@ -1,5 +1,4 @@
 <?php
-
 //Public dir
 define('DIR_PUBLIC', realpath(__DIR__ . '/../'));
 
