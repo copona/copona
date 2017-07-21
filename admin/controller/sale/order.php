@@ -1140,7 +1140,7 @@ class ControllerSaleOrder extends Controller {
                 if (is_file(DIR_CATALOG . 'controller/extension/payment/' . $order_info['payment_code'] . '.php')) {
                     try {
                         $content = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '/order');
-                    } catch (Exeption $e) {
+                    } catch (Exception $e) {
                         $content = null;
                     }
                 } else {
