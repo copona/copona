@@ -131,7 +131,7 @@ class ControllerCheckoutCheckout extends Controller {
         $this->response->setOutput($this->load->view('checkout/checkout', $data));
     }
 
-    function guest() {
+    public function guest() {
 
         $data = $this->load->language('checkout/checkout');
         $this->document->setTitle($this->language->get('heading_title'));
