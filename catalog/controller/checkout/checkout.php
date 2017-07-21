@@ -422,8 +422,7 @@ class ControllerCheckoutCheckout extends Controller {
             //$this->error['warning'] = $this->language->get('error_agree');
             $this->error['warning'] = sprintf($this->language->get('error_agree'), $this->url->link('information/information', 'information_id=' . $this->config->get('config_checkout_id'), 'SSL'), $this->config->get('config_name'));
         }
-
-        $shipping_method1 = $this->load->controller('checkout/shipping_method/validate');
+        
         // Save posted values in session
 
         foreach ($this->request->post as $key => $val) {
