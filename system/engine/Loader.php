@@ -2,6 +2,7 @@
 
 namespace Copona\System\Engine;
 
+use Copona\Exception\ActionException;
 use Copona\System\Library\Extension\ExtensionManager;
 use Copona\System\Library\Template\TemplateFactory;
 
@@ -42,9 +43,13 @@ class Loader
             return $result;
         }
 
-        if (!$output) {
-            $action = new Action($route);
-            $output = $action->execute($this->registry, $data);
+        try {
+            if (!$output) {
+                $action = new Action($route);
+                $output = $action->execute($this->registry, $data);
+            }
+        } catch (ActionException $e) {
+            throw new \Exception($e->getMessage(), $e->getCode());
         }
 
         // Trigger the post events
