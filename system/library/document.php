@@ -68,7 +68,7 @@ class Document {
     public function getLinks() {
         $result = [];
 
-        $this->route = $this->request->get['route'];
+        $this->route = !empty($this->request->get['route']) ? $this->request->get['route'] : ''; 
 
         if(!empty($this->links[$this->route]) && $this->links != 'common') {
             return array_merge($result, $this->links['common'], $this->links[$this->route]);
@@ -108,7 +108,7 @@ class Document {
 
     public function getStyles() {
         $result = [];
-        $this->route = $this->request->get['route'];
+        $this->route = !empty($this->request->get['route']) ? $this->request->get['route'] : '';
         if(!empty($this->styles[$this->route]) && $this->route != 'common') {
             return array_merge($result, $this->styles['common'], $this->styles[$this->route]);
         } else {
@@ -141,7 +141,7 @@ class Document {
 
     public function getScripts($position = 'header') {
         $result = [];
-        $this->route = $this->request->get['route'];
+        $this->route = !empty($this->request->get['route']) ? $this->request->get['route'] : '';
 
         // prd($this->scripts);
 
