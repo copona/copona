@@ -1,7 +1,12 @@
 <?php
-class ControllerStartupRouter extends Controller {
 
-    public function index() {
+use Copona\System\Engine\Action;
+
+class ControllerStartupRouter extends Controller
+{
+
+    public function index()
+    {
         // Route
         if (isset($this->request->get['route']) && $this->request->get['route'] != 'startup/router') {
             $route = $this->request->get['route'];
@@ -14,8 +19,9 @@ class ControllerStartupRouter extends Controller {
 
         // Trigger the pre events
         $result = $this->event->trigger('controller/' . $route . '/before', array(
-            &$route,
-            &$data ));
+          &$route,
+          &$data
+        ));
 
         if (!is_null($result)) {
             return $result;
@@ -25,12 +31,14 @@ class ControllerStartupRouter extends Controller {
         $action = new Action($route);
 
         // Any output needs to be another Action object.
-            $output = $action->execute($this->registry);
+        $output = $action->execute($this->registry);
 
         // Trigger the post events
         $result = $this->event->trigger('controller/' . $route . '/after', array(
-            &$route,
-            &$data, &$output ));
+          &$route,
+          &$data,
+          &$output
+        ));
 
         if (!is_null($result)) {
             return $result;

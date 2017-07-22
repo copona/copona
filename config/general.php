@@ -45,9 +45,10 @@ return [
     'language_autoload'     => ['en'],
 
     /**
-     * Template
+     * Template Engine
+     * Implement Interface Copona\System\Library\Template\Interfaces\TemplateDriverInterface
      */
-    'template_type'         => 'php',
+    'template_engine'         => \Copona\System\Library\Template\Adapters\Php::class,
 
     /**
      * Error

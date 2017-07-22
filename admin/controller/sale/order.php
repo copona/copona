@@ -1138,7 +1138,11 @@ class ControllerSaleOrder extends Controller {
 
             if ($this->user->hasPermission('access', 'extension/payment/' . $order_info['payment_code'])) {
                 if (is_file(DIR_CATALOG . 'controller/extension/payment/' . $order_info['payment_code'] . '.php')) {
-                    $content = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '/order');
+                    try {
+                        $content = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '/order');
+                    } catch (Exception $e) {
+                        $content = null;
+                    }
                 } else {
                     $content = null;
                 }
@@ -1198,7 +1202,7 @@ class ControllerSaleOrder extends Controller {
 
             $this->response->setOutput($this->load->view('sale/order_info', $data));
         } else {
-            return new Action('error/not_found');
+            return new \Copona\System\Engine\Action('error/not_found');
         }
     }
 
@@ -1329,7 +1333,7 @@ class ControllerSaleOrder extends Controller {
                 $affiliate_total = $this->model_marketing_affiliate->getTotalTransactionsByOrderId($order_id);
 
                 if (!$affiliate_total) {
-                    $this->model_marketing_affiliate->addTransaction($order_info['affiliate_id'], $this->language->get('text_order_id') . ' #' . $order_id, $order_info['commission'], $order_id);
+                    $this->model_customer_customer->addTransaction($order_info['affiliate_id'], $this->language->get('text_order_id') . ' #' . $order_id, $order_info['commission'], $order_id);
                 }
             }
 

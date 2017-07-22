@@ -3,11 +3,7 @@ class ControllerAccountAddress extends Controller {
     private $error = array();
 
     public function index() {
-        if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/address', '', true);
-
-            $this->response->redirect($this->url->link('account/login', '', true));
-        }
+        $this->checkCustomerLogin('account/address');
 
         $this->load->language('account/address');
 
@@ -29,9 +25,9 @@ class ControllerAccountAddress extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/moment.js');
-        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
-        $this->document->addStyle('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
+        $this->document->addScript('assets/vendor/datetimepicker/moment.js');
+        $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
+        $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
 
         $this->load->model('account/address');
 
@@ -69,9 +65,9 @@ class ControllerAccountAddress extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/moment.js');
-        $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
-        $this->document->addStyle('themes/' . $this->config->get('theme_name') . '/assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
+        $this->document->addScript('assets/vendor/datetimepicker/moment.js');
+        $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
+        $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
 
         $this->load->model('account/address');
 

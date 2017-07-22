@@ -5,6 +5,14 @@
  *
  */
 
+// The new addScripts and addStyles method:
+// Theme name: $this->config->get('theme_name')
+$this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'header', 'product/product');
+$this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header','product/product');
+$this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header','product/product');
+
+$this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen', 'product/product');
+$this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css','stylesheet', 'screen', 'product/product');
 
 /* * * Theme specific - override Settings !  * * */
 !defined('DIR_SYSTEM') ? die() : false;
