@@ -335,6 +335,8 @@ class ControllerCheckoutCheckout extends Controller {
 
         $data['session'] = $this->session->data;
 
+        $data['theme_default_directory'] = $this->config->get('theme_default_directory');
+
         $this->response->setOutput($this->load->view('checkout/guest', $data));
     }
 
