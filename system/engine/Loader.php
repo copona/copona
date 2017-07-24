@@ -18,10 +18,16 @@ class Loader
      */
     protected $template;
 
+    /**
+     * @var \Config
+     */
+    protected $config;
+
     public function __construct(\Registry $registry)
     {
         $this->registry = $registry;
         $this->template = $registry->get('template');
+        $this->config = $registry->get('config');
     }
 
     /**
@@ -41,9 +47,9 @@ class Loader
 
         // Trigger the pre events
         $result = $this->registry->get('event')->trigger('controller/' . $route . '/before', array(
-          &$route,
-          &$data,
-          &$output
+            &$route,
+            &$data,
+            &$output
         ));
 
         if ($result) {
@@ -61,9 +67,9 @@ class Loader
 
         // Trigger the post events
         $this->registry->get('event')->trigger('controller/' . $route . '/after', array(
-          &$route,
-          &$data,
-          &$output
+            &$route,
+            &$data,
+            &$output
         ));
 
         if ($output instanceof \RuntimeException) {
@@ -86,7 +92,7 @@ class Loader
 
         // Trigger the pre events
         $this->registry->get('event')->trigger('model/' . $route . '/before', array(
-          &$route
+            &$route
         ));
 
         $model_name = 'model_' . str_replace(['/', '-', '.'], ['_', '', ''], (string)$route);
@@ -113,7 +119,7 @@ class Loader
 
                 // Trigger the post events
                 $result = $this->registry->get('event')->trigger('model/' . $route . '/after', array(
-                  &$route
+                    &$route
                 ));
 
                 return $result ? $result : $model;
@@ -162,21 +168,21 @@ class Loader
 
             } else {
 
-                if (!\Config::get(\Config::get('config_theme') . '_status')) {
+                if (!$this->config->get($this->config->get('config_theme') . '_status')) {
                     throw new \RuntimeException('Error: A theme has not been assigned to this store!');
                 }
 
-                if (\Config::get('config_theme') == 'theme_default') {
-                    $theme = \Config::get('theme_default_directory');
+                if ($this->config->get('config_theme') == 'theme_default') {
+                    $theme = $this->config->get('theme_default_directory');
                 } else {
-                    $theme = \Config::get('config_theme');
+                    $theme = $this->config->get('config_theme');
                 }
 
                 foreach ($extensions_support as $ext) {
                     if (is_file(DIR_TEMPLATE . $theme . '/template/' . $route . '.' . $ext)) {
                         $file = DIR_TEMPLATE . $theme . '/template/' . $route . '.' . $ext;
                         break;
-                    } else {
+                    } else if (is_file(DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext)) {
                         $file = DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext;
                         break;
                     }
@@ -237,15 +243,15 @@ class Loader
         $output = null;
 
         $this->registry->get('event')->trigger('language/' . $route . '/before', array(
-          &$route,
-          &$output
+            &$route,
+            &$output
         ));
 
         $output = $this->registry->get('language')->load($route);
 
         $this->registry->get('event')->trigger('language/' . $route . '/after', array(
-          &$route,
-          &$output
+            &$route,
+            &$output
         ));
 
         return $output;
