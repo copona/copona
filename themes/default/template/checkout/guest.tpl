@@ -60,7 +60,7 @@
                     <br><br>
                     <div id="shipping-method">
                       <div style="display:none; margin: 0 auto; width: 50%; text-align: center;">
-                        <img src="themes/<?php echo $this->config->get('theme_default_directory') ?>/assets/img/AjaxLoader.gif" alt=""/>
+                        <img src="themes/<?php echo $theme_default_directory ?>/assets/img/AjaxLoader.gif" alt=""/>
                       </div>
                     </div>
                     <div id="shipping_address">
@@ -234,7 +234,7 @@
                           <input id="agree" type="checkbox" name="agree" <?= ($agree ? 'checked' : ''); ?>>
                           <?= $text_agree; ?></label>
                         <div align="right">
-                          <span class="wait" style="display: none; margin-right: 10px;">&nbsp;<img src="themes/<?php echo $this->config->get('theme_default_directory') ?>/assets/img/AjaxLoader.gif" width="20px" alt="Loading" /></span>
+                          <span class="wait" style="display: none; margin-right: 10px;">&nbsp;<img src="themes/<?php echo $theme_default_directory ?>/assets/img/AjaxLoader.gif" width="20px" alt="Loading" /></span>
                           <input type="submit" value="<?= $text_make_order; ?>" id="button-payment-method" class="btn btn-primary" />
                         </div>
                       </div>

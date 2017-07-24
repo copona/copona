@@ -85,6 +85,10 @@ class ControllerCommonHeader extends Controller {
         $data['telephone'] = $this->config->get('config_telephone');
         $data['product_catalog'] = $this->url->link('product/category', '', true);
 
+        $data['cms_hide_top_eshop_links'] = $this->config->get('cms_hide_top_eshop_links');
+        $data['cms_hide_top_search'] = $this->config->get('cms_hide_top_search');
+        $data['cms_hide_top_cart'] = $this->config->get('cms_hide_top_cart');
+
         // Menu
         $this->load->model('catalog/category');
 
