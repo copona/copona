@@ -4,7 +4,7 @@ namespace Copona\System\Engine;
 
 use Copona\Exception\ActionException;
 use Copona\System\Library\Extension\ExtensionManager;
-use Copona\System\Library\Template\TemplateFactory;
+use Copona\System\Library\Template\Interfaces\TemplateAdapterInterface;
 
 class Loader
 {
@@ -13,9 +13,15 @@ class Loader
      */
     protected $registry;
 
-    public function __construct($registry)
+    /**
+     * @var TemplateAdapterInterface
+     */
+    protected $template;
+
+    public function __construct(\Registry $registry)
     {
         $this->registry = $registry;
+        $this->template = $registry->get('template');
     }
 
     /**
@@ -24,6 +30,7 @@ class Loader
      * @param $route
      * @param mixed $data
      * @return bool|mixed|null
+     * @throws \Exception
      */
     public function controller($route, $data = [])
     {
@@ -126,14 +133,12 @@ class Loader
      * @param array $data
      * @return string
      */
-    public function view($route, $data = [])
+    public function view($route, Array $data = [])
     {
         // Sanitize the call
         $route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 
-        $adapter = TemplateFactory::create($this->registry->get('config')->get('template_engine'));
-
-        $extensions_support = $adapter->getExtensionsSupport();
+        $extensions_support = $this->template->getExtensionsSupport();
 
         $extension_view = ExtensionManager::findView($route, $extensions_support);
 
@@ -179,7 +184,7 @@ class Loader
             }
         }
 
-        return $adapter->render($file, $data);
+        return $this->template->render($file, $data);
     }
 
     /**

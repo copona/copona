@@ -27,6 +27,11 @@ $registry->singleton('hook', function ($registry) {
     return new Hook($registry);
 });
 
+//Template Engine
+$engine_name = $config->get('template.default');
+$adapter = \Copona\System\Library\Template\TemplateFactory::create($config->get('template.adapters.' . $engine_name . '.adapter'));
+$registry->set('template', $adapter);
+
 // Loader
 use \Copona\System\Engine\Loader;
 $loader = new Loader($registry);

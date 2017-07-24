@@ -45,12 +45,6 @@ return [
     'language_autoload'     => ['en'],
 
     /**
-     * Template Engine
-     * Implement Interface Copona\System\Library\Template\Interfaces\TemplateDriverInterface
-     */
-    'template_engine'         => \Copona\System\Library\Template\Adapters\Php::class,
-
-    /**
      * Error
      */
     'config_error_display'  => env('APP_ENV') == 'production' ? false : true,

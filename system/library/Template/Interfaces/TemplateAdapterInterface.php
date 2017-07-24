@@ -7,7 +7,7 @@ interface TemplateAdapterInterface
     /**
      * Render and return the template with the data
      *
-     * @param $template_file
+     * @param string $template_file
      * @param array $data
      * @return mixed
      */
