@@ -51,7 +51,7 @@
       <?php echo $currency; ?>
       <?php echo $language; ?>
     <div id="top-links" class="nav pull-right">
-        <?php if (!$this->config->get('cms_hide_top_eshop_links')) { ?>
+        <?php if (!$cms_hide_top_eshop_links) { ?>
           <ul class="list-inline">
               <?php if ($telephone) { ?>
                 <li><a href="<?php echo $contact; ?>"><i class="fa fa-phone"></i></a> <span
@@ -100,11 +100,11 @@
             <?php } ?>
         </div>
       </div>
-        <?php if (!$this->config->get('cms_hide_top_search')) { ?>
+        <?php if (!$cms_hide_top_search) { ?>
           <div class="col-md-6 col-sm-5"><?php echo $search; ?>
           </div>
         <?php } ?>
-        <?php if (!$this->config->get('cms_hide_top_cart')) { ?>
+        <?php if (!$cms_hide_top_cart) { ?>
           <div class="col-md-3 col-sm-4"><?php echo $cart; ?></div>
         <?php } ?>
     </div>
