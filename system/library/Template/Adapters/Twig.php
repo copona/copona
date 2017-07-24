@@ -43,7 +43,7 @@ class Twig implements TemplateAdapterInterface
 
     public function getExtensionsSupport()
     {
-        return ['tpl', 'twig', 'html.twig'];
+        return ['twig', 'html.twig', 'tpl'];
     }
 
     public function render($template, Array $data)
@@ -57,19 +57,14 @@ class Twig implements TemplateAdapterInterface
 
             $output = $this->twig->render($template, $data);
 
-            @eval(' ?>' . $output);
+            eval(' ?>' . $output);
             $output = ob_get_contents();
             ob_end_clean();
 
             return $output;
 
-        } catch (Twig_Error_Syntax $e) {
-            echo $e->getMessage();
+        } catch (\Twig_Error_Syntax $e) {
+            throw new \RuntimeException($e->getMessage(), $e->getCode());
         }
-    }
-
-    public function __get($key)
-    {
-        return \Registry::getInstance()->get($key);
     }
 }
