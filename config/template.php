@@ -6,7 +6,7 @@ return [
         /**
          * Default engine
          */
-        'default'  => 'twig',
+        'default'  => 'php',
 
         /**
          * List from engines
