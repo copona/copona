@@ -261,7 +261,7 @@ class ControllerProductProduct extends Controller {
             $data['free_downloads'] = $this->model_catalog_product->getFreeDownloads($data['product_id']);
             foreach($data['free_downloads'] as $key => $download){
                 $data['free_downloads'][$key]['link'] = DIR_DOWNLOAD . $download['filename'];
-                $data['free_downloads'][$key]['size'] = round(filesize(DIR_DOWNLOAD . $download['filename'])/1024, 2) . ' Mb';
+                $data['free_downloads'][$key]['size'] = round(filesize(DIR_DOWNLOAD . $download['filename']) / (1024 * 1024), 2) . ' MB';
             }
 
             if ($product_info['quantity'] <= 0) {
