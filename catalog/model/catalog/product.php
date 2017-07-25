@@ -5,7 +5,7 @@ class ModelCatalogProduct extends Model {
         $this->db->query("UPDATE " . DB_PREFIX . "product SET viewed = (viewed + 1) WHERE product_id = '" . (int)$product_id . "'");
     }
     public function getFreeDownloads($id){
-        $query = $this->db->query("SELECT * FROM `cp_product_to_download` ptd
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_download` ptd
                             JOIN `cp_download` d
                             On d.download_id = ptd.download_id
                             JOIN `cp_download_description` dd
