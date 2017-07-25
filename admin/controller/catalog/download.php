@@ -331,7 +331,7 @@ class ControllerCatalogDownload extends Controller {
         if (isset($this->request->get['download_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $download_info = $this->model_catalog_download->getDownload($this->request->get['download_id']);
         }
-pr($download_info);
+
         $data['token'] = $this->session->data['token'];
 
         if (isset($this->request->get['download_id'])) {
