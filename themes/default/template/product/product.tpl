@@ -52,6 +52,9 @@
             <?php if ($review_status) { ?>
                 <li><a href="#tab-review" data-toggle="tab"><?php echo $tab_review; ?></a></li>
             <?php } ?>
+            <?php if (!empty($free_downloads)) { ?>
+              <li><a href="#tab-download" data-toggle="tab"><?php echo $tab_download; ?></a></li>
+            <?php } ?>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-description"><?php echo $description; ?></div>
@@ -122,6 +125,33 @@
                   </form>
                 </div>
             <?php } ?>
+              <?php
+              if (!empty($free_downloads)) {
+                  ?>
+                <div id="tab-download" class="tab-pane">
+                  <div id="download">
+                    <table class="list">
+                      <thead>
+                      <tr class="table_header" >
+                        <th class="center bold"><?= $download_name_text?></th>
+                        <th class="center bold"><?= $download_size_text?></th>
+                        <th class="center bold"><?= $download_link_text?></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <?php foreach($free_downloads as $download){ ;?>
+                        <tr>
+                          <td class="center"><?= $download['name'] ?></td>
+                          <td class="center"><?= $download['size']?></td>
+                          <td class="center"><a href="<?= $this->url->link('product/download', 'download_id=' . $download['download_id'])?>"><?= $text_download?></a></td>
+                        </tr>
+
+                      <?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              <?php } ?>
           </div>
         </div>
         <?php if ($column_left || $column_right) { ?>
