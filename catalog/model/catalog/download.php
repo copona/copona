@@ -2,7 +2,7 @@
 class ModelCatalogDownload extends Model {
 
     public function getFreeDownload($id){
-        $query = $this->db->query("SELECT * FROM `cp_product_to_download` ptd
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_download` ptd
                             JOIN `cp_download` d
                             On d.download_id = ptd.download_id
                             JOIN `cp_download_description` dd
