@@ -227,6 +227,33 @@ span.error input{
     text-decoration: none;
     font-size:14px;
 }
-
-
 /* Slideshow styles */
+
+/* Free Downloads (global table changes) */
+table.list .center {
+    text-align: center;
+    padding: 7px;
+}
+table.list thead tr {
+    background-color: #EFEFEF ;
+    padding: 0 5px;
+}
+.list thead td {
+    font-weight: bold;
+}
+table.list thead td a, .list thead td {
+    text-decoration: none;
+    color: #222;
+    font-weight: 700;
+}
+table.list td,table.list tr {
+    border-right: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+}
+table.list {
+    border-collapse: collapse;
+    width: 100%;
+    border-top: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    margin-bottom: 20px;
+}
