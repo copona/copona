@@ -22,7 +22,7 @@ class ControllerStartupMaintenance extends Controller
 
             if ((substr($route, 0, 7) != 'payment' && substr($route, 0, 3) != 'api') && !in_array($route,
                 $ignore) && !$this->user->isLogged()) {
-                return new Action('common/maintenance');
+                return new \Copona\System\Engine\Action('common/maintenance');
             }
         }
     }

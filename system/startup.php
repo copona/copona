@@ -49,10 +49,9 @@ if (!function_exists('env')) {
 }
 
 // Check if Installed
-if (
-    !file_exists(DIR_PUBLIC . '/.env') &&
-    is_dir(DIR_PUBLIC . '/install/') &&
-    !defined('DIR_COPONA')
+if (\Copona\Classes\Install::checkIfInstalled() == false
+    && APPLICATION != 'core' && APPLICATION != 'install'
+    && is_dir(DIR_PUBLIC . '/install/')
 ) {
     header('Location: install/index.php');
     exit;
@@ -66,6 +65,7 @@ if (file_exists(DIR_PUBLIC . '/.env')) {
 
 //Init Config
 $config = new ConfigManager(DIR_CONFIG);
+$GLOBALS['config'] = $config;
 
 // Helper
 require_once(DIR_SYSTEM . 'helper/debug.php');
@@ -160,15 +160,11 @@ function modification($filename)
 }
 
 // Engine
-require_once(modification(DIR_SYSTEM . 'engine/action.php'));
 require_once(modification(DIR_SYSTEM . 'engine/controller.php'));
 require_once(modification(DIR_SYSTEM . 'engine/event.php'));
 require_once(modification(DIR_SYSTEM . 'engine/hook.php'));
-require_once(modification(DIR_SYSTEM . 'engine/front.php'));
-require_once(modification(DIR_SYSTEM . 'engine/loader.php'));
 require_once(modification(DIR_SYSTEM . 'engine/model.php'));
 require_once(modification(DIR_SYSTEM . 'engine/registry.php'));
-require_once(modification(DIR_SYSTEM . 'engine/proxy.php'));
 
 function start($application_config)
 {

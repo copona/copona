@@ -2,13 +2,19 @@
 
 namespace Cache;
 
-class File {
+class File
+{
     private $expire;
 
-    public function __construct($expire = CACHE_EXPIRE) {
+    public function __construct($expire = CACHE_EXPIRE)
+    {
         $this->expire = $expire;
 
-        $files = glob(DIR_CACHE . 'cache.*');
+        if (!is_dir(DIR_CACHE_PRIVATE)) {
+            mkdir(DIR_CACHE_PRIVATE, \Config::get('directory_permission', 0777), true);
+        }
+
+        $files = glob(DIR_CACHE_PRIVATE . 'cache.*');
 
         if ($files) {
             foreach ($files as $file) {
@@ -23,8 +29,9 @@ class File {
         }
     }
 
-    public function get($key) {
-        $files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
+    public function get($key)
+    {
+        $files = glob(DIR_CACHE_PRIVATE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
         if ($files) {
             $handle = fopen($files[0], 'r');
@@ -43,10 +50,12 @@ class File {
         return false;
     }
 
-    public function set($key, $value) {
+    public function set($key, $value)
+    {
         $this->delete($key);
 
-        $file = DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.' . (time() + $this->expire);
+        $file = DIR_CACHE_PRIVATE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '',
+            $key) . '.' . (time() + $this->expire);
 
         $handle = fopen($file, 'w');
 
@@ -61,8 +70,9 @@ class File {
         fclose($handle);
     }
 
-    public function delete($key) {
-        $files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
+    public function delete($key)
+    {
+        $files = glob(DIR_CACHE_PRIVATE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
         if ($files) {
             foreach ($files as $file) {

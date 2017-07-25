@@ -34,6 +34,11 @@ class Registry extends \Illuminate\Container\Container
         $this->instance($key, $value);
     }
 
+    public static function __callStatic($name, $arguments)
+    {
+        return self::getInstance()->get($name);
+    }
+
     public function has($key)
     {
         return isset($this->instances[$key]) ? true : false;

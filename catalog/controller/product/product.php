@@ -228,11 +228,13 @@ class ControllerProductProduct extends Controller {
             $this->document->setDescription($product_info['meta_description']);
             $this->document->setKeywords($product_info['meta_keyword']);
             $this->document->addLink($this->url->link('product/product', 'product_id=' . $product_id), 'canonical');
-            $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
-            $this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
-            $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
-            $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
-            $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+
+            /*
+            $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js');
+            $this->document->addStyle('assets/vendor/magnific/magnific-popup.css');
+            $this->document->addScript('assets/vendor/datetimepicker/moment.js');
+            $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
+            $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css'); */
 
             $data['heading_title'] = $product_info['name'];
 

@@ -7,6 +7,10 @@ RUN echo always_populate_raw_post_data = -1 >> /opt/docker/etc/php/php.ini
 RUN mkdir -p /var/lib/php/session && chmod 777 /var/lib/php/session
 
 # xdebug
-RUN echo xdebug.profiler_enable = 1 >> /opt/docker/etc/php/php.ini
-RUN echo xdebug.profiler_output_dir = /log/xdebug >> /opt/docker/etc/php/php.ini
-RUN echo xdebug.ide_key >> /opt/docker/etc/php/php.ini
+RUN echo "xdebug.idekey = PHPSTORM" >> /opt/docker/etc/php/php.ini
+RUN echo "xdebug.default_enable = 0" >> /opt/docker/etc/php/php.ini
+RUN echo "xdebug.remote_enable = 1" >> /opt/docker/etc/php/php.ini
+RUN echo "xdebug.remote_autostart = 1" >> /opt/docker/etc/php/php.ini
+RUN echo "xdebug.remote_connect_back = 0" >> /opt/docker/etc/php/php.ini
+RUN echo "xdebug.profiler_enable = 0" >> /opt/docker/etc/php/php.ini
+RUN echo "xdebug.remote_host = 10.254.254.254" >> /opt/docker/etc/php/php.ini

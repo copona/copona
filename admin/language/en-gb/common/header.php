@@ -22,6 +22,3 @@ $_['text_support'] = 'Support Forum';
 $_['text_documentation'] = 'Documentation';
 $_['text_logout'] = 'Logout';
 
-// Warning
-$_['error_secure'] = "You are accessing the dashboard through a non-secure method! \nIt is <em>strongly recommended</em> that you enable SSL. (To come: link with instructions)";
-

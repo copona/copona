@@ -91,6 +91,7 @@ class Url
         foreach ($this->url_parts as $key) {
             $result[$key] = isset($this->request->get[$key]) ? $this->request->get[$key] : '';
         }
+
         return $result;
     }
 
@@ -122,6 +123,21 @@ class Url
             return http_build_query($result);
         } else {
             return $result;
+        }
+    }
+
+    /**
+     * Make url image
+     *
+     * @param string $image
+     * @return string
+     */
+    public function getImageUrl($image)
+    {
+        if ($this->request->server['HTTPS']) {
+            return 'https://' . rtrim($this->config->get('image_base_url', $this->config->get('site_base')), '/') . '/' . $image;
+        } else {
+            return 'http://' . rtrim($this->config->get('image_base_url', $this->config->get('site_ssl')), '/') . '/' . $image;
         }
     }
 }
