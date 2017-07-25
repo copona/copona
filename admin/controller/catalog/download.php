@@ -492,6 +492,10 @@ class ControllerCatalogDownload extends Controller {
         if (!$json) {
             $file = $filename . '.' . token(32);
 
+            if (!is_dir(DIR_DOWNLOAD)) {
+                mkdir(DIR_DOWNLOAD, \Config::get('directory_permission', 0777), true);
+            }
+
             move_uploaded_file($this->request->files['file']['tmp_name'], DIR_DOWNLOAD . $file);
 
             $json['filename'] = $file;
