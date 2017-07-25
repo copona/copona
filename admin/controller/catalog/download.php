@@ -262,19 +262,9 @@ class ControllerCatalogDownload extends Controller {
     protected function getForm() {
         $data['heading_title'] = $this->language->get('heading_title');
 
+        $data = array_merge($data, $this->load->language('catalog/download'));
+
         $data['text_form'] = !isset($this->request->get['download_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
-        $data['text_loading'] = $this->language->get('text_loading');
-
-        $data['entry_name'] = $this->language->get('entry_name');
-        $data['entry_filename'] = $this->language->get('entry_filename');
-        $data['entry_mask'] = $this->language->get('entry_mask');
-
-        $data['help_filename'] = $this->language->get('help_filename');
-        $data['help_mask'] = $this->language->get('help_mask');
-
-        $data['button_save'] = $this->language->get('button_save');
-        $data['button_cancel'] = $this->language->get('button_cancel');
-        $data['button_upload'] = $this->language->get('button_upload');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -341,7 +331,7 @@ class ControllerCatalogDownload extends Controller {
         if (isset($this->request->get['download_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $download_info = $this->model_catalog_download->getDownload($this->request->get['download_id']);
         }
-
+pr($download_info);
         $data['token'] = $this->session->data['token'];
 
         if (isset($this->request->get['download_id'])) {
@@ -372,6 +362,14 @@ class ControllerCatalogDownload extends Controller {
             $data['mask'] = $download_info['mask'];
         } else {
             $data['mask'] = '';
+        }
+//        prd($data);
+        if (isset($this->request->post['is_free'])) {
+            $data['is_free'] = $this->request->post['is_free'];
+        } elseif (!empty($download_info)) {
+            $data['is_free'] = $download_info['is_free'];
+        } else {
+            $data['is_free'] = '0';
         }
 
         $data['header'] = $this->load->controller('common/header');

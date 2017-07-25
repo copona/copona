@@ -60,6 +60,12 @@
               <?php } ?>
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-mask"><span data-toggle="tooltip" title="<?php echo $help_free; ?>"><?php echo $entry_free; ?></span></label>
+            <div class="col-sm-10">
+              <input type="checkbox" name="is_free" value="<?php echo $is_free; ?>" <?php echo ($is_free)? 'checked="checked"': ''; ?> id="input-free" class="form-control" />
+            </div>
+          </div>
         </form>
       </div>
     </div>

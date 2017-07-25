@@ -258,6 +258,11 @@ class ControllerProductProduct extends Controller {
             $data['points'] = $product_info['points'];
             $data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
             $data['short_description'] = utf8_substr(trim(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get($this->config->get('config_theme') . '_product_short_description_length')) . '..';
+            $data['free_downloads'] = $this->model_catalog_product->getFreeDownloads($data['product_id']);
+            foreach($data['free_downloads'] as $key => $download){
+                $data['free_downloads'][$key]['link'] = DIR_DOWNLOAD . $download['filename'];
+                $data['free_downloads'][$key]['size'] = round(filesize(DIR_DOWNLOAD . $download['filename'])/1024, 2) . ' Mb';
+            }
 
             if ($product_info['quantity'] <= 0) {
                 $data['stock'] = $product_info['stock_status'];
