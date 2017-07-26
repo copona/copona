@@ -533,7 +533,7 @@ class ControllerCatalogDownload extends Controller {
         $sort_order = array();
 
         foreach ($json as $key => $value) {
-            $sort_order[$key] = $value['name'].'asdasd';
+            $sort_order[$key] = $value['name'];
         }
 
         array_multisort($sort_order, SORT_ASC, $json);
