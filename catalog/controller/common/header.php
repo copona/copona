@@ -56,8 +56,6 @@ class ControllerCommonHeader extends Controller {
             $data['logo'] = '';
         }
 
-
-
         $data['text_home'] = $this->language->get('text_home');
 
         // Wishlist
@@ -86,6 +84,10 @@ class ControllerCommonHeader extends Controller {
         $data['contact'] = $this->url->link('information/contact');
         $data['telephone'] = $this->config->get('config_telephone');
         $data['product_catalog'] = $this->url->link('product/category', '', true);
+
+        $data['cms_hide_top_eshop_links'] = $this->config->get('cms_hide_top_eshop_links');
+        $data['cms_hide_top_search'] = $this->config->get('cms_hide_top_search');
+        $data['cms_hide_top_cart'] = $this->config->get('cms_hide_top_cart');
 
         // Menu
         $this->load->model('catalog/category');
@@ -161,8 +163,6 @@ class ControllerCommonHeader extends Controller {
         } else {
             $data['class'] = 'common-home';
         }
-
-        // $data["breadcrumbs"] = $this->breadcrumbs->getPath();
 
         return $this->load->view('common/header', $data);
     }

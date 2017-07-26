@@ -45,11 +45,6 @@ return [
     'language_autoload'     => ['en'],
 
     /**
-     * Template
-     */
-    'template_type'         => 'php',
-
-    /**
      * Error
      */
     'config_error_display'  => env('APP_ENV') == 'production' ? false : true,

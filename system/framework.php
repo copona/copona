@@ -6,6 +6,11 @@ $registry = Registry::getInstance();
 global $config;
 $registry->set('config', $config);
 
+//Extension
+use \Copona\System\Library\Extension\ExtensionManager;
+$extension = ExtensionManager::getInstance();
+$registry->set('extension', $extension);
+
 // Event
 $event = new Event($registry);
 $registry->set('event', $event);
@@ -13,7 +18,7 @@ $registry->set('event', $event);
 // Event Register
 if ($config->has($application_config . '.action_event')) {
     foreach ($config->get($application_config . '.action_event') as $key => $value) {
-        $event->register($key, new Action($value));
+        $event->register($key, new \Copona\System\Engine\Action($value));
     }
 }
 
@@ -22,7 +27,13 @@ $registry->singleton('hook', function ($registry) {
     return new Hook($registry);
 });
 
+//Template Engine
+$engine_name = $config->get('template.default');
+$adapter = \Copona\System\Library\Template\TemplateFactory::create($config->get('template.adapters.' . $engine_name . '.adapter'));
+$registry->set('template', $adapter);
+
 // Loader
+use \Copona\System\Engine\Loader;
 $loader = new Loader($registry);
 $registry->set('load', $loader);
 
@@ -121,16 +132,16 @@ if ($config->has('model_autoload')) {
 }
 
 // Front Controller
-$controller = new Front($registry);
+$controller = new \Copona\System\engine\Front($registry);
 
 // Pre Actions
 if ($config->has($application_config . '.action_pre_action')) {
     foreach ($config->get($application_config . '.action_pre_action') as $value) {
-        $controller->addPreAction(new Action($value));
+        $controller->addPreAction(new \Copona\System\Engine\Action($value));
     }
 }
 // Dispatch
 $controller->dispatch(
-    new Action($config->get($application_config . '.action_router')),
-    new Action($config->get($application_config . '.action_error'))
+    new \Copona\System\Engine\Action($config->get($application_config . '.action_router')),
+    new \Copona\System\Engine\Action($config->get($application_config . '.action_error'))
 );

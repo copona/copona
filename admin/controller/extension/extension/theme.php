@@ -24,7 +24,11 @@ class ControllerExtensionExtensionTheme extends Controller {
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/theme/' . $this->request->get['extension']);
 
             // Call install method if it exsits
-            $this->load->controller('extension/theme/' . $this->request->get['extension'] . '/install');
+            try {
+                $this->load->controller('extension/theme/' . $this->request->get['extension'] . '/install');
+            } catch (\Copona\Exception\ActionException $e) {
+
+            }
 
             $this->session->data['success'] = $this->language->get('text_success');
         }
@@ -41,7 +45,11 @@ class ControllerExtensionExtensionTheme extends Controller {
             $this->model_extension_extension->uninstall('theme', $this->request->get['extension']);
 
             // Call uninstall method if it exsits
-            $this->load->controller('extension/theme/' . $this->request->get['extension'] . '/uninstall');
+            try {
+                $this->load->controller('extension/theme/' . $this->request->get['extension'] . '/uninstall');
+            } catch (\Copona\Exception\ActionException $e) {
+
+            }
 
             $this->session->data['success'] = $this->language->get('text_success');
         }
@@ -78,23 +86,16 @@ class ControllerExtensionExtensionTheme extends Controller {
 
         $extensions = $this->model_extension_extension->getInstalled('theme');
 
-        foreach ($extensions as $key => $value) {
-            if (!is_file(DIR_APPLICATION . 'controller/extension/theme/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/theme/' . $value . '.php')) {
-                $this->model_extension_extension->uninstall('theme', $value);
-
-                unset($extensions[$key]);
-            }
-        }
-
         $this->load->model('setting/store');
         $this->load->model('setting/setting');
 
         $stores = $this->model_setting_store->getStores();
 
-        $data['extensions'] = array();
+        $data['extensions'] = [];
 
         // Compatibility code for old extension folders
-        $files = glob(DIR_APPLICATION . 'controller/{extension/theme,theme}/*.php', GLOB_BRACE);
+        $files = glob('{' . DIR_APPLICATION . 'controller/{extension/theme,theme}/*.php,'
+            . $this->config->get('extension.dir') . '/*/*/admin/controller/extension/theme/*.php}', GLOB_BRACE);
 
         if ($files) {
             foreach ($files as $file) {
