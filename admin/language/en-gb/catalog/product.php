@@ -100,3 +100,5 @@ $_['error_name'] = 'Product Name must be greater than 1 and less than 255 charac
 $_['error_model'] = 'Product Model must be greater than 1 and less than 64 characters!';
 $_['error_keyword'] = 'SEO URL already in use!';
 $_['error_meta_title'] = 'Meta Title must be greater than 1 and less than 255 characters! (delete)';
+$_['text_free'] = 'Free';
+

@@ -1237,7 +1237,8 @@ class ControllerCatalogProduct extends Controller {
             if ($download_info) {
                 $data['product_downloads'][] = array(
                     'download_id' => $download_info['download_id'],
-                    'name'        => $download_info['name']
+                    'name'        => $download_info['name'],
+                    'is_free'        => $download_info['is_free']
                 );
             }
         }

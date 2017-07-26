@@ -521,11 +521,11 @@ class ControllerCatalogDownload extends Controller {
             );
 
             $results = $this->model_catalog_download->getDownloads($filter_data);
-
+            $lan = $this->load->language('catalog/product');
             foreach ($results as $result) {
                 $json[] = array(
                     'download_id' => $result['download_id'],
-                    'name'        => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
+                    'name'        => strip_tags(html_entity_decode($result['name'] . (($result['is_free']==1)? ' ('.$lan['text_free'].')' : ''), ENT_QUOTES, 'UTF-8'))
                 );
             }
         }
@@ -533,7 +533,7 @@ class ControllerCatalogDownload extends Controller {
         $sort_order = array();
 
         foreach ($json as $key => $value) {
-            $sort_order[$key] = $value['name'];
+            $sort_order[$key] = $value['name'].'asdasd';
         }
 
         array_multisort($sort_order, SORT_ASC, $json);

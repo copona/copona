@@ -535,7 +535,7 @@
                                       <span class="input-group-addon lng-image">
                                         <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
                                       </span>
-                                      <input type="text" name="content_meta[product_video][<?php echo $video_row; ?>][video][<?php echo $language['language_id'] ?>]" value="<?php echo $product_video['video'][$language['language_id']] ?>" placeholder='yHdAxRm9Zjo'" class="form-control" />
+                                      <input type="text" name="content_meta[product_video][<?php echo $video_row; ?>][video][<?php echo $language['language_id'] ?>]" value="<?php echo $product_video['video'][$language['language_id']] ?>" placeholder="<?php echo $entry_video_link; ?>" class="form-control" />
                                     </div>
                                 <?php } ?>
                               </td>
@@ -654,14 +654,14 @@
                   </div>
                 </div>
               </div>
-
+              
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-download"><span data-toggle="tooltip" title="<?php echo $help_download; ?>"><?php echo $entry_download; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="download" value="" placeholder="<?php echo $entry_download; ?>" id="input-download" class="form-control" />
                   <div id="product-download" class="well well-sm" style="height: 150px; overflow: auto;">
                       <?php foreach ($product_downloads as $product_download) { ?>
-                        <div id="product-download<?php echo $product_download['download_id']; ?>"><i class="fa fa-minus-circle"></i> <?php echo $product_download['name']; ?>
+                        <div id="product-download<?php echo $product_download['download_id']; ?>"><i class="fa fa-minus-circle"></i> <?php echo ($product_download['is_free']==1)?$product_download['name']." (".$text_free.")":$product_download['name']; ?>
                           <input type="hidden" name="product_download[]" value="<?php echo $product_download['download_id']; ?>" />
                         </div>
                     <?php } ?>
