@@ -88,7 +88,7 @@ class ControllerExtensionExtensionShipping extends Controller
         $data['extensions'] = [];
 
         // Compatibility code for old extension folders
-        $files = glob('{' . DIR_APPLICATION . 'controller/{extension/shipping,shipping}/*.php' . $this->config->get('extension.dir') . '/*/*/admin/controller/extension/shipping/*.php}', GLOB_BRACE);
+        $files = glob('{' . DIR_APPLICATION . 'controller/{extension/shipping,shipping}/*.php,' . $this->config->get('extension.dir') . '/*/*/admin/controller/extension/shipping/*.php}', GLOB_BRACE);
 
         if ($files) {
             foreach ($files as $key => $file) {
