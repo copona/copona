@@ -71,6 +71,7 @@ class ModelCheckoutOrder extends Model
                          . ", date_modified = NOW()");
 
         $order_id = $this->db->getLastId();
+        if(!isset($data['serial'])) $data['serial'] = [];
         $this->model_catalog_content->updateContentMeta($order_id, "order", $data['serial']);
         // Products
         if (isset($data['products'])) {

@@ -7,10 +7,10 @@
             <ul class="list-unstyled">
                 <?php foreach ($informations as $information) { ?>
                   <li><a href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
-              <?php } ?>
+                <?php } ?>
             </ul>
           </div>
-      <?php } ?>
+        <?php } ?>
       <div class="col-sm-3">
         <h5><?php echo $text_service; ?></h5>
         <ul class="list-unstyled">
@@ -42,5 +42,8 @@
     <p><?php echo $powered; ?></p>
   </div>
 </footer>
+<?php foreach ($scripts as $script) { ?>
+  <script src="<?php echo $script; ?>" type="text/javascript"></script>
+<?php } ?>
 </body>
 </html>

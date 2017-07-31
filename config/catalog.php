@@ -27,8 +27,6 @@ return [
         /**
          * Action Events
          */
-        'action_event'      => [
-            'view/*/before' => 'event/theme',
-        ],
+        'action_event'      => [],
     ]
 ];

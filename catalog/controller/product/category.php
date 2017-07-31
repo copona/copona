@@ -33,7 +33,8 @@ class ControllerProductCategory extends Controller
             'href' => $this->url->link('common/home')
         );
         $url = '';
-        if (isset($this->request->get['path'])) {
+
+        if (!empty($this->request->get['path'])) {
 
             $url = $this->url->getPartly(['sort', 'order', 'limit'], true);
             $path = '';
@@ -49,7 +50,6 @@ class ControllerProductCategory extends Controller
                 }
 
                 $category_info = $this->model_catalog_category->getCategory($path_id);
-
                 if ($category_info) {
                     $data['breadcrumbs'][] = array(
                         'text' => $category_info['name'],
@@ -61,9 +61,10 @@ class ControllerProductCategory extends Controller
             $category_id = 0;
         }
 
+
         $category_info = $this->model_catalog_category->getCategory($category_id);
 
-        if (isset($this->request->get['path']) && $category_info) {
+        if (!empty($this->request->get['path']) && $category_info) {
             $show_category = true;
             $category_name = $category_info['name'];
             $category_meta_title = $category_info['meta_title'];
@@ -71,12 +72,12 @@ class ControllerProductCategory extends Controller
             $category_meta_keyword = $category_info['meta_keyword'];
             $category_path = $this->request->get['path'];
             //	$category_path = $this->model_catalog_category->getCategoryPath($category_id, '');
-        } elseif (!isset($this->request->get['path']) && !$category_info) {
+        } elseif (empty($this->request->get['path']) && !$category_info) {
             $show_category = true;
             $category_name = 'Product Catalog';
             $category_meta_title = (!empty($this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')]) ?
                     $this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')] . ' - ' : '') .
-                                   $this->config->get('config_name');
+                $this->config->get('config_name');
             $category_meta_description = '';
             $category_meta_keyword = '';
             $category_path = '';
@@ -124,7 +125,7 @@ class ControllerProductCategory extends Controller
             foreach ($results as $result) {
 
                 $filter_data = array(
-                    'filter_category_id'  => $result['category_id'],
+                    'filter_category_id' => $result['category_id'],
                     'filter_sub_category' => true
                 );
 
@@ -140,14 +141,14 @@ class ControllerProductCategory extends Controller
             $data['products'] = array();
 
             $filter_data = array(
-                'filter_category_id'  => $category_id,
+                'filter_category_id' => $category_id,
                 'filter_sub_category' => true,
-                'filter_filter'       => $params['filter'],
-                'filter_manufacturer_id'  => $params['manufacturer_id'],
-                'sort'                => $params['sort'],
-                'order'               => $params['order'],
-                'start'               => ($params['page'] - 1) * $params['limit'],
-                'limit'               => $params['limit']
+                'filter_filter' => $params['filter'],
+                'filter_manufacturer_id' => $params['manufacturer_id'],
+                'sort' => $params['sort'],
+                'order' => $params['order'],
+                'start' => ($params['page'] - 1) * $params['limit'],
+                'limit' => $params['limit']
             );
 
             $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
@@ -160,10 +161,17 @@ class ControllerProductCategory extends Controller
 
                         $this->config->get($this->config->get('config_theme') . '_image_product_width'),
                         $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+
+                    $image_popup = $this->model_tool_image->{$this->config->get('theme_default_product_category_popup_resize')}($result['image'],
+                        $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
+                        $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                 } else {
                     $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}('placeholder.png',
                         $this->config->get($this->config->get('config_theme') . '_image_product_width'),
                         $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                    $image_popup = $this->model_tool_image->{$this->config->get('theme_default_product_category_popup_resize')}('placeholder.png',
+                        $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
+                        $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                 }
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -197,27 +205,27 @@ class ControllerProductCategory extends Controller
                 }
 
                 $category_path = $this->model_catalog_category->getCategoryPath($category_id, $result['product_id']);
-
                 $data['products'][] = array(
-                    'product_id'     => $result['product_id'],
-                    'thumb'          => $image,
-                    'name'           => $result['name'],
-                    'description'    => strip2words($result['description'],
+                    'product_id' => $result['product_id'],
+                    'thumb' => $image,
+                    'popup' => $image_popup,
+                    'name' => $result['name'],
+                    'description' => strip2words($result['description'],
                             $this->config->get($this->config->get('config_theme') . '_product_description_length'),
                             true) . '..',
-                    'price'          => $price,
-                    'special'        => $special,
-                    'tax'            => $tax,
-                    'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,
-                    'rating'         => $result['rating'],
-                    'quantity'       => $result['quantity'],
-                    'href'           => $this->url->link('product/product',
+                    'price' => $price,
+                    'special' => $special,
+                    'tax' => $tax,
+                    'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
+                    'rating' => $result['rating'],
+                    'quantity' => $result['quantity'],
+                    'href' => $this->url->link('product/product',
                         ($category_path ? 'path=' . $category_path . '&' : '') . 'product_id=' . $result['product_id'] . $url),
                     'group_products' => $this->model_catalog_product->getProducts(
                         [
-                            'group_products'   => true,
+                            'group_products' => true,
                             'product_group_id' => $result['product_group_id'],
-                            'product_id'       => $result['product_id']
+                            'product_id' => $result['product_id']
                         ]
                     ),
                 );
@@ -232,9 +240,9 @@ class ControllerProductCategory extends Controller
             $url_pattern['order'] = 'ASC';
 
             $data['sorts'][] = array(
-                'text'  => $this->language->get('text_default'),
+                'text' => $this->language->get('text_default'),
                 'value' => 'p.sort_order-ASC',
-                'href'  => $this->url->link('product/category', $this->url->setRequest($url_pattern))
+                'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
 
             );
 
@@ -242,9 +250,9 @@ class ControllerProductCategory extends Controller
             $url_pattern['sort'] = 'pd.name';
 
             $data['sorts'][] = array(
-                'text'  => $this->language->get('text_name_asc'),
+                'text' => $this->language->get('text_name_asc'),
                 'value' => 'pd.name-ASC',
-                'href'  => $this->url->link('product/category', $this->url->setRequest($url_pattern))
+                'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
 
             );
 
@@ -252,9 +260,9 @@ class ControllerProductCategory extends Controller
             $url_pattern['order'] = 'DESC';
 
             $data['sorts'][] = array(
-                'text'  => $this->language->get('text_name_desc'),
+                'text' => $this->language->get('text_name_desc'),
                 'value' => 'pd.name-DESC',
-                'href'  => $this->url->link('product/category', $this->url->setRequest($url_pattern))
+                'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
 
             );
 
@@ -263,9 +271,9 @@ class ControllerProductCategory extends Controller
             $url_pattern['order'] = 'ASC';
 
             $data['sorts'][] = array(
-                'text'  => $this->language->get('text_price_asc'),
+                'text' => $this->language->get('text_price_asc'),
                 'value' => 'p.price-ASC',
-                'href'  => $this->url->link('product/category', $this->url->setRequest($url_pattern))
+                'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
 
             );
 
@@ -273,9 +281,9 @@ class ControllerProductCategory extends Controller
             $url_pattern['order'] = 'DESC';
 
             $data['sorts'][] = array(
-                'text'  => $this->language->get('text_price_desc'),
+                'text' => $this->language->get('text_price_desc'),
                 'value' => 'p.price-DESC',
-                'href'  => $this->url->link('product/category', $this->url->setRequest($url_pattern))
+                'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
 
             );
 
@@ -286,9 +294,9 @@ class ControllerProductCategory extends Controller
                 $url_pattern['order'] = 'DESC';
 
                 $data['sorts'][] = array(
-                    'text'  => $this->language->get('text_rating_desc'),
+                    'text' => $this->language->get('text_rating_desc'),
                     'value' => 'rating-DESC',
-                    'href'  => $this->url->link('product/category', $this->url->setRequest($url_pattern))
+                    'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
 
                 );
 
@@ -296,9 +304,9 @@ class ControllerProductCategory extends Controller
                 $url_pattern['order'] = 'ASC';
 
                 $data['sorts'][] = array(
-                    'text'  => $this->language->get('text_rating_asc'),
+                    'text' => $this->language->get('text_rating_asc'),
                     'value' => 'rating-ASC',
-                    'href'  => $this->url->link('product/category', $this->url->setRequest($url_pattern))
+                    'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
                 );
             }
 
@@ -307,9 +315,9 @@ class ControllerProductCategory extends Controller
             $url_pattern['order'] = 'ASC';
 
             $data['sorts'][] = array(
-                'text'  => $this->language->get('text_model_asc'),
+                'text' => $this->language->get('text_model_asc'),
                 'value' => 'p.model-ASC',
-                'href'  => $this->url->link('product/category', $this->url->setRequest($url_pattern))
+                'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
 
             );
 
@@ -317,9 +325,9 @@ class ControllerProductCategory extends Controller
             $url_pattern['order'] = 'DESC';
 
             $data['sorts'][] = array(
-                'text'  => $this->language->get('text_model_desc'),
+                'text' => $this->language->get('text_model_desc'),
                 'value' => 'p.model-DESC',
-                'href'  => $this->url->link('product/category', $this->url->setRequest($url_pattern))
+                'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
             );
 
             $url_pattern = $this->url->getPartly(['filter', 'sort', 'order']);
@@ -340,9 +348,9 @@ class ControllerProductCategory extends Controller
             foreach ($limits as $value) {
                 $url_pattern['limit'] = $value;
                 $data['limits'][] = array(
-                    'text'  => $value,
+                    'text' => $value,
                     'value' => $value,
-                    'href'  => $this->url->link('product/category', $this->url->setRequest($url_pattern))
+                    'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern))
 
                 );
             }
@@ -352,7 +360,7 @@ class ControllerProductCategory extends Controller
             // Manufacturers
             // $manufacturers = $this->model_catalog_manufacturer->getManufacturers();
 
-            $manufacturers = $this->model_catalog_manufacturer->getManufacturersByCategory( $category_id );
+            $manufacturers = $this->model_catalog_manufacturer->getManufacturersByCategory($category_id);
             $data['manufacturers'] = [];
 
             foreach ($manufacturers as $manufacturer) {
@@ -363,15 +371,15 @@ class ControllerProductCategory extends Controller
                 $url_pattern['manufacturer_id'] = $manufacturer['manufacturer_id'];
                 $data['manufacturers'][] = [
                     'manufacturer_id' => $manufacturer['manufacturer_id'],
-                    'name'            => $manufacturer['name'],
-                    'image'           => $image,
-                    'href'            => $this->url->link('product/category', $this->url->setRequest($url_pattern)),
+                    'name' => $manufacturer['name'],
+                    'image' => $image,
+                    'href' => $this->url->link('product/category', $this->url->setRequest($url_pattern)),
                 ];
             }
 
             $url_pattern = $this->url->getPartly(['filter', 'manufacturer_id', 'sort', 'order', 'limit']);
-            $url_pattern['page'] =  "{page}";
-            $url_pattern['path'] =  $category_info ? $category_path : '' ;
+            $url_pattern['page'] = "{page}";
+            $url_pattern['path'] = $category_info ? $category_path : '';
 
             $pagination = new Pagination();
             $pagination->total = $product_total;
@@ -381,7 +389,7 @@ class ControllerProductCategory extends Controller
             $pagination->text_last = '';
             $pagination->prev_hide = $this->config->get('theme_default_pagination_prev_hide') === null ? false : $this->config->get('theme_default_pagination_prev_hide');
             $pagination->next_hide = $this->config->get('theme_default_pagination_next_hide') === null ? false : $this->config->get('theme_default_pagination_next_hide');
-            $pagination->url = $this->url->link('product/category', $this->url->setRequest($url_pattern) );
+            $pagination->url = $this->url->link('product/category', $this->url->setRequest($url_pattern));
 
 
             $data['pagination'] = $pagination->render();
@@ -408,6 +416,7 @@ class ControllerProductCategory extends Controller
 
             }
 
+
             $data['sort'] = $params['sort'];
             $data['order'] = $params['order'];
             $data['limit'] = $params['limit'];
@@ -424,7 +433,7 @@ class ControllerProductCategory extends Controller
             $this->response->setOutput($this->load->view('product/category', $data));
         }
 
-        if (isset($this->request->get['path']) && !$category_info) {
+        if (!empty($this->request->get['path']) && !$category_info) {
 
             $url = $this->url->getPartly(['path', 'filter', 'sort', 'order', 'page', 'limit'], true);
 

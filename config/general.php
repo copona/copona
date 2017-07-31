@@ -14,6 +14,26 @@ return [
     'site_ssl'              => HTTPS_SERVER,
 
     /**
+     * Permission Dir
+     */
+    'directory_permission'  => 0755,
+
+    /**
+     * Image cache path
+     *
+     * The public path where the thumbs will be generated
+     */
+    'image_cache_path'      => PATH_CACHE_PUBLIC . 'image/',
+
+    /**
+     * Image base URL
+     *
+     * You can modify the base url of the images
+     * Do not add protocol https or http
+     */
+    'image_base_url'     => rtrim(BASE_URL_CATALOG, '/') . '/' . PATH_CACHE_PUBLIC . 'image',
+
+    /**
      * Url
      */
     'url_autostart'         => true,
@@ -23,11 +43,6 @@ return [
      */
     'language_default'      => 'en',
     'language_autoload'     => ['en'],
-
-    /**
-     * Template
-     */
-    'template_type'         => 'php',
 
     /**
      * Error

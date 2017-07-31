@@ -12,7 +12,7 @@ class Language extends Controller
 
     public function __construct($code = 'en', $registry)
     {
-        if($registry->has('db')) {
+        if ($registry->has('db')) {
             $this->db = $registry->get('db');
         } else {
             $this->db = null;
@@ -78,15 +78,9 @@ class Language extends Controller
         }
         $_ = array();
 
-
-        $extensions_dir = preg_replace('/\/[a-z]*\/$/', '', DIR_SYSTEM);
-        // TODO: optimize this!
-        defined('DIR_CATALOG')
-            ? $extension_files = glob($extensions_dir . "/extensions/*/*/admin/language/" . $this->directory . "/" . $filename . ".php")
-            : $extension_files = glob($extensions_dir . "/extensions/*/*/catalog/language/" . $this->directory . "/" . $filename . ".php");
-
-        if (!empty($extension_files[0])) {
-            $file = $extension_files[0];
+        $extension_files = \Copona\System\Library\Extension\ExtensionManager::findLanguage($this->directory . "/" . $filename . ".php");
+        if (!empty($extension_files)) {
+            $file = $extension_files;
         } else {
             $file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
         }
@@ -101,7 +95,6 @@ class Language extends Controller
         } elseif (is_file(DIR_LANGUAGE . $this->default . '/' . $filename . '.php')) {
             require(DIR_LANGUAGE . $this->default . '/' . $filename . '.php');
         } else {
-            //pr($filename);
             require(DIR_LANGUAGE . $this->default . '/' . $this->default . '.php');
         }
 
@@ -109,7 +102,6 @@ class Language extends Controller
         // TODO: arrayis merged every time, to override same keys from theme settings
         // must be optimized.
         $this->data = array_merge($this->data, $this->theme_language);
-        //pr($this->data );
         $data = array_merge($data, $this->data);
 
         return $this->data;
