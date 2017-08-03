@@ -14,6 +14,7 @@ if (APPLICATION == 'catalog') {
     $this->document->addStyleVersioned('themes/' . $this->config->get('theme_name') . '/assets/vendor/font-awesome/css/font-awesome.min.css');
     $this->document->addStyleVersioned('//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700');
     $this->document->addStyleVersioned('themes/' . $this->config->get('theme_name') . '/assets/css/stylesheet.css');
+    $this->document->addStyle('themes/default/assets/css/additional.css');
     $this->document->addStyleVersioned('themes/' . $this->config->get('theme_name') . '/assets/css/additional.css');
     $this->document->addStyleVersioned('themes/' . $this->config->get('theme_name') . '/assets/css/owl.carousel.css');
     $this->document->addStyleVersioned('themes/' . $this->config->get('theme_name') . '/assets/css/additional.css');

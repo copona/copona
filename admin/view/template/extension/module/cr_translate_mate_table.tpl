@@ -1,11 +1,11 @@
 <!-- Loaded text rows -->
 <?php foreach ($texts as $page => $strings) { ?>
     <?php foreach ($strings as $key => $translations) { ?>
-        <tr class="textRow" data-page="<?php e($page); ?>">
-          <td class="pageCol"><?php e($page == '_main_lang_file' ? $text_main_lang_file : $page); ?></td>
-          <td class="keyCol"><?php e($key); ?></td>
+        <tr class="textRow" data-page="<?php e_cr($page); ?>">
+          <td class="pageCol"><?php e_cr($page == '_main_lang_file' ? $text_main_lang_file : $page); ?></td>
+          <td class="keyCol"><?php e_cr($key); ?></td>
           <?php foreach ($languages as $l) { ?>
-              <td class="translationCol" data-lang="<?php e($l['directory']); ?>">
+              <td class="translationCol" data-lang="<?php e_cr($l['directory']); ?>">
                 <div class="transDiv"><?php
                   echo (isset($translations[$l['directory']]) && $translations[$l['directory']] != '') ?
                       hs($translations[$l['directory']]) : '<span class="notTranslatedSpan text-danger">' . h($text_not_translated) . '</span>';
