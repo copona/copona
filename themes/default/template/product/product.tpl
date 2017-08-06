@@ -14,7 +14,7 @@
           <?php $class = 'col-sm-12'; ?>
       <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <div class="row">
+      <div class="row" id="printable">
           <?php if ($column_left || $column_right) { ?>
               <?php $class = 'col-sm-6'; ?>
           <?php } else { ?>
@@ -133,6 +133,7 @@
           <div class="btn-group">
             <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="fa fa-heart"></i></button>
             <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
+            <button type="button" data-toggle="tooltip" class="btn btn-default print" title="<?php echo $button_print; ?>"><i class="fa fa-print" aria-hidden="true"></i></button>
           </div>
           <h1><?php echo $heading_title; ?></h1>
           <ul class="list-unstyled">
@@ -623,16 +624,5 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
         });
 
     });
-
-
-
-
-
-
-
-
-
-
-
 //--></script>
 <?php echo $footer; ?>

@@ -22,7 +22,7 @@
   <script src="themes/<?php echo $theme_directory; ?>/assets/vendor/jquery/jquery-2.1.1.min.js"
           type="text/javascript"></script>
   <link href="themes/<?php echo $theme_directory; ?>/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-        media="screen"/>
+        media="screen, print"/>
   <script src="themes/<?php echo $theme_directory; ?>/assets/vendor/bootstrap/js/bootstrap.min.js"
           type="text/javascript"></script>
   <link href="themes/<?php echo $theme_directory; ?>/assets/vendor/font-awesome/css/font-awesome.min.css"
@@ -32,7 +32,7 @@
   <link href="themes/<?= $theme_directory; ?>/assets/css/additional.css" rel="stylesheet">
     <?php foreach ($styles as $style) { ?>
       <link href="<?php echo $style['href']; ?>" type="text/css" rel="<?php echo $style['rel']; ?>"
-            media="<?php echo $style['media']; ?>"/>
+            media="<?php echo $style['media']; ?>, print"/>
     <?php } ?>
   <script src="themes/<?php echo $theme_directory; ?>/assets/js/common.js" type="text/javascript"></script>
     <?php foreach ($links as $link) { ?>

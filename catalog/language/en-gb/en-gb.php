@@ -23,6 +23,7 @@ $_['button_cart'] = 'Add to Cart';
 $_['button_cancel'] = 'Cancel';
 $_['button_compare'] = 'Compare this Product';
 $_['button_wishlist'] = 'Add to Wish List';
+$_['button_print'] = 'Print page';
 $_['button_checkout'] = 'Checkout';
 $_['button_confirm'] = 'Confirm Order';
 $_['button_coupon'] = 'Apply Coupon';

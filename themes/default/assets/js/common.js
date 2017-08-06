@@ -486,5 +486,9 @@ $(document).delegate('.agree', 'click', function (e) {
         });
     }
 
+    // Print button, function
+    $(".print").on('click', function () {
+        $.print("#printable");
+    });
 
 })(window.jQuery);

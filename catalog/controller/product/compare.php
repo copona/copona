@@ -143,7 +143,18 @@ class ControllerProductCompare extends Controller {
             } else {
                 unset($this->session->data['compare'][$key]);
             }
+            // Content Meta
+            if (!empty($product_info['content_meta'])) {
+                // Define content meta in $data array;
+                foreach($product_info['content_meta'] as $key => $value){
+                    $data['products'][$product_id]['content_meta'][$key] = $value;
+                }
+            } else {
+                $data['products'][$product_id]['content_meta'] = '';
+            }
         }
+
+
 
         $data['continue'] = $this->url->link('common/home');
 
