@@ -847,4 +847,12 @@ ul.product-group li.active{
     padding-bottom:10px;
 }
 
+#col-social-media {
+    float: right;
+    padding-bottom: 15px;
+}
+
+#col-social-media a{
+    margin-left:5px;
+}
 /* ONE PAGE CHECKOUT CSS end */
