@@ -7,6 +7,7 @@
  * @property array $data
  * @property string $output
  * @property Loader $load
+ * @property ConfigManager $config
  * @property User $user
  * @property Url $url
  * @property Log $log
@@ -129,6 +130,13 @@ abstract class Controller
     public function __set($key, $value)
     {
         $this->registry->set($key, $value);
+    }
+
+    public function checkCustomerLogin($redirect_route, $args = '', $is_secured = true){
+        if (!$this->customer->isLogged()) {
+            $this->session->data['redirect'] = $this->url->link($redirect_route, '', true);
+            $this->response->redirect($this->url->link('account/login', '', true));
+        }
     }
 
 }

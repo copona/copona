@@ -34,6 +34,11 @@ class ControllerExtensionModuleLatest extends Controller {
                 } else {
                     $image = $this->model_tool_image->cropsize('placeholder.png', $setting['width'], $setting['height']);
                 }
+                if ($result['image']) {
+                    $popup = $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                } else {
+                    $popup = $this->model_tool_image->cropsize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                }
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                     $price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
@@ -100,6 +105,7 @@ class ControllerExtensionModuleLatest extends Controller {
                 $data['products'][] = array(
                     'product_id'           => $result['product_id'],
                     'thumb'                => $image,
+                    'popup'                => $popup,
                     'name'                 => $result['name'],
                     'stripped_description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
                     'description'          => html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'),

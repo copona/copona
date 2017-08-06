@@ -2,11 +2,7 @@
 class ControllerAccountReward extends Controller {
 
     public function index() {
-        if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/reward', '', true);
-
-            $this->response->redirect($this->url->link('account/login', '', true));
-        }
+        $this->checkCustomerLogin('account/reward');
 
         $this->load->language('account/reward');
 

@@ -6,7 +6,7 @@ class ModelLocalisationLanguage extends Model {
             . "name = '" . $this->db->escape($data['name']) . "'"
             . ", code = '" . $this->db->escape($data['code']) . "'"
             . ", locale = '" . $this->db->escape($data['locale']) . "'"
-            . ", sort_order = '" . $this->db->escape($data['sort_order']) . "'"
+            . ", sort_order = '" . (int)$data['sort_order'] . "'"
             . ", directory = '" . $this->db->escape($data['directory']) . "'"
             . ", status = '" . (int)$data['status'] . "'");
 
@@ -220,7 +220,7 @@ class ModelLocalisationLanguage extends Model {
             . "name = '" . $this->db->escape($data['name']) . "'"
             . ", code = '" . $this->db->escape($data['code']) . "'"
             . ", locale = '" . $this->db->escape($data['locale']) . "'"
-            . ", sort_order = '" . $this->db->escape($data['sort_order']) . "'"
+            . ", sort_order = '" . (int)$data['sort_order'] . "'"
             . ", directory = '" . $this->db->escape($data['directory']) . "'"
             . ", status = '" . (int)$data['status'] . "' "
             . "WHERE language_id = '" . (int)$language_id . "'");

@@ -170,15 +170,11 @@ var cart = {
                 }
 
                 if (json['success']) {
-                    // $('.breadcrumb').after('<div class="alert alert-success alert-success-addtocart">' +
-                    //         json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
-                    // setTimeout(function () {
-                    //     $('.alert-success-addtocart').fadeOut(500);
-                    // }, 3000);
-                    $(e.target).notify(
-                        "Added to cart",
-                        { position:"right", className: 'success'}
-                    );
+                    $('body').after('<div class="alert alert-success alert-success-addtocart">' +
+                            json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
+                    delay(function () {
+                        $('.alert-success-addtocart').fadeOut(500);
+                    }, 3000);
                     $('#cart').load('index.php?route=common/cart/info');
                 }
             },
@@ -240,7 +236,7 @@ var cart = {
                 if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
                     location = 'index.php?route=checkout/cart';
                 } else {
-                    $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                    $('#cart').load('index.php?route=common/cart/info');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -351,6 +347,7 @@ var compare = {
 
 /* Agree to Terms */
 $(document).delegate('.agree', 'click', function (e) {
+
     e.preventDefault();
     $('#modal-agree').remove();
     var element = this;

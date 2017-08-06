@@ -10,7 +10,7 @@ class Event
         $this->registry = $registry;
     }
 
-    public function register($trigger, Action $action)
+    public function register($trigger, \Copona\System\Engine\Action $action)
     {
         $this->data[$trigger][] = $action;
     }
@@ -18,7 +18,8 @@ class Event
     public function trigger($event, array $args = array())
     {
         foreach ($this->data as $trigger => $actions) {
-            if (preg_match('/^' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($trigger, '/')) . '/', $event)) {
+            if (preg_match('/^' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($trigger, '/')) . '/',
+              $event)) {
                 foreach ($actions as $action) {
                     $result = $action->execute($this->registry, $args);
 
