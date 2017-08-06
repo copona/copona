@@ -51,41 +51,44 @@ $this->hook->setHook('product/index/after', 'content_meta');
  * reference = to array
  *
  */
-
-function default_remove_image(&$data, &$registry)
-{
-    $db = $registry->get('db');
-    $registry->get('load')->model('catalog/product');
-    // Real modifications.
-    //
-    // $product = $registry->get('model_catalog_product')->getProduct(51);
-    // prd($product);
-    // prd($db->query('select * from oc_product limit 10'));
-    /*
-      $data['image_mid'] = '';
-      $data['popup'] = '';
-      $data['thumb'] = '';
-     */
+if (!function_exists('default_remove_image')) {
+    function default_remove_image(&$data, &$registry)
+    {
+        $db = $registry->get('db');
+        $registry->get('load')->model('catalog/product');
+        // Real modifications.
+        //
+        // $product = $registry->get('model_catalog_product')->getProduct(51);
+        // prd($product);
+        // prd($db->query('select * from oc_product limit 10'));
+        /*
+          $data['image_mid'] = '';
+          $data['popup'] = '';
+          $data['thumb'] = '';
+         */
+    }
 }
 
-function content_meta(&$data, &$registry)
-{
-    $config = $registry->get('config');
-    $url = $registry->get('url');
-    if (!empty($data['content_meta'])) {
-        foreach ($data['content_meta'] as $meta_type => $val) {
-            // Product Videos
-            if ($meta_type == 'product_video') {
-                $data['product_videos'] = [];
-                foreach ($val as $video) {
-                    $data['product_videos'][] = [
-                        'video'     => 'https://www.youtube.com/watch?v=' . $video['video'][$config->get('config_language_id')] . '',
-                        'video_src' => $url->link('common/youtube', 'inpt=' . $video['video'][$config->get('config_language_id')] . '&quality=hq&play')             //   HTTPS_SERVER . 'youtube/yt-thumb.php?inpt=' . $video . '&quality=hq&play"'
-                    ];
+if (!function_exists('content_meta')) {
+    function content_meta(&$data, &$registry)
+    {
+        $config = $registry->get('config');
+        $url = $registry->get('url');
+        if (!empty($data['content_meta'])) {
+            foreach ($data['content_meta'] as $meta_type => $val) {
+                // Product Videos
+                if ($meta_type == 'product_video') {
+                    $data['product_videos'] = [];
+                    foreach ($val as $video) {
+                        $data['product_videos'][] = [
+                            'video' => 'https://www.youtube.com/watch?v=' . $video['video'][$config->get('config_language_id')] . '',
+                            'video_src' => $url->link('common/youtube', 'inpt=' . $video['video'][$config->get('config_language_id')] . '&quality=hq&play')             //   HTTPS_SERVER . 'youtube/yt-thumb.php?inpt=' . $video . '&quality=hq&play"'
+                        ];
 
+                    }
                 }
             }
         }
-    }
 
+    }
 }

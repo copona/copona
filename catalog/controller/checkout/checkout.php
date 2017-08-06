@@ -20,6 +20,7 @@ class ControllerCheckoutCheckout extends Controller {
         'city',
         'address_1',
         'address_2',
+        'postcode',
         'comment',
         'agree',
         'marketing_id',
