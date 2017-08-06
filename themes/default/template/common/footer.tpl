@@ -39,7 +39,19 @@
       </div>
     </div>
     <hr>
-    <p><?php echo $powered; ?></p>
+    <div class="row">
+      <div class="col-sm-4">
+        <p><?= $powered ?></p>
+      </div>
+      <div id="col-social-media">
+        <?php
+          foreach($config_social_media as $social_media)
+          {
+             ?><a target="_blank" href="<?= $social_media['link'] ?>"><img src="image/<?= $social_media['icon'] ?>" width="32" height="32" alt="<?= $social_media['name'] ?>" title="<?= $social_media['name'] ?>" /></a><?php
+          }
+        ?>
+      </div>
+    </div>
   </div>
 </footer>
 <?php foreach ($scripts as $script) { ?>
