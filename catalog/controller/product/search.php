@@ -450,7 +450,7 @@ class ControllerProductSearch extends Controller {
                 $this->model_account_search->addSearch($search_data);
             }
         }
-
+        $this->hook->getHook('controller/search/product', $data);
         $data['search'] = $search;
         $data['description'] = $description;
         $data['category_id'] = $category_id;
