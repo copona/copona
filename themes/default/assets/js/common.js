@@ -132,12 +132,6 @@ $(document).ready(function () {
             $('#collapse-checkout-option #button-login').trigger('click');
         }
     });
-    // tooltips on hover
-    $('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
-    // Makes tooltips work on ajax generated content
-    $(document).ajaxStop(function () {
-        $('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
-    });
 
     /* Simplica Theme Mega Menu start */
     $('.mega-dropdown-menu').on ('click', function(e) {
@@ -486,9 +480,5 @@ $(document).delegate('.agree', 'click', function (e) {
         });
     }
 
-    // Print button, function
-    $(".print").on('click', function () {
-        $.print("#printable");
-    });
 
 })(window.jQuery);

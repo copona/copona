@@ -7,7 +7,7 @@
 
 // The new addScripts and addStyles method:
 // Theme name: $this->config->get('theme_name')
-$this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/jquery/jquery-2.1.1.min.js');
+$this->document->addScript('themes/default/assets/vendor/jquery/jquery-2.1.1.min.js');
 $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'header', 'product/product');
 $this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header', 'product/product');
 $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header', 'product/product');
