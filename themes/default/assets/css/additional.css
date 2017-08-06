@@ -1,3 +1,11 @@
+body .notifyjs-container {
+    line-height: 1.1em;
+}
+body .notifyjs-bootstrap-base {
+    padding: 8px 3px 8px 24px;
+    text-transform: initial;
+}
+
 #form-language img {
     max-width: 16px;
 }
