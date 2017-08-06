@@ -142,10 +142,10 @@ $(document).ready(function () {
 }); // end document.ready
 // Cart add remove functions
 var cart = {
-    'add': function (product_id, quantity,e) {
-
+    'add': function (product_id, quantity) {
 
         $("alert-success").remove();
+        var e = event;
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
             type: 'post',
@@ -169,8 +169,9 @@ var cart = {
                     delay(function () {
                         $('.alert-success-addtocart').fadeOut(500);
                     }, 3000);
+                    console.log ( $(e.target) );
 
-                    json['text_added_to_cart'] ? $(e.target).notify( json['text_added_to_cart'] ,{position: "right", className: 'success'}) : false;
+                    json['text_added_to_cart'] ? $(e.target).notify( json['text_added_to_cart'] ,{position: "right", autoHide: false, className: 'success'}) : false;
 
                     $('#cart').load('index.php?route=common/cart/info');
                 }
