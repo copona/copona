@@ -20,6 +20,7 @@ class ControllerCheckoutCheckout extends Controller {
         'city',
         'address_1',
         'address_2',
+        'postcode',
         'comment',
         'agree',
         'marketing_id',
@@ -202,7 +203,7 @@ class ControllerCheckoutCheckout extends Controller {
 
         if (!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) {
             //Empty cart redirect
-            $this->response->redirect($this->url->link('order/order/emptycart'));
+            $this->response->redirect($this->url->link('checkout/cart'));
         }
 
         $data['logged'] = $this->customer->isLogged();
