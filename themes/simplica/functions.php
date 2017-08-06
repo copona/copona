@@ -18,7 +18,6 @@ if (APPLICATION == 'catalog') {
     $this->document->addStyle('themes/' . $this->config->get('theme_name') . '/assets/css/additional.css');
     $this->document->addStyle('themes/' . $this->config->get('theme_name') . '/assets/css/owl.carousel.css');
     $this->document->addStyle('themes/' . $this->config->get('theme_name') . '/assets/css/additional.css');
-    $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/vendor/bootstrap/js/bootstrap.min.js');
     $this->document->addScript('themes/' . $this->config->get('theme_name') . '/assets/js/common.js');
 
 }
