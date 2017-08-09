@@ -12,6 +12,9 @@ Search-Replace-DB-master*
 sitemap.xml
 sitemap.xsl
 
+# node.js npm package manager files
+node_modules
+
 # XML filesimport
 catalog/controller/xml/*.xml
 

@@ -22,7 +22,7 @@
 
     <?php foreach ($styles as $style) { ?>
       <link href="<?php echo $style['href']; ?>" type="text/css" rel="<?php echo $style['rel']; ?>"
-            media="<?php echo $style['media']; ?>"/>
+            media="<?php echo $style['media']; ?>, print"/>
     <?php } ?>
 
     <?php foreach ($links as $link) { ?>
