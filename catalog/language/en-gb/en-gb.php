@@ -120,3 +120,6 @@ $_['text_newsletter'] = 'Newsletter';
 $_['text_sale'] = 'Sale';
 $_['entry_name'] = 'Name';
 $_['text_added_to_cart'] = 'Added to cart';
+$_['text_captcha']  = 'Captcha';
+$_['entry_captcha'] = 'Please complete the captcha validation below';
+$_['error_captcha'] = 'Verification is not correct!';
