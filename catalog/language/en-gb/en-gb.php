@@ -117,3 +117,4 @@ $_['entry_confirm'] = 'Password Confirm';
 $_['entry_customer_group'] = 'Customer Group';
 $_['text_newsletter'] = 'Newsletter';
 $_['text_sale'] = 'Sale';
+$_['entry_name'] = 'Name';
