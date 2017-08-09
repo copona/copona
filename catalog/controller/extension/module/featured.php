@@ -81,7 +81,11 @@ class ControllerExtensionModuleFeatured extends Controller {
         }
 
         if ($data['products']) {
-            return $this->load->view('extension/module/featured', $data);
+            if(!empty($setting['content_data']) && $setting['content_data']){
+                return $data;
+            } else {
+                return $this->load->view('extension/module/featured', $data);
+            }
         }
     }
 

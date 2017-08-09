@@ -7,9 +7,12 @@ class ControllerExtensionModuleBanner extends Controller {
         $this->load->model('design/banner');
         $this->load->model('tool/image');
 
-        $this->document->addStyle('catalog/view/javascript/jquery/owl-carousel/owl.carousel.css');
-        $this->document->addStyle('catalog/view/javascript/jquery/owl-carousel/owl.transitions.css');
-        $this->document->addScript('catalog/view/javascript/jquery/owl-carousel/owl.carousel.min.js');
+        // Needed to replace $this->config->get('theme_name') with "default", to load files from "default" folder.
+        // then replaced to "addets/.. " :) to allow control in document class.
+
+        $this->document->addStyle('assets/vendor/owl-carousel/owl.carousel.css');
+        $this->document->addStyle('assets/vendor/owl-carousel/owl.transitions.css');
+        $this->document->addScript('assets/vendor/owl-carousel/owl.carousel.min.js');
 
         $data['banners'] = array();
 

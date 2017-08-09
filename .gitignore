@@ -8,6 +8,12 @@
 /.vs
 Search-Replace-DB-master*
 /extensions/*
+/sitemaps/
+sitemap.xml
+sitemap.xsl
+
+# node.js npm package manager files
+node_modules
 
 # XML filesimport
 catalog/controller/xml/*.xml
@@ -20,13 +26,12 @@ catalog/controller/xml/*.xml
 
 # Image Cache Files
 /image/data/
-/image/cache/*
 /image/catalog/*
 !/image/catalog/cart.copona.png
 !/image/catalog/cart.png
 
 # System Cache Files
-/system/storage/cache/*
+/storage/cache/*
 
 # Vqmod
 /vqmod/vqcache/*
@@ -34,7 +39,7 @@ catalog/controller/xml/*.xml
 /vqmod/*.cache
 
 # Modification Files
-/system/storage/modification/*
+/storage/modification/*
 /catalog/controller/extension/plugins/
 
 # Templates Files
@@ -42,16 +47,16 @@ catalog/controller/xml/*.xml
 /image/templates/default.jpg
 
 # Download Files
-/system/storage/download/*
+/storage/download/*
 
 # Upload Files
-/system/storage/*
-/system/storage/logs/*
+/storage/*
+/storage/logs/*
 
 # Templates
-/catalog/view/theme/*
-!/catalog/view/theme/default/
-!/catalog/view/theme/simplica/
+/themes/*
+!/themes/default/
+!/themes/simplica/
 
 # Languages
 /catalog/language/*
@@ -61,7 +66,7 @@ catalog/controller/xml/*.xml
 
 
 # Not files
-!/system/storage/**/index.html
+!/storage/**/index.html
 !/image/cache/index.html
 !/image/no_image.jpg
 

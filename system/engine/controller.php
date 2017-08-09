@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @property string $id
  * @property string $template
@@ -6,6 +7,7 @@
  * @property array $data
  * @property string $output
  * @property Loader $load
+ * @property ConfigManager $config
  * @property User $user
  * @property Url $url
  * @property Log $log
@@ -111,19 +113,30 @@
  * @property ModelUserUserGroup $model_user_user_group
  * @property ModelUserUser $model_user_user
  * */
-abstract class Controller {
+abstract class Controller
+{
     protected $registry;
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         $this->registry = $registry;
     }
 
-    public function __get($key) {
+    public function __get($key)
+    {
         return $this->registry->get($key);
     }
 
-    public function __set($key, $value) {
+    public function __set($key, $value)
+    {
         $this->registry->set($key, $value);
+    }
+
+    public function checkCustomerLogin($redirect_route, $args = '', $is_secured = true){
+        if (!$this->customer->isLogged()) {
+            $this->session->data['redirect'] = $this->url->link($redirect_route, '', true);
+            $this->response->redirect($this->url->link('account/login', '', true));
+        }
     }
 
 }

@@ -1,21 +1,25 @@
 {
-	"name": "copona/copona",
-    "type": "project",
-    "description": "A free shopping cart system, based on OpenCart (http://www.opencart.com)",
-    "keywords": ["copona", "ecommerce", "framework", "opensource"],
-    "homepage": "https://github.com/copona/copona",
-    "license": "GPL-3.0+",
-    "require": {
-        "cardinity/cardinity-sdk-php": "^1.0",
-        "braintree/braintree_php" : "3.2.0",
-        "leafo/scssphp": "0.0.12",
-        "divido/divido-php": ">=1.1.1",
-        "klarna/kco_rest": "^2.2",
-        "php": ">=5.6.0",
-        "phpmailer/phpmailer": "^5.2",
-		"robmorgan/phinx": "^0.6.6",
-		"filp/whoops": "^2.1",
-		"hassankhan/config": "^0.10.0",
-		"vlucas/phpdotenv": "^2.4"
+  "name": "copona/copona",
+  "type": "project",
+  "description": "A free shopping cart system, based on OpenCart (http://www.opencart.com)",
+  "keywords": [
+    "copona",
+    "ecommerce",
+    "framework",
+    "opensource"
+  ],
+  "homepage": "https://github.com/copona/copona",
+  "license": "GPL-3.0+",
+  "require": {
+    "copona/core": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Copona\\System\\": "./system/",
+      "Copona\\System\\Library\\": "./system/library/",
+      "Copona\\System\\Engine\\": "./system/engine/",
+      "Extension\\": "./extensions/",
+      "Theme\\": "./themes/"
     }
+  }
 }

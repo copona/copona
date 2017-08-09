@@ -14,7 +14,7 @@ class ControllerStartupLogin extends Controller {
         $this->registry->set('user', new Cart\User($this->registry));
 
         if (!$this->user->isLogged() && !in_array($route, $ignore)) {
-            return new Action('common/login');
+            return new \Copona\System\Engine\Action('common/login');
         }
 
         if (isset($this->request->get['route'])) {
@@ -28,11 +28,11 @@ class ControllerStartupLogin extends Controller {
             );
 
             if (!in_array($route, $ignore) && (!isset($this->request->get['token']) || !isset($this->session->data['token']) || ($this->request->get['token'] != $this->session->data['token']))) {
-                return new Action('common/login');
+                return new \Copona\System\Engine\Action('common/login');
             }
         } else {
             if (!isset($this->request->get['token']) || !isset($this->session->data['token']) || ($this->request->get['token'] != $this->session->data['token'])) {
-                return new Action('common/login');
+                return new \Copona\System\Engine\Action('common/login');
             }
         }
     }

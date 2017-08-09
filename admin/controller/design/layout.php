@@ -265,6 +265,7 @@ class ControllerDesignLayout extends Controller {
         $data['text_default'] = $this->language->get('text_default');
         $data['text_content_top'] = $this->language->get('text_content_top');
         $data['text_content_bottom'] = $this->language->get('text_content_bottom');
+        $data['text_content_data'] = $this->language->get('text_content_data');
         $data['text_column_left'] = $this->language->get('text_column_left');
         $data['text_column_right'] = $this->language->get('text_column_right');
         $data['text_edit'] = $this->language->get('text_edit');
@@ -399,6 +400,7 @@ class ControllerDesignLayout extends Controller {
         $data['layout_modules'] = array();
 
         // Add all the modules which have multiple settings for each module
+
         foreach ($layout_modules as $layout_module) {
             $part = explode('.', $layout_module['code']);
 

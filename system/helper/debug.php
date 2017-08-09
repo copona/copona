@@ -1,11 +1,25 @@
 <?php
-!defined('DEBUG') ? define('DEBUG', true) : '';
+
+$ips = Config::get('debug.allow_ip', []);
+$debug_mode = Config::get('debug.mode');
+
+if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+    $client_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+} else if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+    $client_ip = $_SERVER["REMOTE_ADDR"];
+} else if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
+    $client_ip = $_SERVER["HTTP_CLIENT_IP"];
+}
+
+if (is_array($ips) && count($ips) && array_search($client_ip, $ips) === false) {
+    $debug_mode = false;
+}
 
 if (!function_exists('pr')) {
 
     function pr($data = 'w/o variable', $vardump = false)
     {
-        if (defined('DEBUG') && DEBUG == true) {
+        if (@$GLOBALS['debug_mode']) {
             echo "\n\n";
             echo "<div style='border: 1px solid grey; padding: 5px;'>";
             echo "<span style='color: black; background-color: white; font-size: 12px;'>\nPR data: <strong>" . gettype($data) . "</strong></span>\n";
@@ -48,7 +62,7 @@ if (!function_exists('prd')) {
 
     function prd($data = 'w/o variable', $vardump = false)
     {
-        if (defined('DEBUG') && DEBUG == true) {
+        if (@$GLOBALS['debug_mode']) {
             echo "\n\n";
             echo "<div style='border: 1px solid grey; padding: 5px;'>";
             echo "<span style='color: black; background-color: white; font-size: 12px;'>\nPRD data: <strong>" . gettype($data) . "</strong></span>\n";
@@ -94,12 +108,10 @@ if (!function_exists('dt')) {
 
     function dt()
     {
-        if (defined('DEBUG') && DEBUG == true) {
+        if (@$GLOBALS['debug_mode']) {
             !isset($_SESSION['dt_start_time']) ? $_SESSION['dt_start_time'] = microtime(true) : false;
             $diff = microtime(true) - $_SESSION['dt_start_time'];
             return $diff;
         }
     }
-
 }
-

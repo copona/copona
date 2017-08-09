@@ -20,6 +20,7 @@ class ControllerCheckoutCheckout extends Controller {
         'city',
         'address_1',
         'address_2',
+        'postcode',
         'comment',
         'agree',
         'marketing_id',
@@ -62,9 +63,9 @@ class ControllerCheckoutCheckout extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
-        $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+        $this->document->addScript('assets/vendor/datetimepicker/moment.js');
+        $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
+        $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
 
         // Required by klarna
         if ($this->config->get('klarna_account') || $this->config->get('klarna_invoice')) {
@@ -131,7 +132,7 @@ class ControllerCheckoutCheckout extends Controller {
         $this->response->setOutput($this->load->view('checkout/checkout', $data));
     }
 
-    function guest() {
+    public function guest() {
 
         $data = $this->load->language('checkout/checkout');
         $this->document->setTitle($this->language->get('heading_title'));
@@ -202,7 +203,7 @@ class ControllerCheckoutCheckout extends Controller {
 
         if (!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) {
             //Empty cart redirect
-            $this->response->redirect($this->url->link('order/order/emptycart'));
+            $this->response->redirect($this->url->link('checkout/cart'));
         }
 
         $data['logged'] = $this->customer->isLogged();
@@ -335,6 +336,8 @@ class ControllerCheckoutCheckout extends Controller {
 
         $data['session'] = $this->session->data;
 
+        $data['theme_default_directory'] = $this->config->get('theme_default_directory');
+
         $this->response->setOutput($this->load->view('checkout/guest', $data));
     }
 
@@ -422,8 +425,7 @@ class ControllerCheckoutCheckout extends Controller {
             //$this->error['warning'] = $this->language->get('error_agree');
             $this->error['warning'] = sprintf($this->language->get('error_agree'), $this->url->link('information/information', 'information_id=' . $this->config->get('config_checkout_id'), 'SSL'), $this->config->get('config_name'));
         }
-
-        $shipping_method1 = $this->load->controller('checkout/shipping_method/validate');
+        
         // Save posted values in session
 
         foreach ($this->request->post as $key => $val) {
