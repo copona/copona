@@ -25,6 +25,7 @@ $template_config_settings = array(
     'theme_default_product_short_description_length' => 250,
     'theme_default_product_category_list_resize'     => 'cropsize',
     'theme_default_product_category_popup_resize'    => 'propsize',
+    'theme_default_product_cart_thumb_resize'        => 'cropsize',
     // 'theme_default_image_category_width'       => 80,
     // 'theme_default_image_category_height'      => 80,
 );
