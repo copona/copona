@@ -16,7 +16,7 @@ function hs($str)
     return str_replace(array('<', '>'), array('&lt;', '&gt;'), mb_convert_encoding($str, 'UTF-8'));
 }
 
-function e($str)
+function e_cr($str)
 {
     echo h($str);
 }
