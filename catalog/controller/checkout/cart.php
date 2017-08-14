@@ -74,7 +74,7 @@ class ControllerCheckoutCart extends Controller {
                 }
 
                 if ($product['image']) {
-                    $image = $this->model_tool_image->resize($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+                     $image = $this->model_tool_image->{$this->config->get('theme_default_product_cart_thumb_resize')}($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
                 } else {
                     $image = '';
                 }
@@ -350,6 +350,7 @@ class ControllerCheckoutCart extends Controller {
                 $this->cart->add($this->request->post['product_id'], $quantity, $option, $recurring_id);
 
                 $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('checkout/cart'));
+                $json['text_added_to_cart'] = $this->language->get('text_added_to_cart');
 
                 // Unset all shipping and payment methods
                 unset($this->session->data['shipping_method']);
@@ -402,11 +403,9 @@ class ControllerCheckoutCart extends Controller {
                 }
 
 
-                $json_total = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
-
+                //$json_total = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
                 //$json['total'] = '<span id="cart-total"><i class="fa fa-shopping-cart"></i>' . $json_total . '</span>';
             } else {
-               // prd($json);
                 $json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']));
             }
         }
