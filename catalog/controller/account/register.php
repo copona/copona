@@ -290,7 +290,8 @@ class ControllerAccountRegister extends Controller {
         }
 
         // Captcha
-        if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('register', (array)$this->config->get('config_captcha_page'))) {
+        if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status')
+            && in_array('register', (array)$this->config->get('config_captcha_page'))) {
             $data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'), $this->error);
         } else {
             $data['captcha'] = '';
@@ -392,7 +393,7 @@ class ControllerAccountRegister extends Controller {
             }
         }
 
-        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
+        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 40)) {
             $this->error['password'] = $this->language->get('error_password');
         }
 

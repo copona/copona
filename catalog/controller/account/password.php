@@ -107,7 +107,7 @@ class ControllerAccountPassword extends Controller {
         if ($this->request->post['csrf_token'] != $this->session->data['csrf_token']) {
             $this->error['csrf_token'] = $this->language->get('error_csrf_token');
         }
-        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
+        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 40)) {
             $this->error['password'] = $this->language->get('error_password');
         }
 
