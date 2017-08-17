@@ -393,7 +393,7 @@ class ControllerAccountRegister extends Controller {
             }
         }
 
-        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
+        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 40)) {
             $this->error['password'] = $this->language->get('error_password');
         }
 

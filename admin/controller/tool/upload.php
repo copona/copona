@@ -397,6 +397,10 @@ class ControllerToolUpload extends Controller {
         if (!$json) {
             $file = $filename . '.' . token(32);
 
+            if(!is_dir(DIR_UPLOAD)) {
+                @mkdir(DIR_UPLOAD, \Config::get('directory_permission', 0777), true);
+            }
+
             move_uploaded_file($this->request->files['file']['tmp_name'], DIR_UPLOAD . $file);
 
             // Hide the uploaded file name so people can not link to it directly.
