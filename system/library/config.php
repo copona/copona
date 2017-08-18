@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Author: @prhost
+ * */
+
 class Config
 {
     /**
