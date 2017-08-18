@@ -241,6 +241,9 @@ DB_PREFIX=" . addslashes($this->request->post['db_prefix']) . "
                   $this->request->post['db_password'], $this->request->post['db_database'],
                   $this->request->post['db_port']);
             } catch (Exception $e) {
+                if ($db->connect_errno) {
+                    $this->error['warning'] = $db->connect_error;
+                }
                 $this->error['warning'] = $e->getMessage();
             }
         }
