@@ -37,32 +37,6 @@
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
         <div id="mycart"></div>
       </form>
-      <?php if ($modules) { ?>
-          <h2><?php echo $text_next; ?></h2>
-          <p><?php echo $text_next_choice; ?></p>
-          <div class="panel-group" id="accordion">
-              <?php foreach ($modules as $module) { ?>
-                  <?php echo $module; ?>
-              <?php } ?>
-          </div>
-      <?php } ?>
-      <br />
-      <div class="row">
-        <div class="col-sm-4 col-sm-offset-8">
-          <table class="table table-bordered">
-              <?php foreach ($totals as $total) { ?>
-                <tr>
-                  <td class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
-                  <td class="text-right"><?php echo $total['text']; ?></td>
-                </tr>
-            <?php } ?>
-          </table>
-        </div>
-      </div>
-      <div class="buttons clearfix">
-        <div class="pull-left"><a href="<?php echo $continue; ?>" class="btn btn-default"><?php echo $button_shopping; ?></a></div>
-        <div class="pull-right"><a href="<?php echo $checkout; ?>" class="btn btn-primary"><?php echo $button_checkout; ?></a></div>
-      </div>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
