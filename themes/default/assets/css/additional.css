@@ -6,6 +6,14 @@ body .notifyjs-bootstrap-base {
     text-transform: initial;
 }
 
+legend {
+    width: auto;
+}
+
+fieldset {
+    margin: 10px 0;
+}
+
 #form-language img {
     max-width: 16px;
 }
