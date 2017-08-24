@@ -165,7 +165,8 @@ var cart = {
 
                 if (json['success']) {
                     $('body').after('<div class="alert alert-success alert-success-addtocart">' +
-                            json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        json['success'] + '</div>').fadeIn('slow');
                     delay(function () {
                         $('.alert-success-addtocart').fadeOut(500);
                     }, 3000);
