@@ -163,14 +163,16 @@ var cart = {
                 }
 
                 if (json['success']) {
-                    $('body').append('<div class="alert alert-success alert-success-addtocart">' +
-                        json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
+
+                    $('body').after('<div class="alert alert-success alert-success-addtocart">' +
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        json['success'] + '</div>').fadeIn('slow');
                     delay(function () {
                         $('.alert-success-addtocart').fadeOut(500);
                     }, 3000);
-                    console.log ( $(e.target) );
+                    //console.log ( $(e.target) );
 
-                    json['text_added_to_cart'] ? $(e.target).notify( json['text_added_to_cart'] ,{position: "right", className: 'success'}) : false;
+                    json['text_added_to_cart'] != 'text_added_to_cart' ? $(e.target).notify( json['text_added_to_cart'] ,{position: "right", className: 'success'}) : false;
 
                     $('#cart').load('index.php?route=common/cart/info');
                 }

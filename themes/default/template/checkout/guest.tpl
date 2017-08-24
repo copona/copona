@@ -3,19 +3,23 @@
 <div class="category-pd-checkout">
   <div class="container">
       <?php if ($attention) { ?>
-        <div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $attention; ?>
+        <div class="alert alert-info"><i class="fa fa-info-circle"></i>
           <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <?php echo $attention; ?>
+
         </div>
     <?php } ?>
     <?php if ($success) { ?>
-        <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i>
           <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <?php echo $success; ?>
         </div>
     <?php } ?>
     <?php if ($error_warning) { ?>
 
         <?php // echo $error_warning;?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
             <?php
             $i = 0;
             foreach ($error_warning as $val) {
@@ -28,7 +32,7 @@
                 }
                 ?>
             <?php } ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+
         </div>
     <?php } ?>
     <div class="row">
