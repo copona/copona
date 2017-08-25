@@ -54,7 +54,8 @@ class ControllerCheckoutPaymentMethod extends Controller {
             $results = $this->model_extension_extension->getExtensions('payment');
 
             foreach ($results as $result) {
-                if ($this->config->get($result['code'] . '_status')) {  //t.i. - ja payments ir ENABLED. Tad ielādējam katru atsevišķi.
+                $this->language->set('text_title', $result['code']);
+                if ($this->config->get($result['code'] . '_status')) {
                     $this->load->model('extension/payment/' . $result['code']);
                     $method = $this->{'model_extension_payment_' . $result['code']}->getMethod($payment_address, $total);
 
