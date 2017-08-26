@@ -110,7 +110,7 @@ class ControllerExtensionExtensionPayment extends Controller {
                 }
 
                 $data['extensions'][] = array(
-                    'name'       => $this->language->get('heading_title'),
+                    'name'       => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
                     'link'       => $link,
                     'status'     => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                     'sort_order' => $this->config->get($extension . '_sort_order'),
@@ -119,6 +119,7 @@ class ControllerExtensionExtensionPayment extends Controller {
                     'installed'  => in_array($extension, $extensions),
                     'edit'       => $this->url->link('extension/payment/' . $extension, 'token=' . $this->session->data['token'], true)
                 );
+                $this->language->set('heading_title', '');
             }
         }
 

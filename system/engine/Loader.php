@@ -185,10 +185,27 @@ class Loader
                     } else if (is_file(DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext)) {
                         $file = DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext;
                         break;
+                    } else {
+                        if (APPLICATION == 'catalog') {
+                            $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/themes/default/template/" . $route . '.' . $ext);
+                            if(!$extension_files) {
+                                // Back compatibility :; ( TODO: remove!
+                                $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/catalog/view/theme/default/template/" . $route . '.' . $ext);
+                            }
+                        } else {
+                            $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/admin/view/template/" . $route . '.' . $ext);
+                        }
+                        // First, let's check for Extension template
+                        if (!empty($extension_files[0])) {
+                            $file = $extension_files[0];
+                        }
                     }
                 }
             }
         }
+
+        // for debug - to see template route, if template does not exists.
+        $file = !$file ? $route : $file;
 
         return $this->template->render($file, $data);
     }

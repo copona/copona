@@ -18,10 +18,14 @@ $_['column_action'] = 'Action';
 $_['entry_name'] = 'Download Name';
 $_['entry_filename'] = 'Filename';
 $_['entry_mask'] = 'Mask';
+$_['entry_free'] = 'Free download:';
+
 
 // Help
 $_['help_filename'] = 'You can upload via the upload button or use FTP to upload to the download directory and enter the details below.';
 $_['help_mask'] = 'It is recommended that the filename and the mask are different to stop people trying to directly link to your downloads.';
+$_['help_free'] = 'Select this if you want teh download to be free.';
+
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify downloads!';

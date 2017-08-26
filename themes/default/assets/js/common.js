@@ -132,15 +132,9 @@ $(document).ready(function () {
             $('#collapse-checkout-option #button-login').trigger('click');
         }
     });
-    // tooltips on hover
-    $('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
-    // Makes tooltips work on ajax generated content
-    $(document).ajaxStop(function () {
-        $('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
-    });
 
     /* Simplica Theme Mega Menu start */
-    $('.mega-dropdown-menu').on ('click', function(e) {
+    $('.mega-dropdown-menu').on('click', function (e) {
         e.stopPropagation()
     });
     /* Simplica Theme Mega Menu end */
@@ -148,10 +142,9 @@ $(document).ready(function () {
 }); // end document.ready
 // Cart add remove functions
 var cart = {
-    'add': function (product_id, quantity,e) {
-
-
+    'add': function (product_id, quantity) {
         $("alert-success").remove();
+        var e = event;
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
             type: 'post',
@@ -170,11 +163,17 @@ var cart = {
                 }
 
                 if (json['success']) {
+
                     $('body').after('<div class="alert alert-success alert-success-addtocart">' +
-                            json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        json['success'] + '</div>').fadeIn('slow');
                     delay(function () {
                         $('.alert-success-addtocart').fadeOut(500);
                     }, 3000);
+                    //console.log ( $(e.target) );
+
+                    json['text_added_to_cart'] != 'text_added_to_cart' ? $(e.target).notify( json['text_added_to_cart'] ,{position: "right", className: 'success'}) : false;
+
                     $('#cart').load('index.php?route=common/cart/info');
                 }
             },
