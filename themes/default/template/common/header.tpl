@@ -19,22 +19,11 @@
     <?php if ($keywords) { ?>
       <meta name="keywords" content="<?php echo $keywords; ?>"/>
     <?php } ?>
-  <script src="themes/<?php echo $theme_directory; ?>/assets/vendor/jquery/jquery-2.1.1.min.js"
-          type="text/javascript"></script>
-  <link href="themes/<?php echo $theme_directory; ?>/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-        media="screen"/>
-  <script src="themes/<?php echo $theme_directory; ?>/assets/vendor/bootstrap/js/bootstrap.min.js"
-          type="text/javascript"></script>
-  <link href="themes/<?php echo $theme_directory; ?>/assets/vendor/font-awesome/css/font-awesome.min.css"
-        rel="stylesheet" type="text/css"/>
-  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css"/>
-  <link href="themes/<?= $theme_directory; ?>/assets/css/stylesheet.css" rel="stylesheet">
-  <link href="themes/<?= $theme_directory; ?>/assets/css/additional.css" rel="stylesheet">
     <?php foreach ($styles as $style) { ?>
       <link href="<?php echo $style['href']; ?>" type="text/css" rel="<?php echo $style['rel']; ?>"
-            media="<?php echo $style['media']; ?>"/>
+            media="<?php echo $style['media']; ?>, print"/>
     <?php } ?>
-  <script src="themes/<?php echo $theme_directory; ?>/assets/js/common.js" type="text/javascript"></script>
+
     <?php foreach ($links as $link) { ?>
       <link href="<?php echo $link['href']; ?>" rel="<?php echo $link['rel']; ?>"/>
     <?php } ?>

@@ -103,6 +103,13 @@ class Document
         );
     }
 
+    public function removeStyle($href, $rel = 'stylesheet', $media = 'screen', $route = '')
+    {
+        if (!$route) $route = 'common';
+
+        unset($this->styles[$route][$href]);
+    }
+    
     public function addStyleVersioned($href, $rel = 'stylesheet', $media = 'screen', $route = '')
     {
 
@@ -156,6 +163,14 @@ class Document
 
         $this->scripts[$route][$position][$href] = $href;
     }
+
+    public function removeScript($href, $position = 'header', $route = '')
+    {
+        if (!$route) $route = 'common';
+
+        unset($this->scripts[$route][$position][$href]);
+    }
+
 
     public function getScripts($position = 'header')
     {

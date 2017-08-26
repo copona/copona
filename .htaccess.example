@@ -11,6 +11,11 @@ Options -Indexes
  Deny from all
 </FilesMatch>
 
+<Files sitemap.xml>
+Allow from all
+Satisfy all
+</Files>
+
 # SEO URL Settings
 RewriteEngine On
 

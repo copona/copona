@@ -1,4 +1,4 @@
-<div id="cart-info" class="col-md-8">
+<div id="cart-info" class="col-md-12">
   <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="cart-contents">
     <div class="table-responsive">
       <table class="table">
@@ -47,7 +47,7 @@
                 </td>
 
                 <td class="text-left quantity">
-                  <div class="input-group btn-block" style="min-width:120px; max-width: 200px;">
+                  <div class="input-group btn-block" style="min-width:120px;    max-width: 120px;">
                     <input type="text" name="quantity[<?php echo $product['cart_id']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" class="checkout-quantity form-control" />
                     <span class="input-group-btn">
                       <span onclick="cart.update(<?php echo $product['cart_id']; ?>, $(this).parent().parent().find('.checkout-quantity').val())" data-toggle="tooltip" title="<?php echo $button_update; ?>" class="btn btn-default"><i class="fa fa-refresh"></i></span>
@@ -83,27 +83,28 @@
     </div>
   </form>
 </div>
-<div id="cart-module" class="col-md-4">
-  <div class="inner">
-    <ul class="cart-totals">
-        <?php foreach ($totals as $total) { ?>
-          <li><span class="left"><?php echo $total['title']; ?>:</span><span class="right"><?php echo $total['text']; ?></span></li>
-      <?php } ?>
-    </ul>
-    <div id="total-cart">
-      <div class="buttons">
-        <div class="cart"><a href="<?php echo $checkout; ?>" id="button-checkout" class="btn btn-default btn-block btn-cart btn-lg"><?php echo $button_checkout; ?></a></div>
-        <a href="<?php echo $continue; ?>" id="continue-shopping" class="btn btn-default btn-block"><?php echo $button_shopping; ?></a>
-      </div>
-    </div>
-    <?php if ($modules) { ?>
-        <div class="contentset"><h4><?php echo $text_next; ?></h4></div>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-8">
+      <?php if ($modules) { ?>
+        <h2><?php echo $text_next; ?></h2>
         <p><?php echo $text_next_choice; ?></p>
         <div class="panel-group" id="accordion">
-          <?php foreach ($modules as $module) { ?>
-              <?php echo $module; ?>
-          <?php } ?>
+            <?php foreach ($modules as $module) { ?>
+                <?php echo $module; ?>
+            <?php } ?>
         </div>
-    <?php } ?>
+      <?php } ?>
+    <table class="table table-bordered">
+        <?php foreach ($totals as $total) { ?>
+          <tr>
+            <td class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
+            <td class="text-right"><?php echo $total['text']; ?></td>
+          </tr>
+        <?php } ?>
+    </table>
   </div>
+</div>
+<div class="buttons clearfix">
+  <div class="pull-left"><a href="<?php echo $continue; ?>" class="btn btn-default"><?php echo $button_shopping; ?></a></div>
+  <div class="pull-right"><a href="<?php echo $checkout; ?>" class="btn btn-primary"><?php echo $button_checkout; ?></a></div>
 </div>

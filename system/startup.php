@@ -48,6 +48,27 @@ if (!function_exists('env')) {
     }
 }
 
+if (!function_exists('env_array')) {
+    /**
+     * Get Env as Array
+     *
+     * @param      $key
+     * @param null $default
+     * @return array|false|null|string
+     */
+    function env_array($key, $default = null)
+    {
+        $value = getenv($key);
+
+        $value = getenv($key);
+        if ($value === false) {
+            return $default;
+        }
+        $value = explode(',', substr($value, 1, -1));
+        return array_filter($value);
+    }
+}
+
 // Check if Installed
 if (\Copona\Classes\Install::checkIfInstalled() == false
     && APPLICATION != 'core' && APPLICATION != 'install'

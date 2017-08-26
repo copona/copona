@@ -9,7 +9,7 @@
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
             <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-        <?php } ?>
+          <?php } ?>
       </ul>
     </div>
   </div>
@@ -18,7 +18,7 @@
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
           <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
-    <?php } ?>
+      <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
@@ -31,32 +31,32 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-key"><?php echo $entry_key; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="google_captcha_key" value="<?php echo $google_captcha_key; ?>" placeholder="<?php echo $entry_key; ?>" id="input-key" class="form-control" />
-              <?php if ($error_key) { ?>
+              <input type="text" name="captcha_google_key" value="<?php echo $captcha_google_key; ?>" placeholder="<?php echo $entry_key; ?>" id="input-key" class="form-control" />
+                <?php if ($error_key) { ?>
                   <div class="text-danger"><?php echo $error_key; ?></div>
-              <?php } ?>
+                <?php } ?>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-secret"><?php echo $entry_secret; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="google_captcha_secret" value="<?php echo $google_captcha_secret; ?>" placeholder="<?php echo $entry_secret; ?>" id="input-secret" class="form-control" />
-              <?php if ($error_secret) { ?>
+              <input type="text" name="captcha_google_secret" value="<?php echo $captcha_google_secret; ?>" placeholder="<?php echo $entry_secret; ?>" id="input-secret" class="form-control" />
+                <?php if ($error_secret) { ?>
                   <div class="text-danger"><?php echo $error_secret; ?></div>
-              <?php } ?>
+                <?php } ?>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
             <div class="col-sm-10">
-              <select name="google_captcha_status" id="input-status" class="form-control">
-                <?php if ($google_captcha_status) { ?>
+              <select name="captcha_google_status" id="input-status" class="form-control">
+                  <?php if ($captcha_google_status) { ?>
                     <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
                     <option value="0"><?php echo $text_disabled; ?></option>
-                <?php } else { ?>
+                  <?php } else { ?>
                     <option value="1"><?php echo $text_enabled; ?></option>
                     <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-                <?php } ?>
+                  <?php } ?>
               </select>
             </div>
           </div>

@@ -42,6 +42,11 @@ class ControllerCheckoutConfirm extends Controller {
             $data['error_warning'] = '';
         }
 
+        if (!empty($this->session->data['error_payment_failure'])) {
+            $data['error_warning']['error_payment_failure'] = $this->session->data['error_payment_failure'];
+            unset($this->session->data['error_payment_failure']);
+        }
+
         if ($this->config->get('config_customer_price') && !$this->customer->isLogged()) {
             $data['attention'] = sprintf($this->language->get('text_login'), $this->url->link('account/login'), $this->url->link('account/register'));
         } else {
@@ -348,6 +353,7 @@ class ControllerCheckoutConfirm extends Controller {
             }
 
             $this->load->model('checkout/order');
+
             $this->session->data['order_id'] = $this->model_checkout_order->addOrder($data1);
             $data['column_name'] = $this->language->get('column_name');
             $data['column_model'] = $this->language->get('column_model');
@@ -401,6 +407,7 @@ class ControllerCheckoutConfirm extends Controller {
                         $recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax'))), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
                     }
                 }
+
                 $data['products'][] = array(
                     'product_id'         => $product['product_id'],
                     'name'               => $product['name'],
@@ -440,6 +447,9 @@ class ControllerCheckoutConfirm extends Controller {
         $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
+
+        $this->hook->getHook('checkout/confirm/index/after', $data);
+
         $this->response->setOutput($this->load->view('checkout/confirm', $data));
     }
 
