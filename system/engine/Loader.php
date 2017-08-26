@@ -204,6 +204,9 @@ class Loader
             }
         }
 
+        // for debug - to see template route, if template does not exists.
+        $file = !$file ? $route : $file;
+
         return $this->template->render($file, $data);
     }
 

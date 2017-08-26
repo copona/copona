@@ -47,6 +47,10 @@ class Language extends Controller
             }
         }
 
+        if(APPLICATION == 'admin') {
+            // TODO: Load Themes Overriden Admin translations
+        }
+
     }
 
     public function get($key)
