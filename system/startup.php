@@ -3,8 +3,8 @@
 error_reporting(E_ALL);
 
 require_once DIR_PUBLIC . '/system/constants.php';
-require_once DIR_PUBLIC . '/system/autoload.php';
 
+//env function
 if (!function_exists('env')) {
     /**
      * Get Env
@@ -48,26 +48,8 @@ if (!function_exists('env')) {
     }
 }
 
-if (!function_exists('env_array')) {
-    /**
-     * Get Env as Array
-     *
-     * @param      $key
-     * @param null $default
-     * @return array|false|null|string
-     */
-    function env_array($key, $default = null)
-    {
-        $value = getenv($key);
-
-        $value = getenv($key);
-        if ($value === false) {
-            return $default;
-        }
-        $value = explode(',', substr($value, 1, -1));
-        return array_filter($value);
-    }
-}
+//Composer autoload
+require_once DIR_PUBLIC . '/system/autoload.php';
 
 // Check if Installed
 if (\Copona\Classes\Install::checkIfInstalled() == false
