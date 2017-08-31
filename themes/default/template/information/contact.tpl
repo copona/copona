@@ -15,6 +15,13 @@
       <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
+
+        <?php if($description) { ?>
+          <div class="col-md-12">
+              <?=$description;?>
+          </div>
+        <?php } ?>
+
       <h3><?php echo $text_location; ?></h3>
       <div class="panel panel-default">
         <div class="panel-body">

@@ -7,6 +7,7 @@ class ControllerInformationContact extends Controller {
         $this->load->model('catalog/information');
 
         $this->document->setTitle($this->language->get('heading_title'));
+        $data['heading_title'] = $this->language->get('heading_title');
 
         $information_id = $this->config->get('config_contact_id');
 
@@ -16,8 +17,10 @@ class ControllerInformationContact extends Controller {
         // pr($information_info);
 
          $data['description'] = '';
+        $data['information_id'] = '';
 
-         if ($information_info) {
+         if ($information_id && $information_info) {
+             $data['information_id'] = $information_id;
 
             if (isset($information_info['external_link']) && $information_info['external_link']) {
                 $this->response->redirect( $this->url->externalLink( $information_info['external_link']) );
@@ -29,7 +32,7 @@ class ControllerInformationContact extends Controller {
             $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js');
             $this->document->addStyle('assets/vendor/magnific/magnific-popup.css');
 
-            $data['heading_title'] = $information_info['title'];
+             $data['heading_title'] = $information_info['title'];
             $data['description'] = html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8');
 
             if ($information_info['image']) {
