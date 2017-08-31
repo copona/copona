@@ -140,7 +140,7 @@ $(document).ready(function () {
     });
 
     /* Simplica Theme Mega Menu start */
-    $('.mega-dropdown-menu').on ('click', function(e) {
+    $('.mega-dropdown-menu').on('click', function (e) {
         e.stopPropagation()
     });
     /* Simplica Theme Mega Menu end */
@@ -168,12 +168,11 @@ var cart = {
                 }
 
                 if (json['success']) {
-                    $('.breadcrumb').after('<div class="alert alert-success alert-success-addtocart">' +
-                            json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
-                    setTimeout(function () {
+                    $('body').append('<div class="alert alert-success alert-success-addtocart">' +
+                        json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>').fadeIn('slow');
+                    delay(function () {
                         $('.alert-success-addtocart').fadeOut(500);
                     }, 3000);
-
                     $('#cart').load('index.php?route=common/cart/info');
                 }
             },

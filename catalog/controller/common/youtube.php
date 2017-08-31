@@ -27,7 +27,7 @@ class ControllerCommonYoutube extends Controller {
          *
          */
         // Youtube image file path
-        $file_path = 'image/catalog/_media/youtube/';
+        $file_path = '/image/catalog/_media/youtube/';
 
         // create dir if not exist
         if(!file_exists($file_path)){
@@ -61,7 +61,6 @@ class ControllerCommonYoutube extends Controller {
 // IF NOT URL TRY ID AS INPUT
         if (!$is_url) { $id = $inpt; }
 
-        // prd();
 // CHECK IF YOUTUBE VIDEO
         $handle = curl_init("https://www.youtube.com/watch/?v=" . $id);
         curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -156,7 +155,7 @@ class ControllerCommonYoutube extends Controller {
         $output = $thumb;
 
 
-        imagepng($output, $file_path .
+        imagepng($output, DIR_IMAGE .'/catalog/_media/youtube/' .
             "i/" . $filename . ".png", 5);
 
 // UNLINK PNG VERSION

@@ -42,6 +42,11 @@ class ControllerCheckoutConfirm extends Controller {
             $data['error_warning'] = '';
         }
 
+        if (!empty($this->session->data['error_payment_failure'])) {
+            $data['error_warning']['error_payment_failure'] = $this->session->data['error_payment_failure'];
+            unset($this->session->data['error_payment_failure']);
+        }
+
         if ($this->config->get('config_customer_price') && !$this->customer->isLogged()) {
             $data['attention'] = sprintf($this->language->get('text_login'), $this->url->link('account/login'), $this->url->link('account/register'));
         } else {
