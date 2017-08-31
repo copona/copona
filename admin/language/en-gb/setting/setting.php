@@ -56,6 +56,11 @@ $_['entry_weight_class'] = 'Weight Class';
 $_['entry_limit_admin'] = 'Default Items Per Page (Admin)';
 $_['entry_product_count'] = 'Category Product Count';
 
+$_['entry_contact_id'] = 'Contact us page';
+$_['text_contact_id'] = 'Contact info';
+
+
+
 $_['text_part_numbers'] = 'Part Numbers';
 
 $_['entry_review'] = 'Allow Reviews';
