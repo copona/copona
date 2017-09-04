@@ -347,6 +347,8 @@ class ControllerCheckoutCheckout extends Controller
 
         $data['theme_default_directory'] = $this->config->get('theme_default_directory');
 
+        $this->hook->getHook('checkout/guest/after', $data);
+
         $this->response->setOutput($this->load->view('checkout/guest', $data));
     }
 
@@ -486,7 +488,7 @@ class ControllerCheckoutCheckout extends Controller
             $shipping = explode('.', $this->request->post['shipping_method']);
 
             //pr( $this->session->data['shipping_methods']  );
-            //pr( $this->session->data['shipping_methods'][$shipping[0]]['quote'] );            
+            //pr( $this->session->data['shipping_methods'][$shipping[0]]['quote'] );
             //    pr($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]]);
             if (!isset($shipping[0]) || !isset($shipping[1]) ||
               !isset($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]])) {
