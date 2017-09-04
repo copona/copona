@@ -563,6 +563,12 @@ class ControllerSettingSetting extends Controller {
             $data['config_return_id'] = $this->config->get('config_return_id');
         }
 
+        if (isset($this->request->post['config_contact_id'])) {
+            $data['config_contact_id'] = $this->request->post['config_contact_id'];
+        } else {
+            $data['config_contact_id'] = $this->config->get('config_contact_id');
+        }
+
         if (isset($this->request->post['config_return_status_id'])) {
             $data['config_return_status_id'] = $this->request->post['config_return_status_id'];
         } else {
