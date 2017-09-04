@@ -3,14 +3,9 @@ class ControllerApiAjax extends Controller {
 
     function getFeaturedProducts() {
 
-        prd($this->config->get('featured_product'));
-
-        $data['products'] = array();
-        if ($data['products']) {
-
-            $this->response->setOutput($this->load->view('extension/module/featured', $data));
-        }
-    }
+        $this->load->model('catalog/product');
+        $this->load->model('tool/image');
+   }
 
     /*
      * Ajax method for Product ajax requests.
@@ -18,10 +13,10 @@ class ControllerApiAjax extends Controller {
      */
 
     public function product() {
-        $data = [ ];
+        $data = [];
         $data['success'] = true;
         $this->hook->getHook('api/ajax/product', $data);
-        $this->response->setOutput(json_encode($data));
+		$this->response->setOutput($this->load->view($data['template'], $data));
     }
 
 }
