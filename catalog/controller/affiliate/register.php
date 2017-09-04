@@ -319,7 +319,11 @@ class ControllerAffiliateRegister extends Controller {
 
         // Captcha
         if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('register', (array)$this->config->get('config_captcha_page'))) {
-            $data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'), $this->error);
+            try {
+                $data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'), $this->error);
+            } catch (\Copona\Exception\ActionException $e) {
+                $data['captcha'] = '';
+            }
         } else {
             $data['captcha'] = '';
         }
@@ -399,7 +403,7 @@ class ControllerAffiliateRegister extends Controller {
             $this->error['zone'] = $this->language->get('error_zone');
         }
 
-        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
+        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 40)) {
             $this->error['password'] = $this->language->get('error_password');
         }
 
@@ -409,7 +413,11 @@ class ControllerAffiliateRegister extends Controller {
 
         // Captcha
         if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('register', (array)$this->config->get('config_captcha_page'))) {
-            $captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
+            try {
+                $captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
+            } catch (\Copona\Exception\ActionException $e) {
+                $captcha = null;
+            }
 
             if ($captcha) {
                 $this->error['captcha'] = $captcha;

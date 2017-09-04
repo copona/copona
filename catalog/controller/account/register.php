@@ -1,8 +1,10 @@
 <?php
-class ControllerAccountRegister extends Controller {
+class ControllerAccountRegister extends Controller
+{
     private $error = array();
 
-    public function index() {
+    public function index()
+    {
         if ($this->customer->isLogged()) {
             $this->response->redirect($this->url->link('account/account', '', true));
         }
@@ -11,9 +13,9 @@ class ControllerAccountRegister extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
-        $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
-        $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+        $this->document->addScript('assets/vendor/datetimepicker/moment.js');
+        $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
+        $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
 
         $this->load->model('account/customer');
 
@@ -64,7 +66,8 @@ class ControllerAccountRegister extends Controller {
 
         $data['heading_title'] = $this->language->get('heading_title');
 
-        $data['text_account_already'] = sprintf($this->language->get('text_account_already'), $this->url->link('account/login', '', true));
+        $data['text_account_already'] = sprintf($this->language->get('text_account_already'),
+            $this->url->link('account/login', '', true));
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -154,7 +157,8 @@ class ControllerAccountRegister extends Controller {
             $customer_groups = $this->model_account_customer_group->getCustomerGroups();
 
             foreach ($customer_groups as $customer_group) {
-                if (in_array($customer_group['customer_group_id'], $this->config->get('config_customer_group_display'))) {
+                if (in_array($customer_group['customer_group_id'],
+                    $this->config->get('config_customer_group_display'))) {
                     $data['customer_groups'][] = $customer_group;
                 }
             }
@@ -290,8 +294,10 @@ class ControllerAccountRegister extends Controller {
         }
 
         // Captcha
-        if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('register', (array)$this->config->get('config_captcha_page'))) {
-            $data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'), $this->error);
+        if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status')
+            && in_array('register', (array)$this->config->get('config_captcha_page'))) {
+            $data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'),
+                $this->error);
         } else {
             $data['captcha'] = '';
         }
@@ -302,7 +308,10 @@ class ControllerAccountRegister extends Controller {
             $information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
 
             if ($information_info) {
-                $data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_account_id'), true), $information_info['title'], $information_info['title']);
+                $data['text_agree'] = sprintf($this->language->get('text_agree'),
+                    $this->url->link('information/information/agree',
+                        'information_id=' . $this->config->get('config_account_id'), true), $information_info['title'],
+                    $information_info['title']);
             } else {
                 $data['text_agree'] = '';
             }
@@ -326,7 +335,8 @@ class ControllerAccountRegister extends Controller {
         $this->response->setOutput($this->load->view('account/register', $data));
     }
 
-    private function validate() {
+    private function validate()
+    {
         if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
@@ -335,7 +345,8 @@ class ControllerAccountRegister extends Controller {
             $this->error['lastname'] = $this->language->get('error_lastname');
         }
 
-        if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+        if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'],
+                FILTER_VALIDATE_EMAIL)) {
             $this->error['email'] = $this->language->get('error_email');
         }
 
@@ -347,32 +358,34 @@ class ControllerAccountRegister extends Controller {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
-        if ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128)) {
+        if (Config::get('validate_account_register_address_1') && ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128))) {
             $this->error['address_1'] = $this->language->get('error_address_1');
         }
 
-        if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
+        if (Config::get('validate_account_register_city') && ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128))) {
             $this->error['city'] = $this->language->get('error_city');
         }
 
-        $this->load->model('localisation/country');
+        if (Config::get('validate_account_register_country')) {
+            $this->load->model('localisation/country');
 
-        $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
+            $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
-        if ($country_info && $country_info['postcode_required'] && (utf8_strlen(trim($this->request->post['postcode'])) < 2 || utf8_strlen(trim($this->request->post['postcode'])) > 10)) {
-            $this->error['postcode'] = $this->language->get('error_postcode');
+            if ($country_info && $country_info['postcode_required'] && (utf8_strlen(trim($this->request->post['postcode'])) < 2 || utf8_strlen(trim($this->request->post['postcode'])) > 10)) {
+                $this->error['postcode'] = $this->language->get('error_postcode');
+            }
+
+            if ($this->request->post['country_id'] == '') {
+                $this->error['country'] = $this->language->get('error_country');
+            }
         }
-
-        if ($this->request->post['country_id'] == '') {
-            $this->error['country'] = $this->language->get('error_country');
-        }
-
-        if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '' || !is_numeric($this->request->post['zone_id'])) {
+        if (Config::get('validate_account_register_zone') && (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '' || !is_numeric($this->request->post['zone_id']))) {
             $this->error['zone'] = $this->language->get('error_zone');
         }
 
         // Customer Group
-        if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], $this->config->get('config_customer_group_display'))) {
+        if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'],
+                $this->config->get('config_customer_group_display'))) {
             $customer_group_id = $this->request->post['customer_group_id'];
         } else {
             $customer_group_id = $this->config->get('config_customer_group_id');
@@ -385,14 +398,18 @@ class ControllerAccountRegister extends Controller {
 
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
-                $this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-            } elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array(
-                    'options' => array( 'regexp' => $custom_field['validation'] ) ))) {
-                $this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+                $this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'),
+                    $custom_field['name']);
+            } elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']],
+                    FILTER_VALIDATE_REGEXP, array(
+                        'options' => array('regexp' => $custom_field['validation'])
+                    ))) {
+                $this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'),
+                    $custom_field['name']);
             }
         }
 
-        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
+        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 40)) {
             $this->error['password'] = $this->language->get('error_password');
         }
 
@@ -401,7 +418,8 @@ class ControllerAccountRegister extends Controller {
         }
 
         // Captcha
-        if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('register', (array)$this->config->get('config_captcha_page'))) {
+        if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('register',
+                (array)$this->config->get('config_captcha_page'))) {
             $captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
 
             if ($captcha) {
@@ -423,13 +441,15 @@ class ControllerAccountRegister extends Controller {
         return !$this->error;
     }
 
-    public function customfield() {
+    public function customfield()
+    {
         $json = array();
 
         $this->load->model('account/custom_field');
 
         // Customer Group
-        if (isset($this->request->get['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->get['customer_group_id'], $this->config->get('config_customer_group_display'))) {
+        if (isset($this->request->get['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->get['customer_group_id'],
+                $this->config->get('config_customer_group_display'))) {
             $customer_group_id = $this->request->get['customer_group_id'];
         } else {
             $customer_group_id = $this->config->get('config_customer_group_id');

@@ -6,7 +6,7 @@ class ControllerStartupRouter extends Controller {
         if (isset($this->request->get['route']) && $this->request->get['route'] != 'startup/router') {
             $route = $this->request->get['route'];
         } else {
-            $route = $this->config->get('action_default');
+            $route = $this->config->get('admin.action_default');
         }
 
         $data = array();
@@ -23,7 +23,7 @@ class ControllerStartupRouter extends Controller {
             return $result;
         }
 
-        $action = new Action($route);
+        $action = new \Copona\System\Engine\Action($route);
 
         // Any output needs to be another Action object.
         $output = $action->execute($this->registry, $data);

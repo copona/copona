@@ -1,24 +1,25 @@
 <?php
-/*
- * Event System Userguide
- *
- * https://github.com/opencart/opencart/wiki/Events-(script-notifications)-2.2.x.x
- */
-class Event {
+
+class Event
+{
     protected $registry;
     protected $data = array();
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         $this->registry = $registry;
     }
 
-    public function register($trigger, Action $action) {
+    public function register($trigger, \Copona\System\Engine\Action $action)
+    {
         $this->data[$trigger][] = $action;
     }
 
-    public function trigger($event, array $args = array()) {
+    public function trigger($event, array $args = array())
+    {
         foreach ($this->data as $trigger => $actions) {
-            if (preg_match('/^' . str_replace(array( '\*', '\?' ), array( '.*', '.' ), preg_quote($trigger, '/')) . '/', $event)) {
+            if (preg_match('/^' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($trigger, '/')) . '/',
+              $event)) {
                 foreach ($actions as $action) {
                     $result = $action->execute($this->registry, $args);
 
@@ -30,7 +31,8 @@ class Event {
         }
     }
 
-    public function unregister($trigger, $route = '') {
+    public function unregister($trigger, $route = '')
+    {
         if ($route) {
             foreach ($this->data[$trigger] as $key => $action) {
                 if ($action->getId() == $route) {
@@ -42,7 +44,8 @@ class Event {
         }
     }
 
-    public function removeAction($trigger, $route) {
+    public function removeAction($trigger, $route)
+    {
         foreach ($this->data[$trigger] as $key => $action) {
             if ($action->getId() == $route) {
                 unset($this->data[$trigger][$key]);

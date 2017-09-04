@@ -1,35 +1,58 @@
 <?php
-// Error Reporting
-error_reporting(E_ALL);
+//Public dir
+define('DIR_PUBLIC', realpath(__DIR__ . '/../'));
+
+//Set application
+define('APPLICATION', 'install');
 
 // Check if SSL
 if ((isset($_SERVER['HTTPS']) && (($_SERVER['HTTPS'] == 'on') || ($_SERVER['HTTPS'] == '1'))) || $_SERVER['SERVER_PORT'] == 443) {
-	$protocol = 'https://';
+    $protocol = 'https://';
 } elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
-	$protocol = 'https://';
+    $protocol = 'https://';
 } else {
-	$protocol = 'http://';
+    $protocol = 'http://';
 }
 
 define('HTTP_SERVER', $protocol . $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/.\\') . '/');
-define('HTTP_OPENCART', $protocol . $_SERVER['HTTP_HOST'] . rtrim(rtrim(dirname($_SERVER['SCRIPT_NAME']), 'install'), '/.\\') . '/');
+define('HTTPS_SERVER', $protocol . $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/.\\') . '/');
+define('HTTP_COPONA', $protocol . $_SERVER['HTTP_HOST'] . rtrim(rtrim(dirname($_SERVER['SCRIPT_NAME']), 'install'), '/.\\') . '/');
+
+define('PATH_TEMPLATE', 'install/view/template/');
+define('DIR_TEMPLATE', DIR_PUBLIC . '/' . PATH_TEMPLATE);
 
 // DIR
-define('DIR_OPENCART', str_replace('\\', '/', realpath(dirname(__FILE__) . '/../') . '/'));
+define('DIR_COPONA', DIR_PUBLIC . '/');
 define('DIR_APPLICATION', str_replace('\\', '/', realpath(dirname(__FILE__))) . '/');
-define('DIR_SYSTEM', str_replace('\\', '/', realpath(dirname(__FILE__) . '/../')) . '/system/');
-define('DIR_IMAGE', str_replace('\\', '/', realpath(dirname(__FILE__) . '/../')) . '/image/');
+define('DIR_SYSTEM', DIR_PUBLIC . '/system/');
+define('DIR_IMAGE', DIR_PUBLIC . '/image/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
-define('DIR_TEMPLATE', DIR_APPLICATION . 'view/template/');
-define('DIR_DATABASE', DIR_SYSTEM . 'database/');
-define('DIR_CONFIG', DIR_SYSTEM . 'config/');
-define('DIR_CACHE', DIR_SYSTEM . 'storage/cache/');
-define('DIR_LOGS', DIR_SYSTEM . 'storage/logs/');
-define('DIR_MODIFICATION', DIR_SYSTEM . 'storage/modification/');
-define('DIR_DOWNLOAD', DIR_SYSTEM . 'storage/download/');
-define('DIR_UPLOAD', DIR_SYSTEM . 'storage/upload/');
+//define('DIR_TEMPLATE', DIR_APPLICATION . 'view/template/');
+define('DIR_CONFIG', DIR_PUBLIC . '/config/');
+
+define('PATH_STORAGE', 'storage/');
+define('PATH_STORAGE_PUBLIC', PATH_STORAGE . 'public/');
+define('PATH_STORAGE_PRIVATE', PATH_STORAGE . 'private/');
+define('PATH_CACHE_PUBLIC', PATH_STORAGE_PUBLIC . 'cache/');
+define('PATH_CACHE_PRIVATE', PATH_STORAGE_PRIVATE . 'cache/');
+
+define('DIR_STORAGE_PUBLIC', DIR_PUBLIC . '/' . PATH_STORAGE_PUBLIC);
+define('DIR_STORAGE_PRIVATE', DIR_PUBLIC . '/' . PATH_STORAGE_PRIVATE);
+
+define('DIR_CACHE_PUBLIC', DIR_PUBLIC . '/' . PATH_CACHE_PUBLIC);
+define('DIR_CACHE_PRIVATE', DIR_PUBLIC . '/' . PATH_CACHE_PRIVATE);
+
+define('DIR_DOWNLOAD', DIR_STORAGE_PRIVATE . 'download/');
+define('DIR_LOGS', DIR_STORAGE_PRIVATE . 'logs/');
+define('DIR_MODIFICATION', DIR_STORAGE_PRIVATE . 'modification/');
+define('DIR_UPLOAD', DIR_STORAGE_PRIVATE . 'upload/');
 
 // Startup
 require_once(DIR_SYSTEM . 'startup.php');
 
-start('install');
+start(APPLICATION);
+
+// Output
+global $response;
+$response->setCompression($config->get('config_compression'));
+$response->output();

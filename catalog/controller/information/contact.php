@@ -4,8 +4,70 @@ class ControllerInformationContact extends Controller {
 
     public function index() {
         $this->load->language('information/contact');
+        $this->load->model('catalog/information');
 
         $this->document->setTitle($this->language->get('heading_title'));
+        $data['heading_title'] = $this->language->get('heading_title');
+
+        $information_id = $this->config->get('config_contact_id');
+
+
+       $information_info = $this->model_catalog_information->getInformation($information_id);
+
+        // pr($information_info);
+
+         $data['description'] = '';
+        $data['information_id'] = '';
+
+         if ($information_id && $information_info) {
+             $data['information_id'] = $information_id;
+
+            if (isset($information_info['external_link']) && $information_info['external_link']) {
+                $this->response->redirect( $this->url->externalLink( $information_info['external_link']) );
+            }
+
+            $this->document->setTitle($information_info['meta_title']);
+            $this->document->setDescription($information_info['meta_description']);
+            $this->document->setKeywords($information_info['meta_keyword']);
+            $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js');
+            $this->document->addStyle('assets/vendor/magnific/magnific-popup.css');
+
+             $data['heading_title'] = $information_info['title'];
+            $data['description'] = html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8');
+
+            if ($information_info['image']) {
+                $data['popup'] = $this->model_tool_image->resize($information_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+            } else {
+                $data['popup'] = '';
+            }
+
+            if ($information_info['image']) {
+                $data['thumb'] = $this->model_tool_image->resize($information_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+            } else {
+                $data['thumb'] = '';
+            }
+
+            $data['images'] = array();
+
+            $results = $this->model_catalog_information->getInformationImages($information_id);
+
+            foreach ($results as $result) {
+                $data['images'][] = array(
+                    'popup' => $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
+                    'thumb' => $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
+                );
+            }
+
+
+        }
+
+
+
+
+
+
+
+
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $mail = new Mail();
@@ -40,7 +102,7 @@ class ControllerInformationContact extends Controller {
             'href' => $this->url->link('information/contact')
         );
 
-        $data['heading_title'] = $this->language->get('heading_title');
+        //$data['heading_title'] = $this->language->get('heading_title');
 
         $data['text_location'] = $this->language->get('text_location');
         $data['text_store'] = $this->language->get('text_store');
@@ -143,7 +205,9 @@ class ControllerInformationContact extends Controller {
         }
 
         // Captcha
-        if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('contact', (array)$this->config->get('config_captcha_page'))) {
+        if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') &&
+            in_array('contact', (array)$this->config->get('config_captcha_page'))) {
+
             $data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'), $this->error);
         } else {
             $data['captcha'] = '';
@@ -173,7 +237,7 @@ class ControllerInformationContact extends Controller {
         }
 
         // Captcha
-        if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('contact', (array)$this->config->get('config_captcha_page'))) {
+        if ($this->config->get('captcha_'. $this->config->get('config_captcha') . '_status') && in_array('contact', (array)$this->config->get('config_captcha_page'))) {
             $captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
 
             if ($captcha) {

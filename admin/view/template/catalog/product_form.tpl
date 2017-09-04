@@ -535,7 +535,7 @@
                                       <span class="input-group-addon lng-image">
                                         <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" />
                                       </span>
-                                      <input type="text" name="content_meta[product_video][<?php echo $video_row; ?>][video][<?php echo $language['language_id'] ?>]" value="<?php echo $product_video['video'][$language['language_id']] ?>" placeholder="<?php echo $entry_video_link; ?>" class="form-control" />
+                                      <input type="text" name="content_meta[product_video][<?php echo $video_row; ?>][video][<?php echo $language['language_id'] ?>]" value="<?php echo $product_video['video'][$language['language_id']] ?>" placeholder='yHdAxRm9Zjo'" class="form-control" />
                                     </div>
                                 <?php } ?>
                               </td>

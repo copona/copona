@@ -357,6 +357,37 @@
                   </div>
                 </div>
               </fieldset>
+
+
+
+              <fieldset>
+                <legend><?=$text_contact_id?></legend>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-contact-id"><span data-toggle="tooltip" title=""><?=$entry_contact_id?></span></label>
+                  <div class="col-sm-10">
+                    <select name="config_contact_id" id="input-contact-id" class="form-control">
+                      <option value="0"><?php echo $text_none; ?></option>
+                      <?php foreach ($informations as $information) { ?>
+                          <?php if ($information['information_id'] == $config_contact_id) { ?>
+                              <option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
+                          <?php } else { ?>
+                              <option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
+                          <?php } ?>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+
+              </fieldset>
+              <fieldset>
+
+
+
+
+
+
+
+
               <fieldset>
                 <legend><?php echo $text_part_numbers; ?></legend>
                 <div class="form-group">

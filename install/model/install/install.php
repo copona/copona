@@ -8,7 +8,7 @@ class ModelInstallInstall extends Model
           htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']),
           htmlspecialchars_decode($data['db_database']), $data['db_port']);
 
-        $file = DIR_APPLICATION . 'opencart.sql';
+        $file = DIR_PUBLIC . '/migrations/structure.sql';
 
         if (!file_exists($file)) {
             exit('Could not load sql file: ' . $file);
@@ -61,7 +61,7 @@ class ModelInstallInstall extends Model
             $db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_api_id', value = '" . (int)$api_id . "'");
 
             //Enable seo url if .htaccess exist
-            if (file_exists(DIR_OPENCART . '/.htaccess')) {
+            if (file_exists(DIR_PUBLIC . '/.htaccess')) {
                 $db->query("UPDATE `" . $data['db_prefix'] . "setting` SET value = '1' WHERE `key` = 'config_seo_url'");
             }
         }
@@ -71,18 +71,10 @@ class ModelInstallInstall extends Model
      * Execute phinx migration
      * @return string
      */
-    public function migration($data)
+    public function migration()
     {
-        define('DB_DRIVER', $data['db_driver']);
-        define('DB_HOSTNAME', htmlspecialchars_decode($data['db_hostname']));
-        define('DB_USERNAME', htmlspecialchars_decode($data['db_username']));
-        define('DB_PASSWORD', htmlspecialchars_decode($data['db_password']));
-        define('DB_DATABASE', htmlspecialchars_decode($data['db_database']));
-        define('DB_PORT', $data['db_port']);
-        define('DB_PREFIX', addslashes($this->request->post['db_prefix']));
-
         //migrations path inside extension
-        $_SERVER['PHINX_MIGRATION_PATH'] = realpath(DIR_OPENCART . 'migrations');
+        $_SERVER['PHINX_MIGRATION_PATH'] = realpath(DIR_PUBLIC . '/migrations');
 
         //init phinx
         $app = new \Phinx\Console\PhinxApplication();
@@ -92,7 +84,7 @@ class ModelInstallInstall extends Model
         $wrap->setOption('parser', 'php');
 
         //set config file
-        $wrap->setOption('configuration', DIR_OPENCART . 'phinx.php');
+        $wrap->setOption('configuration', DIR_PUBLIC . '/phinx.php');
 
         return $wrap->getMigrate('default');
     }

@@ -1,8 +1,10 @@
 <?php
-class ControllerCommonReset extends Controller {
+class ControllerCommonReset extends Controller
+{
     private $error = array();
 
-    public function index() {
+    public function index()
+    {
         if ($this->user->isLogged() && isset($this->request->get['token']) && ($this->request->get['token'] == $this->session->data['token'])) {
             $this->response->redirect($this->url->link('common/dashboard', '', true));
         }
@@ -47,13 +49,13 @@ class ControllerCommonReset extends Controller {
             $data['breadcrumbs'] = array();
 
             $data['breadcrumbs'][] = array(
-                'text' => $this->language->get('text_home'),
-                'href' => $this->url->link('common/dashboard', '', true)
+              'text' => $this->language->get('text_home'),
+              'href' => $this->url->link('common/dashboard', '', true)
             );
 
             $data['breadcrumbs'][] = array(
-                'text' => $this->language->get('heading_title'),
-                'href' => $this->url->link('common/reset', '', true)
+              'text' => $this->language->get('heading_title'),
+              'href' => $this->url->link('common/reset', '', true)
             );
 
             if (isset($this->error['password'])) {
@@ -93,12 +95,13 @@ class ControllerCommonReset extends Controller {
 
             $this->model_setting_setting->editSettingValue('config', 'config_password', '0');
 
-            return new Action('common/login');
+            return new \Copona\System\Engine\Action('common/login');
         }
     }
 
-    protected function validate() {
-        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
+    protected function validate()
+    {
+        if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 40)) {
             $this->error['password'] = $this->language->get('error_password');
         }
 
@@ -108,5 +111,4 @@ class ControllerCommonReset extends Controller {
 
         return !$this->error;
     }
-
 }

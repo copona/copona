@@ -9,7 +9,7 @@ class ControllerStartupEvent extends Controller {
 
         foreach ($results as $result) {
             if ((substr($result['trigger'], 0, 6) == 'admin/') && $result['status']) {
-                $this->event->register(substr($result['trigger'], 6), new Action($result['action']));
+                $this->event->register(substr($result['trigger'], 6), new \Copona\System\Engine\Action($result['action']));
             }
         }
     }

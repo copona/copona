@@ -82,11 +82,11 @@ class ControllerDesignTheme extends Controller {
             $path = '';
         }
 
-        if (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view') {
+        if (substr(str_replace('\\', '/', realpath(DIR_PUBLIC . '/themes/' . $theme . '/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view') {
             $path_data = array();
 
             // We grab the files from the default theme directory first as the custom themes drops back to the default theme if selected theme files can not be found.
-            $files = glob(rtrim(DIR_CATALOG . 'view/theme/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
+            $files = glob(rtrim(DIR_PUBLIC . '/themes/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
 
             if ($files) {
                 foreach ($files as $file) {
@@ -154,10 +154,10 @@ class ControllerDesignTheme extends Controller {
 
         if ($theme_info) {
             $json['code'] = html_entity_decode($theme_info['code']);
-        } elseif (is_file(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
-            $json['code'] = file_get_contents(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path);
-        } elseif (is_file(DIR_CATALOG . 'view/theme/default/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/default/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
-            $json['code'] = file_get_contents(DIR_CATALOG . 'view/theme/default/template/' . $path);
+        } elseif (is_file(DIR_PUBLIC . '/themes/' . $theme . '/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_PUBLIC . '/themes/' . $theme . '/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
+            $json['code'] = file_get_contents(DIR_PUBLIC . '/themes/' . $theme . '/template/' . $path);
+        } elseif (is_file(DIR_PUBLIC . 'themes/default/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_PUBLIC . 'themes/default/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
+            $json['code'] = file_get_contents(DIR_PUBLIC . 'themes/default/template/' . $path);
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -233,8 +233,8 @@ class ControllerDesignTheme extends Controller {
             $path = '';
         }
 
-        if (is_file(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
-            $json['code'] = file_get_contents(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path);
+        if (is_file(DIR_PUBLIC . '/themes/' . $theme . '/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_PUBLIC . '/themes/' . $theme . '/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
+            $json['code'] = file_get_contents(DIR_PUBLIC . '/themes/' . $theme . '/template/' . $path);
         }
 
         $this->response->addHeader('Content-Type: application/json');

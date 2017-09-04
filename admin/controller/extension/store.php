@@ -600,7 +600,7 @@ class ControllerExtensionStore extends Controller {
 
             $this->response->setOutput($this->load->view('extension/store_info', $data));
         } else {
-            return new Action('error/not_found');
+            return new \Copona\System\Engine\Action('error/not_found');
         }
     }
 
@@ -886,7 +886,7 @@ class ControllerExtensionStore extends Controller {
                 'catalog/controller/extension/',
                 'catalog/language/extension/',
                 'catalog/model/extension/',
-                'catalog/view/theme/'
+                'themes/'
             );
 
             $safe = false;

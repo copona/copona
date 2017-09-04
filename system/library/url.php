@@ -1,10 +1,15 @@
 <?php
+
 class Url
 {
     private $url;
+
     private $ssl;
+
     private $rewrite = array();
+
     private $code = '';
+
     private $url_parts = [
         'filter',
         'manufacturer_id',
@@ -26,7 +31,7 @@ class Url
         $this->url = $url;
         $this->ssl = $ssl;
 
-        $this->code = ($this->config->get('config_seo_url') ? $this->session->data['language'] : '');
+        $this->code = ($this->config->get('config_seo_url') && APPLICATION == 'catalog' ? $this->session->data['language'] : '');
     }
 
     public function addRewrite($rewrite)
@@ -80,13 +85,13 @@ class Url
      * 2. return ARRAY of needed keys from current get url, to be able to override them
      * 3. additional: pass all parameters in once, and build url
      */
-
     public function getParams()
     {
         $result = [];
         foreach ($this->url_parts as $key) {
             $result[$key] = isset($this->request->get[$key]) ? $this->request->get[$key] : '';
         }
+
         return $result;
     }
 
@@ -109,9 +114,6 @@ class Url
 
     public function setRequest($data, $string = true)
     {
-        //prd($data);
-
-        // $this->url_parts
         $result = [];
         foreach ($data as $key => $val) {
             $result[$key] = $val;
@@ -121,6 +123,21 @@ class Url
             return http_build_query($result);
         } else {
             return $result;
+        }
+    }
+
+    /**
+     * Make url image
+     *
+     * @param string $image
+     * @return string
+     */
+    public function getImageUrl($image)
+    {
+        if ($this->request->server['HTTPS']) {
+            return 'https://' . rtrim($this->config->get('image_base_url', $this->config->get('site_base')), '/') . '/' . $image;
+        } else {
+            return 'http://' . rtrim($this->config->get('image_base_url', $this->config->get('site_ssl')), '/') . '/' . $image;
         }
     }
 }

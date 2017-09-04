@@ -2,11 +2,8 @@
 class ControllerAccountTransaction extends Controller {
 
     public function index() {
-        if (!$this->customer->isLogged()) {
-            $this->session->data['redirect'] = $this->url->link('account/transaction', '', true);
+        $this->checkCustomerLogin('account/transaction');
 
-            $this->response->redirect($this->url->link('account/login', '', true));
-        }
 
         $this->load->language('account/transaction');
 

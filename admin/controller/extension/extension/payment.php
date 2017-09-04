@@ -24,7 +24,11 @@ class ControllerExtensionExtensionPayment extends Controller {
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/payment/' . $this->request->get['extension']);
 
             // Call install method if it exsits
-            $this->load->controller('extension/payment/' . $this->request->get['extension'] . '/install');
+            try {
+                $this->load->controller('extension/payment/' . $this->request->get['extension'] . '/install');
+            } catch (\Copona\Exception\ActionException $e) {
+
+            }
 
             $this->session->data['success'] = $this->language->get('text_success');
         }
@@ -41,7 +45,11 @@ class ControllerExtensionExtensionPayment extends Controller {
             $this->model_extension_extension->uninstall('payment', $this->request->get['extension']);
 
             // Call uninstall method if it exsits
-            $this->load->controller('extension/payment/' . $this->request->get['extension'] . '/uninstall');
+            try {
+                $this->load->controller('extension/payment/' . $this->request->get['extension'] . '/uninstall');
+            } catch (\Copona\Exception\ActionException $e) {
+
+            }
 
             $this->session->data['success'] = $this->language->get('text_success');
         }
@@ -81,18 +89,11 @@ class ControllerExtensionExtensionPayment extends Controller {
 
         $extensions = $this->model_extension_extension->getInstalled('payment');
 
-        foreach ($extensions as $key => $value) {
-            if (!is_file(DIR_APPLICATION . 'controller/extension/payment/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/payment/' . $value . '.php')) {
-                $this->model_extension_extension->uninstall('payment', $value);
-
-                unset($extensions[$key]);
-            }
-        }
-
-        $data['extensions'] = array();
+        $data['extensions'] = [];
 
         // Compatibility code for old extension folders
-        $files = glob(DIR_APPLICATION . 'controller/{extension/payment,payment}/*.php', GLOB_BRACE);
+        $files = glob('{' . DIR_APPLICATION . 'controller/{extension/payment,payment}/*.php,'
+            . $this->config->get('extension.dir') . '/*/*/admin/controller/extension/payment/*.php}', GLOB_BRACE);
 
         if ($files) {
             foreach ($files as $file) {
@@ -109,7 +110,7 @@ class ControllerExtensionExtensionPayment extends Controller {
                 }
 
                 $data['extensions'][] = array(
-                    'name'       => $this->language->get('heading_title'),
+                    'name'       => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
                     'link'       => $link,
                     'status'     => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                     'sort_order' => $this->config->get($extension . '_sort_order'),
@@ -118,6 +119,7 @@ class ControllerExtensionExtensionPayment extends Controller {
                     'installed'  => in_array($extension, $extensions),
                     'edit'       => $this->url->link('extension/payment/' . $extension, 'token=' . $this->session->data['token'], true)
                 );
+                $this->language->set('heading_title', '');
             }
         }
 

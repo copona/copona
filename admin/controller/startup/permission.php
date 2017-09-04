@@ -46,7 +46,7 @@ class ControllerStartupPermission extends Controller {
             );
 
             if (!in_array($route, $ignore) && !$this->user->hasPermission('access', $route)) {
-                return new Action('error/permission');
+                return new \Copona\System\Engine\Action('error/permission');
             }
         }
     }

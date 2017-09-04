@@ -26,22 +26,10 @@ class ControllerCommonHeader extends Controller {
 
         $data['text_logged'] = sprintf($this->language->get('text_logged'), $this->user->getUserName());
 
-        // Check if accessed over HTTPS connection:
-
-        if ($_SERVER['HTTPS'] != true) {
-            $data['error_secure'] = $this->language->get('error_secure');
-        } else {
-            $data['error_secure'] = '';
-        }
-
         if (!isset($this->request->get['token']) || !isset($this->session->data['token']) || ($this->request->get['token'] != $this->session->data['token'])) {
             $data['logged'] = '';
 
             $data['home'] = $this->url->link('common/dashboard', '', true);
-
-            // Only for Development environment - DB changes
-            $this->load->model('catalog/upgrade');
-            $this->model_catalog_upgrade->upgrade();
         } else {
             $data['logged'] = true;
 

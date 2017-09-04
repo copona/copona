@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/copona-git.iml" filepath="$PROJECT_DIR$/.idea/copona-git.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/copona.iml" filepath="$PROJECT_DIR$/.idea/copona.iml" />
     </modules>
   </component>
 </project>

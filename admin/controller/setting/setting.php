@@ -563,6 +563,12 @@ class ControllerSettingSetting extends Controller {
             $data['config_return_id'] = $this->config->get('config_return_id');
         }
 
+        if (isset($this->request->post['config_contact_id'])) {
+            $data['config_contact_id'] = $this->request->post['config_contact_id'];
+        } else {
+            $data['config_contact_id'] = $this->config->get('config_contact_id');
+        }
+
         if (isset($this->request->post['config_return_status_id'])) {
             $data['config_return_status_id'] = $this->request->post['config_return_status_id'];
         } else {
@@ -587,7 +593,7 @@ class ControllerSettingSetting extends Controller {
         foreach ($extensions as $code) {
             $this->load->language('extension/captcha/' . $code);
 
-            if ($this->config->get($code . '_status')) {
+            if ($this->config->get('captcha_'. $code . '_status')) {
                 $data['captchas'][] = array(
                     'text'  => $this->language->get('heading_title'),
                     'value' => $code
@@ -976,8 +982,8 @@ class ControllerSettingSetting extends Controller {
             $theme = basename($this->request->get['theme']);
         }
 
-        if (is_file(DIR_CATALOG . 'view/theme/' . $theme . '/image/' . $theme . '.png')) {
-            $this->response->setOutput($server . 'catalog/view/theme/' . $theme . '/image/' . $theme . '.png');
+        if (is_file(DIR_PUBLIC . '/themes/' . $theme . '/assets/img/' . $theme . '.png')) {
+            $this->response->setOutput($server . 'themes/' . $theme . '/assets/img/' . $theme . '.png');
         } else {
             $this->response->setOutput($server . 'image/no_image.png');
         }

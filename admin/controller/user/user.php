@@ -458,7 +458,7 @@ class ControllerUserUser extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if ((utf8_strlen($this->request->post['username']) < 3) || (utf8_strlen($this->request->post['username']) > 20)) {
+        if ((utf8_strlen($this->request->post['username']) < 3) || (utf8_strlen($this->request->post['username']) > 64)) {
             $this->error['username'] = $this->language->get('error_username');
         }
 
@@ -478,10 +478,6 @@ class ControllerUserUser extends Controller {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
 
-        if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
-        }
-
         if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
             $this->error['email'] = $this->language->get('error_email');
         }
@@ -499,7 +495,7 @@ class ControllerUserUser extends Controller {
         }
 
         if ($this->request->post['password'] || (!isset($this->request->get['user_id']))) {
-            if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
+            if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 40)) {
                 $this->error['password'] = $this->language->get('error_password');
             }
 
