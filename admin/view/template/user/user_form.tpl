@@ -113,6 +113,11 @@
               </select>
             </div>
           </div>
+          <div class="tab-pane" id="tab-custom_fields">
+            <div class="row">
+                <?php echo !empty($custom_fields) ? $custom_fields : 'There are no Custom fields defined! '   ;?>
+            </div>
+          </div>
         </form>
       </div>
     </div>
