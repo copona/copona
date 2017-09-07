@@ -8,6 +8,7 @@ $registry->set('config', $config);
 
 //Extension
 use \Copona\System\Library\Extension\ExtensionManager;
+
 $extension = ExtensionManager::getInstance();
 $registry->set('extension', $extension);
 
@@ -34,6 +35,7 @@ $registry->set('template', $adapter);
 
 // Loader
 use \Copona\System\Engine\Loader;
+
 $loader = new Loader($registry);
 $registry->set('load', $loader);
 
@@ -47,24 +49,30 @@ $registry->set('response', $response);
 $GLOBALS['response'] = $response;
 
 // Database
-if ($config->get($application_config . '.db_autostart')) {
+if ($config->get('db_autostart')) {
 
-    //default connection
-    $default_connection = $config->get('database.default_connection') ? $config->get('database.default_connection') : 'default';
-    $db_config = $config->get('database.' . $default_connection);
-    define('DB_PREFIX', $db_config['db_prefix']);
-
-    $registry->singleton('db', function ($registry) use ($db_config) {
-        return new DB(
-            $db_config['db_type'],
-            $db_config['db_hostname'],
-            $db_config['db_username'],
-            $db_config['db_password'],
-            $db_config['db_database'],
-            $db_config['db_port']
-        );
-    });
 }
+// Aliases
+class_alias(\Copona\System\Engine\Model::class, \Model::class);
+
+// Database
+
+//default connection
+$connection_name = $config->get('database.default_connection') ? $config->get('database.default_connection') : 'default';
+$db_config = $config->get('database.' . $connection_name);
+define('DB_PREFIX', $db_config['db_prefix']);
+$config->set('connection_name', $connection_name);
+$db_config['connection_name'] = $connection_name;
+
+$registry->singleton('db', function ($registry) use ($db_config) {
+
+    $database = new \Copona\Database\Database(
+        \Copona\Database\Adapters\Eloquent::class,
+        $db_config
+    );
+
+    return $database->getAdapter();
+});
 
 // Session
 $registry->singleton('session', function ($registry) {
