@@ -11,10 +11,10 @@ class Database
      */
     private $adapter;
 
-    public function __construct($adapter, Array $configs)
+    public function __construct($adapter, Array $configs, \Registry $registry)
     {
         if (get_parent_class($adapter) == AbstractDatabaseAdapters::class) {
-            $this->adapter = new $adapter($configs);
+            $this->adapter = new $adapter($configs, $registry);
         } else {
             throw new Exception($adapter . ' must extends of ' . AbstractDatabaseAdapters::class);
         }

@@ -35,24 +35,24 @@ class Eloquent extends AbstractDatabaseAdapters
      * Eloquent constructor.
      * @param array $configs
      */
-    public function __construct(Array $configs)
+    public function __construct(Array $configs, \Registry $registry)
     {
-        if (isset($configs['connection_name'])) {
-            $this->name = $configs['connection_name'];
-        }
-
         $capsule = new Capsule;
-        $capsule->addConnection([
-            'driver'    => isset($configs['db_driver']) ? $configs['db_driver'] : 'mysql',
-            'host'      => $configs['db_hostname'],
-            'database'  => $configs['db_database'],
-            'username'  => $configs['db_username'],
-            'password'  => $configs['db_password'],
-            'charset'   => isset($configs['db_charset']) ? $configs['db_charset'] : 'utf8',
-            'collation' => isset($configs['db_collation']) ? $configs['db_collation'] : 'utf8_unicode_ci',
-            'prefix'    => isset($configs['db_prefix']) ? $configs['db_prefix'] : NULL,
-            'port'      => isset($configs['db_port']) ? $configs['db_port'] : '3306'
-        ], $this->name);
+
+        //Register connections
+        foreach ($configs['connections'] as $name => $connection) {
+            $capsule->addConnection([
+                'driver'    => isset($connection['db_driver']) ? $connection['db_driver'] : 'mysql',
+                'host'      => $connection['db_hostname'],
+                'database'  => $connection['db_database'],
+                'username'  => $connection['db_username'],
+                'password'  => $connection['db_password'],
+                'charset'   => isset($connection['db_charset']) ? $connection['db_charset'] : 'utf8',
+                'collation' => isset($connection['db_collation']) ? $connection['db_collation'] : 'utf8_unicode_ci',
+                'prefix'    => isset($connection['db_prefix']) ? $connection['db_prefix'] : NULL,
+                'port'      => isset($connection['db_port']) ? $connection['db_port'] : '3306'
+            ], $name);
+        }
 
         $capsule->setEventDispatcher(new Dispatcher(new Container));
 
@@ -60,7 +60,7 @@ class Eloquent extends AbstractDatabaseAdapters
 
         $capsule->bootEloquent();
         $this->capsule = $capsule;
-        $this->connection = $this->capsule->getConnection($this->name);
+        $this->connection = $this->capsule->getConnection(\Config::get('connection_name'));
     }
 
     /**

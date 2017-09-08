@@ -5,7 +5,7 @@ namespace Copona\Database;
 
 abstract class AbstractDatabaseAdapters
 {
-    abstract public function __construct(Array $configs);
+    abstract public function __construct(Array $configs, \Registry $registry);
 
     abstract public function query($sql, Array $params);
 
