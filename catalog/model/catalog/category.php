@@ -369,18 +369,20 @@ class ModelCatalogCategory extends Model {
     private function paths() {
 
 
-        $cache_key = '123category.paths.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
+        $cache_key = 'category.paths.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
         $categories = $this->cache->get( $cache_key );
         if($categories) {
+            //TODO: this must be switched on!
             // return $categories;
         }
 
         // select all categories, already with SEO link
         $language_id = $this->language_id;
         $categories = array();
+        /*
         $sql = "SELECT 
                   c.category_id as category_id
-                  , c.top                  
+                  , c.top
                   , c2.category_id as parent_id
                   , GROUP_CONCAT(c.category_id ORDER BY cp.level SEPARATOR '&nbsp;&nbsp;&gt;&nbsp;&nbsp;') AS path
                   -- , ul.keyword
@@ -395,11 +397,13 @@ class ModelCatalogCategory extends Model {
 					group by c.parent_id
 					
 					";
+        */
 
         $sql = "SELECT cp.category_id AS category_id
              , GROUP_CONCAT(IF(c2.parent_id=0, null, c2.parent_id)  ORDER BY cp.level SEPARATOR '_') AS path
             , c1.parent_id
             , c1.top
+            , c1.column
             , cd.name
             , c1.sort_order 
             FROM " . DB_PREFIX . "category_path cp 
