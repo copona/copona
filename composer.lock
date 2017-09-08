@@ -96,12 +96,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/copona/core.git",
-                "reference": "e523e803911f6ac71eaa5da427997a8be7e8c736"
+                "reference": "854b1d4296620a8663d41489fb14e1560f94bdb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/e523e803911f6ac71eaa5da427997a8be7e8c736",
-                "reference": "e523e803911f6ac71eaa5da427997a8be7e8c736",
+                "url": "https://api.github.com/repos/copona/core/zipball/854b1d4296620a8663d41489fb14e1560f94bdb4",
+                "reference": "854b1d4296620a8663d41489fb14e1560f94bdb4",
                 "shasum": ""
             },
             "require": {
@@ -147,7 +147,7 @@
                 "framework",
                 "opensource"
             ],
-            "time": "2017-09-07T22:52:39+00:00"
+            "time": "2017-09-08T01:45:18+00:00"
         },
         {
             "name": "divido/divido-php",
