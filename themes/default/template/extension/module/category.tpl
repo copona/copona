@@ -19,7 +19,8 @@
                                   $i2 = 0;
                                   foreach ($child_2['children'] as $child_3) { ?>
                                     <li>
-                                      <a href="<?= $child_3['href'] ?>"><?php echo $child_3['name'] . " (" . $child_3['total'] . ")" ?></a>
+                                      <a href="<?= $child_3['href'] ?>"><?php echo $child_3['name']
+                                            . ($child_3['total'] ? " (" . $child_3['total'] . ")" : '') ?></a>
                                     </li>
                                       <?php if (count($child_2['children']) > $i2 && $i2++ > $column_childs) { ?>
                                       <li><a href="<?= $child_2['href'] ?>"><strong class="all-categories">
