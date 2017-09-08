@@ -124,6 +124,10 @@ class ControllerStartupStartup extends Controller
                 }
 
                 $code = $detect ? $detect : '';
+
+                if($this->config->get("config_forced_language")) {
+                    $code = $default_language;
+                }
             }
         }
 

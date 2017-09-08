@@ -1,6 +1,12 @@
 <?php
 class ModelCatalogManufacturer extends Model
 {
+    private $language_id;
+
+    public function __construct($registry) {
+        parent::__construct($registry);
+        $this->language_id = (int)$registry->config->get('config_language_id');
+    }
 
     public function getManufacturer($manufacturer_id)
     {
@@ -66,6 +72,14 @@ class ModelCatalogManufacturer extends Model
     {
         $category_ids = [];
         $sql = "select cp.* from " . DB_PREFIX . "category_path cp where cp.path_id = " . (int)$category_id;
+
+        $cache_key = 'manufacturer.getbycategory.' . (int)$category_id . '.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
+        $result = $this->cache->get($cache_key);
+
+        if ($result) {
+            return $result;
+        }
+
         $query = $this->db->query($sql);
 
         if ($query->rows) {
@@ -89,6 +103,8 @@ class ModelCatalogManufacturer extends Model
 
 
         $query = $this->db->query($sql);
+
+        $this->cache->set($cache_key, $query->rows);
 
         return $query->rows;
     }

@@ -57,7 +57,7 @@
               <?php } ?>
             </div>
           </div>
-          <div class="form-group required">
+          <div class="form-group">
             <label class="col-sm-2 control-label" for="input-lastname"><?php echo $entry_lastname; ?></label>
             <div class="col-sm-10">
               <input type="text" name="lastname" value="<?php echo $lastname; ?>" placeholder="<?php echo $entry_lastname; ?>" id="input-lastname" class="form-control" />
@@ -111,6 +111,11 @@
                     <option value="1"><?php echo $text_enabled; ?></option>
                 <?php } ?>
               </select>
+            </div>
+          </div>
+          <div class="tab-pane" id="tab-custom_fields">
+            <div class="row">
+                <?php echo !empty($custom_fields) ? $custom_fields : 'There are no Custom fields defined! '   ;?>
             </div>
           </div>
         </form>

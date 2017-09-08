@@ -56,6 +56,11 @@ $_['entry_weight_class'] = 'Weight Class';
 $_['entry_limit_admin'] = 'Default Items Per Page (Admin)';
 $_['entry_product_count'] = 'Category Product Count';
 
+$_['entry_contact_id'] = 'Contact us page';
+$_['text_contact_id'] = 'Contact info';
+
+
+
 $_['text_part_numbers'] = 'Part Numbers';
 
 $_['entry_review'] = 'Allow Reviews';
@@ -208,4 +213,6 @@ $_['error_malformed_filename'] = 'Error Malformed Log Filename!';
 $_['error_encryption'] = 'Encryption Key must be between 32 and 1024 characters!';
 $_['entry_timezone'] = 'Time Zone';
 $_['help_timezone'] = 'Select City for Time Zone';
+$_['entry_force_language'] = 'Force language';
+$_['help_force_language'] = "If the language code isn't saved in session or in cookies, then it will display this language. Won't overpower seo in the url.";
 ?>

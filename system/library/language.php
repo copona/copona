@@ -39,12 +39,25 @@ class Language extends Controller
 
         // Theme translation override
         if ($this->config->get('theme_name')) {
+
+            // TODO: this must be removed.
             $themes_language_file = DIR_TEMPLATE . $this->config->get('theme_name') . "/language/" . $this->directory . '.php';
 
             if (is_file($themes_language_file)) {
                 require($themes_language_file);
                 !empty($_) ? $this->theme_language = $_ : false;
             }
+
+            // This must stay. Language files must have the same "structure" as in /catalog/language.
+            $themes_language_file = DIR_TEMPLATE . $this->config->get('theme_name') . "/language/" . $this->directory . "/". $this->directory . '.php';
+
+            if (is_file($themes_language_file)) {
+                require($themes_language_file);
+            }
+        }
+
+        if(APPLICATION == 'admin') {
+            // TODO: Load Themes Overriden Admin translations
         }
 
     }
@@ -96,6 +109,11 @@ class Language extends Controller
             require(DIR_LANGUAGE . $this->default . '/' . $filename . '.php');
         } else {
             require(DIR_LANGUAGE . $this->default . '/' . $this->default . '.php');
+        }
+
+        // Themes language files overrride.
+        if(is_file(DIR_TEMPLATE . $this->config->get('theme_name') . "/language/" . $this->directory . "/". $filename . '.php') ){
+            require(DIR_TEMPLATE . $this->config->get('theme_name') . "/language/" . $this->directory . "/". $filename . '.php');
         }
 
         $this->data = array_merge($this->data, $_);

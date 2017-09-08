@@ -438,6 +438,18 @@ class ControllerUserUser extends Controller {
 
         $data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
+
+        // Content meta
+
+        if (!empty($user_info)) {
+            $data['content_meta'] = $this->model_user_user->getContentMeta($this->request->get['user_id']);
+        } else {
+            $data['content_meta'] = '';
+        }
+
+        $data['custom_fields'] = $this->getCustomFields();
+
+
         if (isset($this->request->post['status'])) {
             $data['status'] = $this->request->post['status'];
         } elseif (!empty($user_info)) {
@@ -450,6 +462,8 @@ class ControllerUserUser extends Controller {
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
+        $this->hook->getHook('admin/user/user/getForm/after', $data);
+
         $this->response->setOutput($this->load->view('user/user_form', $data));
     }
 
@@ -458,7 +472,7 @@ class ControllerUserUser extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if ((utf8_strlen($this->request->post['username']) < 3) || (utf8_strlen($this->request->post['username']) > 20)) {
+        if ((utf8_strlen($this->request->post['username']) < 3) || (utf8_strlen($this->request->post['username']) > 64)) {
             $this->error['username'] = $this->language->get('error_username');
         }
 
@@ -476,10 +490,6 @@ class ControllerUserUser extends Controller {
 
         if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
-        }
-
-        if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
         }
 
         if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
@@ -523,6 +533,16 @@ class ControllerUserUser extends Controller {
         }
 
         return !$this->error;
+    }
+
+    protected function getCustomFields() {
+        $this->load->model('user/user');
+        $data = [];
+        // Content meta
+        $data['content_meta'] = $this->model_user_user->getContentMeta($this->request->get['user_id']);
+        return $this->load->view('user/user_form_custom_fields', $data);
+
+
     }
 
 }

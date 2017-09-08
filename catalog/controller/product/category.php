@@ -360,6 +360,7 @@ class ControllerProductCategory extends Controller
 
             // Manufacturers
             // $manufacturers = $this->model_catalog_manufacturer->getManufacturers();
+            // TODO: able to configure "show manufacturers in category" in admin! For performance.
 
             $manufacturers = $this->model_catalog_manufacturer->getManufacturersByCategory($category_id);
             $data['manufacturers'] = [];

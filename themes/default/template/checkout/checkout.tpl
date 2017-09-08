@@ -6,8 +6,9 @@
     <?php } ?>
   </ul>
   <?php if ($error_warning) { ?>
-      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>
         <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <?php echo $error_warning; ?>
       </div>
   <?php } ?>
   <div class="row"><?php echo $column_left; ?>
@@ -189,7 +190,9 @@ $(document).on('change', 'input[name=\'account\']', function () {
                 if (json['redirect']) {
                     location = json['redirect'];
                 } else if (json['error']) {
-                    $('#collapse-checkout-option .panel-body').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#collapse-checkout-option .panel-body').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        json['error']['warning'] + '</div>');
 
                     // Highlight any found errors
                     $('input[name=\'email\']').parent().addClass('has-error');
