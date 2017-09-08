@@ -59,16 +59,17 @@ class_alias(\Copona\System\Engine\Model::class, \Model::class);
 
 //default connection
 $connection_name = $config->get('database.default_connection') ? $config->get('database.default_connection') : 'default';
-$db_config = $config->get('database.' . $connection_name);
-define('DB_PREFIX', $db_config['db_prefix']);
+$database_config = $config->get('database');
+$db_default_connection = $config->get('database.connections.' . $connection_name);
+define('DB_PREFIX', $db_default_connection['db_prefix']);
 $config->set('connection_name', $connection_name);
-$db_config['connection_name'] = $connection_name;
 
-$registry->singleton('db', function ($registry) use ($db_config) {
+$registry->singleton('db', function ($registry) use ($database_config) {
 
     $database = new \Copona\Database\Database(
         \Copona\Database\Adapters\Eloquent::class,
-        $db_config
+        $database_config,
+        $registry
     );
 
     return $database->getAdapter();

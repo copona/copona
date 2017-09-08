@@ -1,7 +1,7 @@
 {
   "name": "copona/copona",
   "type": "project",
-  "description": "A free shopping cart system, based on OpenCart (http://www.opencart.com)",
+  "description": "A free shopping cart system",
   "keywords": [
     "copona",
     "ecommerce",
@@ -15,6 +15,16 @@
   },
   "autoload": {
     "psr-4": {
+      "Copona\\Model\\": "./Model/",
+
+      "Copona\\Catalog\\": "./catalog/",
+      "Copona\\Catalog\\Controller\\": "./catalog/controller/",
+      "Copona\\Catalog\\Model\\": "./catalog/model/",
+
+      "Copona\\Admin\\": "./admin/",
+      "Copona\\Admin\\Controller\\": "./admin/controller/",
+      "Copona\\Admin\\Model\\": "./admin/model/",
+
       "Copona\\System\\": "./system/",
       "Copona\\System\\Library\\": "./system/library/",
       "Copona\\System\\Engine\\": "./system/engine/",
