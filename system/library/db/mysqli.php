@@ -18,7 +18,7 @@ final class MySQLi {
 
     public function query($sql) {
 
-        if(defined('MODE') && (MODE == 'debug')) {
+        if(\Config::get('debug.sql')) {
             $start_time = microtime(true);
 
             $query = $this->connection->query($sql);
@@ -27,7 +27,9 @@ final class MySQLi {
 
             $output = date("Y-m-d h:i:s"). " \t";
             $output .= $msec . " \t";
-            $output .= $sql . " \n";
+            $output .= debug_backtrace()[1]['file'].":".debug_backtrace()[1]['line'] . " \t";
+
+            $output .= trim(preg_replace('/\s\s+/', ' ', $sql)) . " \n";
 
             if (!file_exists(DIR_LOGS . 'mysql_queries.txt')) {
                 touch(DIR_LOGS . 'mysql_queries.txt');
