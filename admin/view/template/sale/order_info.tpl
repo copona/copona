@@ -1,4 +1,10 @@
-<?php echo $header; ?><?php echo $column_left; ?>
+<?php echo $header;
+
+function is_multi($array) {
+    return (count($array) != count($array, 1));
+}
+
+?><?php echo $column_left; ?>
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
@@ -39,12 +45,23 @@
                   </tr>
               <?php } ?>
               <?php if (!empty($serial)) { ?>
-                  <tr>
-                    <td><button data-toggle="tooltip" title="<?php echo $text_other_information; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
-                    <td><?php foreach ($serial as $key => $val) { ?>
-                          <?= $key; ?>: <strong><?=  $val; ?></strong><br />
-                      <?php } ?></td>
-                  </tr>
+                <?php if(is_multi($serial)){
+                  foreach($serial as $value){ ?>
+                    <tr>
+                      <td><button data-toggle="tooltip" title="<?php echo $text_other_information; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
+                      <td><?php foreach ($value as $key => $val) { ?>
+                            <?= $key; ?>: <strong><?=  $val; ?></strong><br />
+                        <?php } ?></td>
+                    </tr>
+                  <?php } ?>
+                <?php } else { ?>
+                    <tr>
+                      <td><button data-toggle="tooltip" title="<?php echo $text_other_information; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
+                      <td><?php foreach ($serial as $key => $val) { ?>
+                            <?= $key; ?>: <strong><?=  $val; ?></strong><br />
+                        <?php } ?></td>
+                    </tr>
+                <?php } ?>
               <?php } ?>
 
             </tbody>

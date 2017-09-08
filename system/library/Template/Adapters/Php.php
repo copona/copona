@@ -16,6 +16,9 @@ class Php implements TemplateAdapterInterface
         if (is_file($template_file)) {
             extract($data);
 
+            //TODO: just remove!
+            if(empty($breadcrumbs)) $breadcrumbs = [];
+
             ob_start();
 
             include $template_file;
