@@ -1,5 +1,6 @@
 <?php
 
+$client_ip = '';
 $ips = Config::get('debug.allow_ip', []);
 $debug_mode = Config::get('debug.mode');
 
