@@ -504,9 +504,6 @@ class ModelCatalogProduct extends Model
     {
         $max_limit = Config::get( 'config_limit_admin') ;
 
-        // prd($max_limit * 20 );
-
-
         $sql = "SELECT COUNT(DISTINCT p.product_id) AS total";
 
         if (!empty($data['filter_category_id'])) {
