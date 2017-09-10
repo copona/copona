@@ -94,7 +94,7 @@ class ModelCatalogProduct extends Model
     public function getProducts($data = array())
     {
         $sql = "SELECT p.product_id, p2p.product_group_id, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < '" . date("Y-m-d") . "') AND (pd2.date_end = '0000-00-00' OR pd2.date_end > '" . date("Y-m-d") . "')) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, (SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < '" . date("Y-m-d") . "') AND (ps.date_end = '0000-00-00' OR ps.date_end > '" . date("Y-m-d") . "')) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special";
-        // prd($data);
+
         if (!empty($data['filter_category_id'])) {
             if (!empty($data['filter_sub_category'])) {
                 $sql .= " FROM " . DB_PREFIX . "category_path cp LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (cp.category_id = p2c.category_id)";
@@ -243,23 +243,26 @@ class ModelCatalogProduct extends Model
             $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
         }
 
-        $product_data = array();
+        $cache_key = 'product.getproducts.' . md5($sql);
+        $product_data = $this->cache->get($cache_key);
+        if (!$product_data) {
+            $query = $this->db->query($sql);
 
-        $query = $this->db->query($sql);
+            foreach ($query->rows as $result) {
 
-        foreach ($query->rows as $result) {
+                $product_id = $result['product_id'];
 
-            $product_id = $result['product_id'];
-
-            if (empty($data['group_products'])) {
-                if (isset($result['product_group_id']) && $result['product_group_id']) {
-                    $sql = "SELECT * FROM " . DB_PREFIX . "product_to_product WHERE product_group_id='" . (int)$result['product_group_id'] . "' AND default_id=1";
-                    $query = $this->db->query($sql);
-                    $product_id = $query->row['product_id'];
+                if (empty($data['group_products'])) {
+                    if (isset($result['product_group_id']) && $result['product_group_id']) {
+                        $sql = "SELECT * FROM " . DB_PREFIX . "product_to_product WHERE product_group_id='" . (int)$result['product_group_id'] . "' AND default_id=1";
+                        $query = $this->db->query($sql);
+                        $product_id = $query->row['product_id'];
+                    }
                 }
-            }
 
-            $product_data[$product_id] = $this->getProduct($product_id);
+                $product_data[$product_id] = $this->getProduct($product_id);
+            }
+            $this->cache->set('product.getproducts.' . md5($sql), $product_data);
         }
 
         return $product_data;
