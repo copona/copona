@@ -20,7 +20,9 @@ class File
             foreach ($files as $file) {
                 $time = substr(strrchr($file, '.'), 1);
 
-                if ($time < time()) {
+                // $time - is set "in the future", from CACHE_EXPIRE_TIME when cached file was created.
+                // delete, if cache expired, or new cache is less then previous.
+                if ($time < time() || ($time > time() + $this->expire ) ) {
                     if (file_exists($file)) {
                         unlink($file);
                     }
