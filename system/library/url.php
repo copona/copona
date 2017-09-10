@@ -32,6 +32,7 @@ class Url
         $this->ssl = $ssl;
 
         $this->code = ($this->config->get('config_seo_url') && APPLICATION == 'catalog' ? $this->session->data['language'] : '');
+        Config::set('code', $this->code);
     }
 
     public function addRewrite($rewrite)
