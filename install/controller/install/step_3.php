@@ -1,4 +1,5 @@
 <?php
+
 class ControllerInstallStep3 extends Controller
 {
     private $error = array();
@@ -6,30 +7,20 @@ class ControllerInstallStep3 extends Controller
     public function index()
     {
         $this->language->load('install/step_3');
+        $data = $this->language->all();
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->load->model('install/install');
 
-            $output = "APP_ENV=dev
+            $app_env = preg_replace("/[^A-Za-z0-9]/", "", addslashes($this->request->post['app_env']));
 
-DB_DRIVER=" . addslashes($this->request->post['db_driver']) . "
-DB_HOSTNAME=" . addslashes($this->request->post['db_hostname']) . "
-DB_USERNAME=" . addslashes($this->request->post['db_username']) . "
-DB_PASSWORD=" . addslashes(html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8')) . "
-DB_DATABASE=" . addslashes($this->request->post['db_database']) . "
-DB_PORT=" . addslashes($this->request->post['db_port']) . "
-DB_PREFIX=" . addslashes($this->request->post['db_prefix']) . "
-";
+            $array_dotenv = [
+                'APP_ENV' => $app_env
+            ];
 
-            if (!file_exists(DIR_COPONA . '.env')) {
-                touch(DIR_COPONA . '.env');
-            }
+            \Copona\Classes\Install::createDotEnv($array_dotenv);
 
-            $file = fopen(DIR_COPONA . '.env', 'w');
-
-            fwrite($file, $output);
-
-            fclose($file);
+            \Copona\Classes\Install::createDatabaseConfig($app_env, $this->request->post);
 
             $this->model_install_install->database($this->request->post);
 
@@ -40,44 +31,16 @@ DB_PREFIX=" . addslashes($this->request->post['db_prefix']) . "
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['heading_title'] = $this->language->get('heading_title');
-
-        $data['text_step_3'] = $this->language->get('text_step_3');
-        $data['text_db_connection'] = $this->language->get('text_db_connection');
-        $data['text_db_administration'] = $this->language->get('text_db_administration');
-        $data['text_mysqli'] = $this->language->get('text_mysqli');
-        $data['text_mpdo'] = $this->language->get('text_mpdo');
-        $data['text_pgsql'] = $this->language->get('text_pgsql');
-
-        $data['entry_db_driver'] = $this->language->get('entry_db_driver');
-        $data['entry_db_hostname'] = $this->language->get('entry_db_hostname');
-        $data['entry_db_username'] = $this->language->get('entry_db_username');
-        $data['entry_db_password'] = $this->language->get('entry_db_password');
-        $data['entry_db_database'] = $this->language->get('entry_db_database');
-        $data['entry_db_port'] = $this->language->get('entry_db_port');
-        $data['entry_db_prefix'] = $this->language->get('entry_db_prefix');
-        $data['entry_username'] = $this->language->get('entry_username');
-        $data['entry_password'] = $this->language->get('entry_password');
-        $data['entry_email'] = $this->language->get('entry_email');
-
-        $data['placeholder_db_hostname'] = $this->language->get('placeholder_db_hostname');
-        $data['placeholder_db_username'] = $this->language->get('placeholder_db_username');
-        $data['placeholder_db_database'] = $this->language->get('placeholder_db_database');
-        $data['placeholder_db_password'] = $this->language->get('placeholder_db_password');
-        $data['placeholder_db_port'] = $this->language->get('placeholder_db_port');
-        $data['placeholder_db_prefix'] = $this->language->get('placeholder_db_prefix');
-        $data['placeholder_username'] = $this->language->get('placeholder_username');
-        $data['placeholder_password'] = $this->language->get('placeholder_password');
-        $data['placeholder_email'] = $this->language->get('placeholder_email');
-
-
-        $data['button_continue'] = $this->language->get('button_continue');
-        $data['button_back'] = $this->language->get('button_back');
-
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
         } else {
             $data['error_warning'] = '';
+        }
+
+        if (isset($this->error['app_env'])) {
+            $data['error_app_env'] = $this->error['app_env'];
+        } else {
+            $data['error_app_env'] = '';
         }
 
         if (isset($this->error['db_hostname'])) {
@@ -172,6 +135,12 @@ DB_PREFIX=" . addslashes($this->request->post['db_prefix']) . "
             $data['db_prefix'] = 'cp_';
         }
 
+        if (isset($this->request->post['app_env'])) {
+            $data['app_env'] = $this->request->post['app_env'];
+        } else {
+            $data['app_env'] = $this->language->get('placeholder_app_env');
+        }
+
         if (isset($this->request->post['username'])) {
             $data['username'] = $this->request->post['username'];
         } else {
@@ -227,8 +196,8 @@ DB_PREFIX=" . addslashes($this->request->post['db_prefix']) . "
 
         if ($this->request->post['db_driver'] == 'mysqli') {
             $mysql = @new MySQLi($this->request->post['db_hostname'], $this->request->post['db_username'],
-              html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8'),
-              $this->request->post['db_database'], $this->request->post['db_port']);
+                html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8'),
+                $this->request->post['db_database'], $this->request->post['db_port']);
 
             if ($mysql->connect_error) {
                 $this->error['warning'] = $mysql->connect_error;
@@ -238,8 +207,8 @@ DB_PREFIX=" . addslashes($this->request->post['db_prefix']) . "
         } elseif ($this->request->post['db_driver'] == 'mpdo') {
             try {
                 new \DB\mPDO($this->request->post['db_hostname'], $this->request->post['db_username'],
-                  $this->request->post['db_password'], $this->request->post['db_database'],
-                  $this->request->post['db_port']);
+                    $this->request->post['db_password'], $this->request->post['db_database'],
+                    $this->request->post['db_port']);
             } catch (Exception $e) {
                 if ($db->connect_errno) {
                     $this->error['warning'] = $db->connect_error;
@@ -252,12 +221,16 @@ DB_PREFIX=" . addslashes($this->request->post['db_prefix']) . "
             $this->error['username'] = $this->language->get('error_username');
         }
 
+        if (!$this->request->post['app_env']) {
+            $this->error['app_env'] = $this->language->get('error_app_env');
+        }
+
         if (!$this->request->post['password']) {
             $this->error['password'] = $this->language->get('error_password');
         }
 
         if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'],
-            FILTER_VALIDATE_EMAIL)) {
+                FILTER_VALIDATE_EMAIL)) {
             $this->error['email'] = $this->language->get('error_email');
         }
 
