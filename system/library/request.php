@@ -73,7 +73,7 @@ class Request {
             }else $data[ $entry ] = $this->$method( $entry );
             
         }
-		return $data;
+        return $data;
     }
     
     public function getParam( $entry ){
@@ -100,6 +100,22 @@ class Request {
         }
 
         return $data;
+    }
+
+    /*
+    *  Method, to return empty POST data, if no data is set.
+    */
+
+    public function post($key = '') {
+        return isset($this->post[$key]) ? $this->post[$key] : null;
+    }
+
+    /*
+    *  Method, to return empty GET data, if no data is set.
+    */
+
+    public function get($key = '') {
+        return isset($this->post[$key]) ? $this->post[$key] : null;
     }
 
 }
