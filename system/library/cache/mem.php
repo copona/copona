@@ -8,8 +8,8 @@ class Mem {
 
     const CACHEDUMP_LIMIT = 9999;
 
-    public function __construct($expire) {
-        $this->expire = $expire;
+    public function __construct() {
+        $this->expire = \Config::get('cache.cache_expire');
 
         $this->memcache = new \Memcache();
         $this->memcache->pconnect(CACHE_HOSTNAME, CACHE_PORT);
