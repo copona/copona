@@ -2,11 +2,11 @@
 class Cache {
     private $adaptor;
 
-    public function __construct($adaptor, $expire = 3600) {
+    public function __construct($adaptor) {
         $class = 'Cache\\' . $adaptor;
 
         if (class_exists($class)) {
-            $this->adaptor = new $class($expire);
+            $this->adaptor = new $class(Config::get('cache_expire'));
         } else {
             throw new \Exception('Error: Could not load cache adaptor ' . $adaptor . ' cache!');
         }
