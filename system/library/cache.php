@@ -10,7 +10,6 @@ class Cache
 
         if (class_exists($class)) {
             $this->adaptor = new $class(Config::get('cache.cache_expire'));
-
         } else {
             throw new \Exception('Error: Could not load cache adaptor ' . $adaptor . ' cache!');
         }
