@@ -39,6 +39,52 @@ class Install
     }
 
     /**
+     * Write file database.php
+     *
+     * @param $env
+     * @param array $data
+     */
+    public static function createDatabaseConfig($env, array $data)
+    {
+        $output = "
+<?php
+
+return [
+    'database' => [
+
+        'default_connection' => 'default',
+
+        /**
+         * Database
+         * mpdo, mssql, mysql, mysqli or postgre
+         */
+        'default'            => [
+            'db_type'     => '" . addslashes($data['db_driver']) . "',
+            'db_hostname' => '" . addslashes($data['db_hostname']) . "',
+            'db_username' => '" . addslashes($data['db_username']) . "',
+            'db_password' => '" . addslashes(html_entity_decode($data['db_password'], ENT_QUOTES, 'UTF-8')) . "',
+            'db_database' => '" . addslashes($data['db_database']) . "',
+            'db_prefix'   => '" . addslashes($data['db_prefix']) . "',
+            'db_port'     => '" . addslashes($data['db_port']) . "',
+        ]
+    ]
+];
+";
+
+        $file = DIR_PUBLIC . '/config/' . $env . '/database.php';
+
+        @mkdir(dirname($file), \Config::get('directory_permission', 0755), true);
+
+        if (!file_exists($file)) {
+            touch($file);
+        }
+
+        $file = fopen($file, 'w');
+        fwrite($file, $output);
+        fclose($file);
+    }
+
+    /**
      * Import init structure db
      *
      * @param array $data
@@ -108,7 +154,6 @@ class Install
             }
         }
     }
-
 
 
     /**
