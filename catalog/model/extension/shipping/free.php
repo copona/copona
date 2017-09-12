@@ -28,6 +28,7 @@ class ModelExtensionShippingFree extends Model {
                 'title'        => $this->language->get('text_description'),
                 'cost'         => 0.00,
                 'tax_class_id' => 0,
+                'cost_with_tax' => $this->currency->format(0.00, $this->session->data['currency'],"",false),
                 'text'         => $this->currency->format(0.00, $this->session->data['currency'])
             );
 

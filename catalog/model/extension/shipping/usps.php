@@ -447,6 +447,7 @@ class ModelExtensionShippingUsps extends Model {
                                         'title'        => $title,
                                         'cost'         => $this->currency->convert($cost, 'USD', $this->config->get('config_currency')),
                                         'tax_class_id' => $this->config->get('usps_tax_class_id'),
+                                        'cost_with_tax'=> $this->currency->format($this->tax->calculate($this->currency->convert($cost, 'USD', $this->session->data['currency']), $this->config->get('usps_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000,false),
                                         'text'         => $this->currency->format($this->tax->calculate($this->currency->convert($cost, 'USD', $this->session->data['currency']), $this->config->get('usps_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000)
                                     );
                                 }

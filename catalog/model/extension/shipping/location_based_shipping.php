@@ -36,6 +36,7 @@ class ModelExtensionShippingLocationBasedShipping extends Model {
                     'title'        => $costs['title'][$this->config->get('config_language_id')],
                     'cost'         => $cost,
                     'tax_class_id' => $costs['tax_class_id'],
+                    'cost_with_tax'=> $this->currency->format($this->tax->calculate($cost, $costs['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'],'',false),
                     'text'         => $this->currency->format($this->tax->calculate($cost, $costs['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
                     'show_address' => (isset($costs['show_address']) && $costs['show_address'] ? 1 : 0),
                 );
