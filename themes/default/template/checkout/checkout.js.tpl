@@ -77,7 +77,7 @@
 
     });
 
-    var zone_id = <?php echo $zone_id; ?>;
+    var zone_id = '<?php echo $zone_id; ?>';
     //Shipping Loading.
     $("[name='country_id']").change(function () {
         var selected_country = $("[name='country_id'] :selected").val();
