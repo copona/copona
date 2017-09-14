@@ -608,8 +608,6 @@ class ModelCatalogProduct extends Model
 
         $sql .= " LIMIT $max_limit";
 
-        // prd($sql);
-
         $product_data = $this->cache->get('product.gettotalproducts.' . md5($sql));
         if (!$product_data) {
             $product_data = $this->db->query($sql);
