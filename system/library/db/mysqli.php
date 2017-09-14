@@ -31,6 +31,10 @@ final class MySQLi {
 
             $output .= trim(preg_replace('/\s\s+/', ' ', $sql)) . " \n";
 
+            if(!is_dir(DIR_LOGS)) {
+                mkdir(DIR_LOGS, \Config::get('directory_permission', 0775), true);
+            }
+
             if (!file_exists(DIR_LOGS . 'mysql_queries.txt')) {
                 touch(DIR_LOGS . 'mysql_queries.txt');
             }
