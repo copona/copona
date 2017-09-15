@@ -131,7 +131,12 @@ class ModelToolImage extends Model
                 @mkdir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($new_image), $this->config->get('directory_permission', 0777), true);
             }
 
+            ob_start();
             list($width_orig, $height_orig) = getimagesize(DIR_IMAGE . $old_image);
+            $resize_warning = ob_get_clean();
+            if($resize_warning) {
+                $this->log->write("Cannot resize image $filename. Error: $resize_warning");
+            }
 
             if ($width_orig != $width || $height_orig != $height) {
                 $image = new Image(DIR_IMAGE . $old_image);
