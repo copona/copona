@@ -34,6 +34,9 @@ class ControllerCommonHeader extends Controller {
             $data['logged'] = true;
 
             $data['home'] = $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true);
+
+            $data['clear_all_cache'] = $this->url->link('common/dashboard/clearallcache', 'token=' . $this->session->data['token'], true);
+
             $data['logout'] = $this->url->link('common/logout', 'token=' . $this->session->data['token'], true);
 
             // Orders
