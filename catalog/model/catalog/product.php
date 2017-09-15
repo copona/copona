@@ -609,9 +609,9 @@ class ModelCatalogProduct extends Model
             $sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
         }
 
-        $sql .= "LIMIT $max_limit";
-        prd($sql);
+        $sql .= " LIMIT $max_limit";
 
+        // prd($sql);
 
         $product_data = $this->cache->get('product.gettotalproducts.' . md5($sql));
         if (!$product_data) {
