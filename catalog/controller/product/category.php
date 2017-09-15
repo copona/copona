@@ -166,13 +166,15 @@ class ControllerProductCategory extends Controller
                         $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
                         $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                 } else {
-                    $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}('placeholder.png',
+                    $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}('no_image.png',
                         $this->config->get($this->config->get('config_theme') . '_image_product_width'),
                         $this->config->get($this->config->get('config_theme') . '_image_product_height'));
-                    $image_popup = $this->model_tool_image->{$this->config->get('theme_default_product_category_popup_resize')}('placeholder.png',
+                    $image_popup = $this->model_tool_image->{$this->config->get('theme_default_product_category_popup_resize')}('no_image.png',
                         $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
                         $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                 }
+
+                // pr($image);
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                     $price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'],
