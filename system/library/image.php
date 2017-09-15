@@ -12,7 +12,17 @@ class Image {
         if (file_exists($file)) {
             $this->file = $file;
 
+            $registry = Registry::getInstance();
+
+
+            // If, there is no file, or file is with size 0, or any other error,
+            // this will not generate error now, but it will be logged.
+            ob_start();
             $info = getimagesize($file);
+            $resize_warning = ob_get_clean();
+            if($resize_warning) {
+                $registry->log->write("Cannot resize system/library/image: $resize_warning");
+            }
 
             /* OC1 methods compatibility start */
             $this->info = array(
