@@ -395,6 +395,7 @@ class ModelCheckoutOrder extends Model
 
     public function addOrderHistory($order_id, $order_status_id, $comment = '', $notify = false, $override = false)
     {
+
         $order_info = $this->getOrder($order_id);
 
         if ($order_info) {
@@ -431,7 +432,8 @@ class ModelCheckoutOrder extends Model
                 }
             }
 
-            // If current order status is not processing or complete but new status is processing or complete then commence completing the order
+            // If current order status is not processing or complete but new status is processing or complete
+            // then commence completing the order
             if (!in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'),
                     $this->config->get('config_complete_status'))) && in_array($order_status_id,
                     array_merge($this->config->get('config_processing_status'),
@@ -543,7 +545,9 @@ class ModelCheckoutOrder extends Model
                 $language->load($order_info['language_code']);
                 $data = $language->load('mail/order');
 
-                $order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "' AND language_id = '" . (int)$order_info['language_id'] . "'");
+                $order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status 
+                    WHERE order_status_id = '" . (int)$order_status_id . "' 
+                    AND language_id = '" . (int)$order_info['language_id'] . "'");
 
                 if ($order_status_query->num_rows) {
                     $order_status = $order_status_query->row['name'];
@@ -806,23 +810,20 @@ class ModelCheckoutOrder extends Model
 
                 $text .= $language->get('text_footer') . "\n\n";
 
-                $mail = new Mail();
-                $mail->protocol = $this->config->get('config_mail_protocol');
-                $mail->parameter = $this->config->get('config_mail_parameter');
-                $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-                $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-                $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES,
-                    'UTF-8');
-                $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-                $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+                /* here - send mail to customer */
 
-                $mail->setTo($order_info['email']);
-                $mail->setFrom($this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']));
-                $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
-                $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-                $mail->setHtml($this->load->view('mail/order', $data));
-                $mail->setText($text);
-                $mail->send();
+                $data['message'] = $text;
+
+                // Send Email to Customer:
+                // $data['serial'] is already available into the template.
+                //*
+                $this->sendMail(
+                    '',
+                    $order_info['email'],
+                    $subject,
+                    $data,
+                    'mail/order',
+                    $order_info['store_id']); // */
 
                 // Admin Alert Mail
                 if (in_array('order', (array)$this->config->get('config_mail_alert'))) {
@@ -903,33 +904,17 @@ class ModelCheckoutOrder extends Model
                         $text .= $order_info['comment'] . "\n\n";
                     }
 
-                    $mail = new Mail();
-                    $mail->protocol = $this->config->get('config_mail_protocol');
-                    $mail->parameter = $this->config->get('config_mail_parameter');
-                    $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-                    $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-                    $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'),
-                        ENT_QUOTES, 'UTF-8');
-                    $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-                    $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+                    $data['message'] = $text;
 
-                    $mail->setTo($this->model_setting_setting->getSettingValue('config_email',
-                        $order_info['store_id']));
-                    $mail->setFrom($this->model_setting_setting->getSettingValue('config_email',
-                        $order_info['store_id']));
-                    $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
-                    $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-                    $mail->setHtml($this->load->view('mail/order', $data));
-                    $mail->setText($text);
-                    $mail->send();
+                    // Send email to admins:
+                    $this->sendMail('', '', $subject, $data, 'mail/order_admin', $order_info['store_id'] );
 
                     // Send to additional alert emails
                     $emails = explode(',', $this->config->get('config_mail_alert_email'));
 
                     foreach ($emails as $email) {
                         if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                            $mail->setTo($email);
-                            $mail->send();
+                            $this->sendMail('', $email, $subject, $data, 'mail/order_admin', $order_info['store_id'] );
                         }
                     }
                 }
@@ -967,24 +952,87 @@ class ModelCheckoutOrder extends Model
 
                 $message .= $language->get('text_update_footer');
 
-                $mail = new Mail();
-                $mail->protocol = $this->config->get('config_mail_protocol');
-                $mail->parameter = $this->config->get('config_mail_parameter');
-                $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-                $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-                $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES,
-                    'UTF-8');
-                $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-                $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
-                $mail->setTo($order_info['email']);
-                $mail->setFrom($this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']));
-                $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
-                $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-                $mail->setText($message);
-                $mail->send();
+                $data['message'] = $message;
+                // Send plain text email to customer on update.
+                $this->sendMail('', $order_info['email'], $subject, $data, 'plain' );
             }
         }
+    }
+
+
+    /**
+     * @author Arnis Juraga <arnis.juraga@gmail.com>
+     *
+     * @param string $from_email
+     * @param string $to_email
+     * @param string $subject
+     * @param array $data
+     * @param string $template
+     * @param int $store_id
+     * @param string $store_name taken from store value, if set.
+     */
+    private function sendMail($from_email = '',
+                              $to_email = '',
+                              $subject = '',
+                              $data = [],
+                              $template = 'mail/order',
+                              $store_id = 0,
+                              $store_name = ''
+    ) {
+
+
+        // $text = $data['message'];
+        // to: $order_info['email']
+        // store_id: $order_info['store_id']
+        // store_name: $order_info['store_name']
+
+        $from_email = !$from_email
+            ? $this->model_setting_setting->getSettingValue('config_email', $store_id)
+            : $from_email;
+
+        $to_email = !$to_email
+            ? $this->model_setting_setting->getSettingValue('config_email', $store_id)
+            : $to_email;
+
+        $from_name = !$store_name
+            ?  $this->model_setting_setting->getSettingValue('config_name', $store_id)
+            : $store_name;
+
+
+        $plain_text = $data['message'];
+
+        // if template is not "plain", then we load HTML data from template
+        // else - format NewLines in Plaintext message to <br />
+        if($template != 'plain' ) {
+            //prd( $this->load->view( $template , $data) );
+            $html_message = $this->load->view($template , $data);
+        } else {
+            $html_message = nl2br( $plain_text );
+        }
+
+        if(!$from_email) {
+            $from_email = $this->model_setting_setting->getSettingValue('config_email', $store_id );
+        }
+
+        $mail = new Mail();
+        $mail->protocol = $this->config->get('config_mail_protocol');
+        $mail->parameter = $this->config->get('config_mail_parameter');
+        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES,
+            'UTF-8');
+        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+        $mail->setTo( $to_email );
+        $mail->setFrom( $from_email );
+        $mail->setSender(html_entity_decode($from_name, ENT_QUOTES, 'UTF-8'));
+        $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+
+        $mail->setHtml( $html_message );
+
+        $mail->setText($plain_text);
+        $mail->send();
     }
 
 }
