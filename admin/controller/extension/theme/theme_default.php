@@ -1,11 +1,13 @@
 <?php
 class ControllerExtensionThemeThemeDefault extends Controller {
     private $error = array();
+    private $extension_code = 'theme_default';
+
 
     public function index() {
 
-        $data = array();
-        $data = array_merge($data, $this->load->language('extension/theme/theme_default'));
+        $data =  $this->load->language('extension/theme/theme_default');
+        $data['extension_code'] = $this->extension_code;
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -17,8 +19,15 @@ class ControllerExtensionThemeThemeDefault extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=theme', true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue']) {
+                $this->response->redirect($this->url->link('extension/theme/' . $this->extension_code,
+                    'token=' . $this->session->data['token'] . '&store_id=' . $this->request->get['store_id'], true));
+            } else {
+                $this->response->redirect($this->url->link('extension/extension',
+                    'token=' . $this->session->data['token'] . '&type=theme', true));
+            }
         }
+
 
 
 
