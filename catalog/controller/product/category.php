@@ -74,7 +74,8 @@ class ControllerProductCategory extends Controller
             //	$category_path = $this->model_catalog_category->getCategoryPath($category_id, '');
         } elseif (empty($this->request->get['path']) && !$category_info) {
             $show_category = true;
-            $category_name = 'Product Catalog';
+ 
+            $category_name = $data['heading_title'];
             $category_meta_title = (!empty($this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')]) ?
                     $this->config->get('theme_default_product_category_meta_title')[$this->config->get('config_language_id')] . ' - ' : '') .
                 $this->config->get('config_name');
@@ -359,6 +360,7 @@ class ControllerProductCategory extends Controller
 
             // Manufacturers
             // $manufacturers = $this->model_catalog_manufacturer->getManufacturers();
+            // TODO: able to configure "show manufacturers in category" in admin! For performance.
 
             $manufacturers = $this->model_catalog_manufacturer->getManufacturersByCategory($category_id);
             $data['manufacturers'] = [];

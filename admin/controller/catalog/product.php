@@ -1496,6 +1496,8 @@ class ControllerCatalogProduct extends Controller {
         // Content meta
         $data['content_meta'] = $this->model_catalog_product->getContentMeta($this->request->get['product_id']);
 
+        $this->hook->getHook('product/getCustomFields/after', $data);
+
         return $this->load->view('catalog/product_form_custom_fields', $data);
     }
 

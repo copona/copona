@@ -23,6 +23,7 @@ class ModelExtensionShippingFlat extends Model {
                 'code'         => 'flat.flat',
                 'title'        => $this->language->get('text_description'),
                 'cost'         => $this->config->get('flat_cost'),
+                'cost_with_tax'=> $this->currency->format($this->tax->calculate($this->config->get('flat_cost'), $this->config->get('flat_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'],"",false),
                 'tax_class_id' => $this->config->get('flat_tax_class_id'),
                 'text'         => $this->currency->format($this->tax->calculate($this->config->get('flat_cost'), $this->config->get('flat_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
             );

@@ -213,16 +213,24 @@
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-language"><?php echo $entry_language; ?></label>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                   <select name="config_language" id="input-language" class="form-control">
                       <?php foreach ($languages as $language) { ?>
                           <?php if ($language['code'] == $config_language) { ?>
-                            <option value="<?php echo $language['code']; ?>" selected="selected"><?php echo $language['name']; ?></option>
-                        <?php } else { ?>
-                            <option value="<?php echo $language['code']; ?>"><?php echo $language['name']; ?></option>
-                        <?php } ?>
-                    <?php } ?>
+                          <option value="<?php echo $language['code']; ?>" selected="selected"><?php echo $language['name']; ?></option>
+                          <?php } else { ?>
+                          <option value="<?php echo $language['code']; ?>"><?php echo $language['name']; ?></option>
+                          <?php } ?>
+                      <?php } ?>
                   </select>
+                </div>
+                <div class="col-sm-2 checkbox" id="forced_language">
+                  <label class="control-label">
+                  <input type="checkbox" name="config_forced_language" <?php echo (isset($config_forced_language)&&$config_forced_language==1)? "checked='checked'":""; ?> value="1">
+
+                    <span data-toggle="tooltip" title="<?php echo $help_force_language; ?>"><?php echo $entry_force_language; ?></span>
+
+                  </label>
                 </div>
               </div>
               <div class="form-group">

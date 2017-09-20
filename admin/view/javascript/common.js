@@ -15,10 +15,14 @@
 
 function saveAndContinue(e) {
     e.preventDefault();
-    forms = $('#form-product, #form-category, #form-featured, #form-flat, #form-setting');
 
-    forms.append('<input type="hidden" name="save_continue" value="1"  />');
-    forms.submit();
+    // forms = $('#form-product, #form-category, #form-featured, #form-flat, #form-setting');
+    form = $("#" + $(e.target).attr('form') );
+
+    !form.length ? alert("Can't find form to submit! Please, call Copona!") : '';
+
+    form.append('<input type="hidden" name="save_continue" value="1"  />');
+    form.submit();
 }
 
 function getURLVar(key) {

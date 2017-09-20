@@ -27,7 +27,7 @@ class ControllerStartupStartup extends Controller {
 
         // Language
 
-        $language = new Language($code, $this->registry);
+        $language = new Language($code);
         $language->load($code);
         $this->registry->set('language', $language);
 

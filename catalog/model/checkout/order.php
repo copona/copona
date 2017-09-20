@@ -484,7 +484,7 @@ class ModelCheckoutOrder extends Model
                 }
 
                 // Load the language for any mails that might be required to be sent out
-                $language = new Language($order_info['language_code'], $this->registry);
+                $language = new Language($order_info['language_code']);
                 $language->load($order_info['language_code']);
                 $data = $language->load('mail/order');
 
@@ -882,7 +882,7 @@ class ModelCheckoutOrder extends Model
 
             // If order status is not 0 then send update text email
             if ($order_info['order_status_id'] && $order_status_id && $notify) {
-                $language = new Language($order_info['language_code'], $this->registry);
+                $language = new Language($order_info['language_code']);
                 $language->load($order_info['language_code']);
                 $language->load('mail/order');
 

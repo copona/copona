@@ -32,6 +32,7 @@ class ModelExtensionShippingItem extends Model {
                 'title'        => $this->language->get('text_description'),
                 'cost'         => $this->config->get('item_cost') * $items,
                 'tax_class_id' => $this->config->get('item_tax_class_id'),
+                'cost_with_tax'=> $this->currency->format($this->tax->calculate($this->config->get('item_cost') * $items, $this->config->get('item_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'],'',false),
                 'text'         => $this->currency->format($this->tax->calculate($this->config->get('item_cost') * $items, $this->config->get('item_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
             );
 
