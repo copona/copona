@@ -195,14 +195,22 @@ class ControllerInstallStep3 extends Controller
         }
 
         if ($this->request->post['db_driver'] == 'mysqli') {
-            $mysql = @new MySQLi($this->request->post['db_hostname'], $this->request->post['db_username'],
+            $mysqli = mysqli_init();
+            $timeout_seconds = 15;
+            mysqli_options($mysqli, MYSQLI_OPT_CONNECT_TIMEOUT, $timeout_seconds);
+            mysqli_real_connect(
+                $mysqli,
+                $this->request->post['db_hostname'],
+                $this->request->post['db_username'],
                 html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8'),
-                $this->request->post['db_database'], $this->request->post['db_port']);
+                $this->request->post['db_database'],
+                $this->request->post['db_port']
+            );
 
-            if ($mysql->connect_error) {
-                $this->error['warning'] = $mysql->connect_error;
+            if ($mysqli->connect_error) {
+                $this->error['warning'] = $mysqli->connect_error;
             } else {
-                $mysql->close();
+                $mysqli->close();
             }
         } elseif ($this->request->post['db_driver'] == 'mpdo') {
             try {

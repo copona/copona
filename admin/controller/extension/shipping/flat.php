@@ -17,7 +17,7 @@ class ControllerExtensionShippingFlat extends Controller {
             $this->session->data['success'] = $this->language->get('text_success');
 
             if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
-                $this->response->redirect($this->url->link('extension/shipping/flat', 'token=' . $this->session->data['token'] . $url, true));
+                $this->response->redirect($this->url->link('extension/shipping/flat', 'token=' . $this->session->data['token'], true));
             else
                 $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=shipping', true));
         }
