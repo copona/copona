@@ -213,6 +213,3 @@ $_['error_malformed_filename'] = 'Error Malformed Log Filename!';
 $_['error_encryption'] = 'Encryption Key must be between 32 and 1024 characters!';
 $_['entry_timezone'] = 'Time Zone';
 $_['help_timezone'] = 'Select City for Time Zone';
-$_['entry_force_language'] = 'Force language';
-$_['help_force_language'] = "If the language code isn't saved in session or in cookies, then it will display this language. Won't overpower seo in the url.";
-?>
