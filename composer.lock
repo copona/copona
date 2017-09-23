@@ -91,22 +91,69 @@
             "time": "2016-12-29T09:57:23+00:00"
         },
         {
+            "name": "copona/composer-installers",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/copona/composer-installers.git",
+                "reference": "19e3d1ef1da10747625e8fff059480dd49bcc1bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/copona/composer-installers/zipball/19e3d1ef1da10747625e8fff059480dd49bcc1bd",
+                "reference": "19e3d1ef1da10747625e8fff059480dd49bcc1bd",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": [
+                    "Copona\\ComposerInstallers\\CoponaCoreInstallerPlugin",
+                    "Copona\\ComposerInstallers\\CoponaExtensionInstallerPlugin",
+                    "Copona\\ComposerInstallers\\CoponaThemeInstallerPlugin"
+                ]
+            },
+            "autoload": {
+                "psr-0": {
+                    "Copona\\ComposerInstallers": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kallef Alexandre",
+                    "email": "prhost@prhost.com.br"
+                }
+            ],
+            "description": "Package installers for Copona",
+            "time": "2017-09-23T18:57:15+00:00"
+        },
+        {
             "name": "copona/core",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/copona/core.git",
-                "reference": "697372bccc88eabdb297d69321e1b3333890a10e"
+                "reference": "408e49498f21bc174da0b4d3c0a84318714b65aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/697372bccc88eabdb297d69321e1b3333890a10e",
-                "reference": "697372bccc88eabdb297d69321e1b3333890a10e",
+                "url": "https://api.github.com/repos/copona/core/zipball/408e49498f21bc174da0b4d3c0a84318714b65aa",
+                "reference": "408e49498f21bc174da0b4d3c0a84318714b65aa",
                 "shasum": ""
             },
             "require": {
                 "braintree/braintree_php": "3.2.0",
                 "cardinity/cardinity-sdk-php": "^1.0",
+                "copona/composer-installers": "^0.1",
                 "divido/divido-php": ">=1.1.1",
                 "filp/whoops": "^2.1",
                 "hassankhan/config": "^0.10.0",
@@ -119,6 +166,7 @@
                 "leafo/scssphp": "0.0.12",
                 "php": ">=5.6.0",
                 "phpmailer/phpmailer": "^5.2",
+                "prhost/composer-vendor-merge": "^0.1",
                 "robmorgan/phinx": "^0.8",
                 "symfony/console": "^3.0",
                 "symfony/finder": "^3.3",
@@ -147,7 +195,7 @@
                 "framework",
                 "opensource"
             ],
-            "time": "2017-09-21T01:38:29+00:00"
+            "time": "2017-09-23T18:59:14+00:00"
         },
         {
             "name": "divido/divido-php",
@@ -196,33 +244,33 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae"
+                "reference": "e11d84c6e018beedd929cff5220969a3c6d1d462"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/90b2128806bfde671b6952ab8bea493942c1fdae",
-                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/e11d84c6e018beedd929cff5220969a3c6d1d462",
+                "reference": "e11d84c6e018beedd929cff5220969a3c6d1d462",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": "^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.*"
+                "phpunit/phpunit": "^6.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Inflector\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Inflector\\": "lib/Doctrine/Common/Inflector"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -259,7 +307,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-11-06T14:35:42+00:00"
+            "time": "2017-07-22T12:18:28+00:00"
         },
         {
             "name": "filp/whoops",
@@ -1299,6 +1347,38 @@
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "time": "2017-08-28T11:12:07+00:00"
+        },
+        {
+            "name": "prhost/composer-vendor-merge",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/prhost/composer-vendor-merge.git",
+                "reference": "747ce16e28b8dfe6714014a5890f1bb8aba97657"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prhost/composer-vendor-merge/zipball/747ce16e28b8dfe6714014a5890f1bb8aba97657",
+                "reference": "747ce16e28b8dfe6714014a5890f1bb8aba97657",
+                "shasum": ""
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Prhost\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kallef",
+                    "email": "prhost@prhost.com.br"
+                }
+            ],
+            "time": "2017-09-23T14:05:29+00:00"
         },
         {
             "name": "psr/log",
