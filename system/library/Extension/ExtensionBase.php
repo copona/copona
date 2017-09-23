@@ -32,7 +32,18 @@ abstract class ExtensionBase
      * Define details about extension
      * @return array
      */
-    public abstract function getDetails();
+    public abstract function details();
+
+    /**
+     * Get detail extension
+     *
+     * @param $key
+     * @return mixed|null
+     */
+    public function getDetail($key)
+    {
+        return isset($this->details()[$key]) ? $this->details()[$key] : null;
+    }
 
     /**
      * Get Name extension
@@ -41,8 +52,8 @@ abstract class ExtensionBase
      */
     public function getName()
     {
-        return isset($this->getDetails()['name'])
-            ? $this->getDetails()['name']
+        return $this->detail('name')
+            ? $this->detail('name')
             : $this->extensionItem->getName();
     }
 
