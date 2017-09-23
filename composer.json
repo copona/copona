@@ -22,5 +22,6 @@
       "Extension\\": "./extensions/",
       "Theme\\": "./themes/"
     }
-  }
+  },
+  "repositories": []
 }
