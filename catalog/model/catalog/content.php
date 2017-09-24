@@ -12,6 +12,27 @@ class ModelCatalogContent extends Model {
         }
     }
 
+    public function getAllContentMeta($type) {
+        $sql = "SELECT * from " . DB_PREFIX . "content_meta WHERE  content_type = '" . $type . "'";
+        $query = $this->db->query($sql);
+
+        $data = [];
+
+        if ($query->rows) {
+            foreach ($query->rows as $row) {
+                $data[$row['content_id']] = [
+                    'id'           => $row['content_id'],
+                    'content_type' => $row['content_type'],
+                    'content_id'   => $row['content_id'],
+                    'value'        => unserialize($row['value'])
+                ];
+            }
+        }
+
+         return $data;
+
+    }
+
     public function updateContentMeta($content_id, $type, $value) {
         //pr($value);
         $sql = "SELECT * from " . DB_PREFIX . "content_meta WHERE content_id='" . $content_id . "' AND content_type = '" . $type . "'";
