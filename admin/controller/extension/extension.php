@@ -49,12 +49,12 @@ class ControllerExtensionExtension extends Controller {
                 $extensions_dir = preg_replace('/\/[a-z]*\/$/','',DIR_SYSTEM);
                 $files = glob('{' . DIR_APPLICATION . 'controller/{extension/' . $extension . ',' . $extension . '}/*.php,'
                     . $extensions_dir . '/extensions/*/*/admin/controller/extension/'.$extension.'/*.php}', GLOB_BRACE);
-//        pr($files);
                 $data['categories'][] = array(
                     'code' => $extension,
-                    'text' => $this->language->get('heading_title') . ' (' . count($files) . ')',
+                    'text' => ($this->language->get('heading_title') ? $this->language->get('heading_title') : $extension) . ' (' . count($files) . ')',
                     'href' => $this->url->link('extension/extension/' . $extension, 'token=' . $this->session->data['token'], true)
                 );
+                $this->language->set('heading_title', '');
             }
         }
 
