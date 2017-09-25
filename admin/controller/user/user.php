@@ -360,6 +360,7 @@ class ControllerUserUser extends Controller {
 
         if (isset($this->request->get['user_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $user_info = $this->model_user_user->getUser($this->request->get['user_id']);
+            $data['custom_fields'] = $this->getCustomFields( $user_info['user_id'] );
         }
 
         if (isset($this->request->post['username'])) {
@@ -438,17 +439,13 @@ class ControllerUserUser extends Controller {
 
         $data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
-
         // Content meta
 
         if (!empty($user_info)) {
-            $data['content_meta'] = $this->model_user_user->getContentMeta($this->request->get['user_id']);
+            $data['content_meta'] = $this->model_user_user->getContentMeta($user_info['user_id']);
         } else {
             $data['content_meta'] = '';
         }
-
-        $data['custom_fields'] = $this->getCustomFields();
-
 
         if (isset($this->request->post['status'])) {
             $data['status'] = $this->request->post['status'];
@@ -535,11 +532,11 @@ class ControllerUserUser extends Controller {
         return !$this->error;
     }
 
-    protected function getCustomFields() {
+    protected function getCustomFields($user_id) {
         $this->load->model('user/user');
         $data = [];
         // Content meta
-        $data['content_meta'] = $this->model_user_user->getContentMeta($this->request->get['user_id']);
+        $data['content_meta'] = $this->model_user_user->getContentMeta( $user_id );
         return $this->load->view('user/user_form_custom_fields', $data);
 
 
