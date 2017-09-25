@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f374f10070836d9221aa18d134f4c0bf",
+    "content-hash": "5c912b8447ced32fb0f134248493ed2c",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -91,34 +91,82 @@
             "time": "2016-12-29T09:57:23+00:00"
         },
         {
+            "name": "copona/composer-installers",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/copona/composer-installers.git",
+                "reference": "19e3d1ef1da10747625e8fff059480dd49bcc1bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/copona/composer-installers/zipball/19e3d1ef1da10747625e8fff059480dd49bcc1bd",
+                "reference": "19e3d1ef1da10747625e8fff059480dd49bcc1bd",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": [
+                    "Copona\\ComposerInstallers\\CoponaCoreInstallerPlugin",
+                    "Copona\\ComposerInstallers\\CoponaExtensionInstallerPlugin",
+                    "Copona\\ComposerInstallers\\CoponaThemeInstallerPlugin"
+                ]
+            },
+            "autoload": {
+                "psr-0": {
+                    "Copona\\ComposerInstallers": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kallef Alexandre",
+                    "email": "prhost@prhost.com.br"
+                }
+            ],
+            "description": "Package installers for Copona",
+            "time": "2017-09-23T18:57:15+00:00"
+        },
+        {
             "name": "copona/core",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/copona/core.git",
-                "reference": "854b1d4296620a8663d41489fb14e1560f94bdb4"
+                "reference": "408e49498f21bc174da0b4d3c0a84318714b65aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/854b1d4296620a8663d41489fb14e1560f94bdb4",
-                "reference": "854b1d4296620a8663d41489fb14e1560f94bdb4",
+                "url": "https://api.github.com/repos/copona/core/zipball/408e49498f21bc174da0b4d3c0a84318714b65aa",
+                "reference": "408e49498f21bc174da0b4d3c0a84318714b65aa",
                 "shasum": ""
             },
             "require": {
                 "braintree/braintree_php": "3.2.0",
                 "cardinity/cardinity-sdk-php": "^1.0",
+                "copona/composer-installers": "^0.1",
                 "divido/divido-php": ">=1.1.1",
                 "filp/whoops": "^2.1",
                 "hassankhan/config": "^0.10.0",
-                "illuminate/container": "^5.4",
-                "illuminate/database": "^5.4",
-                "illuminate/events": "^5.4",
-                "illuminate/support": "^5.4",
-                "illuminate/validation": "^5.4",
+                "illuminate/container": "5.4.*",
+                "illuminate/database": "5.4.*",
+                "illuminate/events": "5.4.*",
+                "illuminate/support": "5.4.*",
+                "illuminate/validation": "5.4.*",
                 "klarna/kco_rest": "^2.2",
                 "leafo/scssphp": "0.0.12",
                 "php": ">=5.6.0",
                 "phpmailer/phpmailer": "^5.2",
+                "prhost/composer-vendor-merge": "^0.1",
                 "robmorgan/phinx": "^0.8",
                 "symfony/console": "^3.0",
                 "symfony/finder": "^3.3",
@@ -147,7 +195,7 @@
                 "framework",
                 "opensource"
             ],
-            "time": "2017-09-08T01:45:18+00:00"
+            "time": "2017-09-23T18:59:14+00:00"
         },
         {
             "name": "divido/divido-php",
@@ -1301,6 +1349,38 @@
             "time": "2017-08-28T11:12:07+00:00"
         },
         {
+            "name": "prhost/composer-vendor-merge",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/prhost/composer-vendor-merge.git",
+                "reference": "747ce16e28b8dfe6714014a5890f1bb8aba97657"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prhost/composer-vendor-merge/zipball/747ce16e28b8dfe6714014a5890f1bb8aba97657",
+                "reference": "747ce16e28b8dfe6714014a5890f1bb8aba97657",
+                "shasum": ""
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Prhost\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kallef",
+                    "email": "prhost@prhost.com.br"
+                }
+            ],
+            "time": "2017-09-23T14:05:29+00:00"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.2",
             "source": {
@@ -1461,16 +1541,16 @@
         },
         {
             "name": "symfony/config",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "6ac0cc1f047c1dbc058fc25b7a4d91b068ed4488"
+                "reference": "f9f19a39ee178f61bb2190f51ff7c517c2159315"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/6ac0cc1f047c1dbc058fc25b7a4d91b068ed4488",
-                "reference": "6ac0cc1f047c1dbc058fc25b7a4d91b068ed4488",
+                "url": "https://api.github.com/repos/symfony/config/zipball/f9f19a39ee178f61bb2190f51ff7c517c2159315",
+                "reference": "f9f19a39ee178f61bb2190f51ff7c517c2159315",
                 "shasum": ""
             },
             "require": {
@@ -1519,20 +1599,20 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2017-08-03T08:59:45+00:00"
+            "time": "2017-09-04T16:28:07+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "d6596cb5022b6a0bd940eae54a1de78646a5fda6"
+                "reference": "a1e1b01293a090cb9ae2ddd221a3251a4a7e4abf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/d6596cb5022b6a0bd940eae54a1de78646a5fda6",
-                "reference": "d6596cb5022b6a0bd940eae54a1de78646a5fda6",
+                "url": "https://api.github.com/repos/symfony/console/zipball/a1e1b01293a090cb9ae2ddd221a3251a4a7e4abf",
+                "reference": "a1e1b01293a090cb9ae2ddd221a3251a4a7e4abf",
                 "shasum": ""
             },
             "require": {
@@ -1587,20 +1667,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-08-27T14:52:21+00:00"
+            "time": "2017-09-06T16:40:18+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "084d804fe35808eb2ef596ec83d85d9768aa6c9d"
+                "reference": "8beb24eec70b345c313640962df933499373a944"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/084d804fe35808eb2ef596ec83d85d9768aa6c9d",
-                "reference": "084d804fe35808eb2ef596ec83d85d9768aa6c9d",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/8beb24eec70b345c313640962df933499373a944",
+                "reference": "8beb24eec70b345c313640962df933499373a944",
                 "shasum": ""
             },
             "require": {
@@ -1643,11 +1723,11 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-08-27T14:52:21+00:00"
+            "time": "2017-09-01T13:23:39+00:00"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
@@ -1696,7 +1776,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -1745,16 +1825,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "14bacad23a4f075bfd3fd456755236cb261320e3"
+                "reference": "2cdc7de1921d1a1c805a13dc05e44a2cd58f5ad3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/14bacad23a4f075bfd3fd456755236cb261320e3",
-                "reference": "14bacad23a4f075bfd3fd456755236cb261320e3",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/2cdc7de1921d1a1c805a13dc05e44a2cd58f5ad3",
+                "reference": "2cdc7de1921d1a1c805a13dc05e44a2cd58f5ad3",
                 "shasum": ""
             },
             "require": {
@@ -1794,7 +1874,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-08-10T07:07:06+00:00"
+            "time": "2017-09-06T17:07:39+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1994,7 +2074,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
@@ -2171,6 +2251,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.6.0"
+    },
     "platform-dev": []
 }
