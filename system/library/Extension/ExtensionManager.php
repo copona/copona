@@ -104,6 +104,7 @@ class ExtensionManager
      *
      * @param $namespace
      * @return array
+     * @throws \Exception
      */
     public static function getCronjobRegisted($namespace)
     {
@@ -114,6 +115,7 @@ class ExtensionManager
      * Get all cronjob registed inside extensions
      *
      * @return array
+     * @throws \Exception
      */
     public static function getAllCronjobRegisted()
     {

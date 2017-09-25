@@ -31,7 +31,6 @@ class ControllerSettingSetting extends Controller {
         $this->document->setTitle($this->language->get('heading_title'));
 
 
-
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 
             $this->model_setting_setting->editSetting('config', $this->request->post);
@@ -79,6 +78,7 @@ class ControllerSettingSetting extends Controller {
                 $data['error_' . $val] = '';
             }
         }
+
 
         $data['breadcrumbs'] = array();
 
@@ -272,6 +272,13 @@ class ControllerSettingSetting extends Controller {
             $data['config_language'] = $this->config->get('config_language');
         }
 
+        if (isset($this->request->post['config_forced_language'])) {
+            $data['config_forced_language'] = $this->request->post['config_forced_language'];
+
+
+        } else {
+            $data['config_forced_language'] = $this->config->get('config_forced_language');
+        }
 
 
         $data['languages'] = $this->model_localisation_language->getLanguages(array(

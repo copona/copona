@@ -58,7 +58,7 @@ class ControllerCheckoutCart extends Controller {
 
             $data['products'] = array();
 
-            $products = $this->cart->cartProducts;
+            $products = $this->cart->cartProducts; 
 
             foreach ($products as $product) {
                 $product_total = 0;
@@ -211,7 +211,7 @@ class ControllerCheckoutCart extends Controller {
                 array_multisort($sort_order, SORT_ASC, $totals);
             }
 
-            $data['totals'] = array();
+            $data['totals'] = array(); 
 
             foreach ($totals as $total) {
                 $data['totals'][] = array(

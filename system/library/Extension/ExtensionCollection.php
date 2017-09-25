@@ -13,33 +13,31 @@ class ExtensionCollection extends Collection
         $finder = new Finder();
 
         $extension = new ExtensionItem();
-        $extension->namespace = $extensionPath->getRelativePathname();
-        $extension->name = $extensionPath->getFilename();
-        $extension->vendor = $extensionPath->getRelativePath();
-        $extension->path = $extensionPath;
+        $extension->setName($extensionPath->getFilename());
+        $extension->setVendor($extensionPath->getRelativePath());
+        $extension->setNamespace('Extension\\' . $extension->getVendor() . '\\' . $extension->getName());
+        $extension->setPath($extensionPath);
 
         $extension_finder = $finder
-          ->in($extensionPath->getPathname())
+            ->in($extensionPath->getPathname())
+            ->ignoreVCS(true)
+            ->ignoreDotFiles(true)
+            ->ignoreUnreadableDirs()
+            ->notPath('assets')
+            ->notPath('javascript')
+            ->notPath('image')
+            ->notPath('stylesheet')
+            ->notPath('vendor')
+            ->notName('(?<!\.min)\.(js|css)$')// ignore js and css
 
-          ->ignoreVCS(true)
-          ->ignoreDotFiles(true)
-          ->ignoreUnreadableDirs()
+            ->notPath('#(^|/)_.+(/|$)#')// Ignore path start with underscore (_).
 
-          ->notPath('assets')
-          ->notPath('javascript')
-          ->notPath('image')
-          ->notPath('stylesheet')
-
-          ->notName('(?<!\.min)\.(js|css)$') // ignore js and css
-
-          ->notPath('#(^|/)_.+(/|$)#') // Ignore path start with underscore (_).
-
-          ->depth('< 0')
-          ->files();
+            ->depth('< 0')
+            ->files();
 
 
         foreach ($extension_finder as $item) {
-            $extension->files[] = $item->getPathname();
+            $extension->setFile($item->getPathname());
         }
 
         $this->push($extension);

@@ -99,7 +99,7 @@ $registry->singleton('seourl', function ($registry) {
 
 // Language
 $registry->singleton('language', function ($registry) use ($config) {
-    $language = new Language($config->get('language_default'), $registry);
+    $language = new Language($config->get('language_default'));
     $language->load($config->get('language_default'));
     return $language;
 });

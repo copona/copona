@@ -124,6 +124,10 @@ class ControllerStartupStartup extends Controller
                 }
 
                 $code = $detect ? $detect : '';
+
+                if($this->config->get("config_forced_language")) {
+                    $code = $default_language;
+                }
             }
         }
 
@@ -140,7 +144,7 @@ class ControllerStartupStartup extends Controller
         }
 
         // Overwrite the default language object
-        $language = new Language($code, $this->registry);
+        $language = new Language($code);
         $language->load($code);
 
         $this->registry->set('language', $language);

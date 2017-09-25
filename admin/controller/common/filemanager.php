@@ -46,7 +46,13 @@ class ControllerCommonFileManager extends Controller {
             }
 
             // Get files
-            $files = glob($directory . '/*' . $filter_name . '*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}', GLOB_BRACE);
+            $files = glob($directory . '/*' . $filter_name . '*', GLOB_BRACE);
+            $extension_allowed = preg_replace('~\r?\n~', "\n", Config::get('config_file_ext_allowed'));
+            $allowed = implode("|", explode("\n", $extension_allowed) );
+            $files = preg_grep('~\.('.$allowed.')$~i', $files);
+            // pr($files);
+            // pr($files2);
+
 
             if (!$files) {
                 $files = array();
@@ -97,6 +103,9 @@ class ControllerCommonFileManager extends Controller {
                 );
             }
         }
+
+        //prd( $data['images']);
+
 
         $data['heading_title'] = $this->language->get('heading_title');
 
@@ -247,6 +256,12 @@ class ControllerCommonFileManager extends Controller {
             // Check if multiple files are uploaded or just one
             $files = array();
 
+            $max = return_bytes( ini_get('post_max_size') );
+            if( $max < $_SERVER['CONTENT_LENGTH']) {
+                $json['error'] = $this->language->get('error_filesize');
+                $json['error'] .= "\n". sprintf($this->language->get('error_filesize_allowed'), ini_get('post_max_size')) ;
+            }
+            
             if (!empty($this->request->files['file']['name']) && is_array($this->request->files['file']['name'])) {
                 foreach (array_keys($this->request->files['file']['name']) as $key) {
                     $files[] = array(
@@ -270,25 +285,16 @@ class ControllerCommonFileManager extends Controller {
                     }
 
                     // Allowed file extension types
-                    $allowed = array(
-                        'jpg',
-                        'jpeg',
-                        'gif',
-                        'png'
-                    );
+                    $extension_allowed = preg_replace('~\r?\n~', "\n", Config::get('config_file_ext_allowed'));
+                    $allowed = explode("\n", $extension_allowed);
 
                     if (!in_array(utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)), $allowed)) {
                         $json['error'] = $this->language->get('error_filetype');
                     }
 
                     // Allowed file mime types
-                    $allowed = array(
-                        'image/jpeg',
-                        'image/pjpeg',
-                        'image/png',
-                        'image/x-png',
-                        'image/gif'
-                    );
+                    $extension_allowed = preg_replace('~\r?\n~', "\n", Config::get('config_file_mime_allowed'));
+                    $allowed = explode("\n", $extension_allowed);
 
                     if (!in_array($file['type'], $allowed)) {
                         $json['error'] = $this->language->get('error_filetype');

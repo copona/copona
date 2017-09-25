@@ -1,32 +1,39 @@
 <?php
+
+!defined('DIR_SYSTEM') ? die() : false;
+
 /*
  * This file will be included at catalog/controller/startup.php as first priority
  * Right before inclusion of Theme specific functions.php
  *
  */
 
+if (APPLICATION == 'catalog') {
 // The new addScripts and addStyles method:
 // Theme name: $this->config->get('theme_name')
-$this->document->addScript('themes/default/assets/vendor/jquery/jquery-2.1.1.min.js');
-$this->document->addScript('themes/default/assets/vendor/jquery/jquery-ui.button.min.js');
-$this->document->addScript('themes/default/assets/vendor/notify/notify.min.js');
-$this->document->addScript('themes/default/assets/vendor/bootstrap/js/bootstrap.min.js');
-$this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'header', 'product/product');
-$this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header', 'product/product');
-$this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header', 'product/product');
-$this->document->addScript('assets/vendor/jquery.print/jquery.print.min.js');
-$this->document->addScript('assets/js/common.js');
+    $this->document->addScript('themes/default/assets/vendor/jquery/jquery-2.1.1.min.js');
+    $this->document->addScript('themes/default/assets/vendor/jquery/jquery-ui.button.min.js');
+    $this->document->addScript('themes/default/assets/vendor/notify/notify.min.js');
+    $this->document->addScript('themes/default/assets/vendor/bootstrap/js/bootstrap.min.js');
+    $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'header', 'product/product');
+    $this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header', 'product/product');
+    $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header',
+      'product/product');
+    $this->document->addScript('assets/vendor/jquery.print/jquery.print.min.js');
+    $this->document->addScript('assets/js/common.js');
 
-$this->document->addStyle('assets/vendor/bootstrap/css/bootstrap.min.css', 'stylesheet', 'screen');
-$this->document->addStyle('assets/vendor/font-awesome/css/font-awesome.min.css', 'stylesheet', 'screen');
-$this->document->addStyle('//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700', 'stylesheet', 'screen');
-$this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen');
-$this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css', 'stylesheet', 'screen', 'product/product');
+    $this->document->addStyle('assets/vendor/bootstrap/css/bootstrap.min.css', 'stylesheet', 'screen');
+    $this->document->addStyle('assets/vendor/font-awesome/css/font-awesome.min.css', 'stylesheet', 'screen');
+    $this->document->addStyle('//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700', 'stylesheet', 'screen');
+    $this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen');
+    $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css', 'stylesheet', 'screen',
+      'product/product');
 
-$this->document->addStyle('assets/css/stylesheet.css', 'stylesheet', 'screen');
-$this->document->addStyle('assets/css/additional.css', 'stylesheet', 'screen');
+    $this->document->addStyle('assets/css/stylesheet.css', 'stylesheet', 'screen');
+    $this->document->addStyle('assets/css/additional.css', 'stylesheet', 'screen');
+}
 /* * * Theme specific - override Settings !  * * */
-!defined('DIR_SYSTEM') ? die() : false;
+
 // Example:
 $template_config_settings = array(
     'theme_default_product_category_list_resize'     => 'resize',

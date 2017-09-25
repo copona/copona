@@ -25,16 +25,6 @@ class ModelSettingExtension extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = '" . $this->db->escape($type . '_' . $code) . "'");
     }
 
-    public function addExtensionInstall($filename, $extension_download_id = 0) {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "extension_install` SET `filename` = '" . $this->db->escape($filename) . "', `extension_download_id` = '" . (int)$extension_download_id . "', `date_added` = NOW()");
-
-        return $this->db->getLastId();
-    }
-
-    public function deleteExtensionInstall($extension_install_id) {
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "extension_install` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
-    }
-
     public function getExtensionInstalls($start = 0, $limit = 10) {
         if ($start < 0) {
             $start = 0;

@@ -24,6 +24,7 @@ class ModelExtensionShippingPickup extends Model {
                 'title'        => sprintf($this->language->get('text_description'), $this->config->get('pickup_name')),
                 'cost'         => 0.00,
                 'tax_class_id' => 0,
+                'cost_with_tax'=> $this->currency->format(0.00, $this->session->data['currency'],'',false),
                 'text'         => $this->currency->format(0.00, $this->session->data['currency'])
             );
 

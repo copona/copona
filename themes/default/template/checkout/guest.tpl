@@ -250,12 +250,12 @@
           </form>
         </div>
         <!-- Close div row -->
-        <?php
-        // Checkout Javascript
-        require_once('checkout.js.tpl');
-        ?>
-
-        <?php echo $content_bottom; ?></div>
+        <script>
+            <?php
+            // Checkout Javascript
+            require_once('checkout.js.tpl'); ?>
+        </script>
+          <?php echo $content_bottom; ?></div>
       <?php echo $column_right; ?></div>
   </div>
 </div>

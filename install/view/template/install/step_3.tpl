@@ -20,6 +20,19 @@
   <div class="row">
     <div class="col-sm-9">
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <p><?php echo $text_general; ?></p>
+        <fieldset>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="input-app_env"><?php echo $entry_app_env; ?></label>
+            <div class="col-sm-10">
+              <input type="text" name="app_env" value="<?php echo $app_env; ?>" id="input-app_env" class="form-control" placeholder="<?php echo $placeholder_app_env; ?>"/>
+              <p class="help-block"><?php echo $help_app_env; ?></p>
+              <?php if ($error_app_env) { ?>
+              <div class="text-danger"><?php echo $error_app_env; ?></div>
+              <?php } ?>
+            </div>
+          </div>
+        </fieldset>
         <p><?php echo $text_db_connection; ?></p>
         <fieldset>
           <div class="form-group">
