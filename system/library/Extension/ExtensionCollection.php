@@ -13,10 +13,10 @@ class ExtensionCollection extends Collection
         $finder = new Finder();
 
         $extension = new ExtensionItem();
-        $extension->setName($extensionPath->getFilename());
-        $extension->setVendor($extensionPath->getRelativePath());
-        $extension->setNamespace('Extension\\' . $extension->getVendor() . '\\' . $extension->getName());
-        $extension->setPath($extensionPath);
+        $extension->name = $extensionPath->getFilename();
+        $extension->vendor = $extensionPath->getRelativePath();
+        $extension->namespace = 'Extension\\' . $extension->vendor . '\\' . $extension->name;
+        $extension->path = $extensionPath;
 
         $extension_finder = $finder
             ->in($extensionPath->getPathname())
@@ -35,9 +35,8 @@ class ExtensionCollection extends Collection
             ->depth('< 0')
             ->files();
 
-
         foreach ($extension_finder as $item) {
-            $extension->setFile($item->getPathname());
+            $extension->files[] = $item->getPathname();
         }
 
         $this->push($extension);
