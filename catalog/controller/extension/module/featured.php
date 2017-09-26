@@ -34,6 +34,7 @@ class ControllerExtensionModuleFeatured extends Controller {
             foreach ($products as $product_id) {
                 $product_info = $this->model_catalog_product->getProduct($product_id);
 
+                //prd($product_info);
                 if ($product_info) {
                     if ($product_info['image']) {
                         $image = $this->model_tool_image->{$this->config->get('theme_default_extension_module_featured')}($product_info['image'], $setting['width'], $setting['height']);
