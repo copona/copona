@@ -11,7 +11,12 @@ if (file_exists(DIR_PUBLIC . '/.env')) {
     $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
     $dotenv->load();
 }
-$migration_path = DIR_PUBLIC . "/migrations";
+
+if(isset($_SERVER['PHINX_MIGRATION_PATH']) && $_SERVER['PHINX_MIGRATION_PATH']) {
+    $migration_path = $_SERVER['PHINX_MIGRATION_PATH'];
+} else {
+    $migration_path = DIR_PUBLIC . "/migrations";
+}
 
 $config = new ConfigManager(DIR_CONFIG);
 

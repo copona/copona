@@ -112,6 +112,7 @@
  * @property ModelUserApi $model_user_api
  * @property ModelUserUserGroup $model_user_user_group
  * @property ModelUserUser $model_user_user
+ * @property \Copona\System\Library\Extension\ExtensionManager $extension
  * */
 abstract class Controller
 {

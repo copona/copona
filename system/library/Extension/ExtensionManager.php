@@ -27,8 +27,6 @@ class ExtensionManager
      */
     protected static $extensionCollection;
 
-    protected static $viewCache = [];
-
     /**
      * @var Finder
      */
@@ -66,6 +64,11 @@ class ExtensionManager
         return $instance;
     }
 
+    /**
+     * Get collection extension
+     *
+     * @return ExtensionCollection
+     */
     public static function getCollection()
     {
         return self::$extensionCollection;
@@ -124,10 +127,36 @@ class ExtensionManager
         /** @var ExtensionItem $extensionItem */
         foreach (self::$extensionCollection->all() as $extensionItem) {
             $cronjob_registed = array_unique(array_merge($cronjob_registed,
-              $extensionItem->getIntance()->registerCronjob()));
+                $extensionItem->getIntance()->registerCronjob()));
         }
 
         return $cronjob_registed;
+    }
+
+    /**
+     * Execute all update method
+     *
+     * @throws \Exception
+     */
+    public static function executeAllUpdate()
+    {
+        /** @var ExtensionItem $extensionItem */
+        foreach (self::$extensionCollection->all() as $extensionItem) {
+            $extensionItem->getIntance()->update();
+        }
+    }
+
+    /**
+     * Execute all uninstall method
+     *
+     * @throws \Exception
+     */
+    public static function executeAllUninstall()
+    {
+        /** @var ExtensionItem $extensionItem */
+        foreach (self::$extensionCollection->all() as $extensionItem) {
+            $extensionItem->getIntance()->uninstall();
+        }
     }
 
     /**
