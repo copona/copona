@@ -5,8 +5,9 @@ class ModelCheckoutOrder extends Model
     public function __construct($parms)
     {
         parent::__construct($parms);
-        $this->load->model("catalog/content");
+        $this->load->model('catalog/content');
         $this->load->model('setting/setting');
+        $this->load->model('tool/mail');
     }
 
     public function addOrder($data)
@@ -818,7 +819,7 @@ class ModelCheckoutOrder extends Model
                 // Send Email to Customer:
                 // $data['serial'] is already available into the template.
                 //* Comment this, to temporary disable E-mail to customer
-                $this->sendMail(
+                $this->model_tool_mail->sendMail(
                     '',
                     $order_info['email'],
                     $subject,
@@ -914,14 +915,14 @@ class ModelCheckoutOrder extends Model
                     $data['mail_template'] = 'mail/order_admin';
 
                     // Send email to admins:
-                    $this->sendMail('', '', $subject, $data, $data['mail_template'], $order_info['store_id'] );
+                    $this->model_tool_mail->sendMail('', '', $subject, $data, $data['mail_template'], $order_info['store_id'] );
 
                     // Send to additional alert emails
                     $emails = explode(',', $this->config->get('config_mail_alert_email'));
 
                     foreach ($emails as $email) {
                         if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                            $this->sendMail('', $email, $subject, $data, 'mail/order_admin', $order_info['store_id'] );
+                            $this->model_tool_mail->sendMail('', $email, $subject, $data, 'mail/order_admin', $order_info['store_id'] );
                         }
                     }
                 }
@@ -961,89 +962,8 @@ class ModelCheckoutOrder extends Model
 
                 $data['message'] = $message;
                 // Send plain text email to customer on update.
-                $this->sendMail('', $order_info['email'], $subject, $data, 'plain' );
+                $this->model_tool_mail->sendMail('', $order_info['email'], $subject, $data, 'plain' );
             }
         }
     }
-
-
-    /**
-     * @author Arnis Juraga <arnis.juraga@gmail.com>
-     *
-     * @param string $from_email
-     * @param string $to_email
-     * @param string $subject
-     * @param array $data
-     * @param string $template
-     * @param int $store_id
-     * @param string $store_name taken from store value, if set.
-     */
-    private function sendMail($from_email = '',
-                              $to_email = '',
-                              $subject = '',
-                              $data = [],
-                              $template = 'mail/order',
-                              $store_id = 0,
-                              $store_name = ''
-    ) {
-
-
-        // $text = $data['message'];
-        // to: $order_info['email']
-        // store_id: $order_info['store_id']
-        // store_name: $order_info['store_name']
-
-        $from_email = !$from_email
-            ? $this->model_setting_setting->getSettingValue('config_email', $store_id)
-            : $from_email;
-
-        $to_email = !$to_email
-            ? $this->model_setting_setting->getSettingValue('config_email', $store_id)
-            : $to_email;
-
-        $from_name = !$store_name
-            ?  $this->model_setting_setting->getSettingValue('config_name', $store_id)
-            : $store_name;
-
-        $subject = !$subject
-            ? '(subject)'
-            : $subject;
-
-
-        $plain_text = $data['message'];
-
-        // if template is not "plain", then we load HTML data from template
-        // else - format NewLines in Plaintext message to <br />
-        if($template != 'plain' ) {
-            //prd( $this->load->view( $template , $data) );
-            $html_message = $this->load->view($template , $data);
-        } else {
-            $html_message = nl2br( $plain_text );
-        }
-
-        if(!$from_email) {
-            $from_email = $this->model_setting_setting->getSettingValue('config_email', $store_id );
-        }
-
-        $mail = new Mail();
-        $mail->protocol = $this->config->get('config_mail_protocol');
-        $mail->parameter = $this->config->get('config_mail_parameter');
-        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES,
-            'UTF-8');
-        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
-        $mail->setTo( $to_email );
-        $mail->setFrom( $from_email );
-        $mail->setSender(html_entity_decode($from_name, ENT_QUOTES, 'UTF-8'));
-        $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-
-        $mail->setHtml( $html_message );
-
-        $mail->setText($plain_text);
-        $mail->send();
-    }
-
 }
