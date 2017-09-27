@@ -10,39 +10,39 @@ class ExtensionItem
     /**
      * @var string
      */
-    protected $name;
+    public $name;
 
     /**
      * @var string
      */
-    protected $vendor;
+    public $vendor;
 
     /**
      * @var string
      */
-    protected $namespace;
+    public $namespace;
 
     /**
      * @var ExtensionBase
      */
-    protected $instance;
+    public $instance;
 
     /**
      * @var SplFileInfo
      */
-    protected $path;
+    public $path;
 
     /**
      * @var Finder
      */
-    protected $finder;
+    public $finder;
 
     /**
      * List all files inside extension
      *
      * @var array
      */
-    protected $files = [];
+    public $files = [];
 
     /**
      * Get instance Extension Class
@@ -64,109 +64,5 @@ class ExtensionItem
         }
 
         return $this->instance;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVendor()
-    {
-        return $this->vendor;
-    }
-
-    /**
-     * @param string $vendor
-     */
-    public function setVendor($vendor)
-    {
-        $this->vendor = $vendor;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNamespace()
-    {
-        return $this->namespace;
-    }
-
-    /**
-     * @param string $namespace
-     */
-    public function setNamespace($namespace)
-    {
-        $this->namespace = $namespace;
-    }
-
-    /**
-     * @return SplFileInfo
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param SplFileInfo $path
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    }
-
-    /**
-     * @return Finder
-     */
-    public function getFinder()
-    {
-        return $this->finder;
-    }
-
-    /**
-     * @param Finder $finder
-     */
-    public function setFinder($finder)
-    {
-        $this->finder = $finder;
-    }
-
-    /**
-     * @return array
-     */
-    public function getFiles()
-    {
-        return $this->files;
-    }
-
-    /**
-     * @param string $file
-     */
-    public function setFile($file)
-    {
-        $this->files[] = $file;
-    }
-
-    /**
-     * @param array $files
-     */
-    public function setFiles(array $files)
-    {
-        $this->files = $files;
     }
 }

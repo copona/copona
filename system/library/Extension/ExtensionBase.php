@@ -2,6 +2,8 @@
 
 namespace Copona\System\Library\Extension;
 
+use Copona\Classes\Migration;
+
 abstract class ExtensionBase
 {
     /**
@@ -74,5 +76,25 @@ abstract class ExtensionBase
     public function registerCronjob()
     {
         return [];
+    }
+
+    /**
+     * Update extension
+     *
+     * @return string
+     */
+    public function update()
+    {
+        return Migration::migrate($this->extensionItem->path->getRealPath() . '/migrations');
+    }
+
+    /**
+     * Unistall extension
+     *
+     * @return string
+     */
+    public function uninstall()
+    {
+        return Migration::rollback($this->extensionItem->path->getRealPath() . '/migrations');
     }
 }
