@@ -813,16 +813,17 @@ class ModelCheckoutOrder extends Model
                 /* here - send mail to customer */
 
                 $data['message'] = $text;
+                $data['mail_template'] = 'mail/order';
 
                 // Send Email to Customer:
                 // $data['serial'] is already available into the template.
-                //*
+                //* Comment this, to temporary disable E-mail to customer
                 $this->sendMail(
                     '',
                     $order_info['email'],
                     $subject,
                     $data,
-                    'mail/order',
+                    $data['mail_template'],
                     $order_info['store_id']); // */
 
                 // Admin Alert Mail
@@ -906,8 +907,14 @@ class ModelCheckoutOrder extends Model
 
                     $data['message'] = $text;
 
+
+                    //as additional var, to be able use hook in the future.
+                    $data['firstname'] = $order_info['firstname'];
+                    $data['lastname'] = $order_info['lastname'];
+                    $data['mail_template'] = 'mail/order_admin';
+
                     // Send email to admins:
-                    $this->sendMail('', '', $subject, $data, 'mail/order_admin', $order_info['store_id'] );
+                    $this->sendMail('', '', $subject, $data, $data['mail_template'], $order_info['store_id'] );
 
                     // Send to additional alert emails
                     $emails = explode(',', $this->config->get('config_mail_alert_email'));
@@ -997,6 +1004,10 @@ class ModelCheckoutOrder extends Model
         $from_name = !$store_name
             ?  $this->model_setting_setting->getSettingValue('config_name', $store_id)
             : $store_name;
+
+        $subject = !$subject
+            ? '(subject)'
+            : $subject;
 
 
         $plain_text = $data['message'];
