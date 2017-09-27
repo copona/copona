@@ -20,8 +20,8 @@
         </tr>
       </thead>
       <tbody>
-          <?php if ($menus) { ?>
-              <?php foreach ($menus as $menu) { ?>
+          <?php if ($extensions) { ?>
+              <?php foreach ($extensions as $extension) { ?>
                 <tr>
                   <td class="text-left" colspan="2"><b><?php echo $menu['name']; ?></b></td>
                   <td class="text-right"><?php if (!$menu['installed']) { ?>

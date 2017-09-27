@@ -3,13 +3,13 @@ services:
   db:
     env_file:
       - .env
-    image: mysql:5.7
+    image: mysql:5.6
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_USER: ${DB_USERNAME}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: copona
     volumes:
       - ./.mysql:/var/lib/mysql
 
@@ -29,4 +29,4 @@ services:
     depends_on:
       - db
     links:
-      - "db:${DB_HOSTNAME}"
+      - "db:database"

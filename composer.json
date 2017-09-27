@@ -11,15 +11,27 @@
   "homepage": "https://github.com/copona/copona",
   "license": "GPL-3.0+",
   "require": {
+    "php": ">=5.6.0",
     "copona/core": "dev-master"
   },
   "autoload": {
     "psr-4": {
+      "Copona\\Model\\": "./Model/",
+
+      "Copona\\Catalog\\": "./catalog/",
+      "Copona\\Catalog\\Controller\\": "./catalog/controller/",
+      "Copona\\Catalog\\Model\\": "./catalog/model/",
+
+      "Copona\\Admin\\": "./admin/",
+      "Copona\\Admin\\Controller\\": "./admin/controller/",
+      "Copona\\Admin\\Model\\": "./admin/model/",
+
       "Copona\\System\\": "./system/",
       "Copona\\System\\Library\\": "./system/library/",
       "Copona\\System\\Engine\\": "./system/engine/",
       "Extension\\": "./extensions/",
       "Theme\\": "./themes/"
     }
-  }
+  },
+  "repositories": []
 }
