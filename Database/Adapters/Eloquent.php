@@ -71,21 +71,16 @@ class Eloquent extends AbstractDatabaseAdapters
      */
     public function query($sql, Array $params = [])
     {
-        try {
+        $return = $this->getConnection()->getPdo()->query($sql);
+        $data = $return->fetchAll();
+        $result = new \stdClass();
+        $result->num_rows = $return->rowCount();
+        $result->row = isset($data[0]) ? $data[0] : array();
+        $result->rows = $data;
+        $this->countAffected = $return->rowCount();
 
-            $return = $this->getConnection()->getPdo()->query($sql);
-            $data = $return->fetchAll();
-            $result = new \stdClass();
-            $result->num_rows = $return->rowCount();
-            $result->row = isset($data[0]) ? $data[0] : array();
-            $result->rows = $data;
-            $this->countAffected = $return->rowCount();
+        return $result;
 
-            return $result;
-
-        } catch (\PDOException $e) {
-            throw new DatabaseException($e, $sql);
-        }
     }
 
     /**

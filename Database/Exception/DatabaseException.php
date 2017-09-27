@@ -3,7 +3,7 @@
 namespace Copona\Database\Exception;
 
 
-class DatabaseException extends \Exception
+class DatabaseException extends \PDOException
 {
     private $sql = null;
 
@@ -34,10 +34,10 @@ class DatabaseException extends \Exception
 
     protected function preparePDOException(\PDOException $e)
     {
-        $errorInfo = $e->errorInfo;
-        if (isset($errorInfo[2])) {
-            $this->message = $errorInfo[2];
-        }
+        $this->message = $e->getMessage();
+        $this->code = $e->getCode();
+        $this->file = $e->getFile();
+        $this->line = $e->getLine();
 
         if ($this->sql) {
             $this->message .= ' - SQL query: ' . $this->sql;
