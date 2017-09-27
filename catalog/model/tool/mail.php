@@ -9,7 +9,7 @@ class ModelToolMail extends Model
      * @param string $to_email
      * @param string $subject
      * @param array $data
-     * @param string $template
+     * @param string $template Loads template from $template path, or sends plain text, if no template is specified.
      * @param int $store_id
      * @param string $store_name taken from store value, if set.
      */
@@ -17,7 +17,7 @@ class ModelToolMail extends Model
                              $to_email = '',
                              $subject = '',
                              $data = [],
-                             $template = 'mail/order',
+                             $template = '',
                              $store_id = 0,
                              $store_name = ''
     )
@@ -50,7 +50,7 @@ class ModelToolMail extends Model
 
         // if template is not "plain", then we load HTML data from template
         // else - format NewLines in Plaintext message to <br />
-        if ($template != 'plain') {
+        if ($template) {
             //prd( $this->load->view( $template , $data) );
             $html_message = $this->load->view($template, $data);
         } else {
