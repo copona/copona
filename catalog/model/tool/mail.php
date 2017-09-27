@@ -28,6 +28,7 @@ class ModelToolMail extends Model
         // to: $order_info['email']
         // store_id: $order_info['store_id']
         // store_name: $order_info['store_name']
+        $html_message = '';
 
         $from_email = !$from_email
             ? $this->model_setting_setting->getSettingValue('config_email', $store_id)
@@ -46,15 +47,12 @@ class ModelToolMail extends Model
             : $subject;
 
 
-        $plain_text = $data['message'];
-
         // if template is not "plain", then we load HTML data from template
         // else - format NewLines in Plaintext message to <br />
+
         if ($template) {
             //prd( $this->load->view( $template , $data) );
             $html_message = $this->load->view($template, $data);
-        } else {
-            $html_message = nl2br($plain_text);
         }
 
         if (!$from_email) {
@@ -76,9 +74,11 @@ class ModelToolMail extends Model
         $mail->setSender(html_entity_decode($from_name, ENT_QUOTES, 'UTF-8'));
         $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
 
-        $mail->setHtml($html_message);
+        if($html_message) {
+            $mail->setHtml($html_message);
+        }
 
-        $mail->setText($plain_text);
+        $mail->setText($data['message']);
         $mail->send();
     }
 }

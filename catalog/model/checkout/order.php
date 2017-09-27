@@ -5,7 +5,7 @@ class ModelCheckoutOrder extends Model
     public function __construct($parms)
     {
         parent::__construct($parms);
-        $this->load->model("catalog/content");
+        $this->load->model('catalog/content');
         $this->load->model('setting/setting');
         $this->load->model("tool/mail");
     }
@@ -962,7 +962,7 @@ class ModelCheckoutOrder extends Model
 
                 $data['message'] = $message;
                 // Send plain text email to customer on update.
-                $this->model_tool_mail->sendMail('', $order_info['email'], $subject, $data, 'plain' );
+                $this->model_tool_mail->sendMail('', $order_info['email'], $subject, $data);
             }
         }
     }
