@@ -504,6 +504,7 @@ class ModelCatalogProduct extends Model
     {
         $max_limit = Config::get( 'config_limit_admin') ;
 
+
         $sql = "SELECT COUNT(DISTINCT p.product_id) AS total";
 
         if (!empty($data['filter_category_id'])) {
@@ -607,6 +608,7 @@ class ModelCatalogProduct extends Model
         }
 
         $sql .= " LIMIT $max_limit";
+
 
         $product_data = $this->cache->get('product.gettotalproducts.' . md5($sql));
         if (!$product_data) {
