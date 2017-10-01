@@ -141,4 +141,19 @@ class Url
             return 'http://' . rtrim($this->config->get('image_base_url', $this->config->get('site_ssl')), '/') . '/' . $image;
         }
     }
+
+    /**
+     * Make original, full size image URL
+     *
+     * @param string $image
+     * @return string
+     */
+    public function getImageUrlOriginal($image)
+    {
+        if ($this->request->server['HTTPS']) {
+            return 'https://' . BASE_URL_IMAGE . '/' . $image;
+        } else {
+            return 'http://' . BASE_URL_IMAGE . '/' . $image;
+        }
+    }
 }

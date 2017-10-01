@@ -445,7 +445,7 @@ class Image {
         $this->info['height'] = $height;
     }
 
-    /* resaizo TIKAI UZ LEJU, ja kāds no izmēriem lielāks, pēc lielākā iespējamā izmēra, BEZ baltajām malām! */
+    /* Resizing only down, if any of original width is biiger then sizes */
 
     public function downsize($width = 0, $height = 0, $default = '') {
         if (!$this->info['width'] || !$this->info['height']) {
