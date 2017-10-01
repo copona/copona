@@ -164,7 +164,7 @@ class ModelToolImage extends Model
     public function downsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
     {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
-            //return;
+            return;
         }
 
         $info = pathinfo($filename);
@@ -172,7 +172,7 @@ class ModelToolImage extends Model
         $extension = $info['extension'];
 
         $old_image = $filename;
-        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
+        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ds-' . $width . 'x' . $height . $type . '.' . $extension;
 
         if (!file_exists(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image)) || filesize(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) < 1) {
 
@@ -196,8 +196,7 @@ class ModelToolImage extends Model
             }
         }
 
-
-        $new_image = implode('/', array_map('rawurlencode', explode('/', $new_image)));
+        // $new_image = implode('/', array_map('rawurlencode', explode('/', $new_image)));
 
         return $this->url->getImageUrl($new_image);
     }
