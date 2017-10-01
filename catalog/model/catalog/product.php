@@ -246,6 +246,7 @@ class ModelCatalogProduct extends Model
         $cache_key = 'product.getproducts.' . md5($sql);
         $product_data = $this->cache->get($cache_key);
         if (!$product_data) {
+            $product_data = [];
             $query = $this->db->query($sql);
 
             foreach ($query->rows as $result) {
