@@ -729,6 +729,7 @@ ul.product-group li.active{
 }
 
 /* fixed colum left + content + right*/
+#column-left .category-item { position: relative; }
 @media (min-width: 768px) {
     #column-left  .product-layout .col-md-3 {
         width: 100%;
