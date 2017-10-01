@@ -40,6 +40,9 @@ class File
 
             flock($handle, LOCK_SH);
 
+            if(!filesize($files[0]))
+                return false;
+
             $data = fread($handle, filesize($files[0]));
 
             flock($handle, LOCK_UN);
