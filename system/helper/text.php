@@ -338,3 +338,13 @@ function return_bytes($val) {
 
     return $val;
 }
+
+/*
+ * To get the memory usage in KB or MB
+ * http://php.net/manual/en/function.memory-get-usage.php#96280
+ * */
+function convert($size)
+{
+    $unit=array('b','kb','mb','gb','tb','pb');
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+}

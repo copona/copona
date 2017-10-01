@@ -20,6 +20,7 @@ $parse_url = parse_url($_SERVER['SCRIPT_NAME']);
 define('BASE_URI', str_replace(['index.php', '//'], '', $parse_url['path']));
 define('BASE_URL', DOMAIN_NAME . BASE_URI);
 define('BASE_URL_CATALOG', (str_replace(['index.php', 'admin', '//'], '', BASE_URL)));
+define('BASE_URL_IMAGE', (str_replace(['index.php', 'admin', '//'], '', BASE_URL)) . "image");
 
 if (APPLICATION != 'install') {
 

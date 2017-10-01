@@ -3,6 +3,6 @@
 return [
     'cache' => [
         'cache_type'   => 'file', // apc, file or mem
-        'cache_expire' => 3600,
+        'cache_expire' => env('CACHE_EXPIRE', 3600),
     ]
 ];

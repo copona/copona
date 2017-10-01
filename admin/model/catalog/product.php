@@ -1010,4 +1010,19 @@ class ModelCatalogProduct extends Model {
         }
     }
 
+    public function getProductsAutocompleteFS($data) {
+
+        $sql = " SELECT DISTINCT 
+          pd.product_id
+          , pd.name
+          , pd.product_id as model
+          FROM " . DB_PREFIX . "product_description pd WHERE 
+          MATCH(pd.name) AGAINST('*".$data['filter_name']."*'  IN BOOLEAN MODE ) LIMIT 100";
+
+        $query = $this->db->query($sql);
+        return $query->rows;
+    }
+
+
+
 }
