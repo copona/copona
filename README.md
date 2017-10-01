@@ -8,7 +8,7 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 
 
 ## Requirements
-* MySQL >= 5.3
+* MySQL >= 5.6
 * PHP >= 5.6
 * Composer [https://getcomposer.org/](https://getcomposer.org/)
 
