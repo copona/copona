@@ -155,7 +155,7 @@ class ModelCatalogCategory extends Model {
         $categories = array();
 
         $sql = "SELECT cp.category_id AS category_id
-             , concat(GROUP_CONCAT(IF(c2.parent_id=0, null, c2.parent_id)  ORDER BY cp.level SEPARATOR '_'),'_', cp.category_id)  AS path
+            , IFNULL(concat(GROUP_CONCAT(IF(c2.parent_id=0, null, c2.parent_id)  ORDER BY cp.level SEPARATOR '_'),'_', cp.category_id), c1.category_id) AS path
             , c1.parent_id
             , c1.top
             , c1.column
