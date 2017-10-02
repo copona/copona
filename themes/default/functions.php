@@ -46,6 +46,8 @@ $template_config_settings = array(
     'theme_default_product_category_popup_resize'    => 'propsize',
     'theme_default_product_cart_thumb_resize'        => 'cropsize',
     'theme_default_latest_thumb_resize'              => 'resize',
+    'theme_default_category_sort'                    => 'p.sort_order',
+    'theme_default_category_order'                   => 'ASC',
 
     'theme_default_bestseller_thumb_resize'        => 'resize',
     // 'theme_default_image_category_width'       => 80,
