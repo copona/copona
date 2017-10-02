@@ -19,10 +19,11 @@ class ControllerProductCategory extends Controller
 
         $params = $this->url->getParams();
 
-        $params['sort'] = $params['sort'] ? $params['sort'] : 'p.sort_order';
+        $params['sort'] = $params['sort'] ? $params['sort'] : Config::get('theme_default_category_sort', 'p.sort_order');
+
         $params['filter'] = $params['filter'] ? $params['filter'] : '';
         $params['manufacturer_id'] = $params['manufacturer_id'] ? $params['manufacturer_id'] : '';
-        $params['order'] = $params['order'] ? $params['order'] : 'ASC';
+        $params['order'] = $params['order'] ? $params['order'] : Config::get('theme_default_category_order', 'ASC');
         $params['page'] = $params['page'] ? $params['page'] : 1;
         $params['limit'] = $params['limit'] ? (int)$params['limit'] : $this->config->get($this->config->get('config_theme') . '_product_limit');
 
@@ -33,6 +34,11 @@ class ControllerProductCategory extends Controller
             'href' => $this->url->link('common/home')
         );
         $url = '';
+
+
+        if(empty($this->request->get['path']) && !empty($this->request->get['category_id'])) {
+            $this->request->get['path'] = $this->model_catalog_category->getCategoryPath((int)$this->request->get['category_id'], '');
+        }
 
         if (!empty($this->request->get['path'])) {
 
@@ -60,7 +66,6 @@ class ControllerProductCategory extends Controller
         } else {
             $category_id = 0;
         }
-
 
         $category_info = $this->model_catalog_category->getCategory($category_id);
 
@@ -141,6 +146,7 @@ class ControllerProductCategory extends Controller
 
             $data['products'] = array();
 
+
             $filter_data = array(
                 'filter_category_id' => $category_id,
                 'filter_sub_category' => true,
@@ -212,7 +218,7 @@ class ControllerProductCategory extends Controller
                     'product_id' => $result['product_id'],
                     'thumb' => $image,
                     'popup' => $image_popup,
-                    'name' => $result['name'],
+                    'name' => htmlspecialchars($result['name']),
                     'description' => strip2words($result['description'],
                             $this->config->get($this->config->get('config_theme') . '_product_description_length'),
                             true) . '..',
@@ -433,6 +439,8 @@ class ControllerProductCategory extends Controller
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
             $data['footer'] = $this->load->controller('common/footer');
             $data['header'] = $this->load->controller('common/header');
+
+            $this->hook->getHook('category/index/after', $data);
 
             $this->response->setOutput($this->load->view('product/category', $data));
         }
