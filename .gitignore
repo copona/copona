@@ -151,6 +151,9 @@ crashlytics-build.properties
 fabric.properties
 
 .DS_Store
+#cpanel
+error_log
+.ftpquota
 
 # Force ignore individual files
 *-gitignore*
