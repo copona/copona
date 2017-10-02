@@ -76,7 +76,7 @@ class ControllerProductProduct extends Controller {
         $this->load->model('catalog/manufacturer');
 
         if (isset($this->request->get['manufacturer_id'])) {
-            $bread_crumbs->push($data['text_brand'], 'product/manufacturer');
+            // $bread_crumbs->push($data['text_brand'], 'product/manufacturer');
             $url = '';
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -97,7 +97,7 @@ class ControllerProductProduct extends Controller {
             $manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($this->request->get['manufacturer_id']);
 
             if ($manufacturer_info) {
-                $bread_crumbs->push($manufacturer_info['name'], 'product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url);
+                // $bread_crumbs->push($manufacturer_info['name'], 'product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url);
             }
         }
 
@@ -231,7 +231,7 @@ class ControllerProductProduct extends Controller {
               'text' => $product_info['name'],
               'href' => $this->url->link('product/product', $url . '&product_id=' . $product_id)
               ); */
-            $bread_crumbs->push($product_info['name'], 'product/product', $url . '&product_id=' . $this->request->get['product_id']);
+             // $bread_crumbs->push($product_info['name'], 'product/product', $url . '&product_id=' . $this->request->get['product_id']);
 
             $this->document->setTitle($product_info['meta_title']);
             $this->document->setDescription($product_info['meta_description']);
