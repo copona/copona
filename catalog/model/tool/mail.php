@@ -24,6 +24,7 @@ class ModelToolMail extends Model
     {
 
 
+        $this->load->model('setting/setting');
         // $text = $data['message'];
         // to: $order_info['email']
         // store_id: $order_info['store_id']
@@ -46,7 +47,6 @@ class ModelToolMail extends Model
             ? '(subject)'
             : $subject;
 
-
         // if template is not "plain", then we load HTML data from template
         // else - format NewLines in Plaintext message to <br />
 
@@ -58,7 +58,7 @@ class ModelToolMail extends Model
         if (!$from_email) {
             $from_email = $this->model_setting_setting->getSettingValue('config_email', $store_id);
         }
-
+ 
         $mail = new Mail();
         $mail->protocol = $this->config->get('config_mail_protocol');
         $mail->parameter = $this->config->get('config_mail_parameter');
