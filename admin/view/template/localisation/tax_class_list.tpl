@@ -52,7 +52,7 @@
                             <?php } else { ?>
                                 <input type="checkbox" name="selected[]" value="<?php echo $tax_class['tax_class_id']; ?>" />
                             <?php } ?></td>
-                          <td class="text-left"><?php echo $tax_class['title']; ?></td>
+                          <td class="text-left"><a href="<?php echo $tax_class['edit']; ?>"><?php echo $tax_class['title']; ?></a></td>
                           <td class="text-right"><a href="<?php echo $tax_class['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                         </tr>
                     <?php } ?>
