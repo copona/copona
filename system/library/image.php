@@ -9,11 +9,9 @@ class Image {
     private $info;
 
     public function __construct($file) {
+        $registry = Registry::getInstance();
         if (file_exists($file)) {
             $this->file = $file;
-
-            $registry = Registry::getInstance();
-
 
             // If, there is no file, or file is with size 0, or any other error,
             // this will not generate error now, but it will be logged.
@@ -46,7 +44,7 @@ class Image {
                 $this->image = imagecreatefromjpeg($file);
             }
         } else {
-            exit('Error: Could not load image ' . $file . '!');
+            $registry->log->write('Error: Could not load image ' . $file . '!');
         }
     }
 
