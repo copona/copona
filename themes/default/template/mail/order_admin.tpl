@@ -5,38 +5,6 @@
     <title><?php echo $title; ?></title>
   </head>
   <body style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;">
-
-  <h1>ADMIN message </h1>
-
-  <h2>Delivery</h2>
-  Day: <?=$serial['delivery_day']?><br/>
-  <br/>
-  Address: <?=$serial['delivery_address']?><br/>
-  Building: <?=$serial['delivery_building']; /*Building, apt,*/?><br>
-  ZIP from: <?=$serial['zip_from']?><br/>
-  City: <?=$serial['delivery_city'];?><br>
-
-    Time 1: <?=$serial['dtime1']?><br/>
-    Time 2: <?=$serial['dtime2']?><br/>
-    Notes: <?=$serial['delivery_notes']?><br/>
-
-
-  <h2>Pickup</h2>
-    Day: <?=$serial['pickup_day']?><br/>
-  <br/>
-    Address: <?=$serial['pickup_address']?><br/>
-  Building: <?=$serial['pickup_building']; /*Building, apt,*/?><br>
-    ZIP to: <?=$serial['zip_to']?><br/>
-    City: <?=$serial['city']?><br/>
-
-    Time 1: <?=$serial['ptime1']?><br/>
-    Time 2: <?=$serial['ptime2']?><br/>
-    Notes: <?=$serial['pickup_notes']?><br/>
-
-
-  <h1>Customer's e-mail (preview only)</h1>
-
-
     <div style="width: 680px;"><a href="<?php echo $store_url; ?>" title="<?php echo $store_name; ?>"><img src="<?php echo $logo; ?>" alt="<?php echo $store_name; ?>" style="margin-bottom: 20px; border: none;" /></a>
       <p style="margin-top: 0px; margin-bottom: 20px;"><?php echo $text_greeting; ?></p>
       <?php if ($customer_id) { ?>
