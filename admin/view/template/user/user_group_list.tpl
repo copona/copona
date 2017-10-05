@@ -52,7 +52,7 @@
                           <?php } else { ?>
                               <input type="checkbox" name="selected[]" value="<?php echo $user_group['user_group_id']; ?>" />
                           <?php } ?></td>
-                        <td class="text-left"><?php echo $user_group['name']; ?></td>
+                        <td class="text-left"><a href="<?php echo $user_group['edit']; ?>"><?php echo $user_group['name']; ?></a></td>
                         <td class="text-right"><a href="<?php echo $user_group['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                         </tr>
                     <?php } ?>

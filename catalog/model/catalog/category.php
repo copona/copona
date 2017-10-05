@@ -42,15 +42,23 @@ class ModelCatalogCategory extends Model {
             }
         }
 
+        // Correct categories sorting
+        array_multisort(array_column($cats, 'sort_order'),  SORT_ASC,
+            array_column($cats, 'name'), SORT_ASC,
+            $cats);
+
         $file = fopen(DIR_LOGS . 'execdebuglog.txt', 'a');
 
         $output = microtime(true) - $start_time;
         fwrite($file, "Start: for parent $parent_id : ". $output . "\n");
         fclose($file);
 
+        //pr(debug_backtrace()[0]['file']);
+        //pr(debug_backtrace()[0]['line']);
         return $cats;
         // pr( $cats );
 
+        /*
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "category c 
             LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) 
             LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) 
@@ -58,14 +66,11 @@ class ModelCatalogCategory extends Model {
             AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' 
             AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "'  
             AND c.status = '1' ORDER BY c.sort_order, LCASE(cd.name)");
-
-        //pr(debug_backtrace()[0]['file']);
-        //pr(debug_backtrace()[0]['line']);
-
-
-
-
         return $query->rows;
+        */
+
+
+
     }
 
     public function getCategoryFilters($category_id) {

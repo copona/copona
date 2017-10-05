@@ -67,7 +67,7 @@
                             <?php } else { ?>
                                 <input type="checkbox" name="selected[]" value="<?php echo $currency['currency_id']; ?>" />
                             <?php } ?></td>
-                          <td class="text-left"><?php echo $currency['title']; ?></td>
+                          <td class="text-left"><a href="<?php echo $currency['edit']; ?>"><?php echo $currency['title']; ?></a></td>
                           <td class="text-left"><?php echo $currency['code']; ?></td>
                           <td class="text-right"><?php echo $currency['value']; ?></td>
                           <td class="text-left"><?php echo $currency['date_modified']; ?></td>
