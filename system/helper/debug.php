@@ -31,7 +31,7 @@ if (!function_exists('pr')) {
             echo "\n\n";
             $html = "<div style='border: 1px solid grey; padding: 5px;'>";
             $html .= "<span style='color: black; background-color: white; font-size: 12px;'>\nPRD data: <strong>" . gettype($data) . "</strong></span>\n";
-            $html .= "<pre style='white-space: pre-wrap; background-color: #ccc; padding: 10px;  font-size: 14px; color: black; margin: 0; line-height: 14px;'>\n";
+            $html .= "<pre style='white-space: pre-wrap; background-color: " . ($prd ? 'grey' : '#EACCCC') . "; padding: 10px;  font-size: 14px; color: black; margin: 0; line-height: 14px;'>\n";
 
             ob_start();
             if ($data === '') {
