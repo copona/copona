@@ -340,6 +340,7 @@ class ControllerProductCategory extends Controller
             );
 
             $url_pattern = $this->url->getPartly(['filter', 'sort', 'order']);
+            $url_pattern['path'] = $category_path;
 
             $data['limits'] = array();
 
