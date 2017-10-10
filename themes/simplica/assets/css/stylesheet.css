@@ -184,7 +184,7 @@ footer li a:hover{color:#fff; text-decoration:underline;}
 .btn-inverse:hover, .btn-inverse:active, .btn-inverse.active, .btn-inverse.disabled, .btn-inverse[disabled] { background-color: #222222;}
 
 /* list group */
-.list-group a { border: 1px solid #DDDDDD; color: #888888; padding: 8px 12px; }
+.list-group a { border: 1px solid #DDDDDD; padding: 8px 12px; }
 .list-group a.active, .list-group a.active:hover, .list-group a:hover { color: #007acc; background: #eeeeee; border: 1px solid #DDDDDD; }
 
 /* carousel */
@@ -299,3 +299,5 @@ h2.price { margin: 0; }
 }
 /* Missing focus and border color to overwrite bootstrap */
 .btn-info:hover, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] { background-image: none; background-color: #df5c39; }
+/* left column menu */
+#column-left .category-item { position: relative; }
