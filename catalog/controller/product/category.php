@@ -218,7 +218,7 @@ class ControllerProductCategory extends Controller
                     'product_id' => $result['product_id'],
                     'thumb' => $image,
                     'popup' => $image_popup,
-                    'name' => htmlspecialchars($result['name']),
+                    'name' => $result['name'],
                     'description' => strip2words($result['description'],
                             $this->config->get($this->config->get('config_theme') . '_product_description_length'),
                             true) . '..',
