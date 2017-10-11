@@ -164,6 +164,8 @@ class ControllerCommonHeader extends Controller {
             $data['class'] = 'common-home';
         }
 
+        $this->hook->getHook('header/index/after', $data);
+
         return $this->load->view('common/header', $data);
     }
 
