@@ -33,8 +33,7 @@
       <div id="content" class="<?php echo $class; ?> content-cart"><?php echo $content_top; ?>
 
 
-        <?php if (!isset($redirect)) {
-            ?>
+        <?php if (!isset($redirect)) { ?>
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>

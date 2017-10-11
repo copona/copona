@@ -213,4 +213,3 @@ $_['error_malformed_filename'] = 'Error Malformed Log Filename!';
 $_['error_encryption'] = 'Encryption Key must be between 32 and 1024 characters!';
 $_['entry_timezone'] = 'Time Zone';
 $_['help_timezone'] = 'Select City for Time Zone';
-?>

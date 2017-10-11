@@ -6,8 +6,8 @@ class APC {
     private $expire;
     private $active = false;
 
-    public function __construct($expire) {
-        $this->expire = $expire;
+    public function __construct() {
+        $this->expire = \Config::get('cache.cache_expire');
         $this->active = function_exists('apc_cache_info') && ini_get('apc.enabled');
     }
 

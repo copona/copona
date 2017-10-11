@@ -62,7 +62,7 @@
                             <?php } else { ?>
                                 <input type="checkbox" name="selected[]" value="<?php echo $api['api_id']; ?>" />
                             <?php } ?></td>
-                          <td class="text-left"><?php echo $api['name']; ?></td>
+                          <td class="text-left"><a href="<?php echo $api['edit']; ?>"><?php echo $api['name']; ?></a></td>
                           <td class="text-left"><?php echo $api['status']; ?></td>
                           <td class="text-left"><?php echo $api['date_added']; ?></td>
                           <td class="text-right"><a href="<?php echo $api['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>

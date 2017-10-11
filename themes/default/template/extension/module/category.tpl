@@ -2,7 +2,7 @@
     <?php foreach ($categories as $category) { ?>
       <div class="category-item">
           <?php if ($category['children']) { ?>
-            <a href="#" class="dropdown-toggle list-group-item" data-toggle="dropdown"
+            <a href="<?php echo $category['href'] ?>" class="list-group-item"
               aria-expanded="true"><?php echo $category['name'] ?> <i class="fa fa-caret-right" aria-hidden="true"></i></a>
             <div class="dropdown-menu mega-dropdown-menu">
                 <?php $column_count = 4; ?>

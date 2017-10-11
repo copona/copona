@@ -22,6 +22,7 @@ RewriteEngine On
 ##
 ## Black list protected files
 ##
+RedirectMatch 404 /\.git
 RewriteRule ^config/.* index.php?route=error/not_found [L]
 RewriteRule ^vendor/.* index.php?route=error/not_found [L]
 RewriteRule ^migrations/.* index.php?route=error/not_found [L]

@@ -24,12 +24,7 @@ class ModelCatalogProduct extends Model {
         if (isset($data['product_attribute'])) {
             foreach ($data['product_attribute'] as $product_attribute) {
                 if ($product_attribute['attribute_id']) {
-                    // Removes duplicates
-                    $this->db->query("DELETE FROM " . DB_PREFIX . "product_attribute WHERE product_id = '" . (int)$product_id . "' AND attribute_id = '" . (int)$product_attribute['attribute_id'] . "'");
-
                     foreach ($product_attribute['product_attribute_description'] as $language_id => $product_attribute_description) {
-                        $this->db->query("DELETE FROM " . DB_PREFIX . "product_attribute WHERE product_id = '" . (int)$product_id . "' AND attribute_id = '" . (int)$product_attribute['attribute_id'] . "' AND language_id = '" . (int)$language_id . "'");
-
                         $this->db->query("INSERT INTO " . DB_PREFIX . "product_attribute SET product_id = '" . (int)$product_id . "', attribute_id = '" . (int)$product_attribute['attribute_id'] . "', language_id = '" . (int)$language_id . "', text = '" . $this->db->escape($product_attribute_description['text']) . "'");
                     }
                 }
@@ -82,7 +77,7 @@ class ModelCatalogProduct extends Model {
         }
 
 
-        $this->db->query("DELETE FROM " . DB_PREFIX . "content_meta WHERE content_type = 'product' AND content_id = '" . (int)$product_id . "'");
+        // $this->db->query("DELETE FROM " . DB_PREFIX . "content_meta WHERE content_type = 'product' AND content_id = '" . (int)$product_id . "'");
         if (isset($data['content_meta'])) {
             $this->db->query("INSERT INTO " . DB_PREFIX . "content_meta SET content_type = 'product', content_id = '" . (int)$product_id . "', value = '" . $this->db->escape(serialize($data['content_meta'])) . "'");
         }
@@ -105,29 +100,14 @@ class ModelCatalogProduct extends Model {
             }
         }
 
-        /* if (isset($data['product_related'])) {
-          foreach ($data['product_related'] as $related_id) {
-          $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$product_id . "' AND related_id = '" . (int)$related_id . "'");
-          $this->db->query("INSERT INTO " . DB_PREFIX . "product_related SET product_id = '" . (int)$product_id . "', related_id = '" . (int)$related_id . "'");
-          $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$related_id . "' AND related_id = '" . (int)$product_id . "'");
-          $this->db->query("INSERT INTO " . DB_PREFIX . "product_related SET product_id = '" . (int)$related_id . "', related_id = '" . (int)$product_id . "'");
-          }
-          } */
-
         if (isset($data['product_related'])) {
             foreach ($data['product_related'] as $related_id) {
-                $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$product_id . "' AND related_id = '" . (int)$related_id . "'");
                 $this->db->query("INSERT INTO " . DB_PREFIX . "product_related SET product_id = '" . (int)$product_id . "', related_id = '" . (int)$related_id . "'");
-                //$this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$related_id . "' AND related_id = '" . (int)$product_id . "'");
-                //$this->db->query("INSERT INTO " . DB_PREFIX . "product_related SET product_id = '" . (int)$related_id . "', related_id = '" . (int)$product_id . "'");
             }
         }
 
         if (isset($data['product_backway'])) {
             foreach ($data['product_backway'] as $related_id) {
-                //$this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$product_id . "' AND related_id = '" . (int)$related_id . "'");
-                //$this->db->query("INSERT INTO " . DB_PREFIX . "product_related SET product_id = '" . (int)$product_id . "', related_id = '" . (int)$related_id . "'");
-                $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$related_id . "' AND related_id = '" . (int)$product_id . "'");
                 $this->db->query("INSERT INTO " . DB_PREFIX . "product_related SET product_id = '" . (int)$related_id . "', related_id = '" . (int)$product_id . "'");
             }
         }
@@ -530,6 +510,7 @@ class ModelCatalogProduct extends Model {
         $this->db->query("DELETE FROM " . DB_PREFIX . "review WHERE product_id = '" . (int)$product_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "url_alias WHERE query = 'product_id=" . (int)$product_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "coupon_product WHERE product_id = '" . (int)$product_id . "'");
+        $this->db->query("DELETE FROM " . DB_PREFIX . "content_meta WHERE content_type = 'product' and content_id = '" . (int)$product_id . "'");
 
         $this->cache->delete('product');
     }
@@ -1009,5 +990,20 @@ class ModelCatalogProduct extends Model {
             return array();
         }
     }
+
+    public function getProductsAutocompleteFS($data) {
+
+        $sql = " SELECT DISTINCT 
+          pd.product_id
+          , pd.name
+          , pd.product_id as model
+          FROM " . DB_PREFIX . "product_description pd WHERE 
+          MATCH(pd.name) AGAINST('*".$data['filter_name']."*'  IN BOOLEAN MODE ) LIMIT 100";
+
+        $query = $this->db->query($sql);
+        return $query->rows;
+    }
+
+
 
 }
