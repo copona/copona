@@ -71,7 +71,7 @@ final class Tax {
                 }
             }
 
-            return $value + $amount;
+            return round($value + $amount, 2);
         } else {
             return $value;
         }
