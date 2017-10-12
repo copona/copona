@@ -75,7 +75,7 @@ $registry->singleton('session', function ($registry) {
 
 // Cache
 $registry->singleton('cache', function ($registry) use ($config) {
-    return new Cache($config->get('cache.cache_type'), $config->get('cache.cache_expire'));
+    return new Cache($config->get('cache.cache_type'));
 });
 
 // Url

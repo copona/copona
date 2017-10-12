@@ -2,6 +2,16 @@
 class ControllerUserUser extends Controller {
     private $error = array();
 
+    public function __construct()
+    {
+        parent::__construct($registry = Registry::getInstance());
+
+        if($registry->request->post) {
+            $registry->request->post['username'] = $registry->request->post['no_autocomplete_username'];
+            $registry->request->post['password'] = $registry->request->post['no_autocomplete_password'];
+        }
+    }
+
     public function index() {
         $this->load->language('user/user');
 

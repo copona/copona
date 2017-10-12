@@ -15,7 +15,14 @@ class ModelToolImage extends Model
         $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
 
         if (!is_file(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $image_old) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image))) {
+
+            ob_start();
             list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
+            $resize_warning = ob_get_clean();
+            if($resize_warning) {
+                $image_old =
+                $this->log->write("Cannot resize image $filename. Error: $resize_warning");
+            }
 
             if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {
                 return DIR_IMAGE . $image_old;
@@ -131,7 +138,12 @@ class ModelToolImage extends Model
                 @mkdir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($new_image), $this->config->get('directory_permission', 0777), true);
             }
 
+            ob_start();
             list($width_orig, $height_orig) = getimagesize(DIR_IMAGE . $old_image);
+            $resize_warning = ob_get_clean();
+            if($resize_warning) {
+                $this->log->write("Cannot resize image $filename. Error: $resize_warning");
+            }
 
             if ($width_orig != $width || $height_orig != $height) {
                 $image = new Image(DIR_IMAGE . $old_image);
@@ -152,7 +164,7 @@ class ModelToolImage extends Model
     public function downsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
     {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
-            //return;
+            return;
         }
 
         $info = pathinfo($filename);
@@ -160,7 +172,7 @@ class ModelToolImage extends Model
         $extension = $info['extension'];
 
         $old_image = $filename;
-        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
+        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ds-' . $width . 'x' . $height . $type . '.' . $extension;
 
         if (!file_exists(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image)) || filesize(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) < 1) {
 
@@ -184,8 +196,7 @@ class ModelToolImage extends Model
             }
         }
 
-
-        $new_image = implode('/', array_map('rawurlencode', explode('/', $new_image)));
+        // $new_image = implode('/', array_map('rawurlencode', explode('/', $new_image)));
 
         return $this->url->getImageUrl($new_image);
     }

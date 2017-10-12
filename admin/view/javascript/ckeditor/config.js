@@ -42,7 +42,7 @@ CKEDITOR.editorConfig = function (config) {
 
 	//config.toolbar = 'Full';
 	config.toolbar_Full = [
-		{name: 'document', groups: ['mode', 'document', 'doctools'], items: ['pbckcode', 'Source', '-', 'autoFormat', 'CommentSelectedRange', 'UncommentSelectedRange', 'AutoComplete', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+		{name: 'document', groups: ['mode', 'document', 'doctools'], items: ['Source', 'pbckcode', '-', 'autoFormat', 'CommentSelectedRange', 'UncommentSelectedRange', 'AutoComplete', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
 		{name: 'clipboard', groups: ['clipboard', 'undo'], items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
 		{name: 'editing', groups: ['find', 'selection', 'spellchecker'], items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt', 'AutoCorrect']},
 		{name: 'forms', items: ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField']},

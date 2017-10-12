@@ -2,6 +2,12 @@
 class ControllerStartupSeoUrl extends Controller
 {
 
+    public function __construct($registry) {
+        parent::__construct($registry);
+        $registry->load->model('catalog/category');
+    }
+
+
     public function index()
     {
         // Add rewrite to url class
@@ -99,6 +105,10 @@ class ControllerStartupSeoUrl extends Controller
                 } elseif ($key == 'path') {
                     $categories = explode('_', $value);
 
+                    $category_id = end( $categories);
+                    $url = $this->model_catalog_category->getCategorySeoLink( $category_id, false );
+
+                    /*
                     foreach ($categories as $category) {
                         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = 'category_id=" . (int)$category . "'");
 
@@ -109,7 +119,7 @@ class ControllerStartupSeoUrl extends Controller
 
                             break;
                         }
-                    }
+                    } */
 
                     unset($data[$key]);
                 }

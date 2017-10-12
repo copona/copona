@@ -20,12 +20,14 @@ class ControllerExtensionModuleBestSeller extends Controller {
 
         $results = $this->model_catalog_product->getBestSellerProducts($setting['limit']);
 
+
         if ($results) {
             foreach ($results as $result) {
+
                 if ($result['image']) {
-                    $image = $this->model_tool_image->resize($result['image'], $setting['width'], $setting['height']);
+                    $image = $this->model_tool_image->{Config::get('theme_default_bestseller_thumb_resize')}($result['image'], $setting['width'], $setting['height']);
                 } else {
-                    $image = $this->model_tool_image->resize('placeholder.png', $setting['width'], $setting['height']);
+                    $image = $this->model_tool_image->{Config::get('theme_default_bestseller_thumb_resize')}('placeholder.png', $setting['width'], $setting['height']);
                 }
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {

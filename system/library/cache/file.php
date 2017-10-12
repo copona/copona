@@ -6,9 +6,9 @@ class File
 {
     private $expire;
 
-    public function __construct($expire = CACHE_EXPIRE)
+    public function __construct()
     {
-        $this->expire = $expire;
+        $this->expire = \Config::get('cache.cache_expire');
 
         if (!is_dir(DIR_CACHE_PRIVATE)) {
             mkdir(DIR_CACHE_PRIVATE, \Config::get('directory_permission', 0777), true);
@@ -20,7 +20,9 @@ class File
             foreach ($files as $file) {
                 $time = substr(strrchr($file, '.'), 1);
 
-                if ($time < time()) {
+                // $time - is set "in the future", from CACHE_EXPIRE_TIME when cached file was created.
+                // delete, if cache expired, or new cache is less then previous.
+                if ($time < time() || ($time > time() + $this->expire ) ) {
                     if (file_exists($file)) {
                         unlink($file);
                     }
@@ -37,6 +39,9 @@ class File
             $handle = fopen($files[0], 'r');
 
             flock($handle, LOCK_SH);
+
+            if(!filesize($files[0]))
+                return false;
 
             $data = fread($handle, filesize($files[0]));
 

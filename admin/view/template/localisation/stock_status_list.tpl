@@ -52,7 +52,7 @@
                             <?php } else { ?>
                                 <input type="checkbox" name="selected[]" value="<?php echo $stock_status['stock_status_id']; ?>" />
                             <?php } ?></td>
-                          <td class="text-left"><?php echo $stock_status['name']; ?></td>
+                          <td class="text-left"><a href="<?php echo $stock_status['edit']; ?>"><?php echo $stock_status['name']; ?></a></td>
                           <td class="text-right"><a href="<?php echo $stock_status['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                         </tr>
                     <?php } ?>

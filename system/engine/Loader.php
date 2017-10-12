@@ -179,8 +179,12 @@ class Loader
                 }
 
                 foreach ($extensions_support as $ext) {
+
                     if (is_file(DIR_TEMPLATE . $theme . '/template/' . $route . '.' . $ext)) {
                         $file = DIR_TEMPLATE . $theme . '/template/' . $route . '.' . $ext;
+                        break;
+                    } else if (is_file(DIR_TEMPLATE . \Config::get('parent_theme', $theme) . '/template/' . $route . '.' . $ext)) {
+                        $file = DIR_TEMPLATE . \Config::get('parent_theme', $theme) . '/template/' . $route . '.' . $ext;
                         break;
                     } else if (is_file(DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext)) {
                         $file = DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext;

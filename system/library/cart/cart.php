@@ -383,13 +383,19 @@ class Cart {
         return $total;
     }
 
-    public function countProducts() {
+    public function countProducts($product_id = false) {
         $product_total = 0;
 
         $products = $this->cartProducts;
 
         foreach ($products as $product) {
-            $product_total += $product['quantity'];
+            if($product_id) {
+                if($product['product_id'] == $product_id)
+                    $product_total += $product['quantity'];
+            } else {
+                $product_total += $product['quantity'];
+            }
+
         }
 
         return $product_total;
