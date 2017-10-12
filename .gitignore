@@ -158,3 +158,5 @@ error_log
 # Force ignore individual files
 *-gitignore*
 !.gitignore
+/admin/language/.gitignore
+/catalog/language/.gitignore
