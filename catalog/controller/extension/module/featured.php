@@ -29,13 +29,12 @@ class ControllerExtensionModuleFeatured extends Controller {
         }
 
         if (!empty($setting['product'])) {
-            $products = array_slice($setting['product'], 0, (int)$setting['limit']);
-
-            foreach ($products as $product_id) {
+            $count = 0;
+            foreach ($setting['product'] as $product_id) {
                 $product_info = $this->model_catalog_product->getProduct($product_id);
-
-                //prd($product_info);
                 if ($product_info) {
+                    if(++$count > $setting['limit'])
+                        break;
                     if ($product_info['image']) {
                         $image = $this->model_tool_image->{$this->config->get('theme_default_extension_module_featured')}($product_info['image'], $setting['width'], $setting['height']);
                     } else {

@@ -269,6 +269,9 @@ class ControllerProductProduct extends Controller {
             $data['short_description'] = utf8_substr(trim(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get($this->config->get('config_theme') . '_product_short_description_length')) . '..';
             $data['quantity'] = $product_info['quantity'];
 
+            $data['current_product_in_cart'] = $this->cart->countProducts((int)$product_info['product_id']);
+            $data['text_in_cart'] = $this->language->get('text_in_cart');
+
             if ($product_info['quantity'] <= 0) {
                 $data['stock'] = $product_info['stock_status'];
             } elseif ($this->config->get('config_stock_display')) {
