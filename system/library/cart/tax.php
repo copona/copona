@@ -121,7 +121,7 @@ final class Tax {
                     'name'        => $tax_rate['name'],
                     'rate'        => $tax_rate['rate'],
                     'type'        => $tax_rate['type'],
-                    'amount'      => $amount
+                    'amount'      => round($amount, 2)
                 );
             }
         }
