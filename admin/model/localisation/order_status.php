@@ -44,9 +44,7 @@ class ModelLocalisationOrderStatus extends Model {
         //prd($this->config->get('config_language_id'));
 
         if ($data) {
-            $sql = "SELECT * FROM " . DB_PREFIX . "order_status WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'";
-
-            $sql .= " ORDER BY name";
+            $sql = "SELECT * FROM " . DB_PREFIX . "order_status WHERE language_id = '" . (int)$this->config->get('config_language_id') . " ORDER BY name";
 
             if (isset($data['order']) && ($data['order'] == 'DESC')) {
                 $sql .= " DESC";
