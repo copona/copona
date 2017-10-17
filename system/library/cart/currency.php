@@ -115,4 +115,8 @@ class Currency {
         return isset($this->currencies[$currency]);
     }
 
+    public function getNumber($amount = 0, $decimals = 2) {
+        return number_format($amount, $decimals, $this->language->get('decimal_point'), $this->language->get('thousand_point'));
+    }
+
 }

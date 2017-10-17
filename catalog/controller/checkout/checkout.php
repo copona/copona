@@ -303,8 +303,6 @@ class ControllerCheckoutCheckout extends Controller
                 unset($this->session->data['error']);
             }
 
-            $data['cart_total_value'] = round($this->cart->getTotal(), 2);
-            $data['serial'] = !empty($this->session->data['guest']['serial']) ? $this->session->data['guest']['serial'] : [];
 
             // prd($data['country_id']);
 
@@ -314,7 +312,12 @@ class ControllerCheckoutCheckout extends Controller
                 $data['order_shipping'] = round($this->tax->calculate($this->session->data['shipping_method']['cost'],
                   $this->session->data['shipping_method']['tax_class_id'], $this->config->get('config_tax')), 2);
             }
-            $data['cart_with_shipping'] = $data['cart_total_value'] + $data['order_shipping'];
+
+            //getNumber - returns Localized formatted number with decimals
+            $data['order_shipping'] = $this->currency->getNumber($data['order_shipping']);
+            $data['cart_total_value'] = $this->currency->getNumber($this->cart->getTotal());
+            $data['serial'] = !empty($this->session->data['guest']['serial']) ? $this->session->data['guest']['serial'] : [];
+            $data['cart_with_shipping'] = $this->currency->getNumber($data['cart_total_value'] + $data['order_shipping']);
         }
 
         $data['shipping'] = 'empty_string_remove_in_controller';
