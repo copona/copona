@@ -2,6 +2,9 @@
   #modal-image .col-sm-2:nth-child(6n+1){
       clear: both;
   }
+  #filemanager label {
+    word-break: break-all;
+  }
 </style>
 <div id="filemanager" class="col-md-12">
   <div class="modal-content">
@@ -47,7 +50,7 @@
                           <?php echo $image['name']; ?></label>
                     <?php } ?>
                     <?php if ($image['type'] == 'image') { ?>
-                      <a href="<?php echo $image['href']; ?>" class="thumbnail"><img
+                      <a href="<?php echo $image['href']; ?>" class="thumbnail" target="_blank"><img
                           src="<?php echo $image['thumb']; ?>" alt="<?php echo $image['name']; ?>"
                           title="<?php echo $image['name']; ?>"/></a>
                       <label>
@@ -62,6 +65,18 @@
     <div class="modal-footer"><?php echo $pagination; ?></div>
   </div>
 </div>
+
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <img src="" class="imagepreview" style="width: 100%;" >
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script type="text/javascript"><!--
 
@@ -285,4 +300,42 @@
             });
         }
     });
+
+    $('.thumbnail').on('click', function(e) {
+        e.preventDefault();
+        $('.imagepreview').attr('src', $(this).attr('href'));
+        $('#imagemodal').modal('show');
+
+
+
+
+
+
+
+
+    });
+
+    $('#imagemodal').on('shown.bs.modal', function () {
+        /*$('#imagemodal .modal-body, #imagemodal .modal-dialog').css('height', $("#imagemodal .modal-body").find('img').prop("naturalHeight") );
+        $('#imagemodal .modal-body, #imagemodal .modal-dialog').css('width', $("#imagemodal .modal-body").find('img').prop("naturalWidth") );
+
+        $('#imagemodal .modal-body, #imagemodal .modal-dialog').css('max-width', '80%' );
+        $('#imagemodal .modal-body, #imagemodal .modal-dialog').css('max-height', '80%' );
+
+        $("#imagemodal .modal-body").find('img').css('max-width', '100%');
+        $("#imagemodal .modal-body").find('img').css('max-height', '100%');*/
+
+       // alert( $("#imagemodal .modal-body").find('img').prop("naturalHeight") );
+
+    });
+
+    // $('#imagemodal').on('show.bs.modal', function () {
+    //     $('#imagemodal .modal-content').css('max-height', 'calc(100vh - 225px)' );
+    //     $('#imagemodal .modal-content').css('max-width', 'calc(100vw - 225px)' );
+    // });
+
+
+
+
+
     //--></script>
