@@ -1,3 +1,8 @@
+<style>
+  #modal-image .col-sm-2:nth-child(6n+1){
+      clear: both;
+  }
+</style>
 <div id="filemanager" class="col-md-12">
   <div class="modal-content">
     <div class="modal-header">
@@ -29,10 +34,10 @@
         </div>
       </div>
       <hr/>
-        <?php foreach (array_chunk($images, 4) as $image) { ?>
           <div class="row">
-              <?php foreach ($image as $image) { ?>
-                <div class="col-sm-3 col-xs-6 text-center">
+        <?php foreach ($images as $image) { ?>
+
+                <div class="col-sm-2 col-xs-4 text-center">
                     <?php if ($image['type'] == 'directory') { ?>
                       <div class="text-center"><a href="<?php echo $image['href']; ?>" class="directory"
                                                   style="vertical-align: middle;"><i
@@ -50,10 +55,9 @@
                           <?php echo $image['name']; ?></label>
                     <?php } ?>
                 </div>
-              <?php } ?>
-          </div>
-          <br/>
+
         <?php } ?>
+          </div>
     </div>
     <div class="modal-footer"><?php echo $pagination; ?></div>
   </div>

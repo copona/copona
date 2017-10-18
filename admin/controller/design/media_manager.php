@@ -239,7 +239,7 @@ class ControllerDesignMediamanager extends Controller {
         $pagination->total = $image_total;
         $pagination->page = $page;
         $pagination->limit = 16;
-        $pagination->url = $this->url->link('design/media_manager', 'token=' . $this->session->data['token'] . $url . '&page={page}', true);
+        $pagination->url = $this->url->link('design/media_manager/ajax', 'token=' . $this->session->data['token'] . $url . '&page={page}', true);
         $data['pagination'] = $pagination->render();
 
         //prd($this->load->view('design/media_manager_ajax', $data));
@@ -249,7 +249,8 @@ class ControllerDesignMediamanager extends Controller {
     }
 
     public function upload() {
-        $this->load->language('design/media_manager');
+        //TODO; replace with media language
+        $this->load->language('common/filemanager');
 
         $json = array();
 
@@ -341,7 +342,7 @@ class ControllerDesignMediamanager extends Controller {
     }
 
     public function folder() {
-        $this->load->language('design/media_manager');
+        $this->load->language('common/filemanager');
 
         $json = array();
 
@@ -391,7 +392,7 @@ class ControllerDesignMediamanager extends Controller {
     }
 
     public function delete() {
-        $this->load->language('design/media_manager');
+        $this->load->language('common/fielmanager');
 
         $json = array();
 
