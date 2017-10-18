@@ -251,7 +251,6 @@ class ControllerDesignMediamanager extends Controller {
     public function upload() {
         //TODO; replace with media language
         $this->load->language('common/filemanager');
-
         $json = array();
 
         // Check user has permission
@@ -393,7 +392,6 @@ class ControllerDesignMediamanager extends Controller {
 
     public function delete() {
         $this->load->language('common/fielmanager');
-
         $json = array();
 
         // Check user has permission

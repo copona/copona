@@ -1,8 +1,10 @@
+
 <style>
   #modal-image .col-sm-2:nth-child(6n+1){
       clear: both;
   }
 </style>
+
 <div id="filemanager" class="col-md-12">
   <div class="modal-content">
     <div class="modal-header">
@@ -34,10 +36,12 @@
         </div>
       </div>
       <hr/>
+
           <div class="row">
         <?php foreach ($images as $image) { ?>
 
                 <div class="col-sm-2 col-xs-4 text-center">
+
                     <?php if ($image['type'] == 'directory') { ?>
                       <div class="text-center"><a href="<?php echo $image['href']; ?>" class="directory"
                                                   style="vertical-align: middle;"><i
@@ -56,8 +60,10 @@
                     <?php } ?>
                 </div>
 
+
         <?php } ?>
           </div>
+
     </div>
     <div class="modal-footer"><?php echo $pagination; ?></div>
   </div>
