@@ -55,7 +55,7 @@
                                   <?php } else { ?>
                               <option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
                           <?php } ?>
-                      <?php } ?>
+                      <?php } ?> 
                     </select>
                     <div class="zone">
                       <label for="zone_id"><?= $entry_city; ?>:</label>
@@ -238,7 +238,7 @@
                           <input id="agree" type="checkbox" name="agree" <?= ($agree ? 'checked' : ''); ?>>
                           <?= $text_agree; ?></label>
                         <div align="right">
-                          <span class="wait" style="display: none; margin-right: 10px;">&nbsp;<img src="themes/<?php echo $theme_default_directory ?>/assets/img/AjaxLoader.gif" width="20px" alt="Loading" /></span>
+                          <span class="wait" style="display: none; margin-right: 10px;"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
                           <input type="submit" value="<?= $text_make_order; ?>" id="button-payment-method" class="btn btn-primary" />
                         </div>
                       </div>

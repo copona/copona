@@ -38,4 +38,127 @@ class ModelToolImage extends Model
 
         return $this->url->getImageUrl($image_new);
     }
+
+    /**
+     * Function to crop an image with given dimensions. What doesn/t fit will be cut off.
+     *
+     * @param        $filename
+     * @param        $width
+     * @param        $height
+     * @param bool   $watermark
+     * @param string $position
+     * @return string|void
+     */
+    public function cropsize($filename, $width, $height, $watermark = false, $position = 'middle')
+    {
+        if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
+            return;
+        }
+
+        $info = pathinfo($filename);
+        $extension = $info['extension'];
+
+        $old_image = $filename;
+        $new_image = substr($filename, 0, strrpos($filename, '.')) . '-cr-' . $width . 'x' . $height . '.' . $extension;
+
+        if (!file_exists(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image)) || filesize(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) < 1) {
+
+            if (!is_dir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($new_image))) {
+                @mkdir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($new_image), $this->config->get('directory_permission', 0777), true);
+            }
+
+            $image = new Image(DIR_IMAGE . $old_image);
+            $image->cropsize($width, $height);
+            if ($watermark) {
+                $image->addwatermark($position);
+            }
+
+            $image->save(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image);
+        }
+
+        return $this->url->getImageUrl($new_image);
+    }
+
+    public function propsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
+    {
+        if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
+            return;
+        }
+
+        $info = pathinfo($filename);
+
+        $extension = $info['extension'];
+
+        $old_image = $filename;
+        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
+
+        if (!file_exists(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image)) || filesize(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) < 1) {
+
+            if (!is_dir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($new_image))) {
+                @mkdir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($new_image), $this->config->get('directory_permission', 0777), true);
+            }
+
+            ob_start();
+            list($width_orig, $height_orig) = getimagesize(DIR_IMAGE . $old_image);
+            $resize_warning = ob_get_clean();
+            if($resize_warning) {
+                $this->log->write("Cannot resize image $filename. Error: $resize_warning");
+            }
+
+            if ($width_orig != $width || $height_orig != $height) {
+                $image = new Image(DIR_IMAGE . $old_image);
+                $image->propsize($width, $height, $type);
+                if ($watermark) {
+                    $image->addwatermark($position);
+                }
+
+                $image->save(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image);
+            } else {
+                copy(DIR_IMAGE . $old_image, $this->config->get('image_cache_path') . $new_image);
+            }
+        }
+
+        return $this->url->getImageUrl($new_image);
+    }
+
+    public function downsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
+    {
+        if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
+            return;
+        }
+
+        $info = pathinfo($filename);
+
+        $extension = $info['extension'];
+
+        $old_image = $filename;
+        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ds-' . $width . 'x' . $height . $type . '.' . $extension;
+
+        if (!file_exists(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image)) || filesize(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) < 1) {
+
+            if (!is_dir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($new_image))) {
+                @mkdir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($new_image), $this->config->get('directory_permission', 0777), true);
+            }
+
+            list($width_orig, $height_orig) = getimagesize(DIR_IMAGE . $old_image);
+
+            if ($width_orig != $width || $height_orig != $height) {
+                $image = new Image(DIR_IMAGE . $old_image);
+                $image->downsize($width, $height, $type);
+                if ($watermark) {
+                    $image->addwatermark($position);
+                }
+
+
+                $image->save(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image);
+            } else {
+                copy(DIR_IMAGE . $old_image, $this->config->get('image_cache_path') . $new_image);
+            }
+        }
+
+        // $new_image = implode('/', array_map('rawurlencode', explode('/', $new_image)));
+
+        return $this->url->getImageUrl($new_image);
+    }
+    
 }

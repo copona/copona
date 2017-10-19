@@ -309,7 +309,7 @@ class ControllerProductProduct extends Controller {
             foreach ($results as $result) {
                 $data['images'][] = array(
                     'description' => $result['description'],
-                    'popup'       => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
+                    'popup'   => $this->model_tool_image->{$this->config->get('theme_default_product_info_image_popup_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
                     'thumb'       => $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
                     'image'       => $this->url->getImageUrlOriginal( $result['image'] ),
                     'image_mid'   => $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'))

@@ -350,7 +350,10 @@ class ControllerCheckoutCart extends Controller {
 
                 $this->cart->add((int)$this->request->post['product_id'], $quantity, $option, $recurring_id);
 
-                $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('checkout/cart'));
+                $json['success'] = sprintf($this->language->get('text_success'),
+                  $this->url->link('product/product',
+                  'product_id=' . $this->request->post['product_id']),
+                  $product_info['name'], $this->url->link('checkout/cart'));
                 $json['text_added_to_cart'] = $this->language->get('text_added_to_cart');
 
                 $json['current_product_in_cart'] = $this->cart->countProducts((int)$this->request->post['product_id']);
@@ -409,6 +412,7 @@ class ControllerCheckoutCart extends Controller {
             }
         }
 
+        $this->hook->getHook('checkout/cart/index/afteradd', $json);
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
