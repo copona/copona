@@ -71,6 +71,7 @@ $_['text_separator'] = ' > ';
 $_['text_apply_to'] = 'Apply to';
 $_['text_buy'] = 'Buy';
 $_['text_in_stock'] = 'In stock';
+$_['text_stock'] = 'Stock';
 $_['text_order'] = 'Order';
 $_['text_news'] = 'News';
 $_['text_for_professionals'] = 'For professionals';
