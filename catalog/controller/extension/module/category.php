@@ -38,15 +38,11 @@ class ControllerExtensionModuleCategory extends Controller
         $this->load->model('catalog/product');
 
 
-        // ****** Cache Category Tree *****
-        //$cache_key = 'extension.module.category.index.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
-        //$data['categories'] = $this->cache->get($cache_key);
+
+        $cache_key = 'extension.module.category.index.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
+        $data['categories'] = $this->cache->get($cache_key);
 
         // cache not found, let's build!
-        $time = microtime();
-        $time = explode(' ', $time);
-        $time = $time[1] + $time[0];
-        $start = $time;
         if(!$data['categories']) {
 
             $categories = $this->model_catalog_category->getCategories(0);
@@ -68,14 +64,9 @@ class ControllerExtensionModuleCategory extends Controller
                 );
             }
 
-            $this->cache->set($cache_key, $data['categories']);
+            //$this->cache->set($cache_key, $data['categories']);
         }
-        $time = microtime();
-        $time = explode(' ', $time);
-        $time = $time[1] + $time[0];
-        $finish = $time;
-        $total_time = round(($finish - $start), 4);
-        echo 'Page generated in '.$total_time.' seconds.';
+
 
         $data['category_path'] = $parts;
 
