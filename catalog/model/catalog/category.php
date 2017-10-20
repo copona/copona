@@ -46,7 +46,7 @@ class ModelCatalogCategory extends Model {
         array_multisort(array_column($cats, 'sort_order'),  SORT_ASC,
             array_column($cats, 'name'), SORT_ASC, $cats);
 
-        if(DEBUG_MODE) {
+        if(Config::get('debug.mode')) {
             $file = fopen(DIR_LOGS . 'execdebuglog.txt', 'a');
             $output = microtime(true) - $start_time;
             fwrite($file, "Start: for parent $parent_id : ". $output . "\n");
