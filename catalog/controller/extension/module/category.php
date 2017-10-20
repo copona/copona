@@ -38,13 +38,6 @@ class ControllerExtensionModuleCategory extends Controller
         $this->load->model('catalog/product');
 
 
-
-        $cache_key = 'extension.module.category.index.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
-        $data['categories'] = $this->cache->get($cache_key);
-
-        // cache not found, let's build!
-        if(!$data['categories']) {
-
             $categories = $this->model_catalog_category->getCategories(0);
 
             foreach ($categories as $category) {
@@ -63,10 +56,6 @@ class ControllerExtensionModuleCategory extends Controller
                   'active'      => (in_array($category['category_id'], $parts) ? true : false)
                 );
             }
-
-            //$this->cache->set($cache_key, $data['categories']);
-        }
-
 
         $data['category_path'] = $parts;
 
