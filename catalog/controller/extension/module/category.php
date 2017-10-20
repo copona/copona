@@ -67,7 +67,7 @@ class ControllerExtensionModuleCategory extends Controller
             $this->cache->set($cache_key, $data['categories']);
         }
 
-        // prd( $data['categories']);
+
         $data['category_path'] = $parts;
 
         return $this->load->view('extension/module/category', $data);

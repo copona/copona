@@ -36,9 +36,9 @@ class ModelCatalogCategory extends Model {
         }
 
         $cats = [] ;
-        foreach($this->paths as &$path) {
-            if($path['parent_id'] == $parent_id) {
-                $cats[] = $path;
+        foreach(explode(',', $this->paths[$parent_id]['childrens']) as $category_id) {
+            if(!empty($this->paths[$category_id]['path'])) {
+                $cats[] = $this->paths[$category_id];
             }
         }
 
@@ -47,7 +47,7 @@ class ModelCatalogCategory extends Model {
             array_column($cats, 'name'), SORT_ASC,
             $cats);
 
-        $file = fopen(DIR_LOGS . 'execdebuglog.txt', 'a');
+        $file = fopen(DIR_LOGS . 'execdebuglog.txt', 'a'); 
 
         $output = microtime(true) - $start_time;
         fwrite($file, "Start: for parent $parent_id : ". $output . "\n");
@@ -138,7 +138,7 @@ class ModelCatalogCategory extends Model {
             $category_id = (isset($query->row['category_id']) ? $query->row['category_id'] : '' );
         }
 
-        if ($category_id) {
+        if ($category_id && !empty($this->paths[$category_id]['path'])) {
             //TODO: return overrided.
             return $this->paths[$category_id]['path'];
 
@@ -167,6 +167,7 @@ class ModelCatalogCategory extends Model {
             , cd.name
             , c1.sort_order
             , ul.keyword 
+            , (select GROUP_CONCAT(category_id SEPARATOR ',') from " . DB_PREFIX . "category where parent_id = cp.category_id) as childrens 
             FROM " . DB_PREFIX . "category_path cp 
             LEFT JOIN " . DB_PREFIX . "category c1 ON (cp.category_id = c1.category_id)
             LEFT JOIN " . DB_PREFIX . "category_description cd ON (cd.category_id = c1.category_id) and cd.language_id = '" . $this->language_id . "'
@@ -176,6 +177,9 @@ class ModelCatalogCategory extends Model {
 
         $result = $this->db->query($sql);
         // Only categories array with keys
+
+        $categories[0]['childrens'] = '';
+
         foreach ($result->rows as $val) {
             // skip, if "parent to self" by mistake.
             if ($val['parent_id'] == $val['category_id']) {
@@ -184,8 +188,8 @@ class ModelCatalogCategory extends Model {
 
             if (!$val['parent_id']) {
                 $val['parent_id'] = 0;
+                $categories[0]['childrens'] = $categories[0]['childrens'] .  $val['category_id'] .  ",";
             }
-
             $categories[$val['category_id']] = $val;
         }
 
