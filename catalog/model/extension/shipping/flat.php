@@ -14,6 +14,8 @@ class ModelExtensionShippingFlat extends Model {
             $status = false;
         }
 
+        $flat_description = $this->config->get('flat_description');
+
         $method_data = array();
 
         if ($status) {
@@ -21,7 +23,9 @@ class ModelExtensionShippingFlat extends Model {
 
             $quote_data['flat'] = array(
                 'code'         => 'flat.flat',
-                'title'        => $this->language->get('text_description'),
+                'title'        => !empty($flat_description[$this->config->get('config_language_id')]['title'])
+                  ? $flat_description[$this->config->get('config_language_id')]['title']
+                  : $this->language->get('text_description'),
                 'cost'         => $this->config->get('flat_cost'),
                 'cost_with_tax'=> $this->currency->format($this->tax->calculate($this->config->get('flat_cost'), $this->config->get('flat_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'],"",false),
                 'tax_class_id' => $this->config->get('flat_tax_class_id'),

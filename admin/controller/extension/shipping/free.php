@@ -89,4 +89,14 @@ class ControllerExtensionShippingFree extends Controller {
         return !$this->error;
     }
 
+    public function install() {
+        // bulk OC3 design install function
+        return 0;
+    }
+
+    public function uninstall() {
+        // bulk OC3 design install function
+        return 0;
+    }
+
 }

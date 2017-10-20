@@ -162,6 +162,12 @@ class ControllerStartupStartup extends Controller
             require_once($this->config->get('theme_uri') . '/functions.php');
         }
 
+        $this->language->get('locale')
+          ? setlocale(LC_ALL, $this->language->get('locale'))
+          : '';
+
+        //pr( strftime("%A %e %B %Y") );
+
         // Customer
         $customer = new Cart\Customer($this->registry);
         $this->registry->set('customer', $customer);

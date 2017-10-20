@@ -39,6 +39,7 @@ $template_config_settings = array(
     'theme_default_product_category_list_resize'     => 'resize',
     'theme_default_product_info_thumb_resize'        => 'resize',
     'theme_default_product_info_popup_resize'        => 'resize',
+    'theme_default_product_info_image_popup_resize' => 'resize',
     'theme_default_product_info_image_mid_resize'    => 'resize',
     'theme_default_extension_module_featured'        => 'resize',
     'theme_default_product_short_description_length' => 250,
