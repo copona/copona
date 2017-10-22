@@ -145,24 +145,32 @@ class ControllerCommonHeader extends Controller {
         $data['search'] = $this->load->controller('common/search');
         $data['cart'] = $this->load->controller('common/cart');
 
+        $class = '';
+
+        if(!empty( $this->request->get['route'] ) && $this->request->get['route'] == 'product/product') {
+            $class = 'product ';
+        }
+
         // For page specific css
         if (isset($this->request->get['route'])) {
             if (isset($this->request->get['product_id'])) {
-                $class = '-' . $this->request->get['product_id'];
+                $class .= 'product-' . $this->request->get['product_id'] . " ";
             } elseif (isset($this->request->get['path'])) {
-                $class = '-' . $this->request->get['path'];
+                $class .= 'category-' . $this->request->get['path'] . " ";
             } elseif (isset($this->request->get['manufacturer_id'])) {
-                $class = '-' . $this->request->get['manufacturer_id'];
+                $class .= 'manufacturer-' . $this->request->get['manufacturer_id'] . " ";
             } elseif (isset($this->request->get['information_id'])) {
-                $class = '-' . $this->request->get['information_id'];
+                $class .= 'information-' . $this->request->get['information_id'] . " ";
             } else {
-                $class = '';
+                $class .= '';
             }
 
-            $data['class'] = str_replace('/', '-', $this->request->get['route']) . $class;
+            $data['class'] = $class . str_replace('/', '-', $this->request->get['route']);
         } else {
             $data['class'] = 'common-home';
         }
+
+        $this->hook->getHook('header/index/after', $data);
 
         return $this->load->view('common/header', $data);
     }

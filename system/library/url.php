@@ -32,6 +32,7 @@ class Url
         $this->ssl = $ssl;
 
         $this->code = ($this->config->get('config_seo_url') && APPLICATION == 'catalog' ? $this->session->data['language'] : '');
+        Config::set('code', $this->code);
     }
 
     public function addRewrite($rewrite)
@@ -84,10 +85,18 @@ class Url
      * 1. return partly built URL from CURRENT get params in format key=val&key1=val1...
      * 2. return ARRAY of needed keys from current get url, to be able to override them
      * 3. additional: pass all parameters in once, and build url
+     * 4. custom get params also loaded on exec.
      */
     public function getParams()
     {
         $result = [];
+
+        foreach( $this->request->get as $key => $val ) {
+            array_push($this->url_parts, $key);
+        }
+
+        $this->url_parts = array_unique($this->url_parts);
+
         foreach ($this->url_parts as $key) {
             $result[$key] = isset($this->request->get[$key]) ? $this->request->get[$key] : '';
         }
@@ -138,6 +147,21 @@ class Url
             return 'https://' . rtrim($this->config->get('image_base_url', $this->config->get('site_base')), '/') . '/' . $image;
         } else {
             return 'http://' . rtrim($this->config->get('image_base_url', $this->config->get('site_ssl')), '/') . '/' . $image;
+        }
+    }
+
+    /**
+     * Make original, full size image URL
+     *
+     * @param string $image
+     * @return string
+     */
+    public function getImageUrlOriginal($image)
+    {
+        if ($this->request->server['HTTPS']) {
+            return 'https://' . BASE_URL_IMAGE . '/' . $image;
+        } else {
+            return 'http://' . BASE_URL_IMAGE . '/' . $image;
         }
     }
 }

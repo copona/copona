@@ -482,5 +482,16 @@ $(document).delegate('.agree', 'click', function (e) {
         });
     }
 
+    /*
+    Smooth scrolling when clicking an anchor link (Joseph Silber)
+     */
+
+    $(document).on('click', 'a[href^="#"]:not([data-toggle])', function (event) {
+        event.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $($.attr(this, 'href')).offset().top - 60
+        }, 500);
+    });
 
 })(window.jQuery);

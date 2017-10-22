@@ -94,7 +94,7 @@
           </div>
         <?php } ?>
         <?php if (!$cms_hide_top_cart) { ?>
-          <div class="col-md-3 col-sm-4"><?php echo $cart; ?></div>
+          <div id="cart" class="col-md-3 col-sm-4"><?php echo $cart; ?></div>
         <?php } ?>
     </div>
   </div>

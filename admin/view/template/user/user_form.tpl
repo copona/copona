@@ -28,7 +28,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"><?php echo $entry_username; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="username" value="<?php echo $username; ?>" placeholder="<?php echo $entry_username; ?>" id="input-username" class="form-control" />
+              <input type="text" name="no_autocomplete_username" value="<?php echo $username; ?>" placeholder="<?php echo $entry_username; ?>" id="input-username" class="form-control" />
               <?php if ($error_username) { ?>
                   <div class="text-danger"><?php echo $error_username; ?></div>
               <?php } ?>
@@ -84,7 +84,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-password"><?php echo $entry_password; ?></label>
             <div class="col-sm-10">
-              <input type="password" name="password" value="<?php echo $password; ?>" placeholder="<?php echo $entry_password; ?>" id="input-password" class="form-control" autocomplete="new-password" />
+              <input type="password" name="no_autocomplete_password" value="<?php echo $password; ?>" placeholder="<?php echo $entry_password; ?>" id="input-password" class="form-control" autocomplete="new-password" />
               <?php if ($error_password) { ?>
                   <div class="text-danger"><?php echo $error_password; ?></div>
               <?php } ?>

@@ -42,8 +42,7 @@ $_['text_month'] = 'month';
 $_['text_year'] = 'year';
 $_['text_total_title'] = 'Total';
 $_['text_total'] = 'Total (with VAT)';
-$_['text_customer_group_pers'] = 'Retail customer';
-$_['text_customer_group_company'] = 'Company';
+
 
 // Column
 $_['column_name'] = 'Product Name';

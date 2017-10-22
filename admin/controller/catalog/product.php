@@ -1382,7 +1382,13 @@ class ControllerCatalogProduct extends Controller {
                 'limit'        => $limit
             );
 
-            $results = $this->model_catalog_product->getProducts($filter_data);
+            //$results = $this->model_catalog_product->getProducts($filter_data);
+            //$results = $this->model_catalog_product->getProducts($filter_data);
+
+            // prd(  );
+
+            $results = $this->model_catalog_product->getProductsAutocompleteFS($filter_data);
+
 
             foreach ($results as $result) {
                 $option_data = array();
@@ -1426,7 +1432,7 @@ class ControllerCatalogProduct extends Controller {
                     'name'       => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
                     'model'      => $result['model'],
                     'option'     => $option_data,
-                    'price'      => $result['price']
+                    //'price'      => $result['price']
                 );
             }
         }

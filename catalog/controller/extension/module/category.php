@@ -1,6 +1,14 @@
 <?php
+
 class ControllerExtensionModuleCategory extends Controller
 {
+    private $language_id;
+
+    public function __construct($registry)
+    {
+        parent::__construct($registry);
+        $this->language_id = $registry->config->get('config_language_id');
+    }
 
     public function index()
     {
@@ -30,8 +38,6 @@ class ControllerExtensionModuleCategory extends Controller
 
         $this->load->model('catalog/product');
 
-        $data['categories'] = array();
-
         $categories = $this->model_catalog_category->getCategories(0);
 
         foreach ($categories as $category) {
@@ -51,7 +57,6 @@ class ControllerExtensionModuleCategory extends Controller
             );
         }
 
-        // prd( $data['categories']);
         $data['category_path'] = $parts;
 
         return $this->load->view('extension/module/category', $data);
@@ -66,13 +71,15 @@ class ControllerExtensionModuleCategory extends Controller
         }
 
         $this->load->model('catalog/category');
+
         $children = $this->model_catalog_category->getCategories($category_id);
+
         foreach ($children as $child) {
             $children_data[] = array(
                 'category_id' => $child['category_id'],
                 'name'        => $child['name'],
                 'children'    => $this->getChildren($child['category_id']),
-                'total'       => $this->model_catalog_product->getTotalProducts(['filter_category_id' => $child['category_id']]),
+                'total'       => ($this->config->get('config_product_count') ? $this->model_catalog_product->getTotalProducts(['filter_category_id' => $child['category_id']]) : ''),
                 'href'        => $this->url->link('product/category',
                     'path=' . $this->model_catalog_category->getCategoryPath($child['category_id'])),
                 'active'      => (in_array($child['category_id'], $parts) ? true : false),

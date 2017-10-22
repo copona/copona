@@ -2,21 +2,12 @@
 class ControllerExtensionModuleFeatured extends Controller {
 
     public function index($setting) {
-        //pr($setting);
+
         $data = $this->load->language('extension/module/featured');
 
-        //$this->config->get('config_language_id')
         if (isset($setting['module_description'][$this->config->get('config_language_id')])) {
             $data['heading_title'] = $setting['module_description'][$this->config->get('config_language_id')]['title'];
         };
-        //pr($setting['module_description'][$this->config->get('config_language_id')]);
-        //$data['heading_title'] = $this->language->get('heading_title');
-
-        $data['text_tax'] = $this->language->get('text_tax');
-
-        $data['button_cart'] = $this->language->get('button_cart');
-        $data['button_wishlist'] = $this->language->get('button_wishlist');
-        $data['button_compare'] = $this->language->get('button_compare');
 
         $this->load->model('catalog/product');
 
@@ -29,12 +20,12 @@ class ControllerExtensionModuleFeatured extends Controller {
         }
 
         if (!empty($setting['product'])) {
-            $products = array_slice($setting['product'], 0, (int)$setting['limit']);
-
-            foreach ($products as $product_id) {
+            $count = 0;
+            foreach ($setting['product'] as $product_id) {
                 $product_info = $this->model_catalog_product->getProduct($product_id);
-
                 if ($product_info) {
+                    if(++$count > $setting['limit'])
+                        break;
                     if ($product_info['image']) {
                         $image = $this->model_tool_image->{$this->config->get('theme_default_extension_module_featured')}($product_info['image'], $setting['width'], $setting['height']);
                     } else {
@@ -66,15 +57,17 @@ class ControllerExtensionModuleFeatured extends Controller {
                     }
 
                     $data['products'][] = array(
-                        'product_id'  => $product_info['product_id'],
-                        'thumb'       => $image,
-                        'name'        => $product_info['name'],
-                        'description' => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
-                        'price'       => $price,
-                        'special'     => $special,
-                        'tax'         => $tax,
-                        'rating'      => $rating,
-                        'href'        => $this->url->link('product/product', 'product_id=' . $product_info['product_id'])
+                        'product_id'    => $product_info['product_id'],
+                        'minimum'       => $product_info['minimum'] == 0 ? 1 : $product_info['minimum'] ,
+                        'thumb'         => $image,
+                        'name'          => $product_info['name'],
+                        'description'   => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
+                        'price'         => $price,
+                        'special'       => $special,
+                        'tax'           => $tax,
+                        'rating'        => $rating,
+                        'content_meta'  => $product_info['content_meta'],
+                        'href'          => $this->url->link('product/product', 'product_id=' . $product_info['product_id'])
                     );
                 }
             }

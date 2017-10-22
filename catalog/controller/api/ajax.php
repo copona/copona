@@ -19,7 +19,7 @@ class ControllerApiAjax extends Controller {
     public function product() {
         $data = [];
         $data['success'] = true;
-        $data['template'] = 'common/empty';
+        $data['template'] = 'api/ajax';
         $this->hook->getHook('api/ajax/product', $data);
         $this->response->setOutput($this->load->view($data['template'], $data));
     }

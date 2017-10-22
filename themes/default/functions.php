@@ -39,12 +39,18 @@ $template_config_settings = array(
     'theme_default_product_category_list_resize'     => 'resize',
     'theme_default_product_info_thumb_resize'        => 'resize',
     'theme_default_product_info_popup_resize'        => 'resize',
+    'theme_default_product_info_image_popup_resize' => 'resize',
     'theme_default_product_info_image_mid_resize'    => 'resize',
     'theme_default_extension_module_featured'        => 'resize',
     'theme_default_product_short_description_length' => 250,
     'theme_default_product_category_list_resize'     => 'cropsize',
     'theme_default_product_category_popup_resize'    => 'propsize',
     'theme_default_product_cart_thumb_resize'        => 'cropsize',
+    'theme_default_latest_thumb_resize'              => 'resize',
+    'theme_default_category_sort'                    => 'p.sort_order',
+    'theme_default_category_order'                   => 'ASC',
+
+    'theme_default_bestseller_thumb_resize'        => 'resize',
     // 'theme_default_image_category_width'       => 80,
     // 'theme_default_image_category_height'      => 80,
 );
@@ -64,6 +70,7 @@ foreach ($template_config_settings as $key => $val) {
 
 $this->hook->setHook('product/index/after', 'default_remove_image');
 $this->hook->setHook('product/index/after', 'content_meta');
+$this->hook->setHook('footer/index/after', 'modifyFooter');
 
 
 /*
@@ -112,3 +119,4 @@ if (!function_exists('content_meta')) {
 
     }
 }
+ 

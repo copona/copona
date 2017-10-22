@@ -132,6 +132,12 @@ span.error input{
 * Thannks to: https://bootsnipp.com/snippets/featured/bootstrap-mega-menu
 */
 
+.category-item:hover .dropdown-menu.mega-dropdown-menu {
+    color: red;
+    display: block;
+}
+
+
 .mega-dropdown-menu > li > ul > li {
     list-style: none;
 }
@@ -154,9 +160,8 @@ span.error input{
 
 .mega-dropdown-menu .dropdown-header {
     color: #428bca;
-    font-size: 13px;
+    font-size: 16px;
     white-space: normal;
-    font-weight: bold;
     padding: 3px 0px;
 }
 
@@ -170,23 +175,11 @@ span.error input{
 }
 
 .mega-dropdown-menu {
-    position: absolute;
-    z-index: 1000;
-    display: none;
-    min-width: 160px;
+    width: 399%;
     padding: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
-    text-align: left;
-    list-style: none;
     background-color: #f5f5f5;
-    border-radius: 4px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-    left: 25%;
+    left: 100%;
     top: 0;
-    right: 0;
-    border: 1px solid #f0f0f0;
-    width: auto;
     margin-bottom: 50px;
 }
 
@@ -213,6 +206,7 @@ span.error input{
     line-height: 1.428571429;
     color: #999;
     white-space: normal;
+    font-size: 12px;
 }
 
 

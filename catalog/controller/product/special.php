@@ -2,7 +2,7 @@
 class ControllerProductSpecial extends Controller {
 
     public function index() {
-        $this->load->language('product/special');
+        $data = $this->load->language('product/special');
 
         $this->load->model('catalog/product');
 
@@ -140,6 +140,7 @@ class ControllerProductSpecial extends Controller {
                 'tax'         => $tax,
                 'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
                 'rating'      => $result['rating'],
+                'content_meta'  => $result['content_meta'],
                 'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'] . $url)
             );
         }
