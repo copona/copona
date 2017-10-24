@@ -85,6 +85,7 @@ class ControllerDesignMediamanager extends Controller {
         $images = array_splice($images, ($page - 1) * 16, 16);
 
         foreach ($images as $image) {
+
             $name = basename($image);
 
             if (is_dir($image)) {

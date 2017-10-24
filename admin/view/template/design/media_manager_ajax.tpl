@@ -2,9 +2,11 @@
   #modal-image .col-sm-2:nth-child(6n+1){
       clear: both;
   }
+
   #filemanager label {
     word-break: break-all;
   }
+
 </style>
 <div id="filemanager" class="col-md-12">
   <div class="modal-content">
@@ -50,7 +52,7 @@
                           <?php echo $image['name']; ?></label>
                     <?php } ?>
                     <?php if ($image['type'] == 'image') { ?>
-                      <a href="<?php echo $image['href']; ?>" class="thumbnail" target="_blank"><img
+                      <a href="<?php echo $image['href']; ?>" class="thumbnail"><img
                           src="<?php echo $image['thumb']; ?>" alt="<?php echo $image['name']; ?>"
                           title="<?php echo $image['name']; ?>"/></a>
                       <label>
@@ -66,6 +68,7 @@
   </div>
 </div>
 
+
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -76,6 +79,7 @@
     </div>
   </div>
 </div>
+
 
 
 <script type="text/javascript"><!--
@@ -333,9 +337,5 @@
     //     $('#imagemodal .modal-content').css('max-height', 'calc(100vh - 225px)' );
     //     $('#imagemodal .modal-content').css('max-width', 'calc(100vw - 225px)' );
     // });
-
-
-
-
 
     //--></script>
