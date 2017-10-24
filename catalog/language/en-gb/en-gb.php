@@ -143,3 +143,4 @@ $_['text_diameter'] = 'Diameter';
 $_['text_sort'] = 'Sort by';
 $_['text_type'] = 'Type';
 $_['text_cart'] = 'Cart';
+
