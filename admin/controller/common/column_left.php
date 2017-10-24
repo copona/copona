@@ -229,6 +229,14 @@ class ControllerCommonColumnLeft extends Controller {
                 );
             }
 
+            if ($this->user->hasPermission('access', 'common/elfinder')) {
+                $design[] = array(
+                    'name' => "ElFinder file manager",
+                    'href' => $this->url->link('common/elfinder', '&token=' . $this->session->data['token'], true),
+                    'children' => array()
+                );
+            }
+
 
             if ($this->user->hasPermission('access', 'design/banner')) {
                 $design[] = array(

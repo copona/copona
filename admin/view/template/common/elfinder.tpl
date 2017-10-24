@@ -1,13 +1,19 @@
 <?php echo $header; ?>
-
-<?php echo $column_left; ?>
 <style>
 
   .elfinder-toolbar {
-    overflow: auto; 
+ 
+
+  }
+  .elfinder-toolbar:after{
+    content: " ";
+    display: table;
+    clear: both;
   }
 
 </style>
+
+<?php echo $column_left; ?>
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
