@@ -167,7 +167,10 @@ class ModelCatalogProduct extends Model {
 
         if (isset($data['product_recurring'])) {
             foreach ($data['product_recurring'] as $recurring) {
-                $this->db->query("INSERT INTO `" . DB_PREFIX . "product_recurring` SET `product_id` = " . (int)$product_id . ", customer_group_id = " . (int)$recurring['customer_group_id'] . ", `recurring_id` = " . (int)$recurring['recurring_id']);
+                $this->db->query("INSERT INTO `" . DB_PREFIX . "product_recurring` 
+                SET `product_id` = " . (int)$product_id . "
+                , customer_group_id = " . (int)$recurring['customer_group_id'] . "
+                , `recurring_id` = " . (int)$recurring['recurring_id']);
             }
         }
 
