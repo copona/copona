@@ -2,6 +2,8 @@
 
 class ControllerCommonElfinder extends Controller
 {
+
+    private $error;
     /**
      * Show elFinder
      */
@@ -10,6 +12,7 @@ class ControllerCommonElfinder extends Controller
         $this->load->language('common/elfinder');
 
         $data = [];
+
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -44,17 +47,18 @@ class ControllerCommonElfinder extends Controller
         $data['connector_url'] = $this->url->link('common/elfinder/connector', 'token='.$this->session->data['token']);
 
         // Attach styles
-        $this->document->addStyle('/admin/view/assets/jquery-ui/jquery-ui.min.css');
+        // $this->document->addStyle('/admin/view/assets/jquery-ui/jquery-ui.min.css');
         $this->document->addStyle('/admin/view/assets/elfinder/css/elfinder.min.css');
         $this->document->addStyle('/admin/view/assets/elfinder/css/theme.css');
 
         // Attach scripts
-        $this->document->addScript('/admin/view/assets/jquery-ui/jquery-ui.min.js');
+        $this->document->addScript('//code.jquery.com/ui/1.12.1/jquery-ui.min.js');
         $this->document->addScript('/admin/view/assets/elfinder/js/elfinder.min.js');
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
+
 
         $this->response->setOutput($this->load->view('common/elfinder', $data));
     }
