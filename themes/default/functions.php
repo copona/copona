@@ -49,7 +49,7 @@ $template_config_settings = array(
     'theme_default_category_sort'                    => 'p.sort_order',
     'theme_default_category_order'                   => 'ASC',
 
-    'theme_default_extension_module_slideshow_resize' => 'propsize', // Lielā bilde atvērtā produktā
+    'theme_default_extension_module_slideshow_resize' => 'propsize',
 
     'theme_default_bestseller_thumb_resize' => 'resize',
     // 'theme_default_image_category_width'       => 80,
