@@ -31,34 +31,35 @@ class ModelCatalogCategory extends Model {
 
         $start_time = microtime(true);
 
-        if (!file_exists(DIR_LOGS . 'execdebuglog.txt')) {
+        if (!file_exists(DIR_LOGS . 'execdebuglog.txt') && DEBUG_MODE) {
             touch(DIR_LOGS . 'execdebuglog.txt');
         }
 
         $cats = [] ;
-        foreach($this->paths as &$path) {
-            if($path['parent_id'] == $parent_id) {
-                $cats[] = $path;
+        foreach(explode(',', $this->paths[$parent_id]['childrens']) as $category_id) {
+            if(!empty($this->paths[$category_id]['path'])) {
+                $cats[] = $this->paths[$category_id];
             }
         }
 
         // Correct categories sorting
         array_multisort(array_column($cats, 'sort_order'),  SORT_ASC,
-            array_column($cats, 'name'), SORT_ASC,
-            $cats);
+            array_column($cats, 'name'), SORT_ASC, $cats);
 
-        $file = fopen(DIR_LOGS . 'execdebuglog.txt', 'a');
 
-        $output = microtime(true) - $start_time;
-        fwrite($file, "Start: for parent $parent_id : ". $output . "\n");
-        fclose($file);
+        if(Config::get('debug.mode')) {
+            $file = fopen(DIR_LOGS . 'execdebuglog.txt', 'a');
+            $output = microtime(true) - $start_time;
+            fwrite($file, "Start: for parent $parent_id : ". $output . "\n");
+            fclose($file);
+        }
 
-        //pr(debug_backtrace()[0]['file']);
-        //pr(debug_backtrace()[0]['line']);
+
         return $cats;
-        // pr( $cats );
 
         /*
+         * OLD select, just for to check sure
+         *
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "category c 
             LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) 
             LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) 
@@ -68,9 +69,6 @@ class ModelCatalogCategory extends Model {
             AND c.status = '1' ORDER BY c.sort_order, LCASE(cd.name)");
         return $query->rows;
         */
-
-
-
     }
 
     public function getCategoryFilters($category_id) {
@@ -123,7 +121,10 @@ class ModelCatalogCategory extends Model {
     }
 
     public function getTotalCategoriesByCategoryId($parent_id = 0) {
-        $query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) WHERE c.parent_id = '" . (int)$parent_id . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND c.status = '1'");
+        $query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "category c 
+        LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) 
+        WHERE c.parent_id = '" . (int)$parent_id . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id')
+          . "' AND c.status = '1'");
 
         return $query->row['total'];
     }
@@ -138,7 +139,7 @@ class ModelCatalogCategory extends Model {
             $category_id = (isset($query->row['category_id']) ? $query->row['category_id'] : '' );
         }
 
-        if ($category_id) {
+        if ($category_id && !empty($this->paths[$category_id]['path'])) {
             //TODO: return overrided.
             return $this->paths[$category_id]['path'];
 
@@ -147,18 +148,13 @@ class ModelCatalogCategory extends Model {
 
 
     private function paths() {
-
-
         $cache_key = 'category.paths.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
         $categories = $this->cache->get( $cache_key );
         if($categories) {
             return $categories;
         }
-
         // select all categories, already with SEO link
-        $language_id = $this->language_id;
-        $categories = array();
-
+        $categories = [];
         $sql = "SELECT cp.category_id AS category_id
             , IFNULL(concat(GROUP_CONCAT(IF(c2.parent_id=0, null, c2.parent_id)  ORDER BY cp.level SEPARATOR '_'),'_', cp.category_id), c1.category_id) AS path
             , c1.parent_id
@@ -167,15 +163,20 @@ class ModelCatalogCategory extends Model {
             , cd.name
             , c1.sort_order
             , ul.keyword 
+            , (select GROUP_CONCAT(category_id SEPARATOR ',') from " . DB_PREFIX . "category where parent_id = cp.category_id) as childrens 
             FROM " . DB_PREFIX . "category_path cp 
             LEFT JOIN " . DB_PREFIX . "category c1 ON (cp.category_id = c1.category_id)
             LEFT JOIN " . DB_PREFIX . "category_description cd ON (cd.category_id = c1.category_id) and cd.language_id = '" . $this->language_id . "'
             LEFT JOIN " . DB_PREFIX . "category c2 ON (cp.path_id = c2.category_id)
-            LEFT JOIN " . DB_PREFIX . "url_alias ul on ul.query = concat('category_id=', cp.category_id) and ul.language_id = '" . $this->language_id . "' 
+            LEFT JOIN " . DB_PREFIX . "url_alias ul on ul.query = concat('category_id=', cp.category_id) and ul.language_id = '" . $this->language_id . "'
+            WHERE c1.status = 1 
             group by  cp.category_id ";
 
         $result = $this->db->query($sql);
         // Only categories array with keys
+
+        $categories[0]['childrens'] = '';
+
         foreach ($result->rows as $val) {
             // skip, if "parent to self" by mistake.
             if ($val['parent_id'] == $val['category_id']) {
@@ -184,11 +185,10 @@ class ModelCatalogCategory extends Model {
 
             if (!$val['parent_id']) {
                 $val['parent_id'] = 0;
+                $categories[0]['childrens'] = $categories[0]['childrens'] .  $val['category_id'] .  ",";
             }
-
             $categories[$val['category_id']] = $val;
         }
-
         $this->cache->set($cache_key, $categories);
         return $categories;
     }
@@ -214,7 +214,7 @@ class ModelCatalogCategory extends Model {
                     ul2.keyword as keyword_neutral, cd.name
 					FROM `" . DB_PREFIX . "category` c
 					left join " . DB_PREFIX . "category c2 on c.parent_id = c2.category_id
-					left join " . DB_PREFIX . "category_description cd on cd.category_id = c.category_id AND cd.language_id = '" . $language_id . "'
+					join " . DB_PREFIX . "category_description cd on cd.category_id = c.category_id AND cd.language_id = '" . $language_id . "'
 					left join " . DB_PREFIX . "url_alias ul on ul.query = concat('category_id=', c.category_id) and c.status = 1  and ul.language_id = '" . $language_id . "'
 					left join " . DB_PREFIX . "url_alias ul2 on ul2.query = concat('category_id=', c.category_id)  and ul2.language_id = '0'";
 
