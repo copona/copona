@@ -312,7 +312,7 @@ class ControllerCheckoutCart extends Controller {
 
             foreach ($product_options as $product_option) {
                 if ($product_option['required'] && empty($option[$product_option['product_option_id']])
-                    || !$this->config->get("config_stock_checkout")) {
+                    || ($this->config->get("config_stock_checkout") == false && $quantity < 1)) {
                     $json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
                 }
             }
