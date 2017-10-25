@@ -18,7 +18,7 @@ if (APPLICATION == 'catalog') {
     $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'header', 'product/product');
     $this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header', 'product/product');
     $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header',
-      'product/product');
+        'product/product');
     $this->document->addScript('assets/vendor/jquery.print/jquery.print.min.js');
     $this->document->addScript('assets/js/common.js');
 
@@ -27,7 +27,7 @@ if (APPLICATION == 'catalog') {
     $this->document->addStyle('//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css', 'stylesheet', 'screen',
-      'product/product');
+        'product/product');
 
     $this->document->addStyle('assets/css/stylesheet.css', 'stylesheet', 'screen');
     $this->document->addStyle('assets/css/additional.css', 'stylesheet', 'screen');
@@ -49,7 +49,9 @@ $template_config_settings = array(
     'theme_default_category_sort'                    => 'p.sort_order',
     'theme_default_category_order'                   => 'ASC',
 
-    'theme_default_bestseller_thumb_resize'        => 'resize',
+    'theme_default_extension_module_slideshow_resize' => 'propsize', // Lielā bilde atvērtā produktā
+
+    'theme_default_bestseller_thumb_resize' => 'resize',
     // 'theme_default_image_category_width'       => 80,
     // 'theme_default_image_category_height'      => 80,
 );
@@ -107,8 +109,10 @@ if (!function_exists('content_meta')) {
                     $data['product_videos'] = [];
                     foreach ($val as $video) {
                         $data['product_videos'][] = [
-                            'video' => 'https://www.youtube.com/watch?v=' . $video['video'][$config->get('config_language_id')] . '',
-                            'video_src' => $url->link('common/youtube', 'inpt=' . $video['video'][$config->get('config_language_id')] . '&quality=hq&play')             //   HTTPS_SERVER . 'youtube/yt-thumb.php?inpt=' . $video . '&quality=hq&play"'
+                            'video'     => 'https://www.youtube.com/watch?v=' . $video['video'][$config->get('config_language_id')] . '',
+                            'video_src' => $url->link('common/youtube',
+                                'inpt=' . $video['video'][$config->get('config_language_id')] . '&quality=maxres&play')
+                            //   HTTPS_SERVER . 'youtube/yt-thumb.php?inpt=' . $video . '&quality=hq&play"'
                         ];
 
                     }
