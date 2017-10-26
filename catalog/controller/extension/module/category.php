@@ -1,4 +1,5 @@
 <?php
+
 class ControllerExtensionModuleCategory extends Controller
 {
     private $language_id;
@@ -37,36 +38,24 @@ class ControllerExtensionModuleCategory extends Controller
 
         $this->load->model('catalog/product');
 
+        $categories = $this->model_catalog_category->getCategories(0);
 
+        foreach ($categories as $category) {
+            $children_data = $this->getChildren($category['category_id']);
 
-        $cache_key = 'extension.module.category.index.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
-        $data['categories'] = $this->cache->get($cache_key);
+            $filter_data = array(
+                'filter_category_id'  => $category['category_id'],
+                'filter_sub_category' => true
+            );
 
-        // cache not found, let's build!
-        if(!$data['categories']) {
-
-            $categories = $this->model_catalog_category->getCategories(0);
-
-            foreach ($categories as $category) {
-                $children_data = $this->getChildren($category['category_id']);
-
-                $filter_data = array(
-                  'filter_category_id'  => $category['category_id'],
-                  'filter_sub_category' => true
-                );
-
-                $data['categories'][] = array(
-                  'category_id' => $category['category_id'],
-                  'name'        => $category['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-                  'children'    => $children_data,
-                  'href'        => $this->url->link('product/category', 'path=' . $category['category_id']),
-                  'active'      => (in_array($category['category_id'], $parts) ? true : false)
-                );
-            }
-
-            //$this->cache->set($cache_key, $data['categories']);
+            $data['categories'][] = array(
+                'category_id' => $category['category_id'],
+                'name'        => $category['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
+                'children'    => $children_data,
+                'href'        => $this->url->link('product/category', 'path=' . $category['category_id']),
+                'active'      => (in_array($category['category_id'], $parts) ? true : false)
+            );
         }
-
 
         $data['category_path'] = $parts;
 

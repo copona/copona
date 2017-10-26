@@ -2,6 +2,8 @@
 class ControllerCommonYoutube extends Controller {
 
     public function index() {
+
+        $start = microtime(true);
         /*
          * YouTube Thumbnail Enchancer by Hal Gatewood
          * License: The just-use-it license. Have fun!
@@ -13,7 +15,7 @@ class ControllerCommonYoutube extends Controller {
          *
          * Parameters:
          * inpt = YouTube URL or YouTube ID
-         * quality = hq or mq
+         * quality = hq or mq or maxres /2017
          * refresh = skips the cache to grab a fresh one
          * play = show play button in middle
          *
@@ -27,20 +29,26 @@ class ControllerCommonYoutube extends Controller {
          *
          */
         // Youtube image file path
-        $file_path = '/image/catalog/_media/youtube/';
+        $file_path = 'catalog/_media/youtube/';
 
+        //prd(DIR_IMAGE);
         // create dir if not exist
-        if(!file_exists($file_path)){
+        if(!file_exists(DIR_IMAGE . $file_path)){
             mkdir(DIR_IMAGE . 'catalog/_media/youtube/i', 0755, true);
         }
 
 // PARAMETERS
         $is_url = false;
-        $quality = $_REQUEST['quality'];
-        $quality = ($quality == "hq") ? "hq" : "mq";
-        $inpt = trim($_REQUEST['inpt']);
-        $show_play_icon = isset($_REQUEST['play']) ? true : false;
+
+        $quality = in_array($this->request->request('quality'), ['hq', 'mq', 'maxres'])
+            ? $this->request->request('quality')
+            : 'maxres';
+
+        $inpt = trim($this->request->request['inpt']);
+        $show_play_icon = $this->request->request('play') !== null ? true : false;
         $play_btn_file_name = ($show_play_icon) ? "-play" : "";
+
+        // prd($show_play_icon);
 
 
 // ADD HTTP
@@ -61,6 +69,30 @@ class ControllerCommonYoutube extends Controller {
 // IF NOT URL TRY ID AS INPUT
         if (!$is_url) { $id = $inpt; }
 
+        // IF NOT ID GO THROUGH AN ERROR
+        if (!$id) {
+            header("Status: 404 Not Found");
+            die("YouTube ID not found");
+        }
+
+// FILENAME
+        $filename = ($quality == "mq") ? $id . "-mq" : $id;
+        $filename .= $play_btn_file_name;
+
+
+// IF EXISTS, GO
+        /*
+        pr($id);
+        pr("http://img.youtube.com/vi/" . $id . "/" . $quality . "default.jpg");
+        prd( microtime(true) - $start ); // */
+
+        if (file_exists(DIR_IMAGE . $file_path . "i/" . $filename . ".png") AND !isset($this->request->get['refresh'])) {
+            $this->url->getImageUrlOriginal($file_path . "i/" . $filename . ".png");
+
+            header("Location: " . $this->url->getImageUrlOriginal($file_path . "i/" . $filename . ".png") );
+            die;
+        }
+
 // CHECK IF YOUTUBE VIDEO
         $handle = curl_init("https://www.youtube.com/watch/?v=" . $id);
         curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -77,28 +109,13 @@ class ControllerCommonYoutube extends Controller {
 
         curl_close($handle);
 
-
-// IF NOT ID GO THROUGH AN ERROR
-        if (!$id) {
-            header("Status: 404 Not Found");
-            die("YouTube ID not found");
-        }
-
-// FILENAME
-        $filename = ($quality == "mq") ? $id . "-mq" : $id;
-        $filename .= $play_btn_file_name;
-
-
-// IF EXISTS, GO
-        if (file_exists($file_path . "i/" . $filename . ".png") AND ! isset($_GET['refresh'])) {
-            header("Location: " . $file_path . "i/" . $filename . ".png");
-            die;
-        }
-
-
 // CREATE IMAGE FROM YOUTUBE THUMB
-        $image = imagecreatefromjpeg("http://img.youtube.com/vi/" . $id . "/" . $quality . "default.jpg");
 
+        if(!@getimagesize( "http://img.youtube.com/vi/" . $id . "/" . $quality . "default.jpg" )){
+            $quality = "hq";
+        }
+
+        $image = imagecreatefromjpeg("http://img.youtube.com/vi/" . $id . "/" . $quality . "default.jpg");
 
 
 // IF HIGH QUALITY WE CREATE A NEW CANVAS WITHOUT THE BLACK BARS
@@ -161,6 +178,8 @@ class ControllerCommonYoutube extends Controller {
 // UNLINK PNG VERSION
         @unlink($filename . ".png");
 
+        pr(microtime(true) - $start );
+        prd( $file_path . "i/" . $filename . ".png" );
 // REDIRECT TO NEW IMAGE
         header("Location: " . $file_path . "i/" . $filename . ".png");
         die;
