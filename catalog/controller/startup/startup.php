@@ -165,8 +165,7 @@ class ControllerStartupStartup extends Controller
         $this->language->get('locale')
           ? setlocale(LC_ALL, $this->language->get('locale'))
           : '';
-
-        //pr( strftime("%A %e %B %Y") );
+        setlocale( LC_NUMERIC, 'en_GB' );
 
         // Customer
         $customer = new Cart\Customer($this->registry);
