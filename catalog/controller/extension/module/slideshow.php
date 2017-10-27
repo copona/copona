@@ -20,7 +20,7 @@ class ControllerExtensionModuleSlideshow extends Controller {
                     'title' => $result['title'],
                     'link'  => $result['link'],
                     'description' => (isset($result['description']))?  html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'):'',
-                    'image' => $this->model_tool_image->cropsize($result['image'], $setting['width'], $setting['height'])
+                    'image' => $this->model_tool_image->{$this->config->get('theme_default_extension_module_slideshow_resize')}($result['image'], $setting['width'], $setting['height'])
                 );
             }
         }
