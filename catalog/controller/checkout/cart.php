@@ -311,16 +311,11 @@ class ControllerCheckoutCart extends Controller {
             $product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
 
             foreach ($product_options as $product_option) {
-                if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
+                if ($product_option['required'] && empty($option[$product_option['product_option_id']])
+                    || ($this->config->get("config_stock_checkout") == false && $quantity < 1)) {
                     $json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
                 }
             }
-
-            if ($this->config->get('config_stock_checkout') == false && $product_info['quantity'] < 1) {
-                // TODO 
-                //$json['error']['stock'] = $this->language->get('error_stock');
-            }
-
 
             if (isset($this->request->post['recurring_id'])) {
                 $recurring_id = $this->request->post['recurring_id'];
@@ -357,6 +352,7 @@ class ControllerCheckoutCart extends Controller {
                 $json['text_added_to_cart'] = $this->language->get('text_added_to_cart');
 
                 $json['current_product_in_cart'] = $this->cart->countProducts((int)$this->request->post['product_id']);
+                $json['current_cart_total_count'] = $this->cart->countProducts();
 
                 // Unset all shipping and payment methods
                 unset($this->session->data['shipping_method']);
@@ -513,7 +509,7 @@ class ControllerCheckoutCart extends Controller {
 
             $json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
         }
-
+        $json['current_cart_total_count'] = $this->cart->countProducts();
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
