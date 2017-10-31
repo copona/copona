@@ -141,7 +141,6 @@ $_['text_sort'] = 'Sort by';
 $_['text_type'] = 'Type';
 $_['text_cart'] = 'Cart';
 
-
 $_['text_select'] = 'Select';
 $_['text_quantity'] = 'Qty:';
 $_['text_manufacturer'] = 'Brand:';
