@@ -5,11 +5,17 @@ class ControllerInformationContact extends Controller
 
     public function index()
     {
-        $this->load->language('information/contact');
+        $data = $this->load->language('information/contact');
+
         $this->load->model('catalog/information');
+
+
 
         $this->document->setTitle($this->language->get('heading_title'));
         $data['heading_title'] = $this->language->get('heading_title');
+
+        // for older compatibility temporary
+        $data['entry_name'] = $this->language->get('entry_firstname');
 
         $information_id = $this->config->get('config_contact_id');
 
@@ -27,6 +33,7 @@ class ControllerInformationContact extends Controller
 
             $this->document->setTitle($information_info['meta_title']);
             $this->document->setDescription($information_info['meta_description']);
+
             $this->document->setKeywords($information_info['meta_keyword']);
             $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js');
             $this->document->addStyle('assets/vendor/magnific/magnific-popup.css');
@@ -102,23 +109,6 @@ class ControllerInformationContact extends Controller
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('information/contact')
         );
-
-        //$data['heading_title'] = $this->language->get('heading_title');
-
-        $data['text_location'] = $this->language->get('text_location');
-        $data['text_store'] = $this->language->get('text_store');
-        $data['text_contact'] = $this->language->get('text_contact');
-        $data['text_address'] = $this->language->get('text_address');
-        $data['text_telephone'] = $this->language->get('text_telephone');
-        $data['text_fax'] = $this->language->get('text_fax');
-        $data['text_open'] = $this->language->get('text_open');
-        $data['text_comment'] = $this->language->get('text_comment');
-
-        $data['entry_name'] = $this->language->get('entry_name');
-        $data['entry_email'] = $this->language->get('entry_email');
-        $data['entry_enquiry'] = $this->language->get('entry_enquiry');
-
-        $data['button_map'] = $this->language->get('button_map');
 
         if (isset($this->error['name'])) {
             $data['error_name'] = $this->error['name'];
