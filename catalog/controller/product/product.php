@@ -227,23 +227,24 @@ class ControllerProductProduct extends Controller {
                 $url .= '&limit=' . $this->request->get['limit'];
             }
 
-            /* $data['breadcrumbs'][] = array(
-              'text' => $product_info['name'],
-              'href' => $this->url->link('product/product', $url . '&product_id=' . $product_id)
-              ); */
-             // $bread_crumbs->push($product_info['name'], 'product/product', $url . '&product_id=' . $this->request->get['product_id']);
+            if (empty($product_info['meta_title'])) {
+                $product_info['meta_title'] = strip2words($product_info['name']
+                    . " - " . $this->config->get('config_meta_title')
+                    . " | " . $this->config->get('config_name'), 300);
+            }
+
+            if (empty($product_info['meta_description'])) {
+                $product_info['meta_description'] = strip2words($product_info['description'] . " | " . $product_info['name'] , 200);
+            }
+
+
+
+            $this->document->setDescription($product_info['meta_description']);
 
             $this->document->setTitle($product_info['meta_title']);
             $this->document->setDescription($product_info['meta_description']);
             $this->document->setKeywords($product_info['meta_keyword']);
             $this->document->addLink($this->url->link('product/product', 'product_id=' . $product_id), 'canonical');
-
-            /*
-            $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js');
-            $this->document->addStyle('assets/vendor/magnific/magnific-popup.css');
-            $this->document->addScript('assets/vendor/datetimepicker/moment.js');
-            $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
-            $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css'); */
 
             $data['heading_title'] = $product_info['name'];
 

@@ -27,8 +27,20 @@ class ControllerInformationInformation extends Controller {
                 $this->response->redirect( $this->url->externalLink( $information_info['external_link']) );
             }
 
+
+            if (empty($information_info['meta_title'])) {
+                $information_info['meta_title'] = strip2words($information_info['title']
+                    . " - " . $this->config->get('config_meta_title')
+                    . " | " . $this->config->get('config_name'), 300);
+            }
+
+            if (empty($information_info['meta_description'])) {
+                $information_info['meta_description'] = strip2words($information_info['description'] . " | " . $information_info['title'] , 200);
+            }
+
             $this->document->setTitle($information_info['meta_title']);
             $this->document->setDescription($information_info['meta_description']);
+
             $this->document->setKeywords($information_info['meta_keyword']);
             $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js');
             $this->document->addStyle('assets/vendor/magnific/magnific-popup.css');
