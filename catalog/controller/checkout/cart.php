@@ -352,6 +352,7 @@ class ControllerCheckoutCart extends Controller {
                 $json['text_added_to_cart'] = $this->language->get('text_added_to_cart');
 
                 $json['current_product_in_cart'] = $this->cart->countProducts((int)$this->request->post['product_id']);
+                $json['current_cart_total_count'] = $this->cart->countProducts();
 
                 // Unset all shipping and payment methods
                 unset($this->session->data['shipping_method']);
@@ -508,7 +509,7 @@ class ControllerCheckoutCart extends Controller {
 
             $json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
         }
-
+        $json['current_cart_total_count'] = $this->cart->countProducts();
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }

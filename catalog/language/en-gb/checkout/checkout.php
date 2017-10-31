@@ -1,6 +1,5 @@
 <?php
 $_['heading_title'] = 'Checkout';
-$_['text_cart'] = 'Shopping Cart';
 $_['text_checkout_option'] = 'Step %s: Checkout Options';
 $_['text_checkout_account'] = 'Step %s: Account &amp; Billing Details';
 $_['text_checkout_payment_address'] = 'Step %s: Billing Details';
