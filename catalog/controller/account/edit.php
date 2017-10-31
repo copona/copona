@@ -63,7 +63,6 @@ class ControllerAccountEdit extends Controller {
         $data['entry_lastname'] = $this->language->get('entry_lastname');
         $data['entry_email'] = $this->language->get('entry_email');
         $data['entry_telephone'] = $this->language->get('entry_telephone');
-        $data['entry_fax'] = $this->language->get('entry_fax');
 
         $data['button_continue'] = $this->language->get('button_continue');
         $data['button_back'] = $this->language->get('button_back');
@@ -97,12 +96,6 @@ class ControllerAccountEdit extends Controller {
             $data['error_email'] = $this->error['email'];
         } else {
             $data['error_email'] = '';
-        }
-
-        if (isset($this->error['telephone'])) {
-            $data['error_telephone'] = $this->error['telephone'];
-        } else {
-            $data['error_telephone'] = '';
         }
 
         if (isset($this->error['custom_field'])) {
@@ -149,13 +142,7 @@ class ControllerAccountEdit extends Controller {
             $data['telephone'] = '';
         }
 
-        if (isset($this->request->post['fax'])) {
-            $data['fax'] = $this->request->post['fax'];
-        } elseif (array_key_exists('fax', $customer_info)) {
-            $data['fax'] = $customer_info['fax'];
-        } else {
-            $data['fax'] = '';
-        }
+        $data['fax'] = '';
 
         // Custom Fields
         $this->load->model('account/custom_field');
@@ -202,10 +189,6 @@ class ControllerAccountEdit extends Controller {
 
         if (($this->customer->getEmail() != $this->request->post['email']) && $this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])) {
             $this->error['warning'] = $this->language->get('error_exists');
-        }
-
-        if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
-            $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
         // Custom field validation
