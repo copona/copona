@@ -1389,7 +1389,6 @@ class ControllerCatalogProduct extends Controller {
 
             $results = $this->model_catalog_product->getProductsAutocompleteFS($filter_data);
 
-
             foreach ($results as $result) {
                 $option_data = array();
 
@@ -1500,7 +1499,7 @@ class ControllerCatalogProduct extends Controller {
         }
 
         // Content meta
-        $data['content_meta'] = $this->model_catalog_product->getContentMeta($this->request->get['product_id']);
+        $data['content_meta'] = $this->model_catalog_product->getContentMeta( $data['product_id'] );
 
         $this->hook->getHook('product/getCustomFields/after', $data);
 

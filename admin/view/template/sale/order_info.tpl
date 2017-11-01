@@ -49,9 +49,18 @@ function is_multi($array) {
                   foreach($serial as $value){ ?>
                     <tr>
                       <td><button data-toggle="tooltip" title="<?php echo $text_other_information; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
-                      <td><?php foreach ($value as $key => $val) { ?>
+                      <td><?php foreach ($value as $key => $val) {
+
+                        if(is_array($val)) {
+                          foreach($val as $subkey => $subval) { ?>
+                              <?= $subkey; ?>: <strong><?=  $subval; ?></strong><br />
+                          <?php }
+                        } else {
+                        ?>
                             <?= $key; ?>: <strong><?=  $val; ?></strong><br />
-                        <?php } ?></td>
+                        <?php } ?>
+                        <?php } ?>
+                      </td>
                     </tr>
                   <?php } ?>
                 <?php } else { ?>
