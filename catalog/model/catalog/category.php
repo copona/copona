@@ -31,7 +31,7 @@ class ModelCatalogCategory extends Model {
 
         $start_time = microtime(true);
 
-        if (!file_exists(DIR_LOGS . 'execdebuglog.txt') && DEBUG_MODE) {
+        if (!file_exists(DIR_LOGS . 'execdebuglog.txt') && is_defined('DEBUG_MODE') && DEBUG_MODE) {
             touch(DIR_LOGS . 'execdebuglog.txt');
         }
 
