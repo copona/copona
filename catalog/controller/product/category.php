@@ -149,7 +149,7 @@ class ControllerProductCategory extends Controller
 
             $filter_data = array(
                 'filter_category_id' => $category_id,
-                'filter_sub_category' => true,
+                'filter_sub_category' => true, //Show products from Sub-Categories!
                 'filter_filter' => $params['filter'],
                 'filter_manufacturer_id' => $params['manufacturer_id'],
                 'sort' => $params['sort'],
