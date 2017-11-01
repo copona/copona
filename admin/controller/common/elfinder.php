@@ -82,8 +82,8 @@ class ControllerCommonElfinder extends Controller
             'roots' => [
                 [
                     'driver' => 'LocalFileSystem',
-                    'path' => DIR_IMAGE,
-                    'URL' => '../image',
+                    'path' => DIR_IMAGE . "catalog",
+                    'URL' => '../image/catalog',
                     'uploadDeny' => ['all'],
                     'uploadAllow' => ['image', 'text/plain'],
                     'uploadOrder' => ['deny', 'allow'],
