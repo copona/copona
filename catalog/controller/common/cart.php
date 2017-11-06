@@ -64,7 +64,7 @@ class ControllerCommonCart extends Controller {
 
         foreach ($this->cart->cartProducts as $product) {
             if ($product['image']) {
-                $image = $this->model_tool_image->resize($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+                $image = $this->model_tool_image->{Config::get('theme_default_image_cart_resize','resize')}($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
             } else {
                 $image = '';
             }
@@ -140,6 +140,9 @@ class ControllerCommonCart extends Controller {
 
         $data['cart'] = $this->url->link('checkout/cart');
         $data['checkout'] = $this->url->link('checkout/checkout', '', true);
+        $data['cart_total_numeric'] = $this->cart->getTotal();
+        $data['cart_total'] = $this->currency->format( $data['cart_total_numeric'] , $this->session->data['currency']);
+
 
         return $this->load->view('common/cart', $data);
     }

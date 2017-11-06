@@ -14,7 +14,7 @@ if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
 
 if (is_array($ips) && count($ips) && array_search($client_ip, $ips) === false) {
     $debug_mode = false;
-} elseif( is_array($ips) && array_search($client_ip, $ips) ) {
+} elseif( is_array($ips) && array_search($client_ip, $ips) !== false ) {
     $debug_mode = true;
 }
 

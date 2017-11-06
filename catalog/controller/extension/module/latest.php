@@ -102,6 +102,7 @@ class ControllerExtensionModuleLatest extends Controller {
                         );
                     }
                 }
+            
                 $data['products'][] = array(
                     'product_id'           => $result['product_id'],
                     'thumb'                => $image,
@@ -113,6 +114,7 @@ class ControllerExtensionModuleLatest extends Controller {
                     'product_price'        => $result['price'],
                     'special'              => $special,
                     'tax'                  => $tax,
+                    'quantity'                  => $result['quantity'],
                     'sku'                  => $result['sku'],
                     'rating'               => $rating,
                     'href'                 => $this->url->link('product/product', 'product_id=' . $result['product_id']),

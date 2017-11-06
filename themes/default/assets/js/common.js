@@ -172,7 +172,9 @@ var cart = {
                     }, 3000);
                     //console.log ( $(e.target) );
 
-                    json['text_added_to_cart'] != 'text_added_to_cart' ? $(e.target).notify( json['text_added_to_cart'] ,{position: "right", className: 'success'}) : false;
+                    json['text_added_to_cart'] != 'text_added_to_cart'
+                      ? $(e.target).notify(json['text_added_to_cart'], {position: "right", className: 'success'})
+                      : false;
 
                     $('#cart').load('index.php?route=common/cart/info');
                 }

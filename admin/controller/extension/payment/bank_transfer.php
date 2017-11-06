@@ -135,16 +135,6 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        $this->load->model('localisation/language');
-
-        $languages = $this->model_localisation_language->getLanguages();
-
-        foreach ($languages as $language) {
-            if (empty($this->request->post['bank_transfer_bank' . $language['language_id']])) {
-                $this->error['bank' . $language['language_id']] = $this->language->get('error_bank');
-            }
-        }
-
         return !$this->error;
     }
 
