@@ -64,7 +64,7 @@ class ControllerCheckoutCheckout extends Controller
             }
         }
 
-        $this->load->language('checkout/checkout');
+        $data = $this->load->language('checkout/checkout');
 
         $this->document->setTitle($this->language->get('heading_title'));
 

@@ -73,12 +73,17 @@ class ControllerExtensionModuleFeatured extends Controller {
                 }
             }
         }
+         
+
+        $data['template'] = 'common/_product_grid';
+
+        $this->hook->getHook('extension/module/featured/after', $data);
 
         if ($data['products']) {
             if(!empty($setting['content_data']) && $setting['content_data']){
                 return $data;
             } else {
-                return $this->load->view('extension/module/featured', $data);
+                return $this->load->view($data['template'], $data);
             }
         }
     }
