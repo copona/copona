@@ -1,7 +1,7 @@
 #language img,
 .lng-image img
 {
-	max-width: 16px;
+	width: 16px;
 }
 .pointer{
 	cursor: pointer
