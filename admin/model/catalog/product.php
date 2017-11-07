@@ -996,13 +996,17 @@ class ModelCatalogProduct extends Model {
 
     public function getProductsAutocompleteFS($data) {
 
+        $where = " WHERE pd.language_id = " . (int)$this->config->get('config_language_id') . " " ;
+        if($data['filter_name']) {
+            $where .= " AND MATCH(pd.name) AGAINST('*" . $this->db->escape($data['filter_name']) . "*'  IN BOOLEAN MODE ) ";
+        }
         $sql = " SELECT DISTINCT 
           pd.product_id
           , pd.name
           , pd.product_id as model
-          FROM " . DB_PREFIX . "product_description pd WHERE 
-          MATCH(pd.name) AGAINST('*".$data['filter_name']."*'  IN BOOLEAN MODE ) LIMIT 100";
-
+          FROM " . DB_PREFIX . "product_description pd 
+          $where LIMIT 100";
+ 
         $query = $this->db->query($sql);
         return $query->rows;
     }

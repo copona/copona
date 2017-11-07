@@ -545,6 +545,10 @@ class ControllerUserUser extends Controller {
     protected function getCustomFields($user_id) {
         $this->load->model('user/user');
         $data = [];
+
+        $this->load->model('localisation/language');
+        $data['languages'] = $this->model_localisation_language->getLanguages();
+
         // Content meta
         $data['content_meta'] = $this->model_user_user->getContentMeta( $user_id );
         return $this->load->view('user/user_form_custom_fields', $data);

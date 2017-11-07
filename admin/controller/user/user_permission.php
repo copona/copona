@@ -364,7 +364,6 @@ class ControllerUserUserPermission extends Controller {
                 }
             }
         }
-
         // Sort the file array
         sort($files);
 
@@ -375,6 +374,15 @@ class ControllerUserUserPermission extends Controller {
 
             if (!in_array($permission, $ignore)) {
                 $data['permissions'][] = $permission;
+            }
+        }
+
+        $collections = \Copona\System\Library\Extension\ExtensionManager::getCollection();
+        foreach ($collections as $item){
+            foreach($item->files as $file){
+                if(preg_match('/admin\/controller/', $file)){
+                    $data['permissions'][] = preg_replace('/.*'.$item->name.'\/admin\/controller\/(.*).php/', '\1', $file);
+                }
             }
         }
 

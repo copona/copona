@@ -72,7 +72,12 @@ class ControllerExtensionModuleSpecial extends Controller {
                 );
             }
 
-            return $this->load->view('extension/module/special', $data);
+            $data['template'] = 'common/_product_grid';
+
+            $this->hook->getHook('extension/module/special/after', $data);
+
+            return $this->load->view($data['template'], $data);
+
         }
     }
 
