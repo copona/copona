@@ -108,6 +108,7 @@ class ControllerCommonCart extends Controller {
                 'name'      => $product['name'],
                 'model'     => $product['model'],
                 'option'    => $option_data,
+                'content_meta' => unserialize($product['content_meta']),
                 'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
                 'quantity'  => $product['quantity'],
                 'price'     => $price,
