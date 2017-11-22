@@ -138,13 +138,16 @@
                                 <input type="checkbox" name="selected[]" value="<?php echo $order['order_id']; ?>" />
                             <?php } ?>
                             <input type="hidden" name="shipping_code[]" value="<?php echo $order['shipping_code']; ?>" /></td>
-                          <td class="text-right"><?php echo $order['order_id']; ?></td>
-                          <td class="text-left"><?php echo $order['customer']; ?></td>
+                          <td class="text-right"><a href="<?php echo $order['view']; ?>"><?php echo $order['order_id']; ?></a></td>
+                          <td class="text-left"><a href="<?php echo $order['view']; ?>"><?php echo $order['customer']; ?></a>
+                          </td>
                           <td class="text-left"><?php echo $order['order_status']; ?></td>
                           <td class="text-right"><?php echo $order['total']; ?></td>
                           <td class="text-left"><?php echo $order['date_added']; ?></td>
                           <td class="text-left"><?php echo $order['date_modified']; ?></td>
-                          <td class="text-right"><a href="<?php echo $order['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a> <a href="<?php echo $order['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                          <td class="text-right"><a href="<?php echo $order['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info">
+                              <i class="fa fa-eye"></i></a>
+                            <a href="<?php echo $order['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                         </tr>
                     <?php } ?>
                 <?php } else { ?>
