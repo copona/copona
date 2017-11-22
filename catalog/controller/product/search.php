@@ -237,6 +237,7 @@ class ControllerProductSearch extends Controller {
                         'tax'            => $tax,
                         'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,
                         'rating'         => $result['rating'],
+                        'quantity' => $result['quantity'],
                         'href'           => $this->url->link('product/product',
                             'product_id=' . $result['product_id'] . $url),
                         'group_products' => $this->model_catalog_product->getProducts(
