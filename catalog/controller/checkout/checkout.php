@@ -430,11 +430,9 @@ class ControllerCheckoutCheckout extends Controller
         }
 
         // Save posted values in session
-pr();
         foreach ($this->request->post as $key => $val) {
             if (in_array($key, $this->allowed_post_values)) {
                 $this->session->data['guest'][$key] = (is_array($val) ? preg_replace("/<.+>/sU", "", $val) : strip_tags($val));
-                pr($this->session->data['guest'][$key]);
                 $this->session->data[$key] = (is_array($val) ? preg_replace("/<.+>/sU", "", $val) : strip_tags($val));
             }
         }
