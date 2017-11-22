@@ -354,10 +354,7 @@ class ControllerCheckoutCheckout extends Controller
 
     protected function validate($type = '')
     {
-        $data = $this->language->load('checkout/guest');
-
-//        prd($this->request->post['s']);
-
+        $this->language->load('checkout/guest');
 
         if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
@@ -414,25 +411,11 @@ class ControllerCheckoutCheckout extends Controller
         }
         if ($this->request->post['payment_method'] == "bank_transfer") {
             if ($this->request->post['customer_group_id'] == "2") {
-                if ((utf8_strlen($this->request->post['company_name']) < 3) || (utf8_strlen($this->request->post['company_name']) > 64)) {
-                    $this->error['company_name'] = $this->language->get('error_company_name');
-                }
-
-                if ((utf8_strlen($this->request->post['reg_num']) < 3) || (utf8_strlen($this->request->post['reg_num']) > 64)) {
-                    $this->error['reg_num'] = $this->language->get('error_reg_num');
-                }
-                if ((utf8_strlen($this->request->post['bank_name']) < 3) || (utf8_strlen($this->request->post['bank_name']) > 64)) {
-                    $this->error['bank_name'] = $this->language->get('error_bank_name');
-                }
-                if ((utf8_strlen($this->request->post['bank_code']) < 3) || (utf8_strlen($this->request->post['bank_code']) > 64)) {
-                    $this->error['bank_code'] = $this->language->get('error_bank_code');
-                }
-                if ((utf8_strlen($this->request->post['bank_account']) < 3) || (utf8_strlen($this->request->post['bank_account']) > 64)) {
-                    $this->error['bank_account'] = $this->language->get('error_bank_account');
-                }
-
-                if ((utf8_strlen($this->request->post['address_2']) < 3) || (utf8_strlen($this->request->post['address_2']) > 64)) {
-                    $this->error['address_2'] = $this->language->get('error_address_2');
+               $serial_fields = Config::get('checkout_serial_fields');
+                foreach ($serial_fields as $field) {
+                    if (empty($this->request->post[$field]) || (utf8_strlen($this->request->post[$field]) < 1)) {
+                        $this->error[$field] = $this->language->get('error_' . $field);
+                    }
                 }
             }
         }
@@ -447,20 +430,26 @@ class ControllerCheckoutCheckout extends Controller
         }
 
         // Save posted values in session
-
+pr();
         foreach ($this->request->post as $key => $val) {
             if (in_array($key, $this->allowed_post_values)) {
-                $this->session->data['guest'][$key] = (is_array($val) ? preg_replace("/<.+>/sU", "",
-                  $val) : strip_tags($val));
+                $this->session->data['guest'][$key] = (is_array($val) ? preg_replace("/<.+>/sU", "", $val) : strip_tags($val));
+                pr($this->session->data['guest'][$key]);
                 $this->session->data[$key] = (is_array($val) ? preg_replace("/<.+>/sU", "", $val) : strip_tags($val));
             }
         }
 
         if (!empty($this->request->post['serial'])) {
-            $this->session->data['guest']['serial'] = $this->request->post['serial'];
-            $this->session->data['serial'] = $this->request->post['serial'];
+            $this->session->data['guest']['serial'] = $this->session->data['serial'] = $this->request->post['serial'];
         }
+
+        // prd( $this->session->data );
+
+        // prd($this->session->data['serial']);
+
         //prd($this->session->data['serial']);
+
+
         if (isset($this->request->post['payment_method'])) {
             $this->session->data['payment_method'] = $this->session->data['payment_methods'][$this->request->post['payment_method']];
         }
