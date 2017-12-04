@@ -49,6 +49,12 @@ $template_config_settings = array(
     'theme_default_latest_thumb_resize'              => 'resize',
     'theme_default_category_sort'                    => 'p.sort_order',
     'theme_default_category_order'                   => 'ASC',
+    'checkout_serial_fields'                         => [
+        'company_name',
+        'reg_num',
+        'address_2',
+        'postcode2'
+    ],
 
     'theme_default_extension_module_slideshow_resize' => 'propsize',
     'theme_default_image_cart_resize'                => 'resize',

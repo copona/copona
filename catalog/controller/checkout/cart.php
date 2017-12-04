@@ -141,6 +141,7 @@ class ControllerCheckoutCart extends Controller {
                     'model'     => $product['model'],
                     'option'    => $option_data,
                     'recurring' => $recurring,
+                    'content_meta' => unserialize($product['content_meta']),
                     'quantity'  => $product['quantity'],
                     'stock'     => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
                     'reward'    => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),

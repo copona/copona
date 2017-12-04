@@ -3,8 +3,8 @@ class ControllerExtensionModuleAccount extends Controller {
 
     public function index() {
         $data = $this->load->language('extension/module/account');
-
         $data['heading_title'] = $this->language->get('heading_title');
+        $this->load->model('account/wishlist');
 
         $modules_any = [
             'wishlist',
@@ -52,7 +52,7 @@ class ControllerExtensionModuleAccount extends Controller {
         foreach($modules_any as $module) {
             $data['links'][] = [
                 'href' => $this->url->link('account/' . $module),
-                'name'  => $data["text_" . $module],
+                'name'  => ($module === 'wishlist')? sprintf($data["text_" . $module], $this->model_account_wishlist->getTotalWishlist()) : $data["text_" . $module],
                 'status'  => true, // set to "false" in Hook, if you need to turn output off.
             ];
         }

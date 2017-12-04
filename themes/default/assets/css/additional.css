@@ -299,3 +299,14 @@ span.error input{
 #mycart .price, #mycart .total{
     text-align:right;
 }
+#column-right a{
+    display: block;
+    padding: 7px 9px;
+    border: 1px solid grey;
+    border-bottom: none;
+    color: black;
+    background-color: white;
+}
+#column-right a:last-child{
+     border-bottom: 1px solid grey;
+ }
