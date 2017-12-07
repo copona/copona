@@ -174,6 +174,7 @@ class ControllerAccountRegister extends Controller
             'city',
             'password',
             'confirm',
+            'newsletter',
             'customer_group_id',
             'customer_group_id',
             'customer_group_id',
