@@ -73,9 +73,9 @@ class ControllerExtensionModuleFeatured extends Controller {
                 }
             }
         }
-         
 
-        $data['template'] = 'common/_product_grid';
+
+        $data['template'] = 'extension/module/featured';
 
         $this->hook->getHook('extension/module/featured/after', $data);
 
