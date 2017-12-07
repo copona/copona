@@ -220,7 +220,7 @@ class ControllerProductCategory extends Controller
                     'popup' => $image_popup,
                     'name' => $result['name'],
                     'description' => strip2words($result['description'],
-                        Config::get(Config::get('config_theme') . '_product_description_length'),
+                            Config::get(Config::get('config_theme') . '_product_description_length'),
                             true) . (mb_strlen( $result['description'] > Config::get(Config::get('config_theme') . '_product_description_length') ) ? '..' : '' ),
                     'price' => $price,
                     'special' => $special,
