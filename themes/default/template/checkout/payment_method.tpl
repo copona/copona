@@ -2,7 +2,6 @@
   <div class="warning"><?php echo $error_warning; ?></div>
 <?php } ?>
 <?php if ($payment_methods) { ?>
-  <p><?php echo $text_payment_method; ?></p>
     <?php foreach ($payment_methods as $payment_method) { ?>
 
         <?php if(!empty($payment_method['template'])) {
