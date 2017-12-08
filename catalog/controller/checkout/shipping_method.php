@@ -30,11 +30,18 @@ class ControllerCheckoutShippingMethod extends Controller {
                 ->getStoreAddress();
         };
 
-
-
         $this->load->model('extension/extension');
 
         if (isset($this->session->data['shipping_address'])) {
+
+            if(empty($this->session->data['shipping_address']['country_id']) ) {
+                $this->session->data['shipping_address']['country_id'] = Config::get('config_country_id');
+            }
+
+            if(!empty($this->request->post['country_id']) ) {
+                $this->session->data['shipping_address']['country_id'] = $this->request->post['country_id'];
+            }
+
             // Shipping Methods
             $method_data = array();
 
