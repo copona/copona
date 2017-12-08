@@ -441,17 +441,16 @@ class ControllerCheckoutCheckout extends Controller
             $this->session->data['guest']['serial'] = $this->session->data['serial'] = $this->request->post['serial'];
         }
 
-        // prd( $this->session->data );
-
-        // prd($this->session->data['serial']);
-
-        //prd($this->session->data['serial']);
-
-
-        if (isset($this->request->post['payment_method'])) {
-            $this->session->data['payment_method'] = $this->session->data['payment_methods'][$this->request->post['payment_method']];
+        if (isset($this->session->data['payment_methods'])) {
+            $method = explode('.', $this->request->post['payment_method']);
+            if (isset($this->session->data['payment_methods'][$method[0]]['template'])) {
+                $this->session->data['payment_method'] = $this->session->data['payment_methods'][$method[0]] ;
+                $this->session->data['payment_method']['code'] .= '.' . $method[1];
+            } else {
+                $this->session->data['payment_method'] = $this->session->data['payment_methods'][$method[0]];
+            }
         }
-
+//prd($this->session->data['payment_method']);
         $products = $this->cart->getProducts();
         foreach ($products as $product) {
             if (!$product['stock']) {

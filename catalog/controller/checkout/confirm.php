@@ -292,6 +292,7 @@ class ControllerCheckoutConfirm extends Controller {
             $data1['comment'] = empty($this->session->data['comment']) ? '' : $this->session->data['comment'];
             $data1['total'] = $total;
 
+
             if (isset($this->request->cookie['tracking'])) {
                 $data1['tracking'] = $this->request->cookie['tracking'];
                 $subtotal = $this->cart->getSubTotal();
@@ -346,7 +347,6 @@ class ControllerCheckoutConfirm extends Controller {
             } else {
                 $data1['user_agent'] = '';
             }
-
             if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
                 $data1['accept_language'] = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
             } else {
@@ -354,8 +354,10 @@ class ControllerCheckoutConfirm extends Controller {
             }
 
             $this->load->model('checkout/order');
-
+//            pr($this->session->data);
+//prd($data1);
             $this->session->data['order_id'] = $this->model_checkout_order->addOrder($data1);
+
             $data['column_name'] = $this->language->get('column_name');
             $data['column_model'] = $this->language->get('column_model');
             $data['column_quantity'] = $this->language->get('column_quantity');
@@ -437,7 +439,7 @@ class ControllerCheckoutConfirm extends Controller {
                 );
             }
 
-            $data['payment'] = $this->load->controller('extension/payment/' . $this->session->data['payment_method']['code']);
+            $data['payment'] = $this->load->controller('extension/payment/' . explode('.',$this->session->data['payment_method']['code'])[0]);
         } else {
             $data['redirect'] = $redirect;
         }
@@ -450,7 +452,7 @@ class ControllerCheckoutConfirm extends Controller {
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->hook->getHook('checkout/confirm/index/after', $data);
-
+//prd($data);
         $this->response->setOutput($this->load->view('checkout/confirm', $data));
     }
 
