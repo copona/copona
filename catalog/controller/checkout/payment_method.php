@@ -163,7 +163,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
                 break;
             }
         }
-
+prd($this->request->post['payment_method']);
         if (!$json) {
             if (!isset($this->request->post['payment_method'])) {
                 $json['error']['warning'] = $this->language->get('error_payment');
