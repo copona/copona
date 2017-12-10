@@ -49,6 +49,7 @@ $template_config_settings = array(
     'theme_default_latest_thumb_resize'              => 'resize',
     'theme_default_category_sort'                    => 'p.sort_order',
     'theme_default_category_order'                   => 'ASC',
+    'theme_default_product_limits'                   => [8,16,32],
     'checkout_serial_fields'                         => [
         'company_name',
         'reg_num',
