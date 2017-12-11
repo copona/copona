@@ -18,6 +18,7 @@ class ControllerCheckoutCheckout extends Controller
       'telephone',
       'company',
       'country',
+      'zone_id',
       'country_id',
       'tax_id',
       'company_id',
@@ -232,12 +233,10 @@ class ControllerCheckoutCheckout extends Controller
             'SSL'), $information_info['title'], $information_info['title']);
 
         // SHIPPING
-        if (isset($this->request->post['shipping_method']) && $this->validateShipping()) {
-            $shipping = explode('.', $this->request->post['shipping_method']);
-            $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
-        }
+        //pr($this->request->post);
+        //pr($this->session->data);
 
-        if ($this->request->post && $this->validate('guest')) {
+        if ($this->request->post && $this->validateShipping() && $this->validate('guest')) {
 
             //PAYMENT DATA
             $data = $this->session->data['guest']['payment'];
@@ -248,11 +247,10 @@ class ControllerCheckoutCheckout extends Controller
             $data['tax_id'] = '';
             $data['address_1'] = $this->session->data['guest']['address_1'];
             $data['city'] = $this->session->data['guest']['city'];
-            $data['postcode'] = '';
-            $data['zone'] = '';
-            $data['zone_id'] = $this->session->data['guest']['shipping']['zone_id'];
+            $data['postcode'] = $this->session->data['guest']['postcode'];
+            $data['zone_id'] = $this->session->data['guest']['shipping_address']['zone_id'];
             $data['country'] = $this->session->data['guest']['country'];
-            $data['country_id'] = $this->session->data['guest']['shipping']['country_id'];
+            $data['country_id'] = $this->session->data['guest']['shipping_address']['country_id'];
             $data['address_format'] = '';
             $data['customer_group_id'] = $this->session->data['guest']['customer_group_id'];
             $data['company_name'] = $this->session->data['guest']['company_name'];
@@ -265,7 +263,7 @@ class ControllerCheckoutCheckout extends Controller
 
             $this->session->data['guest']['payment'] = $data;
 
-            $data = $this->session->data['guest']['shipping'];
+            $data = $this->session->data['guest']['shipping_address'];
 
             $data['firstname'] = $this->session->data['guest']['firstname'];
 
@@ -276,13 +274,14 @@ class ControllerCheckoutCheckout extends Controller
             $data['address_1'] = $this->session->data['guest']['address_1'];
 
             $data['city'] = $this->session->data['guest']['city'];
-            $data['postcode'] = '';
-            $data['zone'] = '';
-            $data['zone_id'] = $this->session->data['guest']['shipping']['zone_id'];
+            $data['postcode'] = $this->session->data['guest']['postcode'];
+            $data['zone_id'] = $this->session->data['guest']['shipping_address']['zone_id'];
             $data['country'] = $this->session->data['guest']['country'];
-            $data['country_id'] = $this->session->data['guest']['shipping']['country_id'];
+            $data['country_id'] = $this->session->data['country_id'];
+            $data['zone_id'] = $this->session->data['zone_id'];
             $data['address_format'] = '';
-            $this->session->data['guest']['shipping'] = $data;
+            
+            $this->session->data['guest']['shipping_address'] = $data;
             $this->session->data['guest']['fax'] = '';
             //prd($this->session->data['guest']['serial']);
 
@@ -292,10 +291,10 @@ class ControllerCheckoutCheckout extends Controller
 
             $this->response->redirect($this->url->link('checkout/checkout/guest', '', 'SSL'));
         } else {
-            if (!isset($this->session->data['guest']['shipping'])) {
+            if (!isset($this->session->data['guest']['shipping_address'])) {
                 $shipping_address['country_id'] = $this->config->get('config_country_id');
                 $shipping_address['zone_id'] = $this->config->get('config_zone_id');
-                $this->session->data['guest']['shipping'] = $shipping_address;
+                $this->session->data['guest']['shipping_address'] = $shipping_address;
             }
 
             if (isset($this->session->data['error'])) {
@@ -317,11 +316,11 @@ class ControllerCheckoutCheckout extends Controller
             $data['cart_with_shipping'] = $data['cart_total_value'] + $data['order_shipping'];
         }
 
-        $data['shipping'] = 'empty_string_remove_in_controller';
+        $data['shipping_address'] = 'empty_string_remove_in_controller';
 
 
-        // $data['country_id'] = $this->session->data['guest']['shipping']['country_id'];
-        // $data['zone_id'] = $this->session->data['guest']['shipping']['zone_id'];
+        // $data['country_id'] = $this->session->data['guest']['shipping_address']['country_id'];
+        // $data['zone_id'] = $this->session->data['guest']['shipping_address']['zone_id'];
 
         if (empty($this->session->data['shipping_address'])) {
             $this->session->data['shipping_address'] = $this->model_localisation_location->getStoreAddress();
@@ -391,7 +390,7 @@ class ControllerCheckoutCheckout extends Controller
             }
         }
 
-        if (substr($this->request->post['shipping_method'], 0,
+        if (!empty($this->request->post['shipping_method']) && substr($this->request->post['shipping_method'], 0,
             13) == 'pickup.pickup' && strlen($this->request->post['shipping_method']) < 10) {
             $this->error['shipping_method'] = $this->language->get('error_shipping_method_choose_shop');
             $this->session->data['error_shipping_pickup.pickup'] = true;
@@ -436,11 +435,13 @@ class ControllerCheckoutCheckout extends Controller
                 $this->session->data[$key] = (is_array($val) ? preg_replace("/<.+>/sU", "", $val) : strip_tags($val));
             }
         }
+        //pr( $this->session->data);
 
         if (!empty($this->request->post['serial'])) {
             $this->session->data['guest']['serial'] = $this->session->data['serial'] = $this->request->post['serial'];
         }
 
+        //prd();
         if (isset($this->session->data['payment_methods'])) {
             $method = explode('.', $this->request->post['payment_method']);
             if (isset($this->session->data['payment_methods'][$method[0]]['template'])) {
@@ -450,7 +451,7 @@ class ControllerCheckoutCheckout extends Controller
                 $this->session->data['payment_method'] = $this->session->data['payment_methods'][$method[0]];
             }
         }
-//prd($this->session->data['payment_method']);
+
         $products = $this->cart->getProducts();
         foreach ($products as $product) {
             if (!$product['stock']) {
@@ -469,7 +470,6 @@ class ControllerCheckoutCheckout extends Controller
     protected function validateShipping()
     {
 
-
         if (!empty($this->request->post['shipping_method'])) {
             $shipping = explode('.', $this->request->post['shipping_method']);
 
@@ -487,6 +487,10 @@ class ControllerCheckoutCheckout extends Controller
         //pr($this->error);
 
         if (!$this->error) {
+
+            $shipping = explode('.', $this->request->post['shipping_method']);
+            $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
+
             return true;
         } else {
             return false;
