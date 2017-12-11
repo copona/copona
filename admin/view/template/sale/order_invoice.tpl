@@ -9,18 +9,34 @@
     <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
     <link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
     <link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="all" />
+    <style>
+      @media print {
+        button{
+          display: none !important;
+        }
+      }
+
+      @page {
+        size: auto;
+        margin: 0;
+      }
+      body{ padding: 30px; }
+    </style>
   </head>
   <body>
     <div class="container">
         <?php foreach ($orders as $order) { ?>
           <div style="page-break-after: always;">
-            <h1><?php echo $text_invoice; ?> #<?php echo $order['order_id']; ?></h1>
+
+            <div class="pull-left">
+              <button onclick="window.print()" class="btn btn-default" style="margin: 30px 0">Print this page</button>
+              <?php if ($order['invoice_no']) { ?>
+                <h1><?php echo $text_invoice_no; ?> <?php echo $order['invoice_no']; ?></h1>
+              <?php } ?>
+              <h3><?php echo $text_order_id; ?> #<?php echo $order['order_id']; ?></h3>
+            </div>
+
             <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <td colspan="2"><?php echo $text_order_detail; ?></td>
-                </tr>
-              </thead>
               <tbody>
                 <tr>
                   <td style="width: 50%;"><address>
@@ -34,10 +50,7 @@
                     <b><?php echo $text_email; ?></b> <?php echo $order['store_email']; ?><br />
                     <b><?php echo $text_website; ?></b> <a href="<?php echo $order['store_url']; ?>"><?php echo $order['store_url']; ?></a></td>
                   <td style="width: 50%;"><b><?php echo $text_date_added; ?></b> <?php echo $order['date_added']; ?><br />
-                      <?php if ($order['invoice_no']) { ?>
-                        <b><?php echo $text_invoice_no; ?></b> <?php echo $order['invoice_no']; ?><br />
-                    <?php } ?>
-                    <b><?php echo $text_order_id; ?></b> <?php echo $order['order_id']; ?><br />
+
                     <b><?php echo $text_payment_method; ?></b> <?php echo $order['payment_method']; ?><br />
                     <?php if ($order['shipping_method']) { ?>
                         <b><?php echo $text_shipping_method; ?></b> <?php echo $order['shipping_method']; ?><br />

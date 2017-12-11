@@ -155,3 +155,4 @@ $_['text_model_desc'] = 'Model (Z - A)';
 $_['text_limit'] = 'Show:';
 $_['text_total'] = 'Total';
 $_['text_product_not_available'] = 'Out of stock';
+$_['text_add'] = 'Add';

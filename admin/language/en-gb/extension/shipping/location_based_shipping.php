@@ -21,4 +21,3 @@ $_['button_add'] = 'Add';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify Location Based Shipping rate shipping!';
-?>

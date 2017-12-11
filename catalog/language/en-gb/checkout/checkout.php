@@ -26,7 +26,7 @@ $_['text_address_new'] = 'I want to use a new address';
 $_['text_address_existing'] = 'I want to use an existing address';
 $_['text_contact_buyer'] = 'Customer Information:';
 $_['text_shipping_method'] = 'Please select the preferred shipping method to use on this order.';
-$_['text_payment_method'] = 'Please select the preferred payment method to use on this order.';
+$_['text_payment_method'] = 'Payment method';
 $_['text_comments'] = 'Add Comments About Your Order';
 $_['text_recurring_item'] = 'Recurring Item';
 $_['text_payment_recurring'] = 'Payment Profile';
@@ -41,17 +41,12 @@ $_['text_month'] = 'month';
 $_['text_year'] = 'year';
 $_['text_total_title'] = 'Total';
 $_['text_total'] = 'Total (with VAT)';
-
-
-// Column
 $_['column_name'] = 'Product Name';
 $_['column_model'] = 'Model';
 $_['column_quantity'] = 'Quantity';
 $_['column_price'] = 'Unit Price';
 $_['column_total'] = 'Total';
 $_['entry_email_address'] = 'E-Mail Address';
-
-
 $_['entry_newsletter'] = 'I wish to subscribe to the %s newsletter.';
 $_['entry_shipping'] = 'My delivery and billing addresses are the same.';
 $_['error_warning'] = 'There was a problem while trying to process your order! If the problem persists please try selecting a different payment method or you can contact the store owner by <a href="%s">clicking here</a>.';
