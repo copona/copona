@@ -51,9 +51,8 @@
                   <table class="location-based-shipping-shipping list table">
                     <thead>
                       <tr>
-                        <td class="left"><?php echo $entry_country; ?></td>
+                        <td class="left"><?php echo $entry_geo_zone; ?></td>
                         <td class="left"><?php echo $entry_zone; ?></td>
-                        <td class="left"><?php echo $entry_tax_class; ?></td>
                         <td><?php echo $entry_cost ?></td>
                         <td class="left"><?php echo $entry_title ?></td>
                         <td class="left"><?php echo $entry_show_address ?></td>
@@ -65,16 +64,17 @@
                         <tbody id="location-based-shipping-cost-row<?php echo $row; ?>">
                           <tr>
                         <input type="hidden" name="location_based_shipping_cost[<?php echo $row; ?>][group]" value="<?php echo $group_row ?>">
-                        <td class="left"><select class="form-control" name="location_based_shipping_cost[<?php echo $row; ?>][country_id]" id="country<?php echo $row; ?>" onchange="$('#zone<?php echo $row; ?>').load('index.php?route=localisation/geo_zone/zone&token=<?php echo $token; ?>&country_id=' + this.value + '&zone_id=0');">
-                                <?php foreach ($countries as $country) { ?>
-                                    <?php if ($country['country_id'] == $czc['country_id']) { ?>
-                                    <option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
+                        <td class="left"><select class="form-control" name="location_based_shipping_cost[<?php echo $row; ?>][geo_zone]" id="geo_zone<?php echo $row; ?>" onchange="$('#zone<?php echo $row; ?>').load('index.php?route=localisation/geo_zone/zone&token=<?php echo $token; ?>&geo_zone_id=' + this.value + '&zone_id=0');">
+                            <?php pr($geo_zones); ?>
+                            <?php pr($czc); ?>
+                                <?php foreach ($geo_zones as $geo_zone) { ?>
+                                    <?php if ($geo_zone['geo_zone_id'] == $czc['geo_zone']) { ?>
+                                    <option value="<?php echo $geo_zone['geo_zone_id']; ?>" selected="selected"><?php echo $geo_zone['name']; ?></option>
                                 <?php } else { ?>
-                                    <option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
+                                    <option value="<?php echo $geo_zone['geo_zone_id']; ?>"><?php echo $geo_zone['name']; ?></option>
                                 <?php } ?>
                             <?php } ?>
                           </select></td>
-                        <td class="left"><select class="form-control" name="location_based_shipping_cost[<?php echo $row; ?>][zone_id]" id="zone<?php echo $row; ?>">
                           </select></td>
                         <td><select class="form-control" name="location_based_shipping_cost[<?php echo $row; ?>][tax_class_id]">
                             <option value="0"><?php echo $text_none; ?></option>
@@ -133,27 +133,29 @@
   </div>
 </div>
 
+
 <?php $row = 0; ?>
 <?php foreach ($location_based_shipping_cost as $group_id => $group) { ?>
     <?php if (is_array($group)) foreach ($group as $location_based_shipping_cost) { ?>
-            <script type="text/javascript"><!--
-                  $('#zone<?php echo $row; ?>').load('index.php?route=localisation/geo_zone/zone&token=<?php echo $token; ?>&country_id=<?php echo $location_based_shipping_cost['country_id']; ?>&zone_id=<?php echo $location_based_shipping_cost['zone_id']; ?>');
-                //--></script>
-            <?php $row++; ?>
-        <?php } ?>
+    <script type="text/javascript"><!--
+        $('#zone<?php echo $row; ?>').load('index.php?route=localisation/geo_zone/zone&token=<?php echo $token; ?>&country_id=<?php echo $location_based_shipping_cost['country_id']; ?>&zone_id=<?php echo $location_based_shipping_cost['zone_id']; ?>');
+        //--></script>
+        <?php $row++; ?>
+    <?php } ?>
 <?php } ?>
+
 
 <script type="text/javascript"><!--
                 var row = <?php echo $row; ?>;
     var group_row = <?php echo $group_row; ?>;
 
     function add_group() {
+        console.log('54665');
         html = ' <h1>Group ' + group_row + '</h1>';
         html += '<table class="location-based-shipping-shipping list table">\
                     <thead>\
                       <tr>\
-                        <td class="left"><?php echo $entry_country; ?></td>\
-                        <td class="left"><?php echo $entry_zone; ?></td>\
+                        <td class="left"><?php echo $entry_geo_zone; ?></td>\
                         <td class="left"><?php echo $entry_tax_class; ?></td>\
                         <td><?php echo $entry_cost ?></td>\
                         <td class="left"><?php echo $entry_title ?></td>\
@@ -175,12 +177,12 @@
         html = '<tbody id="location-based-shipping-cost-row' + row + '">';
         html += '<tr>';
         html += '<input type="hidden" name="location_based_shipping_cost[' + row + '][group]" value="' + group_id + '" >';
-        html += '<td class="left"><select class="form-control" name="location_based_shipping_cost[' + row + '][country_id]" id="country' + row + '" onchange="$(\'#zone' + row + '\').load(\'index.php?route=localisation/geo_zone/zone&token=<?php echo $token; ?>&country_id=\' + this.value + \'&zone_id=0\');">';
-<?php foreach ($countries as $country) { ?>
-            html += '<option value="<?php echo $country['country_id']; ?>"><?php echo addslashes($country['name']); ?></option>';
+        html += '<td class="left"><select class="form-control" name="location_based_shipping_cost[' + row + '][geo_zone_id]" id="geo_zone' + row + '">';
+<?php foreach ($geo_zones as $geo_zone) { ?>
+            html += '<option value="<?php echo $geo_zone['geo_zone_id']; ?>"><?php echo addslashes($geo_zone['name']); ?></option>';
 <?php } ?>
         html += '</select></td>';
-        html += '<td class="left"><select class="form-control" name="location_based_shipping_cost[' + row + '][zone_id]" id="zone' + row + '"></select></td>';
+        //html += '<td class="left"><select class="form-control" name="location_based_shipping_cost[' + row + '][zone_id]" id="zone' + row + '"></select></td>';
         html += '<td class="left"><select class="form-control" name="location_based_shipping_cost[' + row + '][tax_class_id]">';
         html += '<option value="0"><?php echo $text_none; ?></option>';
 <?php foreach ($tax_classes as $tax_class) { ?>
@@ -203,7 +205,6 @@
 
         $('.add-row-' + group_id).before(html);
 
-        $('#zone' + row).load('index.php?route=localisation/geo_zone/zone&token=<?php echo $token; ?>&country_id=' + $('#country' + row).attr('value') + '&zone_id=0');
         row++;
     }
 
