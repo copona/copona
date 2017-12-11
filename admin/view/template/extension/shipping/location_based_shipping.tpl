@@ -65,8 +65,6 @@
                           <tr>
                         <input type="hidden" name="location_based_shipping_cost[<?php echo $row; ?>][group]" value="<?php echo $group_row ?>">
                         <td class="left"><select class="form-control" name="location_based_shipping_cost[<?php echo $row; ?>][geo_zone]" id="geo_zone<?php echo $row; ?>" onchange="$('#zone<?php echo $row; ?>').load('index.php?route=localisation/geo_zone/zone&token=<?php echo $token; ?>&geo_zone_id=' + this.value + '&zone_id=0');">
-                            <?php pr($geo_zones); ?>
-                            <?php pr($czc); ?>
                                 <?php foreach ($geo_zones as $geo_zone) { ?>
                                     <?php if ($geo_zone['geo_zone_id'] == $czc['geo_zone']) { ?>
                                     <option value="<?php echo $geo_zone['geo_zone_id']; ?>" selected="selected"><?php echo $geo_zone['name']; ?></option>
@@ -177,7 +175,7 @@
         html = '<tbody id="location-based-shipping-cost-row' + row + '">';
         html += '<tr>';
         html += '<input type="hidden" name="location_based_shipping_cost[' + row + '][group]" value="' + group_id + '" >';
-        html += '<td class="left"><select class="form-control" name="location_based_shipping_cost[' + row + '][geo_zone_id]" id="geo_zone' + row + '">';
+        html += '<td class="left"><select class="form-control" name="location_based_shipping_cost[' + row + '][geo_zone]" id="geo_zone' + row + '">';
 <?php foreach ($geo_zones as $geo_zone) { ?>
             html += '<option value="<?php echo $geo_zone['geo_zone_id']; ?>"><?php echo addslashes($geo_zone['name']); ?></option>';
 <?php } ?>
