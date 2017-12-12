@@ -13,7 +13,7 @@ class ControllerCheckoutConfirm extends Controller {
             // Validate if shipping address has been set.
             $this->load->model('account/address');
 
-            $shipping_address = $this->session->data['guest']['shipping'];
+            $shipping_address = $this->session->data['guest']['shipping_address'];
 
             if (empty($shipping_address)) {
                 $redirect = $this->url->link('checkout/checkout/guest', '', 'SSL');
