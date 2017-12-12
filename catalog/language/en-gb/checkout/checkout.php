@@ -25,7 +25,7 @@ $_['text_agree'] = 'I have read and agree to the <a href="%s" class="agree"><b>%
 $_['text_address_new'] = 'I want to use a new address';
 $_['text_address_existing'] = 'I want to use an existing address';
 $_['text_contact_buyer'] = 'Customer Information:';
-$_['text_shipping_method'] = 'Please select the preferred shipping method to use on this order.';
+$_['text_shipping_method'] = 'Shipping method';
 $_['text_payment_method'] = 'Payment method';
 $_['text_comments'] = 'Add Comments About Your Order';
 $_['text_recurring_item'] = 'Recurring Item';
