@@ -683,40 +683,28 @@ class ControllerSaleOrder extends Controller {
 
             $url = '';
 
-            if (isset($this->request->get['filter_order_id'])) {
-                $url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
+
+            $url_fields = [
+                'filter_order_id',
+                'filter_order_status',
+                'filter_total',
+                'filter_date_added',
+                'filter_date_modified',
+                'sort',
+                'order',
+                'page',
+                'filter_order_status',
+                'filter_order_status',
+            ];
+
+            foreach($url_fields as $key) {
+                if ( $this->request->get($key) ) {
+                    $url .= '&filter_order_status=' . $this->request->get($key);
+                }
             }
 
             if (isset($this->request->get['filter_customer'])) {
                 $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
-            }
-
-            if (isset($this->request->get['filter_order_status'])) {
-                $url .= '&filter_order_status=' . $this->request->get['filter_order_status'];
-            }
-
-            if (isset($this->request->get['filter_total'])) {
-                $url .= '&filter_total=' . $this->request->get['filter_total'];
-            }
-
-            if (isset($this->request->get['filter_date_added'])) {
-                $url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
-            }
-
-            if (isset($this->request->get['filter_date_modified'])) {
-                $url .= '&filter_date_modified=' . $this->request->get['filter_date_modified'];
-            }
-
-            if (isset($this->request->get['sort'])) {
-                $url .= '&sort=' . $this->request->get['sort'];
-            }
-
-            if (isset($this->request->get['order'])) {
-                $url .= '&order=' . $this->request->get['order'];
-            }
-
-            if (isset($this->request->get['page'])) {
-                $url .= '&page=' . $this->request->get['page'];
             }
 
             $data['breadcrumbs'] = array();
@@ -784,6 +772,7 @@ class ControllerSaleOrder extends Controller {
             $data['shipping_method'] = $order_info['shipping_method'];
             $data['payment_method'] = $order_info['payment_method'];
 
+             
             // Payment Address
             if ($order_info['payment_address_format']) {
                 $format = $order_info['payment_address_format'];
