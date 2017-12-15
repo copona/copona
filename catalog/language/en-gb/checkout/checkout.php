@@ -7,7 +7,6 @@ $_['text_checkout_shipping_address'] = 'Step %s: Delivery Details';
 $_['text_checkout_shipping_method'] = 'Step %s: Delivery Method';
 $_['text_checkout_payment_method'] = 'Step %s: Payment Method';
 $_['text_shipping'] = 'Shipping (including VAT)';
-$_['text_shipping_address'] = 'Shipping address';
 $_['text_checkout_confirm'] = 'Step %s: Confirm Order';
 $_['text_modify'] = 'Modify &raquo;';
 $_['text_new_customer'] = 'New Customer';
@@ -80,3 +79,4 @@ $_['error_form'] = '<a href="/index.php?route=account/login">Register</a> or con
 $_['entry_company_id'] = 'Registration number';
 $_['error_minimum'] = 'Warning: Minimum order for %s is %s.';
 $_['error_custom_field_validate'] = '%s incorrect';
+$_['entry_zone'] = 'Region / State';
