@@ -156,3 +156,4 @@ $_['text_limit'] = 'Show';
 $_['text_total'] = 'Total';
 $_['text_product_not_available'] = 'Out of stock';
 $_['text_add'] = 'Add';
+$_['text_shipping_address'] = 'Shipping address';
