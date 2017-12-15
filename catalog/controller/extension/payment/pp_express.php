@@ -2,12 +2,13 @@
 class ControllerExtensionPaymentPPExpress extends Controller {
 
     public function index() {
-        $this->load->language('extension/payment/pp_express');
+        $data = $this->load->language('extension/payment/pp_express');
 
         $data['button_continue'] = $this->language->get('button_continue');
         $data['text_loading'] = $this->language->get('text_loading');
 
         $data['continue'] = $this->url->link('extension/payment/pp_express/checkout', '', true);
+        $data['back'] = $this->url->link('checkout/checkout', '', true);
 
         unset($this->session->data['paypal']);
 
