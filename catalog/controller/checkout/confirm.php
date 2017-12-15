@@ -154,7 +154,7 @@ class ControllerCheckoutConfirm extends Controller {
                 $data1['fax'] = $this->session->data['guest']['fax'];
             }
 
-            $payment_address = $this->session->data['guest']['payment'];
+            $payment_address = $this->session->data['guest']['payment_address'];
 
             $data1['payment_firstname'] = $payment_address['firstname'];
             $data1['payment_lastname'] = $payment_address['lastname'];
@@ -193,7 +193,7 @@ class ControllerCheckoutConfirm extends Controller {
 
             if ($this->cart->hasShipping()) {
                 if (!$this->customer->isLogged() && isset($this->session->data['guest'])) {
-                    $shipping_address = $this->session->data['guest']['shipping'];
+                    $shipping_address = $this->session->data['guest']['shipping_address'];
                 }
                 $data1['shipping_firstname'] = $shipping_address['firstname'];
                 $data1['shipping_lastname'] = $shipping_address['lastname'];
@@ -219,6 +219,8 @@ class ControllerCheckoutConfirm extends Controller {
                 } else {
                     $data1['shipping_code'] = '';
                 }
+
+
             } else {
                 $data1['shipping_firstname'] = '';
                 $data1['shipping_lastname'] = '';
@@ -236,6 +238,16 @@ class ControllerCheckoutConfirm extends Controller {
                 $data1['shipping_code'] = '';
             }
 
+            $data['shipping_address_location'] = '';
+            if(!empty($this->session->data['guest']['shipping_address'])) {
+                $data['shipping_address_location'] .= $this->session->data['guest']['shipping_address']['country'] ? $this->session->data['guest']['shipping_address']['country'] . ", " : '';
+                $data['shipping_address_location'] .= $this->session->data['guest']['shipping_address']['zone'] ? $this->session->data['guest']['shipping_address']['zone'] . ", " : '';
+                $data['shipping_address_location'] .= $this->session->data['guest']['shipping_address']['city'] ? $this->session->data['guest']['shipping_address']['city'] . ", " : '';
+                $data['shipping_address_location'] .= $this->session->data['guest']['shipping_address']['address_1'] ? $this->session->data['guest']['shipping_address']['address_1'] . ", " : '';
+                $data['shipping_address_location'] .= $this->session->data['guest']['shipping_address']['postcode'] ? $this->session->data['guest']['shipping_address']['postcode'] . ", " : '';
+
+            }
+            
             $product_data = array();
 
             foreach ($this->cart->getProducts() as $product) {
@@ -354,8 +366,7 @@ class ControllerCheckoutConfirm extends Controller {
             }
 
             $this->load->model('checkout/order');
-//            pr($this->session->data);
-//prd($data1);
+
             $this->session->data['order_id'] = $this->model_checkout_order->addOrder($data1);
 
             $data['column_name'] = $this->language->get('column_name');
@@ -443,6 +454,8 @@ class ControllerCheckoutConfirm extends Controller {
         } else {
             $data['redirect'] = $redirect;
         }
+        
+        $data['back'] = $this->url->link('checkout/checkout');
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -452,7 +465,6 @@ class ControllerCheckoutConfirm extends Controller {
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->hook->getHook('checkout/confirm/index/after', $data);
-//prd($data);
         $this->response->setOutput($this->load->view('checkout/confirm', $data));
     }
 
