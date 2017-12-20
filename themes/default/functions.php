@@ -54,7 +54,7 @@ $template_config_settings = array(
         'company_name',
         'reg_num',
         'address_2',
-        'postcode2'
+        'postcode2',
     ],
 
     'theme_default_extension_module_slideshow_resize' => 'propsize',
