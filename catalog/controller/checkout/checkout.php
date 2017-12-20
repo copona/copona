@@ -103,7 +103,16 @@ class ControllerCheckoutCheckout extends Controller
             foreach (Config::get('checkout_serial_fields') as $field) {
                 $this->session->data['guest']['serial'][$field] = !empty($this->request->post['serial'][$field]) ? $this->request->post['serial'][$field] : '';
             }
+        } else {
+            $serial = !empty($this->session->data['guest']['serial']) ? $this->session->data['guest']['serial'] : [];
+            unset($this->session->data['guest']['serial']);
+
+            foreach (Config::get('checkout_serial_fields') as $field) {
+                $this->session->data['guest']['serial'][$field] = $serial[ $field ];
+            }
         }
+
+        // prd($this->session->data['guest']['serial']);
 
         //prd();
         if (!empty($this->request->post['payment_method'])) {
@@ -238,8 +247,7 @@ class ControllerCheckoutCheckout extends Controller
 
             $data['cart_total_value'] = round($this->cart->getTotal(), 2);
             $data['serial'] = !empty($this->session->data['guest']['serial']) ? $this->session->data['guest']['serial'] : [];
-
-
+            
             $data['order_shipping'] = 0;
             if (!empty($this->session->data['shipping_method'])) {
                 $data['order_shipping'] = round($this->tax->calculate($this->session->data['shipping_method']['cost'],
