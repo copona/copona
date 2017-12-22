@@ -29,6 +29,10 @@ class ModelCatalogCategory extends Model {
 
     public function getCategories($parent_id = 0) {
 
+        if(empty($this->paths[$parent_id])){
+            return [];
+        }
+        
         $start_time = microtime(true);
 
         if (!file_exists(DIR_LOGS . 'execdebuglog.txt') && defined('DEBUG_MODE') && DEBUG_MODE) {
