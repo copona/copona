@@ -47,10 +47,13 @@ class ControllerStartupStartup extends Controller
         $languages = $this->model_localisation_language->getLanguages();
 
         if (isset($this->request->get["_route_"])) { // seo_language define
+
             $seo_path = explode('/', $this->request->get["_route_"]);
             if (array_key_exists($seo_path[0], $languages)) {
                 $this->session->data['language'] = $code = $seo_path[0];
-                $seo_language = true;
+
+                
+
                 //remove first element! And shift!
                 array_shift($seo_path);
                 if (!empty($seo_path[0]) && $seo_path[0] == 'index.php') {
@@ -64,6 +67,11 @@ class ControllerStartupStartup extends Controller
             }
         } else {
 
+            if (isset($this->session->data['language'])) {
+                $code = $this->session->data['language'];
+                
+            } else {
+
             // Set default language for domain without language link
             if (empty($seo_language)) {
                 // TODO: must be fixed, otherwise Ajax has problems if nex line is enabled
@@ -71,12 +79,12 @@ class ControllerStartupStartup extends Controller
             }
             /* seo language OC23 end */
 
-            if (isset($this->session->data['language'])) {
-                $code = $this->session->data['language'];
-            }
+
+
 
             if (isset($this->request->cookie['language']) && !array_key_exists($code, $languages)) {
                 $code = $this->request->cookie['language'];
+                
             }
 
             $default_language = $this->config->get('config_language');
@@ -123,25 +131,36 @@ class ControllerStartupStartup extends Controller
                     }
                 }
 
+                
                 $code = $detect ? $detect : '';
+                
 
-                if($this->config->get("config_forced_language")) {
+                if ($this->config->get("config_forced_language")) {
                     $code = $default_language;
+                    
                 }
+            }
             }
         }
 
+
+
+
         if (!array_key_exists($code, $languages)) {
+            
             $code = $this->config->get('config_language');
         }
 
         if (!isset($this->session->data['language']) || $this->session->data['language'] != $code) {
-            $this->session->data['language'] = $code;
+            //$this->session->data['language'] = $code; // TODO:  !!!! removed because of problem!
         }
 
-        if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
+        if (!isset($this->request->cookie['language']) /* || $this->request->cookie['language'] != $code*/ ) {
+            
             setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
         }
+
+        
 
         // Overwrite the default language object
         $language = new Language($code);
