@@ -141,7 +141,9 @@
                           <td class="text-right"><a href="<?php echo $order['view']; ?>"><?php echo $order['order_id']; ?></a></td>
                           <td class="text-left"><a href="<?php echo $order['view']; ?>"><?php echo $order['customer']; ?></a>
                           </td>
-                          <td class="text-left"><?php echo $order['order_status']; ?></td>
+                          <td class="text-left"><?php echo $order['order_status']; ?><br />
+                            <small style="font-weight: bold;" class="label label-default"><?php echo $order['payment_method']; ?></small>
+                          </td>
                           <td class="text-right"><?php echo $order['total']; ?></td>
                           <td class="text-left"><?php echo $order['date_added']; ?></td>
                           <td class="text-left"><?php echo $order['date_modified']; ?></td>

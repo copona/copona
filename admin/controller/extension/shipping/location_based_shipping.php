@@ -7,11 +7,11 @@ class ControllerExtensionShippingLocationBasedShipping extends Controller {
         $data = $this->load->language('extension/shipping/location_based_shipping');
 
         $this->load->model('setting/setting');
-        $this->load->model('localisation/country');
+        $this->load->model('localisation/geo_zone');
         $this->load->model('localisation/tax_class');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            // prd($this->request->post);
+
             $costs = array();
             foreach ($this->request->post['location_based_shipping_cost'] as $cost) {
                 $costs[$cost['group']][] = $cost;
@@ -45,7 +45,7 @@ class ControllerExtensionShippingLocationBasedShipping extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['countries'] = $this->model_localisation_country->getCountries();
+        $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
         $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
 
         $data['breadcrumbs'] = array();

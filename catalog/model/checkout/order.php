@@ -484,6 +484,8 @@ class ModelCheckoutOrder extends Model
 
             $this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '" . (int)$order_status_id . "', notify = '" . (int)$notify . "', comment = '" . $this->db->escape($comment) . "', date_added = NOW()");
 
+            $order_history_id = $this->db->getLastId();
+
             // If old order status is the processing or complete status but new status is not then commence restock, and remove coupon, voucher and reward history
             if (in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'),
                     $this->config->get('config_complete_status'))) && !in_array($order_status_id,
@@ -522,8 +524,6 @@ class ModelCheckoutOrder extends Model
                     $this->model_affiliate_affiliate->deleteTransaction($order_id);
                 }
             }
-
-            $this->cache->delete('product');
 
             // If order status is 0 then becomes greater than 0 send main html email
             if (!$order_info['order_status_id'] && $order_status_id) {
@@ -964,6 +964,9 @@ class ModelCheckoutOrder extends Model
                 // Send plain text email to customer on update.
                 $this->model_tool_mail->sendMail('', $order_info['email'], $subject, $data);
             }
+
+            $this->cache->delete('product');
+            return $order_history_id;
         }
     }
 }

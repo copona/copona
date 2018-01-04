@@ -2,7 +2,7 @@
 class ControllerExtensionModuleLatest extends Controller {
 
     public function index($setting) {
-        $this->load->language('extension/module/latest');
+        $data = $this->load->language('extension/module/latest');
 
         $data['heading_title'] = $this->language->get('heading_title');
 
@@ -114,7 +114,8 @@ class ControllerExtensionModuleLatest extends Controller {
                     'product_price'        => $result['price'],
                     'special'              => $special,
                     'tax'                  => $tax,
-                    'quantity'                  => $result['quantity'],
+                    'quantity'             => $result['quantity'],
+                    'minimum'              => $result['minimum'],
                     'sku'                  => $result['sku'],
                     'rating'               => $rating,
                     'href'                 => $this->url->link('product/product', 'product_id=' . $result['product_id']),

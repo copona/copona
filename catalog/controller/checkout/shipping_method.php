@@ -42,6 +42,12 @@ class ControllerCheckoutShippingMethod extends Controller {
                 $this->session->data['shipping_address']['country_id'] = $this->request->post['country_id'];
             }
 
+            if(!empty($this->request->post['zone_id']) && (int)$this->request->post['zone_id'] ) {
+                $this->session->data['shipping_address']['zone_id'] = $this->request->post['zone_id'];
+            } elseif (empty($this->session->data['shipping_address']['zone_id'])) {
+                $this->session->data['shipping_address']['zone_id'] = 0;
+            }
+
             // Shipping Methods
             $method_data = array();
 
