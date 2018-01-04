@@ -42,11 +42,11 @@ class Url
 
     public function link($route, $args = '', $secure = false)
     {
-        $code = $this->code ? $this->code . "/" : '';
+        $code = $this->code ? $this->code : '';
         if ($_SERVER['HTTPS'] == true) {
-            $url = $this->ssl . $code . 'index.php?route=' . $route;
+            $url = $this->ssl . $code . '?route=' . $route;
         } else {
-            $url = $this->url . $code . 'index.php?route=' . $route;
+            $url = $this->url . $code . '?route=' . $route;
         }
 
         if ($args) {
