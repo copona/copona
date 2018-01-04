@@ -187,7 +187,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
         if ($this->config->get('bluepay_redirect_status')) {
             $this->load->model('extension/payment/bluepay_redirect');
 
-            $bluepay_redirect_order = $this->model_extension_payment_bluepay_redirect->getOrder($this->request->get['order_id']);
+            $bluepay_redirect_order = $this->model_extension_payment_bluepay_redirect->getOrder((int)$this->request->get['order_id']);
 
             if (!empty($bluepay_redirect_order)) {
                 $this->load->language('extension/payment/bluepay_redirect');
@@ -219,8 +219,8 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
                 $data['text_confirm_release'] = $this->language->get('text_confirm_release');
                 $data['text_confirm_rebate'] = $this->language->get('text_confirm_rebate');
 
-                $data['order_id'] = $this->request->get['order_id'];
-                $data['token'] = $this->request->get['token'];
+                $data['order_id'] = (int)$this->request->get['order_id'];
+                $data['token'] = $this->session->data['token'];
 
                 return $this->load->view('extension/payment/bluepay_redirect_order', $data);
             }
