@@ -31,7 +31,7 @@ class Url
         $this->url = $url;
         $this->ssl = $ssl;
 
-        $this->code = ($this->config->get('config_seo_url') && APPLICATION == 'catalog' ? $this->session->data['language'] : '');
+        $this->code = ($this->config->get('config_seo_url') && APPLICATION == 'catalog' && !empty($this->session->data['language']) ? $this->session->data['language'] : '');
         Config::set('code', $this->code);
     }
 

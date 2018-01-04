@@ -42,15 +42,28 @@ class ControllerStartupStartup extends Controller
         // Language
         $code = '';
 
+        /* Will detect language in the following priority:
+         * 1. Read from URL
+         * 2. Read from Cookie
+         * 3. Read from PHP session
+         * 4. If Forced language is set, then set from default language
+         * 4a. if not, then try to detect from browser
+         * 5. if nothing succeeds OR, detected language is not in available languages - we'll set default language
+         *
+        */
+
+
         $this->load->model('localisation/language');
 
         $languages = $this->model_localisation_language->getLanguages();
+        $default_language = $this->config->get('config_language');
 
-        if (isset($this->request->get["_route_"])) { // seo_language define
+
+        // 1. Read from URL
+        if (isset($this->request->get["_route_"])) {
             $seo_path = explode('/', $this->request->get["_route_"]);
             if (array_key_exists($seo_path[0], $languages)) {
-                $this->session->data['language'] = $code = $seo_path[0];
-                $seo_language = true;
+                $code = $seo_path[0];
                 //remove first element! And shift!
                 array_shift($seo_path);
                 if (!empty($seo_path[0]) && $seo_path[0] == 'index.php') {
@@ -62,29 +75,21 @@ class ControllerStartupStartup extends Controller
                     $this->request->get["_route_"] = implode($seo_path, '/');
                 }
             }
+        } elseif (isset($this->request->cookie['language']) && array_key_exists($this->request->cookie['language'],
+            $languages)) {
+            // 2. Detect from Cookie
+            $code = $this->request->cookie['language'];
+        } elseif (isset($this->session->data['language']) && array_key_exists($this->session->data['language'],
+            $languages)) {
+            // 3. Detect from PHP session
+            $code = $this->session->data['language'];
+        } elseif ($this->config->get("config_forced_language")) {
+            // 4. If set forced - set default language forced
+            $code = $default_language;
         } else {
-
-            // Set default language for domain without language link
-            if (empty($seo_language)) {
-                // TODO: must be fixed, otherwise Ajax has problems if nex line is enabled
-                // $session->data['language'] = $code = $config->get('config_language');
-            }
-            /* seo language OC23 end */
-
-            if (isset($this->session->data['language'])) {
-                $code = $this->session->data['language'];
-            }
-
-            if (isset($this->request->cookie['language']) && !array_key_exists($code, $languages)) {
-                $code = $this->request->cookie['language'];
-            }
-
-            $default_language = $this->config->get('config_language');
-
-            // Language Detection
+            // 5. Try to detect from the browser
             if (!empty($this->request->server['HTTP_ACCEPT_LANGUAGE']) && !array_key_exists($code, $languages)) {
                 $detect = '';
-
                 // lets use Default language, if it's accepted by Customer Browser correctly.
                 // $browser_languages = explode(',', $this->request->server['HTTP_ACCEPT_LANGUAGE']);
                 $browser_languages = explode(",", $this->request->server['HTTP_ACCEPT_LANGUAGE']);
@@ -102,7 +107,6 @@ class ControllerStartupStartup extends Controller
                         foreach ($languages as $key => $value) {
                             if ($value['status']) {
                                 $locale = explode(',', $value['locale']);
-
                                 if (in_array($browser_language, $locale)) {
                                     $detect = $key;
                                     break 2;
@@ -111,37 +115,16 @@ class ControllerStartupStartup extends Controller
                         }
                     }
                 }
-
-                if (!$detect) {
-                    // Try using language folder to detect the language
-                    foreach ($browser_languages as $browser_language) {
-                        if (array_key_exists(strtolower($browser_language), $languages)) {
-                            $detect = strtolower($browser_language);
-
-                            break;
-                        }
-                    }
-                }
-
                 $code = $detect ? $detect : '';
-
-                if($this->config->get("config_forced_language")) {
-                    $code = $default_language;
-                }
             }
         }
 
+        // check, if language is available
         if (!array_key_exists($code, $languages)) {
-            $code = $this->config->get('config_language');
+            $code = $default_language;
         }
 
-        if (!isset($this->session->data['language']) || $this->session->data['language'] != $code) {
-            $this->session->data['language'] = $code;
-        }
-
-        if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
-            setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
-        }
+        $this->session->data['language'] = $code;
 
         // Overwrite the default language object
         $language = new Language($code);
