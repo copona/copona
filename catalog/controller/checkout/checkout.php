@@ -108,7 +108,7 @@ class ControllerCheckoutCheckout extends Controller
             unset($this->session->data['guest']['serial']);
 
             foreach (Config::get('checkout_serial_fields') as $field) {
-                $this->session->data['guest']['serial'][$field] = $serial[ $field ];
+                $this->session->data['guest']['serial'][$field] = !empty($serial[ $field ]) ? $serial[ $field ] : false ;
             }
         }
 
