@@ -1,8 +1,5 @@
 <?php
-// Heading
 $_['heading_title'] = 'OpenCart';
-
-// Text
 $_['text_order'] = 'Orders';
 $_['text_processing_status'] = 'Processing';
 $_['text_complete_status'] = 'Completed';
@@ -21,4 +18,5 @@ $_['text_homepage'] = 'OpenCart Homepage';
 $_['text_support'] = 'Support Forum';
 $_['text_documentation'] = 'Documentation';
 $_['text_logout'] = 'Logout';
-
+$_['error_secure'] = 'You are accessing the dashboard through a non-secure method! 
+It is <em>strongly recommended</em> that you enable SSL. (To come: link with instructions)';

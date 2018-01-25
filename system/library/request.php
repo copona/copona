@@ -2,6 +2,7 @@
 class Request {
     public $get = array();
     public $post = array();
+    public $request = array();
     public $cookie = array();
     public $files = array();
     public $server = array();
@@ -116,6 +117,14 @@ class Request {
 
     public function get($key = '') {
         return isset($this->get[$key]) ? $this->get[$key] : null;
+    }
+
+    /*
+    *  Method, to return empty GET data, if no data is set.
+    */
+
+    public function request($key = '') {
+        return $this->post($key) !== null ? $this->post($key) : $this->get($key);
     }
 
 }

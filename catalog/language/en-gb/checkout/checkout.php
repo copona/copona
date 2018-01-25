@@ -1,6 +1,5 @@
 <?php
 $_['heading_title'] = 'Checkout';
-$_['text_cart'] = 'Shopping Cart';
 $_['text_checkout_option'] = 'Step %s: Checkout Options';
 $_['text_checkout_account'] = 'Step %s: Account &amp; Billing Details';
 $_['text_checkout_payment_address'] = 'Step %s: Billing Details';
@@ -8,7 +7,6 @@ $_['text_checkout_shipping_address'] = 'Step %s: Delivery Details';
 $_['text_checkout_shipping_method'] = 'Step %s: Delivery Method';
 $_['text_checkout_payment_method'] = 'Step %s: Payment Method';
 $_['text_shipping'] = 'Shipping (including VAT)';
-$_['text_shipping_address'] = 'Shipping address';
 $_['text_checkout_confirm'] = 'Step %s: Confirm Order';
 $_['text_modify'] = 'Modify &raquo;';
 $_['text_new_customer'] = 'New Customer';
@@ -26,8 +24,8 @@ $_['text_agree'] = 'I have read and agree to the <a href="%s" class="agree"><b>%
 $_['text_address_new'] = 'I want to use a new address';
 $_['text_address_existing'] = 'I want to use an existing address';
 $_['text_contact_buyer'] = 'Customer Information:';
-$_['text_shipping_method'] = 'Please select the preferred shipping method to use on this order.';
-$_['text_payment_method'] = 'Please select the preferred payment method to use on this order.';
+$_['text_shipping_method'] = 'Shipping method';
+$_['text_payment_method'] = 'Payment method';
 $_['text_comments'] = 'Add Comments About Your Order';
 $_['text_recurring_item'] = 'Recurring Item';
 $_['text_payment_recurring'] = 'Payment Profile';
@@ -42,17 +40,12 @@ $_['text_month'] = 'month';
 $_['text_year'] = 'year';
 $_['text_total_title'] = 'Total';
 $_['text_total'] = 'Total (with VAT)';
-
-
-// Column
 $_['column_name'] = 'Product Name';
 $_['column_model'] = 'Model';
 $_['column_quantity'] = 'Quantity';
 $_['column_price'] = 'Unit Price';
 $_['column_total'] = 'Total';
 $_['entry_email_address'] = 'E-Mail Address';
-
-
 $_['entry_newsletter'] = 'I wish to subscribe to the %s newsletter.';
 $_['entry_shipping'] = 'My delivery and billing addresses are the same.';
 $_['error_warning'] = 'There was a problem while trying to process your order! If the problem persists please try selecting a different payment method or you can contact the store owner by <a href="%s">clicking here</a>.';
@@ -74,6 +67,10 @@ $_['error_zone'] = 'Please select a region / state!';
 $_['error_agree'] = 'Warning: You must agree to the %s!';
 $_['error_address'] = 'Warning: You must select address!';
 $_['error_shipping'] = 'Warning: Shipping method required!';
+$_['error_company_name'] = 'Warning: Enter companies name';
+$_['error_reg_num'] = 'Warning: Enter registration number';
+$_['error_address_2'] = 'Warning: Enter companies address';
+$_['error_postcode2'] = 'Warning: Enter postcode';
 $_['error_no_shipping'] = 'Warning: No Shipping options are available. Please <a href="%s">contact us</a> for assistance!';
 $_['error_payment'] = 'Warning: Payment method required!';
 $_['error_no_payment'] = 'Warning: No Payment options are available. Please <a href="%s">contact us</a> for assistance!';
@@ -82,3 +79,4 @@ $_['error_form'] = '<a href="/index.php?route=account/login">Register</a> or con
 $_['entry_company_id'] = 'Registration number';
 $_['error_minimum'] = 'Warning: Minimum order for %s is %s.';
 $_['error_custom_field_validate'] = '%s incorrect';
+$_['entry_zone'] = 'Region / State';

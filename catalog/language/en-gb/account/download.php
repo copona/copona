@@ -8,3 +8,7 @@ $_['column_name'] = 'Name';
 $_['column_size'] = 'Size';
 $_['column_date_added'] = 'Date Added';
 $_['text_download'] = 'Save file';
+$_['text_remaining'] = 'Items remaining';
+$_['text_size'] = 'Size';
+$_['text_date_added'] = 'Added';
+$_['text_order'] = 'Order number';

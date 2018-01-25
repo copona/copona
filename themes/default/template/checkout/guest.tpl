@@ -162,7 +162,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text"id="<?= $field; ?>"  name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text"id="<?= $field; ?>"  name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -172,7 +172,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -182,7 +182,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -192,7 +192,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -202,7 +202,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -212,7 +212,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -222,7 +222,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>

@@ -42,6 +42,8 @@ class Image {
                 $this->image = imagecreatefrompng($file);
             } elseif ($this->mime == 'image/jpeg') {
                 $this->image = imagecreatefromjpeg($file);
+            } else {
+                throw new RuntimeException('Could not found image mime' . $file . '!');
             }
         } else {
             $registry->log->write('Error: Could not load image ' . $file . '!');
@@ -72,7 +74,7 @@ class Image {
         return $this->mime;
     }
 
-    public function save($file, $quality = 90) {
+    public function save($file, $quality = 100) {
         $info = pathinfo($file);
 
         $extension = strtolower($info['extension']);
@@ -378,7 +380,6 @@ class Image {
         }
 
         imagefilledrectangle($this->image, 0, 0, $width, $height, $background);
-
 
         imagecopyresampled($this->image, $image_old, 0, 0, $from_x, $from_y, $new_width, $new_height, $photo_x, $photo_y);
         imagedestroy($image_old);

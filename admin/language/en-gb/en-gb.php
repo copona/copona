@@ -23,6 +23,7 @@ $_['text_loading'] = 'Loading...';
 $_['text_no_results'] = 'No results!';
 $_['text_confirm'] = 'Are you sure?';
 $_['text_home'] = 'Home';
+$_['text_media_manager'] = 'Media manager';
 $_['text_clear_all_cache'] = 'Clear All Cache';
 $_['text_clear_all_cache_confirm'] = 'Are You sure to clear all server Cache?';
 $_['button_add'] = 'Add New';

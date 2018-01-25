@@ -164,7 +164,7 @@
                       <h2><?php echo $price; ?></h2>
                     </li>
                 <?php } else { ?>
-                    <li><span style="text-decoration: line-through;"><?php echo $price; ?></span></li>
+                    <li><span class="price-old"><?php echo $price; ?></span></li>
                     <li>
                       <h2><?php echo $special; ?></h2>
                     </li>
