@@ -83,6 +83,8 @@ class ControllerDesignMediamanager extends Controller {
 
         // Split the array based on current page number and max number of items per page of 10
         $images = array_splice($images, ($page - 1) * 16, 16);
+		
+		$allowed_mime = ['image/png', 'image/jpg'];
 
         foreach ($images as $image) {
             $name = basename($image);
@@ -110,8 +112,17 @@ class ControllerDesignMediamanager extends Controller {
                   'href'  => $this->url->link('design/media_manager/ajax', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_substr($image, utf8_strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
                 );
             } elseif (is_file($image)) {
+				
+				$image_mime = getimagesize( $image );
+				
+				if( !empty( $image_mime['mime'] ) && in_array($image_mime['mime'],$allowed_mime) ) {
+					$thumb = $this->model_tool_image->cropsize(utf8_substr($image, utf8_strlen(DIR_IMAGE)),200, 100);
+				} else {
+					$thumb = $this->model_tool_image->cropsize("no_image.png",200, 100);
+				}
+				
                 $data['images'][] = array(
-                  'thumb' => $this->model_tool_image->cropsize(utf8_substr($image, utf8_strlen(DIR_IMAGE)),200, 100),
+                  'thumb' => $thumb,
                   'name'  => $name,
                   'type'  => 'image',
                   'path'  => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
