@@ -1,4 +1,8 @@
 <?php
+
+require_once "loadtime.php";
+loadTime::start();
+
 // Error Reporting
 error_reporting(E_ALL);
 

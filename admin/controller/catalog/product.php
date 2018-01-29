@@ -559,8 +559,7 @@ class ControllerCatalogProduct extends Controller {
 
     protected function getForm() {
 
-        $data = array();
-        $data = array_merge($data, $this->load->language('catalog/product'));
+        $data = $this->load->language('catalog/product');
 
         //prd($this->language);
         //prd($data);
