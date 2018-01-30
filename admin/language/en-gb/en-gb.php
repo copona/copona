@@ -168,3 +168,5 @@ $_['tab_custom_fields'] = 'Fields';
 
 $_['entry_force_language'] = 'Force language';
 $_['help_force_language'] = "If the language code isn't saved in session or in cookies, then it will display this language. Won't overpower seo in the url.";
+
+$_['help_content_meta'] = 'Content meta';
