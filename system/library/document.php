@@ -11,6 +11,7 @@ class Document
     private $route;
     private $theme_name;
     private $request;
+    private $ogmetas = [];
 
     public function __construct()
     {
@@ -184,6 +185,16 @@ class Document
         } else {
             return $this->scripts['common'][$position];
         }
+    }
+
+    public function addOGMeta($name, $content) {
+        $this->ogmetas[] = array(
+            'name'  => $name,
+            'content'   => $content
+        );
+    }
+    public function getOGMeta() {
+        return $this->ogmetas;
     }
 
 }

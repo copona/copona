@@ -310,3 +310,9 @@ span.error input{
 #column-right a:last-child{
      border-bottom: 1px solid grey;
  }
+
+.pickup-description{
+    margin-left:40px;
+    display: block;
+    font-size: 12px;
+}

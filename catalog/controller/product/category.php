@@ -220,8 +220,8 @@ class ControllerProductCategory extends Controller
                     'popup' => $image_popup,
                     'name' => $result['name'],
                     'description' => strip2words($result['description'],
-                            $this->config->get($this->config->get('config_theme') . '_product_description_length'),
-                            true) . '..',
+                            Config::get(Config::get('config_theme') . '_product_description_length'),
+                            true) . (mb_strlen( $result['description'] > Config::get(Config::get('config_theme') . '_product_description_length') ) ? '..' : '' ),
                     'price' => $price,
                     'special' => $special,
                     'tax' => $tax,
@@ -344,14 +344,7 @@ class ControllerProductCategory extends Controller
 
             $data['limits'] = array();
 
-            $limits = array_unique(array(
-                $this->config->get($this->config->get('config_theme') . '_product_limit'),
-                25,
-                50,
-                75,
-                100
-
-            ));
+            $limits = Config::get($this->config->get('config_theme') . '_product_limits', [25, 50, 75, 100]);
 
             sort($limits);
 
