@@ -348,8 +348,9 @@ class ControllerCheckoutCheckout extends Controller
         $data['theme_default_directory'] = $this->config->get('theme_default_directory');
 
         $this->hook->getHook('checkout/guest/after', $data);
-
+        if(!isset($_GET['hook'])){
         $this->response->setOutput($this->load->view('checkout/guest', $data));
+        }
     }
 
     protected function validate($type = '')

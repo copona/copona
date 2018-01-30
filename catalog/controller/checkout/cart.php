@@ -241,8 +241,9 @@ class ControllerCheckoutCart extends Controller {
                     }
                 }
             }
-
-            if (isset($this->request->post['checkout'])) {
+            if(isset($this->request->post['hook'])){
+                $this->hook->getHook('checkout/cart/index/output', $data);
+            } else if (isset($this->request->post['checkout'])) {
                 echo $this->response->setOutput($this->load->view('checkout/cart_info', $data));
             } else {
                 $data['column_left'] = $this->load->controller('common/column_left');
