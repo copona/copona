@@ -52,15 +52,13 @@ class ControllerStartupStartup extends Controller
          *
         */
 
-
         $this->load->model('localisation/language');
 
         $languages = $this->model_localisation_language->getLanguages();
         $default_language = $this->config->get('config_language');
 
-
-        // 1. Read from URL
         if (isset($this->request->get["_route_"])) {
+            // 1. Read from URL
             $seo_path = explode('/', $this->request->get["_route_"]);
             if (array_key_exists($seo_path[0], $languages)) {
                 $code = $seo_path[0];
@@ -125,6 +123,10 @@ class ControllerStartupStartup extends Controller
         }
 
         $this->session->data['language'] = $code;
+
+        if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
+			setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
+		}
 
         // Overwrite the default language object
         $language = new Language($code);
