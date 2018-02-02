@@ -4,7 +4,7 @@ class ControllerProductProduct extends Controller {
 
     public function index() {
         //$this->load->language('product/product');
-        $data = array_merge(array(), $this->language->load('product/product'));
+        $data = $this->language->load('product/product');
         $data['config_url'] = $this->config->get('config_url');
         $url = '';
 
