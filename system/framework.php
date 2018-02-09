@@ -75,7 +75,7 @@ $registry->singleton('session', function ($registry) {
 
 // Cache
 $registry->singleton('cache', function ($registry) use ($config) {
-    return new Cache($config->get('cache.cache_type'), $config->get('cache.cache_expire'));
+    return new Cache($config->get('cache.cache_type'));
 });
 
 // Url
@@ -90,7 +90,7 @@ $registry->singleton('seourl', function ($registry) {
 
 // Language
 $registry->singleton('language', function ($registry) use ($config) {
-    $language = new Language($config->get('language_default'), $registry);
+    $language = new Language($config->get('language_default'));
     $language->load($config->get('language_default'));
     return $language;
 });

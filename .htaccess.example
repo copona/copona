@@ -22,13 +22,14 @@ RewriteEngine On
 ##
 ## Black list protected files
 ##
+RedirectMatch 404 /\.git
 RewriteRule ^config/.* index.php?route=error/not_found [L]
 RewriteRule ^vendor/.* index.php?route=error/not_found [L]
 RewriteRule ^migrations/.* index.php?route=error/not_found [L]
 RewriteRule ^storage/private/.* index.php?route=error/not_found [L]
 RewriteRule ^.env index.php?route=error/not_found [L]
 
-RewriteCond %{REQUEST_URI} !\.(css|png|jpg|jpeg|gif|bmp|tiff|svg)$
+RewriteCond %{REQUEST_URI} !\.(css|png|jpg|jpeg|gif|bmp|tiff|svg)$  [NC]
 RewriteRule ^storage/.* index.php [L,NC]
 
 RewriteRule ^sitemap.xml$ index.php?route=extension/feed/google_sitemap [L]

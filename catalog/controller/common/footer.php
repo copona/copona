@@ -49,7 +49,9 @@ class ControllerCommonFooter extends Controller {
         if ($this->config->get('config_customer_online')) {
             $this->load->model('tool/online');
 
-            if (isset($this->request->server['REMOTE_ADDR'])) {
+            if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+                $ip = $this->request->server['HTTP_X_REAL_IP'];
+            } else if (isset($this->request->server['REMOTE_ADDR'])) {
                 $ip = $this->request->server['REMOTE_ADDR'];
             } else {
                 $ip = '';
@@ -69,7 +71,7 @@ class ControllerCommonFooter extends Controller {
 
             $this->model_tool_online->addOnline($ip, $this->customer->getId(), $url, $referer);
         }
-
+        $this->hook->getHook('footer/index/after', $data);
         return $this->load->view('common/footer', $data);
     }
 

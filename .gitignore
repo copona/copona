@@ -9,8 +9,11 @@
 Search-Replace-DB-master*
 /extensions/*
 /sitemaps/
-sitemap.xml
-sitemap.xsl
+sitemap*.xml
+sitemap*.xsl
+
+# ignore config env dir
+config/*/
 
 # node.js npm package manager files
 node_modules
@@ -148,7 +151,12 @@ crashlytics-build.properties
 fabric.properties
 
 .DS_Store
+#cpanel
+error_log
+.ftpquota
 
 # Force ignore individual files
 *-gitignore*
 !.gitignore
+/admin/language/.gitignore
+/catalog/language/.gitignore

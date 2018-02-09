@@ -2,6 +2,9 @@
 
 <div class="category-pd-checkout">
   <div class="container">
+
+    <h1><?php echo $heading_title; ?></h1>
+
       <?php if ($attention) { ?>
         <div class="alert alert-info"><i class="fa fa-info-circle"></i>
           <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -30,11 +33,11 @@
         <?php } else { ?>
             <?php $class = 'col-sm-12'; ?>
         <?php } ?>
-      <div id="content" class="<?php echo $class; ?> content-cart"><?php echo $content_top; ?>
+      <div id="content" class="<?php echo $class; ?> content-cart">
 
 
-        <?php if (!isset($redirect)) {
-            ?>
+
+        <?php if (!isset($redirect)) { ?>
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>

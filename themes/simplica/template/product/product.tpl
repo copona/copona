@@ -320,6 +320,21 @@
               <br />
               <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block"><?php echo $button_cart; ?></button>
             </div>
+            <div class="row">
+              <div class="col-md-12 social-icons">
+                <ul>
+                  <li class="facebook">
+                    <div id="shareBtn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path fill="#000000" d="M31.8,40.3h-3.7v-10h-2.5v-3.4l2.5,0l0-2c0-2.8,0.8-4.5,4.1-4.5h2.8v3.4h-1.7c-1.3,0-1.4,0.5-1.4,1.4l0,1.7h3.1l-0.4,3.4l-2.7,0L31.8,40.3L31.8,40.3z"></path></svg>
+                  </li>
+                  <li class="twitter">
+                    <a href="https://twitter.com/share?url=http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>&amp;text=<?= urlencode($heading_title) ?>"
+                       target="_blank">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path fill="#000000" d="M41.076,23.131c-0.814,0.36-1.691,0.605-2.611,0.715c0.938-0.562,1.658-1.453,1.998-2.514c-0.877,0.521-1.852,0.899-2.885,1.103C36.75,21.552,35.566,21,34.26,21c-2.508,0-4.543,2.034-4.543,4.544c0,0.357,0.039,0.703,0.117,1.035c-3.777-0.189-7.125-1.999-9.367-4.747c-0.391,0.67-0.615,1.45-0.615,2.284c0,1.576,0.803,2.968,2.021,3.783c-0.744-0.024-1.443-0.229-2.057-0.569c-0.002,0.019-0.002,0.039-0.002,0.058c0,2.202,1.566,4.038,3.645,4.456c-0.381,0.104-0.783,0.16-1.197,0.16c-0.293,0-0.576-0.028-0.855-0.083c0.58,1.805,2.258,3.119,4.246,3.156c-1.557,1.219-3.516,1.945-5.643,1.945c-0.369,0-0.73-0.022-1.086-0.063c2.012,1.289,4.4,2.041,6.967,2.041c8.357,0,12.93-6.925,12.93-12.931c0-0.197-0.004-0.393-0.014-0.587C39.695,24.841,40.465,24.041,41.076,23.131L41.076,23.131z"></path></svg></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
             <?php if ($minimum > 1) { ?>
                 <div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $text_minimum; ?></div>
             <?php } ?>
@@ -624,4 +639,9 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 
     });
 //--></script>
+<script>
+    $('#shareBtn').on('click', function(){
+        window.open('https://www.facebook.com/sharer/sharer.php?u=' + document.URL, 'facebook-popup', 'height=400,width=600');
+    })
+</script>
 <?php echo $footer; ?>

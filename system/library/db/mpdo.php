@@ -12,6 +12,7 @@ final class mPDO {
             $dsn = "mysql:host={$hostname};port={$port};dbname={$database};charset=UTF8";
             $options = array(
                 \PDO::ATTR_PERSISTENT => true,
+                \PDO::ATTR_TIMEOUT => 15,
                 \PDO::ATTR_ERRMODE    => \PDO::ERRMODE_EXCEPTION );
 
             $this->connection = new \PDO($dsn, $username, $password, $options);

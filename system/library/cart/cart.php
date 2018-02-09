@@ -46,8 +46,8 @@ class Cart {
 
         foreach ($cart_query->rows as $cart) {
             $stock = true;
+            $product_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_store p2s LEFT JOIN " . DB_PREFIX . "product p ON (p2s.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "content_meta cm ON (cm.content_id = p.product_id) LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) WHERE p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND p2s.product_id = '" . (int)$cart['product_id'] . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.date_available <= NOW() AND p.status = '1'");
 
-            $product_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_store p2s LEFT JOIN " . DB_PREFIX . "product p ON (p2s.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) WHERE p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND p2s.product_id = '" . (int)$cart['product_id'] . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.date_available <= NOW() AND p.status = '1'");
 
             if ($product_query->num_rows && ($cart['quantity'] > 0)) {
                 $option_price = 0;
@@ -274,6 +274,7 @@ class Cart {
                     'stock'           => $stock,
                     'price'           => ($price + $option_price),
                     'total'           => ($price + $option_price) * $cart['quantity'],
+                    'content_meta'    => $product_query->row['value'],
                     'reward'          => $reward * $cart['quantity'],
                     'points'          => ($product_query->row['points'] ? ($product_query->row['points'] + $option_points) * $cart['quantity'] : 0),
                     'tax_class_id'    => $product_query->row['tax_class_id'],
@@ -308,6 +309,7 @@ class Cart {
 
     public function update($cart_id, $quantity) {
         $this->db->query("UPDATE " . DB_PREFIX . "cart SET quantity = '" . (int)$quantity . "' WHERE cart_id = '" . (int)$cart_id . "' AND api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+        $this->cartProducts = $this->getProducts();
     }
 
     public function remove($cart_id) {
@@ -358,13 +360,13 @@ class Cart {
 
         foreach ($this->cartProducts as $product) {
             if ($product['tax_class_id']) {
-                $tax_rates = $this->tax->getRates($product['price'], $product['tax_class_id']);
+                $tax_rates = $this->tax->getRates($product['total'], $product['tax_class_id']);
 
                 foreach ($tax_rates as $tax_rate) {
                     if (!isset($tax_data[$tax_rate['tax_rate_id']])) {
-                        $tax_data[$tax_rate['tax_rate_id']] = ($tax_rate['amount'] * $product['quantity']);
+                        $tax_data[$tax_rate['tax_rate_id']] = ($tax_rate['amount']);
                     } else {
-                        $tax_data[$tax_rate['tax_rate_id']] += ($tax_rate['amount'] * $product['quantity']);
+                        $tax_data[$tax_rate['tax_rate_id']] += ($tax_rate['amount']);
                     }
                 }
             }
@@ -377,19 +379,25 @@ class Cart {
         $total = 0;
 
         foreach ($this->cartProducts as $product) {
-            $total += $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'];
+            $total += $this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax'));
         }
 
         return $total;
     }
 
-    public function countProducts() {
+    public function countProducts($product_id = false) {
         $product_total = 0;
 
         $products = $this->cartProducts;
 
         foreach ($products as $product) {
-            $product_total += $product['quantity'];
+            if($product_id) {
+                if($product['product_id'] == $product_id)
+                    $product_total += $product['quantity'];
+            } else {
+                $product_total += $product['quantity'];
+            }
+
         }
 
         return $product_total;

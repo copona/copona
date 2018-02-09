@@ -49,6 +49,10 @@ class Customer {
 	public function login($email, $password, $override = false) {
         $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1' AND approved = '1'");
 
+        if(!$customer_query->num_rows) {
+            return false;
+        }
+
         $this->customer_id = $customer_query->row['customer_id'];
         $this->password    = $customer_query->row['password'];
         $this->salt        = $customer_query->row['salt'];

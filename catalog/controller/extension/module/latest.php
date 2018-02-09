@@ -2,7 +2,7 @@
 class ControllerExtensionModuleLatest extends Controller {
 
     public function index($setting) {
-        $this->load->language('extension/module/latest');
+        $data = $this->load->language('extension/module/latest');
 
         $data['heading_title'] = $this->language->get('heading_title');
 
@@ -30,14 +30,14 @@ class ControllerExtensionModuleLatest extends Controller {
         if ($results) {
             foreach ($results as $result) {
                 if ($result['image']) {
-                    $image = $this->model_tool_image->cropsize($result['image'], $setting['width'], $setting['height']);
+                    $image = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}($result['image'], $setting['width'], $setting['height']);
                 } else {
-                    $image = $this->model_tool_image->cropsize('placeholder.png', $setting['width'], $setting['height']);
+                    $image = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}('placeholder.png', $setting['width'], $setting['height']);
                 }
                 if ($result['image']) {
-                    $popup = $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                    $popup = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                 } else {
-                    $popup = $this->model_tool_image->cropsize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                    $popup = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                 }
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -102,6 +102,7 @@ class ControllerExtensionModuleLatest extends Controller {
                         );
                     }
                 }
+            
                 $data['products'][] = array(
                     'product_id'           => $result['product_id'],
                     'thumb'                => $image,
@@ -113,6 +114,8 @@ class ControllerExtensionModuleLatest extends Controller {
                     'product_price'        => $result['price'],
                     'special'              => $special,
                     'tax'                  => $tax,
+                    'quantity'             => $result['quantity'],
+                    'minimum'              => $result['minimum'],
                     'sku'                  => $result['sku'],
                     'rating'               => $rating,
                     'href'                 => $this->url->link('product/product', 'product_id=' . $result['product_id']),

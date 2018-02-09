@@ -23,6 +23,9 @@ $_['text_loading'] = 'Loading...';
 $_['text_no_results'] = 'No results!';
 $_['text_confirm'] = 'Are you sure?';
 $_['text_home'] = 'Home';
+$_['text_media_manager'] = 'Media manager';
+$_['text_clear_all_cache'] = 'Clear All Cache';
+$_['text_clear_all_cache_confirm'] = 'Are You sure to clear all server Cache?';
 $_['button_add'] = 'Add New';
 $_['button_delete'] = 'Delete';
 $_['button_save'] = 'Save';
@@ -162,3 +165,8 @@ $_['entry_display'] = 'Display Name';
 $_['entry_display_placeholder'] = 'Display Name (Optional)';
 $_['text_other_information'] = 'Other information';
 $_['tab_custom_fields'] = 'Fields';
+
+$_['entry_force_language'] = 'Force language';
+$_['help_force_language'] = "If the language code isn't saved in session or in cookies, then it will display this language. Won't overpower seo in the url.";
+
+$_['help_content_meta'] = 'Content meta';

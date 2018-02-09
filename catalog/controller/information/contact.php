@@ -1,48 +1,69 @@
 <?php
-class ControllerInformationContact extends Controller {
+
+class ControllerInformationContact extends Controller
+{
     private $error = array();
 
-    public function index() {
-        $this->load->language('information/contact');
+    public function index()
+    {
+        $data = $this->load->language('information/contact');
+
         $this->load->model('catalog/information');
+
 
         $this->document->setTitle($this->language->get('heading_title'));
         $data['heading_title'] = $this->language->get('heading_title');
 
+        // for older compatibility temporary
+        $data['entry_name'] = $this->language->get('entry_firstname');
+
         $information_id = $this->config->get('config_contact_id');
 
+        $information_info = $this->model_catalog_information->getInformation($information_id);
 
-       $information_info = $this->model_catalog_information->getInformation($information_id);
-
-        // pr($information_info);
-
-         $data['description'] = '';
+        $data['description'] = '';
         $data['information_id'] = '';
 
-         if ($information_id && $information_info) {
-             $data['information_id'] = $information_id;
+        if ($information_id && $information_info) {
+            $data['information_id'] = $information_id;
 
             if (isset($information_info['external_link']) && $information_info['external_link']) {
-                $this->response->redirect( $this->url->externalLink( $information_info['external_link']) );
+                $this->response->redirect($this->url->externalLink($information_info['external_link']));
+            }
+
+            if (empty($information_info['meta_title'])) {
+                $information_info['meta_title'] = strip2words($information_info['title']
+                    . " - " . $this->config->get('config_meta_title')
+                    . " | " . $this->config->get('config_name'), 300);
+            }
+
+            if (empty($information_info['meta_description'])) {
+                $information_info['meta_description'] = strip2words($information_info['description'] . " | " . $information_info['title'],
+                    200);
             }
 
             $this->document->setTitle($information_info['meta_title']);
             $this->document->setDescription($information_info['meta_description']);
+
             $this->document->setKeywords($information_info['meta_keyword']);
             $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js');
             $this->document->addStyle('assets/vendor/magnific/magnific-popup.css');
 
-             $data['heading_title'] = $information_info['title'];
+            $data['heading_title'] = $information_info['title'];
             $data['description'] = html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8');
 
             if ($information_info['image']) {
-                $data['popup'] = $this->model_tool_image->resize($information_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                $data['popup'] = $this->model_tool_image->resize($information_info['image'],
+                    $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
+                    $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
             } else {
                 $data['popup'] = '';
             }
 
             if ($information_info['image']) {
-                $data['thumb'] = $this->model_tool_image->resize($information_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+                $data['thumb'] = $this->model_tool_image->resize($information_info['image'],
+                    $this->config->get($this->config->get('config_theme') . '_image_thumb_width'),
+                    $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
             } else {
                 $data['thumb'] = '';
             }
@@ -53,21 +74,17 @@ class ControllerInformationContact extends Controller {
 
             foreach ($results as $result) {
                 $data['images'][] = array(
-                    'popup' => $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
-                    'thumb' => $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
+                    'popup' => $this->model_tool_image->cropsize($result['image'],
+                        $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
+                        $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
+                    'thumb' => $this->model_tool_image->cropsize($result['image'],
+                        $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
+                        $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
                 );
             }
 
 
         }
-
-
-
-
-
-
-
-
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $mail = new Mail();
@@ -75,7 +92,8 @@ class ControllerInformationContact extends Controller {
             $mail->parameter = $this->config->get('config_mail_parameter');
             $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
             $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES,
+                'UTF-8');
             $mail->smtp_port = $this->config->get('config_mail_smtp_port');
             $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
@@ -83,7 +101,8 @@ class ControllerInformationContact extends Controller {
             $mail->setFrom($this->config->get('config_email'));
             $mail->setReplyTo($this->request->post['email']);
             $mail->setSender(html_entity_decode($this->request->post['name'], ENT_QUOTES, 'UTF-8'));
-            $mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['name']), ENT_QUOTES, 'UTF-8'));
+            $mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'),
+                $this->request->post['name']), ENT_QUOTES, 'UTF-8'));
             $mail->setText($this->request->post['enquiry']);
             $mail->send();
 
@@ -101,23 +120,6 @@ class ControllerInformationContact extends Controller {
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('information/contact')
         );
-
-        //$data['heading_title'] = $this->language->get('heading_title');
-
-        $data['text_location'] = $this->language->get('text_location');
-        $data['text_store'] = $this->language->get('text_store');
-        $data['text_contact'] = $this->language->get('text_contact');
-        $data['text_address'] = $this->language->get('text_address');
-        $data['text_telephone'] = $this->language->get('text_telephone');
-        $data['text_fax'] = $this->language->get('text_fax');
-        $data['text_open'] = $this->language->get('text_open');
-        $data['text_comment'] = $this->language->get('text_comment');
-
-        $data['entry_name'] = $this->language->get('entry_name');
-        $data['entry_email'] = $this->language->get('entry_email');
-        $data['entry_enquiry'] = $this->language->get('entry_enquiry');
-
-        $data['button_map'] = $this->language->get('button_map');
 
         if (isset($this->error['name'])) {
             $data['error_name'] = $this->error['name'];
@@ -144,7 +146,9 @@ class ControllerInformationContact extends Controller {
         $this->load->model('tool/image');
 
         if ($this->config->get('config_image')) {
-            $data['image'] = $this->model_tool_image->resize($this->config->get('config_image'), $this->config->get($this->config->get('config_theme') . '_image_location_width'), $this->config->get($this->config->get('config_theme') . '_image_location_height'));
+            $data['image'] = $this->model_tool_image->resize($this->config->get('config_image'),
+                $this->config->get($this->config->get('config_theme') . '_image_location_width'),
+                $this->config->get($this->config->get('config_theme') . '_image_location_height'));
         } else {
             $data['image'] = false;
         }
@@ -167,7 +171,9 @@ class ControllerInformationContact extends Controller {
 
             if ($location_info) {
                 if ($location_info['image']) {
-                    $image = $this->model_tool_image->resize($location_info['image'], $this->config->get($this->config->get('config_theme') . '_image_location_width'), $this->config->get($this->config->get('config_theme') . '_image_location_height'));
+                    $image = $this->model_tool_image->resize($location_info['image'],
+                        $this->config->get($this->config->get('config_theme') . '_image_location_width'),
+                        $this->config->get($this->config->get('config_theme') . '_image_location_height'));
                 } else {
                     $image = false;
                 }
@@ -208,7 +214,8 @@ class ControllerInformationContact extends Controller {
         if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') &&
             in_array('contact', (array)$this->config->get('config_captcha_page'))) {
 
-            $data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'), $this->error);
+            $data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'),
+                $this->error);
         } else {
             $data['captcha'] = '';
         }
@@ -223,7 +230,8 @@ class ControllerInformationContact extends Controller {
         $this->response->setOutput($this->load->view('information/contact', $data));
     }
 
-    protected function validate() {
+    protected function validate()
+    {
         if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 32)) {
             $this->error['name'] = $this->language->get('error_name');
         }
@@ -237,7 +245,8 @@ class ControllerInformationContact extends Controller {
         }
 
         // Captcha
-        if ($this->config->get('captcha_'. $this->config->get('config_captcha') . '_status') && in_array('contact', (array)$this->config->get('config_captcha_page'))) {
+        if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('contact',
+                (array)$this->config->get('config_captcha_page'))) {
             $captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
 
             if ($captcha) {
@@ -248,7 +257,8 @@ class ControllerInformationContact extends Controller {
         return !$this->error;
     }
 
-    public function success() {
+    public function success()
+    {
         $this->load->language('information/contact');
 
         $this->document->setTitle($this->language->get('heading_title'));

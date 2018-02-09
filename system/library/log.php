@@ -12,7 +12,8 @@ class Log {
     }
 
     public function write($message) {
-        fwrite($this->handle, date('Y-m-d G:i:s') . ' - ' . print_r($message, true) . "\n");
+        fwrite($this->handle, date('Y-m-d G:i:s') . ' - ' . print_r($message, true) . " in "
+                              . debug_backtrace()[0]['file'] . " on line " . debug_backtrace()[0]['line'] .  "\n");
     }
 
     public function __destruct() {

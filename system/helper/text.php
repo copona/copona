@@ -318,3 +318,33 @@ function strip2words($short_description = '', $string_length = 200, $newlines = 
     return $short_description;
 }
 
+/**
+ * @param string $val size in B K or M (like 8M)
+ * @return int
+ * from: http://php.net/manual/en/function.ini-get.php#example-548
+ */
+function return_bytes($val) {
+    $val = trim($val);
+    $last = strtolower($val[strlen($val)-1]);
+    switch($last) {
+        // The 'G' modifier is available since PHP 5.1.0
+        case 'g':
+            $val *= 1024;
+        case 'm':
+            $val *= 1024;
+        case 'k':
+            $val *= 1024;
+    }
+
+    return $val;
+}
+
+/*
+ * To get the memory usage in KB or MB
+ * http://php.net/manual/en/function.memory-get-usage.php#96280
+ * */
+function convert($size)
+{
+    $unit=array('b','kb','mb','gb','tb','pb');
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+}

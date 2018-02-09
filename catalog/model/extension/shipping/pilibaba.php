@@ -16,6 +16,7 @@ class ModelExtensionShippingPilibaba extends Model {
                 'title'        => $this->language->get('text_description'),
                 'cost'         => $this->config->get('pilibaba_shipping_fee'),
                 'tax_class_id' => 0,
+                'cost_with_tax'=> $this->currency->format($this->tax->calculate($this->config->get('pilibaba_shipping_fee'), 0, $this->config->get('config_tax')), $this->session->data['currency'],'',false),
                 'text'         => $this->currency->format($this->tax->calculate($this->config->get('pilibaba_shipping_fee'), 0, $this->config->get('config_tax')), $this->session->data['currency'])
             );
 

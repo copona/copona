@@ -13,10 +13,6 @@ class ControllerAccountRegister extends Controller
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('assets/vendor/datetimepicker/moment.js');
-        $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
-        $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
-
         $this->load->model('account/customer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -31,6 +27,16 @@ class ControllerAccountRegister extends Controller
 
             //CSRF #5172
             $this->session->data['csrf_token'] = token(32);
+            
+            if (isset($this->session->data['wishlist']) && is_array($this->session->data['wishlist'])) {
+                $this->load->model('account/wishlist');
+
+                foreach ($this->session->data['wishlist'] as $key => $product_id) {
+                    $this->model_account_wishlist->addWishlist($product_id);
+
+                    unset($this->session->data['wishlist'][$key]);
+                }
+            }
 
             // Add to activity log
             if ($this->config->get('config_customer_activity')) {
@@ -91,12 +97,6 @@ class ControllerAccountRegister extends Controller
             $data['error_email'] = $this->error['email'];
         } else {
             $data['error_email'] = '';
-        }
-
-        if (isset($this->error['telephone'])) {
-            $data['error_telephone'] = $this->error['telephone'];
-        } else {
-            $data['error_telephone'] = '';
         }
 
         if (isset($this->error['address_1'])) {
@@ -164,58 +164,36 @@ class ControllerAccountRegister extends Controller
             }
         }
 
+        $register_fields = [
+            'firstname',
+            'lastname',
+            'email',
+            'telephone',
+            'company',
+            'address_1',
+            'city',
+            'password',
+            'confirm',
+            'newsletter',
+            'customer_group_id',
+            'customer_group_id',
+            'customer_group_id',
+            'customer_group_id',
+            'customer_group_id',
+
+        ];
+
+        foreach($register_fields as $field ){
+            $data[$field] = $this->request->post($field);
+        }
+
+        $data['address_2'] = '';
+        $data['fax'] = '';
+
         if (isset($this->request->post['customer_group_id'])) {
             $data['customer_group_id'] = $this->request->post['customer_group_id'];
         } else {
             $data['customer_group_id'] = $this->config->get('config_customer_group_id');
-        }
-
-        if (isset($this->request->post['firstname'])) {
-            $data['firstname'] = $this->request->post['firstname'];
-        } else {
-            $data['firstname'] = '';
-        }
-
-        if (isset($this->request->post['lastname'])) {
-            $data['lastname'] = $this->request->post['lastname'];
-        } else {
-            $data['lastname'] = '';
-        }
-
-        if (isset($this->request->post['email'])) {
-            $data['email'] = $this->request->post['email'];
-        } else {
-            $data['email'] = '';
-        }
-
-        if (isset($this->request->post['telephone'])) {
-            $data['telephone'] = $this->request->post['telephone'];
-        } else {
-            $data['telephone'] = '';
-        }
-
-        if (isset($this->request->post['fax'])) {
-            $data['fax'] = $this->request->post['fax'];
-        } else {
-            $data['fax'] = '';
-        }
-
-        if (isset($this->request->post['company'])) {
-            $data['company'] = $this->request->post['company'];
-        } else {
-            $data['company'] = '';
-        }
-
-        if (isset($this->request->post['address_1'])) {
-            $data['address_1'] = $this->request->post['address_1'];
-        } else {
-            $data['address_1'] = '';
-        }
-
-        if (isset($this->request->post['address_2'])) {
-            $data['address_2'] = $this->request->post['address_2'];
-        } else {
-            $data['address_2'] = '';
         }
 
         if (isset($this->request->post['postcode'])) {
@@ -226,11 +204,7 @@ class ControllerAccountRegister extends Controller
             $data['postcode'] = '';
         }
 
-        if (isset($this->request->post['city'])) {
-            $data['city'] = $this->request->post['city'];
-        } else {
-            $data['city'] = '';
-        }
+
 
         if (isset($this->request->post['country_id'])) {
             $data['country_id'] = (int)$this->request->post['country_id'];
@@ -273,24 +247,6 @@ class ControllerAccountRegister extends Controller
             $data['register_custom_field'] = $account_custom_field + $address_custom_field;
         } else {
             $data['register_custom_field'] = array();
-        }
-
-        if (isset($this->request->post['password'])) {
-            $data['password'] = $this->request->post['password'];
-        } else {
-            $data['password'] = '';
-        }
-
-        if (isset($this->request->post['confirm'])) {
-            $data['confirm'] = $this->request->post['confirm'];
-        } else {
-            $data['confirm'] = '';
-        }
-
-        if (isset($this->request->post['newsletter'])) {
-            $data['newsletter'] = $this->request->post['newsletter'];
-        } else {
-            $data['newsletter'] = '';
         }
 
         // Captcha
@@ -352,10 +308,6 @@ class ControllerAccountRegister extends Controller
 
         if ($this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])) {
             $this->error['warning'] = $this->language->get('error_exists');
-        }
-
-        if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
-            $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
         if (Config::get('validate_account_register_address_1') && ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128))) {

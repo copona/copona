@@ -91,4 +91,11 @@ class ControllerCommonDashboard extends Controller {
         $this->response->setOutput($this->load->view('common/dashboard', $data));
     }
 
+    public function clearallcache() {
+        $result = $this->cache->flush(); // flush all cache.
+        // prd($result);
+        $this->response->redirect( $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL')  );
+
+    }
+
 }

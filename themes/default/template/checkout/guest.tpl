@@ -55,7 +55,7 @@
                                   <?php } else { ?>
                               <option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
                           <?php } ?>
-                      <?php } ?>
+                      <?php } ?> 
                     </select>
                     <div class="zone">
                       <label for="zone_id"><?= $entry_city; ?>:</label>
@@ -162,7 +162,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text"id="<?= $field; ?>"  name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text"id="<?= $field; ?>"  name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -172,7 +172,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -182,7 +182,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -192,7 +192,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -202,7 +202,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -212,7 +212,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -222,7 +222,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -238,7 +238,7 @@
                           <input id="agree" type="checkbox" name="agree" <?= ($agree ? 'checked' : ''); ?>>
                           <?= $text_agree; ?></label>
                         <div align="right">
-                          <span class="wait" style="display: none; margin-right: 10px;">&nbsp;<img src="themes/<?php echo $theme_default_directory ?>/assets/img/AjaxLoader.gif" width="20px" alt="Loading" /></span>
+                          <span class="wait" style="display: none; margin-right: 10px;"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
                           <input type="submit" value="<?= $text_make_order; ?>" id="button-payment-method" class="btn btn-primary" />
                         </div>
                       </div>
@@ -250,12 +250,12 @@
           </form>
         </div>
         <!-- Close div row -->
-        <?php
-        // Checkout Javascript
-        require_once('checkout.js.tpl');
-        ?>
-
-        <?php echo $content_bottom; ?></div>
+        <script>
+            <?php
+            // Checkout Javascript
+            require_once('checkout.js.tpl'); ?>
+        </script>
+          <?php echo $content_bottom; ?></div>
       <?php echo $column_right; ?></div>
   </div>
 </div>

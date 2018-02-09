@@ -363,4 +363,14 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
         $this->response->redirect($this->url->link('extension/payment/klarna_account', 'token=' . $this->session->data['token'], true));
     }
 
+    public function install() {
+        // bulk OC3 design install function
+        return 0;
+    }
+
+    public function uninstall() {
+        // bulk OC3 design install function
+        return 0;
+    }
+
 }
