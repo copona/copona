@@ -7,7 +7,7 @@ class ControllerAffiliateRegister extends Controller {
             $this->response->redirect($this->url->link('affiliate/account', '', true));
         }
 
-        $this->load->language('affiliate/register');
+        $data = $this->load->language('affiliate/register');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -56,42 +56,8 @@ class ControllerAffiliateRegister extends Controller {
 
         $data['heading_title'] = $this->language->get('heading_title');
 
-        $data['text_select'] = $this->language->get('text_select');
-        $data['text_none'] = $this->language->get('text_none');
-        $data['text_account_already'] = sprintf($this->language->get('text_account_already'), $this->url->link('affiliate/login', '', true));
-        $data['text_signup'] = $this->language->get('text_signup');
-        $data['text_your_details'] = $this->language->get('text_your_details');
-        $data['text_your_address'] = $this->language->get('text_your_address');
-        $data['text_payment'] = $this->language->get('text_payment');
-        $data['text_your_password'] = $this->language->get('text_your_password');
-        $data['text_cheque'] = $this->language->get('text_cheque');
-        $data['text_paypal'] = $this->language->get('text_paypal');
-        $data['text_bank'] = $this->language->get('text_bank');
 
-        $data['entry_firstname'] = $this->language->get('entry_firstname');
-        $data['entry_lastname'] = $this->language->get('entry_lastname');
-        $data['entry_email'] = $this->language->get('entry_email');
-        $data['entry_telephone'] = $this->language->get('entry_telephone');
-        $data['entry_fax'] = $this->language->get('entry_fax');
-        $data['entry_company'] = $this->language->get('entry_company');
-        $data['entry_website'] = $this->language->get('entry_website');
-        $data['entry_address_1'] = $this->language->get('entry_address_1');
-        $data['entry_address_2'] = $this->language->get('entry_address_2');
-        $data['entry_postcode'] = $this->language->get('entry_postcode');
-        $data['entry_city'] = $this->language->get('entry_city');
-        $data['entry_country'] = $this->language->get('entry_country');
-        $data['entry_zone'] = $this->language->get('entry_zone');
-        $data['entry_tax'] = $this->language->get('entry_tax');
-        $data['entry_payment'] = $this->language->get('entry_payment');
-        $data['entry_cheque'] = $this->language->get('entry_cheque');
-        $data['entry_paypal'] = $this->language->get('entry_paypal');
-        $data['entry_bank_name'] = $this->language->get('entry_bank_name');
-        $data['entry_bank_branch_number'] = $this->language->get('entry_bank_branch_number');
-        $data['entry_bank_swift_code'] = $this->language->get('entry_bank_swift_code');
-        $data['entry_bank_account_name'] = $this->language->get('entry_bank_account_name');
-        $data['entry_bank_account_number'] = $this->language->get('entry_bank_account_number');
-        $data['entry_password'] = $this->language->get('entry_password');
-        $data['entry_confirm'] = $this->language->get('entry_confirm');
+        $data['text_account_already'] = sprintf($this->language->get('text_account_already'), $this->url->link('affiliate/login', '', true));
 
         $data['button_continue'] = $this->language->get('button_continue');
 
@@ -317,8 +283,8 @@ class ControllerAffiliateRegister extends Controller {
             $data['confirm'] = '';
         }
 
-        // Captcha
-        if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('register', (array)$this->config->get('config_captcha_page'))) {
+        // Captcha - both, account/register and affiliate/register uses the same admin setting: 'register'
+        if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('register', (array)$this->config->get('config_captcha_page'))) {
             try {
                 $data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'), $this->error);
             } catch (\Copona\Exception\ActionException $e) {
@@ -412,16 +378,12 @@ class ControllerAffiliateRegister extends Controller {
         }
 
         // Captcha
-        if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('register', (array)$this->config->get('config_captcha_page'))) {
-            try {
-                $captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
-            } catch (\Copona\Exception\ActionException $e) {
-                $captcha = null;
-            }
-
-            if ($captcha) {
-                $this->error['captcha'] = $captcha;
-            }
+        if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status')
+        && in_array('register', (array)$this->config->get('config_captcha_page'))) {
+			$captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
+			if ($captcha) {
+				$this->error['captcha'] = $captcha;
+			}
         }
 
         if ($this->config->get('config_affiliate_id')) {
