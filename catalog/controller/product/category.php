@@ -228,6 +228,7 @@ class ControllerProductCategory extends Controller
                     'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
                     'rating' => $result['rating'],
                     'quantity' => $result['quantity'],
+                    'content_meta' => $result['content_meta'],
                     'href' => $this->url->link('product/product',
                         ($category_path ? 'path=' . $category_path . '&' : '') . 'product_id=' . $result['product_id'] . $url),
                     'group_products' => $this->model_catalog_product->getProducts(
@@ -344,14 +345,7 @@ class ControllerProductCategory extends Controller
 
             $data['limits'] = array();
 
-            $limits = array_unique(array(
-                $this->config->get($this->config->get('config_theme') . '_product_limit'),
-                25,
-                50,
-                75,
-                100
-
-            ));
+            $limits = Config::get($this->config->get('config_theme') . '_product_limits', [25, 50, 75, 100]);
 
             sort($limits);
 

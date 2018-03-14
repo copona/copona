@@ -18,7 +18,6 @@ class ControllerExtensionModuleAccount extends Controller {
         ];
 
         $modules_logged = [
-            'logout',
             'account',
             'edit',
             'password',
@@ -33,7 +32,7 @@ class ControllerExtensionModuleAccount extends Controller {
 
         if($this->customer->isLogged()) {
             foreach($modules_logged as $module) {
-                $data['links'][] = [
+                $data['links'][$module] = [
                     'href' => $this->url->link('account/' . $module),
                     'name'  => $data["text_" . $module],
                     'status'  => true, // set to "false" in Hook, if you need to turn output off.
@@ -41,7 +40,7 @@ class ControllerExtensionModuleAccount extends Controller {
             }
         } else {
             foreach($modules_guest as $module) {
-                $data['links'][] = [
+                $data['links'][$module] = [
                     'href' => $this->url->link('account/' . $module),
                     'name'  => $data["text_" . $module],
                     'status'  => true, // set to "false" in Hook, if you need to turn output off.
@@ -50,12 +49,22 @@ class ControllerExtensionModuleAccount extends Controller {
         }
 
         foreach($modules_any as $module) {
-            $data['links'][] = [
+            $data['links'][$module] = [
                 'href' => $this->url->link('account/' . $module),
                 'name'  => ($module === 'wishlist')? sprintf($data["text_" . $module], $this->model_account_wishlist->getTotalWishlist()) : $data["text_" . $module],
                 'status'  => true, // set to "false" in Hook, if you need to turn output off.
             ];
         }
+
+        $module = 'logout';
+        if($this->customer->isLogged()) {
+            $data['links'][$module] = [
+                'href'   => $this->url->link('account/' . $module),
+                'name'   => $data["text_" . $module],
+                'status' => true, // set to "false" in Hook, if you need to turn output off.
+            ];
+        }
+
 
         $this->hook->getHook('extension/module/account/after', $data);
 

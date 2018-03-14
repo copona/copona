@@ -855,3 +855,22 @@ ul.product-group li.active{
 }
 
 /* ONE PAGE CHECKOUT CSS end */
+.social-icons ul {
+    margin: 0;
+    padding: 0;
+}
+.social-icons li {
+    display: inline-block;
+}
+.social-icons .facebook path, .social-icons .twitter path {
+    fill: white;
+}
+.social-icons .facebook {
+    cursor: pointer;
+}
+.social-icons .facebook svg {
+    background-color: #30487b;
+}
+.social-icons .twitter svg {
+    background-color: #00aced;
+}

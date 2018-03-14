@@ -18,6 +18,7 @@ class Customer {
 		$this->db = $registry->get('db');
 		$this->request = $registry->get('request');
 		$this->session = $registry->get('session');
+		$this->hook = $registry->get('hook');
 
 		if (isset($this->session->data['customer_id'])) {
 			$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE customer_id = '" . (int)$this->session->data['customer_id'] . "' AND status = '1'");
@@ -79,6 +80,7 @@ class Customer {
 
 			$this->db->query("UPDATE " . DB_PREFIX . "customer SET language_id = '" . (int)$this->config->get('config_language_id') . "', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "' WHERE customer_id = '" . (int)$this->customer_id . "'");
 
+			$this->hook->getHook('system/library/cart/customer/login/success/after');
 			return true;
 		} else {
 			return false;

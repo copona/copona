@@ -1,6 +1,7 @@
 <?php
 $_['heading_title'] = 'Shopping Cart';
 $_['text_success'] = 'Success: You have added <a href="%s">%s</a> to your <a href="%s">shopping cart</a>!';
+$_['text_cart_error'] = "Error: <a href=\"%s\">%s</a> was not added to your <a href=\"%s\">shopping cart</a>!";
 $_['text_remove'] = 'Success: You have modified your shopping cart!';
 $_['text_login'] = 'Attention: You must <a href="%s">login</a> or <a href="%s">create an account</a> to view prices!';
 $_['text_items'] = '%s item(s) - %s';
@@ -37,3 +38,4 @@ $_['text_use_voucher'] = 'Use voucher';
 $_['text_use_coupon'] = 'Use Coupon Code';
 $_['text_shipping_estimate'] = 'Estimate Shipping & Taxes';
 $_['text_shipping_detail'] = 'Enter your destination to get a shipping estimate.';
+$_['text_shipping_method'] = 'Shipping method';

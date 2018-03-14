@@ -2,7 +2,8 @@
 class ModelExtensionShippingLocationBasedShipping extends Model {
 
     function getQuote($address) {
-        $shipping_costs = $this->getCosts($address['country_id'], $address['zone_id']);
+        $shipping_costs = $this->getCosts($address['country_id'], $address['zone_id']); // This is deceptive it's
+        // geozone_id no country_id
         $this->language->load('shipping/location_based_shipping');
 
         $method_data = array();
@@ -36,8 +37,10 @@ class ModelExtensionShippingLocationBasedShipping extends Model {
                     'title'        => $costs['title'][$this->config->get('config_language_id')],
                     'cost'         => $cost,
                     'tax_class_id' => $costs['tax_class_id'],
-                    'cost_with_tax'=> $this->currency->format($this->tax->calculate($cost, $costs['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'],'',false),
-                    'text'         => $this->currency->format($this->tax->calculate($cost, $costs['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
+                    'cost_with_tax'=> $this->currency->format($this->tax->calculate($cost, $costs['tax_class_id'],
+                                      $this->config->get('config_tax')), $this->session->data['currency'],'',false),
+                    'text'         => $this->currency->format($this->tax->calculate($cost, $costs['tax_class_id'],
+                                      $this->config->get('config_tax')), $this->session->data['currency']),
                     'show_address' => (isset($costs['show_address']) && $costs['show_address'] ? 1 : 0),
                 );
             }
@@ -56,19 +59,17 @@ class ModelExtensionShippingLocationBasedShipping extends Model {
 
     protected function getCosts($country_id, $zone_id) {
         $location_based_shipping_cost = $this->config->get('location_based_shipping_cost');
-        $shipping = array();
-
         $result = array();
         foreach ($location_based_shipping_cost as $ship) {
-
             foreach ($ship as $cost) {
-                if ($cost['country_id'] == $country_id && ($cost['zone_id'] == $zone_id || $cost['zone_id'] == 0)) {
-                    $result[$cost['group']] = $cost;
-                    break;
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" .
+                    (int)$cost['geo_zone'] . "' 
+                AND country_id = '" . (int)$country_id . "' AND (zone_id = '" . (int)$zone_id . "' OR zone_id = '0')");
+                if(!empty($query->row)){
+                    $result[] = array_merge($query->row,$cost);
                 }
             }
-        }
-
+         }
         return $result;
     }
 

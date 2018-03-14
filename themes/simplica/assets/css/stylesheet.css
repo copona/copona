@@ -301,3 +301,22 @@ h2.price { margin: 0; }
 .btn-info:hover, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] { background-image: none; background-color: #df5c39; }
 /* left column menu */
 #column-left .category-item { position: relative; }
+.social-icons ul {
+    margin: 0;
+    padding: 0;
+}
+.social-icons li {
+    display: inline-block;
+}
+.social-icons .facebook path, .social-icons .twitter path {
+    fill: white;
+}
+.social-icons .facebook {
+    cursor: pointer;
+}
+.social-icons .facebook svg {
+    background-color: #30487b;
+}
+.social-icons .twitter svg {
+    background-color: #00aced;
+}
