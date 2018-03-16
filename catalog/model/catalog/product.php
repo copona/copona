@@ -34,7 +34,7 @@ class ModelCatalogProduct extends Model
           . "AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' "
           . "AND p.status = '1' AND p.date_available <= '" . date("Y-m-d") . "' "
           . "AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
-            
+
         $query = $this->db->query($sql);
 
         // pr($query->row);
@@ -262,7 +262,12 @@ class ModelCatalogProduct extends Model
                     }
                 }
 
-                $product_data[$product_id] = $this->getProduct($product_id);
+                // Check, IF there is product result.
+                $product_temp = $this->getProduct($product_id);
+                if($product_temp) {
+                    $product_data[$product_id] = $product_temp;
+                }
+
             }
             $this->cache->set('product.getproducts.' . md5($sql), $product_data);
         }
@@ -525,10 +530,10 @@ class ModelCatalogProduct extends Model
             $sql .= " FROM " . DB_PREFIX . "product p";
         }
 
-        $sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) 
-        LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) 
-        WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' 
-        AND p.date_available <= '" . date("Y-m-d") . "' 
+        $sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id)
+        LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id)
+        WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1'
+        AND p.date_available <= '" . date("Y-m-d") . "'
         AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
 
         if (!empty($data['filter_category_id'])) {
