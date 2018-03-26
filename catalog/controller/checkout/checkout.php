@@ -42,11 +42,13 @@ class ControllerCheckoutCheckout extends Controller
 
     public function index()
     {
+        $this->hook->getHook('checkout/checkout/index/before');
         $this->response->redirect($this->url->link('checkout/checkout/guest', '', 'SSL'));
     }
 
     public function guest()
     {
+        $this->hook->getHook('checkout/checkout/guest/before');
         $data = $this->load->language('checkout/checkout');
         $this->document->setTitle($this->language->get('heading_title'));
 
