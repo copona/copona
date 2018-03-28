@@ -671,6 +671,20 @@ class ControllerSettingSetting extends Controller {
             $data['icon'] = $this->model_tool_image->resize('no_image.png', 100, 100);
         }
 
+        if (isset($this->request->post['config_placeholder'])) {
+            $data['config_no_image'] = $this->request->post['config_no_image'];
+        } else {
+            $data['config_no_image'] = $this->config->get('config_no_image');
+        }
+
+        if (isset($this->request->post['config_no_image']) && is_file(DIR_IMAGE . $this->request->post['config_no_image'])) {
+            $data['no_image'] = $this->model_tool_image->resize($this->request->post['config_no_image'], 100, 100);
+        } elseif ($this->config->get('config_no_image') && is_file(DIR_IMAGE . $this->config->get('config_no_image'))) {
+            $data['no_image'] = $this->model_tool_image->resize($this->config->get('config_no_image'), 100, 100);
+        } else {
+            $data['no_image'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+        }
+
         if (isset($this->request->post['config_ftp_hostname'])) {
             $data['config_ftp_hostname'] = $this->request->post['config_ftp_hostname'];
         } elseif ($this->config->get('config_ftp_hostname')) {
