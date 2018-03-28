@@ -248,6 +248,7 @@ class ControllerProductSearch extends Controller {
                         'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,
                         'rating'         => $result['rating'],
                         'quantity' => $result['quantity'],
+                        'content_meta' => $result['content_meta'],
                         'href'           => $this->url->link('product/product',
                             'product_id=' . $result['product_id'] . $url),
                         'group_products' => $this->model_catalog_product->getProducts(
@@ -490,7 +491,7 @@ class ControllerProductSearch extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
-
+        $this->hook->getHook('search/index/after', $data);
         $this->response->setOutput($this->load->view('product/search', $data));
     }
 
