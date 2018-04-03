@@ -11,6 +11,7 @@ class ModelCatalogCategory extends Model {
 
         $this->language_id = (int)$registry->config->get('config_language_id');
         $this->paths = $this->paths();
+        $this->log = new Log("execdebuglog.txt");
         //TODO: should be moved globally
         $this->code = Config::get('code') ? Config::get('code') . "/" : '';
     }
@@ -35,10 +36,6 @@ class ModelCatalogCategory extends Model {
         
         $start_time = microtime(true);
 
-        if (!file_exists(DIR_LOGS . 'execdebuglog.txt') && defined('DEBUG_MODE') && DEBUG_MODE) {
-            touch(DIR_LOGS . 'execdebuglog.txt');
-        }
-
         $cats = [] ;
         foreach(explode(',', $this->paths[$parent_id]['childrens']) as $category_id) {
             if(!empty($this->paths[$category_id]['path'])) {
@@ -50,12 +47,10 @@ class ModelCatalogCategory extends Model {
         array_multisort(array_column($cats, 'sort_order'),  SORT_ASC,
             array_column($cats, 'name'), SORT_ASC, $cats);
 
-
         if(Config::get('debug.mode')) {
-            $file = fopen(DIR_LOGS . 'execdebuglog.txt', 'a');
             $output = microtime(true) - $start_time;
-            fwrite($file, "Start: for parent $parent_id : ". $output . "\n");
-            fclose($file);
+            $this->log->write( "Start: for parent $parent_id : ". $output . "\n" );
+
         }
 
 
