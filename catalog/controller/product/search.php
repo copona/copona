@@ -201,10 +201,12 @@ class ControllerProductSearch extends Controller {
                           $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
                           $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                     } else {
-                        $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}('placeholder.png',
+                        $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}(
+                            Config::get('config_no_image','placeholder.png'),
                           $this->config->get($this->config->get('config_theme') . '_image_product_width'),
                           $this->config->get($this->config->get('config_theme') . '_image_product_height'));
-                        $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}('placeholder.png',
+                        $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}(
+                            Config::get('config_no_image','placeholder.png'),
                           $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
                           $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                     }
@@ -246,6 +248,7 @@ class ControllerProductSearch extends Controller {
                         'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,
                         'rating'         => $result['rating'],
                         'quantity' => $result['quantity'],
+                        'content_meta' => $result['content_meta'],
                         'href'           => $this->url->link('product/product',
                             'product_id=' . $result['product_id'] . $url),
                         'group_products' => $this->model_catalog_product->getProducts(
@@ -488,7 +491,7 @@ class ControllerProductSearch extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
-
+        $this->hook->getHook('search/index/after', $data);
         $this->response->setOutput($this->load->view('product/search', $data));
     }
 

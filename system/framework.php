@@ -27,6 +27,12 @@ $registry->singleton('hook', function ($registry) {
     return new Hook($registry);
 });
 
+// Flash messages
+use \Plasticbrain\FlashMessages\FlashMessages;
+$registry->singleton('flash', function ($registry){
+    return new FlashMessages();
+});
+
 //Template Engine
 $engine_name = $config->get('template.default');
 $adapter = \Copona\System\Library\Template\TemplateFactory::create($config->get('template.adapters.' . $engine_name . '.adapter'));

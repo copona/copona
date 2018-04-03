@@ -25,7 +25,7 @@ class ControllerExtensionModuleCategoryFeatured extends Controller {
                     if ($category_info['image']) {
                         $image = $this->model_tool_image->resize($category_info['image'], $setting['width'], $setting['height']);
                     } else {
-                        $image = $this->model_tool_image->resize('placeholder.png', $setting['width'], $setting['height']);
+                        $image = $this->model_tool_image->resize(Config::get('config_no_image','placeholder.png'), $setting['width'], $setting['height']);
                     }
 
                     $data['categories'][] = array(

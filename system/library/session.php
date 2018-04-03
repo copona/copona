@@ -80,4 +80,8 @@ class Session
         setcookie($key, '', time() - 42000, ini_get('session.cookie_path'), ini_get('session.cookie_domain'));
     }
 
+    public function data($key = '') {
+        return isset($this->data[$key]) ? $this->data[$key] : null;
+    }
+
 }
