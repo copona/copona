@@ -24,9 +24,9 @@
               <?php foreach ($extensions as $extension) { ?>
                 <tr>
                     <?php if ($extension['installed']) { ?>
-                      <td class="name"><a href="<?php echo $extension['edit']; ?>"><strong><?php echo $extension['name']; ?></strong></a></td>
+                      <td class="name"><a href="<?php echo $extension['edit']; ?>"><strong><?php echo $extension['name']; ?></strong></a> (<?php echo $extension['extension']; ?>)</td>
                   <?php } else { ?>
-                      <td><strong><?php echo $extension['name']; ?></strong></td>
+                      <td><strong><?php echo $extension['name']; ?></strong> (<?php echo $extension['extension']; ?>)</td>
                   <?php } ?>
                   <td class="text-right">
                       <?php if ($extension['installed']) { ?>
