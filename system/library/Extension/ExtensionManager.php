@@ -142,7 +142,7 @@ class ExtensionManager
     public static function initAllCatalog()
     {
         foreach (self::$extensionCollection->all() as $extensionItem) {
-            if(is_callable( [$extensionItem->getIntance(), 'initCatalog' ] )){
+            if (is_callable([$extensionItem->getIntance(), 'initCatalog'])) {
                 $extensionItem->getIntance()->initCatalog();
             }
         }
