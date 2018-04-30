@@ -134,6 +134,21 @@ class ExtensionManager
     }
 
     /**
+     * blame @arnisjuraga :)
+     * Execute all init methods for Catalog
+     *
+     * @throws \Exception
+     */
+    public static function initAllCatalog()
+    {
+        foreach (self::$extensionCollection->all() as $extensionItem) {
+            if(is_callable( [$extensionItem->getIntance(), 'initCatalog' ] )){
+                $extensionItem->getIntance()->initCatalog();
+            }
+        }
+    }
+
+    /**
      * Execute all update method
      *
      * @throws \Exception

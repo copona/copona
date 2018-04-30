@@ -142,6 +142,9 @@ class ControllerStartupStartup extends Controller
             require_once(DIR_TEMPLATE . 'default/functions.php');
         }
 
+        // Execute Extensions Init, if them has a method.
+        \Copona\System\Library\Extension\ExtensionManager::initAllCatalog();
+
         //Theme settings override
         if ($this->config->get('theme_name') != 'default' && file_exists($this->config->get('theme_uri') . '/functions.php')) {
             require_once($this->config->get('theme_uri') . '/functions.php');
