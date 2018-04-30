@@ -32,12 +32,12 @@ class ControllerExtensionModuleLatest extends Controller {
                 if ($result['image']) {
                     $image = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}($result['image'], $setting['width'], $setting['height']);
                 } else {
-                    $image = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}('placeholder.png', $setting['width'], $setting['height']);
+                    $image = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}(Config::get('config_no_image','placeholder.png'), $setting['width'], $setting['height']);
                 }
                 if ($result['image']) {
                     $popup = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                 } else {
-                    $popup = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                    $popup = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}(Config::get('config_no_image','placeholder.png'), $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                 }
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -87,7 +87,7 @@ class ControllerExtensionModuleLatest extends Controller {
                         if ($group_product['image']) {
                             $group_image = $this->model_tool_image->cropsize($group_product['image'], $this->config->get($this->config->get('config_theme') . '_image_product_group_width'), $this->config->get($this->config->get('config_theme') . '_image_product_group_height'));
                         } else {
-                            $group_image = $this->model_tool_image->cropsize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_group_width'), $this->config->get($this->config->get('config_theme') . '_image_product_group_height'));
+                            $group_image = $this->model_tool_image->cropsize(Config::get('config_no_image','placeholder.png'), $this->config->get($this->config->get('config_theme') . '_image_product_group_width'), $this->config->get($this->config->get('config_theme') . '_image_product_group_height'));
                         }
 
                         $group_products_data[] = array(

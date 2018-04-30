@@ -155,7 +155,11 @@ class ControllerCommonColumnLeft extends Controller {
                     'children' => $catalog
                 );
             }
-
+            $custom_tab = false;
+            $this->hook->getHook('admin/common/column_left/index/menu_catelog/after',$custom_tab);
+            if($custom_tab){
+                $data['menus'][] = $custom_tab;
+            }
 
             // Extension
             $extension = array();

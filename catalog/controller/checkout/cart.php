@@ -76,7 +76,7 @@ class ControllerCheckoutCart extends Controller {
                 if ($product['image']) {
                      $image = $this->model_tool_image->{Config::get('theme_default_product_cart_thumb_resize','resize')}($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
                 } else {
-                    $image = '';
+                    $image = $this->model_tool_image->{Config::get('theme_default_product_cart_thumb_resize','resize')}(Config::get('config_no_image','placeholder.png'), $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
                 }
 
                 $option_data = array();

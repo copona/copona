@@ -51,16 +51,15 @@ final class MySQLi {
 
         if (!$this->connection->errno) {
             if ($query instanceof \mysqli_result) {
-                $data = array();
-
-                while ($row = $query->fetch_assoc()) {
-                    $data[] = $row;
-                }
-
                 $result = new \stdClass();
                 $result->num_rows = $query->num_rows;
-                $result->row = isset($data[0]) ? $data[0] : array();
-                $result->rows = $data;
+                $result->rows = [];
+
+                while ($row = $query->fetch_assoc()) {
+					$result->rows[] = $row;
+                }
+
+                $result->row = isset($result->rows[0]) ? $result->rows[0] : [];
 
                 $query->close();
 

@@ -28,7 +28,7 @@ class ModelUserUser extends Model {
 	}
 
 	public function editPassword($user_id, $password) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET salt = '', password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "', code = '' WHERE user_id = '" . (int)$user_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET salt = '', password = '" . password_hash($password, PASSWORD_DEFAULT) . "', code = '' WHERE user_id = '" . (int)$user_id . "'");
 	}
 
 	public function editCode($email, $code) {

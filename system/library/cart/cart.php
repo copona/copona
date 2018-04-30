@@ -319,6 +319,7 @@ class Cart {
 
     public function clear() {
         $this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+        $this->cartProducts = $this->getProducts();
     }
 
     public function getRecurringProducts() {

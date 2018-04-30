@@ -8,7 +8,7 @@ class File
 
     public function __construct()
     {
-        $this->expire = \Config::get('cache.cache_expire');
+        $this->expire = \Config::get('cache.cache_expire', 3600);
 
         if (!is_dir(DIR_CACHE_PRIVATE)) {
             mkdir(DIR_CACHE_PRIVATE, \Config::get('directory_permission', 0777), true);
