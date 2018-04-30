@@ -118,3 +118,20 @@ if (!function_exists('dt')) {
         }
     }
 }
+
+if (!function_exists('ddd')) {
+
+    function ddd()
+    {
+        $i = 0;
+        $output = '';
+        while( !empty( debug_backtrace()[ $i ] ) ) {
+            if( !empty( debug_backtrace()[$i]['file'] )){
+                $output .= debug_backtrace()[$i]['file'].":".debug_backtrace()[$i]['line'] . " \n";
+            }
+            $i++;
+        }
+
+        return $output;
+    }
+}
