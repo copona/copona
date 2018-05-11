@@ -42,11 +42,13 @@ class ControllerCheckoutCheckout extends Controller
 
     public function index()
     {
+        $this->hook->getHook('checkout/checkout/index/before');
         $this->response->redirect($this->url->link('checkout/checkout/guest', '', 'SSL'));
     }
 
     public function guest()
     {
+        $this->hook->getHook('checkout/checkout/guest/before');
         $data = $this->load->language('checkout/checkout');
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -108,7 +110,7 @@ class ControllerCheckoutCheckout extends Controller
             unset($this->session->data['guest']['serial']);
 
             foreach (Config::get('checkout_serial_fields') as $field) {
-                $this->session->data['guest']['serial'][$field] = $serial[ $field ];
+                $this->session->data['guest']['serial'][$field] = !empty($serial[ $field ]) ? $serial[ $field ] : false ;
             }
         }
 
@@ -124,9 +126,7 @@ class ControllerCheckoutCheckout extends Controller
                 $this->session->data['payment_method'] = $this->session->data['payment_methods'][$method[0]];
             }
         } elseif (empty($this->session->data['payment_method'])) {
-
-            $this->session->data['payment_method'] = '';
-
+            $this->flash->error( sprintf($this->language->get('error_no_payment'), Config::get('config_email') ) );
         }
 
         foreach (
@@ -205,6 +205,7 @@ class ControllerCheckoutCheckout extends Controller
             // TODO: !!!! ??? 'payment' ??
             // $data = $this->session->data['guest']['payment'];
 
+
             $shipping_address = [];
 
             $shipping_address['company_id'] = '';
@@ -247,7 +248,7 @@ class ControllerCheckoutCheckout extends Controller
 
             $data['cart_total_value'] = round($this->cart->getTotal(), 2);
             $data['serial'] = !empty($this->session->data['guest']['serial']) ? $this->session->data['guest']['serial'] : [];
-            
+
             $data['order_shipping'] = 0;
             if (!empty($this->session->data['shipping_method'])) {
                 $data['order_shipping'] = round($this->tax->calculate($this->session->data['shipping_method']['cost'],
@@ -269,8 +270,8 @@ class ControllerCheckoutCheckout extends Controller
         $data = array_merge($data, $this->session->data['guest']);
 
         $this->hook->getHook('checkout/guest/after', $data);
-
         $this->response->setOutput($this->load->view('checkout/guest', $data));
+
     }
 
     protected function validate($type = '')
@@ -350,7 +351,7 @@ class ControllerCheckoutCheckout extends Controller
 
         $products = $this->cart->getProducts();
         foreach ($products as $product) {
-            if (!$product['stock']) {
+            if (!$product['stock'] && !$this->config->get('config_stock_checkout')) {
                 $this->error['not_ins_stock'] = $this->language->get('error_stock');
                 break;
             }
@@ -365,7 +366,6 @@ class ControllerCheckoutCheckout extends Controller
 
     protected function validateShipping()
     {
-
         if (!empty($this->request->post['shipping_method'])) {
             $shipping = explode('.', $this->request->post['shipping_method']);
             if (!isset($shipping[0]) || !isset($shipping[1]) ||

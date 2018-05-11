@@ -161,6 +161,7 @@ class ControllerExtensionExtensionModule extends Controller {
                 $data['extensions'][] = array(
                     'name'      => $this->language->get('heading_title'),
                     'module'    => $module_data,
+                    'extension' => $extension,
                     'install'   => $this->url->link('extension/extension/module/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'uninstall' => $this->url->link('extension/extension/module/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'installed' => in_array($extension, $extensions),

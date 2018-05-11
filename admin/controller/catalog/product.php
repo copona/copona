@@ -559,8 +559,7 @@ class ControllerCatalogProduct extends Controller {
 
     protected function getForm() {
 
-        $data = array();
-        $data = array_merge($data, $this->load->language('catalog/product'));
+        $data = $this->load->language('catalog/product');
 
         //prd($this->language);
         //prd($data);
@@ -1372,7 +1371,7 @@ class ControllerCatalogProduct extends Controller {
             if (isset($this->request->get['limit'])) {
                 $limit = $this->request->get['limit'];
             } else {
-                $limit = 5;
+                $limit = 50;
             }
 
             $filter_data = array(
@@ -1382,12 +1381,11 @@ class ControllerCatalogProduct extends Controller {
                 'limit'        => $limit
             );
 
-            //$results = $this->model_catalog_product->getProducts($filter_data);
-            //$results = $this->model_catalog_product->getProducts($filter_data);
-
-            // prd(  );
-
-            $results = $this->model_catalog_product->getProductsAutocompleteFS($filter_data);
+            if(Config::get('config_admin_autocomplete_fulltext', false)){
+                $results = $this->model_catalog_product->getProductsAutocompleteFS($filter_data);
+            } else {
+                $results = $this->model_catalog_product->getProducts($filter_data);
+            }
 
             foreach ($results as $result) {
                 $option_data = array();
@@ -1460,7 +1458,7 @@ class ControllerCatalogProduct extends Controller {
         $filter_data = array(
             'filter_name'  => $filter_name,
             'filter_added' => $added_products,
-            // 'filter_not_grouped' => true,
+            'limit'        => 50,
         );
         $results = $this->model_catalog_product->getProducts($filter_data);
 

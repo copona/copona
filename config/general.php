@@ -34,6 +34,13 @@ return [
     'image_base_url'     => rtrim(BASE_URL_CATALOG, '/') . '/' . PATH_CACHE_PUBLIC . 'image',
 
     /**
+     * No Image filename
+     *
+     * Set filename for no_image, taken from image_base_url
+     */
+    'image_no_image'     => 'no_image.png',
+
+    /**
      * Url
      */
     'url_autostart'         => true,

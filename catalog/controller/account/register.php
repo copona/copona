@@ -27,7 +27,7 @@ class ControllerAccountRegister extends Controller
 
             //CSRF #5172
             $this->session->data['csrf_token'] = token(32);
-            
+
             if (isset($this->session->data['wishlist']) && is_array($this->session->data['wishlist'])) {
                 $this->load->model('account/wishlist');
 
@@ -370,14 +370,13 @@ class ControllerAccountRegister extends Controller
         }
 
         // Captcha
-        if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('register',
-                (array)$this->config->get('config_captcha_page'))) {
-            $captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
-
-            if ($captcha) {
-                $this->error['captcha'] = $captcha;
-            }
-        }
+        if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status')
+        && in_array('register', (array)$this->config->get('config_captcha_page'))) {
+			$captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
+			if ($captcha) {
+				$this->error['captcha'] = $captcha;
+			}
+		}
 
         // Agree to terms
         if ($this->config->get('config_account_id')) {

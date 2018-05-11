@@ -74,9 +74,9 @@ class ControllerCheckoutCart extends Controller {
                 }
 
                 if ($product['image']) {
-                     $image = $this->model_tool_image->{$this->config->get('theme_default_product_cart_thumb_resize')}($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+                     $image = $this->model_tool_image->{Config::get('theme_default_product_cart_thumb_resize','resize')}($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
                 } else {
-                    $image = '';
+                    $image = $this->model_tool_image->{Config::get('theme_default_product_cart_thumb_resize','resize')}(Config::get('config_no_image','placeholder.png'), $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
                 }
 
                 $option_data = array();
@@ -241,8 +241,9 @@ class ControllerCheckoutCart extends Controller {
                     }
                 }
             }
-
-            if (isset($this->request->post['checkout'])) {
+            if(isset($this->request->post['hook'])){
+                $this->hook->getHook('checkout/cart/index/output', $data);
+            } else if (isset($this->request->post['checkout'])) {
                 echo $this->response->setOutput($this->load->view('checkout/cart_info', $data));
             } else {
                 $data['column_left'] = $this->load->controller('common/column_left');
@@ -337,13 +338,14 @@ class ControllerCheckoutCart extends Controller {
                     $json['error']['recurring'] = $this->language->get('error_recurring_required');
                 }
             }
-
-            if (!$json) {
-
-                $hook_data = ['product_id' => (int)$this->request->post['product_id'] ];
-
+                $hook_data = [
+                    'quantity' => $quantity,
+                    'json' => $json,
+                    'product' => $product_info,
+                ];
                 $this->hook->getHook('checkout/cart/add/beforeadd', $hook_data);
 
+            if (!$json && !$hook_data['json']) {
                 $this->cart->add((int)$this->request->post['product_id'], $quantity, $option, $recurring_id);
 
                 $json['success'] = sprintf($this->language->get('text_success'),
@@ -404,7 +406,9 @@ class ControllerCheckoutCart extends Controller {
 
                     array_multisort($sort_order, SORT_ASC, $totals);
                 }
-            } else {
+            } else if($hook_data['json']){
+                $json = $hook_data['json'];
+            } else{
                 $json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']));
             }
         }
@@ -419,6 +423,9 @@ class ControllerCheckoutCart extends Controller {
 
         $json = array();
 
+
+        $this->hook->getHook('checkout/cart/edit/before', $this->request->post['quantity']);
+
         // Update
         if (!empty($this->request->post['quantity'])) {
             foreach ($this->request->post['quantity'] as $key => $value) {
@@ -426,6 +433,8 @@ class ControllerCheckoutCart extends Controller {
             }
             if (!empty($this->request->post['method']) && $this->request->post['method'] == 'ajax') {
                 $json['status'] = 'OK';
+                $json['current_product_in_cart'] = $this->cart->countProducts((int)$this->request->post['product_id']);
+                $json['current_cart_total_count'] = $this->cart->countProducts();
                 echo json_encode($json);
                 return false;
             }

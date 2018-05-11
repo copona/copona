@@ -52,15 +52,13 @@ class ControllerStartupStartup extends Controller
          *
         */
 
-
         $this->load->model('localisation/language');
 
         $languages = $this->model_localisation_language->getLanguages();
         $default_language = $this->config->get('config_language');
 
-
-        // 1. Read from URL
         if (isset($this->request->get["_route_"])) {
+            // 1. Read from URL
             $seo_path = explode('/', $this->request->get["_route_"]);
             if (array_key_exists($seo_path[0], $languages)) {
                 $code = $seo_path[0];
@@ -126,6 +124,10 @@ class ControllerStartupStartup extends Controller
 
         $this->session->data['language'] = $code;
 
+        if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
+			setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
+		}
+
         // Overwrite the default language object
         $language = new Language($code);
         $language->load($code);
@@ -140,15 +142,18 @@ class ControllerStartupStartup extends Controller
             require_once(DIR_TEMPLATE . 'default/functions.php');
         }
 
+        // Execute Extensions Init, if them has a method.
+        \Copona\System\Library\Extension\ExtensionManager::initAllCatalog();
+
         //Theme settings override
         if ($this->config->get('theme_name') != 'default' && file_exists($this->config->get('theme_uri') . '/functions.php')) {
             require_once($this->config->get('theme_uri') . '/functions.php');
         }
 
-        $this->language->get('locale')
-          ? setlocale(LC_ALL, $this->language->get('locale'))
-          : '';
-        setlocale( LC_NUMERIC, 'en_GB' );
+
+
+        $this->language->get('locale') ? setlocale(LC_ALL, $this->language->get('locale') . ".UTF-8") : '';
+        setlocale(LC_NUMERIC, 'en_GB');
 
         // Customer
         $customer = new Cart\Customer($this->registry);

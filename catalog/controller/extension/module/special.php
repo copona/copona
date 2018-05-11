@@ -32,7 +32,7 @@ class ControllerExtensionModuleSpecial extends Controller {
                 if ($result['image']) {
                     $image = $this->model_tool_image->resize($result['image'], $setting['width'], $setting['height']);
                 } else {
-                    $image = $this->model_tool_image->resize('placeholder.png', $setting['width'], $setting['height']);
+                    $image = $this->model_tool_image->resize(Config::get('config_no_image','placeholder.png'), $setting['width'], $setting['height']);
                 }
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {

@@ -4,8 +4,8 @@ class ControllerCheckoutConfirm extends Controller {
     public function index() {
 
         $redirect = '';
-        $data = array();
-        $data = array_merge($data, $this->load->language('order/order'));
+
+        $data = array_merge($this->load->language('checkout/checkout'), $this->load->language('order/order'));
         $this->document->setTitle($this->language->get('heading_title2'));
 
         if ($this->cart->hasShipping()) {
@@ -28,7 +28,8 @@ class ControllerCheckoutConfirm extends Controller {
 
         // Validate if payment method has been set.
 
-        if (!isset($this->session->data['payment_method'])) {
+        if (empty($this->session->data['payment_method'])) {
+            $this->flash->error($this->language->get('error_payment'));
             $redirect = $this->url->link('checkout/checkout/guest', '', 'SSL');
         }
 
@@ -247,7 +248,7 @@ class ControllerCheckoutConfirm extends Controller {
                 $data['shipping_address_location'] .= $this->session->data['guest']['shipping_address']['postcode'] ? $this->session->data['guest']['shipping_address']['postcode'] . ", " : '';
 
             }
-            
+
             $product_data = array();
 
             foreach ($this->cart->getProducts() as $product) {
@@ -454,7 +455,7 @@ class ControllerCheckoutConfirm extends Controller {
         } else {
             $data['redirect'] = $redirect;
         }
-        
+
         $data['back'] = $this->url->link('checkout/checkout');
 
         $data['header'] = $this->load->controller('common/header');

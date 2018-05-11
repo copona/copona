@@ -2,7 +2,7 @@
 class ControllerCheckoutPaymentMethod extends Controller {
 
     public function index() {
-        ;
+
         $this->language->load('checkout/checkout');
         $this->load->model('account/address');
 
