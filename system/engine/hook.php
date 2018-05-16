@@ -15,7 +15,7 @@ class Hook {
     public function getHook($string, &$data = [ ]) {
         if (!empty($this->hooks[$string])) {
             foreach ($this->hooks[$string] as $function) {
-                if (function_exists($function)) {
+                if (is_string($function) && function_exists($function)) {
                     $function($data, $this->registry);
                 } else {
                     // Functions does not exists!
