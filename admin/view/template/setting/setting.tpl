@@ -1085,6 +1085,12 @@
                   <input type="hidden" name="config_icon" value="<?php echo $config_icon; ?>" id="input-icon" />
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-no_image"><span data-toggle="tooltip" title="<?php echo $help_no_image; ?>"><?php echo $entry_no_image; ?></span></label>
+                <div class="col-sm-10"><a href="" id="thumb-no_image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $no_image; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a>
+                  <input type="hidden" name="config_no_image" value="<?php echo $config_no_image; ?>" id="input-no_image" />
+                </div>
+              </div>
             </div>
             <div class="tab-pane" id="tab-ftp">
               <div class="form-group">

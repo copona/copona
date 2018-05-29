@@ -155,7 +155,11 @@ class ControllerCommonColumnLeft extends Controller {
                     'children' => $catalog
                 );
             }
-
+            $custom_tab = false;
+            $this->hook->getHook('admin/common/column_left/index/menu_catelog/after',$custom_tab);
+            if($custom_tab){
+                $data['menus'][] = $custom_tab;
+            }
 
             // Extension
             $extension = array();
@@ -220,32 +224,24 @@ class ControllerCommonColumnLeft extends Controller {
                     'children' => array()
                 );
             }
-            /*
-              if ($this->user->hasPermission('access', 'design/menu')) {
-              $design[] = array(
-              'name'	   => $this->language->get('text_menu'),
-              'href'     => $this->url->link('design/menu', 'token=' . $this->session->data['token'], true),
-              'children' => array()
-              );
-              }
-             */
-            /*
-              if ($this->user->hasPermission('access', 'design/theme')) {
-              $design[] = array(
-              'name'	   => $this->language->get('text_theme'),
-              'href'     => $this->url->link('design/theme', 'token=' . $this->session->data['token'], true),
-              'children' => array()
-              );
-              }
 
-              if ($this->user->hasPermission('access', 'design/language')) {
-              $design[] = array(
-              'name'	   => $this->language->get('text_translation'),
-              'href'     => $this->url->link('design/language', 'token=' . $this->session->data['token'], true),
-              'children' => array()
-              );
-              }
-             */
+            if ($this->user->hasPermission('access', 'design/media_manager')) {
+                $design[] = array(
+                  'name' => $this->language->get('text_media_manager'),
+                  'href' => $this->url->link('design/media_manager', 'return=1&token=' . $this->session->data['token'], true),
+                  'children' => array()
+                );
+            }
+
+            if ($this->user->hasPermission('access', 'common/elfinder')) {
+                $design[] = array(
+                    'name' => "ElFinder file manager",
+                    'href' => $this->url->link('common/elfinder', '&token=' . $this->session->data['token'], true),
+                    'children' => array()
+                );
+            }
+
+
             if ($this->user->hasPermission('access', 'design/banner')) {
                 $design[] = array(
                     'name'     => $this->language->get('text_banner'),

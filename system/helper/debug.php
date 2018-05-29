@@ -14,7 +14,7 @@ if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
 
 if (is_array($ips) && count($ips) && array_search($client_ip, $ips) === false) {
     $debug_mode = false;
-} elseif( is_array($ips) && array_search($client_ip, $ips) ) {
+} elseif( is_array($ips) && array_search($client_ip, $ips) !== false ) {
     $debug_mode = true;
 }
 
@@ -111,10 +111,28 @@ if (!function_exists('dt')) {
 
     function dt()
     {
-        if (@$GLOBALS['debug_mode']) {
+        return loadTime::diff(); 
+        /*if (@$GLOBALS['debug_mode']) {
             !isset($_SESSION['dt_start_time']) ? $_SESSION['dt_start_time'] = microtime(true) : false;
             $diff = microtime(true) - $_SESSION['dt_start_time'];
             return $diff;
+        }*/
+    }
+}
+
+if (!function_exists('ddd')) {
+
+    function ddd()
+    {
+        $i = 0;
+        $output = '';
+        while( !empty( debug_backtrace()[ $i ] ) ) {
+            if( !empty( debug_backtrace()[$i]['file'] )){
+                $output .= debug_backtrace()[$i]['file'].":".debug_backtrace()[$i]['line'] . " \n";
+            }
+            $i++;
         }
+
+        return $output;
     }
 }

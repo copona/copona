@@ -29,7 +29,7 @@ class ControllerExtensionModuleFeatured extends Controller {
                     if ($product_info['image']) {
                         $image = $this->model_tool_image->{$this->config->get('theme_default_extension_module_featured')}($product_info['image'], $setting['width'], $setting['height']);
                     } else {
-                        $image = $this->model_tool_image->{$this->config->get('theme_default_extension_module_featured')}('placeholder.png', $setting['width'], $setting['height']);
+                        $image = $this->model_tool_image->{$this->config->get('theme_default_extension_module_featured')}(Config::get('config_no_image','placeholder.png'), $setting['width'], $setting['height']);
                     }
 
                     if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -59,6 +59,7 @@ class ControllerExtensionModuleFeatured extends Controller {
                     $data['products'][] = array(
                         'product_id'    => $product_info['product_id'],
                         'minimum'       => $product_info['minimum'] == 0 ? 1 : $product_info['minimum'] ,
+                        'quantity'       => $product_info['quantity'],
                         'thumb'         => $image,
                         'name'          => $product_info['name'],
                         'description'   => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
@@ -73,11 +74,16 @@ class ControllerExtensionModuleFeatured extends Controller {
             }
         }
 
+
+        $data['template'] = 'extension/module/featured';
+
+        $this->hook->getHook('extension/module/featured/after', $data);
+
         if ($data['products']) {
             if(!empty($setting['content_data']) && $setting['content_data']){
                 return $data;
             } else {
-                return $this->load->view('extension/module/featured', $data);
+                return $this->load->view($data['template'], $data);
             }
         }
     }

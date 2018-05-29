@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentBankTransfer extends Controller {
 
     public function index() {
-        $this->load->language('extension/payment/bank_transfer');
+        $data = $this->load->language('extension/payment/bank_transfer');
 
         $data['text_instruction'] = $this->language->get('text_instruction');
         $data['text_description'] = $this->language->get('text_description');
@@ -14,6 +14,10 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
         $data['bank'] = nl2br($this->config->get('bank_transfer_bank' . $this->config->get('config_language_id')));
 
         $data['continue'] = $this->url->link('checkout/success');
+        $data['back'] = $this->url->link('checkout/checkout');
+
+
+
 
         return $this->load->view('extension/payment/bank_transfer', $data);
     }

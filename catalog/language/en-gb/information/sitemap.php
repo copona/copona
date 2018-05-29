@@ -10,7 +10,6 @@ $_['text_password'] = 'Password';
 $_['text_address'] = 'Address Book';
 $_['text_history'] = 'Order History';
 $_['text_download'] = 'Downloads';
-$_['text_cart'] = 'Shopping Cart';
 $_['text_checkout'] = 'Checkout';
 $_['text_search'] = 'Search';
 $_['text_information'] = 'Information';

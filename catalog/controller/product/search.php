@@ -196,10 +196,19 @@ class ControllerProductSearch extends Controller {
                         $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}($result['image'],
                           $this->config->get($this->config->get('config_theme') . '_image_product_width'),
                           $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+
+                        $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}($result['image'],
+                          $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
+                          $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                     } else {
-                        $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}('placeholder.png',
+                        $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}(
+                            Config::get('config_no_image','placeholder.png'),
                           $this->config->get($this->config->get('config_theme') . '_image_product_width'),
                           $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                        $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}(
+                            Config::get('config_no_image','placeholder.png'),
+                          $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
+                          $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                     }
 
                     if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -228,6 +237,7 @@ class ControllerProductSearch extends Controller {
                     $data['products'][] = array(
                         'product_id'     => $result['product_id'],
                         'thumb'          => $image,
+                        'popup'          => $popup,
                         'name'           => $result['name'],
                         'description'    => utf8_substr(trim(strip_tags(html_entity_decode($result['description'],
                                 ENT_QUOTES, 'UTF-8'))), 0,
@@ -237,6 +247,8 @@ class ControllerProductSearch extends Controller {
                         'tax'            => $tax,
                         'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,
                         'rating'         => $result['rating'],
+                        'quantity' => $result['quantity'],
+                        'content_meta' => $result['content_meta'],
                         'href'           => $this->url->link('product/product',
                             'product_id=' . $result['product_id'] . $url),
                         'group_products' => $this->model_catalog_product->getProducts(
@@ -366,8 +378,7 @@ class ControllerProductSearch extends Controller {
 
             $data['limits'] = array();
 
-            $limits = array_unique(array( $this->config->get($this->config->get('config_theme') . '_product_limit'),
-                25, 50, 75, 100 ));
+            $limits = Config::get($this->config->get('config_theme') . '_product_limits', [25, 50, 75, 100]);
 
             sort($limits);
 
@@ -480,7 +491,7 @@ class ControllerProductSearch extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
-
+        $this->hook->getHook('search/index/after', $data);
         $this->response->setOutput($this->load->view('product/search', $data));
     }
 

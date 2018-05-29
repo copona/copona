@@ -31,6 +31,14 @@ abstract class ExtensionBase
     }
 
     /**
+     * Executed in catalog ControllerStartupStartup
+     */
+    public function initCatalog()
+    {
+
+    }
+
+    /**
      * Define details about extension
      * @return array
      */

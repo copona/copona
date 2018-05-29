@@ -8,8 +8,9 @@ class ControllerAccountReturn extends Controller {
 
             $this->response->redirect($this->url->link('account/login', '', true));
         }
+        $data = $this->load->language('account/return');
 
-        $this->load->language('account/return');
+        $data['return_add_url'] = $this->url->link('account/return/add');
 
         $this->document->setTitle($this->language->get('heading_title'));
 

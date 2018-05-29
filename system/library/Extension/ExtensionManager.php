@@ -134,6 +134,34 @@ class ExtensionManager
     }
 
     /**
+     * Execute all event onInit in all site
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public static function executeOnInit()
+    {
+        /** @var ExtensionItem $extensionItem */
+        foreach (self::$extensionCollection->all() as $extensionItem) {
+            $extensionItem->getIntance()->onInit();
+        }
+    }
+
+    /**
+     * blame @arnisjuraga :)
+     * Execute all init methods for Catalog
+     *
+     * @throws \Exception
+     */
+    public static function initAllCatalog()
+    {
+        /** @var ExtensionItem $extensionItem */
+        foreach (self::$extensionCollection->all() as $extensionItem) {
+            $extensionItem->getIntance()->initCatalog();
+        }
+    }
+
+    /**
      * Execute all update method
      *
      * @throws \Exception

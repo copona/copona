@@ -9,8 +9,8 @@
 Search-Replace-DB-master*
 /extensions/*
 /sitemaps/
-sitemap.xml
-sitemap.xsl
+sitemap*.xml
+sitemap*.xsl
 
 # ignore config env dir
 config/*/

@@ -11,6 +11,13 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="<?php echo $title; ?>">
+  <meta property="og:description"
+        content="<?= $description ? $description : '' ?>"><?php if ($class == 'common-home') { ?>
+    <meta property="og:url" content="<?php echo $base; ?>">
+    <?php }; ?>
+  <meta property="og:site_name" content="<?php echo Config::get('config_name') ?>">
   <title><?php echo $title; ?></title>
   <base href="<?php echo $base; ?>"/>
     <?php if ($description) { ?>

@@ -65,6 +65,9 @@ span.hidden-xs, span.hidden-sm, span.hidden-md, span.hidden-lg {
     display: inline;
 }
 
+.text-left {
+    text-align: left;
+}
 .nav-tabs {
     margin-bottom: 15px;
 }
@@ -852,3 +855,22 @@ ul.product-group li.active{
 }
 
 /* ONE PAGE CHECKOUT CSS end */
+.social-icons ul {
+    margin: 0;
+    padding: 0;
+}
+.social-icons li {
+    display: inline-block;
+}
+.social-icons .facebook path, .social-icons .twitter path {
+    fill: white;
+}
+.social-icons .facebook {
+    cursor: pointer;
+}
+.social-icons .facebook svg {
+    background-color: #30487b;
+}
+.social-icons .twitter svg {
+    background-color: #00aced;
+}

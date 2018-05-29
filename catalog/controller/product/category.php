@@ -149,7 +149,7 @@ class ControllerProductCategory extends Controller
 
             $filter_data = array(
                 'filter_category_id' => $category_id,
-                'filter_sub_category' => true,
+                'filter_sub_category' => true, //Show products from Sub-Categories!
                 'filter_filter' => $params['filter'],
                 'filter_manufacturer_id' => $params['manufacturer_id'],
                 'sort' => $params['sort'],
@@ -220,14 +220,15 @@ class ControllerProductCategory extends Controller
                     'popup' => $image_popup,
                     'name' => $result['name'],
                     'description' => strip2words($result['description'],
-                            $this->config->get($this->config->get('config_theme') . '_product_description_length'),
-                            true) . '..',
+                            Config::get(Config::get('config_theme') . '_product_description_length'),
+                            true) . (mb_strlen( $result['description'] > Config::get(Config::get('config_theme') . '_product_description_length') ) ? '..' : '' ),
                     'price' => $price,
                     'special' => $special,
                     'tax' => $tax,
                     'minimum' => $result['minimum'] > 0 ? $result['minimum'] : 1,
                     'rating' => $result['rating'],
                     'quantity' => $result['quantity'],
+                    'content_meta' => $result['content_meta'],
                     'href' => $this->url->link('product/product',
                         ($category_path ? 'path=' . $category_path . '&' : '') . 'product_id=' . $result['product_id'] . $url),
                     'group_products' => $this->model_catalog_product->getProducts(
@@ -344,14 +345,7 @@ class ControllerProductCategory extends Controller
 
             $data['limits'] = array();
 
-            $limits = array_unique(array(
-                $this->config->get($this->config->get('config_theme') . '_product_limit'),
-                25,
-                50,
-                75,
-                100
-
-            ));
+            $limits = Config::get($this->config->get('config_theme') . '_product_limits', [25, 50, 75, 100]);
 
             sort($limits);
 
