@@ -7,6 +7,15 @@ if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
     die('Please, execute composer install');
 }
 
+//Custom autoload
+use \Copona\System\Support\ClassLoader;
+
+ClassLoader::register();
+ClassLoader::addDirectories([
+    DIR_PUBLIC . '/themes',
+    DIR_PUBLIC . '/extensions'
+]);
+
 /**
  * Libraries Autoload
  * @TODO change this to PSR-4
