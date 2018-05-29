@@ -1175,16 +1175,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.29.1",
+            "version": "1.29.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "861f8da904c6d4ee937b25d6f4d35a18a8e1e1ac"
+                "reference": "ed6aa898982f441ccc9b2acdec51490f2bc5d337"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/861f8da904c6d4ee937b25d6f4d35a18a8e1e1ac",
-                "reference": "861f8da904c6d4ee937b25d6f4d35a18a8e1e1ac",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/ed6aa898982f441ccc9b2acdec51490f2bc5d337",
+                "reference": "ed6aa898982f441ccc9b2acdec51490f2bc5d337",
                 "shasum": ""
             },
             "require": {
@@ -1219,7 +1219,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-05-24T16:44:37+00:00"
+            "time": "2018-05-29T15:23:46+00:00"
         },
         {
             "name": "paragonie/random_compat",
