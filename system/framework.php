@@ -6,6 +6,11 @@ $registry = Registry::getInstance();
 global $config;
 $registry->set('config', $config);
 
+// Cache
+$registry->singleton('cache', function ($registry) use ($config) {
+    return new Cache($config->get('cache.cache_type'));
+});
+
 //Extension
 use \Copona\System\Library\Extension\ExtensionManager;
 $extension = ExtensionManager::getInstance();
@@ -77,11 +82,6 @@ $registry->singleton('session', function ($registry) {
     $session = new Session();
     $session->start();
     return $session;
-});
-
-// Cache
-$registry->singleton('cache', function ($registry) use ($config) {
-    return new Cache($config->get('cache.cache_type'));
 });
 
 // Url
