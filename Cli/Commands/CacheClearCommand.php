@@ -25,9 +25,15 @@ class CacheClearCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $paths = [
-            DIR_PUBLIC . '/' . \Config::get('image_cache_path'),
-        ];
+        $paths = [];
+        if(\Config::get('image_cache_path')) {
+            $paths[] = DIR_PUBLIC . '/' . \Config::get('image_cache_path');
+        }
+
+        $paths[] = DIR_PUBLIC . '/storage/private/cache/files/';
+        $paths[] = DIR_PUBLIC . '/storage/private/cache/twig/';
+        $paths[] = DIR_PUBLIC . '/storage/private/cache/vqmod/';
+        $paths[] = DIR_PUBLIC . '/storage/private/cache/';
 
         foreach ($paths as $path) {
             Util::recursiveRemove($path);
