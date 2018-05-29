@@ -1,6 +1,7 @@
 <?php
 // Registry
 $registry = Registry::getInstance();
+$registry->set('registry', $registry);
 
 // Register Config
 global $config;
@@ -136,6 +137,9 @@ if ($config->has('model_autoload')) {
         $loader->model($value);
     }
 }
+
+//Execute event onInit
+ExtensionManager::executeOnInit();
 
 // Front Controller
 $controller = new \Copona\System\engine\Front($registry);
