@@ -2,6 +2,7 @@
 
 namespace Copona\Cli\Commands;
 
+use Copona\Cache\CacheManager;
 use Copona\Helpers\Util;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,6 +26,11 @@ class CacheClearCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $driver = \Config::get('cache.driver', 'Files');
+        $configs = \Config::get('cache.configs', []);
+        $cache = new \Copona\Cache\CacheManager($driver, $configs);
+        $cache->flush();
+
         $paths = [];
         if(\Config::get('image_cache_path')) {
             $paths[] = DIR_PUBLIC . '/' . \Config::get('image_cache_path');
