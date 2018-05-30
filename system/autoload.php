@@ -8,7 +8,7 @@ if (is_file(DIR_SYSTEM . '../vendor/autoload.php')) {
 }
 
 //Custom autoload
-use \Copona\System\Support\ClassLoader;
+use \Copona\Support\ClassLoader;
 
 ClassLoader::register();
 ClassLoader::addDirectories([

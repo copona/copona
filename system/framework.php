@@ -9,7 +9,9 @@ $registry->set('config', $config);
 
 // Cache
 $registry->singleton('cache', function ($registry) use ($config) {
-    return new Cache($config->get('cache.cache_type'));
+    $driver = $config->get('cache.driver', 'Files');
+    $configs = $config->get('cache.configs', []);
+    return new \Copona\Cache\CacheManager($driver, $configs);
 });
 
 //Extension
