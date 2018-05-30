@@ -142,12 +142,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/copona/core.git",
-                "reference": "b5292ca0f36c038c95b3c640b2a0ec3415479d53"
+                "reference": "71e10c4477d7cc8e9e9d941e7bf2371bcbf067d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/b5292ca0f36c038c95b3c640b2a0ec3415479d53",
-                "reference": "b5292ca0f36c038c95b3c640b2a0ec3415479d53",
+                "url": "https://api.github.com/repos/copona/core/zipball/71e10c4477d7cc8e9e9d941e7bf2371bcbf067d6",
+                "reference": "71e10c4477d7cc8e9e9d941e7bf2371bcbf067d6",
                 "shasum": ""
             },
             "require": {
@@ -197,7 +197,7 @@
                 "framework",
                 "opensource"
             ],
-            "time": "2018-05-29T01:43:06+00:00"
+            "time": "2018-05-30T02:40:28+00:00"
         },
         {
             "name": "divido/divido-php",
@@ -1175,16 +1175,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.29.0",
+            "version": "1.29.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "b1cc4493fafb1b1402d50474fe6305e0558c6829"
+                "reference": "ed6aa898982f441ccc9b2acdec51490f2bc5d337"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/b1cc4493fafb1b1402d50474fe6305e0558c6829",
-                "reference": "b1cc4493fafb1b1402d50474fe6305e0558c6829",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/ed6aa898982f441ccc9b2acdec51490f2bc5d337",
+                "reference": "ed6aa898982f441ccc9b2acdec51490f2bc5d337",
                 "shasum": ""
             },
             "require": {
@@ -1219,7 +1219,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-05-24T13:09:20+00:00"
+            "time": "2018-05-29T15:23:46+00:00"
         },
         {
             "name": "paragonie/random_compat",
