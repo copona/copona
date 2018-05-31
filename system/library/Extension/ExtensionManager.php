@@ -2,6 +2,7 @@
 
 namespace Copona\System\Library\Extension;
 
+use Copona\Cache\CacheManager;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -34,19 +35,30 @@ class ExtensionManager
 
     public function __construct()
     {
-        self::$extension_dir = rtrim(\Config::get('extension.dir', DIR_PUBLIC . '/extensions/'), '/');
+        /** @var CacheManager $cache */
+        $cache = \Registry::getInstance()->get('cache');
 
-        self::$finder = new Finder();
-        self::$finder->in(self::$extension_dir);
-        $finder = self::$finder;
+        if ($cache->has('extensionCollection')) {
+            self::$extensionCollection = $cache->get('extensionCollection');
+        } else {
 
-        $finder->depth('1')->directories();
+            self::$extension_dir = rtrim(\Config::get('extension.dir', DIR_PUBLIC . '/extensions/'), '/');
 
-        self::$extensionCollection = new ExtensionCollection();
+            self::$finder = new Finder();
+            self::$finder->in(self::$extension_dir);
+            $finder = self::$finder;
 
-        /** @var SplFileInfo $extensionPath */
-        foreach ($finder as $extensionPath) {
-            self::$extensionCollection->add($extensionPath);
+            $finder->depth('1')->directories();
+
+            self::$extensionCollection = new ExtensionCollection();
+
+            /** @var SplFileInfo $extensionPath */
+            foreach ($finder as $extensionPath) {
+                self::$extensionCollection->add($extensionPath);
+            }
+
+            $cache->set('extensionCollection', self::$extensionCollection);
+
         }
     }
 

@@ -28,16 +28,6 @@ class ExtensionItem
     public $instance;
 
     /**
-     * @var SplFileInfo
-     */
-    public $path;
-
-    /**
-     * @var Finder
-     */
-    public $finder;
-
-    /**
      * List all files inside extension
      *
      * @var array
