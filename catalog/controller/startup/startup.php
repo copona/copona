@@ -153,7 +153,9 @@ class ControllerStartupStartup extends Controller
 
 
         $this->language->get('locale') ? setlocale(LC_ALL, $this->language->get('locale') . ".UTF-8") : '';
-        setlocale(LC_NUMERIC, 'en_GB');
+        setlocale(LC_NUMERIC, "en_GB");
+        setlocale(LC_NUMERIC, "en_GB.UTF-8");
+        
 
         // Customer
         $customer = new Cart\Customer($this->registry);
