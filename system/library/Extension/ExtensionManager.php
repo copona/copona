@@ -255,7 +255,7 @@ class ExtensionManager
     {
         $model = preg_quote(APPLICATION . '/' . 'model/' . $model_path, '/');
 
-        $extensions_file = self::findFile($model);
+        $extensions_file = self::findFile($model . "\.php");
 
         if ($extensions_file && count($extensions_file)) {
             return reset($extensions_file);
