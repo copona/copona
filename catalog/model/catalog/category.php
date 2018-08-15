@@ -5,6 +5,7 @@ class ModelCatalogCategory extends Model {
     private $language_id;
     // TODO: shoud be moved globally.
     private $code;
+    private $log;
 
     public function __construct($registry) {
         parent::__construct($registry);
@@ -33,7 +34,7 @@ class ModelCatalogCategory extends Model {
         if(empty($this->paths[$parent_id])){
             return [];
         }
-        
+
         $start_time = microtime(true);
 
         $cats = [] ;
@@ -59,12 +60,12 @@ class ModelCatalogCategory extends Model {
         /*
          * OLD select, just for to check sure
          *
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "category c 
-            LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) 
-            LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) 
-            WHERE c.parent_id = '" . (int)$parent_id . "' 
-            AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' 
-            AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "'  
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "category c
+            LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id)
+            LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id)
+            WHERE c.parent_id = '" . (int)$parent_id . "'
+            AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "'
+            AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "'
             AND c.status = '1' ORDER BY c.sort_order, LCASE(cd.name)");
         return $query->rows;
         */
