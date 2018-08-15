@@ -2,8 +2,6 @@
 
 namespace DB;
 
-include DIR_SYSTEM . "library/log.php";
-
 final class MySQLi {
     private $connection;
 
