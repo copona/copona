@@ -21,6 +21,11 @@ class ExtensionItem
      * @var string
      */
     public $namespace;
+    
+    /**	
+     * @var SplFileInfo	
+     */	
+    public $path;
 
     /**
      * @var ExtensionBase
