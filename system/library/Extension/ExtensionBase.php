@@ -93,7 +93,9 @@ abstract class ExtensionBase
      */
     public function update()
     {
-        return Migration::migrate($this->extensionItem->getPath()->getRealPath() . '/migrations');
+        // TODO: must be fixed.
+        // return Migration::migrate($this->extensionItem->getPath()->getRealPath() . '/migrations');
+        return true;
     }
 
     /**
