@@ -45,8 +45,8 @@ class Requirements
     {
         return [
             'current'  => phpversion(),
-            'required' => '5.6+',
-            'status'   => (version_compare(phpversion(), '5.6.0') >= 0),
+            'required' => '7.1+',
+            'status'   => (version_compare(phpversion(), '7.1.0') >= 0),
         ];
     }
 
