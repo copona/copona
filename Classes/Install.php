@@ -46,8 +46,7 @@ class Install
      */
     public static function createDatabaseConfig($env, array $data)
     {
-        $output = "
-<?php
+        $output = "<?php
 
 return [
     'database' => [
