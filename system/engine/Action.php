@@ -37,6 +37,18 @@ class Action
     }
 
     /**
+     * @TODO used only Events
+     *
+     * Get action id
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->action->id;
+    }
+
+    /**
      * Execute action
      *
      * @param Registry $registry
@@ -78,6 +90,7 @@ class Action
     {
         // Create action object
         $action = new \stdClass();
+        $action->id = $route;
         $action->method = self::DEFAULT_METHOD;
 
         // Parse route params
