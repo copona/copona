@@ -62,7 +62,7 @@ class ModelLocalisationCurrency extends Model
         return $query->row;
     }
 
-    public function getCurrencies($data = array())
+    public function getCurrencies($data = [])
     {
         if ($data) {
             $sql = "SELECT * FROM " . DB_PREFIX . "currency";
@@ -105,7 +105,7 @@ class ModelLocalisationCurrency extends Model
             $currency_data = $this->cache->get('currency');
 
             if (!$currency_data) {
-                $currency_data = array();
+                $currency_data = [];
 
                 $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "currency ORDER BY title ASC");
 
@@ -140,7 +140,7 @@ class ModelLocalisationCurrency extends Model
             // Already up to date
             return true;
         }
-	    
+
         $zip = new \ZipArchive();
         $ecb_source_url = 'http://www.ecb.europa.eu/stats/eurofxref/eurofxref.zip';
 
@@ -159,24 +159,32 @@ class ModelLocalisationCurrency extends Model
             $zip->close();
             $data = file_get_contents($path_to_csv);
             $explode = explode(PHP_EOL, $data);
-            $currencies = explode(', ', $explode[0]);
-            $values = explode(', ', $explode[1]);
+            $currencies = explode(', ', trim($explode[0], " ,"));
+            $values = explode(', ', trim($explode[1], " ,"));
             // Combine currencies and values into a single array
             $combined = array_combine($currencies, $values);
+
+            //Delete uneeded "Date" key
+            if(!empty($combined['Date'])){
+                unset( $combined['Date'] );
+            }
+
             // Since we're getting values from the European Central Bank and their base currency is the Euro,
             // the Euro should always be present in our array with a value of 1 initially
             $combined['EUR'] = 1;
             // Set the value of the base currrency relative to the Euro, so we can convert the rest of the currencies
             // in the next step.
             $base = $combined[$this->config->get('config_currency')];
-            // Now we need to convert the currency values from being relative to the Euro to being relative 
+            // Now we need to convert the currency values from being relative to the Euro to being relative
             // to our stores base currency:
             $normalized = [];
-            foreach ($combined as $key => $value) {
-                // ECB data often has a trailing comma, which creates an array key with no name or value.
-                // This if check is done to drop that value
-                if (!is_null($value) && $value != '') {
-                    $normalized[$key] = $value / $base;
+
+            if($combined) {
+                foreach ($combined as $key => $value) {
+                    // This if check is done to drop that value
+                    if (!empty($value)) {
+                        $normalized[$key] = $value / $base;
+                    }
                 }
             }
             // Finally, we need to update the currency table with the new values
