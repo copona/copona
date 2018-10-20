@@ -153,7 +153,7 @@ class ControllerExtensionStore extends Controller {
 
         $response_info = json_decode($response, true);
 
-        $extension_total = $response_info['total'];
+        $extension_total = $response_info['extension_total'];
 
         $data['promotions'] = array();
 
@@ -166,7 +166,7 @@ class ControllerExtensionStore extends Controller {
                     'license'      => $result['license'],
                     'price'        => $result['price'],
                     'rating'       => $result['rating'],
-                    'review_total' => $result['review_total'],
+                    'rating_total' => $result['rating_total'],
                     'href'         => $this->url->link('extension/store/info', 'token=' . $this->session->data['token'] . '&extension_id=' . $result['extension_id'] . $url, true)
                 );
             }
@@ -183,7 +183,7 @@ class ControllerExtensionStore extends Controller {
                     'license'      => $result['license'],
                     'price'        => $result['price'],
                     'rating'       => $result['rating'],
-                    'review_total' => $result['review_total'],
+                    'rating_total' => $result['rating_total'],
                     'href'         => $this->url->link('extension/store/info', 'token=' . $this->session->data['token'] . '&extension_id=' . $result['extension_id'] . $url, true)
                 );
             }
