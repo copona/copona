@@ -152,14 +152,14 @@ class ControllerExtensionExtensionModule extends Controller {
                 foreach ($modules as $module) {
                     $module_data[] = array(
                         'module_id' => $module['module_id'],
-                        'name'      => $module['name'],
+                        'name'      => $module['name'] . "f",
                         'edit'      => $this->url->link('extension/module/' . $extension, 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], true),
                         'delete'    => $this->url->link('extension/extension/module/delete', 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], true)
                     );
                 }
 
                 $data['extensions'][] = array(
-                    'name'      => $this->language->get('heading_title'),
+                    'name'      => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
                     'module'    => $module_data,
                     'extension' => $extension,
                     'install'   => $this->url->link('extension/extension/module/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
@@ -167,6 +167,8 @@ class ControllerExtensionExtensionModule extends Controller {
                     'installed' => in_array($extension, $extensions),
                     'edit'      => $this->url->link('extension/module/' . $extension, 'token=' . $this->session->data['token'], true)
                 );
+
+                $this->language->set('heading_title', '');
             }
         }
 

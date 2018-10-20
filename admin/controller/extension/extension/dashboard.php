@@ -103,15 +103,18 @@ class ControllerExtensionExtensionDashboard extends Controller {
                 $this->load->language('extension/dashboard/' . $extension);
 
                 $data['extensions'][] = array(
-                    'name'       => $this->language->get('heading_title'),
+                    'name'       => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
                     'width'      => $this->config->get('dashboard_' . $extension . '_width'),
                     'status'     => $this->config->get('dashboard_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                     'sort_order' => $this->config->get('dashboard_' . $extension . '_sort_order'),
+                    'module'    => [],
+                    'extension' => $extension,
                     'install'    => $this->url->link('extension/extension/dashboard/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'uninstall'  => $this->url->link('extension/extension/dashboard/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'installed'  => in_array($extension, $extensions),
                     'edit'       => $this->url->link('extension/dashboard/' . $extension, 'token=' . $this->session->data['token'], true)
                 );
+                $this->language->set('heading_title', '');
             }
         }
 

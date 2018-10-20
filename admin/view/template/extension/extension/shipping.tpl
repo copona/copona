@@ -24,7 +24,16 @@
           <?php if ($extensions) { ?>
               <?php foreach ($extensions as $extension) { ?>
                 <tr>
-                  <td class="text-left"><?php echo $extension['name']; ?></td>
+                  <td class="name">
+                    <strong>
+                        <?php if ($extension['installed']) { ?>
+                          <a href="<?php echo $extension['edit']; ?>"><?php echo $extension['name']; ?></a>
+                        <?php } else { ?>
+                            <?php echo $extension['name']; ?>
+                        <?php } ?>
+                    </strong>
+                    (<?php echo $extension['extension']; ?>)
+                  </td>
                   <td class="text-left">
                     <span class="label <?= ($extension['installed'] ? 'label-success' : 'label-danger') ?>"><?php echo $extension['status']; ?></span>
                   </td>

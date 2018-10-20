@@ -120,12 +120,15 @@ class ControllerExtensionExtensionTheme extends Controller {
                 }
 
                 $data['extensions'][] = array(
-                    'name'      => $this->language->get('heading_title'),
+                  'name'       => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
+                  'module'    => [],
+                  'extension' => $extension,
                     'install'   => $this->url->link('extension/extension/theme/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'uninstall' => $this->url->link('extension/extension/theme/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'installed' => in_array($extension, $extensions),
                     'store'     => $store_data
                 );
+                $this->language->set('heading_title', '');
             }
         }
 
