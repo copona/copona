@@ -50,7 +50,6 @@
                       <label for="zone_id"><?= $entry_city; ?>:</label>
                       <select id="shipping_method_zone" name="zone_id" class="large-field form-control"></select>
                     </div>
-                    <br><br>
                     <div id="shipping-method">
                       <div style="display:none; margin: 0 auto; width: 50%; text-align: center;">
                         <img src="themes/<?php echo $theme_default_directory ?>/assets/img/AjaxLoader.gif" alt=""/>

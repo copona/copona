@@ -23,11 +23,16 @@
           <?php if ($extensions) { ?>
               <?php foreach ($extensions as $extension) { ?>
                 <tr>
-                    <?php if ($extension['installed']) { ?>
-                      <td class="name"><a href="<?php echo $extension['edit']; ?>"><strong><?php echo $extension['name']; ?></strong></a> (<?php echo $extension['extension']; ?>)</td>
-                  <?php } else { ?>
-                      <td><strong><?php echo $extension['name']; ?></strong> (<?php echo $extension['extension']; ?>)</td>
-                  <?php } ?>
+                  <td class="name">
+                    <strong>
+                        <?php if ($extension['installed']) { ?>
+                          <a href="<?php echo $extension['edit']; ?>"><?php echo $extension['name']; ?></a>
+                        <?php } else { ?>
+                            <?php echo $extension['name']; ?>
+                        <?php } ?>
+                    </strong>
+                    (<?php echo $extension['extension']; ?>)
+                  </td>
                   <td class="text-right">
                       <?php if ($extension['installed']) { ?>
                           <?php if ($extension['module']) { ?>

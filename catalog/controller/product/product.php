@@ -1,4 +1,7 @@
 <?php
+
+use Copona\System\Library\Breadcrumbs;
+
 class ControllerProductProduct extends Controller {
     private $error = array();
 
