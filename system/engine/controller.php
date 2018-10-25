@@ -1,5 +1,7 @@
 <?php
 
+use Copona\System\Library\Breadcrumbs;
+
 /**
  * @property string $id
  * @property string $template
@@ -121,9 +123,20 @@ abstract class Controller
      */
     protected $registry;
 
+    /**
+     * @var Breadcrumbs
+     */
+    protected $breadcrumbs;
+
+    /**
+     * Controller constructor.
+     *
+     * @param null $registry
+     */
     public function __construct($registry = null)
     {
         $this->registry = $registry ? $registry : \Registry::getInstance();
+        $this->breadcrumbs = new Breadcrumbs($registry);
     }
 
     public function __get($key)

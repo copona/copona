@@ -93,7 +93,7 @@ abstract class ExtensionBase
      */
     public function update()
     {
-        // TODO: must be fixed.
+        // TODO: Fix this! Returns fatal error.
         // return Migration::migrate($this->extensionItem->getPath()->getRealPath() . '/migrations');
         return true;
     }

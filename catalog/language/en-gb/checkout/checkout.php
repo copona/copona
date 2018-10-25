@@ -73,7 +73,7 @@ $_['error_address_2'] = 'Warning: Enter companies address';
 $_['error_postcode2'] = 'Warning: Enter postcode';
 $_['error_no_shipping'] = 'Warning: No Shipping options are available. Please <a href="%s">contact us</a> for assistance!';
 $_['error_payment'] = 'Warning: Payment method required!';
-$_['error_no_payment'] = 'Warning: No Payment options are available. Please <a href="%s">contact us</a> for assistance!';
+$_['error_no_payment'] = 'Warning: No Payment options are available. Please <a href="mailto:%s">contact us</a> for assistance!';
 $_['error_custom_field'] = '%s required!';
 $_['error_form'] = '<a href="/index.php?route=account/login">Register</a> or continue as guest.';
 $_['entry_company_id'] = 'Registration number';
