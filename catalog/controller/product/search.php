@@ -172,7 +172,8 @@ class ControllerProductSearch extends Controller {
             );
         }
 
-        $data['products'] = array();
+        $data['products'] = [];
+        $data['results'] = '';
 
         if (isset($this->request->get['search']) || isset($this->request->get['tag'])) {
             $filter_data = array(

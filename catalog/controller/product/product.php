@@ -282,6 +282,12 @@ class ControllerProductProduct extends Controller {
             $data['current_product_in_cart'] = $this->cart->countProducts((int)$product_info['product_id']);
             $data['text_in_cart'] = $this->language->get('text_in_cart');
 
+            if($this->customer->isLogged()){
+                $data['wishlist'] = $this->model_account_wishlist->getWishlistProducts();
+            } else {
+                $data['wishlist'] = $this->session->data('wishlist');
+            }
+
             if ($product_info['quantity'] <= 0) {
                 $data['stock'] = $product_info['stock_status'];
             } elseif ($this->config->get('config_stock_display')) {

@@ -67,6 +67,8 @@ class ControllerProductCategory extends Controller
             $category_id = 0;
         }
 
+        $data['category_id'] = $category_id;
+
         $category_info = $this->model_catalog_category->getCategory($category_id);
 
         if (!empty($this->request->get['path']) && $category_info) {
