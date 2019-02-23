@@ -28,7 +28,7 @@ class AddIndexForContentMetaTable extends AbstractMigration {
     public function up() {
 
         $table = $this->table('content_meta');
-        $table->addIndex(['content_type', 'content_id'], ['unique' => false])
+        $table->addIndex(['content_type', 'content_id'], ['unique' => true])
               ->update();
 
     }
