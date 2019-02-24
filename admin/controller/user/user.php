@@ -390,6 +390,7 @@ class ControllerUserUser extends Controller {
         }
 
         $this->load->model('user/user_group');
+        $this->load->model('catalog/content');
 
         $data['user_groups'] = $this->model_user_user_group->getUserGroups();
 
@@ -452,9 +453,9 @@ class ControllerUserUser extends Controller {
         // Content meta
 
         if (!empty($user_info)) {
-            $data['content_meta'] = $this->model_user_user->getContentMeta($user_info['user_id']);
+            $data['content_meta'] = $this->model_catalog_content->getContentMeta($user_info['user_id'], 'user');
         } else {
-            $data['content_meta'] = '';
+            $data['content_meta'] = [];
         }
 
         if (isset($this->request->post['status'])) {
@@ -544,13 +545,14 @@ class ControllerUserUser extends Controller {
 
     protected function getCustomFields($user_id) {
         $this->load->model('user/user');
+        $this->load->model('catalog/content');
         $data = [];
 
         $this->load->model('localisation/language');
         $data['languages'] = $this->model_localisation_language->getLanguages();
 
         // Content meta
-        $data['content_meta'] = $this->model_user_user->getContentMeta( $user_id );
+        $data['content_meta'] = $this->model_catalog_content->getContentMeta( $user_id, 'user' );
         return $this->load->view('user/user_form_custom_fields', $data);
 
 

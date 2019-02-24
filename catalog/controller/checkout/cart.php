@@ -58,7 +58,7 @@ class ControllerCheckoutCart extends Controller {
 
             $data['products'] = array();
 
-            $products = $this->cart->cartProducts; 
+            $products = $this->cart->cartProducts;
 
             foreach ($products as $product) {
                 $product_total = 0;
@@ -141,7 +141,7 @@ class ControllerCheckoutCart extends Controller {
                     'model'     => $product['model'],
                     'option'    => $option_data,
                     'recurring' => $recurring,
-                    'content_meta' => unserialize($product['content_meta']),
+                    'content_meta' => $product['content_meta'],
                     'quantity'  => $product['quantity'],
                     'stock'     => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
                     'reward'    => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
@@ -212,7 +212,7 @@ class ControllerCheckoutCart extends Controller {
                 array_multisort($sort_order, SORT_ASC, $totals);
             }
 
-            $data['totals'] = array(); 
+            $data['totals'] = array();
 
             foreach ($totals as $total) {
                 $data['totals'][] = array(

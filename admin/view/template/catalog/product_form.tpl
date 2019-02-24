@@ -526,8 +526,8 @@
                   <tbody>
 
                     <?php $video_row = 0; ?>
-                    <?php if (isset($content_meta['product_video'])) { ?>
-                        <?php foreach ($content_meta['product_video'] as $product_video) { ?>
+
+                        <?php foreach ($product_video as $product_video) { ?>
                             <tr id="video-row<?php echo $video_row; ?>">
                               <td class="text-right">
                                   <?php foreach ($languages as $language) {// pr($product_video) ?>
@@ -544,7 +544,7 @@
                             </tr>
                             <?php $video_row++; ?>
                         <?php } ?>
-                    <?php } ?>
+
                   </tbody>
                   <tfoot>
                     <tr>
