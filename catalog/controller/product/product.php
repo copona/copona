@@ -304,10 +304,12 @@ class ControllerProductProduct extends Controller {
                 $data['popup'] = '';
             }
 
+            $data['thumb'] = '';
+            $data['image_mid'] = '';
+            $data['image'] = '';
+
             if ($product_info['image']) {
                 $data['thumb'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
-            } else {
-                $data['thumb'] = '';
             }
 
             if ($product_info['image']) {
@@ -321,9 +323,12 @@ class ControllerProductProduct extends Controller {
                 $this->document->addOGMeta('property="og:image:width"', $this->config->get($this->config->get('config_theme') . '_image_popup_width'));
                 $this->document->addOGMeta('property="og:image:height"', $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
 
-            } else {
-                $data['image_mid'] = '';
-                $data['image'] = '';
+            }
+
+            if (!$data['thumb']) {
+                $data['thumb'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
+                  $this->config->get($this->config->get('config_theme') . '_image_product_width'),
+                  $this->config->get($this->config->get('config_theme') . '_image_product_height'));
             }
 
             $data['images'] = array();
@@ -331,13 +336,29 @@ class ControllerProductProduct extends Controller {
             $results = $this->model_catalog_product->getProductImages($product_id);
 
             foreach ($results as $result) {
+
+                $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                $thumb = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+                $image = $this->url->getImageUrlOriginal( $result['image'] );
+                $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'));
+
+
+                if (!$thumb) {
+                    $image = $popup = $thumb = $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
+                    $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
+                    $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+                }
+
+
                 $data['images'][] = array(
                     'description' => $result['description'],
-                    'popup'   => $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
-                    'thumb'       => $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
-                    'image'       => $this->url->getImageUrlOriginal( $result['image'] ),
-                    'image_mid'   => $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'))
+                    'popup'   => $popup,
+                    'thumb'       => $thumb,
+                    'image'       => $image,
+                    'image_mid'   => $image_mid,
                 );
+
+                // prd( $data['images']);
 
 
                 // Additional Og Images.
@@ -347,9 +368,6 @@ class ControllerProductProduct extends Controller {
                         $this->config->get($this->config->get('config_theme') . '_image_popup_height')));
                 $this->document->addOGMeta('property="og:image:width"', $this->config->get($this->config->get('config_theme') . '_image_popup_width'));
                 $this->document->addOGMeta('property="og:image:height"', $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
-
-
-
             }
 
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
