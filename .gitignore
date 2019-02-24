@@ -11,7 +11,7 @@ Search-Replace-DB-master*
 /sitemaps/
 sitemap*.xml
 sitemap*.xsl
-
+ 
 # ignore config env dir
 config/*/
 
