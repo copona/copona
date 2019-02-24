@@ -86,7 +86,7 @@ class ControllerCheckoutCheckout extends Controller
 
             unset($this->session->data['error']);
         } else {
-            $data['error_warning'] = '';
+            $data['error_warning'] = [];
         }
         // Set data default values end
 
@@ -100,7 +100,7 @@ class ControllerCheckoutCheckout extends Controller
             }
         }
 
-        if (!empty($this->request->post['serial'])) {
+        if ($this->request->post('serial')) {
             unset($this->session->data['guest']['serial']);
             foreach (Config::get('checkout_serial_fields') as $field) {
                 $this->session->data['guest']['serial'][$field] = !empty($this->request->post['serial'][$field]) ? $this->request->post['serial'][$field] : '';
@@ -143,7 +143,6 @@ class ControllerCheckoutCheckout extends Controller
 
 
         //Set POST default values end
-
 
         if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
             $data['error_warning']['error_stock'] = $this->language->get('error_stock');
@@ -247,6 +246,16 @@ class ControllerCheckoutCheckout extends Controller
             }
 
             $data['cart_total_value'] = round($this->cart->getTotal(), 2);
+
+            $data['cart_shipping_value'] = 0;
+            if(!empty($this->session->data['shipping_method'])){
+                $data['cart_shipping_value'] = $this->currency->format(
+                  $this->tax->calculate($this->cart->getShipping(), $this->session->data['shipping_method']['tax_class_id'], $this->config->get('config_tax')),
+                  $this->session->data['currency'], '', false);
+            }
+
+            $data['cart_total_value_wo_shipping'] = $data['cart_total_value'] - $data['cart_shipping_value'];
+
             $data['serial'] = !empty($this->session->data['guest']['serial']) ? $this->session->data['guest']['serial'] : [];
 
             $data['order_shipping'] = 0;
