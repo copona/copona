@@ -1203,6 +1203,15 @@
                     <input type="text" name="config_mail_smtp_password" value="<?php echo $config_mail_smtp_password; ?>" placeholder="<?php echo $entry_mail_smtp_password; ?>" id="input-mail-smtp-password" class="form-control" />
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-mail-smtp-from-email"><?php echo $entry_mail_smtp_from_email; ?></label>
+                  <div class="col-sm-10">
+                    <input type="text" name="config_mail_smtp_from_email" value="<?php echo $config_mail_smtp_from_email; ?>" placeholder="<?php echo $entry_mail_smtp_from_email; ?>"
+                           id="input-mail-smtp-from-email" class="form-control" />
+                  </div>
+                </div>
+
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-mail-smtp-port"><?php echo $entry_mail_smtp_port; ?></label>
                   <div class="col-sm-10">
