@@ -15,6 +15,8 @@ class Cart {
         $this->tax = $registry->get('tax');
         $this->weight = $registry->get('weight');
         $this->hook = $registry->get('hook');
+        $this->load = $registry->load;
+        $this->registry = &$registry;
 
         // Remove all the expired carts with no customer ID
         $this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE (api_id > '0' OR customer_id = '0') AND date_added < DATE_SUB(NOW(), INTERVAL 1 HOUR)");
@@ -35,6 +37,9 @@ class Cart {
         }
 
         $this->cartProducts = $this->getProducts(true);
+        $this->shipping = 0;
+        $this->total = 0;
+        $this->totals = [];
     }
 
     public function getProducts($update = false) {
@@ -45,11 +50,20 @@ class Cart {
         $product_data = array();
         $this->dd_count++;
 
+        $this->load->model('catalog/content');
+
         $cart_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
 
         foreach ($cart_query->rows as $cart) {
             $stock = true;
-            $product_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_store p2s LEFT JOIN " . DB_PREFIX . "product p ON (p2s.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "content_meta cm ON (cm.content_id = p.product_id) LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) WHERE p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND p2s.product_id = '" . (int)$cart['product_id'] . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.date_available <= NOW() AND p.status = '1'");
+            $product_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_store p2s 
+            LEFT JOIN " . DB_PREFIX . "product p ON (p2s.product_id = p.product_id) 
+            -- LEFT JOIN " . DB_PREFIX . "content_meta cm ON (cm.content_id = p.product_id) 
+            LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) 
+            WHERE p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' 
+            AND p2s.product_id = '" . (int)$cart['product_id'] . "' 
+            AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' 
+            AND p.date_available <= NOW() AND p.status = '1'");
 
 
             if ($product_query->num_rows && ($cart['quantity'] > 0)) {
@@ -277,7 +291,7 @@ class Cart {
                     'stock'           => $stock,
                     'price'           => ($price + $option_price),
                     'total'           => ($price + $option_price) * $cart['quantity'],
-                    'content_meta'    => $product_query->row['value'],
+                    'content_meta'    => $this->registry->get('model_catalog_content')->getContentMeta($product_query->row['product_id'], 'product'),
                     'reward'          => $reward * $cart['quantity'],
                     'points'          => ($product_query->row['points'] ? ($product_query->row['points'] + $option_points) * $cart['quantity'] : 0),
                     'tax_class_id'    => $product_query->row['tax_class_id'],
@@ -293,7 +307,8 @@ class Cart {
                 $this->remove($cart['cart_id']);
             }
         }
-        //pr($this->dd_count);
+
+        $product_data['raw'] = $cart_query->rows;
         $this->hook->getHook('system/library/cart/cart/getProducts/beforeafter', $product_data);
         return $product_data;
     }
@@ -380,15 +395,59 @@ class Cart {
     }
 
     public function getTotal() {
-        $total = 0;
-
-        foreach ($this->cartProducts as $product) {
-            $total += $this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax'));
-        }
-
-        return $total;
+        $this->getTotals();
+        return $this->total;
     }
 
+    public function getTotals() {
+        $totals = array();
+        $total = 0;
+        $taxes = $this->getTaxes();
+        $shipping = 0;
+
+        // Because __call can not keep var references so we put them into an array.
+        $total_data = array(
+          'totals' => &$totals,
+          'taxes'  => &$taxes,
+          'total'  => &$total
+        );
+
+        $this->load->model('extension/extension');
+
+        $sort_order = array();
+
+        $results = $this->registry->get('model_extension_extension')->getExtensions('total');
+
+        foreach ($results as $key => $value) {
+            $sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
+        }
+
+        array_multisort($sort_order, SORT_ASC, $results);
+
+        foreach ($results as $result) {
+            if ($this->config->get($result['code'] . '_status')) {
+                $this->load->model('extension/total/' . $result['code']);
+                $this->registry->get('model_extension_total_' . $result['code'])->getTotal($total_data, $total, $taxes);
+            }
+        }
+
+        $sort_order = array();
+
+        foreach ($totals as $key => $value) {
+            $sort_order[$key] = $value['sort_order'];
+            $shipping += $value['code'] == 'shipping' ?  $value['value'] : 0;
+        }
+
+        array_multisort($sort_order, SORT_ASC, $totals);
+
+        //Setup total;
+        $this->shipping = $shipping;
+        $this->total = $total;
+    }
+    public function getShipping() {
+        $this->getTotals();
+        return $this->shipping;
+    }
     public function countProducts($product_id = false) {
         $product_total = 0;
 
