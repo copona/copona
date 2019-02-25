@@ -149,6 +149,7 @@ class ControllerProductProduct extends Controller {
 
 
         $this->load->model('catalog/product');
+        $this->load->model('account/wishlist');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
 
@@ -282,8 +283,9 @@ class ControllerProductProduct extends Controller {
             $data['current_product_in_cart'] = $this->cart->countProducts((int)$product_info['product_id']);
             $data['text_in_cart'] = $this->language->get('text_in_cart');
 
+
             if($this->customer->isLogged()){
-                $data['wishlist'] = $this->model_account_wishlist->getWishlistProducts();
+                $data['wishlist'] = $this->model_account_wishlist->getWishlist($this->customer->getId());
             } else {
                 $data['wishlist'] = $this->session->data('wishlist');
             }
