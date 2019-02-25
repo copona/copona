@@ -78,7 +78,7 @@ class ModelCatalogProduct extends Model {
 
 
         // Update content meta - delete, if empty!
-        $this->model_catalog_product->updateContentMeta($product_id, 'product', $data['content_meta']);
+        $this->model_catalog_content->updateContentMeta($product_id, 'product', $data['content_meta']);
 
         if (isset($data['product_download'])) {
             foreach ($data['product_download'] as $download_id) {
