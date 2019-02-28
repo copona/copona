@@ -78,8 +78,11 @@ class ControllerCatalogProduct extends Controller {
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             //prd($this->request->post);
-            //prd($this->request->post);
             $product_id = (int)$this->request->get['product_id'];
+
+            if(empty($this->request->post('content_meta'))){
+                $this->request->post['content_meta'] = [];
+            }
 
             $this->model_catalog_product->editProduct($product_id, $this->request->post);
 
@@ -691,7 +694,7 @@ class ControllerCatalogProduct extends Controller {
             }
         }
 
-// Product group
+        // Product group
 
         $data['token'] = $this->session->data['token'];
 
@@ -1161,12 +1164,13 @@ class ControllerCatalogProduct extends Controller {
         }
 
         // Content meta
-
         if (!empty($product_info)) {
-            $data['content_meta'] = $this->model_catalog_product->getContentMeta((int)$this->request->get['product_id']);
+            $data['content_meta'] = $this->model_catalog_content->getContentMeta((int)$this->request->get['product_id'], 'product');
         } else {
-            $data['content_meta'] = '';
+            $data['content_meta'] = [];
         }
+
+        $data['product_video'] = !empty($data['content_meta']['product_video']) ? $data['content_meta']['product_video'] : [];
 
         // Image
         if (isset($this->request->post['image'])) {
@@ -1486,6 +1490,7 @@ class ControllerCatalogProduct extends Controller {
         $data['token'] = $this->session->data['token'];
 
         $this->load->model('localisation/language');
+        $this->load->model('catalog/content');
         $data['languages'] = $this->model_localisation_language->getLanguages();
 
         if (isset($this->request->post['product_description'])) {
@@ -1497,7 +1502,7 @@ class ControllerCatalogProduct extends Controller {
         }
 
         // Content meta
-        $data['content_meta'] = $this->model_catalog_product->getContentMeta( $data['product_id'] );
+        $data['content_meta'] = $this->model_catalog_content->getContentMeta( $data['product_id'], 'product' );
 
         $this->hook->getHook('product/getCustomFields/after', $data);
 

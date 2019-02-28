@@ -119,16 +119,4 @@ class ModelUserUser extends Model {
 		return $query->row['total'];
 	}
 
-
-    public function getContentMeta($user_id) {
-        $sql = "SELECT * from " . DB_PREFIX . "content_meta WHERE content_id='" . $user_id . "' AND content_type = 'user'";
-        $query = $this->db->query($sql);
-
-        if ($query->row) {
-            return unserialize($query->row['value']);
-        } else {
-            return array();
-        }
-    }
-
 }
