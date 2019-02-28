@@ -86,7 +86,7 @@ class ControllerCheckoutCheckout extends Controller
 
             unset($this->session->data['error']);
         } else {
-            $data['error_warning'] = '';
+            $data['error_warning'] = [];
         }
         // Set data default values end
 
