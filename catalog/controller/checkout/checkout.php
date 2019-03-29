@@ -46,8 +46,7 @@ class ControllerCheckoutCheckout extends Controller
         $this->response->redirect($this->url->link('checkout/checkout/guest', '', 'SSL'));
     }
 
-    public function guest()
-    {
+    public function guest() {
         $this->hook->getHook('checkout/checkout/guest/before');
         $data = $this->load->language('checkout/checkout');
         $this->document->setTitle($this->language->get('heading_title'));
@@ -245,7 +244,11 @@ class ControllerCheckoutCheckout extends Controller
                 unset($this->session->data['error']);
             }
 
-            $data['cart_total_value'] = round($this->cart->getTotal(), 2);
+
+
+            // prd($this->cart->getCartTotal());
+
+            $data['cart_total_value'] = $this->cart->getCartTotal();
 
             $data['cart_shipping_value'] = 0;
             if(!empty($this->session->data['shipping_method'])){
@@ -279,6 +282,7 @@ class ControllerCheckoutCheckout extends Controller
         $data = array_merge($data, $this->session->data['guest']);
 
         $this->hook->getHook('checkout/guest/after', $data);
+
         $this->response->setOutput($this->load->view('checkout/guest', $data));
 
     }
