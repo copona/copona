@@ -489,7 +489,10 @@
                       <?php $image_row = 0; ?>
                       <?php foreach ($product_images as $product_image) { ?>
                         <tr id="image-row<?php echo $image_row; ?>">
-                          <td class="text-left"><a href="" id="thumb-image<?php echo $image_row; ?>" data-toggle="image" class="img-thumbnail"><img src="<?php echo $product_image['thumb']; ?>" alt="<?php echo $product_image['thumb']; ?>" title="<?php echo $product_image['thumb']; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="product_image[<?php echo $image_row; ?>][image]" value="<?php echo $product_image['image']; ?>" id="input-image<?php echo $image_row; ?>" /></td>
+                          <td class="text-left"><a href="" id="thumb-image<?php echo $image_row; ?>" data-toggle="image" class="img-thumbnail"><img src="<?php echo $product_image['thumb']; ?>" alt="<?php echo $product_image['thumb']; ?>" title="<?php echo $product_image['thumb']; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="product_image[<?php echo $image_row; ?>][image]" value="<?php echo $product_image['image']; ?>" id="input-image<?php echo $image_row; ?>" />
+
+                            <a href="#" id="thumb-imagex<?php echo $image_row; ?>" onclick="$('#thumb-image > img').attr('src',$(this).parent().find('.img-thumbnail img').attr('src') );$('#thumb-image').parent().find('input').val($(this).parent().find('input').val() );return false;">set as default</a>
+                          </td>
                           <td class="text-right">
                               <?php foreach ($languages as $language) {// pr($product_video) ?>
                                 <div class="input-group">
