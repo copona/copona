@@ -100,14 +100,17 @@ class ControllerExtensionExtensionTotal extends Controller {
                 $this->load->language('extension/total/' . $extension);
 
                 $data['extensions'][] = array(
-                    'name'       => $this->language->get('heading_title'),
+                  'name'       => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
                     'status'     => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                     'sort_order' => $this->config->get($extension . '_sort_order'),
+                  'module'    => [],
+                  'extension' => $extension,
                     'install'    => $this->url->link('extension/extension/total/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'uninstall'  => $this->url->link('extension/extension/total/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'installed'  => in_array($extension, $extensions),
                     'edit'       => $this->url->link('extension/total/' . $extension, 'token=' . $this->session->data['token'], true)
                 );
+                $this->language->set('heading_title', '');
             }
         }
 

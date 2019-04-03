@@ -6,10 +6,6 @@ body .notifyjs-bootstrap-base {
     text-transform: initial;
 }
 
-legend {
-    width: auto;
-}
-
 fieldset {
     margin: 10px 0;
 }
@@ -27,7 +23,6 @@ fieldset {
     right: 30px;
     top: 60px;
     z-index: 999;
-    border: 2px solid #0f75bc;
     background-color: #fff;
     font-size: 120%;
     width: 200px;
@@ -302,13 +297,13 @@ span.error input{
 #column-right a{
     display: block;
     padding: 7px 9px;
-    border: 1px solid grey;
+    border: 1px solid #ddd;
     border-bottom: none;
     color: black;
     background-color: white;
 }
 #column-right a:last-child{
-     border-bottom: 1px solid grey;
+     border-bottom: 1px solid #ddd;
  }
 
 .pickup-description{

@@ -39,6 +39,14 @@ abstract class ExtensionBase
     }
 
     /**
+     * Executed in catalog ControllerStartupStartup
+     */
+    public function initAdmin()
+    {
+
+    }
+
+    /**
      * Define details about extension
      * @return array
      */
@@ -93,8 +101,9 @@ abstract class ExtensionBase
      */
     public function update()
     {
-		return;
-        return Migration::migrate($this->extensionItem->path->getRealPath() . '/migrations');
+        // TODO: Fix this! Returns fatal error.
+        // return Migration::migrate($this->extensionItem->getPath()->getRealPath() . '/migrations');
+        return true;
     }
 
     /**
@@ -104,6 +113,6 @@ abstract class ExtensionBase
      */
     public function uninstall()
     {
-        return Migration::rollback($this->extensionItem->path->getRealPath() . '/migrations');
+        return Migration::rollback($this->extensionItem->getPath()->getRealPath() . '/migrations');
     }
 }

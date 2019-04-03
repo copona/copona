@@ -16,6 +16,7 @@ class ExtensionCollection extends Collection
         $extension->name = $extensionPath->getFilename();
         $extension->vendor = $extensionPath->getRelativePath();
         $extension->namespace = 'Extension\\' . $extension->vendor . '\\' . $extension->name;
+        $extension->path = $extensionPath;
 
         $extension_finder = $finder
             ->in($extensionPath->getPathname())

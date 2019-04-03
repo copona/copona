@@ -163,6 +163,8 @@ $_['text_extensions'] = 'Extensions';
 
 $_['entry_display'] = 'Display Name';
 $_['entry_display_placeholder'] = 'Display Name (Optional)';
+$_['entry_no_image'] = 'Image for "no-image"';
+$_['help_no_image'] = 'This image will be display as placeholder for No-Image products, categories etc.';
 $_['text_other_information'] = 'Other information';
 $_['tab_custom_fields'] = 'Fields';
 

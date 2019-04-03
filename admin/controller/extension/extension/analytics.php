@@ -124,12 +124,15 @@ class ControllerExtensionExtensionAnalytics extends Controller {
                 }
 
                 $data['extensions'][] = array(
-                    'name'      => $this->language->get('heading_title'),
+                    'name'      => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
+                    'module'    => $store_data,
+                    'extension' => $extension,
                     'install'   => $this->url->link('extension/extension/analytics/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'uninstall' => $this->url->link('extension/extension/analytics/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'installed' => in_array($extension, $extensions),
                     'store'     => $store_data
                 );
+                $this->language->set('heading_title', '');
             }
         }
 

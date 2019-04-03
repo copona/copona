@@ -5,7 +5,7 @@ class ControllerCommonHeader extends Controller {
         // Analytics
         $this->load->model('extension/extension');
 
-        $data = array_merge(array(), $this->load->language('common/header'));
+        $data = $this->load->language('common/header');
 
         $data['analytics'] = array();
         /* Theme upgrade additional start */

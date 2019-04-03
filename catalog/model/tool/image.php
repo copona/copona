@@ -3,7 +3,7 @@
 class ModelToolImage extends Model
 {
 
-    public function resize($filename, $width, $height)
+    public function resize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
     {
         if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE) . DIRECTORY_SEPARATOR . $filename), 0, strlen(DIR_IMAGE . $filename)) != str_replace('\\', '/', DIR_IMAGE . $filename)) {
             return;
@@ -35,6 +35,11 @@ class ModelToolImage extends Model
             if ($width_orig != $width || $height_orig != $height) {
                 $image = new Image(DIR_IMAGE . $image_old);
                 $image->resize($width, $height);
+
+                if ($watermark) {
+                    $image->addwatermark($position);
+                }
+
                 $image->save(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image);
             } else {
                 copy(DIR_IMAGE . $image_old, $this->config->get('image_cache_path') . $new_image);
@@ -53,7 +58,7 @@ class ModelToolImage extends Model
      * @param $maxsize
      * @return string|void
      */
-    public function onesize($filename, $maxsize)
+    public function onesize($filename, $maxsize, $height = "", $type = "", $watermark = false, $position = 'middle')
     {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
@@ -73,6 +78,11 @@ class ModelToolImage extends Model
 
             $image = new Image(DIR_IMAGE . $old_image);
             $image->onesize($maxsize);
+
+            if ($watermark) {
+                $image->addwatermark($position);
+            }
+
             $image->save(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image);
         }
 
@@ -89,7 +99,7 @@ class ModelToolImage extends Model
      * @param string $position
      * @return string|void
      */
-    public function cropsize($filename, $width, $height, $watermark = false, $position = 'middle')
+    public function cropsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
     {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
@@ -148,6 +158,7 @@ class ModelToolImage extends Model
             if ($width_orig != $width || $height_orig != $height) {
                 $image = new Image(DIR_IMAGE . $old_image);
                 $image->propsize($width, $height, $type);
+
                 if ($watermark) {
                     $image->addwatermark($position);
                 }
@@ -185,10 +196,10 @@ class ModelToolImage extends Model
             if ($width_orig != $width || $height_orig != $height) {
                 $image = new Image(DIR_IMAGE . $old_image);
                 $image->downsize($width, $height, $type);
+
                 if ($watermark) {
                     $image->addwatermark($position);
                 }
-
 
                 $image->save(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image);
             } else {
