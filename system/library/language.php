@@ -75,6 +75,11 @@ class Language extends Controller
     {
         $this->data[$key] = $value;
     }
+	
+	public function has($key)
+    {
+        return isset($this->data[$key]);
+    }
 
     // Please dont use the below function i'm thinking getting rid of it.
     public function all()
