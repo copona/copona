@@ -222,6 +222,8 @@ class ControllerProductCategory extends Controller
                     'description' => strip2words($result['description'],
                             Config::get(Config::get('config_theme') . '_product_description_length'),
                             true) . (mb_strlen( $result['description'] > Config::get(Config::get('config_theme') . '_product_description_length') ) ? '..' : '' ),
+                    'attribute_groups' => $this->model_catalog_product->getProductAttributes($result['product_id']),
+					'manufacturer' => $result['manufacturer'],
                     'price' => $price,
                     'special' => $special,
                     'tax' => $tax,
