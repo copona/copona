@@ -163,6 +163,7 @@ class ModelCatalogCategory extends Model {
             , cd.name
             , c1.sort_order
             , ul.keyword 
+            , c1.image 
             , (select GROUP_CONCAT(category_id SEPARATOR ',') from " . DB_PREFIX . "category where parent_id = cp.category_id) as childrens 
             FROM " . DB_PREFIX . "category_path cp 
             LEFT JOIN " . DB_PREFIX . "category c1 ON (cp.category_id = c1.category_id)
