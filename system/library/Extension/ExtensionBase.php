@@ -93,6 +93,7 @@ abstract class ExtensionBase
      */
     public function update()
     {
+		return;
         return Migration::migrate($this->extensionItem->path->getRealPath() . '/migrations');
     }
 
