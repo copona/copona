@@ -43,6 +43,9 @@ class ControllerCommonFooter extends Controller {
         $data['wishlist'] = $this->url->link('account/wishlist', '', true);
         $data['newsletter'] = $this->url->link('account/newsletter', '', true);
 
+        // For EDIT link in footer.
+        $data['token'] = $this->session->data('token');
+
         $data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));
 
         // Whos Online
