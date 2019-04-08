@@ -483,7 +483,11 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
                 $total_wo_tax = $enduser_price / $multiplier;
                 // now - extract tax from every "total" without tax
+
                 foreach ($tax_classes[$tax_class_id] as $tax_rate_id => $tax_rate) {
+                    if(!isset($tax[$tax_rate_id])) {
+                        $tax[$tax_rate_id] = 0;
+                    }
                     $tax[$tax_rate_id] +=  $total_wo_tax * ($tax_rate['rate'] / 100 );
                 }
             }
@@ -640,7 +644,7 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                 );
             }
         }
-        return $data['totals']; 
+        return $data['totals'];
     }
 
     /**
