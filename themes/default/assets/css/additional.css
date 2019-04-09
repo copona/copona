@@ -14,6 +14,13 @@ fieldset {
     max-width: 16px;
 }
 
+/* Swiper slideshow */
+.banner-slideshow {
+    position: relative;
+    overflow: hidden;
+}
+
+
 .alert-danger {
     position: relative;
 }

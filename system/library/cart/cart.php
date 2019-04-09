@@ -3,8 +3,10 @@ namespace Cart;
 class Cart {
     private $data = [];
     private $dd_count = 0;
-    public $cartProducts = [];
     private $cartTotal = 0;
+    private $shipping = 0;
+
+    public $cartProducts = [];
 
     public function __construct($registry) {
 
@@ -510,6 +512,11 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         return $total;
     }
 
+    public function getShipping() {
+        $this->getTotals_azon();
+        return $this->shipping;
+    }
+
     public function countProducts($product_id = false) {
         $product_total = 0;
 
@@ -608,6 +615,7 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         );
 
         $this->cartTotal = 0;
+        $this->shipping = 0;
 
         if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
             $sort_order = array();
@@ -631,6 +639,7 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                     $this->cartTotal += $this->currency->format($total['value'], $this->session->data['currency'], '', false);
                 }
 
+                $this->shipping += $total['code'] == 'shipping' ?  $total['value'] : 0;
 
                 $data['totals'][] = array(
                   'code' => $total['code'],
