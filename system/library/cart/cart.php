@@ -358,9 +358,7 @@ class Cart {
             }
         }
 
-        $product_data['raw'] = $cart_query->rows;
         $this->hook->getHook('system/library/cart/cart/getProducts/beforeafter', $product_data);
-
 
         return $product_data;
     }
