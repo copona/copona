@@ -1,5 +1,6 @@
 <?php
 namespace Cart;
+
 class Cart {
     private $data = [];
     private $dd_count = 0;
@@ -33,12 +34,11 @@ class Cart {
         $this->cur_constr(); // Does the minimum currency constructor for formatting
 
         // in Admin - session can be empty!
-        if(!empty($this->session->data['currency'])){
+        if (!empty($this->session->data['currency'])) {
             $this->decimal_places = $this->currencies[$this->session->data['currency']]['decimal_place'];
         } else {
             $this->decimal_places = 2;
         }
-
 
 
         // Remove all the expired carts with no customer ID
@@ -63,7 +63,7 @@ class Cart {
 
     public function getProducts($update = false) {
 
-        if( !$update ){
+        if (!$update) {
             return $this->cartProducts;
         }
 
@@ -222,7 +222,6 @@ class Cart {
                 $price = $product_query->row['price'];
 
 
-
                 // Product Discounts
                 $discount_quantity = 0;
 
@@ -295,8 +294,6 @@ class Cart {
                 }
 
 
-
-
                 // TODO: CUSTOM MOD: for EAN value - NOT FOR PRODUCTION!
                 // also in catalog/model/product/product.php
                 if ((double)$product_query->row['ean']) {
@@ -307,52 +304,51 @@ class Cart {
                 }
 
 
-
                 // TODO: check in common/cart.php controller!
                 // We need product price + option price for opened product.
-                $price_enduser = $this->currency->format($this->tax->calculate($price, $product_query->row['tax_class_id'], $this->config->get('config_tax')),'','',false)
-                                 + $this->currency->format($this->tax->calculate($option_price , $product_query->row['tax_class_id'], $this->config->get('config_tax')),'','',false) ;
+                $price_enduser = $this->currency->format($this->tax->calculate($price, $product_query->row['tax_class_id'], $this->config->get('config_tax')), '', '', false)
+                                 + $this->currency->format($this->tax->calculate($option_price, $product_query->row['tax_class_id'], $this->config->get('config_tax')), '', '', false);
                 $price_enduser_total = $price_enduser * $cart['quantity'];
-                $product_taxes = $this->tax->getRates( $price_enduser_total, $product_query->row['tax_class_id'] );
+                $product_taxes = $this->tax->getRates($price_enduser_total, $product_query->row['tax_class_id']);
                 $tax_amount = 0;
-                foreach( $product_taxes as $tax ) {
-                    $tax_amount += ($price_enduser_total * $tax['rate'] * 0.01 ) / ( 1 + $tax['rate'] * 0.01 );
+                foreach ($product_taxes as $tax) {
+                    $tax_amount += ($price_enduser_total * $tax['rate'] * 0.01) / (1 + $tax['rate'] * 0.01);
                 }
 
 
                 $product_data[] = array(
-                  'cart_id'         => $cart['cart_id'],
-                  'product_id'      => $product_query->row['product_id'],
-                  'name'            => $product_query->row['name'],
-                  'model'           => $product_query->row['model'],
-                  'shipping'        => $product_query->row['shipping'],
-                  'image'           => $product_query->row['image'],
-                  'option'          => $option_data,
-                  'ean'             => $ean,
-                  'download'        => $download_data,
-                  'quantity'        => $cart['quantity'],
-                  'minimum'         => $product_query->row['minimum'],
-                  'subtract'        => $product_query->row['subtract'],
-                  'stock'           => $stock,
-                  'price'           => ($price + $option_price),
-                  'total'           => ($price + $option_price) * $cart['quantity'],
-                  'content_meta'    => $this->registry->get('model_catalog_content')->getContentMeta($product_query->row['product_id'], 'product'),
-                  'tax_amount'      => $tax_amount / $cart['quantity'], // Do not ROUND and FORMAT!
-                  'tax_amount_total'=> $tax_amount,
-                  'price_without_tax' => ( $price_enduser_total - $tax_amount ) / $cart['quantity'] ,
-                  'total_without_tax' => $price_enduser_total - $tax_amount,
-                  'price_enduser'   => $price_enduser,
-                  'price_enduser_total'   => $price_enduser_total,
-                  'reward'          => $reward * $cart['quantity'],
-                  'points'          => ($product_query->row['points'] ? ($product_query->row['points'] + $option_points) * $cart['quantity'] : 0),
-                  'tax_class_id'    => $product_query->row['tax_class_id'],
-                  'weight'          => ($product_query->row['weight'] + $option_weight) * $cart['quantity'],
-                  'weight_class_id' => $product_query->row['weight_class_id'],
-                  'length'          => $product_query->row['length'],
-                  'width'           => $product_query->row['width'],
-                  'height'          => $product_query->row['height'],
-                  'length_class_id' => $product_query->row['length_class_id'],
-                  'recurring'       => $recurring
+                  'cart_id'             => $cart['cart_id'],
+                  'product_id'          => $product_query->row['product_id'],
+                  'name'                => $product_query->row['name'],
+                  'model'               => $product_query->row['model'],
+                  'shipping'            => $product_query->row['shipping'],
+                  'image'               => $product_query->row['image'],
+                  'option'              => $option_data,
+                  'ean'                 => $ean,
+                  'download'            => $download_data,
+                  'quantity'            => $cart['quantity'],
+                  'minimum'             => $product_query->row['minimum'],
+                  'subtract'            => $product_query->row['subtract'],
+                  'stock'               => $stock,
+                  'price'               => ($price + $option_price),
+                  'total'               => ($price + $option_price) * $cart['quantity'],
+                  'content_meta'        => $this->registry->get('model_catalog_content')->getContentMeta($product_query->row['product_id'], 'product'),
+                  'tax_amount'          => $tax_amount / $cart['quantity'], // Do not ROUND and FORMAT!
+                  'tax_amount_total'    => $tax_amount,
+                  'price_without_tax'   => ($price_enduser_total - $tax_amount) / $cart['quantity'],
+                  'total_without_tax'   => $price_enduser_total - $tax_amount,
+                  'price_enduser'       => $price_enduser,
+                  'price_enduser_total' => $price_enduser_total,
+                  'reward'              => $reward * $cart['quantity'],
+                  'points'              => ($product_query->row['points'] ? ($product_query->row['points'] + $option_points) * $cart['quantity'] : 0),
+                  'tax_class_id'        => $product_query->row['tax_class_id'],
+                  'weight'              => ($product_query->row['weight'] + $option_weight) * $cart['quantity'],
+                  'weight_class_id'     => $product_query->row['weight_class_id'],
+                  'length'              => $product_query->row['length'],
+                  'width'               => $product_query->row['width'],
+                  'height'              => $product_query->row['height'],
+                  'length_class_id'     => $product_query->row['length_class_id'],
+                  'recurring'           => $recurring
                 );
 
             } else {
@@ -422,10 +418,10 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     }
 
     public function getSubTotal() {
-        $total =0;
+        $total = 0;
         foreach ($this->cartProducts as $product) {
             //TODO: dirty workaround for free_product gift - bezmaksas produkts.
-            if(empty($product['price_enduser_total'])){
+            if (empty($product['price_enduser_total'])) {
                 $product['price_enduser_total'] = 0;
             }
 
@@ -433,13 +429,12 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         }
 
 
-
-        foreach($this->getTaxes() as $tax){
-            $total -=$tax;
+        foreach ($this->getTaxes() as $tax) {
+            $total -= $tax;
         }
 
         //  Convert back to BASE currency
-        $total = $this->currency->convert( $total, $this->session->data['currency'], 1 );
+        $total = $this->currency->convert($total, $this->session->data['currency'], 1);
 
         return $total;
     }
@@ -475,33 +470,31 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         }
         $tax_classes = $this->tax->getTaxClasses();
         foreach ($enduser_prices as $tax_class_id => $enduser_price) {
-            if(isset($tax_classes[$tax_class_id])){
+            if (isset($tax_classes[$tax_class_id])) {
                 $multiplier = 1;
                 foreach ($tax_classes[$tax_class_id] as $tax_rate_id => $tax_rate) {
-                    $multiplier *= (1 + $tax_rate['rate'] / 100 );
+                    $multiplier *= (1 + $tax_rate['rate'] / 100);
                 }
 
                 $total_wo_tax = $enduser_price / $multiplier;
                 // now - extract tax from every "total" without tax
 
                 foreach ($tax_classes[$tax_class_id] as $tax_rate_id => $tax_rate) {
-                    if(!isset($tax[$tax_rate_id])) {
+                    if (!isset($tax[$tax_rate_id])) {
                         $tax[$tax_rate_id] = 0;
                     }
-                    $tax[$tax_rate_id] +=  $total_wo_tax * ($tax_rate['rate'] / 100 );
+                    $tax[$tax_rate_id] += $total_wo_tax * ($tax_rate['rate'] / 100);
                 }
             }
         }
 
 
         // ROund every total value.
-        array_walk($tax, function(&$val){
+        array_walk($tax, function (&$val) {
             $val = round($val, $this->decimal_places);
         });
         return $tax;
     }
-
-
 
 
     public function getTotal() {
@@ -523,9 +516,10 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         $products = $this->cartProducts;
 
         foreach ($products as $product) {
-            if($product_id) {
-                if($product['product_id'] == $product_id)
+            if ($product_id) {
+                if ($product['product_id'] == $product_id) {
                     $product_total += $product['quantity'];
+                }
             } else {
                 $product_total += $product['quantity'];
             }
@@ -594,14 +588,15 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         if (isset($this->request->get['currency']) && (array_key_exists($this->request->get['currency'], $this->currencies))) {
             $this->code = $this->request->get['currency'];
         } elseif ((isset($this->session->data['currency'])) && (array_key_exists($this->session->data['currency'], $this->currencies))) {
-            $this->code =$this->session->data['currency'];
+            $this->code = $this->session->data['currency'];
         } elseif ((isset($this->request->cookie['currency'])) && (array_key_exists($this->request->cookie['currency'], $this->currencies))) {
-            $this->code =$this->request->cookie['currency'];
+            $this->code = $this->request->cookie['currency'];
         } else {
-            $this->code =$this->config->get('config_currency');
+            $this->code = $this->config->get('config_currency');
         }
 
     }
+
     public function getTotals_azon($params = []) {
         $data = [];
         $total = 0;
@@ -635,19 +630,19 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
                 // Needed, for correct TOTAL price for cart
                 // because of ROUNDING
-                if($total['code'] != 'total'){
+                if ($total['code'] != 'total') {
                     $this->cartTotal += $this->currency->format($total['value'], $this->session->data['currency'], '', false);
                 }
 
-                $this->shipping += $total['code'] == 'shipping' ?  $total['value'] : 0;
+                $this->shipping += $total['code'] == 'shipping' ? $total['value'] : 0;
 
                 $data['totals'][] = array(
-                  'code' => $total['code'],
-                  'title' => $total['title'],
-                  // We need to covert between currencies, to set correct number
-                  'value' => $total['code'] == 'total' ? $this->currency->convert( $this->cartTotal, $this->session->data['currency'], 1 ) : $total['value'],
+                  'code'       => $total['code'],
+                  'title'      => $total['title'],
+                    // We need to covert between currencies, to set correct number
+                  'value'      => $total['code'] == 'total' ? $this->currency->convert($this->cartTotal, $this->session->data['currency'], 1) : $total['value'],
                   'sort_order' => $total['sort_order'],
-                  'text'  => $total['code'] == 'total' ? $this->currency->format2($this->cartTotal) : $this->currency->format($total['value'], $this->session->data['currency']),
+                  'text'       => $total['code'] == 'total' ? $this->currency->format2($this->cartTotal) : $this->currency->format($total['value'], $this->session->data['currency']),
                 );
             }
         }
@@ -661,7 +656,7 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     public function getCartTotal() {
         // Thus function generates cart total! Together with correct totals built.
         $this->getTotals_azon();
-        return $this->currency->convert( $this->cartTotal, $this->session->data['currency'], 1 );
+        return $this->currency->convert($this->cartTotal, $this->session->data['currency'], 1);
     }
 
 }

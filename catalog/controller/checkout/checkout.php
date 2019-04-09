@@ -1,9 +1,7 @@
 <?php
 
-class ControllerCheckoutCheckout extends Controller
-{
-    public function __construct($parms)
-    {
+class ControllerCheckoutCheckout extends Controller {
+    public function __construct($parms) {
         parent::__construct($parms);
         $this->load->model('localisation/country');
         $this->load->model('localisation/location');
@@ -40,8 +38,7 @@ class ControllerCheckoutCheckout extends Controller
         // 'serial' //- IS HARDCODED as an array
     );
 
-    public function index()
-    {
+    public function index() {
         $this->hook->getHook('checkout/checkout/index/before');
         $this->response->redirect($this->url->link('checkout/checkout/guest', '', 'SSL'));
     }
@@ -109,7 +106,7 @@ class ControllerCheckoutCheckout extends Controller
             unset($this->session->data['guest']['serial']);
 
             foreach (Config::get('checkout_serial_fields') as $field) {
-                $this->session->data['guest']['serial'][$field] = !empty($serial[ $field ]) ? $serial[ $field ] : false ;
+                $this->session->data['guest']['serial'][$field] = !empty($serial[$field]) ? $serial[$field] : false;
             }
         }
 
@@ -125,7 +122,7 @@ class ControllerCheckoutCheckout extends Controller
                 $this->session->data['payment_method'] = $this->session->data['payment_methods'][$method[0]];
             }
         } elseif (empty($this->session->data['payment_method'])) {
-            $this->flash->error( sprintf($this->language->get('error_no_payment'), Config::get('config_email') ) );
+            $this->flash->error(sprintf($this->language->get('error_no_payment'), Config::get('config_email')));
         }
 
         foreach (
@@ -244,14 +241,12 @@ class ControllerCheckoutCheckout extends Controller
                 unset($this->session->data['error']);
             }
 
-
-
             // prd($this->cart->getCartTotal());
 
             $data['cart_total_value'] = $this->cart->getCartTotal();
 
             $data['cart_shipping_value'] = 0;
-            if(!empty($this->session->data['shipping_method'])){
+            if (!empty($this->session->data['shipping_method'])) {
                 $data['cart_shipping_value'] = $this->currency->format(
                   $this->tax->calculate($this->cart->getShipping(), $this->session->data['shipping_method']['tax_class_id'], $this->config->get('config_tax')),
                   $this->session->data['currency'], '', false);
@@ -287,8 +282,7 @@ class ControllerCheckoutCheckout extends Controller
 
     }
 
-    protected function validate($type = '')
-    {
+    protected function validate($type = '') {
         $this->language->load('checkout/guest');
 
         if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
@@ -350,7 +344,6 @@ class ControllerCheckoutCheckout extends Controller
             }
         }
 
-
         if (!isset($this->request->post['agree'])) {
             $this->session->data['agree'] = false;
             $this->session->data['guest']['agree'] = false;
@@ -360,7 +353,6 @@ class ControllerCheckoutCheckout extends Controller
                 'information_id=' . $this->config->get('config_checkout_id'),
                 'SSL'), $this->config->get('config_name'));
         }
-
 
         $products = $this->cart->getProducts();
         foreach ($products as $product) {
@@ -377,8 +369,7 @@ class ControllerCheckoutCheckout extends Controller
         }
     }
 
-    protected function validateShipping()
-    {
+    protected function validateShipping() {
         if (!empty($this->request->post['shipping_method'])) {
             $shipping = explode('.', $this->request->post['shipping_method']);
             if (!isset($shipping[0]) || !isset($shipping[1]) ||
@@ -402,8 +393,7 @@ class ControllerCheckoutCheckout extends Controller
         }
     }
 
-    public function country()
-    {
+    public function country() {
         $json = array();
 
         $this->load->model('localisation/country');
@@ -429,8 +419,7 @@ class ControllerCheckoutCheckout extends Controller
         $this->response->setOutput(json_encode($json));
     }
 
-    public function customfield()
-    {
+    public function customfield() {
         $json = array();
 
         $this->load->model('account/custom_field');
