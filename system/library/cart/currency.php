@@ -12,7 +12,7 @@ class Currency {
         $this->db = $registry->get('db');
         $this->language = $registry->get('language');
         $this->request = $registry->get('request');
-        $this->session = $registry->get('session');   
+        $this->session = $registry->get('session');
 
         $this->code = $this->session->data('currency');
 
@@ -49,29 +49,16 @@ class Currency {
             $currency = $this->code;
         }
 
-        $symbol_left = $this->currencies[$currency]['symbol_left'];
-        $symbol_right = $this->currencies[$currency]['symbol_right'];
+        $symbol_left = html_entity_decode($this->currencies[$currency]['symbol_left']);
+        $symbol_right = html_entity_decode($this->currencies[$currency]['symbol_right']);
         $decimal_place = $this->currencies[$currency]['decimal_place'];
 
         if (!$value) {
             $value = $this->currencies[$currency]['value'];
         }
 
-
         $amount = $value ? (float)$number * $value : (float)$number;
-
-
-        /* Maison specific
-        if ($currency != 'GBP' && $round) { // Price ROunding - for All countries, UK included.
-            $amount = round($amount, -1);
-        } elseif ($currency == 'GBP' && $round) {
-            $amount = round($amount); // Līdz veselam Poundam.
-        }
-        */
-
         $amount = round($amount, (int)$decimal_place);
-
-        // $this->log->write("$number -> $amount in ($value)" . debug_backtrace()[0]['file'] . ":" . debug_backtrace()[0]['line']);
 
         if (!$format) {
             return $amount;
