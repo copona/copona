@@ -551,6 +551,7 @@ class ControllerProductProduct extends Controller {
                     'product_id'  => $result['product_id'],
                     'thumb'       => $image,
                     'name'        => $result['name'],
+                    'quantity'        => $result['quantity'],
                     'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
                     'price'       => $price,
                     'special'     => $special,
