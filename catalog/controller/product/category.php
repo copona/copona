@@ -67,6 +67,8 @@ class ControllerProductCategory extends Controller
             $category_id = 0;
         }
 
+        $data['category_id'] = $category_id;
+
         $category_info = $this->model_catalog_category->getCategory($category_id);
 
         if (!empty($this->request->get['path']) && $category_info) {
@@ -163,6 +165,7 @@ class ControllerProductCategory extends Controller
 
             foreach ($results as $result) {
 
+                $image = $image_popup = '';
                 if ($result['image']) {
                     $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}($result['image'],
 
@@ -172,16 +175,16 @@ class ControllerProductCategory extends Controller
                     $image_popup = $this->model_tool_image->{$this->config->get('theme_default_product_category_popup_resize')}($result['image'],
                         $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
                         $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
-                } else {
-                    $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}('no_image.png',
-                        $this->config->get($this->config->get('config_theme') . '_image_product_width'),
-                        $this->config->get($this->config->get('config_theme') . '_image_product_height'));
-                    $image_popup = $this->model_tool_image->{$this->config->get('theme_default_product_category_popup_resize')}('no_image.png',
-                        $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
-                        $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                 }
 
-                // pr($image);
+                if(!$image){
+                    $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}(Config::get('config_no_image','placeholder.png'),
+                      $this->config->get($this->config->get('config_theme') . '_image_product_width'),
+                      $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                    $image_popup = $this->model_tool_image->{$this->config->get('theme_default_product_category_popup_resize')}(Config::get('config_no_image','placeholder.png'),
+                      $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
+                      $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                }
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                     $price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'],
@@ -222,6 +225,8 @@ class ControllerProductCategory extends Controller
                     'description' => strip2words($result['description'],
                             Config::get(Config::get('config_theme') . '_product_description_length'),
                             true) . (mb_strlen( $result['description'] > Config::get(Config::get('config_theme') . '_product_description_length') ) ? '..' : '' ),
+                    'attribute_groups' => $this->model_catalog_product->getProductAttributes($result['product_id']),
+					'manufacturer' => $result['manufacturer'],
                     'price' => $price,
                     'special' => $special,
                     'tax' => $tax,

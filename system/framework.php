@@ -104,6 +104,9 @@ $registry->singleton('language', function ($registry) use ($config) {
     return $language;
 });
 
+// Translation, used together by helper/translation.php funcitons, like ```__('home')```
+Translation::start();
+
 // Breadcrumbs
 $registry->bind('breadcrumbs', function ($registry) {
     return new Breadcrumbs($registry);

@@ -15,7 +15,12 @@ if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] != 80) && $_SERVE
 }
 
 //define domain url constant
-define('DOMAIN_NAME', isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] . $server_port : null);
+// as per https://stackoverflow.com/questions/2297403/what-is-the-difference-between-http-host-and-server-name-in-php
+// SERVER_NAME ir more reliable, but depends on server config. We should be more flexible and define it from HTTP_HOST,
+// or crerate configurable variable.
+// define('DOMAIN_NAME', isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] . $server_port : null);
+define('DOMAIN_NAME', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] . $server_port : null);
+
 $parse_url = parse_url($_SERVER['SCRIPT_NAME']);
 define('BASE_URI', str_replace(['index.php', '//'], '', $parse_url['path']));
 define('BASE_URL', DOMAIN_NAME . BASE_URI);

@@ -771,6 +771,14 @@ class ControllerSettingSetting extends Controller {
             $data['config_mail_smtp_timeout'] = 5;
         }
 
+        if (isset($this->request->post['config_mail_smtp_from_email'])) {
+            $data['config_mail_smtp_from_email'] = $this->request->post['config_mail_smtp_from_email'];
+        } elseif ($this->config->has('config_mail_smtp_timeout')) {
+            $data['config_mail_smtp_from_email'] = $this->config->get('config_mail_smtp_from_email');
+        } else {
+            $data['config_mail_smtp_from_email'] = '';
+        }
+
         if (isset($this->request->post['config_mail_alert'])) {
             $data['config_mail_alert'] = $this->request->post['config_mail_alert'];
         } elseif ($this->config->has('config_mail_alert')) {

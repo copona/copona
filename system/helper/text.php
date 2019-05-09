@@ -348,3 +348,21 @@ function convert($size)
     $unit=array('b','kb','mb','gb','tb','pb');
     return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
 }
+
+/*
+    Convert MONEY to number. Taken from here: https://stackoverflow.com/a/19764699/1720476
+*/
+
+function getAmount($money)
+{
+    $cleanString = preg_replace('/([^0-9\.,])/i', '', $money);
+    $onlyNumbersString = preg_replace('/([^0-9])/i', '', $money);
+
+    $separatorsCountToBeErased = strlen($cleanString) - strlen($onlyNumbersString) - 1;
+
+    $stringWithCommaOrDot = preg_replace('/([,\.])/', '', $cleanString, $separatorsCountToBeErased);
+    $removedThousendSeparator = preg_replace('/(\.|,)(?=[0-9]{3,}$)/', '',  $stringWithCommaOrDot);
+
+    return (float) str_replace(',', '.', $removedThousendSeparator);
+}
+

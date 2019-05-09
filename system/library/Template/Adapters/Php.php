@@ -16,6 +16,8 @@ class Php implements TemplateAdapterInterface
         if (is_file($template_file)) {
             extract($data);
 
+            $registry = \Registry::getInstance();
+
             //TODO: just remove!
             if(empty($breadcrumbs)) $breadcrumbs = [];
 

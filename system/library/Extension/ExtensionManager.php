@@ -174,6 +174,21 @@ class ExtensionManager
     }
 
     /**
+     * blame @arnisjuraga :)
+     * Execute all init methods for Catalog
+     *
+     * @throws \Exception
+     */
+    public static function initAllAdmin()
+    {
+        /** @var ExtensionItem $extensionItem */
+        foreach (self::$extensionCollection->all() as $extensionItem) {
+            $extensionItem->getIntance()->initAdmin();
+        }
+    }
+
+
+    /**
      * Execute all update method
      *
      * @throws \Exception

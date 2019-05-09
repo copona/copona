@@ -1,4 +1,5 @@
 <?php
+
 class Mail {
     protected $to;
     protected $from;
@@ -8,6 +9,8 @@ class Mail {
     protected $text;
     protected $html;
     protected $attachments = array();
+    protected $log;
+    protected $sentMIMEMessage;
     public $protocol = 'mail';
     public $smtp_hostname;
     public $smtp_username;
@@ -16,11 +19,13 @@ class Mail {
     public $smtp_timeout = 5;
     public $verp = false;
     public $parameter = '';
+    public $ErrorInfo = '';
 
     public function __construct($config = array()) {
         foreach ($config as $key => $value) {
             $this->$key = $value;
         }
+        $this->log = new Log('maillog.log');
     }
 
     public function setTo($to) {
@@ -55,6 +60,10 @@ class Mail {
         $this->attachments[] = $filename;
     }
 
+    public function getSentMIMEMessage() {
+        return $this->sentMIMEMessage;
+    }
+
     public function send() {
         if (!$this->to) {
             throw new \Exception('Error: E-Mail to required!');
@@ -82,6 +91,10 @@ class Mail {
             $to = $this->to;
         }
 
+        if(!class_exists('PHPMailer')){
+            $this->log->write('ERROR: PHP Mailer class required! Install using Composer!');
+            return false;
+        }
         try {
 
             $mail = new PHPMailer;
@@ -89,16 +102,23 @@ class Mail {
 
             if ($this->protocol == 'smtp') {
 
+
+                $mail->Timeout = $this->smtp_timeout;
+
                 if (substr($this->smtp_hostname, 0, 3) == 'tls') {
                     $hostname = substr($this->smtp_hostname, 6);
                 } else {
                     $hostname = $this->smtp_hostname;
                 }
 
+                $this->log->write( $hostname );
+
                 $mail->isSMTP();                                      // Set mailer to use SMTP
                 $mail->Host = $hostname;  // Specify main and backup SMTP servers
                 $mail->Helo = getenv('SERVER_NAME');
                 $mail->Hostname = getenv('SERVER_NAME');
+
+
 
                 if (!empty($this->smtp_username) && !empty($this->smtp_password)) {
                     $mail->SMTPAuth = true;                               // Enable SMTP authentication
@@ -155,7 +175,21 @@ class Mail {
             if (!$mail->send()) {
                 echo "<h4>Mailer Error:</h4><p>" . $mail->ErrorInfo . ".<br><br>";
                 echo "Please check your mail configuration.</p>";
-                exit();
+
+                $this->ErrorInfo = $mail->ErrorInfo;
+
+                $this->log->write( "ERROR: From: $this->from To: $this->to Subject: $this->subject" );
+                // $this->log->write( "ERROR: ******************* HTML ******************* " );
+                // $this->log->write( "ERROR: $this->html" );
+                // $this->log->write( "ERROR: ******************* TEXT ******************* " );
+                // $this->log->write( "ERROR: $this->text" );
+                // $this->log->write( "ERROR: ******************* ERROR ******************* " );
+                $this->log->write( "ERROR: " . $mail->ErrorInfo );
+                return false;
+            } else {
+                $this->sentMIMEMessage = $mail->getSentMIMEMessage();
+                $this->log->write( "SUCCESS: From: $this->from To: $this->to Subject: $this->subject" );
+                return true;
             }
         } catch (phpmailerException $e) {
             throw new \Exception('Mail Configuration Error: ' . $e->errorMessage());
