@@ -509,4 +509,63 @@ class Image {
         $this->info['height'] = $height;
     }
 
+    public function addwatermark($position = 'bottomright') {
+
+        if (!file_exists(DIR_IMAGE . 'watermark.png')) {
+            imagedestroy($this->image);
+            error_log('Function addwatermark() error: folder image/ does not have hardcoded predefined image file: watermark.png');
+            return false;
+        }
+
+        $width = imagesx($this->image);
+        $height = imagesy($this->image);
+
+        $watermark = imagecreatefrompng(DIR_IMAGE . 'watermark.png'); //TODO: add to Config!
+        imageAlphaBlending($watermark, false);
+        imageSaveAlpha($watermark, true);
+
+        $watermark_width = imagesx($watermark);
+        $watermark_height = imagesy($watermark);
+
+        $dest_width = $width / 2;
+        $dest_height = $width / 2;
+
+        switch ($position) {
+            case 'topleft':
+                $watermark_pos_x = 0;
+                $watermark_pos_y = 0;
+                break;
+            case 'topright':
+                $watermark_pos_x = $width - $watermark_width;
+                $watermark_pos_y = 0;
+                break;
+            case 'bottomleft':
+                $watermark_pos_x = 0;
+                $watermark_pos_y = $height - $watermark_height;
+                break;
+            case 'bottomright':
+                $watermark_pos_x = $width - $watermark_width;
+                $watermark_pos_y = $height - $watermark_height;
+                break;
+            case 'middle':
+                $watermark_pos_x = ($width - $dest_width) / 2;
+                $watermark_pos_y = ($height - $dest_height) / 2;
+                break;
+        }
+
+        $slate = imagecreatetruecolor($width, $height);
+        $transparent = imagecolorallocatealpha($slate, 0, 255, 0, 127);
+        imagefill($slate, 0, 0, $transparent);
+
+        // now do the copying
+        imagecopy($slate, $this->image, 0, 0, 0, 0, $width, $height);
+        imagecopyresampled($slate, $watermark, $watermark_pos_x, $watermark_pos_y, 0, 0, $dest_width, $dest_height, $watermark_width, $watermark_height);
+        imageAlphaBlending($slate, false);
+        imageSaveAlpha($slate, true);
+        imagealphablending($watermark, true);
+        imagecopyresampled($this->image, $watermark, $watermark_pos_x, $watermark_pos_y, 0, 0, $dest_width, $dest_height, $watermark_width, $watermark_height);
+        $this->image = $slate;
+        imagedestroy($watermark);
+    }
+
 }

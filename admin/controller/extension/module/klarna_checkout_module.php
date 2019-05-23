@@ -81,5 +81,15 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
             return false;
         }
     }
+	
+	public function install()
+    {
+        
+    }
+
+    public function uninstall()
+    {
+        
+    }
 
 }

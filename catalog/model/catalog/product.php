@@ -10,16 +10,21 @@ class ModelCatalogProduct extends Model
 
     public function getProduct($product_id)
     {
+        $this->load->model('catalog/content');
 
         $sql = "SELECT DISTINCT p.*, p2p.product_group_id, p2pd.product_id as default_group_product_id, "
           . "p.image, "
           . "pd.*, "
           . "m.name AS manufacturer, "
+          . " ( select category_id from (
+            select max( level) as max_level , category_id from " . DB_PREFIX . "category_path
+            where category_id in ( select category_id from " . DB_PREFIX . "product_to_category where product_id = '" . $product_id . "' )
+            group by category_id ) maxed
+            order by max_level desc limit 1  ) as deepest_category_id, "
           . "(SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < '" . date("Y-m-d") . "') AND (pd2.date_end = '0000-00-00' OR pd2.date_end > '" . date("Y-m-d") . "')) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, "
           . "(SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < '" . date("Y-m-d") . "') AND (ps.date_end = '0000-00-00' OR ps.date_end > '" . date("Y-m-d") . "')) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special, "
           . "(SELECT points FROM " . DB_PREFIX . "product_reward pr WHERE pr.product_id = p.product_id AND pr.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "') AS reward, "
           . "(SELECT ss.name FROM " . DB_PREFIX . "stock_status ss WHERE ss.stock_status_id = p.stock_status_id AND ss.language_id = '" . (int)$this->config->get('config_language_id') . "') AS stock_status, "
-          . "(SELECT cm.value FROM " . DB_PREFIX . "content_meta cm WHERE cm.content_type = 'product' AND content_id = '" . (int)$product_id . "' limit 1) AS content_meta, "
           . "(SELECT wcd.unit FROM " . DB_PREFIX . "weight_class_description wcd WHERE p.weight_class_id = wcd.weight_class_id AND wcd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS weight_class, "
           . "(SELECT lcd.unit FROM " . DB_PREFIX . "length_class_description lcd WHERE p.length_class_id = lcd.length_class_id AND lcd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS length_class, "
           . "(SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, "
@@ -84,7 +89,8 @@ class ModelCatalogProduct extends Model
               'date_added' => $query->row['date_added'],
               'date_modified' => $query->row['date_modified'],
               'viewed' => $query->row['viewed'],
-              'content_meta' => unserialize($query->row['content_meta'])
+              'content_meta' => $this->model_catalog_content->getContentMeta($query->row['product_id'], 'product'),
+              'deepest_category_id' => $query->row['deepest_category_id'],
             );
         } else {
             return false;
@@ -190,6 +196,10 @@ class ModelCatalogProduct extends Model
 
         if (!empty($data['filter_manufacturer_id'])) {
             $sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
+        }
+
+        if (!empty($data['filter_in_stock'])) {
+            $sql .= " AND p.quantity > 0 ";
         }
 
         if (isset($data['group_products']) && $data['group_products']) {
@@ -653,5 +663,24 @@ class ModelCatalogProduct extends Model
             return 0;
         }
     }
+
+    /**
+	* WIP: get product full path, including deepest category for this particular product.
+	*/
+
+    public function getProductUrlFull($product_id, $category_id = false ) {
+
+        if (!$category_id) {
+            return $this->url->link('product/product', 'product_id=' . $product_id);
+        }
+
+        $this->load->model('catalog/category');
+
+        $category_path = $this->model_catalog_category->getCategoryPath($category_id, $product_id);
+
+        // $category_url = $this->model_catalog_category->getCategorySeoLink($category_id);
+        return $this->url->link('product/product', ($category_path ? 'path=' . $category_path . '&' : '') . 'product_id=' . $product_id);
+    }
+
 
 }

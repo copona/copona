@@ -21,21 +21,16 @@ class ExtensionItem
      * @var string
      */
     public $namespace;
+    
+    /**	
+     * @var SplFileInfo	
+     */	
+    public $path;
 
     /**
      * @var ExtensionBase
      */
     public $instance;
-
-    /**
-     * @var SplFileInfo
-     */
-    public $path;
-
-    /**
-     * @var Finder
-     */
-    public $finder;
 
     /**
      * List all files inside extension

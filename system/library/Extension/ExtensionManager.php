@@ -2,6 +2,7 @@
 
 namespace Copona\System\Library\Extension;
 
+use Copona\Cache\CacheManager;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -34,19 +35,30 @@ class ExtensionManager
 
     public function __construct()
     {
-        self::$extension_dir = rtrim(\Config::get('extension.dir', DIR_PUBLIC . '/extensions/'), '/');
+        /** @var CacheManager $cache */
+        $cache = \Registry::getInstance()->get('cache');
 
-        self::$finder = new Finder();
-        self::$finder->in(self::$extension_dir);
-        $finder = self::$finder;
+        if ($cache->has('extensionCollection')) {
+            self::$extensionCollection = $cache->get('extensionCollection');
+        } else {
 
-        $finder->depth('1')->directories();
+            self::$extension_dir = rtrim(\Config::get('extension.dir', DIR_PUBLIC . '/extensions/'), '/');
 
-        self::$extensionCollection = new ExtensionCollection();
+            self::$finder = new Finder();
+            self::$finder->in(self::$extension_dir);
+            $finder = self::$finder;
 
-        /** @var SplFileInfo $extensionPath */
-        foreach ($finder as $extensionPath) {
-            self::$extensionCollection->add($extensionPath);
+            $finder->depth('1')->directories();
+
+            self::$extensionCollection = new ExtensionCollection();
+
+            /** @var SplFileInfo $extensionPath */
+            foreach ($finder as $extensionPath) {
+                self::$extensionCollection->add($extensionPath);
+            }
+
+            $cache->set('extensionCollection', self::$extensionCollection);
+
         }
     }
 
@@ -134,6 +146,49 @@ class ExtensionManager
     }
 
     /**
+     * Execute all event onInit in all site
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public static function executeOnInit()
+    {
+        /** @var ExtensionItem $extensionItem */
+        foreach (self::$extensionCollection->all() as $extensionItem) {
+            $extensionItem->getIntance()->onInit();
+        }
+    }
+
+    /**
+     * blame @arnisjuraga :)
+     * Execute all init methods for Catalog
+     *
+     * @throws \Exception
+     */
+    public static function initAllCatalog()
+    {
+        /** @var ExtensionItem $extensionItem */
+        foreach (self::$extensionCollection->all() as $extensionItem) {
+            $extensionItem->getIntance()->initCatalog();
+        }
+    }
+
+    /**
+     * blame @arnisjuraga :)
+     * Execute all init methods for Catalog
+     *
+     * @throws \Exception
+     */
+    public static function initAllAdmin()
+    {
+        /** @var ExtensionItem $extensionItem */
+        foreach (self::$extensionCollection->all() as $extensionItem) {
+            $extensionItem->getIntance()->initAdmin();
+        }
+    }
+
+
+    /**
      * Execute all update method
      *
      * @throws \Exception
@@ -215,7 +270,7 @@ class ExtensionManager
     {
         $model = preg_quote(APPLICATION . '/' . 'model/' . $model_path, '/');
 
-        $extensions_file = self::findFile($model);
+        $extensions_file = self::findFile($model . "\.php");
 
         if ($extensions_file && count($extensions_file)) {
             return reset($extensions_file);

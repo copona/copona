@@ -7,8 +7,9 @@ class ControllerExtensionModuleSlideshow extends Controller {
         $this->load->model('design/banner');
         $this->load->model('tool/image');
 
-        $this->document->addStyle('assets/vendor/owl-carousel/owl.carousel.css');
-        $this->document->addScript('assets/vendor/owl-carousel/owl.carousel.min.js');
+        $this->document->addStyle('themes/default/assets/vendor/swiper/css/swiper.min.css');
+        // $this->document->addStyle('themes/default/assets/vendor/swiper/css/opencart.css');
+        $this->document->addScript('themes/default/assets/vendor/swiper/js/swiper.min.js');
 
         $data['banners'] = array();
 

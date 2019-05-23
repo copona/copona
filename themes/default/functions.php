@@ -55,6 +55,8 @@ $template_config_settings = array(
         'reg_num',
         'address_2',
         'postcode2',
+        'customer_type',
+
     ],
 
     'theme_default_extension_module_slideshow_resize' => 'propsize',
@@ -128,7 +130,6 @@ if (!function_exists('content_meta')) {
                 }
             }
         }
-
     }
 }
- 
+

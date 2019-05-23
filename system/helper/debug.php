@@ -32,7 +32,7 @@ if (!function_exists('pr')) {
         if (@$GLOBALS['debug_mode']) {
             echo "\n\n";
             $html = "<div style='border: 1px solid grey; padding: 5px;'>";
-            $html .= "<span style='color: black; background-color: white; font-size: 12px;'>\nPRD data: <strong>" . gettype($data) . "</strong></span>\n";
+            $html .= "<span style='color: black; background-color: white; font-size: 12px;'>\n" . ($prd ? 'prd' : 'pr') . " data: <strong>" . gettype($data) . "</strong></span>\n";
             $html .= "<pre style='white-space: pre-wrap; background-color: " . ($prd ? 'grey' : '#EACCCC') . "; padding: 10px;  font-size: 14px; color: black; margin: 0; line-height: 14px;'>\n";
 
             ob_start();
@@ -111,10 +111,28 @@ if (!function_exists('dt')) {
 
     function dt()
     {
-        if (@$GLOBALS['debug_mode']) {
+        return loadTime::diff(); 
+        /*if (@$GLOBALS['debug_mode']) {
             !isset($_SESSION['dt_start_time']) ? $_SESSION['dt_start_time'] = microtime(true) : false;
             $diff = microtime(true) - $_SESSION['dt_start_time'];
             return $diff;
+        }*/
+    }
+}
+
+if (!function_exists('ddd')) {
+
+    function ddd()
+    {
+        $i = 0;
+        $output = '';
+        while( !empty( debug_backtrace()[ $i ] ) ) {
+            if( !empty( debug_backtrace()[$i]['file'] )){
+                $output .= debug_backtrace()[$i]['file'].":".debug_backtrace()[$i]['line'] . " \n";
+            }
+            $i++;
         }
+
+        return $output;
     }
 }

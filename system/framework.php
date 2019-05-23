@@ -1,10 +1,18 @@
 <?php
 // Registry
 $registry = Registry::getInstance();
+$registry->set('registry', $registry);
 
 // Register Config
 global $config;
 $registry->set('config', $config);
+
+// Cache
+$registry->singleton('cache', function ($registry) use ($config) {
+    $driver = $config->get('cache.driver', 'Files');
+    $configs = $config->get('cache.configs', []);
+    return new \Copona\Cache\CacheManager($driver, $configs);
+});
 
 //Extension
 use \Copona\System\Library\Extension\ExtensionManager;
@@ -79,11 +87,6 @@ $registry->singleton('session', function ($registry) {
     return $session;
 });
 
-// Cache
-$registry->singleton('cache', function ($registry) use ($config) {
-    return new Cache($config->get('cache.cache_type'));
-});
-
 // Url
 $registry->singleton('url', function ($registry) use ($config) {
     return new Url($config->get('site_base'), $config->get('site_ssl'), $registry);
@@ -100,6 +103,9 @@ $registry->singleton('language', function ($registry) use ($config) {
     $language->load($config->get('language_default'));
     return $language;
 });
+
+// Translation, used together by helper/translation.php funcitons, like ```__('home')```
+Translation::start();
 
 // Breadcrumbs
 $registry->bind('breadcrumbs', function ($registry) {
@@ -136,6 +142,9 @@ if ($config->has('model_autoload')) {
         $loader->model($value);
     }
 }
+
+//Execute event onInit
+ExtensionManager::executeOnInit();
 
 // Front Controller
 $controller = new \Copona\System\engine\Front($registry);

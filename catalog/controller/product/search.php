@@ -172,7 +172,8 @@ class ControllerProductSearch extends Controller {
             );
         }
 
-        $data['products'] = array();
+        $data['products'] = [];
+        $data['results'] = '';
 
         if (isset($this->request->get['search']) || isset($this->request->get['tag'])) {
             $filter_data = array(
@@ -243,6 +244,7 @@ class ControllerProductSearch extends Controller {
                                 ENT_QUOTES, 'UTF-8'))), 0,
                                 $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
                         'price'          => $price,
+                        'manufacturer'          => $result['manufacturer'],
                         'special'        => $special,
                         'tax'            => $tax,
                         'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,

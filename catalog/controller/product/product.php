@@ -1,4 +1,7 @@
 <?php
+
+use Copona\System\Library\Breadcrumbs;
+
 class ControllerProductProduct extends Controller {
     private $error = array();
 
@@ -146,6 +149,7 @@ class ControllerProductProduct extends Controller {
 
 
         $this->load->model('catalog/product');
+        $this->load->model('account/wishlist');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
 
@@ -279,6 +283,13 @@ class ControllerProductProduct extends Controller {
             $data['current_product_in_cart'] = $this->cart->countProducts((int)$product_info['product_id']);
             $data['text_in_cart'] = $this->language->get('text_in_cart');
 
+
+            if($this->customer->isLogged()){
+                $data['wishlist'] = $this->model_account_wishlist->getWishlist($this->customer->getId());
+            } else {
+                $data['wishlist'] = $this->session->data('wishlist');
+            }
+
             if ($product_info['quantity'] <= 0) {
                 $data['stock'] = $product_info['stock_status'];
             } elseif ($this->config->get('config_stock_display')) {
@@ -295,10 +306,12 @@ class ControllerProductProduct extends Controller {
                 $data['popup'] = '';
             }
 
+            $data['thumb'] = '';
+            $data['image_mid'] = '';
+            $data['image'] = '';
+
             if ($product_info['image']) {
                 $data['thumb'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
-            } else {
-                $data['thumb'] = '';
             }
 
             if ($product_info['image']) {
@@ -312,9 +325,12 @@ class ControllerProductProduct extends Controller {
                 $this->document->addOGMeta('property="og:image:width"', $this->config->get($this->config->get('config_theme') . '_image_popup_width'));
                 $this->document->addOGMeta('property="og:image:height"', $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
 
-            } else {
-                $data['image_mid'] = '';
-                $data['image'] = '';
+            }
+
+            if (!$data['thumb']) {
+                $data['thumb'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
+                  $this->config->get($this->config->get('config_theme') . '_image_product_width'),
+                  $this->config->get($this->config->get('config_theme') . '_image_product_height'));
             }
 
             $data['images'] = array();
@@ -322,13 +338,29 @@ class ControllerProductProduct extends Controller {
             $results = $this->model_catalog_product->getProductImages($product_id);
 
             foreach ($results as $result) {
+
+                $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                $thumb = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+                $image = $this->url->getImageUrlOriginal( $result['image'] );
+                $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'));
+
+
+                if (!$thumb) {
+                    $image = $popup = $thumb = $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
+                    $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
+                    $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+                }
+
+
                 $data['images'][] = array(
                     'description' => $result['description'],
-                    'popup'   => $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
-                    'thumb'       => $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
-                    'image'       => $this->url->getImageUrlOriginal( $result['image'] ),
-                    'image_mid'   => $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'))
+                    'popup'   => $popup,
+                    'thumb'       => $thumb,
+                    'image'       => $image,
+                    'image_mid'   => $image_mid,
                 );
+
+                // prd( $data['images']);
 
 
                 // Additional Og Images.
@@ -338,15 +370,14 @@ class ControllerProductProduct extends Controller {
                         $this->config->get($this->config->get('config_theme') . '_image_popup_height')));
                 $this->document->addOGMeta('property="og:image:width"', $this->config->get($this->config->get('config_theme') . '_image_popup_width'));
                 $this->document->addOGMeta('property="og:image:height"', $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
-
-
-
             }
 
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                 $data['price'] = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                $data['price_numeric'] = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], '', false);
             } else {
                 $data['price'] = false;
+				$data['price_numeric'] = $this->currency->format(0, $this->session->data['currency'], '', false);
             }
 
             if ((float)$product_info['special']) {
@@ -374,37 +405,56 @@ class ControllerProductProduct extends Controller {
 
             $data['options'] = array();
 
-            foreach ($this->model_catalog_product->getProductOptions($product_id) as $option) {
-                $product_option_value_data = array();
+			foreach ($this->model_catalog_product->getProductOptions($product_id) as $option) {
+                if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image') {
+                    $option_value_data = array();
 
-                foreach ($option['product_option_value'] as $option_value) {
-                    if (!$option_value['subtract'] || ($option_value['quantity'] > 0)) {
-                        if ((($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) && (float)$option_value['price']) {
-                            $price = $this->currency->format($this->tax->calculate($option_value['price'], $product_info['tax_class_id'], $this->config->get('config_tax') ? 'P' : false), $this->session->data['currency']);
-                        } else {
-                            $price = false;
+                    foreach ($option['product_option_value'] as $option_value) {
+                        if (!$option_value['subtract'] || ($option_value['quantity'] > 0)) {
+                            if ((($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) && (float)$option_value['price']) {
+                                $price = $this->currency->format($this->tax->calculate($option_value['price'], $product_info['tax_class_id'], $this->config->get('config_tax')));
+                            } else {
+                                $price = false;
+                            }
+
+                            $option_value_data[] = array(
+                                'product_option_value_id' => $option_value['product_option_value_id'],
+                                'option_value_id'         => $option_value['option_value_id'],
+                                'name'                    => $option_value['name'],
+                                'image'                   => $this->model_tool_image->resize($option_value['image'], 50, 50),
+                                'price'                   => $price,
+                                'price_prefix'            => $option_value['price_prefix']
+                            );
                         }
-
-                        $product_option_value_data[] = array(
-                            'product_option_value_id' => $option_value['product_option_value_id'],
-                            'option_value_id'         => $option_value['option_value_id'],
-                            'name'                    => $option_value['name'],
-                            'image'                   => $this->model_tool_image->resize($option_value['image'], 50, 50),
-                            'price'                   => $price,
-                            'price_prefix'            => $option_value['price_prefix']
-                        );
                     }
-                }
 
-                $data['options'][] = array(
-                    'product_option_id'    => $option['product_option_id'],
-                    'product_option_value' => $product_option_value_data,
-                    'option_id'            => $option['option_id'],
-                    'name'                 => $option['name'],
-                    'type'                 => $option['type'],
-                    'value'                => $option['value'],
-                    'required'             => $option['required']
-                );
+                    $data['options'][] = array(
+                        'product_option_id' => $option['product_option_id'],
+                        'option_id'         => $option['option_id'],
+                        'name'              => $option['name'],
+                        'type'              => $option['type'],
+                        'product_option_value'      => $option_value_data,
+                        'required'          => $option['required']
+                    );
+                } elseif ($option['type'] == 'text' || $option['type'] == 'textarea' || $option['type'] == 'file' || $option['type'] == 'date' || $option['type'] == 'datetime' || $option['type'] == 'time') {
+                    $data['options'][] = array(
+                        'product_option_id' => $option['product_option_id'],
+                        'option_id'         => $option['option_id'],
+                        'name'              => $option['name'],
+                        'type'              => $option['type'],
+                        'product_option_value'      => $option['product_option_value'],
+                        'required'          => $option['required']
+                    );
+                } elseif ($option['type'] == 'custom') {
+                    $data['options'][] = array(
+                        'product_option_id' => $option['product_option_id'],
+                        'option_id'         => $option['option_id'],
+                        'name'              => $option['name'],
+                        'type'              => $option['type'],
+                        'product_option_value'      => $option['option_value'],
+                        'required'          => $option['required']
+                    );
+                }
             }
 
             if ($product_info['minimum']) {
@@ -501,6 +551,7 @@ class ControllerProductProduct extends Controller {
                     'product_id'  => $result['product_id'],
                     'thumb'       => $image,
                     'name'        => $result['name'],
+                    'quantity'        => $result['quantity'],
                     'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
                     'price'       => $price,
                     'special'     => $special,

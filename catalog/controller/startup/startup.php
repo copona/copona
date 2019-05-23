@@ -142,6 +142,9 @@ class ControllerStartupStartup extends Controller
             require_once(DIR_TEMPLATE . 'default/functions.php');
         }
 
+        // Execute Extensions Init, if them has a method.
+        \Copona\System\Library\Extension\ExtensionManager::initAllCatalog();
+
         //Theme settings override
         if ($this->config->get('theme_name') != 'default' && file_exists($this->config->get('theme_uri') . '/functions.php')) {
             require_once($this->config->get('theme_uri') . '/functions.php');
@@ -150,7 +153,9 @@ class ControllerStartupStartup extends Controller
 
 
         $this->language->get('locale') ? setlocale(LC_ALL, $this->language->get('locale') . ".UTF-8") : '';
-        setlocale(LC_NUMERIC, 'en_GB');
+        setlocale(LC_NUMERIC, "en_GB");
+        setlocale(LC_NUMERIC, "en_GB.UTF-8");
+        
 
         // Customer
         $customer = new Cart\Customer($this->registry);
