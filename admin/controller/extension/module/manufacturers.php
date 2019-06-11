@@ -1,9 +1,9 @@
 <?php
-class ControllerExtensionModuleFeatured extends Controller {
+class ControllerExtensionModuleManufacturers extends Controller {
     private $error = array();
 
     public function index() {
-        $data = $this->load->language('extension/module/featured');
+        $this->load->language('extension/module/manufacturers');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -11,21 +11,32 @@ class ControllerExtensionModuleFeatured extends Controller {
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             if (!isset($this->request->get['module_id'])) {
-                $this->request->get['module_id'] = $this->model_extension_module->addModule('featured', $this->request->post);
+                $this->model_extension_module->addModule('manufacturers', $this->request->post);
             } else {
                 $this->model_extension_module->editModule($this->request->get['module_id'], $this->request->post);
             }
 
+            $this->cache->delete('product');
+
             $this->session->data['success'] = $this->language->get('text_success');
 
-            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
-                $this->response->redirect($this->url->link('extension/module/featured', 'module_id=' . $this->request->get['module_id'] . '&token=' . $this->session->data['token'] . $url, true));
-            else
-                $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true));
+            $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true));
         }
 
         $data['heading_title'] = $this->language->get('heading_title');
 
+        $data['text_edit'] = $this->language->get('text_edit');
+        $data['text_enabled'] = $this->language->get('text_enabled');
+        $data['text_disabled'] = $this->language->get('text_disabled');
+
+        $data['entry_name'] = $this->language->get('entry_name');
+        $data['entry_limit'] = $this->language->get('entry_limit');
+        $data['entry_width'] = $this->language->get('entry_width');
+        $data['entry_height'] = $this->language->get('entry_height');
+        $data['entry_status'] = $this->language->get('entry_status');
+
+        $data['button_save'] = $this->language->get('button_save');
+        $data['button_cancel'] = $this->language->get('button_cancel');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -66,19 +77,19 @@ class ControllerExtensionModuleFeatured extends Controller {
         if (!isset($this->request->get['module_id'])) {
             $data['breadcrumbs'][] = array(
                 'text' => $this->language->get('heading_title'),
-                'href' => $this->url->link('extension/module/featured', 'token=' . $this->session->data['token'], true)
+                'href' => $this->url->link('extension/module/manufacturers', 'token=' . $this->session->data['token'], true)
             );
         } else {
             $data['breadcrumbs'][] = array(
                 'text' => $this->language->get('heading_title'),
-                'href' => $this->url->link('extension/module/featured', 'token=' . $this->session->data['token'] . '&module_id=' . $this->request->get['module_id'], true)
+                'href' => $this->url->link('extension/module/manufacturers', 'token=' . $this->session->data['token'] . '&module_id=' . $this->request->get['module_id'], true)
             );
         }
 
         if (!isset($this->request->get['module_id'])) {
-            $data['action'] = $this->url->link('extension/module/featured', 'token=' . $this->session->data['token'], true);
+            $data['action'] = $this->url->link('extension/module/manufacturers', 'token=' . $this->session->data['token'], true);
         } else {
-            $data['action'] = $this->url->link('extension/module/featured', 'token=' . $this->session->data['token'] . '&module_id=' . $this->request->get['module_id'], true);
+            $data['action'] = $this->url->link('extension/module/manufacturers', 'token=' . $this->session->data['token'] . '&module_id=' . $this->request->get['module_id'], true);
         }
 
         $data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true);
@@ -86,16 +97,6 @@ class ControllerExtensionModuleFeatured extends Controller {
         if (isset($this->request->get['module_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $module_info = $this->model_extension_module->getModule($this->request->get['module_id']);
         }
-        if (isset($this->request->post['module_description'])) {
-            $data['module_description'] = $this->request->post['module_description'];
-        } elseif (!empty($module_info) && !empty($module_info['module_description'])) {
-            $data['module_description'] = $module_info['module_description'];
-        } else {
-            $data['module_description'] = array();
-        }
-
-        //pr($data['module_description']);
-        $data['token'] = $this->session->data['token'];
 
         if (isset($this->request->post['name'])) {
             $data['name'] = $this->request->post['name'];
@@ -103,29 +104,6 @@ class ControllerExtensionModuleFeatured extends Controller {
             $data['name'] = $module_info['name'];
         } else {
             $data['name'] = '';
-        }
-
-        $this->load->model('catalog/product');
-
-        $data['products'] = array();
-
-        if (!empty($this->request->post['product'])) {
-            $products = $this->request->post['product'];
-        } elseif (!empty($module_info['product'])) {
-            $products = $module_info['product'];
-        } else {
-            $products = array();
-        }
-
-        foreach ($products as $product_id) {
-            $product_info = $this->model_catalog_product->getProduct($product_id);
-
-            if ($product_info) {
-                $data['products'][] = array(
-                    'product_id' => $product_info['product_id'],
-                    'name'       => $product_info['name']
-                );
-            }
         }
 
         if (isset($this->request->post['limit'])) {
@@ -151,9 +129,6 @@ class ControllerExtensionModuleFeatured extends Controller {
         } else {
             $data['height'] = 200;
         }
-        $this->load->model('localisation/language');
-
-        $data['languages'] = $this->model_localisation_language->getLanguages();
 
         if (isset($this->request->post['status'])) {
             $data['status'] = $this->request->post['status'];
@@ -163,24 +138,15 @@ class ControllerExtensionModuleFeatured extends Controller {
             $data['status'] = '';
         }
 
-
-        if (isset($this->request->post['content_data'])) {
-            $data['content_data'] = $this->request->post['content_data'];
-        } elseif (!empty($module_info['content_data'])) {
-            $data['content_data'] = $module_info['content_data'];
-        } else {
-            $data['content_data'] = '';
-        }
-
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('extension/module/featured', $data));
+        $this->response->setOutput($this->load->view('extension/module/manufacturers', $data));
     }
 
     protected function validate() {
-        if (!$this->user->hasPermission('modify', 'extension/module/featured')) {
+        if (!$this->user->hasPermission('modify', 'extension/module/manufacturers')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
@@ -198,25 +164,15 @@ class ControllerExtensionModuleFeatured extends Controller {
 
         return !$this->error;
     }
-    
-    public function install()
+
+	public function install()
     {
-        
+
     }
 
     public function uninstall()
     {
-        
-    }
 
-    public function install() {
-        // bulk OC3 design install function
-        return 0;
-    }
-
-    public function uninstall() {
-        // bulk OC3 design install function
-        return 0;
     }
 
 }

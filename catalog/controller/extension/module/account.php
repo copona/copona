@@ -30,6 +30,8 @@ class ControllerExtensionModuleAccount extends Controller {
             'recurring',
         ];
 
+        $data['logged'] = $this->customer->isLogged() ? true : false;
+
         if($this->customer->isLogged()) {
             foreach($modules_logged as $module) {
                 $data['links'][$module] = [

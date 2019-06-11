@@ -238,6 +238,11 @@ span.error input {
 /* Manufacturer list*/
 
 /* Slideshow styles */
+.swiper-container-horizontal {
+    overflow: hidden;
+    position: relative;
+}
+
 .banner-slideshow .item {
     position: relative;
 }

@@ -115,7 +115,7 @@ class ControllerCheckoutCheckout extends Controller {
         //prd();
         if (!empty($this->request->post['payment_method'])) {
             $method = explode('.', $this->request->post['payment_method']);
-            if (isset($this->session->data['payment_methods'][$method[0]]['template'])) {
+            if (!empty($this->session->data['payment_methods'][$method[0]]['template'])) {
                 $this->session->data['payment_method'] = $this->session->data['payment_methods'][$method[0]];
                 $this->session->data['payment_method']['code'] .= '.' . $method[1];
             } else {

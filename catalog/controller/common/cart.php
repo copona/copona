@@ -2,7 +2,7 @@
 class ControllerCommonCart extends Controller {
 
     public function index() {
-        $this->load->language('common/cart');
+        $data = $this->load->language('common/cart');
 
         // Totals
         $this->load->model('extension/extension');
