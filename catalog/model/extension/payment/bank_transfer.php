@@ -5,6 +5,7 @@ class ModelExtensionPaymentBankTransfer extends Model
     public function getMethod($address, $total)
     {
         $this->load->language('extension/payment/bank_transfer');
+        $this->load->model('setting/setting');
 
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('bank_transfer_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
 
@@ -21,10 +22,21 @@ class ModelExtensionPaymentBankTransfer extends Model
         $method_data = array();
 
         if ($status) {
+
+            $module = $this->model_setting_setting->getSetting('bank_transfer');
+
+            // prd($module);
+            $terms = '';
+
+            if(!empty($module['bank_transfer_bank' . $this->config->get('config_language_id')])) {
+                $terms = $module['bank_transfer_bank' . $this->config->get('config_language_id')];
+            }
+
+
             $method_data = array(
               'code'       => 'bank_transfer',
               'title'      => $this->language->get('text_title'),
-              'terms'      => '',
+              'terms'      => $terms,
               'sort_order' => $this->config->get('bank_transfer_sort_order')
             );
         }
