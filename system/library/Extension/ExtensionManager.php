@@ -57,7 +57,8 @@ class ExtensionManager
                 self::$extensionCollection->add($extensionPath);
             }
 
-            $cache->set('extensionCollection', self::$extensionCollection);
+            // BUG: Serialization of 'Symfony\Component\Finder\SplFileInfo' is not allowed
+            // $cache->set('extensionCollection', self::$extensionCollection);
 
         }
     }
