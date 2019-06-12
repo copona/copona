@@ -773,7 +773,7 @@ class ControllerSaleOrder extends Controller {
             $data['shipping_method'] = $order_info['shipping_method'];
             $data['payment_method'] = $order_info['payment_method'];
 
-             
+
             // Payment Address
             if ($order_info['payment_address_format']) {
                 $format = $order_info['payment_address_format'];
@@ -1392,7 +1392,7 @@ class ControllerSaleOrder extends Controller {
                 'notify'     => $result['notify'] ? $this->language->get('text_yes') : $this->language->get('text_no'),
                 'status'     => $result['status'],
                 'comment'    => nl2br($result['comment']),
-                'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+                'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
             );
         }
 
