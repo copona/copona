@@ -46,7 +46,7 @@ class ControllerCommonFooter extends Controller {
         // For EDIT link in footer.
         $data['token'] = $this->session->data('token');
 
-        if($data['token']){
+        if ($data['token']) {
             $data['token'] = $this->session->data['token'];
             $data['route'] = $this->request->get('route');
             $data['product_id'] = $this->request->get('product_id');
@@ -54,9 +54,8 @@ class ControllerCommonFooter extends Controller {
             $parts = explode('_', (string)$this->request->get('path'));
             $data['category_id'] = (int)array_pop($parts);
 
-            if($data['category_id']){
+            if ($data['category_id']) {
                 $category = $this->model_catalog_category->getCategory($data['category_id']);
-                $data['provider_mysh_id'] = $category ['provider_mysh_id'];
             }
 
             $data['path'] = $this->request->get('path');
