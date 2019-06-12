@@ -331,6 +331,11 @@ class ControllerProductProduct extends Controller {
                 $data['thumb'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
                   $this->config->get($this->config->get('config_theme') . '_image_product_width'),
                   $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+
+                $data['image_mid'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}(Config::get('config_no_image', 'placeholder.png'), $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'));
+                $data['image'] = $this->url->getImageUrlOriginal( $product_info['image'] );
+                $data['popup'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}(Config::get('config_no_image', 'placeholder.png'), $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+
             }
 
             $data['images'] = array();

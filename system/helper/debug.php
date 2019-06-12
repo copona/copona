@@ -25,9 +25,14 @@ if (isset($_SERVER['SHELL'])) {
     $GLOBALS['debug_mode'] = true;
 }
 
+if (defined('DEBUG')) {
+    $start_time = microtime();
+    $start_mem = memory_get_usage();
+}
+// debug hack endd
 if (!function_exists('pr')) {
 
-    function pr($data = 'w/o variable', $vardump = false, $prd = false )
+    function pr($data = 'w/o variable', $vardump = false, $prd = false, $plaintext = false )
     {
         if (@$GLOBALS['debug_mode']) {
             echo "\n\n";
@@ -78,7 +83,7 @@ if (!function_exists('pr')) {
             }
             $html .= "</div>";
 
-            if(!isset($_SERVER['SHELL']) ) {
+            if(!isset($_SERVER['SHELL']) && !$plaintext ) {
                 echo $html;
             }  else {
                 echo "/************ start ****************/\n\n";
@@ -97,11 +102,23 @@ if (!function_exists('pr')) {
 
 if (!function_exists('prd')) {
 
-    function prd($data = 'w/o variable', $vardump = false)
+    function prd($data = 'w/o variable', $vardump = false, $bulk = false, $palintext = false )
     {
         if (@$GLOBALS['debug_mode']) {
-            pr( $data, $vardump, true );
-            die();
+            pr( $data, $vardump, true, $palintext );
+
+            // DIE, only if we are not in CLI.
+
+            if(php_sapi_name() === 'cli') {
+                $handle = fopen ("php://stdin","r");
+                $line = fgets($handle);
+                if(trim($line) != 'yes'){
+                    echo "Continuing!!\n";
+                }
+                fclose($handle);
+            } else {
+                die();
+            }
         }
     }
 
@@ -109,14 +126,9 @@ if (!function_exists('prd')) {
 
 if (!function_exists('dt')) {
 
-    function dt()
+    function dt( $int = false )
     {
-        return loadTime::diff(); 
-        /*if (@$GLOBALS['debug_mode']) {
-            !isset($_SESSION['dt_start_time']) ? $_SESSION['dt_start_time'] = microtime(true) : false;
-            $diff = microtime(true) - $_SESSION['dt_start_time'];
-            return $diff;
-        }*/
+        return loadTime::diff( $int );
     }
 }
 

@@ -62,7 +62,7 @@ class Loader
                 $output = $action->execute($this->registry, $data);
             }
         } catch (ActionException $e) {
-            throw new \Exception($e->getMessage(), $e->getCode());
+            throw new \Exception("Trying to load: " . $route . ". " . $e->getMessage(), $e->getCode());
         }
 
         // Trigger the post events
