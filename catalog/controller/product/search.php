@@ -237,6 +237,7 @@ class ControllerProductSearch extends Controller {
 
                     $data['products'][] = array(
                         'product_id'     => $result['product_id'],
+                        'model'          => $result['model'],
                         'thumb'          => $image,
                         'popup'          => $popup,
                         'name'           => $result['name'],
