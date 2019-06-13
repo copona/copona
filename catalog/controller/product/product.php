@@ -406,7 +406,7 @@ class ControllerProductProduct extends Controller {
             $data['options'] = array();
 
 			foreach ($this->model_catalog_product->getProductOptions($product_id) as $option) {
-                if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image') {
+                if (in_array($option['type'], ['select', 'radio', 'checkbox', 'image', 'custom'])) {
                     $option_value_data = array();
 
                     foreach ($option['product_option_value'] as $option_value) {
@@ -423,7 +423,9 @@ class ControllerProductProduct extends Controller {
                                 'name'                    => $option_value['name'],
                                 'image'                   => $this->model_tool_image->resize($option_value['image'], 50, 50),
                                 'price'                   => $price,
-                                'price_prefix'            => $option_value['price_prefix']
+                                'price_prefix'            => $option_value['price_prefix'],
+                                'description'            => $option_value['description'],
+                                'article'            => $option_value['article'],
                             );
                         }
                     }
@@ -451,11 +453,12 @@ class ControllerProductProduct extends Controller {
                         'option_id'         => $option['option_id'],
                         'name'              => $option['name'],
                         'type'              => $option['type'],
-                        'product_option_value'      => $option['option_value'],
+                        'product_option_value'      => $option['product_option_value'],
                         'required'          => $option['required']
                     );
                 }
             }
+
 
             if ($product_info['minimum']) {
                 $data['minimum'] = $product_info['minimum'];

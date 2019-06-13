@@ -747,6 +747,9 @@
                 </div>
                 <div class="col-sm-10">
                   <div class="tab-content">
+
+
+
                       <?php $option_row = 0; ?>
                       <?php $option_value_row = 0; ?>
                       <?php foreach ($product_options as $product_option) { ?>
@@ -829,7 +832,13 @@
                                 </div>
                               </div>
                           <?php } ?>
-                          <?php if ($product_option['type'] == 'select' || $product_option['type'] == 'radio' || $product_option['type'] == 'checkbox' || $product_option['type'] == 'image') { ?>
+                          <?php if (false
+                                    || $product_option['type'] == 'select'
+                                    || $product_option['type'] == 'radio'
+                                    || $product_option['type'] == 'checkbox'
+                                    || $product_option['type'] == 'image'
+                                    || $product_option['type'] == 'custom'
+                          ) { ?>
                               <div class="table-responsive">
                                 <table id="option-value<?php echo $option_row; ?>" class="table table-striped table-bordered table-hover">
                                   <thead>
@@ -858,7 +867,12 @@
                                               <?php } ?>
                                             </select>
                                             <input type="hidden" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][product_option_value_id]" value="<?php echo $product_option_value['product_option_value_id']; ?>" /></td>
-                                          <td class="text-right"><input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][quantity]" value="<?php echo $product_option_value['quantity']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" /></td>
+                                          <td class="text-right">
+                                            <input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][quantity]" value="<?php echo $product_option_value['quantity']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" />
+                                            <br>
+                                            Description: <input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][description]" value="<?php echo $product_option_value['description']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" />
+                                            Article: <input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][article]" value="<?php echo $product_option_value['article']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" />
+                                          </td>
                                           <td class="text-left"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][subtract]" class="form-control">
                                                   <?php if ($product_option_value['subtract']) { ?>
                                                   <option value="1" selected="selected"><?php echo $text_yes; ?></option>
