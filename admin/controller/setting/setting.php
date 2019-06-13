@@ -28,6 +28,8 @@ class ControllerSettingSetting extends Controller {
         $data = $this->load->language('catalog/product');
         $data = array_merge($data, $this->load->language('setting/setting'));
 
+        $data['error'] = [];
+
         $this->document->setTitle($this->language->get('heading_title'));
 
 
@@ -74,8 +76,10 @@ class ControllerSettingSetting extends Controller {
         foreach ($errors as $val) {
             if (isset($this->error[$val])) {
                 $data['error_' . $val] = $this->error[$val];
+                $data['error']['error_' . $val] = $this->error[$val];
             } else {
                 $data['error_' . $val] = '';
+                unset ( $data['error']['error_' . $val] );
             }
         }
 
@@ -487,7 +491,7 @@ class ControllerSettingSetting extends Controller {
         } elseif ($this->config->get('config_processing_status')) {
             $data['config_processing_status'] = $this->config->get('config_processing_status');
         } else {
-            $data['config_processing_status'] = array();
+            $data['config_processing_status'] = [];
         }
 
         if (isset($this->request->post['config_complete_status'])) {
@@ -993,7 +997,7 @@ class ControllerSettingSetting extends Controller {
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
-        //pr($this->error);
+
         return !$this->error;
     }
 
