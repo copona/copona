@@ -16,8 +16,14 @@
     </div>
   </div>
   <div class="container-fluid">
-      <?php if ($error_warning) { ?>
-        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+
+
+      <?php if ($error) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>
+            <?php foreach( $error as $val ) { ?>
+            <?php //echo $error_warning; ?>
+            <?php echo $val . "<br />"; ?>
+          <?php } ?>
           <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
