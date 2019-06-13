@@ -254,7 +254,7 @@ h2.price { margin: 0; }
 .thumbnails > li { margin-left: 20px; }
 .thumbnails { margin-left: -20px; }
 .thumbnails > img { width: 100%; }
-.image-additional a { margin-bottom: 20px; padding: 5px; display: block; border: 1px solid #ddd; }
+.image-additional a { margin-bottom: 20px ; padding: 5px; display: block; border: 1px solid #ddd; }
 .image-additional { max-width: 78px; }
 .thumbnails .image-additional { float: left; margin-left: 20px; }
 @media (min-width: 1200px) {

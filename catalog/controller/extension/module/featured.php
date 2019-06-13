@@ -14,6 +14,7 @@ class ControllerExtensionModuleFeatured extends Controller {
         $this->load->model('tool/image');
 
         $data['products'] = array();
+        $data['module_id'] = $setting['module_id'];
 
         if (!$setting['limit']) {
             $setting['limit'] = 4;
@@ -26,11 +27,16 @@ class ControllerExtensionModuleFeatured extends Controller {
                 if ($product_info) {
                     if(++$count > $setting['limit'])
                         break;
+                    $image ='';
                     if ($product_info['image']) {
                         $image = $this->model_tool_image->{$this->config->get('theme_default_extension_module_featured')}($product_info['image'], $setting['width'], $setting['height']);
-                    } else {
+                    }
+
+                    if(!$image) {
                         $image = $this->model_tool_image->{$this->config->get('theme_default_extension_module_featured')}(Config::get('config_no_image','placeholder.png'), $setting['width'], $setting['height']);
                     }
+
+
 
                     if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                         $price = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);

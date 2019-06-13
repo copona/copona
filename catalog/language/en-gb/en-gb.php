@@ -158,3 +158,4 @@ $_['text_product_not_available'] = 'Out of stock';
 $_['text_add'] = 'Add';
 $_['text_shipping_address'] = 'Shipping address';
 $_['entry_bank_account'] = 'Bank account';
+$_['text_search'] = 'Search';

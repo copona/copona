@@ -79,7 +79,6 @@ class ControllerCheckoutCheckout extends Controller {
 
         if (isset($this->session->data['error'])) {
             $data['error_warning'] = $this->session->data['error'];
-
             unset($this->session->data['error']);
         } else {
             $data['error_warning'] = [];
@@ -115,14 +114,14 @@ class ControllerCheckoutCheckout extends Controller {
         //prd();
         if (!empty($this->request->post['payment_method'])) {
             $method = explode('.', $this->request->post['payment_method']);
-            if (isset($this->session->data['payment_methods'][$method[0]]['template'])) {
+            if (!empty($this->session->data['payment_methods'][$method[0]]['template'])) {
                 $this->session->data['payment_method'] = $this->session->data['payment_methods'][$method[0]];
                 $this->session->data['payment_method']['code'] .= '.' . $method[1];
             } else {
                 $this->session->data['payment_method'] = $this->session->data['payment_methods'][$method[0]];
             }
-        } elseif (empty($this->session->data['payment_method'])) {
-            $this->flash->error(sprintf($this->language->get('error_no_payment'), Config::get('config_email')));
+        } elseif (!empty($this->request->post) && empty($this->session->data['payment_method'])) {
+            // $this->flash->error(sprintf($this->language->get('error_no_payment'), Config::get('config_email')));
         }
 
         foreach (
@@ -288,10 +287,6 @@ class ControllerCheckoutCheckout extends Controller {
 
         if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
-        }
-
-        if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
-            $this->error['lastname'] = $this->language->get('error_lastname');
         }
 
         if ((utf8_strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i',

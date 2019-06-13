@@ -14,7 +14,7 @@ class Currency {
         $this->request = $registry->get('request');
         $this->session = $registry->get('session');
 
-        $this->code = $this->session->data('currency');
+        $this->code = $this->session->data('currency') ? $this->session->data('currency') : $this->config->get('config_currency');
 
         $this->log = new \Log('currency_format.log');
 
@@ -47,6 +47,10 @@ class Currency {
 
         if (!$currency) {
             $currency = $this->code;
+        }
+
+        if(empty($this->currencies[$currency])){
+            $currency = array_shift(array_values($this->currencies));
         }
 
         $symbol_left = html_entity_decode($this->currencies[$currency]['symbol_left']);

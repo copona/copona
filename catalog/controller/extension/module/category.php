@@ -76,6 +76,10 @@ class ControllerExtensionModuleCategory extends Controller
         $children = $this->model_catalog_category->getCategories($category_id);
 
         foreach ($children as $child) {
+            if($child['category_id'] == $category_id) {
+                //fix for broken cases, when paren == child
+                continue;
+            }
             $children_data[] = array(
                 'category_id' => $child['category_id'],
                 'name'        => $child['name'],

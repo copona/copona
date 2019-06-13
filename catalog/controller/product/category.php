@@ -160,6 +160,7 @@ class ControllerProductCategory extends Controller
                 'limit' => $params['limit']
             );
 
+
             $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
             $results = $this->model_catalog_product->getProducts($filter_data);
 
@@ -219,6 +220,7 @@ class ControllerProductCategory extends Controller
                 $category_path = $this->model_catalog_category->getCategoryPath($category_id, $result['product_id']);
                 $data['products'][] = array(
                     'product_id' => $result['product_id'],
+                    'model' => $result['model'],
                     'thumb' => $image,
                     'popup' => $image_popup,
                     'name' => $result['name'],
