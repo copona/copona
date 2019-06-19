@@ -464,7 +464,9 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
             !isset($enduser_prices[$product['tax_class_id']]) ? $enduser_prices[$product['tax_class_id']] = 0 : false;
             $enduser_prices[$product['tax_class_id']] += $product['price_enduser_total'];
         }
+
         $tax_classes = $this->tax->getTaxClasses();
+
         foreach ($enduser_prices as $tax_class_id => $enduser_price) {
             if (isset($tax_classes[$tax_class_id])) {
                 $multiplier = 1;
@@ -483,6 +485,7 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                 }
             }
         }
+
 
 
         // ROund every total value.
@@ -630,6 +633,10 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                     $this->cartTotal += $this->currency->format($total['value'], $this->session->data['currency'], '', false);
                 }
 
+                // if($total['code'] == 'shipping'){
+                //     pr($total);
+                // }
+
                 $this->shipping += $total['code'] == 'shipping' ? $total['value'] : 0;
 
                 $data['totals'][] = array(
@@ -640,6 +647,7 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                   'sort_order' => $total['sort_order'],
                   'text'       => $total['code'] == 'total' ? $this->currency->format2($this->cartTotal) : $this->currency->format($total['value'], $this->session->data['currency']),
                 );
+
             }
         }
         return $data['totals'];
@@ -652,10 +660,11 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     public function getCartTotal($format = false) {
         // Thus function generates cart total! Together with correct totals built.
         $this->getTotals_azon();
-        if($format){
-            return $this->currency->format($this->cartTotal, $this->session->data['currency']);
+
+        if ($format) {
+            return $this->currency->format($this->cartTotal, '', 1, true);
         } else {
-            return $this->currency->convert($this->cartTotal, $this->session->data['currency'], 1);
+            return $this->currency->format($this->cartTotal, '', 1, false);
         }
     }
 
