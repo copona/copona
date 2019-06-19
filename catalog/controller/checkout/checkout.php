@@ -98,14 +98,14 @@ class ControllerCheckoutCheckout extends Controller {
         if ($this->request->post('serial')) {
             unset($this->session->data['guest']['serial']);
             foreach (Config::get('checkout_serial_fields') as $field) {
-                $this->session->data['guest']['serial'][$field] = !empty($this->request->post['serial'][$field]) ? $this->request->post['serial'][$field] : '';
+                $this->session->data['guest']['serial'][$field['key']] = !empty($this->request->post['serial'][$field['key']]) ? $this->request->post['serial'][$field['key']] : '';
             }
         } else {
             $serial = !empty($this->session->data['guest']['serial']) ? $this->session->data['guest']['serial'] : [];
             unset($this->session->data['guest']['serial']);
 
             foreach (Config::get('checkout_serial_fields') as $field) {
-                $this->session->data['guest']['serial'][$field] = !empty($serial[$field]) ? $serial[$field] : false;
+                $this->session->data['guest']['serial'][$field['key']] = !empty($serial[$field['key']]) ? $serial[$field['key']] : false;
             }
         }
 
@@ -243,6 +243,7 @@ class ControllerCheckoutCheckout extends Controller {
             // prd($this->cart->getCartTotal());
 
             $data['cart_total_value'] = $this->cart->getCartTotal();
+            $data['cart_total_value_formatted'] = $this->cart->getCartTotal(1);
 
             $data['cart_shipping_value'] = 0;
             if (!empty($this->session->data['shipping_method'])) {
@@ -283,6 +284,9 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
     protected function validate($type = '') {
+
+
+
         $this->language->load('checkout/guest');
 
         if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
@@ -310,11 +314,7 @@ class ControllerCheckoutCheckout extends Controller {
             }
         }
 
-        if ((utf8_strlen($this->request->post['address_1']) < 3) || (utf8_strlen($this->request->post['address_1']) > 300)) {
-            if ($this->request->post['validate_address']) {
-                $this->error['address_1'] = $this->language->get('error_address_1');
-            }
-        }
+
 
         if (!empty($this->request->post['shipping_method']) && substr($this->request->post['shipping_method'], 0,
             13) == 'pickup.pickup' && strlen($this->request->post['shipping_method']) < 10) {
@@ -331,7 +331,6 @@ class ControllerCheckoutCheckout extends Controller {
         if ($this->request->post['payment_method'] == "bank_transfer") {
             if ($this->request->post['customer_group_id'] == "2") {
 
-
                 foreach (Config::get('checkout_serial_fields') as $field) {
                     if (empty($this->request->post['serial'][$field]) || (utf8_strlen($this->request->post['serial'][$field]) < 1)) {
                         $this->error[$field] = $this->language->get('error_' . $field);
@@ -343,12 +342,11 @@ class ControllerCheckoutCheckout extends Controller {
         if (!isset($this->request->post['agree'])) {
             $this->session->data['agree'] = false;
             $this->session->data['guest']['agree'] = false;
-            //$this->error['warning'] = $this->language->get('error_agree');
             $this->error['warning'] = sprintf($this->language->get('error_agree'),
-              $this->url->link('information/information',
-                'information_id=' . $this->config->get('config_checkout_id'),
-                'SSL'), $this->config->get('config_name'));
+              $this->url->link('information/information', 'information_id=' . $this->config->get('config_checkout_id'), 'SSL'), $this->config->get('config_name'));
         }
+
+
 
         $products = $this->cart->getProducts();
         foreach ($products as $product) {
@@ -375,8 +373,6 @@ class ControllerCheckoutCheckout extends Controller {
         } else {
             $this->error['warning'] = $this->language->get('error_shipping');
         }
-
-        //pr($this->error);
 
         if (!$this->error) {
 
