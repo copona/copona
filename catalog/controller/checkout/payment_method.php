@@ -126,13 +126,9 @@ class ControllerCheckoutPaymentMethod extends Controller {
             $data['agree'] = '';
         }
 
-
-
-
+        // WIP: this is loaded as controller from checkout/checkout/guest. And available from web. Should split in 2 functions!
         $this->response->setOutput($this->load->view('checkout/payment_method', $data));
-
-
-        // return $this->load->view('checkout/payment_method', $data);
+        return $this->load->view('checkout/payment_method', $data);
     }
 
     public function validate() {
