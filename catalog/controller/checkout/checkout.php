@@ -328,7 +328,7 @@ class ControllerCheckoutCheckout extends Controller {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
-        if ($this->request->post['payment_method'] == "bank_transfer") {
+        if (!empty($this->request->post['payment_method']) && $this->request->post['payment_method'] == "bank_transfer") {
             if ($this->request->post['customer_group_id'] == "2") {
 
                 foreach (Config::get('checkout_serial_fields') as $field) {

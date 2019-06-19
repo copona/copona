@@ -782,7 +782,7 @@ class ModelCatalogProduct extends Model {
                     'points_prefix'           => $product_option_value['points_prefix'],
                     'weight'                  => $product_option_value['weight'],
                     'weight_prefix'           => $product_option_value['weight_prefix'],
-                    'description'           => $product_option_value['description'], //WIP: custom fields! Must be organized!
+                    'description'           => !empty($product_option_value['description']) ? $product_option_value['description'] : '', //WIP: custom fields! Must be organized!
                     'article'           => $product_option_value['article'], //WIP: custom fields! Must be organized!
                 );
             }
