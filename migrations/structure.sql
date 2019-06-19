@@ -3412,7 +3412,6 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'theme_default', 'theme_default_image_location_width', '268', 0),
 (0, 'theme_default', 'theme_default_directory', 'default', 0),
 (0, 'theme_default', 'theme_default_status', '1', 0),
-(0, 'theme_default', 'theme_default_directory', 'default', 0),
 (0, 'dashboard_activity', 'dashboard_activity_status', '1', 0),
 (0, 'dashboard_activity', 'dashboard_activity_sort_order', '7', 0),
 (0, 'dashboard_sale', 'dashboard_sale_status', '1', 0),
