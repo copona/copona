@@ -152,4 +152,8 @@ class ControllerCommonCart extends Controller {
         $this->response->setOutput($this->index());
     }
 
+    public function getCartTotal() {
+        $this->response->setOutput($this->cart->getCartTotal((int)$this->request->get('formatted')));
+    }
+
 }
