@@ -123,7 +123,10 @@ class ControllerCheckoutConfirm extends Controller {
             $data1['store_id'] = $this->config->get('config_store_id');
             $data1['store_name'] = $this->config->get('config_name');
 
-            $data1['serial'] = $this->session->data['guest']['serial'];
+            $data1['serial'] = [];
+            if(!empty($this->session->data['guest']['serial'])){
+                $data1['serial'] = $this->session->data['guest']['serial'];
+            }
 
             if ($data1['store_id']) {
                 $data1['store_url'] = $this->config->get('config_url');
