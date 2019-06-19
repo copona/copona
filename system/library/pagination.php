@@ -84,7 +84,7 @@ class Pagination {
         }
 
         if ($page < $num_pages) {
-            $output .=!$this->next_hide ? '<li><a class="fa fa-angle-right" href="' . str_replace('{page}', $page + 1, $this->url) . '"' . $this->text_next . '</a></li>' : false;
+            $output .=!$this->next_hide ? '<li><a class="fa fa-angle-right" href="' . str_replace('{page}', $page + 1, $this->url) . '">' . $this->text_next . '</a></li>' : false;
             $output .= '<li class="last"><a class="fa fa-angle-double-right" href="' . str_replace('{page}', $num_pages, $this->url) . '">' . $this->text_last . '</a></li>';
         }
 
