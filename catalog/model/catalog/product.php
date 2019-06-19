@@ -448,7 +448,9 @@ class ModelCatalogProduct extends Model
                   'price' => $product_option_value['price'],
                   'price_prefix' => $product_option_value['price_prefix'],
                   'weight' => $product_option_value['weight'],
-                  'weight_prefix' => $product_option_value['weight_prefix']
+                  'weight_prefix' => $product_option_value['weight_prefix'],
+                  'description' => $product_option_value['description'],
+                  'article' => $product_option_value['article'],
                 );
             }
 
