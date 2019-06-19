@@ -50,15 +50,15 @@ $template_config_settings = array(
     'theme_default_category_sort'                    => 'p.sort_order',
     'theme_default_category_order'                   => 'ASC',
     'theme_default_product_limits'                   => [8,16,32],
-    'checkout_serial_fields'                         => [
-        'company_name',
-        'reg_num',
-        'address_2',
-        'postcode2',
-        'customer_type',
-
+    'checkout_serial_fields' => [
+      ['key' => 'company_name', 'validate' => false],
+      ['key' => 'address_1', 'validate' => false],
+      ['key' => 'vat_num', 'validate' => false],
+      ['key' => 'reg_num', 'validate' => false],
+      ['key' => 'address_2', 'validate' => false],
+      ['key' => 'postcode2', 'validate' => false],
+      ['key' => 'customer_type', 'validate' => false],
     ],
-
     'theme_default_extension_module_slideshow_resize' => 'propsize',
     'theme_default_image_cart_resize'                => 'resize',
 
