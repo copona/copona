@@ -52,7 +52,7 @@
                     </div>
                     <div id="shipping-method">
                       <div style="display:none; margin: 0 auto; width: 50%; text-align: center;">
-                        <img src="themes/<?php echo $theme_default_directory ?>/assets/img/AjaxLoader.gif" alt=""/>
+                        <img src="themes/<?php echo Config::get('theme_default_directory') ?>/assets/img/AjaxLoader.gif" alt=""/>
                       </div>
                     </div>
                     <div id="shipping_address">
@@ -119,7 +119,7 @@
                     <legend><?= $text_total_title ?>:</legend>
                     <h4><?= $text_price; ?>: <span id="cart_total_value"><?= number_format($cart_total_value, 2); ?> €</span></h4>
                     <h4><?= $text_shipping; ?>: <span id="order_shipping"><?= number_format($order_shipping, 2); ?> €</span></h4>
-                    <h3><?= $text_total_payment; ?>: <span id="order_total"><?= number_format($cart_total_value + $order_shipping, 2); ?> €</span></h3>
+                    <h3><?= $text_total_payment; ?>: <span id="order_total"><?= number_format($cart_total_value + $order_shipping, 2); ?></span></h3>
                   </fieldset>
                   <fieldset>
                     <div id="payment-method"><?= $payment_method; ?></div>
