@@ -6,10 +6,21 @@ class ControllerStartupStartup extends Controller
     public function index()
     {
         // Store
-        if ($this->request->server['HTTPS']) {
-            $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`ssl`, 'www.', '') = '" . $this->db->escape('https://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
-        } else {
-            $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape('http://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
+        try {
+            if ($this->request->server['HTTPS']) {
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`ssl`, 'www.', '') = '" . $this->db->escape('https://' . str_replace('www.', '',
+                      $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
+            } else {
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape('http://' . str_replace('www.', '',
+                      $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
+            }
+        } catch (Exception $e) {
+            $log = new Log('error.log');
+            $private_message = "Error selecting correct table. DB connection problems or TABLE " . DB_PREFIX . "store not avvailable?";
+            $log->write($private_message);
+            $log->write($e->getMessage());
+            error_log($private_message . " @". __FILE__ . ":" . __LINE__, 0);
+            die("Something went wrong, please, try again later...");
         }
 
         if (isset($this->request->get['store_id'])) {
@@ -155,7 +166,7 @@ class ControllerStartupStartup extends Controller
         $this->language->get('locale') ? setlocale(LC_ALL, $this->language->get('locale') . ".UTF-8") : '';
         setlocale(LC_NUMERIC, "en_GB");
         setlocale(LC_NUMERIC, "en_GB.UTF-8");
-        
+
 
         // Customer
         $customer = new Cart\Customer($this->registry);
