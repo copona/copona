@@ -649,10 +649,14 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
      * Correct Total with discount
      * @return int
      */
-    public function getCartTotal() {
+    public function getCartTotal($format = false) {
         // Thus function generates cart total! Together with correct totals built.
         $this->getTotals_azon();
-        return $this->currency->convert($this->cartTotal, $this->session->data['currency'], 1);
+        if($format){
+            return $this->currency->format($this->cartTotal, $this->session->data['currency']);
+        } else {
+            return $this->currency->convert($this->cartTotal, $this->session->data['currency'], 1);
+        }
     }
 
 }
