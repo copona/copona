@@ -80,41 +80,6 @@ class ControllerCheckoutConfirm extends Controller {
         }
 
         if (!$redirect) {
-            $totals = array();
-            $total = 0;
-            $taxes = $this->cart->getTaxes();
-
-            // Because __call can not keep var references so we put them into an array.
-            $total_data = array(
-                'totals' => &$totals,
-                'taxes'  => &$taxes,
-                'total'  => &$total
-            );
-            $this->load->model('extension/extension');
-
-            $sort_order = array();
-
-            $results = $this->model_extension_extension->getExtensions('total');
-
-            foreach ($results as $key => $value) {
-                $sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
-            }
-
-            array_multisort($sort_order, SORT_ASC, $results);
-            foreach ($results as $result) {
-                if ($this->config->get($result['code'] . '_status')) {
-                    $this->load->model('extension/total/' . $result['code']);
-
-                    $this->{'model_extension_total_' . $result['code']}->getTotal($total_data, $total, $taxes);
-                }
-            }
-
-            $sort_order = array();
-            foreach ($totals as $key => $value) {
-                $sort_order[$key] = $value['sort_order'];
-            }
-
-            array_multisort($sort_order, SORT_ASC, $totals);
 
             $this->language->load('checkout/checkout');
 
@@ -304,9 +269,9 @@ class ControllerCheckoutConfirm extends Controller {
 
             $data1['products'] = $product_data;
             $data1['vouchers'] = $voucher_data;
-            $data1['totals'] = $total_data['totals'];
+            $data1['totals'] = $this->cart->getTotals_azon();
             $data1['comment'] = empty($this->session->data['comment']) ? '' : $this->session->data['comment'];
-            $data1['total'] = $total;
+            $data1['total'] = $this->cart->getTotal();
 
 
             if (isset($this->request->cookie['tracking'])) {
@@ -444,15 +409,7 @@ class ControllerCheckoutConfirm extends Controller {
 
             // Gift Voucher
             $data['vouchers'] = array();
-
-            $data['totals'] = array();
-
-            foreach ($data1['totals'] as $total) {
-                $data['totals'][] = array(
-                    'title' => $total['title'],
-                    'text'  => $this->currency->format($total['value'], $this->session->data['currency']),
-                );
-            }
+            $data['totals'] = $this->cart->getTotals_azon();
 
             $data['payment'] = $this->load->controller('extension/payment/' . explode('.',$this->session->data['payment_method']['code'])[0]);
         } else {
