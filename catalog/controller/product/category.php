@@ -403,6 +403,7 @@ class ControllerProductCategory extends Controller
             $pagination->next_hide = $this->config->get('theme_default_pagination_next_hide') === null ? false : $this->config->get('theme_default_pagination_next_hide');
             $pagination->url = $this->url->link('product/category', $this->url->setRequest($url_pattern));
 
+            $this->hook->getHook('pagination', $pagination);
 
             $data['pagination'] = $pagination->render();
 
