@@ -33,14 +33,12 @@ class Currency {
     }
 
     public function format2($number, $currency = '') {
-        // formatējam
-        // ar kursu "1"
-        // neapaļojam!
+        // Format with currency rate 1 without rounding!
         return $this->format($number, $currency, 1, true, false);
     }
 
     /*
-     * Funkcija, kas TIKAI noformatē skaitli, NERĒĶINOT tā vērtību!!!
+     * Function, which just FORMATS the number, without any needless calculations.
      */
 
     public function format($number, $currency = '', $value = '', $format = true, $round = true) {
