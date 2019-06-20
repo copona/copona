@@ -34,7 +34,7 @@ class Cart {
         $this->cur_constr(); // Does the minimum currency constructor for formatting
 
         // in Admin - session can be empty!
-        if (!empty($this->session->data['currency'])) {
+        if (!empty($this->session->data['currency']) && !empty($this->currencies[$this->session->data['currency']])) {
             $this->decimal_places = $this->currencies[$this->session->data['currency']]['decimal_place'];
         } else {
             $this->decimal_places = 2;
