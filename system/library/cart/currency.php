@@ -47,8 +47,9 @@ class Currency {
             $currency = $this->code;
         }
 
-        if(empty($this->currencies[$currency])){
-            $currency = array_shift(array_values($this->currencies));
+        if (empty($this->currencies[$currency])) {
+            $keys = array_keys($this->currencies);
+            $currency = $keys[0];
         }
 
         $symbol_left = html_entity_decode($this->currencies[$currency]['symbol_left']);
