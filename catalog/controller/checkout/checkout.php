@@ -114,11 +114,15 @@ class ControllerCheckoutCheckout extends Controller {
         //prd();
         if (!empty($this->request->post['payment_method'])) {
             $method = explode('.', $this->request->post['payment_method']);
-            if (!empty($this->session->data['payment_methods'][$method[0]]['template'])) {
+
+            if (!empty($this->session->data['payment_methods'][$method[0]]) && !empty($method[1]) ) {
                 $this->session->data['payment_method'] = $this->session->data['payment_methods'][$method[0]];
                 $this->session->data['payment_method']['code'] .= '.' . $method[1];
-            } else {
+            } elseif(!empty($this->session->data['payment_methods']) && !empty($this->session->data['payment_methods'][$this->request->post['payment_method']])) {
                 $this->session->data['payment_method'] = $this->session->data['payment_methods'][$method[0]];
+            } else {
+                $this->log->write('Payment method could not be resolved :( ');
+                $this->session->data['payment_method'] = [];
             }
         } elseif (!empty($this->request->post) && empty($this->session->data['payment_method'])) {
             // $this->flash->error(sprintf($this->language->get('error_no_payment'), Config::get('config_email')));
@@ -212,9 +216,15 @@ class ControllerCheckoutCheckout extends Controller {
             $shipping_address['city'] = $this->session->data['guest']['city'];
             $shipping_address['postcode'] = $this->session->data['guest']['postcode'];
             $shipping_address['zone_id'] = $this->session->data['guest']['shipping_address']['zone_id'];
-            $shipping_address['zone'] = $this->model_localisation_zone->getZone($shipping_address['zone_id'])['name'];
+
+
+            $shipping_address['zone'] = $this->model_localisation_zone->getZone($shipping_address['zone_id']) ?
+                $this->model_localisation_zone->getZone($shipping_address['zone_id'])['name']
+                : '';
             $shipping_address['country_id'] = $this->session->data['guest']['shipping_address']['country_id'];
-            $shipping_address['country'] = $this->model_localisation_country->getCountry($shipping_address['country_id'])['name'];
+            $shipping_address['country'] = $this->model_localisation_country->getCountry($shipping_address['country_id'])
+                ? $this->model_localisation_country->getCountry($shipping_address['country_id'])['name']
+                : '';
             $shipping_address['customer_group_id'] = $this->session->data['guest']['customer_group_id'];
             $shipping_address['company_name'] = $this->session->data['guest']['company_name'];
             $shipping_address['reg_num'] = $this->session->data['guest']['reg_num'];
@@ -332,8 +342,8 @@ class ControllerCheckoutCheckout extends Controller {
             if ($this->request->post['customer_group_id'] == "2") {
 
                 foreach (Config::get('checkout_serial_fields') as $field) {
-                    if (empty($this->request->post['serial'][$field]) || (utf8_strlen($this->request->post['serial'][$field]) < 1)) {
-                        $this->error[$field] = $this->language->get('error_' . $field);
+                    if (empty($this->request->post['serial'][$field['key']]) || (utf8_strlen($this->request->post['serial'][$field['key']]) < 1)) {
+                        $this->error[$field['key']] = $this->language->get('error_' . $field['key']);
                     }
                 }
             }
