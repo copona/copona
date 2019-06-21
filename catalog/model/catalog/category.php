@@ -48,7 +48,7 @@ class ModelCatalogCategory extends Model {
 
         if (Config::get('debug.mode')) {
             $output = microtime(true) - $start_time;
-            $this->log->write("Start: for parent $parent_id : " . $output . "\n");
+            // $this->log->write("Start: for parent $parent_id : " . $output . "\n");
         }
 
         return $cats;
