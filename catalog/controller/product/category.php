@@ -138,10 +138,12 @@ class ControllerProductCategory extends Controller
                 );
 
                 $url_pattern['path'] = $category_path . '_' . $result['category_id'];
-                $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}($result['image'],
-
-                  $this->config->get($this->config->get('config_theme') . '_image_product_width'),
-                  $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                $image = '';
+                if($result['image']) {
+                    $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}($result['image'],
+                      $this->config->get($this->config->get('config_theme') . '_image_product_width'),
+                      $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                }
 
                 if(!$image){
                     $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}(Config::get('config_no_image','placeholder.png'),

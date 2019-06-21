@@ -34,11 +34,35 @@ class ControllerExtensionModuleCategory extends Controller
             $data['child_id'] = 0;
         }
 
+        $rrr = array_reverse( $parts ) ;
+
+        if(!$rrr) {
+            $rrr[0] = 0;
+        }
+
         $this->load->model('catalog/category');
 
         $this->load->model('catalog/product');
 
-        $categories = $this->model_catalog_category->getCategories(0);
+        $categories = $this->model_catalog_category->getCategories($rrr[0]);
+
+
+        $data['categories'] = [];
+        $data['cats'] = [];
+
+
+
+
+        foreach( $parts as $part ) {
+           $cat = $this->model_catalog_category->getCategory($part);
+
+           $cat['href'] = $this->url->link('product/category',
+               'path=' . $this->model_catalog_category->getCategoryPath($cat['category_id']));
+           $data['cats'][] = $cat;
+        }
+
+        // array_pop( $data['cats'] );
+
 
         foreach ($categories as $category) {
             $children_data = $this->getChildren($category['category_id']);
@@ -48,15 +72,16 @@ class ControllerExtensionModuleCategory extends Controller
                 'filter_sub_category' => true
             );
 
-            $data['categories'][] = array(
+             $data['categories'][] = array(
                 'category_id' => $category['category_id'],
                 'name'        => $category['name'],
                 'total'       => $this->config->get('config_product_count') ? $this->model_catalog_product->getTotalProducts($filter_data) : false,
                 'children'    => $children_data,
-                'href'        => $this->url->link('product/category', 'path=' . $category['category_id']),
+                'href'        => $this->url->link('product/category', 'path=' . $category['path']),
                 'active'      => (in_array($category['category_id'], $parts) ? true : false)
             );
         }
+
 
         $data['category_path'] = $parts;
 
@@ -76,10 +101,6 @@ class ControllerExtensionModuleCategory extends Controller
         $children = $this->model_catalog_category->getCategories($category_id);
 
         foreach ($children as $child) {
-            if($child['category_id'] == $category_id) {
-                //fix for broken cases, when paren == child
-                continue;
-            }
             $children_data[] = array(
                 'category_id' => $child['category_id'],
                 'name'        => $child['name'],

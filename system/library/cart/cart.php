@@ -462,7 +462,7 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         $enduser_prices = [];
         foreach ($this->cartProducts as $product) {
             !isset($enduser_prices[$product['tax_class_id']]) ? $enduser_prices[$product['tax_class_id']] = 0 : false;
-            $enduser_prices[$product['tax_class_id']] += $product['price_enduser_total'];
+            $enduser_prices[$product['tax_class_id']] += isset($product['price_enduser_total']) ? $product['price_enduser_total'] : 0;
         }
 
         $tax_classes = $this->tax->getTaxClasses();
