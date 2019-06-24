@@ -61,6 +61,7 @@ class ControllerCommonFooter extends Controller {
             $data['path'] = $this->request->get('path');
             $data['information_id'] = $this->request->get('information_id');
             $data['infocategory_id'] = $this->request->get('infocategory_id');
+            $data['manufacturer_id'] = $this->request->get('manufacturer_id');
             $data['filter_name'] = $this->request->get('search');
         }
 
