@@ -11,7 +11,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
 
         $data['button_confirm'] = $this->language->get('button_confirm');
 
-        $data['bank'] = nl2br($this->config->get('bank_transfer_bank' . $this->config->get('config_language_id')));
+        $data['bank'] = html_entity_decode( $this->config->get('bank_transfer_bank' . $this->config->get('config_language_id')) );
 
         $data['continue'] = $this->url->link('checkout/success');
         $data['back'] = $this->url->link('checkout/checkout');
