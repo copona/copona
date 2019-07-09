@@ -99,6 +99,10 @@ class ControllerProductSpecial extends Controller {
 
         $results = $this->model_catalog_product->getProductSpecials($filter_data);
 
+
+        // prd($results);
+
+
         foreach ($results as $result) {
             if ($result['image']) {
                 $image = $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
@@ -144,6 +148,8 @@ class ControllerProductSpecial extends Controller {
                 'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'] . $url)
             );
         }
+
+        // prd( count ( $data['products'] )  );
 
         $url = '';
 
@@ -221,8 +227,7 @@ class ControllerProductSpecial extends Controller {
 
         $data['limits'] = array();
 
-        $limits = array_unique(array( $this->config->get($this->config->get('config_theme') . '_product_limit'),
-            25, 50, 75, 100 ));
+        $limits = Config::get($this->config->get('config_theme') . '_product_limits', [25, 50, 75, 100]);
 
         sort($limits);
 
@@ -250,9 +255,16 @@ class ControllerProductSpecial extends Controller {
 
         $pagination = new Pagination();
         $pagination->total = $product_total;
-        $pagination->page = $page;
-        $pagination->limit = $limit;
+        $pagination->page = $params['page'];
+        $pagination->limit = $params['limit'];
+        $pagination->text_first = '';
+        $pagination->text_last = '';
+        $pagination->prev_hide = $this->config->get('theme_default_pagination_prev_hide') === null ? false : $this->config->get('theme_default_pagination_prev_hide');
+        $pagination->next_hide = $this->config->get('theme_default_pagination_next_hide') === null ? false : $this->config->get('theme_default_pagination_next_hide');
+        // $pagination->url = $this->url->link('product/special', $this->url->setRequest($url_pattern));
         $pagination->url = $this->url->link('product/special', $url . '&page={page}');
+
+        $this->hook->getHook('pagination', $pagination);
 
         $data['pagination'] = $pagination->render();
 
