@@ -364,6 +364,8 @@ class ControllerDesignLayout extends Controller {
         // Get a list of installed modules
         $extensions = $this->model_extension_extension->getInstalled('module');
 
+
+
         // Add all the modules which have multiple settings for each module
         foreach ($extensions as $code) {
             $this->load->language('extension/module/' . $code);
@@ -372,10 +374,13 @@ class ControllerDesignLayout extends Controller {
 
             $modules = $this->model_extension_module->getModulesByCode($code);
 
+
+
             foreach ($modules as $module) {
                 $module_data[] = array(
                     'name' => strip_tags($module['name']),
-                    'code' => $code . '.' . $module['module_id']
+                    'code' => $code . '.' . $module['module_id'],
+                    'status' => json_decode( $module['setting'], true )['status'] ,
                 );
             }
 
@@ -383,11 +388,13 @@ class ControllerDesignLayout extends Controller {
                 $data['extensions'][] = array(
                     'name'   => strip_tags($this->language->get('heading_title')),
                     'code'   => $code,
-                    'module' => $module_data
+                    'module' => $module_data,
+                    'status' => $module_data['status'],
                 );
             }
         }
 
+        // prd($data['extensions']);
         // Modules layout
         if (isset($this->request->post['layout_module'])) {
             $layout_modules = $this->request->post['layout_module'];
