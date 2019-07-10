@@ -614,7 +614,7 @@ class ModelCatalogProduct extends Model {
 
 
         $product_data = $this->cache->get('product.gettotalproducts.' . md5($sql));
-        if (!$product_data) {
+        if ($product_data === null) {
             $product_data = $this->db->query($sql);
             $this->cache->set('product.gettotalproducts.' . md5($sql), $product_data->row['total']);
             $product_data = $product_data->row['total'];

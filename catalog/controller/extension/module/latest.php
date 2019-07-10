@@ -32,9 +32,12 @@ class ControllerExtensionModuleLatest extends Controller {
             foreach ($results as $result) {
                 if ($result['image']) {
                     $image = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}($result['image'], $setting['width'], $setting['height']);
-                } else {
+                }
+
+                if(!$image){
                     $image = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'), $setting['width'], $setting['height']);
                 }
+
                 if ($result['image']) {
                     $popup = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
                       $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
