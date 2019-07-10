@@ -35,6 +35,7 @@
               <thead>
                 <tr>
                   <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                  <td style="width: 1px;"><?php echo $tab_image; ?></td>
                   <td class="text-left"><?php if ($sort == 'name') { ?>
                         <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_name; ?></a>
                     <?php } else { ?>
@@ -57,6 +58,7 @@
                             <?php } else { ?>
                                 <input type="checkbox" name="selected[]" value="<?php echo $manufacturer['manufacturer_id']; ?>" />
                             <?php } ?></td>
+                          <td class="text-left"><img src="<?php echo $manufacturer['image']; ?>" alt="Manufacturer"></td>
                           <td class="text-left"><?php echo $manufacturer['name']; ?></td>
                           <td class="text-right"><?php echo $manufacturer['sort_order']; ?></td>
                           <td class="text-right"><a href="<?php echo $manufacturer['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
@@ -64,7 +66,7 @@
                     <?php } ?>
                 <?php } else { ?>
                     <tr>
-                      <td class="text-center" colspan="4"><?php echo $text_no_results; ?></td>
+                      <td class="text-center" colspan="5"><?php echo $text_no_results; ?></td>
                     </tr>
                 <?php } ?>
               </tbody>
