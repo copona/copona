@@ -59,7 +59,7 @@
                                 <input type="checkbox" name="selected[]" value="<?php echo $manufacturer['manufacturer_id']; ?>" />
                             <?php } ?></td>
                           <td class="text-left"><img src="<?php echo $manufacturer['image']; ?>" alt="Manufacturer"></td>
-                          <td class="text-left"><?php echo $manufacturer['name']; ?></td>
+                          <td class="text-left"><a href="<?php echo $manufacturer['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>"><?php echo $manufacturer['name']; ?></a></td>
                           <td class="text-right"><?php echo $manufacturer['sort_order']; ?></td>
                           <td class="text-right"><a href="<?php echo $manufacturer['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                         </tr>
