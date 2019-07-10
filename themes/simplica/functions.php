@@ -6,6 +6,7 @@
 $template_config_settings = array(
     // 'theme_default_image_category_width'       => 80,
     // 'theme_default_image_category_height'      => 80,
+  'theme_default_category_show_subcategories_products' => true,
 );
 
 if (APPLICATION == 'catalog') {

@@ -164,7 +164,7 @@ class ControllerProductCategory extends Controller
 
             $filter_data = array(
                 'filter_category_id' => $category_id,
-                'filter_sub_category' => true, //Show products from Sub-Categories!
+                'filter_sub_category' =>  Config::get('theme_default_category_show_subcategories_products', true), //Show products from Sub-Categories!
                 'filter_filter' => $params['filter'],
                 'filter_manufacturer_id' => $params['manufacturer_id'],
                 'sort' => $params['sort'],
@@ -172,7 +172,6 @@ class ControllerProductCategory extends Controller
                 'start' => ($params['page'] - 1) * $params['limit'],
                 'limit' => $params['limit']
             );
-
 
             $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
             $results = $this->model_catalog_product->getProducts($filter_data);
