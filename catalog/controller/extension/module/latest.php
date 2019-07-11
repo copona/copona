@@ -30,6 +30,9 @@ class ControllerExtensionModuleLatest extends Controller {
 
         if ($results) {
             foreach ($results as $result) {
+
+                $image = '';
+
                 if ($result['image']) {
                     $image = $this->model_tool_image->{Config::get('theme_default_latest_thumb_resize')}($result['image'], $setting['width'], $setting['height']);
                 }
