@@ -103,10 +103,13 @@ class ModelCatalogProduct extends Model {
 
         if (isset($data['product_special'])) {
             foreach ($data['product_special'] as $product_special) {
-                $this->db->query("INSERT INTO " . DB_PREFIX . "product_special SET product_id = '" . (int)$product_id . "', customer_group_id = '" . (int)$product_special['customer_group_id'] . "', priority = '" . (int)$product_special['priority'] . "', price = '" . (float)$product_special['price'] . "', date_start = '" . $this->db->escape($product_special['date_start']) . "', date_end = '" . $this->db->escape($product_special['date_end']) . "'");
+                $date_start = $product_special['date_start'] ? "'" . $this->db->escape($product_special['date_start']) . "'" : "NULL";
+                $date_end = $product_special['date_end'] ? "'" . $this->db->escape($product_special['date_end']) . "'" : "NULL";
+                $this->db->query("INSERT INTO " . DB_PREFIX . "product_special SET product_id = '" . (int)$product_id . "', customer_group_id = '" . (int)$product_special['customer_group_id'] . "', 
+                priority = '" . (int)$product_special['priority'] . "', price = '" . (float)$product_special['price'] . "', date_start = $date_start, 
+                date_end = $date_end");
             }
         }
-
 
         if (isset($data['product_image'])) {
             foreach ($data['product_image'] as $product_image) {
@@ -386,9 +389,15 @@ class ModelCatalogProduct extends Model {
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "product_special WHERE product_id = '" . (int)$product_id . "'");
 
+
+
         if (isset($data['product_special'])) {
             foreach ($data['product_special'] as $product_special) {
-                $this->db->query("INSERT INTO " . DB_PREFIX . "product_special SET product_id = '" . (int)$product_id . "', customer_group_id = '" . (int)$product_special['customer_group_id'] . "', priority = '" . (int)$product_special['priority'] . "', price = '" . (float)$product_special['price'] . "', date_start = '" . $this->db->escape($product_special['date_start']) . "', date_end = '" . $this->db->escape($product_special['date_end']) . "'");
+                $date_start = $product_special['date_start'] ? "'" . $this->db->escape($product_special['date_start']) . "'" : "NULL";
+                $date_end = $product_special['date_end'] ? "'" . $this->db->escape($product_special['date_end']) . "'" : "NULL";
+                $this->db->query("INSERT INTO " . DB_PREFIX . "product_special SET product_id = '" . (int)$product_id . "', customer_group_id = '" . (int)$product_special['customer_group_id'] . "', 
+                priority = '" . (int)$product_special['priority'] . "', price = '" . (float)$product_special['price'] . "', date_start = $date_start, 
+                date_end = $date_end");
             }
         }
 
@@ -582,6 +591,9 @@ class ModelCatalogProduct extends Model {
             . "LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) "
             . "LEFT JOIN " . DB_PREFIX . "product_to_product p2p ON (p.product_id = p2p.product_id) "
             . "WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+        if($query->num_rows){
+            $query->row['product_categories'] = $this->getProductCategories($product_id);
+        }
         return $query->row;
     }
 
@@ -686,7 +698,10 @@ class ModelCatalogProduct extends Model {
     }
 
     public function getProductsByCategoryId($category_id) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p2c.category_id = '" . (int)$category_id . "' ORDER BY pd.name ASC");
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) 
+        LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id)
+         WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p2c.category_id = '" . (int)$category_id . "' 
+         ORDER BY pd.product_id ASC");
 
         return $query->rows;
     }
