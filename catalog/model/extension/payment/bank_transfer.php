@@ -36,7 +36,7 @@ class ModelExtensionPaymentBankTransfer extends Model
             $method_data = array(
               'code'       => 'bank_transfer',
               'title'      => $this->language->get('text_title'),
-              'terms'      => $terms,
+              'terms' => html_entity_decode($terms, ENT_QUOTES, 'UTF-8'),
               'sort_order' => $this->config->get('bank_transfer_sort_order')
             );
         }
