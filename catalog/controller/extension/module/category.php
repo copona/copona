@@ -1,17 +1,14 @@
 <?php
 
-class ControllerExtensionModuleCategory extends Controller
-{
+class ControllerExtensionModuleCategory extends Controller {
     private $language_id;
 
-    public function __construct($registry)
-    {
+    public function __construct($registry) {
         parent::__construct($registry);
         $this->language_id = $registry->config->get('config_language_id');
     }
 
-    public function index()
-    {
+    public function index() {
 
         $data = array_merge(array(), $this->language->load('extension/module/category'));
         $data['heading_title'] = $this->language->get('heading_title');
@@ -34,51 +31,45 @@ class ControllerExtensionModuleCategory extends Controller
             $data['child_id'] = 0;
         }
 
-        $rrr = array_reverse( $parts ) ;
-
-        if(!$rrr) {
-            $rrr[0] = 0;
-        }
-
         $this->load->model('catalog/category');
-
         $this->load->model('catalog/product');
 
-        $categories = $this->model_catalog_category->getCategories($rrr[0]);
+        if (Config::get('theme_default_module_category_show_only_subcategories', false)) {
 
+            $current_category = array_reverse($parts);
+            if (!$current_category) {
+                $current_category[0] = 0;
+            }
+
+            $categories = $this->model_catalog_category->getCategories($current_category[0]);
+        } else {
+            $categories = $this->model_catalog_category->getCategories(0);
+        }
 
         $data['categories'] = [];
         $data['cats'] = [];
 
-
-
-
-        foreach( $parts as $part ) {
-           $cat = $this->model_catalog_category->getCategory($part);
-
-           $cat['href'] = $this->url->link('product/category',
-               'path=' . $this->model_catalog_category->getCategoryPath($cat['category_id']));
-           $data['cats'][] = $cat;
+        foreach ($parts as $part) {
+            $cat = $this->model_catalog_category->getCategory($part);
+            $cat['href'] = $this->url->link('product/category', 'path=' . $this->model_catalog_category->getCategoryPath($cat['category_id']));
+            $data['cats'][] = $cat;
         }
-
-        // array_pop( $data['cats'] );
-
 
         foreach ($categories as $category) {
             $children_data = $this->getChildren($category['category_id']);
 
             $filter_data = array(
-                'filter_category_id'  => $category['category_id'],
-                'filter_sub_category' => true
+              'filter_category_id'  => $category['category_id'],
+              'filter_sub_category' => true
             );
 
-             $data['categories'][] = array(
-                'category_id' => $category['category_id'],
-                'name'        => $category['name'],
-                'total'       => $this->config->get('config_product_count') ? $this->model_catalog_product->getTotalProducts($filter_data) : false,
-                'children'    => $children_data,
-                'href'        => $this->url->link('product/category', 'path=' . $category['path']),
-                'active'      => (in_array($category['category_id'], $parts) ? true : false)
+            $data['categories'][] = array(
+              'category_id' => $category['category_id'],
+              'name'        => $category['name'],
+              'total'       => $this->config->get('config_product_count') ? $this->model_catalog_product->getTotalProducts($filter_data) : false,
+              'children'    => $children_data,
+              'href'        => $this->url->link('product/category', 'path=' . $category['path']),
+              'active'      => (in_array($category['category_id'], $parts) ? true : false)
             );
         }
 
@@ -88,8 +79,7 @@ class ControllerExtensionModuleCategory extends Controller
         return $this->load->view('extension/module/category', $data);
     }
 
-    function getChildren($category_id, $children_data = array())
-    {
+    function getChildren($category_id, $children_data = array()) {
         if (isset($this->request->get['path'])) {
             $parts = explode('_', (string)$this->request->get['path']);
         } else {
@@ -102,15 +92,13 @@ class ControllerExtensionModuleCategory extends Controller
 
         foreach ($children as $child) {
             $children_data[] = array(
-                'category_id' => $child['category_id'],
-                'name'        => $child['name'],
-                'children'    => $this->getChildren($child['category_id']),
-                'total'       => ($this->config->get('config_product_count') ? $this->model_catalog_product->getTotalProducts(['filter_category_id' => $child['category_id']]) : ''),
-                'href'        => $this->url->link('product/category',
-                    'path=' . $this->model_catalog_category->getCategoryPath($child['category_id'])),
-                'active'      => (in_array($child['category_id'], $parts) ? true : false),
-                'level'       => count(explode('_',
-                    (string)$this->model_catalog_category->getCategoryPath($child['category_id'])))
+              'category_id' => $child['category_id'],
+              'name'        => $child['name'],
+              'children'    => $this->getChildren($child['category_id']),
+              'total'       => ($this->config->get('config_product_count') ? $this->model_catalog_product->getTotalProducts(['filter_category_id' => $child['category_id']]) : ''),
+              'href'        => $this->url->link('product/category', 'path=' . $this->model_catalog_category->getCategoryPath($child['category_id'])),
+              'active'      => (in_array($child['category_id'], $parts) ? true : false),
+              'level'       => count(explode('_', (string)$this->model_catalog_category->getCategoryPath($child['category_id'])))
             );
         }
 
