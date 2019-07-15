@@ -32,6 +32,8 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
             $comment .= $this->config->get('bank_transfer_bank' . $this->config->get('config_language_id')) . "\n\n";
             $comment .= $this->language->get('text_payment');
 
+            $comment = html_to_plaintext($comment, true);
+
             $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('bank_transfer_order_status_id'), $comment, true);
         }
     }
