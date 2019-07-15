@@ -65,6 +65,7 @@ $template_config_settings = array(
 
   'theme_default_bestseller_thumb_resize' => 'resize',
   'theme_default_module_category_show_only_subcategories' => true, // model/extension/category - method will show only sub-categories.
+  'admin_category_autocomplete_limit' => 15,
     // 'theme_default_image_category_width'       => 80,
     // 'theme_default_image_category_height'      => 80,
 );
