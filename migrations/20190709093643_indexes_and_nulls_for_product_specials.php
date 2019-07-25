@@ -3,8 +3,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class IndexesAndNullsForProductSpecials extends AbstractMigration
-{
+class IndexesAndNullsForProductSpecials extends AbstractMigration {
     /**
      * Change Method.
      *
@@ -26,8 +25,7 @@ class IndexesAndNullsForProductSpecials extends AbstractMigration
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change()
-    {
+    public function change() {
         // ALTER TABLE `cp_product_special`
         // CHANGE `date_start` `date_start` date NULL AFTER `price`,
         // CHANGE `date_end` `date_end` date NULL AFTER `date_start`;
@@ -35,12 +33,16 @@ class IndexesAndNullsForProductSpecials extends AbstractMigration
 
         $tableAdapter = new \Phinx\Db\Adapter\TablePrefixAdapter($this->getAdapter());
 
+
+        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_start = '1970-01-01' where date_start is null or date_start < '1970-01-01'");
+        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_end = '9999-12-31' where date_end is null or date_start < '1970-01-01'");
+
+
         $this->table('product_special')
-             ->changeColumn('date_start', 'date', ['null' => true ])
-             ->changeColumn('date_end', 'date', ['null' => true])
-             ->save();
-        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_start = NULL where date_start < '1971-01-01'");
-        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_end = NULL where date_end < '1971-01-01'");
+             ->changeColumn('date_end', 'date', ['null' => 'false', 'default' => '9999-12-31'])
+             ->changeColumn('date_start', 'date', ['null' => 'false', 'default' => '1970-01-01'])
+             ->update();
+
 
         $table = $this->table('product_special');
         $table->addIndex(['customer_group_id', 'date_start', 'date_end'])
