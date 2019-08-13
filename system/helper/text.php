@@ -287,16 +287,18 @@ function convert_entity($matches, $destroy = true)
 }
 
 
-function html_to_plaintext($string = '', $newlines = false)
+function html_to_plaintext($string = '', $newlines = false, $remove_quotes = false )
 {
     $string = decode_entities_full(html_entity_decode($string), ENT_COMPAT, "utf-8");
     $string = preg_replace('/(<(script|style)\b[^>]*>).*?(<\/\2>)/is', "$1$3", $string);
     $string = strip_tags($string);
 
     // if we want to LEAVE newlines, to be outputted then as eg <br />
-    $pattern = $newlines ? '/[[:blank:]]+/' : '/\s\s+/';
+    $pattern = $newlines ? '/[[:blank:]]+/' : '/\s+/';
 
     $string = trim(preg_replace($pattern, ' ', $string));
+    $string = $remove_quotes ? htmlspecialchars($string) : $string;
+
     return $string;
 }
 
@@ -326,6 +328,7 @@ function strip2words($short_description = '', $string_length = 200, $newlines = 
 function return_bytes($val) {
     $val = trim($val);
     $last = strtolower($val[strlen($val)-1]);
+    $val = (double)$val;
     switch($last) {
         // The 'G' modifier is available since PHP 5.1.0
         case 'g':
@@ -337,6 +340,16 @@ function return_bytes($val) {
     }
 
     return $val;
+}
+
+/*
+ * To get the memory usage in KB or MB
+ * http://php.net/manual/en/function.memory-get-usage.php#96280
+ * */
+function return_readable_bytes($size)
+{
+    $unit=array('b','kb','mb','gb','tb','pb');
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
 }
 
 /*
@@ -365,4 +378,5 @@ function getAmount($money)
 
     return (float) str_replace(',', '.', $removedThousendSeparator);
 }
+
 
