@@ -79,11 +79,11 @@ class ControllerCommonFileManager extends Controller {
                     $url .= '&ckedialog=' . $this->request->get['ckedialog'];
                 }
                 $data['images'][] = array(
-                  'thumb' => '',
-                  'name'  => $name,
-                  'type'  => 'directory',
-                  'path'  => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
-                  'href'  => $this->url->link('common/filemanager', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_substr($image, utf8_strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
+                    'thumb' => '',
+                    'name'  => $name,
+                    'type'  => 'directory',
+                    'path'  => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
+                    'href'  => $this->url->link('common/filemanager', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_substr($image, utf8_strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
                 );
             } elseif (substr(str_replace('\\', '/', realpath($image)), 0, utf8_strlen(DIR_IMAGE . 'catalog')) == DIR_IMAGE . 'catalog') {
 
@@ -97,13 +97,12 @@ class ControllerCommonFileManager extends Controller {
                 }
 
 
-
                 $data['images'][] = array(
-                  'thumb' => $thumb,
-                  'name'  => $name,
-                  'type'  => 'image',
-                  'path'  => $path,
-                  'href'  => $server . 'image/' . utf8_substr($image, utf8_strlen(DIR_IMAGE))
+                    'thumb' => $thumb,
+                    'name'  => $name,
+                    'type'  => 'image',
+                    'path'  => $path,
+                    'href'  => $server . 'image/' . utf8_substr($image, utf8_strlen(DIR_IMAGE))
                 );
             }
         }
@@ -227,7 +226,7 @@ class ControllerCommonFileManager extends Controller {
 
         $data['pagination'] = $pagination->render();
 
-        if(isset($this->request->get['view']) && $this->request->get['view'] == 'list') {
+        if (isset($this->request->get['view']) && $this->request->get['view'] == 'list') {
             $this->response->setOutput($this->load->view('common/filemanager_list', $data));
         } else {
             $this->response->setOutput($this->load->view('common/filemanager', $data));
@@ -260,20 +259,20 @@ class ControllerCommonFileManager extends Controller {
             // Check if multiple files are uploaded or just one
             $files = array();
 
-            $max = return_bytes( ini_get('post_max_size') );
-            if( $max < $_SERVER['CONTENT_LENGTH']) {
+            $max = return_bytes(ini_get('post_max_size'));
+            if ($max < $_SERVER['CONTENT_LENGTH']) {
                 $json['error'] = $this->language->get('error_filesize');
-                $json['error'] .= "\n". sprintf($this->language->get('error_filesize_allowed'), ini_get('post_max_size')) ;
+                $json['error'] .= "\n" . sprintf($this->language->get('error_filesize_allowed'), ini_get('post_max_size'));
             }
 
             if (!empty($this->request->files['file']['name']) && is_array($this->request->files['file']['name'])) {
                 foreach (array_keys($this->request->files['file']['name']) as $key) {
                     $files[] = array(
-                      'name'     => $this->request->files['file']['name'][$key],
-                      'type'     => $this->request->files['file']['type'][$key],
-                      'tmp_name' => $this->request->files['file']['tmp_name'][$key],
-                      'error'    => $this->request->files['file']['error'][$key],
-                      'size'     => $this->request->files['file']['size'][$key]
+                        'name'     => $this->request->files['file']['name'][$key],
+                        'type'     => $this->request->files['file']['type'][$key],
+                        'tmp_name' => $this->request->files['file']['tmp_name'][$key],
+                        'error'    => $this->request->files['file']['error'][$key],
+                        'size'     => $this->request->files['file']['size'][$key]
                     );
                 }
             }
@@ -290,11 +289,11 @@ class ControllerCommonFileManager extends Controller {
 
                     // Allowed file extension types
                     $allowed = array(
-                      'jpg',
-                      'jpeg',
-                      'gif',
-                      'png',
-                      'svg',
+                        'jpg',
+                        'jpeg',
+                        'gif',
+                        'png',
+                        'svg',
                     );
 
                     if (!in_array(utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)), $allowed)) {
@@ -303,12 +302,12 @@ class ControllerCommonFileManager extends Controller {
 
                     // Allowed file mime types
                     $allowed = array(
-                      'image/jpeg',
-                      'image/pjpeg',
-                      'image/png',
-                      'image/x-png',
-                      'image/gif',
-                      'image/svg+xml',
+                        'image/jpeg',
+                        'image/pjpeg',
+                        'image/png',
+                        'image/x-png',
+                        'image/gif',
+                        'image/svg+xml',
                     );
 
                     if (!in_array($file['type'], $allowed)) {
@@ -329,11 +328,11 @@ class ControllerCommonFileManager extends Controller {
 
 
                     // Copona: add suffix, if filename exists
-                    if(file_exists( $directory . '/' . $filename )) {
+                    if (file_exists($directory . '/' . $filename)) {
                         $filename_ext = pathinfo($filename, PATHINFO_EXTENSION);
-                        for($i = 1; $i<100; $i++){
-                            $filename_new = preg_replace('/^(.*)\.' . $filename_ext . '$/', '$1_'. $i . "." . $filename_ext, $filename);
-                            if(!file_exists( $directory . '/' . $filename_new )){
+                        for ($i = 1; $i < 100; $i++) {
+                            $filename_new = preg_replace('/^(.*)\.' . $filename_ext . '$/', '$1_' . $i . "." . $filename_ext, $filename);
+                            if (!file_exists($directory . '/' . $filename_new)) {
                                 $filename = $filename_new;
                                 break;
                             }
@@ -392,7 +391,7 @@ class ControllerCommonFileManager extends Controller {
 
         if (!isset($json['error'])) {
             mkdir($directory . '/' . $folder, 0777);
-            if( file_exists( $directory . '/' . $folder )){
+            if (file_exists($directory . '/' . $folder)) {
                 chmod($directory . '/' . $folder, 0777);
                 @touch($directory . '/' . $folder . '/' . 'index.html');
 

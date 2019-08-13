@@ -157,14 +157,14 @@
           success: function (json) {
             if (json['error']) {
               $(".filemanager.alert-success").addClass('alert-danger');
-              $(".filemanager.alert-success .message").text( json['error'] );
+              $(".filemanager.alert-success .message").text(json['error']);
               $(".filemanager.alert-success").show();
               $('#button-refresh').trigger('click');
             }
 
             if (json['success']) {
               $(".filemanager.alert-success").removeClass('alert-danger');
-              $(".filemanager.alert-success .message").text( json['success'] );
+              $(".filemanager.alert-success .message").text(json['success']);
               $(".filemanager.alert-success").show();
 
               $('#button-refresh').trigger('click');
@@ -210,14 +210,14 @@
 
           if (json['error']) {
             $(".filemanager.alert-success").addClass('alert-danger');
-            $(".filemanager.alert-success .message").text( json['error'] );
+            $(".filemanager.alert-success .message").text(json['error']);
             $(".filemanager.alert-success").show();
             $('#button-refresh').trigger('click');
           }
 
           if (json['success']) {
             $(".filemanager.alert-success").removeClass('alert-danger');
-            $(".filemanager.alert-success .message").text( json['success'] );
+            $(".filemanager.alert-success .message").text(json['success']);
             $(".filemanager.alert-success").show();
 
             $('#button-refresh').trigger('click');
@@ -247,14 +247,14 @@
         success: function (json) {
           if (json['error']) {
             $(".filemanager.alert-success").addClass('alert-danger');
-            $(".filemanager.alert-success .message").text( json['error'] );
+            $(".filemanager.alert-success .message").text(json['error']);
             $(".filemanager.alert-success").show();
             $('#button-refresh').trigger('click');
           }
 
           if (json['success']) {
             $(".filemanager.alert-success").removeClass('alert-danger');
-            $(".filemanager.alert-success .message").text( json['success'] );
+            $(".filemanager.alert-success .message").text(json['success']);
             $(".filemanager.alert-success").show();
 
             $('#button-refresh').trigger('click');
