@@ -649,6 +649,8 @@ class ControllerCommonColumnLeft extends Controller {
                 );
             }
 
+            $this->hook->getHook('admin/menu/system/tool',$tool);
+
             if ($system) {
                 $data['menus'][] = array(
                     'id'       => 'menu-system',
