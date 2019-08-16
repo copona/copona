@@ -326,6 +326,7 @@ function strip2words($short_description = '', $string_length = 200, $newlines = 
 function return_bytes($val) {
     $val = trim($val);
     $last = strtolower($val[strlen($val)-1]);
+    $val = trim(strtolower($val),$last);
     switch($last) {
         // The 'G' modifier is available since PHP 5.1.0
         case 'g':
