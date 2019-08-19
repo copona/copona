@@ -11,6 +11,10 @@ class ModelToolImage extends Model
 
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
+        if (strtolower($extension) == 'svg') {
+            return $this->url->getImageUrlOriginal($filename);
+        }
+
         $image_old = $filename;
         $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
 
@@ -64,8 +68,11 @@ class ModelToolImage extends Model
             return;
         }
 
-        $info = pathinfo($filename);
-        $extension = $info['extension'];
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+        if (strtolower($extension) == 'svg') {
+            return $this->url->getImageUrlOriginal($filename);
+        }
 
         $old_image = $filename;
         $new_image = substr($filename, 0, strrpos($filename, '.')) . '-max-' . $maxsize . '.' . $extension;
@@ -105,8 +112,11 @@ class ModelToolImage extends Model
             return;
         }
 
-        $info = pathinfo($filename);
-        $extension = $info['extension'];
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+        if (strtolower($extension) == 'svg') {
+            return $this->url->getImageUrlOriginal($filename);
+        }
 
         $old_image = $filename;
         $new_image = substr($filename, 0, strrpos($filename, '.')) . '-cr-' . $width . 'x' . $height . '.' . $extension;
@@ -135,9 +145,11 @@ class ModelToolImage extends Model
             return;
         }
 
-        $info = pathinfo($filename);
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
-        $extension = $info['extension'];
+        if (strtolower($extension) == 'svg') {
+            return $this->url->getImageUrlOriginal($filename);
+        }
 
         $old_image = $filename;
         $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
@@ -178,9 +190,11 @@ class ModelToolImage extends Model
             return;
         }
 
-        $info = pathinfo($filename);
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
-        $extension = $info['extension'];
+        if (strtolower($extension) == 'svg') {
+            return $this->url->getImageUrlOriginal($filename);
+        }
 
         $old_image = $filename;
         $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ds-' . $width . 'x' . $height . $type . '.' . $extension;

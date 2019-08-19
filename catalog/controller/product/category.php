@@ -428,19 +428,15 @@ class ControllerProductCategory extends Controller
             // http://googlewebmastercentral.blogspot.com/2011/09/pagination-with-relnext-and-relprev.html
             if ($params['page'] == 1) {
                 $this->document->addLink($this->url->link('product/category', 'path=' . $category_id), 'canonical');
-            } elseif ($params['page'] == 2) {
-                $this->document->addLink($this->url->link('product/category', 'path=' . $category_id), 'prev');
-            } else {
-                $this->document->addLink($this->url->link('product/category',
-                    'path=' . $category_id . '&page=' . ($params['page'] - 1)), 'prev');
             }
 
-            if ($params['limit'] && ceil($product_total / $params['limit']) > $params['page']) {
-                $this->document->addLink($this->url->link('product/category',
-                    'path=' . $category_id . '&page=' . ($params['page'] + 1)), 'next');
-
+            if ($pagination->url_prev) {
+                $this->document->addLink($pagination->url_prev, 'prev');
             }
 
+            if ($pagination->url_next) {
+                $this->document->addLink($pagination->url_next, 'next');
+            }
 
             $data['sort'] = $params['sort'];
             $data['order'] = $params['order'];
