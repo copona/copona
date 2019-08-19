@@ -92,8 +92,12 @@
 
   $('#button-refresh').on('click', function (e) {
     e.preventDefault();
-
-    $('#modal-image .view_list').load($(this).attr('href') + "&view=list");
+    var url = $(this).attr('href') + "&view=list";
+    var filter_name = $('input[name=\'search\']').val();
+    if (filter_name) {
+      url += '&filter_name=' + encodeURIComponent(filter_name);
+    }
+    $('#modal-image .view_list').load(url);
   });
 
   $('input[name=\'search\']').on('keydown', function (e) {
