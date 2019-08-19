@@ -16,6 +16,11 @@ class ControllerProductSearch extends Controller {
             $search = '';
         }
 
+
+        if(!$search) {
+            $search = $this->request->get('filter_name'); //Back compatibility.
+        }
+
         if (isset($this->request->get['tag'])) {
             $tag = $this->request->get['tag'];
         } elseif (isset($this->request->get['search'])) {
@@ -175,7 +180,7 @@ class ControllerProductSearch extends Controller {
         $data['products'] = [];
         $data['results'] = '';
 
-        if (isset($this->request->get['search']) || isset($this->request->get['tag'])) {
+        if (isset($this->request->get['search']) || $this->request->get['filter_name'] || isset($this->request->get['tag'])) {
             $filter_data = array(
                 'filter_name'         => $search,
                 'filter_tag'          => $tag,
