@@ -33,16 +33,13 @@ class IndexesAndNullsForProductSpecials extends AbstractMigration {
 
         $tableAdapter = new \Phinx\Db\Adapter\TablePrefixAdapter($this->getAdapter());
 
-
-        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_start = '1970-01-01' where date_start is null or date_start < '1970-01-01'");
-        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_end = '9999-12-31' where date_end is null or date_start < '1970-01-01'");
-
-
         $this->table('product_special')
              ->changeColumn('date_end', 'date', ['null' => 'false', 'default' => '9999-12-31'])
              ->changeColumn('date_start', 'date', ['null' => 'false', 'default' => '1970-01-01'])
              ->update();
 
+        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_start = '1970-01-01' where date_start is null or date_start < '1970-01-01'");
+        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_end = '9999-12-31' where date_end is null or date_start < '1970-01-01'");
 
         $table = $this->table('product_special');
         $table->addIndex(['customer_group_id', 'date_start', 'date_end'])
