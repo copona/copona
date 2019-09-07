@@ -80,3 +80,4 @@ $_['entry_company_id'] = 'Registration number';
 $_['error_minimum'] = 'Warning: Minimum order for %s is %s.';
 $_['error_custom_field_validate'] = '%s incorrect';
 $_['entry_zone'] = 'Region / State';
+$_['entry_tax_id'] = 'Tax ID';

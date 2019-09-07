@@ -1,0 +1,51 @@
+/* CheckOut Page*/
+.login-checkout{
+	background-color:rgb(51, 55, 69);
+	color:#fff;
+	font-size:22px;
+	height:auto;
+}
+.login-checkout a{
+	color:#f0e8f1;
+	text-decoration:none;
+	font-size:16px;
+}
+
+.login-form{
+	background-color:#464b5d;
+	padding:10px;
+	color:#fff;
+}
+
+.login-form a{
+	color:#f0e8f1 !important;
+	text-decoration:none;
+	font-size:14px;
+}
+
+.checkout_form{
+font-size: 12px;
+line-height: 17px;
+text-transform: capitalize;
+font-family: 'Droid Arabic Kufi', sans-serif;
+}
+
+.checkout_form h3{
+text-transform: capitalize !important;
+font-family: 'Droid Arabic Kufi', sans-serif !important;
+}
+
+.btn-login {
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #9676b7;
+    background-image: -ms-linear-gradient(top, #8D98BF 50%, #5A617A 100%);
+    background-image: -moz-linear-gradient(top, #8D98BF 50%, #5A617A 100%);
+    background-image: -o-linear-gradient(top, #8D98BF 50%, #5A617A 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(50, #8D98BF), color-stop(100, #5A617A));
+    background-image: -webkit-linear-gradient(top, #8D98BF 50%, #5A617A 100%);
+    background-image: linear-gradient(to bottom, #8D98BF 50%, #5A617A 100%);
+    background-repeat: repeat-x;
+    border: none;
+    font-size: 14px;
+}
