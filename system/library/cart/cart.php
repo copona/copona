@@ -346,6 +346,8 @@ class Cart {
                         $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
                 }
 
+                $href = $this->registry->get('url')->link('product/product','product_id=' . $product_query->row['product_id']);
+
                 $product_data[] = array(
                     'cart_id'                       => $cart['cart_id'],
                     'product_id'                    => $product_query->row['product_id'],
@@ -354,6 +356,7 @@ class Cart {
                     'shipping'                      => $product_query->row['shipping'],
                     'image'                         => $product_query->row['image'],
                     'thumb'                         => $thumb,
+                    'href'                          => $href,
                     'option'                        => $option_data,
                     'ean'                           => $ean,
                     'download'                      => $download_data,
