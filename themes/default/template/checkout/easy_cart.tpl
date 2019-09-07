@@ -1,4 +1,4 @@
-<table id="cart_table" class="table table-bordered table-hover table-responsive">
+<table id="cart_table" class="table table-bordered table-hover table-easy_cart ">
   <thead>
   <tr>
     <th class="text-left"><?php echo $column_name; ?></th>
@@ -28,9 +28,9 @@
   <?php foreach ($vouchers as $voucher) { ?>
     <tr>
       <td class="text-left"><?php echo $voucher['description']; ?></td>
-      <td class="text-left hidden-xs"></td>
-      <td class="text-right hidden-xs">1</td>
-      <td class="text-right hidden-xs"><?php echo $voucher['amount']; ?></td>
+      <td class="text-left"></td>
+      <td class="text-right">1</td>
+      <td class="text-right"><?php echo $voucher['amount']; ?></td>
       <td class="text-right"><?php echo $voucher['amount']; ?></td>
     </tr>
   <?php } ?>
@@ -38,8 +38,7 @@
   <tfoot>
   <?php foreach ($totals as $total) { ?>
     <tr>
-      <td colspan="4" class="text-right  hidden-xs"><strong><?php echo $total['title']; ?>:</strong></td>
-      <td colspan="1" class="text-right  visible-xs"><strong><?php echo $total['title']; ?>:</strong></td>
+      <td colspan="4" class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
       <td class="text-right"><?php echo $total['text']; ?></td>
     </tr>
   <?php } ?>
