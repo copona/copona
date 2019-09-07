@@ -365,7 +365,7 @@ class Cart {
                     'subtract'                      => $product_query->row['subtract'],
                     'stock'                         => $stock,
                     'price'                         => $price,
-                    'total'                         => $price_enduser_total,
+                    'total'                         => $price_total,
                     'content_meta'                  => $this->registry->get('model_catalog_content')->getContentMeta($product_query->row['product_id'], 'product'),
                     'tax'                           => $tax,
                     'tax_amount'                    => $tax_amount / $cart['quantity'], // Do not ROUND and FORMAT!
