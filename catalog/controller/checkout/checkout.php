@@ -1,4 +1,8 @@
 <?php
+
+use PH7\Eu\Vat\Validator;
+use PH7\Eu\Vat\Provider\Europa;
+
 class ControllerCheckoutCheckout extends Controller {
 
     private $checkout_hide_tax_id;
@@ -785,12 +789,16 @@ class ControllerCheckoutCheckout extends Controller {
                 $json = $this->guest_validate($data);
             }
         }
-        if (!isset($json['error']) /*&& !$this->customer->isLogged()*/) {
+
+        if (!isset($json['error'])) {
             $json = array_merge($json, $this->payment_address_validate());
         }
         if (!isset($json['error'])) {
             $json = array_merge($json, $this->shipping_address_validate());
         }
+
+
+
         if (!isset($json['error']) && !$this->customer->isLogged()) {
             $json = array_merge($json, $this->shipping_method_validate());
         }
@@ -1130,6 +1138,8 @@ class ControllerCheckoutCheckout extends Controller {
             }
         }
 
+
+
         if (!$json) {
 
             $this->load->model('account/customer');
@@ -1198,7 +1208,10 @@ class ControllerCheckoutCheckout extends Controller {
 
 
                 // VAT Validation
-                $this->load->helper('vat');
+                // https://github.com/pH-7/eu-vat-validator/
+                // $this->load->helper('vat');
+
+                // prd($this->vatValidation($this->request->post['tax_id']));
 
                 if ($this->config->get('config_vat') && $this->request->post['tax_id'] && (vat_validation($country_info['iso_code_2'], $this->request->post['tax_id']) == 'invalid')) {
                     $json['error']['tax_id'] = $this->language->get('error_vat');
@@ -1232,6 +1245,8 @@ class ControllerCheckoutCheckout extends Controller {
                 }
             }
         }
+
+
 
         if (!$json) {
             //uncomment this
@@ -2669,5 +2684,44 @@ class ControllerCheckoutCheckout extends Controller {
         }
 
 
+    }
+
+    public function vatValidation($vat = ''){
+
+        $vat = $this->request->get('vat');
+
+        // prd($vat);
+        //check cache at first!
+        if(!$vat || !gettype($vat) == 'string') {
+            return false;
+        }
+
+        if($this->cache->get('validate_' . $vat)){
+            return true;
+        }
+
+        try{
+            $oVatValidator = new Validator(new Europa, substr($vat,2) , substr($vat,0,2));
+        } catch(Exception $e){
+            $this->log->write($e->getMessage());
+            return false;
+        }
+
+        if ($oVatValidator->check()) {
+            $this->cache->set('validate_' . $vat, $oVatValidator->getRequestDate());
+            return true;
+            $sRequestDate = $oVatValidator->getRequestDate();
+            // Optional, format the date
+            //$sFormattedRequestDate = (new DateTime)->format('d-m-Y');
+
+            //echo 'Business Name: ' . $oVatValidator->getName() . '<br />';
+            //echo 'Address: ' . $oVatValidator->getAddress() . '<br />';
+            //echo 'Request Date: ' . $sFormattedRequestDate . '<br />';
+            //echo 'Member State: ' . $oVatValidator->getCountryCode() . '<br />';
+            //echo 'VAT Number: ' . $oVatValidator->getVatNumber() . '<br />';
+        } else {
+            $this->cache->set('validate_' . $vat, false);
+            echo 'Invalid VAT number';
+        }
     }
 }

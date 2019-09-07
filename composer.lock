@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e52123feb4d912509c68800e5d7f06d",
+    "content-hash": "24fdf46edd29f4c15bd80be5e201bc8c",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -1722,6 +1722,64 @@
                 "random"
             ],
             "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "ph-7/eu-vat-validator",
+            "version": "2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pH-7/eu-vat-validator.git",
+                "reference": "4e4ece8aca4e4e274f278bb711fa8d5ebf050338"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pH-7/eu-vat-validator/zipball/4e4ece8aca4e4e274f278bb711fa8d5ebf050338",
+                "reference": "4e4ece8aca4e4e274f278bb711fa8d5ebf050338",
+                "shasum": ""
+            },
+            "require": {
+                "ext-soap": "*",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phake/phake": "^2.3",
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PH7\\Eu\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Pierre-Henry Soria",
+                    "email": "hi@ph7.me",
+                    "homepage": "http://about.ph7.me",
+                    "role": "Software Engineer"
+                }
+            ],
+            "description": "A simple and clean PHP class that validates EU VAT numbers against the central ec.europa.eu database (using the official europa API).",
+            "homepage": "http://ph7.me",
+            "keywords": [
+                "TVA",
+                "eu vat",
+                "tva number",
+                "validate eu vat",
+                "validate vat number",
+                "validation",
+                "validator",
+                "vat",
+                "vat number",
+                "vat number validator",
+                "vat validator",
+                "vies"
+            ],
+            "time": "2019-04-09T07:33:09+00:00"
         },
         {
             "name": "phpfastcache/phpfastcache",

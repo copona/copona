@@ -13,7 +13,8 @@
   "require": {
     "php": ">=7.1.0",
     "copona/core": "dev-master",
-    "plasticbrain/php-flash-messages": "^1.0"
+    "plasticbrain/php-flash-messages": "^1.0",
+    "ph-7/eu-vat-validator": "^2.7"
   },
   "autoload": {
     "psr-4": {
