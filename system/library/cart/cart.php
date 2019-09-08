@@ -365,7 +365,7 @@ class Cart {
                     'subtract'                      => $product_query->row['subtract'],
                     'stock'                         => $stock,
                     'price'                         => $price,
-                    'total'                         => $price_enduser_total,
+                    'total'                         => $price_total,
                     'content_meta'                  => $this->registry->get('model_catalog_content')->getContentMeta($product_query->row['product_id'], 'product'),
                     'tax'                           => $tax,
                     'tax_amount'                    => $tax_amount / $cart['quantity'], // Do not ROUND and FORMAT!
@@ -539,7 +539,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     public function getTotal() {
         $total = 0;
         foreach ($this->cartProducts as $product) {
-            $total += $this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax'));
+            // $total += $this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax'));
+            $total += $product['price_enduser_total'];
         }
         return $total;
     }

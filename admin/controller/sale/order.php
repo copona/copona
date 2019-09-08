@@ -211,16 +211,16 @@ class ControllerSaleOrder extends Controller {
 
         foreach ($results as $result) {
             $data['orders'][] = array(
-                'order_id'      => $result['order_id'],
-                'customer'      => $result['customer'],
-                'order_status'  => $result['order_status'] ? $result['order_status'] : $this->language->get('text_missing'),
-                'total'         => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
-                'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-                'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
-                'shipping_code' => $result['shipping_code'],
-                'payment_method'=> $result['payment_method'],
-                'view'          => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, true),
-                'edit'          => $this->url->link('sale/order/edit', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, true)
+                'order_id'       => $result['order_id'],
+                'customer'       => $result['customer'],
+                'order_status'   => $result['order_status'] ? $result['order_status'] : $this->language->get('text_missing'),
+                'total'          => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
+                'date_added'     => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+                'date_modified'  => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
+                'shipping_code'  => $result['shipping_code'],
+                'payment_method' => $result['payment_method'],
+                'view'           => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, true),
+                'edit'           => $this->url->link('sale/order/edit', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, true)
             );
         }
 
@@ -333,7 +333,9 @@ class ControllerSaleOrder extends Controller {
 
         $data['pagination'] = $pagination->render();
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($order_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($order_total - $this->config->get('config_limit_admin'))) ? $order_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $order_total, ceil($order_total / $this->config->get('config_limit_admin')));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($order_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0,
+            ((($page - 1) * $this->config->get('config_limit_admin')) > ($order_total - $this->config->get('config_limit_admin'))) ? $order_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')),
+            $order_total, ceil($order_total / $this->config->get('config_limit_admin')));
 
         $data['filter_order_id'] = $filter_order_id;
         $data['filter_customer'] = $filter_customer;
@@ -673,7 +675,7 @@ class ControllerSaleOrder extends Controller {
         $order_info = $this->model_sale_order->getOrder($order_id);
 
         if ($order_info) {
-            $data = $this->load->language('sale/order');
+
 
             $this->document->setTitle($this->language->get('heading_title'));
 
@@ -698,8 +700,8 @@ class ControllerSaleOrder extends Controller {
                 'filter_order_status',
             ];
 
-            foreach($url_fields as $key) {
-                if ( $this->request->get($key) ) {
+            foreach ($url_fields as $key) {
+                if ($this->request->get($key)) {
                     $url .= '&filter_order_status=' . $this->request->get($key);
                 }
             }
@@ -807,8 +809,11 @@ class ControllerSaleOrder extends Controller {
                 'country'   => $order_info['payment_country']
             );
 
-            $data['payment_address'] = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
-                "/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
+            $data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array(
+                "/\s\s+/",
+                "/\r\r+/",
+                "/\n\n+/"
+            ), '<br />', trim(str_replace($find, $replace, $format))));
 
             // Shipping Address
             if ($order_info['shipping_address_format']) {
@@ -843,8 +848,11 @@ class ControllerSaleOrder extends Controller {
                 'country'   => $order_info['shipping_country']
             );
 
-            $data['shipping_address'] = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
-                "/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
+            $data['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array(
+                "/\s\s+/",
+                "/\r\r+/",
+                "/\n\n+/"
+            ), '<br />', trim(str_replace($find, $replace, $format))));
 
             // Uploaded files
             $this->load->model('tool/upload');
@@ -886,8 +894,10 @@ class ControllerSaleOrder extends Controller {
                     'model'            => $product['model'],
                     'option'           => $option_data,
                     'quantity'         => $product['quantity'],
-                    'price'            => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
-                    'total'            => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
+                    'price'            => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'],
+                        $order_info['currency_value']),
+                    'total'            => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'],
+                        $order_info['currency_value']),
                     'href'             => $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $product['product_id'], true)
                 );
             }
@@ -1127,13 +1137,10 @@ class ControllerSaleOrder extends Controller {
             $data['tabs'] = array();
 
             if ($this->user->hasPermission('access', 'extension/payment/' . $order_info['payment_code'])) {
-                if (is_file(DIR_CATALOG . 'controller/extension/payment/' . $order_info['payment_code'] . '.php')) {
-                    try {
-                        $content = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '/order');
-                    } catch (Exception $e) {
-                        $content = null;
-                    }
-                } else {
+
+                try {
+                    $content = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '/order');
+                } catch (Exception $e) {
                     $content = null;
                 }
 
@@ -1257,7 +1264,8 @@ class ControllerSaleOrder extends Controller {
                 $reward_total = $this->model_customer_customer->getTotalCustomerRewardsByOrderId($order_id);
 
                 if (!$reward_total) {
-                    $this->model_customer_customer->addReward($order_info['customer_id'], $this->language->get('text_order_id') . ' #' . $order_id, $order_info['reward'], $order_id);
+                    $this->model_customer_customer->addReward($order_info['customer_id'], $this->language->get('text_order_id') . ' #' . $order_id, $order_info['reward'],
+                        $order_id);
                 }
             }
 
@@ -1323,7 +1331,10 @@ class ControllerSaleOrder extends Controller {
                 $affiliate_total = $this->model_marketing_affiliate->getTotalTransactionsByOrderId($order_id);
 
                 if (!$affiliate_total) {
-                    $this->model_customer_customer->addTransaction($order_info['affiliate_id'], $this->language->get('text_order_id') . ' #' . $order_id, $order_info['commission'], $order_id);
+                    //TODO:    model_customer_customer->addTransaction
+                    // OR: model_marketing_affiliate->addTransaction ???
+                    $this->model_customer_customer->addTransaction($order_info['affiliate_id'], $this->language->get('text_order_id') . ' #' . $order_id, $order_info['commission'],
+                        $order_id);
                 }
             }
 
@@ -1406,7 +1417,8 @@ class ControllerSaleOrder extends Controller {
 
         $data['pagination'] = $pagination->render();
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0,
+            ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
         $this->response->setOutput($this->load->view('sale/order_history', $data));
     }
@@ -1517,8 +1529,11 @@ class ControllerSaleOrder extends Controller {
                     'country'   => $order_info['payment_country']
                 );
 
-                $payment_address = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
-                    "/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
+                $payment_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array(
+                    "/\s\s+/",
+                    "/\r\r+/",
+                    "/\n\n+/"
+                ), '<br />', trim(str_replace($find, $replace, $format))));
 
                 if ($order_info['shipping_address_format']) {
                     $format = $order_info['shipping_address_format'];
@@ -1552,8 +1567,11 @@ class ControllerSaleOrder extends Controller {
                     'country'   => $order_info['shipping_country']
                 );
 
-                $shipping_address = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
-                    "/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
+                $shipping_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array(
+                    "/\s\s+/",
+                    "/\r\r+/",
+                    "/\n\n+/"
+                ), '<br />', trim(str_replace($find, $replace, $format))));
 
                 $this->load->model('tool/upload');
 
@@ -1590,8 +1608,10 @@ class ControllerSaleOrder extends Controller {
                         'model'    => $product['model'],
                         'option'   => $option_data,
                         'quantity' => $product['quantity'],
-                        'price'    => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
-                        'total'    => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value'])
+                        'price'    => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'],
+                            $order_info['currency_value']),
+                        'total'    => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'],
+                            $order_info['currency_value'])
                     );
                 }
 
@@ -1760,8 +1780,11 @@ class ControllerSaleOrder extends Controller {
                     'country'   => $order_info['shipping_country']
                 );
 
-                $shipping_address = str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
-                    "/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format))));
+                $shipping_address = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array(
+                    "/\s\s+/",
+                    "/\r\r+/",
+                    "/\n\n+/"
+                ), '<br />', trim(str_replace($find, $replace, $format))));
 
                 $this->load->model('tool/upload');
 
@@ -1820,7 +1843,8 @@ class ControllerSaleOrder extends Controller {
                             'jan'      => $product_info['jan'],
                             'isbn'     => $product_info['isbn'],
                             'mpn'      => $product_info['mpn'],
-                            'weight'   => $this->weight->format(($product_info['weight'] + $option_weight) * $product['quantity'], $product_info['weight_class_id'], $this->language->get('decimal_point'), $this->language->get('thousand_point'))
+                            'weight'   => $this->weight->format(($product_info['weight'] + $option_weight) * $product['quantity'], $product_info['weight_class_id'],
+                                $this->language->get('decimal_point'), $this->language->get('thousand_point'))
                         );
                     }
                 }

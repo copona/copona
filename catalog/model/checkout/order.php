@@ -9,7 +9,6 @@ class ModelCheckoutOrder extends Model {
     }
 
     public function addOrder($data) {
-
         $this->db->query("INSERT INTO `" . DB_PREFIX . "order` SET invoice_prefix = '" . $this->db->escape($data['invoice_prefix']) . "'"
                          . ", store_id = '" . (int)$data['store_id'] . "'"
                          . ", store_name = '" . $this->db->escape($data['store_name']) . "'"
