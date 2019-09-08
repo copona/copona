@@ -22,13 +22,13 @@ class ControllerCheckoutCheckout extends Controller {
         $data = $this->load->language('checkout/checkout');
 
         $this->document->setTitle($this->language->get('heading_title'));
-        // $this->document->addScript('catalog/view/javascript/jquery/jquery.colorbox-min.js');
-        // $this->document->addStyle('catalog/view/javascript/jquery/colorbox.css');
-        // $this->document->addStyle('catalog/view/javascript/jquery/checkout.css');
+        $this->document->addScript('catalog/view/javascript/jquery/jquery.colorbox-min.js');
+        $this->document->addStyle('catalog/view/javascript/jquery/colorbox.css');
+        $this->document->addStyle('catalog/view/javascript/jquery/checkout.css');
 
-        $this->document->addScript('assets/js/easy_checkout/jquery.colorbox-min.js');
-        $this->document->addStyle('assets/js/easy_checkout/colorbox.css');
-        $this->document->addStyle('assets/js/easy_checkout/checkout.css');
+        // $this->document->addScript('assets/js/easy_checkout/jquery.colorbox-min.js');
+        // $this->document->addStyle('assets/js/easy_checkout/colorbox.css');
+        // $this->document->addStyle('assets/js/easy_checkout/checkout.css');
 
         if (isset($this->session->data['shipping_address_id'])) {
             unset($this->session->data['shipping_address_id']);
@@ -459,12 +459,11 @@ class ControllerCheckoutCheckout extends Controller {
         $data['entry_firstname'] = $this->language->get('entry_firstname');
         $data['entry_lastname'] = $this->language->get('entry_lastname');
         $data['entry_company'] = $this->language->get('entry_company');
-        if ($this->language->get('entry_company_id') != 'entry_company_id') {
-            $data['entry_company_id'] = $this->language->get('entry_company_id');
-        }
-        if ($this->language->get('entry_tax_id') != 'entry_tax_id') {
-            $data['entry_tax_id'] = $this->language->get('entry_tax_id');
-        }
+
+        // Two new translations:
+        $data['entry_company_id'] = $this->language->get('entry_company_id');
+        $data['entry_tax_id'] = $this->language->get('entry_tax_id');
+
         $data['entry_address_1'] = $this->language->get('entry_address_1');
         $data['entry_address_2'] = $this->language->get('entry_address_2');
         $data['entry_postcode'] = $this->language->get('entry_postcode');
@@ -2146,6 +2145,8 @@ class ControllerCheckoutCheckout extends Controller {
 
     public function confirm($render = true, &$data = array()) {
 
+
+
         $redirect = '';
         //var_dump($this->session->data['shipping_method']);
         $data['payment'] = '';
@@ -2224,11 +2225,7 @@ class ControllerCheckoutCheckout extends Controller {
         }
 
 
-
-
         if (isset($_POST) && !empty($_POST)) {
-
-
 
             if ($this->customer->isLogged()) {
                 $this->load->model('account/customer');
@@ -2570,7 +2567,7 @@ class ControllerCheckoutCheckout extends Controller {
             }
 
             $order_data['comment'] = $this->session->data['comment'];
-            $order_data['total'] = $this->cart->getTotal();
+            $order_data['total'] = $this->cart->getCartTotal();
 
             if (isset($this->request->cookie['tracking'])) {
                 $order_data['tracking'] = $this->request->cookie['tracking'];
@@ -2655,9 +2652,6 @@ class ControllerCheckoutCheckout extends Controller {
         $data['products'] = $this->cart->getProducts();
         // 'price'      => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
 
-
-
-
         // Gift Voucher
         $data['vouchers'] = array();
 
@@ -2678,6 +2672,9 @@ class ControllerCheckoutCheckout extends Controller {
                 'text'  => $this->currency->format($total['value'], $this->session->data['currency'])
             );
         }
+
+
+
         if ($render !== false) {
             $data['payment'] = $this->load->controller('extension/payment/' . $this->session->data['payment_method']['code']);
             $this->response->setOutput($this->load->view('checkout/easy_confirm', $data));

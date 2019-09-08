@@ -40,7 +40,8 @@
                       </div>&nbsp;&nbsp;
                       <div class="form-group">
                         <label class="control-label" for="input-password"><?php echo $entry_password; ?></label>
-                        <input type="password" name="password" value="" placeholder="<?php echo str_replace(':', '', $entry_password); ?>" id="input-password" class="form-control"/>
+                        <input type="password" name="password" value="" placeholder="<?php echo str_replace(':', '', $entry_password); ?>" id="input-password"
+                               class="form-control"/>
                       </div>
                     </div>
                     <div class="form-group col-md-4">
@@ -88,32 +89,37 @@
                   echo $address['firstname'];
               } elseif (isset($firstname)) {
                   echo $firstname;
-              } ?>" placeholder="<?php echo str_replace(':', '', $entry_firstname); ?>" id="input-payment-firstname" class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>/>
+              } ?>" placeholder="<?php echo str_replace(':', '', $entry_firstname); ?>" id="input-payment-firstname"
+                     class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>/>
             </div>
             <div class="form-group required col-md-6">
               <label class="control-label" for="input-payment-lastname"><?php echo $entry_lastname; ?></label>
               <input type="text" name="lastname" value="<?php if (isset($lastname)) {
                   echo $lastname;
-              } ?>" placeholder="<?php echo str_replace(':', '', $entry_lastname); ?>" id="input-payment-lastname" class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>/>
+              } ?>" placeholder="<?php echo str_replace(':', '', $entry_lastname); ?>" id="input-payment-lastname"
+                     class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>/>
             </div>
             <div class="form-group required col-md-12">
               <label class="control-label" for="input-payment-email"><?php echo $entry_email; ?></label>
               <input type="text" name="email" value="<?php if (isset($email)) {
                   echo $email;
-              } ?>" placeholder="<?php echo str_replace(':', '', $entry_email); ?>" id="input-payment-email" class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>/>
+              } ?>" placeholder="<?php echo str_replace(':', '', $entry_email); ?>" id="input-payment-email"
+                     class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>/>
             </div>
             <div class="form-group required col-md-12">
               <label class="control-label" for="input-payment-telephone"><?php echo $entry_telephone; ?></label>
               <input type="text" name="telephone" value="<?php if (isset($telephone)) {
                   echo $telephone;
-              } ?>" placeholder="<?php echo str_replace(':', '', $entry_telephone); ?>" id="input-payment-telephone" class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>/>
+              } ?>" placeholder="<?php echo str_replace(':', '', $entry_telephone); ?>" id="input-payment-telephone"
+                     class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>/>
             </div>
 
             <div class="form-group col-md-6">
               <label class="control-label" for="input-payment-fax"><?php echo $entry_fax; ?></label>
               <input type="text" name="fax" value="<?php if (isset($fax)) {
                   echo $fax;
-              } ?>" placeholder="<?php echo str_replace(':', '', $entry_fax); ?>" id="input-payment-fax" class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>/>
+              } ?>" placeholder="<?php echo str_replace(':', '', $entry_fax); ?>" id="input-payment-fax"
+                     class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>/>
             </div>
 
 
@@ -151,41 +157,43 @@
                 } ?>
             </div>
 
-            <div id="payment-address-new" <?php if (isset($customer_id) && $addresses) { ?>    style="display:none"<?php } ?>>
-                <?php // if (!$checkout_hide_company){?>
-              <div class="form-group col-md-6">
+            <div id="payment-address-new" class="col-sm-12">
+              <div class="row">
+                <div class="form-group col-sm-12">
                 <label class="control-label" for="input-payment-company"><?php echo $entry_company; ?></label>
                 <input type="text" name="company" value="<?php if (isset($company)) {
                     echo $company;
                 } ?>" placeholder="<?php echo str_replace(':', '', $entry_company); ?>" id="input-payment-company" class="form-control"/>
               </div>
-                <?php //} else {?>
-              <input type="hidden" name="company" value=""/>
-                <?php //}?>
 
-                <?php if (isset($entry_company_id)) {
-                    if (!$checkout_hide_company_id) { ?>
-                      <div class="form-group col-md-6">
+              <input type="hidden" name="company" value=""/>
+
+
+                  <?php if (isset($entry_company_id)) {
+                      if (!$checkout_hide_company_id) { ?>
+                        <div class="form-group col-sm-6">
                     <label class="control-label" for="input-payment-company"><?php echo $entry_company_id; ?></label>
                     <input type="text" name="company_id" value="<?php if (isset($company_id)) {
                         echo $company_id;
                     } ?>" placeholder="<?php echo str_replace(':', '', $entry_company_id); ?>" id="input-payment-company-id" class="form-control"/>
                   </div>
-                    <?php } else { ?>
-                      <input type="hidden" name="company_id" value=""/>
-                    <?php } ?>
+                      <?php } else { ?>
+                        <input type="hidden" name="company_id" value=""/>
+                      <?php } ?>
 
                     <?php if (!$checkout_hide_tax_id) { ?>
-                    <div class="form-group col-md-6">
+                      <div class="form-group col-md-6">
                       <label class="control-label" for="input-tax-id-"><?php echo $entry_tax_id; ?></label>
                       <input type="text" name="tax_id" value="<?php if (isset($tax_id)) {
                           echo $tax_id;
                       } ?>" placeholder="<?php echo str_replace(':', '', $entry_tax_id); ?>" id="input-tax-id-" class="form-control"/>
                     </div>
-                    <?php } else { ?>
-                    <input type="hidden" name="tax_id" value=""/>
-                    <?php }
-                } ?>
+                      <?php } else { ?>
+                      <input type="hidden" name="tax_id" value=""/>
+                      <?php }
+                  } ?>
+              </div>
+              <div class="row">
 
               <div class="form-group required col-md-12">
                 <label class="control-label" for="input-payment-address-1"><?php echo $entry_address_1; ?></label>
@@ -229,6 +237,10 @@
                     echo $postcode;
                 } ?>" placeholder="<?php echo str_replace(':', '', $entry_postcode); ?>" id="input-payment-postcode" class="form-control"/>
               </div>
+              </div>
+
+
+
             </div>
 
               <?php if (!isset($customer_id)) { ?>
@@ -242,7 +254,8 @@
             <div class="register-form" style="display:none">
               <div class="form-group required col-md-6">
                 <label class="control-label" for="input-payment-password"><?php echo $entry_password; ?></label>
-                <input type="password" name="password" value="" placeholder="<?php echo str_replace(':', '', $entry_password); ?>" id="input-payment-password" class="form-control"/>
+                <input type="password" name="password" value="" placeholder="<?php echo str_replace(':', '', $entry_password); ?>" id="input-payment-password"
+                       class="form-control"/>
               </div>
               <div class="form-group required col-md-6">
                 <label class="control-label" for="input-payment-confirm"><?php echo $entry_confirm; ?></label>
@@ -373,20 +386,23 @@
                   <div class="form-group required">
                     <label class="control-label" for="input-shipping-firstname"><?php echo $entry_firstname; ?></label>
                     <div class="">
-                      <input type="text" name="shipping_firstname" value="" placeholder="<?php echo str_replace(':', '', $entry_firstname); ?>" id="input-shipping-firstname" class="form-control"/>
+                      <input type="text" name="shipping_firstname" value="" placeholder="<?php echo str_replace(':', '', $entry_firstname); ?>" id="input-shipping-firstname"
+                             class="form-control"/>
                     </div>
                   </div>
                   <div class="form-group required">
                     <label class="control-label" for="input-shipping-lastname"><?php echo $entry_lastname; ?></label>
                     <div class="">
-                      <input type="text" name="shipping_lastname" value="" placeholder="<?php echo str_replace(':', '', $entry_lastname); ?>" id="input-shipping-lastname" class="form-control"/>
+                      <input type="text" name="shipping_lastname" value="" placeholder="<?php echo str_replace(':', '', $entry_lastname); ?>" id="input-shipping-lastname"
+                             class="form-control"/>
                     </div>
                   </div>
                     <?php //if (!$checkout_hide_company_id){?>
                   <div class="form-group">
                     <label class="control-label" for="input-shipping-company"><?php echo $entry_company; ?></label>
                     <div class="">
-                      <input type="text" name="shipping_company" value="" placeholder="<?php echo str_replace(':', '', $entry_company); ?>" id="input-shipping-company" class="form-control"/>
+                      <input type="text" name="shipping_company" value="" placeholder="<?php echo str_replace(':', '', $entry_company); ?>" id="input-shipping-company"
+                             class="form-control"/>
                     </div>
                   </div>
                     <?php //} else {?>
@@ -395,25 +411,29 @@
                   <div class="form-group required">
                     <label class="control-label" for="input-shipping-address-1"><?php echo $entry_address_1; ?></label>
                     <div class="">
-                      <input type="text" name="shipping_address_1" value="" placeholder="<?php echo str_replace(':', '', $entry_address_1); ?>" id="input-shipping-address-1" class="form-control"/>
+                      <input type="text" name="shipping_address_1" value="" placeholder="<?php echo str_replace(':', '', $entry_address_1); ?>" id="input-shipping-address-1"
+                             class="form-control"/>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label" for="input-shipping-address-2"><?php echo $entry_address_2; ?></label>
                     <div class="">
-                      <input type="text" name="shipping_address_2" value="" placeholder="<?php echo str_replace(':', '', $entry_address_2); ?>" id="input-shipping-address-2" class="form-control"/>
+                      <input type="text" name="shipping_address_2" value="" placeholder="<?php echo str_replace(':', '', $entry_address_2); ?>" id="input-shipping-address-2"
+                             class="form-control"/>
                     </div>
                   </div>
                   <div class="form-group required">
                     <label class="control-label" for="input-shipping-city"><?php echo $entry_city; ?></label>
                     <div class="">
-                      <input type="text" name="shipping_city" value="" placeholder="<?php echo str_replace(':', '', $entry_city); ?>" id="input-shipping-city" class="form-control"/>
+                      <input type="text" name="shipping_city" value="" placeholder="<?php echo str_replace(':', '', $entry_city); ?>" id="input-shipping-city"
+                             class="form-control"/>
                     </div>
                   </div>
                   <div class="form-group required">
                     <label class="control-label" for="input-shipping-postcode"><?php echo $entry_postcode; ?></label>
                     <div class="">
-                      <input type="text" name="shipping_postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo str_replace(':', '', $entry_postcode); ?>" id="input-shipping-postcode" class="form-control"/>
+                      <input type="text" name="shipping_postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo str_replace(':', '', $entry_postcode); ?>"
+                             id="input-shipping-postcode" class="form-control"/>
                     </div>
                   </div>
                   <div class="form-group required">
@@ -442,9 +462,11 @@
                         foreach ($custom_fields as $custom_field) {
                             if ($custom_field['type'] == 'select') { ?>
                               <div class="form-group<?php echo($custom_field['required'] ? ' required' : ''); ?> custom-field">
-                            <label class="control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                            <label class="control-label"
+                                   for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                             <div class="">
-                              <select name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control">
+                              <select name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]"
+                                      id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control">
                                 <option value=""><?php echo $text_select; ?></option>
                                   <?php foreach ($custom_field['custom_field_value'] as $custom_field_value) { ?>
                                     <option value="<?php echo $custom_field_value['custom_field_value_id']; ?>"><?php echo $custom_field_value['name']; ?></option>
@@ -461,7 +483,8 @@
                                   <?php foreach ($custom_field['custom_field_value'] as $custom_field_value) { ?>
                                     <div class="radio">
                                       <label>
-                                        <input type="radio" name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field_value['custom_field_value_id']; ?>"/>
+                                        <input type="radio" name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]"
+                                               value="<?php echo $custom_field_value['custom_field_value_id']; ?>"/>
                                           <?php echo $custom_field_value['name']; ?></label>
                                     </div>
                                   <?php } ?>
@@ -477,7 +500,8 @@
                                   <?php foreach ($custom_field['custom_field_value'] as $custom_field_value) { ?>
                                     <div class="checkbox">
                                       <label>
-                                        <input type="checkbox" name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>][]" value="<?php echo $custom_field_value['custom_field_value_id']; ?>"/>
+                                        <input type="checkbox" name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>][]"
+                                               value="<?php echo $custom_field_value['custom_field_value_id']; ?>"/>
                                           <?php echo $custom_field_value['name']; ?></label>
                                     </div>
                                   <?php } ?>
@@ -487,19 +511,24 @@
                             <?php }
                             if ($custom_field['type'] == 'text') { ?>
                               <div class="form-group<?php echo($custom_field['required'] ? ' required' : ''); ?> custom-field">
-                            <label class="control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                            <label class="control-label"
+                                   for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                             <div class="">
                               <input type="text" name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>"
-                                     placeholder="<?php echo str_replace(':', '', $custom_field['name']); ?>" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"/>
+                                     placeholder="<?php echo str_replace(':', '', $custom_field['name']); ?>"
+                                     id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"/>
                             </div>
                           </div>
                             <?php }
                             if ($custom_field['type'] == 'textarea') { ?>
                               <div class="form-group<?php echo($custom_field['required'] ? ' required' : ''); ?> custom-field">
-                            <label class="control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                            <label class="control-label"
+                                   for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                             <div class="">
-                              <textarea name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]" rows="5" placeholder="<?php echo str_replace(':', '', $custom_field['name']); ?>"
-                                        id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"><?php echo $custom_field['value']; ?></textarea>
+                              <textarea name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]" rows="5"
+                                        placeholder="<?php echo str_replace(':', '', $custom_field['name']); ?>"
+                                        id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"
+                                        class="form-control"><?php echo $custom_field['value']; ?></textarea>
                             </div>
                           </div>
                             <?php }
@@ -507,7 +536,8 @@
                               <div class="form-group<?php echo($custom_field['required'] ? ' required' : ''); ?> custom-field">
                             <label class="control-label"><?php echo $custom_field['name']; ?></label>
                             <div class="">
-                              <button type="button" id="button-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?>
+                              <button type="button" id="button-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="btn btn-default"><i
+                                  class="fa fa-upload"></i> <?php echo $button_upload; ?>
                               </button>
                               <input type="hidden" name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>"
                                      id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"/>
@@ -516,28 +546,35 @@
                             <?php }
                             if ($custom_field['type'] == 'date') { ?>
                               <div class="form-group<?php echo($custom_field['required'] ? ' required' : ''); ?> custom-field">
-                            <label class="control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                            <label class="control-label"
+                                   for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                             <div class="">
                               <input type="date" name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>"
-                                     placeholder="<?php echo str_replace(':', '', $custom_field['name']); ?>" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"/>
+                                     placeholder="<?php echo str_replace(':', '', $custom_field['name']); ?>"
+                                     id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"/>
                             </div>
                           </div>
                             <?php }
                             if ($custom_field['type'] == 'datetime') { ?>
                               <div class="form-group<?php echo($custom_field['required'] ? ' required' : ''); ?> custom-field">
-                            <label class="control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                            <label class="control-label"
+                                   for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                             <div class="">
-                              <input type="datetime-local" name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>"
-                                     placeholder="<?php echo str_replace(':', '', $custom_field['name']); ?>" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"/>
+                              <input type="datetime-local" name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]"
+                                     value="<?php echo $custom_field['value']; ?>"
+                                     placeholder="<?php echo str_replace(':', '', $custom_field['name']); ?>"
+                                     id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"/>
                             </div>
                           </div>
                             <?php }
                             if ($custom_field['type'] == 'time') { ?>
                               <div class="form-group<?php echo($custom_field['required'] ? ' required' : ''); ?> custom-field">
-                            <label class="control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                            <label class="control-label"
+                                   for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                             <div class="">
                               <input type="time" name="shipping_custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>"
-                                     placeholder="<?php echo str_replace(':', '', $custom_field['name']); ?>" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"/>
+                                     placeholder="<?php echo str_replace(':', '', $custom_field['name']); ?>"
+                                     id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"/>
                             </div>
                           </div>
                             <?php }
@@ -590,7 +627,8 @@
                     <label>
                         <?php if ($payment_method['code'] == $code || !$code) {
                             $code = $payment_method['code']; ?>
-                          <input type="radio" name="payment_method" value="<?php echo $payment_method['code']; ?>" title="<?php echo $payment_method['title']; ?>" checked="checked"/>
+                          <input type="radio" name="payment_method" value="<?php echo $payment_method['code']; ?>" title="<?php echo $payment_method['title']; ?>"
+                                 checked="checked"/>
                         <?php } else { ?>
                           <input type="radio" name="payment_method" value="<?php echo $payment_method['code']; ?>" title="<?php echo $payment_method['title']; ?>"/>
                         <?php } ?>
@@ -671,7 +709,8 @@
               <?php } else { ?>
                 <div class="buttons">
                   <div class="pull-right">
-                    <input type="button" value="<?php echo $button_continue; ?>" id="button-payment-method" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"/>
+                    <input type="button" value="<?php echo $button_continue; ?>" id="button-payment-method" data-loading-text="<?php echo $text_loading; ?>"
+                           class="btn btn-primary"/>
                   </div>
                 </div>
               <?php } ?>
