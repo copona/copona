@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class AddDefaultValueForOptions extends AbstractMigration
+class ProductOptionValueDescription extends AbstractMigration
 {
     /**
      * Change Method.
@@ -18,18 +18,27 @@ class AddDefaultValueForOptions extends AbstractMigration
      *    createTable
      *    renameTable
      *    addColumn
+     *    addCustomColumn
      *    renameColumn
      *    addIndex
      *    addForeignKey
      *
+     * Any other destructive changes will result in an error when trying to
+     * rollback the migration.
+     *
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change()
+    public function up()
     {
-        $this->table('option_description')
-             ->changeColumn('display', 'string', ['limit' => 256, 'null' => true])
-             ->save();
 
+        $order_status = $this->table('product_option_value');
+
+        if (!$order_status->hasColumn('description')) {
+            $order_status
+                ->addColumn('description', 'string', ['limit' => 254, 'null' => false, 'default' => '']);
+        }
+
+        $order_status->update();
     }
 }

@@ -239,6 +239,17 @@ if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVE
     $_SERVER['HTTPS'] = false;
 }
 
+// Correct Client IP @ https://stackoverflow.com/questions/3003145/how-to-get-the-client-ip-address-in-php
+if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+    $client_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+} else if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+    $client_ip = $_SERVER["REMOTE_ADDR"];
+} else if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
+    $client_ip = $_SERVER["HTTP_CLIENT_IP"];
+}
+
+$_SERVER['HTTP_CLIENT_IP'] = $client_ip;
+
 // Universal Host redirect to correct hostname
 if (defined('HTTP_HOST') && defined('HTTPS_HOST') && $_SERVER['HTTP_HOST'] != parse_url(HTTPS_SERVER)['host'] && $_SERVER['HTTP_HOST'] != parse_url(HTTP_SERVER)['host']) {
     header("Location: " . ($_SERVER['HTTPS'] ? HTTPS_SERVER : HTTP_SERVER) . ltrim('/', $_SERVER['REQUEST_URI']));

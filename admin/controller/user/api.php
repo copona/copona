@@ -52,6 +52,11 @@ class ControllerUserApi extends Controller {
         $this->load->model('user/api');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+
+            if(!empty($this->request->post['api_ip'])) {
+                $this->request->post['api_ip'] = array_unique( $this->request->post['api_ip'] );
+            }
+
             $this->model_user_api->editApi($this->request->get['api_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -266,11 +271,14 @@ class ControllerUserApi extends Controller {
     protected function getForm() {
         $data['heading_title'] = $this->language->get('heading_title');
 
+        $data['http_client_ip'] = $this->request->server['HTTP_CLIENT_IP'];
+
         $data['text_form'] = !isset($this->request->get['api_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
         $data['text_no_results'] = $this->language->get('text_no_results');
         $data['text_enabled'] = $this->language->get('text_enabled');
         $data['text_disabled'] = $this->language->get('text_disabled');
-        $data['text_ip'] = sprintf($this->language->get('text_ip'), $this->request->server['REMOTE_ADDR']);
+        $data['text_ip'] = sprintf($this->language->get('text_ip'), $this->request->server['HTTP_CLIENT_IP']);
+
         $data['text_confirm'] = $this->language->get('text_confirm');
 
         $data['column_token'] = $this->language->get('column_token');
