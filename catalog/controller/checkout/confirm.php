@@ -217,36 +217,7 @@ class ControllerCheckoutConfirm extends Controller {
 
             }
 
-            $product_data = array();
-
-            foreach ($this->cart->getProducts() as $product) {
-                $option_data = array();
-                foreach ($product['option'] as $option) {
-
-                    $option_data[] = array(
-                        'product_option_id'       => $option['product_option_id'],
-                        'product_option_value_id' => $option['product_option_value_id'],
-                        'option_id'               => $option['option_id'],
-                        'option_value_id'         => $option['option_value_id'],
-                        'name'                    => $option['name'],
-                        'value'                   => $option['value'],
-                        'type'                    => $option['type']
-                    );
-                }
-                $product_data[] = array(
-                    'product_id' => $product['product_id'],
-                    'name'       => $product['name'],
-                    'model'      => $product['model'],
-                    'option'     => $option_data,
-                    'download'   => $product['download'],
-                    'quantity'   => $product['quantity'],
-                    'subtract'   => $product['subtract'],
-                    'price'      => $product['price'],
-                    'total'      => $product['total'],
-                    'tax'        => $this->tax->getTax($product['price'], $product['tax_class_id']),
-                    'reward'     => $product['reward']
-                );
-            }
+            $product_data = $this->cart->getProducts();
 
             // Gift Voucher
             $voucher_data = array();

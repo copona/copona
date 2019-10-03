@@ -70,6 +70,7 @@ if ($config->get($application_config . '.db_autostart')) {
     $default_connection = $config->get('database.default_connection') ? $config->get('database.default_connection') : 'default';
     $db_config = $config->get('database.' . $default_connection);
     define('DB_PREFIX', $db_config['db_prefix']);
+    define('DB_DATABASE', $db_config['db_database']);
 
     $registry->singleton('db', function ($registry) use ($db_config) {
         return new DB(
