@@ -66,16 +66,16 @@ class Language extends Controller
 
     }
 
-    public function get($key)
+    public function get($key, $default = null)
     {
-        return (isset($this->data[$key]) ? $this->data[$key] : $key);
+        return (isset($this->data[$key]) ? $this->data[$key] : (!empty($default) ? $default :  $key));
     }
 
     public function set($key, $value)
     {
         $this->data[$key] = $value;
     }
-	
+
 	public function has($key)
     {
         return isset($this->data[$key]);

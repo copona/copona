@@ -11,6 +11,8 @@ class ControllerExtensionModuleSlideshow extends Controller {
         // $this->document->addStyle('themes/default/assets/vendor/swiper/css/opencart.css');
         $this->document->addScript('themes/default/assets/vendor/swiper/js/swiper.min.js');
 
+
+
         $data['banners'] = array();
 
         $results = $this->model_design_banner->getBanner($setting['banner_id']);
@@ -28,6 +30,9 @@ class ControllerExtensionModuleSlideshow extends Controller {
         }
 
         $data['module'] = $module++;
+
+
+        $this->hook->getHook('extension/module/slideshow/after', $data);
 
         return $this->load->view('extension/module/slideshow', $data);
     }
