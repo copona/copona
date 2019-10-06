@@ -199,8 +199,10 @@ if (version_compare(phpversion(), '7.1.0', '<') == true) {
     exit('PHP7.1+ Required');
 }
 
-if (!ini_get('date.timezone')) {
-    date_default_timezone_set('UTC');
+// Set Default Timezone
+if (strcmp($config->get('config_timezone'), ini_get('date.timezone'))) {
+    $timezone = $config->get('config_timezone') ? $config->get('config_timezone') : ini_get('date.timezone');
+    date_default_timezone_set( $timezone );
 }
 
 // Windows IIS Compatibility
