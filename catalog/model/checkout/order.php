@@ -443,7 +443,7 @@ class ModelCheckoutOrder extends Model {
                 foreach ($order_total_query->rows as $order_total) {
                     $this->load->model('extension/total/' . $order_total['code']);
 
-                    if (property_exists($this->{'model_extension_total_' . $order_total['code']}, 'confirm')) {
+                    if (method_exists($this->{'model_extension_total_' . $order_total['code']}, 'confirm')) {
                         // Confirm coupon, vouchers and reward points
                         $fraud_status_id = $this->{'model_extension_total_' . $order_total['code']}->confirm($order_info,
                             $order_total);
@@ -510,7 +510,7 @@ class ModelCheckoutOrder extends Model {
                 foreach ($order_total_query->rows as $order_total) {
                     $this->load->model('extension/total/' . $order_total['code']);
 
-                    if (property_exists($this->{'model_extension_total_' . $order_total['code']}, 'unconfirm')) {
+                    if (method_exists($this->{'model_extension_total_' . $order_total['code']}, 'unconfirm')) {
                         $this->{'model_extension_total_' . $order_total['code']}->unconfirm($order_id);
                     }
                 }
