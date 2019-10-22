@@ -772,12 +772,22 @@
        },
        success: function(json) {
          $('.alert-dismissible').remove();
+
          if (json['error']) {
-           $('#collapse-coupon .card-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+           $('#button-coupon').closest('.input-group').parent().prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> '
+             + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+         } else {
+
+           $('#button-coupon').closest('.input-group').parent().prepend('<div class="alert alert-success alert-dismissible"><i class="fas fa-exclamation-circle"></i> '
+             + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+           jQuery("#cart_table").load('?route=checkout/checkout/cart',
+             $('.checkout_form input[type=\'text\'], .checkout_form input[type=\'date\'], .checkout_form input[type=\'datetime-local\'], .checkout_form input[type=\'time\'], .checkout_form input[type=\'password\'], .checkout_form input[type=\'hidden\'], .checkout_form input[type=\'checkbox\']:checked, .checkout_form input[type=\'radio\']:checked, .checkout_form textarea, .checkout_form select'));
+
          }
-         if (json['redirect']) {
-           location = json['redirect'];
-         }
+         // if (json['redirect']) {
+         //   location = json['redirect'];
+         // }
        },
        error: function(xhr, ajaxOptions, thrownError) {
          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

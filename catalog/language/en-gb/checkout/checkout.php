@@ -82,3 +82,4 @@ $_['error_custom_field_validate'] = '%s incorrect';
 $_['entry_zone'] = 'Region / State';
 $_['entry_tax_id'] = 'Tax ID';
 $_['text_use_coupon'] = 'Use Coupon';
+$_['entry_coupon'] = 'Coupon';
