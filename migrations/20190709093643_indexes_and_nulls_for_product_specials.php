@@ -38,8 +38,8 @@ class IndexesAndNullsForProductSpecials extends AbstractMigration {
              ->changeColumn('date_start', 'date', ['null' => 'false', 'default' => '1970-01-01'])
              ->update();
 
-        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_start = '1970-01-01' where date_start is null or date_start < '1970-01-01'");
-        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_end = '9999-12-31' where date_end is null or date_start < '1970-01-01'");
+        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_start = '1970-01-01' where date_start is null or date_start < '1970-01-01' or date_start = '0000-00-00' ");
+        $this->execute("update {$tableAdapter->getAdapterTableName('product_special')} set date_end = '9999-12-31' where date_end is null or date_start < '1970-01-01' or date_end = '0000-00-00' ");
 
         $table = $this->table('product_special');
         $table->addIndex(['customer_group_id', 'date_start', 'date_end'])
