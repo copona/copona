@@ -15,7 +15,7 @@ if (APPLICATION == 'catalog') {
     $this->document->addScript('themes/default/assets/vendor/jquery/jquery-ui.button.min.js');
     $this->document->addScript('themes/default/assets/vendor/notify/notify.min.js');
     $this->document->addScript('themes/default/assets/vendor/bootstrap/js/bootstrap.min.js');
-    $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'header', 'product/product');
+    $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'footer', 'product/product');
     $this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header', 'product/product');
     $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header',
       'product/product');

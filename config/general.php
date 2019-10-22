@@ -8,6 +8,11 @@ return [
     'app_env'               => env('APP_ENV', 'production'),
 
     /**
+     * Default date.timezone
+     */
+    'config_timezone'               => 'Europe/Athens',
+
+    /**
      * Site
      */
     'site_base'             => HTTP_SERVER,

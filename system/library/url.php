@@ -165,4 +165,29 @@ class Url
             return 'http://' . BASE_URL_IMAGE . '/' . $image;
         }
     }
+
+    /*
+     * Get current URL, add additional parameters if needed.
+     * TODO: method $this->link ($this->url->link) is slow by default because of $this->rewrite,
+     * so calling this method for URL building in some Loop is not an optimal solution.
+     * */
+    public function getCurrentUrl($additional = []){
+
+        if ($this->request->get('route')) {
+            $url_data = $this->request->get;
+            unset($url_data['_route_']);
+            $route = $url_data['route'];
+            unset($url_data['route']);
+            $url = '';
+            if ($url_data) {
+                $url = '&' . urldecode(http_build_query($url_data, '', '&'));
+            }
+
+            if($additional){
+                $url .= '&' . urldecode(http_build_query($additional, '', '&'));
+            }
+        }
+        return $this->link($route, $url);
+    }
+
 }
