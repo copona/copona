@@ -695,6 +695,21 @@
               </tfoot>
             </table>
 
+
+
+              <?php if ($coupon_status) { ?>
+                <div id="coupon-heading"><i class="fa fa-ticket"></i> <?php echo $entry_coupon; ?></div>
+                <div id="coupon-content">
+  <div class="input-group">
+	<input type="text" name="coupon" value="" class="form-control" autocomplete="new-password" />
+	<span class="input-group-btn">
+	  <button type="button" id="button-coupon" class="btn btn-primary"><?php echo $text_use_coupon; ?></button>
+	</span>
+  </div>
+</div>
+              <?php } ?>
+
+
               <?php if ($text_agree) { ?>
                 <div class="buttons clearfix" id="terms-id">
                   <div class="pull-right"><?php echo $text_agree; ?>
@@ -738,6 +753,38 @@
 
 <script type="text/javascript">
   <?php include "easy_checkout_script.js" ?>
+</script>
+
+
+<script>
+
+   $('#button-coupon').on('click', function() {
+     $.ajax({
+       url: 'index.php?route=extension/total/coupon/coupon',
+       type: 'post',
+       data: 'coupon=' + encodeURIComponent($('input[name=\'coupon\']').val()),
+       dataType: 'json',
+       beforeSend: function() {
+         $('#button-coupon').button('loading');
+       },
+       complete: function() {
+         $('#button-coupon').button('reset');
+       },
+       success: function(json) {
+         $('.alert-dismissible').remove();
+         if (json['error']) {
+           $('#collapse-coupon .card-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+         }
+         if (json['redirect']) {
+           location = json['redirect'];
+         }
+       },
+       error: function(xhr, ajaxOptions, thrownError) {
+         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+       }
+     });
+   });
+
 </script>
 
 <?php echo $footer; ?>

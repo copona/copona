@@ -21,6 +21,10 @@ class ControllerCheckoutCheckout extends Controller {
 
         $data = $this->load->language('checkout/checkout');
 
+
+        $data['coupon_status'] = $this->config->get('coupon_status');
+
+
         $this->document->setTitle($this->language->get('heading_title'));
         $this->document->addScript('catalog/view/javascript/jquery/jquery.colorbox-min.js');
         $this->document->addStyle('catalog/view/javascript/jquery/colorbox.css');
@@ -2046,6 +2050,8 @@ class ControllerCheckoutCheckout extends Controller {
         }
 
         $data['coupon_status'] = $this->config->get('coupon_status');
+
+
 
         if (isset($this->request->post['coupon'])) {
             $data['coupon'] = $this->request->post['coupon'];
