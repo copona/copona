@@ -1,10 +1,8 @@
 <?php
 
-class ModelToolImage extends Model
-{
+class ModelToolImage extends Model {
 
-    public function resize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
-    {
+    public function resize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle') {
         if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE) . DIRECTORY_SEPARATOR . $filename), 0, strlen(DIR_IMAGE . $filename)) != str_replace('\\', '/', DIR_IMAGE . $filename)) {
             return;
         }
@@ -23,12 +21,12 @@ class ModelToolImage extends Model
             ob_start();
             list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
             $resize_warning = ob_get_clean();
-            if($resize_warning) {
+            if ($resize_warning) {
                 $image_old =
-                $this->log->write("Cannot resize image $filename. Error: $resize_warning");
+                    $this->log->write("Cannot resize image $filename. Error: $resize_warning");
             }
 
-            if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {
+            if (!in_array($image_type, [IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF])) {
                 return DIR_IMAGE . $image_old;
             }
 
@@ -62,8 +60,7 @@ class ModelToolImage extends Model
      * @param $maxsize
      * @return string|void
      */
-    public function onesize($filename, $maxsize, $height = "", $type = "", $watermark = false, $position = 'middle')
-    {
+    public function onesize($filename, $maxsize, $height = "", $type = "", $watermark = false, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
@@ -102,12 +99,11 @@ class ModelToolImage extends Model
      * @param        $filename
      * @param        $width
      * @param        $height
-     * @param bool   $watermark
+     * @param bool $watermark
      * @param string $position
      * @return string|void
      */
-    public function cropsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
-    {
+    public function cropsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
@@ -139,8 +135,7 @@ class ModelToolImage extends Model
         return $this->url->getImageUrl($new_image);
     }
 
-    public function propsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
-    {
+    public function propsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
@@ -163,7 +158,7 @@ class ModelToolImage extends Model
             ob_start();
             list($width_orig, $height_orig) = getimagesize(DIR_IMAGE . $old_image);
             $resize_warning = ob_get_clean();
-            if($resize_warning) {
+            if ($resize_warning) {
                 $this->log->write("Cannot resize image $filename. Error: $resize_warning");
             }
 
@@ -184,8 +179,7 @@ class ModelToolImage extends Model
         return $this->url->getImageUrl($new_image);
     }
 
-    public function downsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
-    {
+    public function downsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
