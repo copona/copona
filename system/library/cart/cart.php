@@ -539,7 +539,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     public function getTotal() {
         $total = 0;
         foreach ($this->cartProducts as $product) {
-            $total += $this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax'));
+            // $total += $this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax'));
+            $total += $product['price_enduser_total'];
         }
         return $total;
     }

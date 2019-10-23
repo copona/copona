@@ -94,8 +94,9 @@
 
 function saveAndContinue(e) {
   e.preventDefault();
+  e.stopPropagation();
   // BUG: if clicked on <i> - will return false.
-  var form = $("#" + $(e.target).attr('form'));
+  var form = $("#" + $(e.currentTarget).attr('form'));
 
   !form.length ? alert("Can't find form to submit! Please, call Copona!") : '';
 
