@@ -173,4 +173,30 @@ class ModelToolImage extends Model
         return $this->url->getImageUrl($new_image);
     }
 
+    public function saveRemoteImage($image = '') {
+        if (!empty($image) && is_array(getimagesize($image))) {
+
+            $remote_image_path = parse_url($image);
+            $remote_image_path = ltrim($remote_image_path['path'], '/');
+            $remote_image_path = str_replace(" ", "-", rawurldecode($remote_image_path));
+
+            if (!file_exists(DIR_IMAGE . dirname($remote_image_path))) {
+                mkdir(DIR_IMAGE . dirname($remote_image_path), 0777, true);
+            }
+            // Need to create empty file before.
+            if (!file_exists(DIR_IMAGE . $remote_image_path)) {
+                if (file_put_contents(DIR_IMAGE . $remote_image_path, file_get_contents($image))) {
+                    $this->request->post['image'] = $remote_image_path;
+                    return $remote_image_path;
+                }
+            } else {
+                $this->request->post['image'] = $remote_image_path;
+                return $remote_image_path;
+            };
+        } else {
+            return $image;
+        }
+    }
+
+
 }
