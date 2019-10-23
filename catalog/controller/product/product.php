@@ -352,9 +352,11 @@ class ControllerProductProduct extends Controller {
 
 
                 if (!$thumb) {
-                    $image = $popup = $thumb = $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
-                    $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
-                    $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+                    // There is not a smallest need to create "no image", if there is NO IMAGE! :)
+                    continue;
+                    // $image = $popup = $thumb = $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
+                    // $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
+                    // $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
                 }
 
 
