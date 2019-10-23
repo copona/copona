@@ -174,13 +174,18 @@ class ModelToolImage extends Model
     }
 
     public function saveRemoteImage($image = '') {
+
+        // Copona DIR_IMAGE suffix
+        $dir_suffix = 'catalog/';
+
         if (!empty($image) && is_array(getimagesize($image))) {
 
             $remote_image_path = parse_url($image);
             $remote_image_path = ltrim($remote_image_path['path'], '/');
             $remote_image_path = str_replace(" ", "-", rawurldecode($remote_image_path));
+            $remote_image_path = $dir_suffix . $remote_image_path;
 
-            if (!file_exists(DIR_IMAGE . dirname($remote_image_path))) {
+            if (!file_exists(DIR_IMAGE .  dirname($remote_image_path))) {
                 mkdir(DIR_IMAGE . dirname($remote_image_path), 0777, true);
             }
             // Need to create empty file before.
@@ -194,7 +199,7 @@ class ModelToolImage extends Model
                 return $remote_image_path;
             };
         } else {
-            return $image;
+            return '';
         }
     }
 

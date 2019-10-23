@@ -4,6 +4,10 @@
     <div class="container-fluid">
       <div class="pull-right">
 
+        <?php if ($product_id) { ?>
+          <a class="btn btn-info" href="/?route=product/product&amp;product_id=<?php echo $product_id; ?>" target="_blank">View product on site</a>
+        <?php }; ?>
+
         <button onclick="saveAndContinue(event);" form="form-product" data-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
                 class="btn btn-primary savecontinue"><i class="fa fa-save"></i><?= $button_save_continue ?></button>
         <button type="submit" form="form-product" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
@@ -485,7 +489,14 @@
 
                   <tbody>
                   <tr>
-                    <td class="text-left"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="<?php echo $thumb; ?>" title="<?php echo $thumb; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" /></td>
+                    <td class="text-left">
+                      <a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="<?php echo $thumb; ?>" title="<?php echo $thumb; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a>
+                      <div class="input-group">
+                        <span>Remote URL to download from: </span>
+                        <input type="text" class="form-control" name="image_url" value="<?php echo $image_url; ?>" id="input-image" />
+                      </div>
+                      <input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" />
+                    </td>
                   </tr>
                   </tbody>
                 </table>
