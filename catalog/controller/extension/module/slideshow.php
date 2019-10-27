@@ -7,8 +7,11 @@ class ControllerExtensionModuleSlideshow extends Controller {
         $this->load->model('design/banner');
         $this->load->model('tool/image');
 
-        $this->document->addStyle('assets/vendor/owl-carousel/owl.carousel.css');
-        $this->document->addScript('assets/vendor/owl-carousel/owl.carousel.min.js');
+        $this->document->addStyle('themes/default/assets/vendor/swiper/css/swiper.min.css');
+        // $this->document->addStyle('themes/default/assets/vendor/swiper/css/opencart.css');
+        $this->document->addScript('themes/default/assets/vendor/swiper/js/swiper.min.js');
+
+
 
         $data['banners'] = array();
 
@@ -18,6 +21,7 @@ class ControllerExtensionModuleSlideshow extends Controller {
             if (is_file(DIR_IMAGE . $result['image'])) {
                 $data['banners'][] = array(
                     'title' => $result['title'],
+                    'alt' => empty($result['title']) ? 'Slideshow image' : $result['title'],
                     'link'  => $result['link'],
                     'description' => (isset($result['description']))?  html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'):'',
                     'image' => $this->model_tool_image->{$this->config->get('theme_default_extension_module_slideshow_resize')}($result['image'], $setting['width'], $setting['height'])
@@ -26,6 +30,9 @@ class ControllerExtensionModuleSlideshow extends Controller {
         }
 
         $data['module'] = $module++;
+
+
+        $this->hook->getHook('extension/module/slideshow/after', $data);
 
         return $this->load->view('extension/module/slideshow', $data);
     }

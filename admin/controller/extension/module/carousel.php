@@ -170,5 +170,15 @@ class ControllerExtensionModuleCarousel extends Controller {
 
         return !$this->error;
     }
+	
+	public function install()
+    {
+        
+    }
+
+    public function uninstall()
+    {
+        
+    }
 
 }

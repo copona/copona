@@ -5,7 +5,7 @@ class ControllerCommonHeader extends Controller {
         // Analytics
         $this->load->model('extension/extension');
 
-        $data = array_merge(array(), $this->load->language('common/header'));
+        $data = $this->load->language('common/header');
 
         $data['analytics'] = array();
         /* Theme upgrade additional start */
@@ -92,6 +92,7 @@ class ControllerCommonHeader extends Controller {
         $this->load->model('catalog/category');
 
         $this->load->model('catalog/product');
+        $this->load->model('tool/image');
 
         $data['categories'] = array();
 
@@ -110,9 +111,12 @@ class ControllerCommonHeader extends Controller {
                         'filter_sub_category' => true
                     );
 
+                    //prd($child);
+
                     $children_data[] = array(
                         'name' => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-                        'href' => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])
+                        'href' => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id']),
+                        'thumb' => $this->model_tool_image->resize($child['image'], 300, 300),
                     );
                 }
 
@@ -121,10 +125,13 @@ class ControllerCommonHeader extends Controller {
                     'name'     => $category['name'],
                     'children' => $children_data,
                     'column'   => $category['column'] ? $category['column'] : 1,
-                    'href'     => $this->url->link('product/category', 'path=' . $category['category_id'])
+                    'href'     => $this->url->link('product/category', 'path=' . $category['category_id']),
+                    'thumb'    => $this->model_tool_image->resize($category['image'], 50, 50),
                 );
             }
         }
+
+        // prd($data['categories']);
 
         $this->load->model('catalog/information');
 

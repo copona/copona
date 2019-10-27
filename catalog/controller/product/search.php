@@ -16,6 +16,11 @@ class ControllerProductSearch extends Controller {
             $search = '';
         }
 
+
+        if(!$search) {
+            $search = $this->request->get('filter_name'); //Back compatibility.
+        }
+
         if (isset($this->request->get['tag'])) {
             $tag = $this->request->get['tag'];
         } elseif (isset($this->request->get['search'])) {
@@ -172,9 +177,10 @@ class ControllerProductSearch extends Controller {
             );
         }
 
-        $data['products'] = array();
+        $data['products'] = [];
+        $data['results'] = '';
 
-        if (isset($this->request->get['search']) || isset($this->request->get['tag'])) {
+        if ($this->request->get('search') || $this->request->get('filter_name') || $this->request->get('tag')) {
             $filter_data = array(
                 'filter_name'         => $search,
                 'filter_tag'          => $tag,
@@ -201,10 +207,12 @@ class ControllerProductSearch extends Controller {
                           $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
                           $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                     } else {
-                        $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}('placeholder.png',
+                        $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}(
+                            Config::get('config_no_image','placeholder.png'),
                           $this->config->get($this->config->get('config_theme') . '_image_product_width'),
                           $this->config->get($this->config->get('config_theme') . '_image_product_height'));
-                        $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}('placeholder.png',
+                        $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}(
+                            Config::get('config_no_image','placeholder.png'),
                           $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
                           $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
                     }
@@ -234,6 +242,7 @@ class ControllerProductSearch extends Controller {
 
                     $data['products'][] = array(
                         'product_id'     => $result['product_id'],
+                        'model'          => $result['model'],
                         'thumb'          => $image,
                         'popup'          => $popup,
                         'name'           => $result['name'],
@@ -241,6 +250,7 @@ class ControllerProductSearch extends Controller {
                                 ENT_QUOTES, 'UTF-8'))), 0,
                                 $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
                         'price'          => $price,
+                        'manufacturer'          => $result['manufacturer'],
                         'special'        => $special,
                         'tax'            => $tax,
                         'minimum'        => $result['minimum'] > 0 ? $result['minimum'] : 1,
@@ -426,7 +436,13 @@ class ControllerProductSearch extends Controller {
             $pagination->total = $product_total;
             $pagination->page = $page;
             $pagination->limit = $limit;
+            $pagination->text_first = '';
+            $pagination->text_last = '';
+            $pagination->prev_hide = $this->config->get('theme_default_pagination_prev_hide') === null ? false : $this->config->get('theme_default_pagination_prev_hide');
+            $pagination->next_hide = $this->config->get('theme_default_pagination_next_hide') === null ? false : $this->config->get('theme_default_pagination_next_hide');
             $pagination->url = $this->url->link('product/search', $url . '&page={page}');
+
+            $this->hook->getHook('pagination', $pagination);
 
             $data['pagination'] = $pagination->render();
 

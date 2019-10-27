@@ -23,7 +23,16 @@
           <?php if ($extensions) { ?>
               <?php foreach ($extensions as $extension) { ?>
                 <tr>
-                  <td class="text-left" colspan="2"><b><?php echo $extension['name']; ?></b></td>
+                  <td class="name" colspan="2">
+                    <strong>
+                    <?php if ($extension['installed']) { ?>
+                        <?php echo $extension['name']; ?>
+                        <?php } else { ?>
+                      <?php echo $extension['name']; ?>
+                    <?php } ?>
+                    </strong>
+                      (<?php echo $extension['extension']; ?>)
+                      </td>
                   <td class="text-right"><?php if (!$extension['installed']) { ?>
                         <a href="<?php echo $extension['install']; ?>" data-toggle="tooltip" title="<?php echo $button_install; ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i></a>
                     <?php } else { ?>
@@ -33,7 +42,7 @@
                 <?php if ($extension['installed']) { ?>
                     <?php foreach ($extension['store'] as $store) { ?>
                         <tr>
-                          <td class="text-left">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<?php echo $store['name']; ?></td>
+                          <td class="text-left">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<a href="<?php echo $store['edit']; ?>"><?php echo $store['name']; ?></a></td>
                           <td class="text-left"><?php echo $store['status']; ?></td>
                           <td class="text-right"><a href="<?php echo $store['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                         </tr>

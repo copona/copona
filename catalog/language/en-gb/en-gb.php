@@ -159,3 +159,4 @@ $_['text_add'] = 'Add';
 $_['text_shipping_address'] = 'Shipping address';
 $_['entry_bank_account'] = 'Bank account';
 $_['text_follow_us'] = 'Follow us';
+$_['text_search'] = 'Search';

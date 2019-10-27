@@ -12,6 +12,8 @@ final class MySQLi {
             throw new \Exception('Error: ' . $this->connection->connect_errno . '<br />Error No: ' . $this->connection->errno);
         }
 
+        $this->log = new \Log('mysql_queries.log');
+
         $this->connection->set_charset("utf8");
         $this->connection->query("SET SQL_MODE = ''");
     }
@@ -20,47 +22,37 @@ final class MySQLi {
 
         if(\Config::get('debug.sql')) {
             $start_time = microtime(true);
-
+            
+            $this->log->write( "Started: (".substr( md5( $sql ), 0, 8) .") $sql" );
             $query = $this->connection->query($sql);
 
-            $msec = number_format(microtime(true) - $start_time, 4, '.', ',') . " msec";
+            $msec = number_format(microtime(true) - $start_time, 4, '.', ',') . " msec";            
+            $output = "Ended (".substr( md5( $sql ), 0, 8).") in: $msec" . " \t" . $sql . "\n";
+            
+            for ($i = 0; $i < 3; $i++) {
+                    if(empty( debug_backtrace()[$i]['file']) ) {
+                        break;
+                    }
+                    $sqls['files'][] = debug_backtrace()[$i]['file'] . ":" . debug_backtrace()[$i]['line'];
+                    $output .= debug_backtrace()[$i]['file'] . ":" . debug_backtrace()[$i]['line'] . " \n";
+                }
 
-            $output = date("Y-m-d h:i:s"). " \t";
-            $output .= $msec . " \t";
-            $output .= debug_backtrace()[1]['file'].":".debug_backtrace()[1]['line'] . " \t";
-
-            $output .= trim(preg_replace('/\s\s+/', ' ', $sql)) . " \n";
-
-            if(!is_dir(DIR_LOGS)) {
-                mkdir(DIR_LOGS, \Config::get('directory_permission', 0775), true);
-            }
-
-            if (!file_exists(DIR_LOGS . 'mysql_queries.txt')) {
-                touch(DIR_LOGS . 'mysql_queries.txt');
-            }
-
-            $file = fopen(DIR_LOGS . 'mysql_queries.txt', 'a');
-
-            fwrite($file, $output);
-
-            fclose($file);
-
+            $this->log->write( $output );            
         } else {
             $query = $this->connection->query($sql);
         }
 
         if (!$this->connection->errno) {
             if ($query instanceof \mysqli_result) {
-                $data = array();
-
-                while ($row = $query->fetch_assoc()) {
-                    $data[] = $row;
-                }
-
                 $result = new \stdClass();
                 $result->num_rows = $query->num_rows;
-                $result->row = isset($data[0]) ? $data[0] : array();
-                $result->rows = $data;
+                $result->rows = [];
+
+                while ($row = $query->fetch_assoc()) {
+					$result->rows[] = $row;
+                }
+
+                $result->row = isset($result->rows[0]) ? $result->rows[0] : [];
 
                 $query->close();
 

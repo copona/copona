@@ -28,7 +28,7 @@ class ModelUserUser extends Model {
 	}
 
 	public function editPassword($user_id, $password) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET salt = '', password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "', code = '' WHERE user_id = '" . (int)$user_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET salt = '', password = '" . password_hash($password, PASSWORD_DEFAULT) . "', code = '' WHERE user_id = '" . (int)$user_id . "'");
 	}
 
 	public function editCode($email, $code) {
@@ -118,17 +118,5 @@ class ModelUserUser extends Model {
 
 		return $query->row['total'];
 	}
-
-
-    public function getContentMeta($user_id) {
-        $sql = "SELECT * from " . DB_PREFIX . "content_meta WHERE content_id='" . $user_id . "' AND content_type = 'user'";
-        $query = $this->db->query($sql);
-
-        if ($query->row) {
-            return unserialize($query->row['value']);
-        } else {
-            return array();
-        }
-    }
 
 }

@@ -3,7 +3,7 @@ class ControllerExtensionModuleHTML extends Controller {
     private $error = array();
 
     public function index() {
-        $this->load->language('extension/module/html');
+        $data = $this->load->language('extension/module/html');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -11,14 +11,17 @@ class ControllerExtensionModuleHTML extends Controller {
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             if (!isset($this->request->get['module_id'])) {
-                $this->model_extension_module->addModule('html', $this->request->post);
+                $this->request->get['module_id'] = $this->model_extension_module->addModule('html', $this->request->post);
             } else {
                 $this->model_extension_module->editModule($this->request->get['module_id'], $this->request->post);
             }
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+                $this->response->redirect($this->url->link('extension/module/html', 'module_id=' . $this->request->get['module_id'] . '&token=' . $this->session->data['token'], true));
+            else
+                $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true));
         }
 
         $data['heading_title'] = $this->language->get('heading_title');
@@ -128,6 +131,16 @@ class ControllerExtensionModuleHTML extends Controller {
         }
 
         return !$this->error;
+    }
+
+	public function install()
+    {
+
+    }
+
+    public function uninstall()
+    {
+
     }
 
 }

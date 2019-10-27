@@ -1,5 +1,5 @@
 <?php
-//
+
 class Pagination {
     public $total = 0;
     public $page = 1;
@@ -12,6 +12,8 @@ class Pagination {
     public $text_prev = '&lt;';
     public $next_hide = true;
     public $prev_hide = true;
+    public $url_prev = '';
+    public $url_next = '';
 
     public function render() {
         $total = $this->total;
@@ -38,15 +40,20 @@ class Pagination {
         if ($page > 1) {
             $output .= '<li class="first"><a class="fa fa-angle-double-left" href="' . str_replace(array(
                     '&amp;page={page}',
-                    '&page={page}' ), '', $this->url) . '"' . $this->text_first . '</a></li>';
+                    '?page={page}',
+                    '&page={page}' ), '', $this->url) . '">' . $this->text_first . '</a></li>';
+
 
             if ($page - 1 === 1) {
-                $output .=!$this->prev_hide ? '<li><a class="fa fa-angle-left" href="' . str_replace(array(
-                        '&amp;page={page}',
-                        '&page={page}' ), '', $this->url) . '"' . $this->text_prev . '</a></li>' : false;
+                $this->url_prev = str_replace(array(
+                    '&amp;page={page}',
+                    '?page={page}',
+                    '&page={page}'
+                ), '', $this->url);
             } else {
-                $output .=!$this->prev_hide ? '<li><a class="fa fa-angle-left" href="' . str_replace('{page}', $page - 1, $this->url) . '"' . $this->text_prev . '</a></li>' : false;
+                $this->url_prev = str_replace('{page}', $page - 1, $this->url);
             }
+            $output .= !$this->prev_hide ? '<li><a class="fa fa-angle-left" href="' . $this->url_prev . '">' . $this->text_prev . '</a></li>' : false;
         }
 
         if ($num_pages > 1) {
@@ -84,7 +91,8 @@ class Pagination {
         }
 
         if ($page < $num_pages) {
-            $output .=!$this->next_hide ? '<li><a class="fa fa-angle-right" href="' . str_replace('{page}', $page + 1, $this->url) . '"' . $this->text_next . '</a></li>' : false;
+            $this->url_next =str_replace('{page}', $page + 1, $this->url);
+            $output .=!$this->next_hide ? '<li><a class="fa fa-angle-right" href="'.$this->url_next.'">' . $this->text_next . '</a></li>' : false;
             $output .= '<li class="last"><a class="fa fa-angle-double-right" href="' . str_replace('{page}', $num_pages, $this->url) . '">' . $this->text_last . '</a></li>';
         }
 

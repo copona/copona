@@ -17,68 +17,78 @@
 <script type="text/javascript" src="view/javascript/jquery/flot/jquery.flot.js"></script>
 <script type="text/javascript" src="view/javascript/jquery/flot/jquery.flot.resize.min.js"></script>
 <script type="text/javascript"><!--
-$('#range a').on('click', function (e) {
-        e.preventDefault();
+  $('#range a').on('click', function(e) {
+    e.preventDefault();
 
-        $(this).parent().parent().find('li').removeClass('active');
+    $(this).parent().parent().find('li').removeClass('active');
 
-        $(this).parent().addClass('active');
+    $(this).parent().addClass('active');
 
-        $.ajax({
-            type: 'get',
-            url: 'index.php?route=extension/dashboard/chart/chart&token=<?php echo $token; ?>&range=' + $(this).attr('href'),
-            dataType: 'json',
-            success: function (json) {
-                if (typeof json['order'] == 'undefined') {
-                    return false;
-                }
-                var option = {
-                    shadowSize: 0,
-                    colors: ['#9FD5F1', '#1065D2'],
-                    bars: {
-                        show: true,
-                        fill: true,
-                        lineWidth: 1
-                    },
-                    grid: {
-                        backgroundColor: '#FFFFFF',
-                        hoverable: true
-                    },
-                    points: {
-                        show: false
-                    },
-                    xaxis: {
-                        show: true,
-                        ticks: json['xaxis']
-                    }
-                }
+    $.ajax({
+      type: 'get',
+      url: 'index.php?route=extension/dashboard/chart/chart&token=<?php echo $token; ?>&range=' + $(this).attr('href'),
+      dataType: 'json',
+      success: function(json) {
+        if (typeof json['order'] == 'undefined') { return false; }
+        var option = {
+          shadowSize: 0,
+          colors: ['#9FD5F1', '#1065D2'],
+          bars: {
+            show: true,
+            fill: true,
+            lineWidth: 1
+          },
+          grid: {
+            backgroundColor: '#FFFFFF',
+            hoverable: true
+          },
+          points: {
+            show: false
+          },
+          xaxis: {
+            show: true,
+            ticks: json['xaxis']
+          }
+        };
 
-                $.plot('#chart-sale', [json['order'], json['customer']], option);
+        var fordata = [
+          json['order'],
+          {
+            data: json['sales']['data'],
+            label: json['sales']['label'],
+            lines: {show: true},
+            bars: {show: false},
+            points: {show: true},
+            yaxis: 2
+          },
+          json['customer']
+        ];
+        $.plot('#chart-sale', fordata, option);
 
-                $('#chart-sale').bind('plothover', function (event, pos, item) {
-                    $('.tooltip').remove();
+        $('#chart-sale').bind('plothover', function(event, pos, item) {
+          $('.tooltip').remove();
 
-                    if (item) {
-                        $('<div id="tooltip" class="tooltip top in"><div class="tooltip-arrow"></div><div class="tooltip-inner">' + item.datapoint[1].toFixed(2) + '</div></div>').prependTo('body');
+          if (item) {
+            $('<div id="tooltip" class="tooltip top in"><div class="tooltip-arrow"></div><div class="tooltip-inner">' + item.datapoint[1].toFixed(2) + '</div></div>').prependTo('body');
 
-                        $('#tooltip').css({
-                            position: 'absolute',
-                            left: item.pageX - ($('#tooltip').outerWidth() / 2),
-                            top: item.pageY - $('#tooltip').outerHeight(),
-                            pointer: 'cusror'
-                        }).fadeIn('slow');
+            $('#tooltip').css({
+              position: 'absolute',
+              left: item.pageX - ($('#tooltip').outerWidth() / 2),
+              top: item.pageY - $('#tooltip').outerHeight(),
+              pointer: 'cusror'
+            }).fadeIn('slow');
 
-                        $('#chart-sale').css('cursor', 'pointer');
-                    } else {
-                        $('#chart-sale').css('cursor', 'auto');
-                    }
-                });
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
+            $('#chart-sale').css('cursor', 'pointer');
+          } else {
+            $('#chart-sale').css('cursor', 'auto');
+          }
         });
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
     });
+  });
 
-    $('#range .active a').trigger('click');
-//--></script>
+  $('#range .active a').trigger('click');
+  //--></script>

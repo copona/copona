@@ -93,7 +93,7 @@
                                 </div>
                               </div>
                               <div class="col-xs-6">
-                                <div class="text-right"><span><?php echo $extension['review_total']; ?> reviews</span></div>
+                                <div class="text-right"><span><?php echo $extension['rating_total']; ?> reviews</span></div>
                               </div>
                             </div>
                           </div>
