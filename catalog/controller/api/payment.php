@@ -213,7 +213,7 @@ class ControllerApiPayment extends Controller {
 
                         if ($method) {
                             if ($recurring) {
-                                if (property_exists($this->{'model_extension_payment_' . $result['code']}, 'recurringPayments') && $this->{'model_extension_payment_' . $result['code']}->recurringPayments()) {
+                                if (method_exists($this->{'model_extension_payment_' . $result['code']}, 'recurringPayments') && $this->{'model_extension_payment_' . $result['code']}->recurringPayments()) {
                                     $json['payment_methods'][$result['code']] = $method;
                                 }
                             } else {

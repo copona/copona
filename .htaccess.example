@@ -19,6 +19,8 @@ Satisfy all
 # SEO URL Settings
 RewriteEngine On
 
+RewriteBase /
+
 ##
 ## Black list protected files
 ##

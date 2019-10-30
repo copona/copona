@@ -8,23 +8,9 @@ class ControllerProductSpecial extends Controller {
 
         $this->load->model('tool/image');
 
-        if (isset($this->request->get['sort'])) {
-            $sort = $this->request->get['sort'];
-        } else {
-            $sort = 'p.sort_order';
-        }
-
-        if (isset($this->request->get['order'])) {
-            $order = $this->request->get['order'];
-        } else {
-            $order = 'ASC';
-        }
-
-        if (isset($this->request->get['page'])) {
-            $page = $this->request->get['page'];
-        } else {
-            $page = 1;
-        }
+        $sort = $this->request->get('sort') ? $this->request->get('sort') : 'p.sort_order';
+        $order = $this->request->get('order') ? $this->request->get('order') : 'ASC';
+        $page = $this->request->get('page') ? $this->request->get('page') : 1;
 
         if (isset($this->request->get['limit'])) {
             $limit = (int)$this->request->get['limit'];
@@ -98,10 +84,6 @@ class ControllerProductSpecial extends Controller {
         $product_total = $this->model_catalog_product->getTotalProductSpecials();
 
         $results = $this->model_catalog_product->getProductSpecials($filter_data);
-
-
-        // prd($results);
-
 
         foreach ($results as $result) {
             if ($result['image']) {
@@ -255,8 +237,8 @@ class ControllerProductSpecial extends Controller {
 
         $pagination = new Pagination();
         $pagination->total = $product_total;
-        $pagination->page = $params['page'];
-        $pagination->limit = $params['limit'];
+        $pagination->page = $page;
+        $pagination->limit = $limit;
         $pagination->text_first = '';
         $pagination->text_last = '';
         $pagination->prev_hide = $this->config->get('theme_default_pagination_prev_hide') === null ? false : $this->config->get('theme_default_pagination_prev_hide');

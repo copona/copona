@@ -367,14 +367,12 @@ class ControllerDesignLayout extends Controller {
 
 
         // Add all the modules which have multiple settings for each module
+
         foreach ($extensions as $code) {
+            $module_data = [];
+
             $this->load->language('extension/module/' . $code);
-
-            $module_data = array();
-
             $modules = $this->model_extension_module->getModulesByCode($code);
-
-
 
             foreach ($modules as $module) {
                 $module_data[] = array(
@@ -386,11 +384,13 @@ class ControllerDesignLayout extends Controller {
 
             if ($this->config->has($code . '_status') || $module_data) {
                 $data['extensions'][] = array(
-                    'name'   => strip_tags($this->language->get('heading_title')),
+                    'name'   => ($this->language->get('heading_title') ? $this->language->get('heading_title') : $code) . ($module_data ? ' (' . count($module_data) . ')' : ''),
                     'code'   => $code,
                     'module' => $module_data,
-                    'status' => $module_data['status'],
+                    // 'status' => $module_data['status'],
                 );
+
+                $this->language->set('heading_title', ''); // reset Heading Title
             }
         }
 

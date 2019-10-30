@@ -58,8 +58,11 @@ class ControllerExtensionModuleCategory extends Controller {
 
         foreach ($parts as $part) {
             $cat = $this->model_catalog_category->getCategory($part);
-            $cat['href'] = $this->url->link('product/category', 'path=' . $this->model_catalog_category->getCategoryPath($cat['category_id']));
-            $data['cats'][] = $cat;
+
+            if($cat){
+                $cat['href'] = $this->url->link('product/category', 'path=' . $this->model_catalog_category->getCategoryPath($cat['category_id']));
+                $data['cats'][] = $cat;
+            }
         }
 
         foreach ($categories as $category) {

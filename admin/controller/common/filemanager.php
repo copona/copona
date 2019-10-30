@@ -1,5 +1,6 @@
 <?php
 class ControllerCommonFileManager extends Controller {
+
     public function index() {
         $this->load->language('common/filemanager');
 
@@ -11,7 +12,7 @@ class ControllerCommonFileManager extends Controller {
         }
 
         if (isset($this->request->get['filter_name'])) {
-            $filter_name = rtrim(str_replace('*', '', $this->request->get['filter_name']), '/');
+            $filter_name = rtrim(str_replace(array('*', '/', '\\'), '', $this->request->get['filter_name']), '/');
         } else {
             $filter_name = null;
         }
@@ -36,16 +37,20 @@ class ControllerCommonFileManager extends Controller {
 
         $this->load->model('tool/image');
 
-        if (substr(str_replace('\\', '/', realpath($directory . '/' . $filter_name)), 0, strlen(DIR_IMAGE . 'catalog')) == DIR_IMAGE . 'catalog') {
+        if (substr(str_replace('\\', '/', realpath($directory) . '/' . $filter_name), 0, strlen(DIR_IMAGE . 'catalog')) == str_replace('\\', '/', DIR_IMAGE . 'catalog')) {
             // Get directories
-            $directories = glob($directory . '/' . $filter_name . '*', GLOB_ONLYDIR);
+            $directories = glob($directory . '/*' . $filter_name . '*', GLOB_ONLYDIR);
 
             if (!$directories) {
                 $directories = array();
             }
 
             // Get files
-            $files = glob($directory . '/' . $filter_name . '*.{jpg,jpeg,png,gif,svg,JPG,JPEG,PNG,GIF,SVG}', GLOB_BRACE);
+            $files = glob($directory . '/*' . $filter_name . '*', GLOB_BRACE);
+            $extension_allowed = preg_replace('~\r?\n~', "\n", Config::get('config_file_ext_allowed'));
+            $allowed = implode("|", explode("\n", $extension_allowed));
+
+            $files = preg_grep('~\.(' . $allowed . ')$~i', $files);
 
             if (!$files) {
                 $files = array();
@@ -78,6 +83,7 @@ class ControllerCommonFileManager extends Controller {
                 if (isset($this->request->get['ckedialog'])) {
                     $url .= '&ckedialog=' . $this->request->get['ckedialog'];
                 }
+
                 $data['images'][] = array(
                     'thumb' => '',
                     'name'  => $name,
@@ -95,7 +101,6 @@ class ControllerCommonFileManager extends Controller {
                 } else {
                     $thumb = $this->model_tool_image->resize($path, 136, 136);
                 }
-
 
                 $data['images'][] = array(
                     'thumb' => $thumb,
@@ -162,6 +167,7 @@ class ControllerCommonFileManager extends Controller {
         } else {
             $data['ckedialog'] = '';
         }
+
         // Parent
         $url = '';
 
@@ -267,6 +273,7 @@ class ControllerCommonFileManager extends Controller {
 
             if (!empty($this->request->files['file']['name']) && is_array($this->request->files['file']['name'])) {
                 foreach (array_keys($this->request->files['file']['name']) as $key) {
+
                     $files[] = array(
                         'name'     => $this->request->files['file']['name'][$key],
                         'type'     => $this->request->files['file']['type'][$key],
@@ -288,45 +295,34 @@ class ControllerCommonFileManager extends Controller {
                     }
 
                     // Allowed file extension types
-                    $allowed = array(
-                        'jpg',
-                        'jpeg',
-                        'gif',
-                        'png',
-                        'svg',
-                    );
+                    $extension_allowed = preg_replace('~\r?\n~', "\n", Config::get('config_file_ext_allowed'));
+                    $allowed = explode("\n", $extension_allowed);
 
-                    if (!in_array(utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)), $allowed)) {
-                        $json['error'] = $this->language->get('error_filetype');
-                    }
+                    $extension = utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1));
 
-                    // Allowed file mime types
-                    $allowed = array(
-                        'image/jpeg',
-                        'image/pjpeg',
-                        'image/png',
-                        'image/x-png',
-                        'image/gif',
-                        'image/svg+xml',
-                    );
+                    if ($extension != 'svg') {
+                        if (!in_array($extension, $allowed)) {
+                            $json['error'] = $this->language->get('error_filextension');
+                        }
 
-                    if (!in_array($file['type'], $allowed)) {
-                        $json['error'] = $this->language->get('error_filetype');
+                        // Allowed file mime types
+                        $mime_allowed = preg_replace('~\r?\n~', "\n", Config::get('config_file_mime_allowed'));
+                        $allowed = explode("\n", $mime_allowed);
+
+                        if (!in_array($file['type'], $allowed)) {
+                            $json['error'] = $this->language->get('error_filemime');
+                        }
                     }
 
                     // Return any upload error
                     if ($file['error'] != UPLOAD_ERR_OK) {
                         $json['error'] = $this->language->get('error_upload_' . $file['error']);
                     }
-
-
                 } else {
                     $json['error'] = $this->language->get('error_upload');
                 }
 
                 if (!$json) {
-
-
                     // Copona: add suffix, if filename exists
                     if (file_exists($directory . '/' . $filename)) {
                         $filename_ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -338,7 +334,6 @@ class ControllerCommonFileManager extends Controller {
                             }
                         }
                     }
-
                     move_uploaded_file($file['tmp_name'], $directory . '/' . $filename);
                 }
             }
@@ -484,4 +479,5 @@ class ControllerCommonFileManager extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 }

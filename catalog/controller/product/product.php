@@ -9,6 +9,9 @@ class ControllerProductProduct extends Controller {
         //$this->load->language('product/product');
         $data = $this->language->load('product/product');
         $data['config_url'] = $this->config->get('config_url');
+        $data['currency'] = $this->session->data['currency'];
+        $data['user_id'] = $this->customer->getId() ? $this->customer->getId() : $this->session->data('visitor_id');
+
         $url = '';
 
 
@@ -274,6 +277,7 @@ class ControllerProductProduct extends Controller {
             $data['manufacturer'] = $product_info['manufacturer'];
             $data['manufacturers'] = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $product_info['manufacturer_id']);
             $data['model'] = $product_info['model'];
+            $data['sku'] = $product_info['sku'];
             $data['reward'] = $product_info['reward'];
             $data['points'] = $product_info['points'];
             $data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
@@ -351,9 +355,11 @@ class ControllerProductProduct extends Controller {
 
 
                 if (!$thumb) {
-                    $image = $popup = $thumb = $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
-                    $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
-                    $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+                    // There is not a smallest need to create "no image", if there is NO IMAGE! :)
+                    continue;
+                    // $image = $popup = $thumb = $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
+                    // $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
+                    // $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
                 }
 
 
@@ -599,7 +605,9 @@ class ControllerProductProduct extends Controller {
 
             $this->model_catalog_product->updateViewed($product_id);
 
+
             $data['breadcrumbs_html'] = $bread_crumbs->render(); // we have breadcrumbs html
+            $data['breadcrumbs_path'] = $bread_crumbs->getPath(); //GTM
             $data['breadcrumbs'] = $bread_crumbs->getPath(); // for compatibility
 
             $data['column_left'] = $this->load->controller('common/column_left');

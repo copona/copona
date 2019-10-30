@@ -28,7 +28,7 @@ class AddDefaultValueForOptions extends AbstractMigration
     public function change()
     {
         $this->table('option_description')
-             ->changeColumn('display', 'string', ['limit' => 256, 'default' =>  'null' ])
+             ->changeColumn('display', 'string', ['limit' => 256, 'null' => true])
              ->save();
 
     }

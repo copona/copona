@@ -199,8 +199,10 @@ if (version_compare(phpversion(), '7.1.0', '<') == true) {
     exit('PHP7.1+ Required');
 }
 
-if (!ini_get('date.timezone')) {
-    date_default_timezone_set('UTC');
+// Set Default Timezone
+if (strcmp($config->get('config_timezone'), ini_get('date.timezone'))) {
+    $timezone = $config->get('config_timezone') ? $config->get('config_timezone') : ini_get('date.timezone');
+    date_default_timezone_set( $timezone );
 }
 
 // Windows IIS Compatibility
@@ -238,6 +240,17 @@ if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVE
 } else {
     $_SERVER['HTTPS'] = false;
 }
+
+// Correct Client IP @ https://stackoverflow.com/questions/3003145/how-to-get-the-client-ip-address-in-php
+if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+    $client_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+} else if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+    $client_ip = $_SERVER["REMOTE_ADDR"];
+} else if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
+    $client_ip = $_SERVER["HTTP_CLIENT_IP"];
+}
+
+$_SERVER['HTTP_CLIENT_IP'] = $client_ip;
 
 // Universal Host redirect to correct hostname
 if (defined('HTTP_HOST') && defined('HTTPS_HOST') && $_SERVER['HTTP_HOST'] != parse_url(HTTPS_SERVER)['host'] && $_SERVER['HTTP_HOST'] != parse_url(HTTP_SERVER)['host']) {
