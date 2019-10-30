@@ -277,6 +277,7 @@ class ControllerProductProduct extends Controller {
             $data['manufacturer'] = $product_info['manufacturer'];
             $data['manufacturers'] = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $product_info['manufacturer_id']);
             $data['model'] = $product_info['model'];
+            $data['sku'] = $product_info['sku'];
             $data['reward'] = $product_info['reward'];
             $data['points'] = $product_info['points'];
             $data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
@@ -334,6 +335,11 @@ class ControllerProductProduct extends Controller {
                 $data['thumb'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
                   $this->config->get($this->config->get('config_theme') . '_image_product_width'),
                   $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+
+                $data['image_mid'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}(Config::get('config_no_image', 'placeholder.png'), $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'));
+                $data['image'] = $this->url->getImageUrlOriginal( $product_info['image'] );
+                $data['popup'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}(Config::get('config_no_image', 'placeholder.png'), $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+
             }
 
             $data['images'] = array();
@@ -349,9 +355,11 @@ class ControllerProductProduct extends Controller {
 
 
                 if (!$thumb) {
-                    $image = $popup = $thumb = $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
-                    $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
-                    $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
+                    // There is not a smallest need to create "no image", if there is NO IMAGE! :)
+                    continue;
+                    // $image = $popup = $thumb = $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
+                    // $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
+                    // $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
                 }
 
 
@@ -409,7 +417,7 @@ class ControllerProductProduct extends Controller {
             $data['options'] = array();
 
 			foreach ($this->model_catalog_product->getProductOptions($product_id) as $option) {
-                if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image') {
+                if (in_array($option['type'], ['select', 'radio', 'checkbox', 'image', 'custom'])) {
                     $option_value_data = array();
 
                     foreach ($option['product_option_value'] as $option_value) {
@@ -426,7 +434,9 @@ class ControllerProductProduct extends Controller {
                                 'name'                    => $option_value['name'],
                                 'image'                   => $this->model_tool_image->resize($option_value['image'], 50, 50),
                                 'price'                   => $price,
-                                'price_prefix'            => $option_value['price_prefix']
+                                'price_prefix'            => $option_value['price_prefix'],
+                                'description'            => $option_value['description'],
+                                'article'            => $option_value['article'],
                             );
                         }
                     }
@@ -440,12 +450,13 @@ class ControllerProductProduct extends Controller {
                         'required'          => $option['required']
                     );
                 } elseif ($option['type'] == 'text' || $option['type'] == 'textarea' || $option['type'] == 'file' || $option['type'] == 'date' || $option['type'] == 'datetime' || $option['type'] == 'time') {
+
                     $data['options'][] = array(
                         'product_option_id' => $option['product_option_id'],
                         'option_id'         => $option['option_id'],
                         'name'              => $option['name'],
                         'type'              => $option['type'],
-                        'product_option_value'      => $option['product_option_value'],
+                        'product_option_value'      => $option['value'],
                         'required'          => $option['required']
                     );
                 } elseif ($option['type'] == 'custom') {
@@ -454,11 +465,12 @@ class ControllerProductProduct extends Controller {
                         'option_id'         => $option['option_id'],
                         'name'              => $option['name'],
                         'type'              => $option['type'],
-                        'product_option_value'      => $option['option_value'],
+                        'product_option_value'      => $option['product_option_value'],
                         'required'          => $option['required']
                     );
                 }
             }
+
 
             if ($product_info['minimum']) {
                 $data['minimum'] = $product_info['minimum'];

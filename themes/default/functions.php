@@ -15,10 +15,10 @@ if (APPLICATION == 'catalog') {
     $this->document->addScript('themes/default/assets/vendor/jquery/jquery-ui.button.min.js');
     $this->document->addScript('themes/default/assets/vendor/notify/notify.min.js');
     $this->document->addScript('themes/default/assets/vendor/bootstrap/js/bootstrap.min.js');
-    $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'header', 'product/product');
+    $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'footer', 'product/product');
     $this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header', 'product/product');
     $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header',
-        'product/product');
+      'product/product');
     $this->document->addScript('assets/vendor/jquery.print/jquery.print.min.js');
     $this->document->addScript('assets/js/common.js');
 
@@ -27,7 +27,7 @@ if (APPLICATION == 'catalog') {
     $this->document->addStyle('//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css', 'stylesheet', 'screen',
-        'product/product');
+      'product/product');
 
     $this->document->addStyle('assets/css/stylesheet.css', 'stylesheet', 'screen');
     $this->document->addStyle('assets/css/additional.css', 'stylesheet', 'screen');
@@ -36,33 +36,36 @@ if (APPLICATION == 'catalog') {
 
 // Example:
 $template_config_settings = array(
-    'theme_default_product_category_list_resize'     => 'resize',
-    'theme_default_product_info_thumb_resize'        => 'resize',
-    'theme_default_product_info_popup_resize'        => 'resize',
-    'theme_default_product_info_image_popup_resize' => 'resize',
-    'theme_default_product_info_image_mid_resize'    => 'resize',
-    'theme_default_extension_module_featured'        => 'resize',
-    'theme_default_product_short_description_length' => 250,
-    'theme_default_product_category_list_resize'     => 'cropsize',
-    'theme_default_product_category_popup_resize'    => 'propsize',
-    'theme_default_product_cart_thumb_resize'        => 'cropsize',
-    'theme_default_latest_thumb_resize'              => 'resize',
-    'theme_default_category_sort'                    => 'p.sort_order',
-    'theme_default_category_order'                   => 'ASC',
-    'theme_default_product_limits'                   => [8,16,32],
-    'checkout_serial_fields'                         => [
-        'company_name',
-        'reg_num',
-        'address_2',
-        'postcode2',
-        'customer_type',
+  'theme_default_product_info_thumb_resize'            => 'resize',
+  'theme_default_product_info_popup_resize'            => 'resize',
+  'theme_default_product_info_image_popup_resize'      => 'resize',
+  'theme_default_product_info_image_mid_resize'        => 'resize',
+  'theme_default_extension_module_featured'            => 'resize',
+  'theme_default_product_short_description_length'     => 250,
+  'theme_default_product_category_list_resize'         => 'cropsize',
+  'theme_default_manufacturers_thumb_resize'           => 'propsize',
+  'theme_default_product_category_popup_resize'        => 'propsize',
+  'theme_default_product_cart_thumb_resize'            => 'cropsize',
+  'theme_default_latest_thumb_resize'                  => 'resize',
+  'theme_default_category_sort'                        => 'p.sort_order',
+  'theme_default_category_order'                       => 'ASC',
+  'theme_default_product_limits'                       => [8, 16, 32],
+  'theme_default_category_show_subcategories_products' => true,
+  'checkout_serial_fields'                             => [
+    ['key' => 'company_name', 'validate' => false],
+    ['key' => 'address_1', 'validate' => false],
+    ['key' => 'vat_num', 'validate' => false],
+    ['key' => 'reg_num', 'validate' => false],
+    ['key' => 'address_2', 'validate' => false],
+    ['key' => 'postcode2', 'validate' => false],
+    ['key' => 'customer_type', 'validate' => false],
+  ],
+  'theme_default_extension_module_slideshow_resize'    => 'propsize',
+  'theme_default_image_cart_resize'                    => 'resize',
 
-    ],
-
-    'theme_default_extension_module_slideshow_resize' => 'propsize',
-    'theme_default_image_cart_resize'                => 'resize',
-
-    'theme_default_bestseller_thumb_resize' => 'resize',
+  'theme_default_bestseller_thumb_resize' => 'resize',
+  'theme_default_module_category_show_only_subcategories' => true, // model/extension/category - method will show only sub-categories.
+  'admin_category_autocomplete_limit' => 15,
     // 'theme_default_image_category_width'       => 80,
     // 'theme_default_image_category_height'      => 80,
 );
@@ -91,8 +94,7 @@ $this->hook->setHook('footer/index/after', 'modifyFooter');
  *
  */
 if (!function_exists('default_remove_image')) {
-    function default_remove_image(&$data, &$registry)
-    {
+    function default_remove_image(&$data, &$registry) {
         $db = $registry->get('db');
         $registry->get('load')->model('catalog/product');
         // Real modifications.
@@ -109,8 +111,7 @@ if (!function_exists('default_remove_image')) {
 }
 
 if (!function_exists('content_meta')) {
-    function content_meta(&$data, &$registry)
-    {
+    function content_meta(&$data, &$registry) {
         $config = $registry->get('config');
         $url = $registry->get('url');
         if (!empty($data['content_meta'])) {
@@ -120,9 +121,9 @@ if (!function_exists('content_meta')) {
                     $data['product_videos'] = [];
                     foreach ($val as $video) {
                         $data['product_videos'][] = [
-                            'video'     => 'https://www.youtube.com/watch?v=' . $video['video'][$config->get('config_language_id')] . '',
-                            'video_src' => $url->link('common/youtube',
-                                'inpt=' . $video['video'][$config->get('config_language_id')] . '&quality=maxres&play')
+                          'video'     => 'https://www.youtube.com/watch?v=' . $video['video'][$config->get('config_language_id')] . '',
+                          'video_src' => $url->link('common/youtube',
+                            'inpt=' . $video['video'][$config->get('config_language_id')] . '&quality=maxres&play')
                             //   HTTPS_SERVER . 'youtube/yt-thumb.php?inpt=' . $video . '&quality=hq&play"'
                         ];
 

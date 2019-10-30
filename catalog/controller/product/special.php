@@ -8,23 +8,9 @@ class ControllerProductSpecial extends Controller {
 
         $this->load->model('tool/image');
 
-        if (isset($this->request->get['sort'])) {
-            $sort = $this->request->get['sort'];
-        } else {
-            $sort = 'p.sort_order';
-        }
-
-        if (isset($this->request->get['order'])) {
-            $order = $this->request->get['order'];
-        } else {
-            $order = 'ASC';
-        }
-
-        if (isset($this->request->get['page'])) {
-            $page = $this->request->get['page'];
-        } else {
-            $page = 1;
-        }
+        $sort = $this->request->get('sort') ? $this->request->get('sort') : 'p.sort_order';
+        $order = $this->request->get('order') ? $this->request->get('order') : 'ASC';
+        $page = $this->request->get('page') ? $this->request->get('page') : 1;
 
         if (isset($this->request->get['limit'])) {
             $limit = (int)$this->request->get['limit'];
@@ -145,6 +131,8 @@ class ControllerProductSpecial extends Controller {
             );
         }
 
+        // prd( count ( $data['products'] )  );
+
         $url = '';
 
         if (isset($this->request->get['limit'])) {
@@ -221,8 +209,7 @@ class ControllerProductSpecial extends Controller {
 
         $data['limits'] = array();
 
-        $limits = array_unique(array( $this->config->get($this->config->get('config_theme') . '_product_limit'),
-            25, 50, 75, 100 ));
+        $limits = Config::get($this->config->get('config_theme') . '_product_limits', [25, 50, 75, 100]);
 
         sort($limits);
 
@@ -252,7 +239,14 @@ class ControllerProductSpecial extends Controller {
         $pagination->total = $product_total;
         $pagination->page = $page;
         $pagination->limit = $limit;
+        $pagination->text_first = '';
+        $pagination->text_last = '';
+        $pagination->prev_hide = $this->config->get('theme_default_pagination_prev_hide') === null ? false : $this->config->get('theme_default_pagination_prev_hide');
+        $pagination->next_hide = $this->config->get('theme_default_pagination_next_hide') === null ? false : $this->config->get('theme_default_pagination_next_hide');
+        // $pagination->url = $this->url->link('product/special', $this->url->setRequest($url_pattern));
         $pagination->url = $this->url->link('product/special', $url . '&page={page}');
+
+        $this->hook->getHook('pagination', $pagination);
 
         $data['pagination'] = $pagination->render();
 

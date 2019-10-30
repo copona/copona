@@ -1,15 +1,27 @@
 <?php
 
-class ControllerStartupStartup extends Controller
-{
+class ControllerStartupStartup extends Controller {
 
-    public function index()
-    {
+    public function index() {
+
+        // pr($this->session);
+
         // Store
-        if ($this->request->server['HTTPS']) {
-            $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`ssl`, 'www.', '') = '" . $this->db->escape('https://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
-        } else {
-            $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape('http://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
+        try {
+            if ($this->request->server['HTTPS']) {
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`ssl`, 'www.', '') = '" . $this->db->escape('https://' . str_replace('www.', '',
+                            $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
+            } else {
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape('http://' . str_replace('www.', '',
+                            $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
+            }
+        } catch (Exception $e) {
+            $log = new Log('error.log');
+            $private_message = "Error selecting correct table. DB connection problems or TABLE " . DB_PREFIX . "store not avvailable?";
+            $log->write($private_message);
+            $log->write($e->getMessage());
+            error_log($private_message . " @" . __FILE__ . ":" . __LINE__, 0);
+            die("Something went wrong, please, try again later...");
         }
 
         if (isset($this->request->get['store_id'])) {
@@ -74,11 +86,11 @@ class ControllerStartupStartup extends Controller
                 }
             }
         } elseif (isset($this->request->cookie['language']) && array_key_exists($this->request->cookie['language'],
-            $languages)) {
+                $languages)) {
             // 2. Detect from Cookie
             $code = $this->request->cookie['language'];
         } elseif (isset($this->session->data['language']) && array_key_exists($this->session->data['language'],
-            $languages)) {
+                $languages)) {
             // 3. Detect from PHP session
             $code = $this->session->data['language'];
         } elseif ($this->config->get("config_forced_language")) {
@@ -125,8 +137,8 @@ class ControllerStartupStartup extends Controller
         $this->session->data['language'] = $code;
 
         if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
-			setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
-		}
+            setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
+        }
 
         // Overwrite the default language object
         $language = new Language($code);
@@ -151,11 +163,10 @@ class ControllerStartupStartup extends Controller
         }
 
 
-
         $this->language->get('locale') ? setlocale(LC_ALL, $this->language->get('locale') . ".UTF-8") : '';
         setlocale(LC_NUMERIC, "en_GB");
         setlocale(LC_NUMERIC, "en_GB.UTF-8");
-        
+
 
         // Customer
         $customer = new Cart\Customer($this->registry);

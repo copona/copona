@@ -48,7 +48,7 @@ class ModelCatalogCategory extends Model {
 
         if (Config::get('debug.mode')) {
             $output = microtime(true) - $start_time;
-            $this->log->write("Start: for parent $parent_id : " . $output . "\n");
+            // $this->log->write("Start: for parent $parent_id : " . $output . "\n");
         }
 
         return $cats;
@@ -143,6 +143,7 @@ class ModelCatalogCategory extends Model {
         $sql = "SELECT cp.category_id AS category_id
             , IFNULL(concat(GROUP_CONCAT(IF(c2.parent_id=0, null, c2.parent_id)  ORDER BY cp.level SEPARATOR '_'),'_', cp.category_id), c1.category_id) AS path
             , c1.parent_id
+            , c1.image
             , c1.top
             , c1.column
             , cd.name

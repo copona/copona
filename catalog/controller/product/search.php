@@ -16,6 +16,11 @@ class ControllerProductSearch extends Controller {
             $search = '';
         }
 
+
+        if(!$search) {
+            $search = $this->request->get('filter_name'); //Back compatibility.
+        }
+
         if (isset($this->request->get['tag'])) {
             $tag = $this->request->get['tag'];
         } elseif (isset($this->request->get['search'])) {
@@ -175,7 +180,7 @@ class ControllerProductSearch extends Controller {
         $data['products'] = [];
         $data['results'] = '';
 
-        if (isset($this->request->get['search']) || isset($this->request->get['tag'])) {
+        if ($this->request->get('search') || $this->request->get('filter_name') || $this->request->get('tag')) {
             $filter_data = array(
                 'filter_name'         => $search,
                 'filter_tag'          => $tag,
@@ -237,6 +242,7 @@ class ControllerProductSearch extends Controller {
 
                     $data['products'][] = array(
                         'product_id'     => $result['product_id'],
+                        'model'          => $result['model'],
                         'thumb'          => $image,
                         'popup'          => $popup,
                         'name'           => $result['name'],
@@ -430,7 +436,13 @@ class ControllerProductSearch extends Controller {
             $pagination->total = $product_total;
             $pagination->page = $page;
             $pagination->limit = $limit;
+            $pagination->text_first = '';
+            $pagination->text_last = '';
+            $pagination->prev_hide = $this->config->get('theme_default_pagination_prev_hide') === null ? false : $this->config->get('theme_default_pagination_prev_hide');
+            $pagination->next_hide = $this->config->get('theme_default_pagination_next_hide') === null ? false : $this->config->get('theme_default_pagination_next_hide');
             $pagination->url = $this->url->link('product/search', $url . '&page={page}');
+
+            $this->hook->getHook('pagination', $pagination);
 
             $data['pagination'] = $pagination->render();
 

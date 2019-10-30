@@ -21,6 +21,7 @@ class Cart {
         $this->weight = $registry->get('weight');
         $this->hook = $registry->get('hook');
         $this->currency = $registry->get('currency');
+        $this->cache = $registry->get('cache');
 
         // TODO: not needed?
         $this->language = $registry->get('language');
@@ -29,20 +30,17 @@ class Cart {
         $this->load = $registry->get('load');
         $this->load->model('extension/extension');
         $this->load->model('catalog/content');
+        $this->load->model('tool/image');
         $this->extension = $registry->get('model_extension_extension');
 
         $this->cur_constr(); // Does the minimum currency constructor for formatting
 
         // in Admin - session can be empty!
-        if (!empty($this->session->data['currency'])) {
+        if (!empty($this->session->data['currency']) && !empty($this->currencies[$this->session->data['currency']])) {
             $this->decimal_places = $this->currencies[$this->session->data['currency']]['decimal_place'];
         } else {
             $this->decimal_places = 2;
         }
-
-
-        // Remove all the expired carts with no customer ID
-        $this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE (api_id > '0' OR customer_id = '0') AND date_added < DATE_SUB(NOW(), INTERVAL 1 HOUR)");
 
         if ($this->customer->getId()) {
             // We want to change the session ID on all the old items in the customers cart
@@ -119,21 +117,21 @@ class Cart {
                                 }
 
                                 $option_data[] = array(
-                                  'product_option_id'       => $product_option_id,
-                                  'product_option_value_id' => $value,
-                                  'option_id'               => $option_query->row['option_id'],
-                                  'option_value_id'         => $option_value_query->row['option_value_id'],
-                                  'name'                    => $option_query->row['name'],
-                                  'value'                   => $option_value_query->row['name'],
-                                  'type'                    => $option_query->row['type'],
-                                  'quantity'                => $option_value_query->row['quantity'],
-                                  'subtract'                => $option_value_query->row['subtract'],
-                                  'price'                   => $option_value_query->row['price'],
-                                  'price_prefix'            => $option_value_query->row['price_prefix'],
-                                  'points'                  => $option_value_query->row['points'],
-                                  'points_prefix'           => $option_value_query->row['points_prefix'],
-                                  'weight'                  => $option_value_query->row['weight'],
-                                  'weight_prefix'           => $option_value_query->row['weight_prefix']
+                                    'product_option_id'       => $product_option_id,
+                                    'product_option_value_id' => $value,
+                                    'option_id'               => $option_query->row['option_id'],
+                                    'option_value_id'         => $option_value_query->row['option_value_id'],
+                                    'name'                    => $option_query->row['name'],
+                                    'value'                   => $option_value_query->row['name'],
+                                    'type'                    => $option_query->row['type'],
+                                    'quantity'                => $option_value_query->row['quantity'],
+                                    'subtract'                => $option_value_query->row['subtract'],
+                                    'price'                   => $option_value_query->row['price'],
+                                    'price_prefix'            => $option_value_query->row['price_prefix'],
+                                    'points'                  => $option_value_query->row['points'],
+                                    'points_prefix'           => $option_value_query->row['points_prefix'],
+                                    'weight'                  => $option_value_query->row['weight'],
+                                    'weight_prefix'           => $option_value_query->row['weight_prefix']
                                 );
                             }
                         } elseif ($option_query->row['type'] == 'checkbox' && is_array($value)) {
@@ -174,21 +172,21 @@ class Cart {
                                     }
 
                                     $option_data[] = array(
-                                      'product_option_id'       => $product_option_id,
-                                      'product_option_value_id' => $product_option_value_id,
-                                      'option_id'               => $option_query->row['option_id'],
-                                      'option_value_id'         => $option_value_query->row['option_value_id'],
-                                      'name'                    => $option_query->row['name'],
-                                      'value'                   => $option_value_query->row['name'],
-                                      'type'                    => $option_query->row['type'],
-                                      'quantity'                => $option_value_query->row['quantity'],
-                                      'subtract'                => $option_value_query->row['subtract'],
-                                      'price'                   => $option_value_query->row['price'],
-                                      'price_prefix'            => $option_value_query->row['price_prefix'],
-                                      'points'                  => $option_value_query->row['points'],
-                                      'points_prefix'           => $option_value_query->row['points_prefix'],
-                                      'weight'                  => $option_value_query->row['weight'],
-                                      'weight_prefix'           => $option_value_query->row['weight_prefix']
+                                        'product_option_id'       => $product_option_id,
+                                        'product_option_value_id' => $product_option_value_id,
+                                        'option_id'               => $option_query->row['option_id'],
+                                        'option_value_id'         => $option_value_query->row['option_value_id'],
+                                        'name'                    => $option_query->row['name'],
+                                        'value'                   => $option_value_query->row['name'],
+                                        'type'                    => $option_query->row['type'],
+                                        'quantity'                => $option_value_query->row['quantity'],
+                                        'subtract'                => $option_value_query->row['subtract'],
+                                        'price'                   => $option_value_query->row['price'],
+                                        'price_prefix'            => $option_value_query->row['price_prefix'],
+                                        'points'                  => $option_value_query->row['points'],
+                                        'points_prefix'           => $option_value_query->row['points_prefix'],
+                                        'weight'                  => $option_value_query->row['weight'],
+                                        'weight_prefix'           => $option_value_query->row['weight_prefix']
                                     );
                                 }
                             }
@@ -199,21 +197,21 @@ class Cart {
                                   || $option_query->row['type'] == 'datetime'
                                   || $option_query->row['type'] == 'time') {
                             $option_data[] = array(
-                              'product_option_id'       => $product_option_id,
-                              'product_option_value_id' => '',
-                              'option_id'               => $option_query->row['option_id'],
-                              'option_value_id'         => '',
-                              'name'                    => $option_query->row['name'],
-                              'value'                   => $value,
-                              'type'                    => $option_query->row['type'],
-                              'quantity'                => '',
-                              'subtract'                => '',
-                              'price'                   => '',
-                              'price_prefix'            => '',
-                              'points'                  => '',
-                              'points_prefix'           => '',
-                              'weight'                  => '',
-                              'weight_prefix'           => ''
+                                'product_option_id'       => $product_option_id,
+                                'product_option_value_id' => '',
+                                'option_id'               => $option_query->row['option_id'],
+                                'option_value_id'         => '',
+                                'name'                    => $option_query->row['name'],
+                                'value'                   => $value,
+                                'type'                    => $option_query->row['type'],
+                                'quantity'                => '',
+                                'subtract'                => '',
+                                'price'                   => '',
+                                'price_prefix'            => '',
+                                'points'                  => '',
+                                'points_prefix'           => '',
+                                'weight'                  => '',
+                                'weight_prefix'           => ''
                             );
                         }
                     }
@@ -231,21 +229,35 @@ class Cart {
                     }
                 }
 
-                $product_discount_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$cart['product_id'] . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND quantity <= '" . (int)$discount_quantity . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");
+                $product_discount_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_discount 
+                WHERE true 
+                AND product_id = '" . (int)$cart['product_id'] . "' 
+                AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' 
+                AND quantity <= '" . (int)$discount_quantity . "' 
+                AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) 
+                ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");
 
                 if ($product_discount_query->num_rows) {
                     $price = $product_discount_query->row['price'];
                 }
 
                 // Product Specials
-                $product_special_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_special WHERE product_id = '" . (int)$cart['product_id'] . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY priority ASC, price ASC LIMIT 1");
+                $product_special_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_special 
+                WHERE true 
+                AND product_id = '" . (int)$cart['product_id'] . "' 
+                AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' 
+                AND ((date_start IS NULL OR date_start < NOW()) AND (date_end IS NULL OR date_end > NOW())) 
+                ORDER BY priority ASC, price ASC LIMIT 1");
 
                 if ($product_special_query->num_rows) {
                     $price = $product_special_query->row['price'];
                 }
 
                 // Reward Points
-                $product_reward_query = $this->db->query("SELECT points FROM " . DB_PREFIX . "product_reward WHERE product_id = '" . (int)$cart['product_id'] . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "'");
+                $product_reward_query = $this->db->query("SELECT points FROM " . DB_PREFIX . "product_reward 
+                WHERE true 
+                AND product_id = '" . (int)$cart['product_id'] . "' 
+                AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "'");
 
                 if ($product_reward_query->num_rows) {
                     $reward = $product_reward_query->row['points'];
@@ -261,10 +273,10 @@ class Cart {
 
                 foreach ($download_query->rows as $download) {
                     $download_data[] = array(
-                      'download_id' => $download['download_id'],
-                      'name'        => $download['name'],
-                      'filename'    => $download['filename'],
-                      'mask'        => $download['mask']
+                        'download_id' => $download['download_id'],
+                        'name'        => $download['name'],
+                        'filename'    => $download['filename'],
+                        'mask'        => $download['mask']
                     );
                 }
 
@@ -277,17 +289,17 @@ class Cart {
 
                 if ($recurring_query->num_rows) {
                     $recurring = array(
-                      'recurring_id'    => $cart['recurring_id'],
-                      'name'            => $recurring_query->row['name'],
-                      'frequency'       => $recurring_query->row['frequency'],
-                      'price'           => $recurring_query->row['price'],
-                      'cycle'           => $recurring_query->row['cycle'],
-                      'duration'        => $recurring_query->row['duration'],
-                      'trial'           => $recurring_query->row['trial_status'],
-                      'trial_frequency' => $recurring_query->row['trial_frequency'],
-                      'trial_price'     => $recurring_query->row['trial_price'],
-                      'trial_cycle'     => $recurring_query->row['trial_cycle'],
-                      'trial_duration'  => $recurring_query->row['trial_duration']
+                        'recurring_id'    => $cart['recurring_id'],
+                        'name'            => $recurring_query->row['name'],
+                        'frequency'       => $recurring_query->row['frequency'],
+                        'price'           => $recurring_query->row['price'],
+                        'cycle'           => $recurring_query->row['cycle'],
+                        'duration'        => $recurring_query->row['duration'],
+                        'trial'           => $recurring_query->row['trial_status'],
+                        'trial_frequency' => $recurring_query->row['trial_frequency'],
+                        'trial_price'     => $recurring_query->row['trial_price'],
+                        'trial_cycle'     => $recurring_query->row['trial_cycle'],
+                        'trial_duration'  => $recurring_query->row['trial_duration']
                     );
                 } else {
                     $recurring = false;
@@ -298,7 +310,7 @@ class Cart {
                 // also in catalog/model/product/product.php
                 if ((double)$product_query->row['ean']) {
                     $ean = $this->tax->calculate($product_query->row['ean'],
-                      $this->config->get('flat_per_product_tax_class_id'), $this->config->get('config_tax'));
+                        $this->config->get('flat_per_product_tax_class_id'), $this->config->get('config_tax'));
                 } else {
                     $ean = $product_query->row['ean'];
                 }
@@ -307,48 +319,73 @@ class Cart {
                 // TODO: check in common/cart.php controller!
                 // We need product price + option price for opened product.
                 $price_enduser = $this->currency->format($this->tax->calculate($price, $product_query->row['tax_class_id'], $this->config->get('config_tax')), '', '', false)
-                                 + $this->currency->format($this->tax->calculate($option_price, $product_query->row['tax_class_id'], $this->config->get('config_tax')), '', '', false);
+                                 + $this->currency->format($this->tax->calculate($option_price, $product_query->row['tax_class_id'], $this->config->get('config_tax')), '', '',
+                        false);
                 $price_enduser_total = $price_enduser * $cart['quantity'];
+
+                $price_enduser_formatted = $this->currency->format2($price_enduser);
+                $price_enduser_total_formatted = $this->currency->format2($price_enduser_total);
+
                 $product_taxes = $this->tax->getRates($price_enduser_total, $product_query->row['tax_class_id']);
                 $tax_amount = 0;
                 foreach ($product_taxes as $tax) {
                     $tax_amount += ($price_enduser_total * $tax['rate'] * 0.01) / (1 + $tax['rate'] * 0.01);
                 }
 
+                $price = ($price + $option_price);
+                $price_total = $price * $cart['quantity'];
+                $tax = $price_enduser_total - $price_total;
+
+                if ($product_query->row['image']) {
+                    $thumb = $this->registry->get('model_tool_image')->{$this->config->get('theme_default_image_cart_resize', 'resize')}($product_query->row['image'],
+                        $this->config->get($this->config->get('config_theme') . '_image_cart_width'),
+                        $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+                } else {
+                    $thumb = $this->registry->get('model_tool_image')->{$this->config->get('theme_default_image_cart_resize', 'resize')}($this->config->get('config_no_image',
+                        'placeholder.png'), $this->config->get($this->config->get('config_theme') . '_image_cart_width'),
+                        $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+                }
+
+                $href = $this->registry->get('url')->link('product/product','product_id=' . $product_query->row['product_id']);
 
                 $product_data[] = array(
-                  'cart_id'             => $cart['cart_id'],
-                  'product_id'          => $product_query->row['product_id'],
-                  'name'                => $product_query->row['name'],
-                  'model'               => $product_query->row['model'],
-                  'shipping'            => $product_query->row['shipping'],
-                  'image'               => $product_query->row['image'],
-                  'option'              => $option_data,
-                  'ean'                 => $ean,
-                  'download'            => $download_data,
-                  'quantity'            => $cart['quantity'],
-                  'minimum'             => $product_query->row['minimum'],
-                  'subtract'            => $product_query->row['subtract'],
-                  'stock'               => $stock,
-                  'price'               => ($price + $option_price),
-                  'total'               => ($price + $option_price) * $cart['quantity'],
-                  'content_meta'        => $this->registry->get('model_catalog_content')->getContentMeta($product_query->row['product_id'], 'product'),
-                  'tax_amount'          => $tax_amount / $cart['quantity'], // Do not ROUND and FORMAT!
-                  'tax_amount_total'    => $tax_amount,
-                  'price_without_tax'   => ($price_enduser_total - $tax_amount) / $cart['quantity'],
-                  'total_without_tax'   => $price_enduser_total - $tax_amount,
-                  'price_enduser'       => $price_enduser,
-                  'price_enduser_total' => $price_enduser_total,
-                  'reward'              => $reward * $cart['quantity'],
-                  'points'              => ($product_query->row['points'] ? ($product_query->row['points'] + $option_points) * $cart['quantity'] : 0),
-                  'tax_class_id'        => $product_query->row['tax_class_id'],
-                  'weight'              => ($product_query->row['weight'] + $option_weight) * $cart['quantity'],
-                  'weight_class_id'     => $product_query->row['weight_class_id'],
-                  'length'              => $product_query->row['length'],
-                  'width'               => $product_query->row['width'],
-                  'height'              => $product_query->row['height'],
-                  'length_class_id'     => $product_query->row['length_class_id'],
-                  'recurring'           => $recurring
+                    'cart_id'                       => $cart['cart_id'],
+                    'product_id'                    => $product_query->row['product_id'],
+                    'name'                          => $product_query->row['name'],
+                    'model'                         => $product_query->row['model'],
+                    'shipping'                      => $product_query->row['shipping'],
+                    'image'                         => $product_query->row['image'],
+                    'thumb'                         => $thumb,
+                    'href'                          => $href,
+                    'option'                        => $option_data,
+                    'ean'                           => $ean,
+                    'download'                      => $download_data,
+                    'quantity'                      => $cart['quantity'],
+                    'minimum'                       => $product_query->row['minimum'],
+                    'subtract'                      => $product_query->row['subtract'],
+                    'stock'                         => $stock,
+                    'price'                         => $price,
+                    'total'                         => $price_total,
+                    'content_meta'                  => $this->registry->get('model_catalog_content')->getContentMeta($product_query->row['product_id'], 'product'),
+                    'tax'                           => $tax,
+                    'tax_amount'                    => $tax_amount / $cart['quantity'], // Do not ROUND and FORMAT!
+                    'tax_amount_total'              => $tax_amount,
+                    'price_without_tax'             => ($price_enduser_total - $tax_amount) / $cart['quantity'],
+                    'total_without_tax'             => $price_enduser_total - $tax_amount,
+                    'price_enduser'                 => $price_enduser,
+                    'price_enduser_formatted'       => $price_enduser_formatted,
+                    'price_enduser_total'           => $price_enduser_total,
+                    'price_enduser_total_formatted' => $price_enduser_total_formatted,
+                    'reward'                        => $reward * $cart['quantity'],
+                    'points'                        => ($product_query->row['points'] ? ($product_query->row['points'] + $option_points) * $cart['quantity'] : 0),
+                    'tax_class_id'                  => $product_query->row['tax_class_id'],
+                    'weight'                        => ($product_query->row['weight'] + $option_weight) * $cart['quantity'],
+                    'weight_class_id'               => $product_query->row['weight_class_id'],
+                    'length'                        => $product_query->row['length'],
+                    'width'                         => $product_query->row['width'],
+                    'height'                        => $product_query->row['height'],
+                    'length_class_id'               => $product_query->row['length_class_id'],
+                    'recurring'                     => $recurring
                 );
 
             } else {
@@ -466,9 +503,11 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         $enduser_prices = [];
         foreach ($this->cartProducts as $product) {
             !isset($enduser_prices[$product['tax_class_id']]) ? $enduser_prices[$product['tax_class_id']] = 0 : false;
-            $enduser_prices[$product['tax_class_id']] += $product['price_enduser_total'];
+            $enduser_prices[$product['tax_class_id']] += isset($product['price_enduser_total']) ? $product['price_enduser_total'] : 0;
         }
+
         $tax_classes = $this->tax->getTaxClasses();
+
         foreach ($enduser_prices as $tax_class_id => $enduser_price) {
             if (isset($tax_classes[$tax_class_id])) {
                 $multiplier = 1;
@@ -500,7 +539,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     public function getTotal() {
         $total = 0;
         foreach ($this->cartProducts as $product) {
-            $total += $this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax'));
+            // $total += $this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax'));
+            $total += $product['price_enduser_total'];
         }
         return $total;
     }
@@ -574,15 +614,33 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     */
     private function cur_constr() {
 
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "currency");
-        foreach ($query->rows as $result) {
+        $sql = "SELECT * FROM " . DB_PREFIX . "currency where true ";
+
+        $cache_key = 'currency.' . md5($sql);
+        $result_data = $this->cache->get($cache_key);
+
+        // pr($result_data);
+
+        if ($result_data === null) {
+            $query = $this->db->query($sql);
+            $result_data = [];
+            if ($query->num_rows) {
+                $result_data = $query->rows;
+            }
+            $this->cache->set($cache_key, $result_data);
+        }
+
+
+        // $query = $this->db->query($sql);
+
+        foreach ($result_data as $result) {
             $this->currencies[$result['code']] = array(
-              'currency_id'   => $result['currency_id'],
-              'title'         => $result['title'],
-              'symbol_left'   => $result['symbol_left'],
-              'symbol_right'  => $result['symbol_right'],
-              'decimal_place' => $result['decimal_place'],
-              'value'         => $result['value']
+                'currency_id'   => $result['currency_id'],
+                'title'         => $result['title'],
+                'symbol_left'   => $result['symbol_left'],
+                'symbol_right'  => $result['symbol_right'],
+                'decimal_place' => $result['decimal_place'],
+                'value'         => $result['value']
             );
         }
         if (isset($this->request->get['currency']) && (array_key_exists($this->request->get['currency'], $this->currencies))) {
@@ -597,6 +655,10 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
     }
 
+    public function getTotals($par = []) {
+        return $this->getTotals_azon($par);
+    }
+
     public function getTotals_azon($params = []) {
         $data = [];
         $total = 0;
@@ -604,9 +666,9 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
         $totals = [];
         $total_data = array(
-          'totals' => &$totals,
-          'taxes'  => &$taxes,
-          'total'  => &$total
+            'totals' => &$totals,
+            'taxes'  => &$taxes,
+            'total'  => &$total
         );
 
         $this->cartTotal = 0;
@@ -634,16 +696,22 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                     $this->cartTotal += $this->currency->format($total['value'], $this->session->data['currency'], '', false);
                 }
 
+                // if($total['code'] == 'shipping'){
+                //     pr($total);
+                // }
+
                 $this->shipping += $total['code'] == 'shipping' ? $total['value'] : 0;
 
                 $data['totals'][] = array(
-                  'code'       => $total['code'],
-                  'title'      => $total['title'],
+                    'code'       => $total['code'],
+                    'title'      => $total['title'],
                     // We need to covert between currencies, to set correct number
-                  'value'      => $total['code'] == 'total' ? $this->currency->convert($this->cartTotal, $this->session->data['currency'], 1) : $total['value'],
-                  'sort_order' => $total['sort_order'],
-                  'text'       => $total['code'] == 'total' ? $this->currency->format2($this->cartTotal) : $this->currency->format($total['value'], $this->session->data['currency']),
+                    'value'      => $total['code'] == 'total' ? $this->currency->convert($this->cartTotal, $this->session->data['currency'], 1) : $total['value'],
+                    'sort_order' => $total['sort_order'],
+                    'text'       => $total['code'] == 'total' ? $this->currency->format2($this->cartTotal) : $this->currency->format($total['value'],
+                        $this->session->data['currency']),
                 );
+
             }
         }
         return $data['totals'];
@@ -653,10 +721,15 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
      * Correct Total with discount
      * @return int
      */
-    public function getCartTotal() {
+    public function getCartTotal($format = false) {
         // Thus function generates cart total! Together with correct totals built.
         $this->getTotals_azon();
-        return $this->currency->convert($this->cartTotal, $this->session->data['currency'], 1);
+
+        if ($format) {
+            return $this->currency->format($this->cartTotal, '', 1, true);
+        } else {
+            return $this->currency->format($this->cartTotal, '', 1, false);
+        }
     }
 
 }

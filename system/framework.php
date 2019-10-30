@@ -16,6 +16,7 @@ $registry->singleton('cache', function ($registry) use ($config) {
 
 //Extension
 use \Copona\System\Library\Extension\ExtensionManager;
+
 $extension = ExtensionManager::getInstance();
 $registry->set('extension', $extension);
 
@@ -37,7 +38,8 @@ $registry->singleton('hook', function ($registry) {
 
 // Flash messages
 use \Plasticbrain\FlashMessages\FlashMessages;
-$registry->singleton('flash', function ($registry){
+
+$registry->singleton('flash', function ($registry) {
     return new FlashMessages();
 });
 
@@ -48,6 +50,7 @@ $registry->set('template', $adapter);
 
 // Loader
 use \Copona\System\Engine\Loader;
+
 $loader = new Loader($registry);
 $registry->set('load', $loader);
 
@@ -67,6 +70,7 @@ if ($config->get($application_config . '.db_autostart')) {
     $default_connection = $config->get('database.default_connection') ? $config->get('database.default_connection') : 'default';
     $db_config = $config->get('database.' . $default_connection);
     define('DB_PREFIX', $db_config['db_prefix']);
+    define('DB_DATABASE', $db_config['db_database']);
 
     $registry->singleton('db', function ($registry) use ($db_config) {
         return new DB(
@@ -155,6 +159,8 @@ if ($config->has($application_config . '.action_pre_action')) {
         $controller->addPreAction(new \Copona\System\Engine\Action($value));
     }
 }
+
+
 // Dispatch
 $controller->dispatch(
     new \Copona\System\Engine\Action($config->get($application_config . '.action_router')),
