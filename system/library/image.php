@@ -18,7 +18,7 @@ class Image {
             ob_start();
             $info = getimagesize($file);
             $resize_warning = ob_get_clean();
-            if($resize_warning) {
+            if ($resize_warning) {
                 $registry->log->write("Cannot resize system/library/image: $resize_warning");
             }
 
@@ -235,11 +235,17 @@ class Image {
         }
 
         if (strlen($color) == 6) {
-            list($r, $g, $b) = array( $color[0] . $color[1], $color[2] . $color[3],
-                $color[4] . $color[5] );
+            list($r, $g, $b) = array(
+                $color[0] . $color[1],
+                $color[2] . $color[3],
+                $color[4] . $color[5]
+            );
         } elseif (strlen($color) == 3) {
-            list($r, $g, $b) = array( $color[0] . $color[0], $color[1] . $color[1],
-                $color[2] . $color[2] );
+            list($r, $g, $b) = array(
+                $color[0] . $color[0],
+                $color[1] . $color[1],
+                $color[2] . $color[2]
+            );
         } else {
             return false;
         }
@@ -248,7 +254,7 @@ class Image {
         $g = hexdec($g);
         $b = hexdec($b);
 
-        return array( $r, $g, $b );
+        return array($r, $g, $b);
     }
 
     /*
@@ -463,7 +469,6 @@ class Image {
         };
 
         //pr( $this->info['width']  );
-
 
 
         $scale_w = $width / $this->info['width'];
