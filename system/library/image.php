@@ -7,9 +7,11 @@ class Image {
     private $bits;
     private $mime;
     private $info;
+    private $registry;
 
     public function __construct($file) {
-        $registry = Registry::getInstance();
+        $this->registry = Registry::getInstance();
+
         if (file_exists($file)) {
             $this->file = $file;
 
@@ -19,7 +21,7 @@ class Image {
             $info = getimagesize($file);
             $resize_warning = ob_get_clean();
             if ($resize_warning) {
-                $registry->log->write("Cannot resize system/library/image: $resize_warning");
+                $this->registry->log->write("Cannot resize system/library/image: $resize_warning");
             }
 
             /* OC1 methods compatibility start */
@@ -46,7 +48,7 @@ class Image {
                 throw new RuntimeException('Could not found image mime' . $file . '!');
             }
         } else {
-            $registry->log->write('Error: Could not load image ' . $file . '!');
+            $this->registry->log->write('Error: Could not load image ' . $file . '!');
         }
     }
 
@@ -516,16 +518,16 @@ class Image {
 
     public function addwatermark($position = 'bottomright') {
 
-        if (!file_exists(DIR_IMAGE . 'watermark.png')) {
+        if (!file_exists(Config::get('config_watermark_image_path', DIR_IMAGE . 'watermark.png'))) {
             imagedestroy($this->image);
-            error_log('Function addwatermark() error: folder image/ does not have hardcoded predefined image file: watermark.png');
+            $this->registry->log->write('Function addwatermark() error: '.Config::get('config_watermark_image_path', DIR_IMAGE . 'watermark.png').' does not exist');
             return false;
         }
 
         $width = imagesx($this->image);
         $height = imagesy($this->image);
 
-        $watermark = imagecreatefrompng(DIR_IMAGE . 'watermark.png'); //TODO: add to Config!
+        $watermark = imagecreatefrompng(Config::get('config_watermark_image_path', DIR_IMAGE . 'watermark.png')); //TODO: add to Config!
         imageAlphaBlending($watermark, false);
         imageSaveAlpha($watermark, true);
 

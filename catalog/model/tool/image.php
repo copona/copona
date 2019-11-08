@@ -2,11 +2,13 @@
 
 class ModelToolImage extends Model {
 
-    public function resize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle') {
+    public function resize($filename, $width, $height, $type = "", $watermark = NULL, $position = 'middle') {
         if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE) . DIRECTORY_SEPARATOR . $filename), 0,
                 strlen(DIR_IMAGE . $filename)) != str_replace('\\', '/', DIR_IMAGE . $filename)) {
             return;
         }
+
+        $watermark = is_null($watermark) ? Config::get('config_watermark_resize') : $watermark;
 
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -62,10 +64,12 @@ class ModelToolImage extends Model {
      *
      * @return string|void
      */
-    public function onesize($filename, $maxsize, $height = "", $type = "", $watermark = false, $position = 'middle') {
+    public function onesize($filename, $maxsize, $height = "", $type = "", $watermark = NULL, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
+
+        $watermark = is_null($watermark) ? Config::get('config_watermark_onesize') : $watermark;
 
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -106,10 +110,12 @@ class ModelToolImage extends Model {
      *
      * @return string|void
      */
-    public function cropsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle') {
+    public function cropsize($filename, $width, $height, $type = "", $watermark = NULL, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
+
+        $watermark = is_null($watermark) ? Config::get('config_watermark_cropsize') : $watermark;
 
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -138,10 +144,12 @@ class ModelToolImage extends Model {
         return $this->url->getImageUrl($new_image);
     }
 
-    public function propsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle') {
+    public function propsize($filename, $width, $height, $type = "", $watermark = NULL, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
+
+        $watermark = is_null($watermark) ? Config::get('config_watermark_propsize') : $watermark;
 
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -182,10 +190,14 @@ class ModelToolImage extends Model {
         return $this->url->getImageUrl($new_image);
     }
 
-    public function downsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle') {
+    public function downsize($filename, $width, $height, $type = "", $watermark = NULL, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
+
+        $watermark = is_null($watermark) ? Config::get('config_watermark_downsize') : $watermark;
+
+        pr($watermark);
 
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
