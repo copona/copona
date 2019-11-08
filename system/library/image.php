@@ -527,8 +527,12 @@ class Image {
         $watermark_width = imagesx($watermark);
         $watermark_height = imagesy($watermark);
 
-        $dest_width = $width / 2;
-        $dest_height = $width / 2;
+        $scale_w = $width / $watermark_width;
+        $scale_h = $height / $watermark_height;
+        $scale = min($scale_w, $scale_h) * 0.7;
+
+        $dest_width = $watermark_width * $scale;
+        $dest_height = $watermark_height * $scale;
 
         switch ($position) {
             case 'topleft':

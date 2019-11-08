@@ -51,6 +51,7 @@ $template_config_settings = array(
   'theme_default_category_order'                       => 'ASC',
   'theme_default_product_limits'                       => [8, 16, 32],
   'theme_default_category_show_subcategories_products' => true,
+  'config_watermark_image_path'                        => DIR_IMAGE . "watermark.png",
   'checkout_serial_fields'                             => [
     ['key' => 'company_name', 'validate' => false],
     ['key' => 'address_1', 'validate' => false],
