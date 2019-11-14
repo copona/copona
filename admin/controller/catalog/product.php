@@ -373,13 +373,11 @@ class ControllerCatalogProduct extends Controller {
 
         $results = $this->model_catalog_product->getProducts($filter_data);
 
-        //prd($results);
-
         foreach ($results as $result) {
             if (is_file(DIR_IMAGE . $result['image'])) {
                 $image = $this->model_tool_image->resize($result['image'], 40, 40);
             } else {
-                $image = $this->model_tool_image->resize('no_image.png', 40, 40);
+                $image = $this->model_tool_image->resize(Config::get('config_no_image', 'no_image.png'), 40, 40);
             }
 
             $special = false;
@@ -567,8 +565,6 @@ class ControllerCatalogProduct extends Controller {
 
         $data = $this->load->language('catalog/product');
 
-        //prd($this->language);
-        //prd($data);
 
         $data['heading_title'] = $this->language->get('heading_title');
         $data['text_form'] = !isset($this->request->get['product_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
@@ -646,9 +642,6 @@ class ControllerCatalogProduct extends Controller {
         }
 
         $data['cancel'] = $this->url->link('catalog/product', 'token=' . $this->session->data['token'] . $url, true);
-
-
-        // product group
 
         if (isset($this->request->get['product_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $product_info = $this->model_catalog_product->getProduct((int)$this->request->get['product_id']);
@@ -1021,10 +1014,11 @@ class ControllerCatalogProduct extends Controller {
         } elseif (!empty($product_info) && is_file(DIR_IMAGE . $product_info['image'])) {
             $data['thumb'] = $this->model_tool_image->resize($product_info['image'], 100, 100);
         } else {
-            $data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+            $data['thumb'] = $this->model_tool_image->resize(Config::get('config_no_image', 'no_image.png'), 100, 100);
         }
 
-        $data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+        $data['placeholder'] = $this->model_tool_image->resize(Config::get('config_no_image','no_image.png'), 100, 100);
+//        prd($data['placeholder']);
 
         // Images
         if (isset($this->request->post['product_image'])) {
@@ -1043,12 +1037,16 @@ class ControllerCatalogProduct extends Controller {
                 $thumb = $product_image['image'];
             } else {
                 $image = '';
-                $thumb = 'no_image.png';
+                $thumb = Config::get('config_no_image', 'no_image.png');
             }
+
+            $thumb = $this->model_tool_image->resize($thumb, 100, 100);
+
 
             $data['product_images'][] = array(
                 'image'       => $image,
-                'thumb'       => $this->model_tool_image->resize($thumb, 100, 100),
+                'image_url'      => $product_image['image_url'],
+                'thumb'      => $thumb,
                 'sort_order'  => $product_image['sort_order'],
                 'description' => $product_image['description']
             );
@@ -1266,7 +1264,7 @@ class ControllerCatalogProduct extends Controller {
                     'name'       => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
                     'model'      => $result['model'],
                     'option'     => $option_data,
-                    //'price'      => $result['price']
+                    'price'      => $result['price'],
                 );
             }
         }
