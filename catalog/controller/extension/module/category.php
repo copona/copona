@@ -31,7 +31,7 @@ class ControllerExtensionModuleCategory extends Controller {
             $data['child_id'] = 0;
         }
 
-        if (isset($parts[1])) {
+        if (isset($parts[1], $parts[2])) {
             $data['child_id2'] = $parts[2];
         } else {
             $data['child_id2'] = 0;

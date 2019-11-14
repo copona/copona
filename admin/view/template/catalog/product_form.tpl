@@ -85,6 +85,7 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
@@ -99,6 +100,9 @@
                       </select>
                     </div>
                   </div>
+
+
+
 
                 </div>
                 <div class="col-sm-6">
@@ -118,6 +122,23 @@
                       </div>
                     </div>
                   </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-stock-status"><span data-toggle="tooltip" title="<?php echo $help_stock_status; ?>"><?php echo $entry_stock_status; ?></span></label>
+                <div class="col-sm-10">
+                  <select name="stock_status_id" id="input-stock-status" class="form-control">
+                    <?php foreach ($stock_statuses as $stock_status) { ?>
+                        <?php if ($stock_status['stock_status_id'] == $stock_status_id) { ?>
+                        <option value="<?php echo $stock_status['stock_status_id']; ?>" selected="selected"><?php echo $stock_status['name']; ?></option>
+                        <?php } else { ?>
+                        <option value="<?php echo $stock_status['stock_status_id']; ?>"><?php echo $stock_status['name']; ?></option>
+                        <?php } ?>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+
                 </div>
 
               </div>
