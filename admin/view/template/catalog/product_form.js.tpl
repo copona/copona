@@ -474,7 +474,10 @@
 
   function addImage() {
     html = '<tr id="image-row' + image_row + '">';
-    html += '  <td class="text-left"><a href="" id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img src="<?php echo $placeholder; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
+    html += '  <td class="text-left"><a href="" id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail">'
+  + '<img src="<?php echo $placeholder; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" />'
+  + '<br />Remote url: <input type="text" class="form-control" name="product_image[' + image_row + '][image_url]" value="" id="input-image-url' + image_row + '" />'
+  + '</td>';
     html += '<td class="text-right">'
       <?php foreach ($languages as $language) { ?>
     html += '<div class="input-group">';
