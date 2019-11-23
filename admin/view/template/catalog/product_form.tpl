@@ -4,6 +4,10 @@
     <div class="container-fluid">
       <div class="pull-right">
 
+        <?php if ($product_id) { ?>
+          <a class="btn btn-info" href="/?route=product/product&amp;product_id=<?php echo $product_id; ?>" target="_blank">View product on site</a>
+        <?php }; ?>
+
         <button onclick="saveAndContinue(event);" form="form-product" data-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
                 class="btn btn-primary savecontinue"><i class="fa fa-save"></i><?= $button_save_continue ?></button>
         <button type="submit" form="form-product" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
@@ -81,6 +85,7 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
@@ -95,6 +100,9 @@
                       </select>
                     </div>
                   </div>
+
+
+
 
                 </div>
                 <div class="col-sm-6">
@@ -114,6 +122,23 @@
                       </div>
                     </div>
                   </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-stock-status"><span data-toggle="tooltip" title="<?php echo $help_stock_status; ?>"><?php echo $entry_stock_status; ?></span></label>
+                <div class="col-sm-10">
+                  <select name="stock_status_id" id="input-stock-status" class="form-control">
+                    <?php foreach ($stock_statuses as $stock_status) { ?>
+                        <?php if ($stock_status['stock_status_id'] == $stock_status_id) { ?>
+                        <option value="<?php echo $stock_status['stock_status_id']; ?>" selected="selected"><?php echo $stock_status['name']; ?></option>
+                        <?php } else { ?>
+                        <option value="<?php echo $stock_status['stock_status_id']; ?>"><?php echo $stock_status['name']; ?></option>
+                        <?php } ?>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+
                 </div>
 
               </div>
@@ -485,7 +510,17 @@
 
                   <tbody>
                   <tr>
-                    <td class="text-left"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="<?php echo $thumb; ?>" title="<?php echo $thumb; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" /></td>
+                    <td class="text-left">
+                      <a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="<?php echo $thumb; ?>" title="<?php echo $thumb; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a>
+
+                      <input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" />
+
+                      <div class="input-group">
+                        <span>Remote URL to download from: </span>
+                        <input type="text" class="form-control" name="image_url" value="<?php echo $image_url; ?>" id="input-image" />
+                      </div>
+
+                    </td>
                   </tr>
                   </tbody>
                 </table>
@@ -507,6 +542,8 @@
                       <td class="text-left"><a href="" id="thumb-image<?php echo $image_row; ?>" data-toggle="image" class="img-thumbnail"><img src="<?php echo $product_image['thumb']; ?>" alt="<?php echo $product_image['thumb']; ?>" title="<?php echo $product_image['thumb']; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="product_image[<?php echo $image_row; ?>][image]" value="<?php echo $product_image['image']; ?>" id="input-image<?php echo $image_row; ?>" />
 
                         <a href="#" id="thumb-imagex<?php echo $image_row; ?>" onclick="$('#thumb-image > img').attr('src',$(this).parent().find('.img-thumbnail img').attr('src') );$('#thumb-image').parent().find('input').val($(this).parent().find('input').val() );return false;">set as default</a>
+                        <br>Remote url: <input type="text" class="form-control" name="product_image[<?php echo $image_row; ?>][image_url]" value="<?php echo $product_image['image_url']; ?>"
+                                   id="input-image-url<?php echo $image_row; ?>" />
                       </td>
                       <td class="text-right">
                           <?php foreach ($languages as $language) {// pr($product_video) ?>

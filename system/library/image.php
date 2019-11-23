@@ -7,9 +7,11 @@ class Image {
     private $bits;
     private $mime;
     private $info;
+    private $registry;
 
     public function __construct($file) {
-        $registry = Registry::getInstance();
+        $this->registry = Registry::getInstance();
+
         if (file_exists($file)) {
             $this->file = $file;
 
@@ -18,8 +20,8 @@ class Image {
             ob_start();
             $info = getimagesize($file);
             $resize_warning = ob_get_clean();
-            if($resize_warning) {
-                $registry->log->write("Cannot resize system/library/image: $resize_warning");
+            if ($resize_warning) {
+                $this->registry->log->write("Cannot resize system/library/image: $resize_warning");
             }
 
             /* OC1 methods compatibility start */
@@ -46,7 +48,7 @@ class Image {
                 throw new RuntimeException('Could not found image mime' . $file . '!');
             }
         } else {
-            $registry->log->write('Error: Could not load image ' . $file . '!');
+            $this->registry->log->write('Error: Could not load image ' . $file . '!');
         }
     }
 
@@ -235,11 +237,17 @@ class Image {
         }
 
         if (strlen($color) == 6) {
-            list($r, $g, $b) = array( $color[0] . $color[1], $color[2] . $color[3],
-                $color[4] . $color[5] );
+            list($r, $g, $b) = array(
+                $color[0] . $color[1],
+                $color[2] . $color[3],
+                $color[4] . $color[5]
+            );
         } elseif (strlen($color) == 3) {
-            list($r, $g, $b) = array( $color[0] . $color[0], $color[1] . $color[1],
-                $color[2] . $color[2] );
+            list($r, $g, $b) = array(
+                $color[0] . $color[0],
+                $color[1] . $color[1],
+                $color[2] . $color[2]
+            );
         } else {
             return false;
         }
@@ -248,7 +256,7 @@ class Image {
         $g = hexdec($g);
         $b = hexdec($b);
 
-        return array( $r, $g, $b );
+        return array($r, $g, $b);
     }
 
     /*
@@ -465,7 +473,6 @@ class Image {
         //pr( $this->info['width']  );
 
 
-
         $scale_w = $width / $this->info['width'];
         $scale_h = $height / $this->info['height'];
 
@@ -511,24 +518,28 @@ class Image {
 
     public function addwatermark($position = 'bottomright') {
 
-        if (!file_exists(DIR_IMAGE . 'watermark.png')) {
+        if (!file_exists(Config::get('config_watermark_image_path', DIR_IMAGE . 'watermark.png'))) {
             imagedestroy($this->image);
-            error_log('Function addwatermark() error: folder image/ does not have hardcoded predefined image file: watermark.png');
+            $this->registry->log->write('Function addwatermark() error: '.Config::get('config_watermark_image_path', DIR_IMAGE . 'watermark.png').' does not exist');
             return false;
         }
 
         $width = imagesx($this->image);
         $height = imagesy($this->image);
 
-        $watermark = imagecreatefrompng(DIR_IMAGE . 'watermark.png'); //TODO: add to Config!
+        $watermark = imagecreatefrompng(Config::get('config_watermark_image_path', DIR_IMAGE . 'watermark.png')); //TODO: add to Config!
         imageAlphaBlending($watermark, false);
         imageSaveAlpha($watermark, true);
 
         $watermark_width = imagesx($watermark);
         $watermark_height = imagesy($watermark);
 
-        $dest_width = $width / 2;
-        $dest_height = $width / 2;
+        $scale_w = $width / $watermark_width;
+        $scale_h = $height / $watermark_height;
+        $scale = min($scale_w, $scale_h) * 0.7;
+
+        $dest_width = $watermark_width * $scale;
+        $dest_height = $watermark_height * $scale;
 
         switch ($position) {
             case 'topleft':

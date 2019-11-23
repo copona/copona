@@ -40,6 +40,11 @@ if (!function_exists('dt')) {
     function dt( $int = false )
     {
         return loadTime::diff( $int );
+        /*if (@$GLOBALS['debug_mode']) {
+            !isset($_SESSION['dt_start_time']) ? $_SESSION['dt_start_time'] = microtime(true) : false;
+            $diff = microtime(true) - $_SESSION['dt_start_time'];
+            return $diff;
+        }*/
     }
 }
 

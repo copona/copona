@@ -180,8 +180,6 @@ class ControllerProductSearch extends Controller {
         $data['products'] = [];
         $data['results'] = '';
 
-//        $sort = "p.image";
-
         if (isset($this->request->get['search']) || $this->request->get['filter_name'] || isset($this->request->get['tag'])) {
             $filter_data = array(
                 'filter_name'         => $search,

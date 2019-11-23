@@ -394,6 +394,9 @@ class ModelCheckoutOrder extends Model {
 
         $order_info = $this->getOrder($order_id);
 
+
+
+
         if ($order_info) {
             // Fraud Detection
             $this->load->model('account/customer');
@@ -440,7 +443,7 @@ class ModelCheckoutOrder extends Model {
                 foreach ($order_total_query->rows as $order_total) {
                     $this->load->model('extension/total/' . $order_total['code']);
 
-                    if (property_exists($this->{'model_extension_total_' . $order_total['code']}, 'confirm')) {
+                    if (method_exists($this->{'model_extension_total_' . $order_total['code']}, 'confirm')) {
                         // Confirm coupon, vouchers and reward points
                         $fraud_status_id = $this->{'model_extension_total_' . $order_total['code']}->confirm($order_info,
                             $order_total);
@@ -507,7 +510,7 @@ class ModelCheckoutOrder extends Model {
                 foreach ($order_total_query->rows as $order_total) {
                     $this->load->model('extension/total/' . $order_total['code']);
 
-                    if (property_exists($this->{'model_extension_total_' . $order_total['code']}, 'unconfirm')) {
+                    if (method_exists($this->{'model_extension_total_' . $order_total['code']}, 'unconfirm')) {
                         $this->{'model_extension_total_' . $order_total['code']}->unconfirm($order_id);
                     }
                 }
@@ -538,8 +541,10 @@ class ModelCheckoutOrder extends Model {
 
                 // Load the language for any mails that might be required to be sent out
                 $language = new Language($order_info['language_code']);
-                $language->load($order_info['language_code']);
-                $data = $language->load('mail/order');
+
+                $data = array_merge( $language->load($order_info['language_code']) , $language->load('mail/order') );
+
+
 
                 $order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status 
                     WHERE order_status_id = '" . (int)$order_status_id . "' 
@@ -620,6 +625,9 @@ class ModelCheckoutOrder extends Model {
                     'zone_code' => $order_info['payment_zone_code'],
                     'country'   => $order_info['payment_country']
                 );
+
+                //For email template only!
+                $data['customer_name'] = $order_info['firstname'] . " " . $order_info['lastname'];
 
                 $data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array(
                     "/\s\s+/",
@@ -814,6 +822,9 @@ class ModelCheckoutOrder extends Model {
                 // Send Email to Customer:
                 // $data['serial'] is already available into the template.
                 //* Comment this, to temporary disable E-mail to customer
+
+
+
                 $this->model_tool_mail->sendMail(
                     '',
                     $order_info['email'],
@@ -821,6 +832,8 @@ class ModelCheckoutOrder extends Model {
                     $data,
                     $data['mail_template'],
                     $order_info['store_id']); // */
+
+
 
                 // Admin Alert Mail
                 if (in_array('order', (array)$this->config->get('config_mail_alert'))) {
@@ -922,6 +935,9 @@ class ModelCheckoutOrder extends Model {
                     }
                 }
             }
+
+
+
 
             // If order status is not 0 then send update text email
             if ($order_info['order_status_id'] && $order_status_id && $notify) {
