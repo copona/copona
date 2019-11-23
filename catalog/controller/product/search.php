@@ -180,6 +180,8 @@ class ControllerProductSearch extends Controller {
         $data['products'] = [];
         $data['results'] = '';
 
+//        $sort = "p.image";
+
         if (isset($this->request->get['search']) || $this->request->get['filter_name'] || isset($this->request->get['tag'])) {
             $filter_data = array(
                 'filter_name'         => $search,
@@ -308,6 +310,18 @@ class ControllerProductSearch extends Controller {
                 'text'  => $this->language->get('text_name_asc'),
                 'value' => 'pd.name-ASC',
                 'href'  => $this->url->link('product/search', 'sort=pd.name&order=ASC' . $url)
+            );
+
+            $data['sorts'][] = array(
+                'text'  => "image DESC",
+                'value' => 'p.image-DESC',
+                'href'  => $this->url->link('product/search', 'sort=p.image&order=DESC' . $url)
+            );
+
+            $data['sorts'][] = array(
+                'text'  => "image ASC",
+                'value' => 'p.image-ASC',
+                'href'  => $this->url->link('product/search', 'sort=p.image&order=ASC' . $url)
             );
 
             $data['sorts'][] = array(
