@@ -18,7 +18,8 @@ class ModelCatalogProduct extends Model {
             where category_id in ( select category_id from " . DB_PREFIX . "product_to_category where product_id = '" . $product_id . "' )
             group by category_id ) maxed
             order by max_level desc limit 1  ) as deepest_category_id, "
-               . "(SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < '" . date("Y-m-d") . "') AND (pd2.date_end = '0000-00-00' OR pd2.date_end > '" . date("Y-m-d") . "')) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, "
+               . "(SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < '" . date("Y-m-d") . "') AND (pd2.date_end = '0000-00-00' OR pd2.date_end > '" . date("Y-m-d") . "')) 
+               ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, "
                . "(SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' 
                AND ps.date_start < '" . date("Y-m-d") . "' AND ps.date_end > '" . date("Y-m-d") . "' 
                ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special, "
@@ -97,7 +98,8 @@ class ModelCatalogProduct extends Model {
     }
 
     public function getProducts($data = array()) {
-        $sql = "SELECT p.product_id, p2p.product_group_id, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < '" . date("Y-m-d") . "') AND (pd2.date_end = '0000-00-00' OR pd2.date_end > '" . date("Y-m-d") . "')) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, 
+        $sql = "SELECT p.product_id, p2p.product_group_id, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < '" . date("Y-m-d") . "') AND (pd2.date_end = '0000-00-00' OR pd2.date_end > '" . date("Y-m-d") . "')) 
+        ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, 
         (SELECT price FROM " . DB_PREFIX . "product_special ps 
             WHERE true 
             AND ps.product_id = p.product_id 
@@ -220,6 +222,7 @@ class ModelCatalogProduct extends Model {
         $sort_data = array(
           'pd.name',
           'p.model',
+          'p.image',
           'p.quantity',
           'p.price',
           'rating',
