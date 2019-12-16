@@ -9,6 +9,9 @@ class ControllerProductProduct extends Controller {
         //$this->load->language('product/product');
         $data = $this->language->load('product/product');
         $data['config_url'] = $this->config->get('config_url');
+        $data['currency'] = $this->session->data['currency'];
+        $data['user_id'] = $this->customer->getId() ? $this->customer->getId() : $this->session->data('visitor_id');
+
         $url = '';
 
 
@@ -602,7 +605,9 @@ class ControllerProductProduct extends Controller {
 
             $this->model_catalog_product->updateViewed($product_id);
 
+
             $data['breadcrumbs_html'] = $bread_crumbs->render(); // we have breadcrumbs html
+            $data['breadcrumbs_path'] = $bread_crumbs->getPath(); //GTM
             $data['breadcrumbs'] = $bread_crumbs->getPath(); // for compatibility
 
             $data['column_left'] = $this->load->controller('common/column_left');
