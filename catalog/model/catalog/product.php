@@ -340,12 +340,18 @@ class ModelCatalogProduct extends Model {
 
         $product_data = array();
 
-        $query = $this->db->query($sql);
+        $cache_key = 'product.getproductspecials.' . md5($sql);
 
-        foreach ($query->rows as $result) {
-            $product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+        $product_data = $this->cache->get($cache_key);
+        if ($product_data === null) {
+            $query = $this->db->query($sql);
+            foreach ($query->rows as $result) {
+                $product_data[$result['product_id']] = $this->getProduct($result['product_id']);
+            }
+
+            $this->cache->set($cache_key, $product_data);
         }
-
+        
         return $product_data;
     }
 
