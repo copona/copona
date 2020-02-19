@@ -42,3 +42,14 @@ if (!function_exists('hash_equals')) {
     }
 
 }
+
+/**
+ * Exception handler, to throw exception, when used on Warning.
+ * https://stackoverflow.com/a/11206244/1720476
+ */
+if (!function_exists('copona_warning_handler')) {
+    function copona_warning_handler($errno, $errstr) {
+        throw new Exception("Error $errno:  $errstr") ;
+    }
+}
+

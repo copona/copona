@@ -334,7 +334,15 @@ class ControllerCommonFileManager extends Controller {
                             }
                         }
                     }
-                    move_uploaded_file($file['tmp_name'], $directory . '/' . $filename);
+
+                    set_error_handler("copona_warning_handler", E_WARNING);
+                    try {
+                        move_uploaded_file($file['tmp_name'], $directory . '/' . $filename);
+                    } catch(Exception $e) {
+                        $json['error'] = "Error uploading $filename to $directory. " . $e->getMessage();
+                    }
+                    restore_error_handler();
+
                 }
             }
         }

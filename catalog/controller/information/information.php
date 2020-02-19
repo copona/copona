@@ -1,4 +1,5 @@
 <?php
+
 class ControllerInformationInformation extends Controller {
 
     public function index() {
@@ -6,12 +7,12 @@ class ControllerInformationInformation extends Controller {
 
         $this->load->model('catalog/information');
         $this->load->model('tool/image');
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home')
-        );
+            'href' => $this->url->link('common/home'),
+        ];
 
         if (isset($this->request->get['information_id'])) {
             $information_id = (int)$this->request->get['information_id'];
@@ -24,18 +25,18 @@ class ControllerInformationInformation extends Controller {
         if ($information_info) {
 
             if (isset($information_info['external_link']) && $information_info['external_link']) {
-                $this->response->redirect( $this->url->externalLink( $information_info['external_link']) );
+                $this->response->redirect($this->url->externalLink($information_info['external_link']));
             }
 
 
             if (empty($information_info['meta_title'])) {
                 $information_info['meta_title'] = strip2words($information_info['title']
-                    . " - " . $this->config->get('config_meta_title')
-                    . " | " . $this->config->get('config_name'), 300);
+                    . " - " . Config::get('config_meta_title')
+                    . " | " . Config::get('config_name'), 300);
             }
 
             if (empty($information_info['meta_description'])) {
-                $information_info['meta_description'] = strip2words($information_info['description'] . " | " . $information_info['title'] , 200);
+                $information_info['meta_description'] = strip2words($information_info['description'] . " | " . $information_info['title'], 200);
             }
 
             $this->document->setTitle($information_info['meta_title']);
@@ -45,10 +46,10 @@ class ControllerInformationInformation extends Controller {
             $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js');
             $this->document->addStyle('assets/vendor/magnific/magnific-popup.css');
 
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $information_info['title'],
-                'href' => $this->url->link('information/information', 'information_id=' . $information_id)
-            );
+                'href' => $this->url->link('information/information', 'information_id=' . $information_id),
+            ];
 
             $data['heading_title'] = $information_info['title'];
 
@@ -57,29 +58,38 @@ class ControllerInformationInformation extends Controller {
             $data['description'] = html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8');
 
             if ($information_info['image']) {
-                $data['popup'] = $this->model_tool_image->resize($information_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                $data['popup'] = $this->model_tool_image->{Config::get('theme_default_information_image_resize', 'resize')}($information_info['image'],
+                    Config::get(Config::get('config_theme') . '_information_image_popup_width', 800),
+                    Config::get(Config::get('config_theme') . '_information_image_popup_height', 400));
             } else {
                 $data['popup'] = '';
             }
 
             if ($information_info['image']) {
-                $data['thumb'] = $this->model_tool_image->resize($information_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+                $data['thumb'] = $this->model_tool_image->resize($information_info['image'],
+                    Config::get(Config::get('config_theme') . '_image_thumb_width'),
+                    Config::get(Config::get('config_theme') . '_image_thumb_height'));
             } else {
                 $data['thumb'] = '';
             }
 
-            $data['images'] = array();
+            $data['images'] = [];
 
             $results = $this->model_catalog_information->getInformationImages($this->request->get['information_id']);
 
             foreach ($results as $result) {
-                $data['images'][] = array(
-                    'popup' => $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
-                    'thumb' => $this->model_tool_image->cropsize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height')),
-                );
+                $data['images'][] = [
+                    'popup' => $this->model_tool_image->cropsize($result['image'],
+                        Config::get(Config::get('config_theme') . '_image_popup_width'),
+                        Config::get(Config::get('config_theme') . '_image_popup_height')),
+                    'thumb' => $this->model_tool_image->cropsize($result['image'], Config::get(Config::get('config_theme') . '_image_additional_width'),
+                        Config::get(Config::get('config_theme') . '_image_additional_height')),
+                ];
             }
 
             $data['continue'] = $this->url->link('common/home');
+
+            $this->hook->getHook('information/information/index/after', $data);
 
             $data['column_left'] = $this->load->controller('common/column_left');
             $data['column_right'] = $this->load->controller('common/column_right');
@@ -88,12 +98,13 @@ class ControllerInformationInformation extends Controller {
             $data['footer'] = $this->load->controller('common/footer');
             $data['header'] = $this->load->controller('common/header');
 
+
             $this->response->setOutput($this->load->view('information/information', $data));
         } else {
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_error'),
-                'href' => $this->url->link('information/information', 'information_id=' . $information_id)
-            );
+                'href' => $this->url->link('information/information', 'information_id=' . $information_id),
+            ];
 
             $this->document->setTitle($this->language->get('text_error'));
 
