@@ -13,7 +13,8 @@
   "require": {
     "php": ">=7.1.0",
     "copona/core": "dev-master",
-    "plasticbrain/php-flash-messages": "^1.0"
+    "plasticbrain/php-flash-messages": "^1.0",
+    "mpdf/mpdf": "^8.0"
   },
   "autoload": {
     "psr-4": {
