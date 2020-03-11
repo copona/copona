@@ -136,7 +136,7 @@ $("[name='zone_id']").change(function () {
                     $('input[name=country_zone_group]').val($(this).data('group'));
                     shipping = $('input[name="' + $(this).val() + '-' + $(this).data('group') + '"]').val();
                 } else {
-                    shipping = $('input[value="' + $(this).val() + '"]').data('cost');
+                    shipping = $('input[name="' + $(this).val() + '"]').val();
 
                 }
 
