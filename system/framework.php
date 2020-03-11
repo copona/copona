@@ -1,13 +1,22 @@
 <?php
 // Registry
 $registry = Registry::getInstance();
+$registry->set('registry', $registry);
 
 // Register Config
 global $config;
 $registry->set('config', $config);
 
+// Cache
+$registry->singleton('cache', function ($registry) use ($config) {
+    $driver = $config->get('cache.driver', 'Files');
+    $configs = $config->get('cache.configs', []);
+    return new \Copona\Cache\CacheManager($driver, $configs);
+});
+
 //Extension
 use \Copona\System\Library\Extension\ExtensionManager;
+
 $extension = ExtensionManager::getInstance();
 $registry->set('extension', $extension);
 
@@ -27,6 +36,13 @@ $registry->singleton('hook', function ($registry) {
     return new Hook($registry);
 });
 
+// Flash messages
+use \Plasticbrain\FlashMessages\FlashMessages;
+
+$registry->singleton('flash', function ($registry) {
+    return new FlashMessages();
+});
+
 //Template Engine
 $engine_name = $config->get('template.default');
 $adapter = \Copona\System\Library\Template\TemplateFactory::create($config->get('template.adapters.' . $engine_name . '.adapter'));
@@ -34,6 +50,7 @@ $registry->set('template', $adapter);
 
 // Loader
 use \Copona\System\Engine\Loader;
+
 $loader = new Loader($registry);
 $registry->set('load', $loader);
 
@@ -53,6 +70,7 @@ if ($config->get($application_config . '.db_autostart')) {
     $default_connection = $config->get('database.default_connection') ? $config->get('database.default_connection') : 'default';
     $db_config = $config->get('database.' . $default_connection);
     define('DB_PREFIX', $db_config['db_prefix']);
+    define('DB_DATABASE', $db_config['db_database']);
 
     $registry->singleton('db', function ($registry) use ($db_config) {
         return new DB(
@@ -73,11 +91,6 @@ $registry->singleton('session', function ($registry) {
     return $session;
 });
 
-// Cache
-$registry->singleton('cache', function ($registry) use ($config) {
-    return new Cache($config->get('cache.cache_type'));
-});
-
 // Url
 $registry->singleton('url', function ($registry) use ($config) {
     return new Url($config->get('site_base'), $config->get('site_ssl'), $registry);
@@ -94,6 +107,9 @@ $registry->singleton('language', function ($registry) use ($config) {
     $language->load($config->get('language_default'));
     return $language;
 });
+
+// Translation, used together by helper/translation.php funcitons, like ```__('home')```
+Translation::start();
 
 // Breadcrumbs
 $registry->bind('breadcrumbs', function ($registry) {
@@ -131,6 +147,9 @@ if ($config->has('model_autoload')) {
     }
 }
 
+//Execute event onInit
+ExtensionManager::executeOnInit();
+
 // Front Controller
 $controller = new \Copona\System\engine\Front($registry);
 
@@ -140,6 +159,8 @@ if ($config->has($application_config . '.action_pre_action')) {
         $controller->addPreAction(new \Copona\System\Engine\Action($value));
     }
 }
+
+
 // Dispatch
 $controller->dispatch(
     new \Copona\System\Engine\Action($config->get($application_config . '.action_router')),

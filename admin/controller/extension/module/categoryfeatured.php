@@ -226,5 +226,15 @@ class ControllerExtensionModuleCategoryfeatured extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+	
+	public function install()
+    {
+        
+    }
+
+    public function uninstall()
+    {
+        
+    }
 
 }

@@ -4,8 +4,8 @@ class ControllerCheckoutConfirm extends Controller {
     public function index() {
 
         $redirect = '';
-        $data = array();
-        $data = array_merge($data, $this->load->language('order/order'));
+
+        $data = array_merge($this->load->language('checkout/checkout'), $this->load->language('order/order'));
         $this->document->setTitle($this->language->get('heading_title2'));
 
         if ($this->cart->hasShipping()) {
@@ -28,7 +28,8 @@ class ControllerCheckoutConfirm extends Controller {
 
         // Validate if payment method has been set.
 
-        if (!isset($this->session->data['payment_method'])) {
+        if (empty($this->session->data['payment_method'])) {
+            $this->flash->error($this->language->get('error_payment'));
             $redirect = $this->url->link('checkout/checkout/guest', '', 'SSL');
         }
 
@@ -79,41 +80,6 @@ class ControllerCheckoutConfirm extends Controller {
         }
 
         if (!$redirect) {
-            $totals = array();
-            $total = 0;
-            $taxes = $this->cart->getTaxes();
-
-            // Because __call can not keep var references so we put them into an array.
-            $total_data = array(
-                'totals' => &$totals,
-                'taxes'  => &$taxes,
-                'total'  => &$total
-            );
-            $this->load->model('extension/extension');
-
-            $sort_order = array();
-
-            $results = $this->model_extension_extension->getExtensions('total');
-
-            foreach ($results as $key => $value) {
-                $sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
-            }
-
-            array_multisort($sort_order, SORT_ASC, $results);
-            foreach ($results as $result) {
-                if ($this->config->get($result['code'] . '_status')) {
-                    $this->load->model('extension/total/' . $result['code']);
-
-                    $this->{'model_extension_total_' . $result['code']}->getTotal($total_data, $total, $taxes);
-                }
-            }
-
-            $sort_order = array();
-            foreach ($totals as $key => $value) {
-                $sort_order[$key] = $value['sort_order'];
-            }
-
-            array_multisort($sort_order, SORT_ASC, $totals);
 
             $this->language->load('checkout/checkout');
 
@@ -122,7 +88,10 @@ class ControllerCheckoutConfirm extends Controller {
             $data1['store_id'] = $this->config->get('config_store_id');
             $data1['store_name'] = $this->config->get('config_name');
 
-            $data1['serial'] = $this->session->data['guest']['serial'];
+            $data1['serial'] = [];
+            if(!empty($this->session->data['guest']['serial'])){
+                $data1['serial'] = $this->session->data['guest']['serial'];
+            }
 
             if ($data1['store_id']) {
                 $data1['store_url'] = $this->config->get('config_url');
@@ -247,37 +216,8 @@ class ControllerCheckoutConfirm extends Controller {
                 $data['shipping_address_location'] .= $this->session->data['guest']['shipping_address']['postcode'] ? $this->session->data['guest']['shipping_address']['postcode'] . ", " : '';
 
             }
-            
-            $product_data = array();
 
-            foreach ($this->cart->getProducts() as $product) {
-                $option_data = array();
-                foreach ($product['option'] as $option) {
-
-                    $option_data[] = array(
-                        'product_option_id'       => $option['product_option_id'],
-                        'product_option_value_id' => $option['product_option_value_id'],
-                        'option_id'               => $option['option_id'],
-                        'option_value_id'         => $option['option_value_id'],
-                        'name'                    => $option['name'],
-                        'value'                   => $option['value'],
-                        'type'                    => $option['type']
-                    );
-                }
-                $product_data[] = array(
-                    'product_id' => $product['product_id'],
-                    'name'       => $product['name'],
-                    'model'      => $product['model'],
-                    'option'     => $option_data,
-                    'download'   => $product['download'],
-                    'quantity'   => $product['quantity'],
-                    'subtract'   => $product['subtract'],
-                    'price'      => $product['price'],
-                    'total'      => $product['total'],
-                    'tax'        => $this->tax->getTax($product['price'], $product['tax_class_id']),
-                    'reward'     => $product['reward']
-                );
-            }
+            $product_data = $this->cart->getProducts();
 
             // Gift Voucher
             $voucher_data = array();
@@ -300,9 +240,9 @@ class ControllerCheckoutConfirm extends Controller {
 
             $data1['products'] = $product_data;
             $data1['vouchers'] = $voucher_data;
-            $data1['totals'] = $total_data['totals'];
+            $data1['totals'] = $this->cart->getTotals_azon();
             $data1['comment'] = empty($this->session->data['comment']) ? '' : $this->session->data['comment'];
-            $data1['total'] = $total;
+            $data1['total'] = $this->cart->getTotal();
 
 
             if (isset($this->request->cookie['tracking'])) {
@@ -440,21 +380,13 @@ class ControllerCheckoutConfirm extends Controller {
 
             // Gift Voucher
             $data['vouchers'] = array();
-
-            $data['totals'] = array();
-
-            foreach ($data1['totals'] as $total) {
-                $data['totals'][] = array(
-                    'title' => $total['title'],
-                    'text'  => $this->currency->format($total['value'], $this->session->data['currency']),
-                );
-            }
+            $data['totals'] = $this->cart->getTotals_azon();
 
             $data['payment'] = $this->load->controller('extension/payment/' . explode('.',$this->session->data['payment_method']['code'])[0]);
         } else {
             $data['redirect'] = $redirect;
         }
-        
+
         $data['back'] = $this->url->link('checkout/checkout');
 
         $data['header'] = $this->load->controller('common/header');

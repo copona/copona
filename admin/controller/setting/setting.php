@@ -28,6 +28,8 @@ class ControllerSettingSetting extends Controller {
         $data = $this->load->language('catalog/product');
         $data = array_merge($data, $this->load->language('setting/setting'));
 
+        $data['error'] = [];
+
         $this->document->setTitle($this->language->get('heading_title'));
 
 
@@ -74,8 +76,10 @@ class ControllerSettingSetting extends Controller {
         foreach ($errors as $val) {
             if (isset($this->error[$val])) {
                 $data['error_' . $val] = $this->error[$val];
+                $data['error']['error_' . $val] = $this->error[$val];
             } else {
                 $data['error_' . $val] = '';
+                unset ( $data['error']['error_' . $val] );
             }
         }
 
@@ -487,7 +491,7 @@ class ControllerSettingSetting extends Controller {
         } elseif ($this->config->get('config_processing_status')) {
             $data['config_processing_status'] = $this->config->get('config_processing_status');
         } else {
-            $data['config_processing_status'] = array();
+            $data['config_processing_status'] = [];
         }
 
         if (isset($this->request->post['config_complete_status'])) {
@@ -671,6 +675,20 @@ class ControllerSettingSetting extends Controller {
             $data['icon'] = $this->model_tool_image->resize('no_image.png', 100, 100);
         }
 
+        if (isset($this->request->post['config_placeholder'])) {
+            $data['config_no_image'] = $this->request->post['config_no_image'];
+        } else {
+            $data['config_no_image'] = $this->config->get('config_no_image');
+        }
+
+        if (isset($this->request->post['config_no_image']) && is_file(DIR_IMAGE . $this->request->post['config_no_image'])) {
+            $data['no_image'] = $this->model_tool_image->resize($this->request->post['config_no_image'], 100, 100);
+        } elseif ($this->config->get('config_no_image') && is_file(DIR_IMAGE . $this->config->get('config_no_image'))) {
+            $data['no_image'] = $this->model_tool_image->resize($this->config->get('config_no_image'), 100, 100);
+        } else {
+            $data['no_image'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+        }
+
         if (isset($this->request->post['config_ftp_hostname'])) {
             $data['config_ftp_hostname'] = $this->request->post['config_ftp_hostname'];
         } elseif ($this->config->get('config_ftp_hostname')) {
@@ -755,6 +773,14 @@ class ControllerSettingSetting extends Controller {
             $data['config_mail_smtp_timeout'] = $this->config->get('config_mail_smtp_timeout');
         } else {
             $data['config_mail_smtp_timeout'] = 5;
+        }
+
+        if (isset($this->request->post['config_mail_smtp_from_email'])) {
+            $data['config_mail_smtp_from_email'] = $this->request->post['config_mail_smtp_from_email'];
+        } elseif ($this->config->has('config_mail_smtp_timeout')) {
+            $data['config_mail_smtp_from_email'] = $this->config->get('config_mail_smtp_from_email');
+        } else {
+            $data['config_mail_smtp_from_email'] = '';
         }
 
         if (isset($this->request->post['config_mail_alert'])) {
@@ -971,7 +997,7 @@ class ControllerSettingSetting extends Controller {
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
-        //pr($this->error);
+
         return !$this->error;
     }
 

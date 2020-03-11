@@ -81,6 +81,10 @@ class ControllerCommonDashboard extends Controller {
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
+        // Remove all the expired carts with no customer ID
+        $this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE (api_id > '0' OR customer_id = '0') AND date_added < DATE_SUB(NOW(), INTERVAL 1 MONTH)");
+        $this->log->write( 'clearing cart FROM admin ');
+
         // Run currency update
         if ($this->config->get('config_currency_auto')) {
             $this->load->model('localisation/currency');

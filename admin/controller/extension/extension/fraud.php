@@ -99,13 +99,16 @@ class ControllerExtensionExtensionFraud extends Controller {
                 $this->load->language('extension/fraud/' . $extension);
 
                 $data['extensions'][] = array(
-                    'name'      => $this->language->get('heading_title'),
+                    'name'      => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
                     'status'    => $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+                    'module'    => [],
+                    'extension' => $extension,
                     'install'   => $this->url->link('extension/extension/fraud/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'uninstall' => $this->url->link('extension/extension/fraud/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'installed' => in_array($extension, $extensions),
                     'edit'      => $this->url->link('extension/fraud/' . $extension, 'token=' . $this->session->data['token'], true)
                 );
+                $this->language->set('heading_title', '');
             }
         }
 

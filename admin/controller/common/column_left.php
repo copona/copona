@@ -146,6 +146,8 @@ class ControllerCommonColumnLeft extends Controller {
                 );
             }
 
+            $this->hook->getHook('admin/menu/catalog', $catalog);
+
             if ($catalog) {
                 $data['menus'][] = array(
                     'id'       => 'menu-catalog',
@@ -155,7 +157,17 @@ class ControllerCommonColumnLeft extends Controller {
                     'children' => $catalog
                 );
             }
+            $custom_tab = false;
 
+            // DEPRECATED: will be removed in the future, as mistype!
+            $this->hook->getHook('admin/common/column_left/index/menu_catelog/after', $custom_tab);
+
+            //Correct one:
+            $this->hook->getHook('admin/common/column_left/index/menu_catalog/after', $custom_tab);
+
+            if ($custom_tab) {
+                $data['menus'][] = $custom_tab;
+            }
 
             // Extension
             $extension = array();
@@ -223,20 +235,11 @@ class ControllerCommonColumnLeft extends Controller {
 
             if ($this->user->hasPermission('access', 'design/media_manager')) {
                 $design[] = array(
-                  'name' => $this->language->get('text_media_manager'),
-                  'href' => $this->url->link('design/media_manager', 'return=1&token=' . $this->session->data['token'], true),
-                  'children' => array()
-                );
-            }
-
-            if ($this->user->hasPermission('access', 'common/elfinder')) {
-                $design[] = array(
-                    'name' => "ElFinder file manager",
-                    'href' => $this->url->link('common/elfinder', '&token=' . $this->session->data['token'], true),
+                    'name'     => $this->language->get('text_media_manager'),
+                    'href'     => $this->url->link('design/media_manager', 'return=1&token=' . $this->session->data['token'], true),
                     'children' => array()
                 );
             }
-
 
             if ($this->user->hasPermission('access', 'design/banner')) {
                 $design[] = array(
@@ -245,6 +248,8 @@ class ControllerCommonColumnLeft extends Controller {
                     'children' => array()
                 );
             }
+
+            $this->hook->getHook('admin/menu/design', $design);
 
             if ($design) {
                 $data['menus'][] = array(
@@ -644,6 +649,8 @@ class ControllerCommonColumnLeft extends Controller {
                 );
             }
 
+            $this->hook->getHook('admin/menu/system/tool',$tool);
+
             if ($system) {
                 $data['menus'][] = array(
                     'id'       => 'menu-system',
@@ -848,7 +855,7 @@ class ControllerCommonColumnLeft extends Controller {
 
             $order_total = $this->model_sale_order->getTotalOrders();
 
-            $complete_total = $this->model_sale_order->getTotalOrders(array( 'filter_order_status' => implode(',', $this->config->get('config_complete_status')) ));
+            $complete_total = $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $this->config->get('config_complete_status'))));
 
             if ($complete_total) {
                 $data['complete_status'] = round(($complete_total / $order_total) * 100);
@@ -856,7 +863,7 @@ class ControllerCommonColumnLeft extends Controller {
                 $data['complete_status'] = 0;
             }
 
-            $processing_total = $this->model_sale_order->getTotalOrders(array( 'filter_order_status' => implode(',', $this->config->get('config_processing_status')) ));
+            $processing_total = $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $this->config->get('config_processing_status'))));
 
             if ($processing_total) {
                 $data['processing_status'] = round(($processing_total / $order_total) * 100);
@@ -876,7 +883,7 @@ class ControllerCommonColumnLeft extends Controller {
                 }
             }
 
-            $other_total = $this->model_sale_order->getTotalOrders(array( 'filter_order_status' => implode(',', $order_status_data) ));
+            $other_total = $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $order_status_data)));
 
             if ($other_total && $order_total) {
                 $data['other_status'] = round(($other_total / $order_total) * 100);

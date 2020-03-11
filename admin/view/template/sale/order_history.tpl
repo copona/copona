@@ -13,7 +13,7 @@
             <?php foreach ($histories as $history) { ?>
               <tr>
                 <td class="text-left"><?php echo $history['date_added']; ?></td>
-                <td class="text-left"><?php echo $history['comment']; ?></td>
+                <td class="text-left"><?php echo html_entity_decode( $history['comment'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td class="text-left"><?php echo $history['status']; ?></td>
                 <td class="text-left"><?php echo $history['notify']; ?></td>
               </tr>

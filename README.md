@@ -9,7 +9,7 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
 
 ## Requirements
 * MySQL >= 5.6
-* PHP >= 5.6
+* PHP >= 7.1
 * Composer [https://getcomposer.org/](https://getcomposer.org/)
 
 ## Get started
@@ -61,3 +61,11 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
  * `composer install`
 * Run database migration
  * `php vendor/bin/phinx migrate` (https://github.com/copona/copona/wiki/Migration-Phinx)
+
+
+## TODO
+
+* put into migrations:
+
+ALTER TABLE `cp_url_alias`
+ADD INDEX `query_language_id` (`query`, `language_id`);

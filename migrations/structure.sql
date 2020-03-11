@@ -2457,7 +2457,7 @@ CREATE TABLE `oc_product` (
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `points` int(8) NOT NULL DEFAULT '0',
   `tax_class_id` int(11) NOT NULL,
-  `date_available` date NOT NULL DEFAULT '0000-00-00',
+  `date_available` date NULL DEFAULT NULL,
   `weight` decimal(15,8) NOT NULL DEFAULT '0.00000000',
   `weight_class_id` int(11) NOT NULL DEFAULT '0',
   `length` decimal(15,8) NOT NULL DEFAULT '0.00000000',

@@ -115,6 +115,8 @@ class ControllerExtensionExtensionPayment extends Controller {
                     'status'     => $this->config->get($extension . '_status'),
                     'status_text'=> $this->config->get($extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                     'sort_order' => $this->config->get($extension . '_sort_order'),
+                    'module'    => [],
+                    'extension' => $extension,
                     'install'    => $this->url->link('extension/extension/payment/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'uninstall'  => $this->url->link('extension/extension/payment/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'installed'  => in_array($extension, $extensions),

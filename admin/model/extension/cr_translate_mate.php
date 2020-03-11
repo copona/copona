@@ -205,7 +205,15 @@ class CrTranslateMateModel extends model {
         $texts = array();
         $count = 0;
         $startHere = !isset($opts['startAfter']) && !$opts['singleFile']; // to indicate where to start loading files
-        while ($count < $opts['length'] && list($page, $pageStr) = each($files)) {
+
+
+        foreach($files as $file){ 
+            if($count >= $opts['length']){
+                break;
+            }
+            $page = $file;
+
+        //while ($count < $opts['length'] && list($page, $pageStr) = each($files)) {
             if (!$startHere) { // skip this file if is (or comes before) the file specifed in $opts['startAfter']
                 if (isset($opts['startAfter']) && $page == $opts['startAfter']) {
                     $startHere = true;

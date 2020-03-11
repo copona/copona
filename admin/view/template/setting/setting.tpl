@@ -16,8 +16,14 @@
     </div>
   </div>
   <div class="container-fluid">
-      <?php if ($error_warning) { ?>
-        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+
+
+      <?php if ($error) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>
+            <?php foreach( $error as $val ) { ?>
+            <?php //echo $error_warning; ?>
+            <?php echo $val . "<br />"; ?>
+          <?php } ?>
           <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
@@ -1085,6 +1091,12 @@
                   <input type="hidden" name="config_icon" value="<?php echo $config_icon; ?>" id="input-icon" />
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-no_image"><span data-toggle="tooltip" title="<?php echo $help_no_image; ?>"><?php echo $entry_no_image; ?></span></label>
+                <div class="col-sm-10"><a href="" id="thumb-no_image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $no_image; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a>
+                  <input type="hidden" name="config_no_image" value="<?php echo $config_no_image; ?>" id="input-no_image" />
+                </div>
+              </div>
             </div>
             <div class="tab-pane" id="tab-ftp">
               <div class="form-group">
@@ -1197,6 +1209,15 @@
                     <input type="text" name="config_mail_smtp_password" value="<?php echo $config_mail_smtp_password; ?>" placeholder="<?php echo $entry_mail_smtp_password; ?>" id="input-mail-smtp-password" class="form-control" />
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-mail-smtp-from-email"><?php echo $entry_mail_smtp_from_email; ?></label>
+                  <div class="col-sm-10">
+                    <input type="text" name="config_mail_smtp_from_email" value="<?php echo $config_mail_smtp_from_email; ?>" placeholder="<?php echo $entry_mail_smtp_from_email; ?>"
+                           id="input-mail-smtp-from-email" class="form-control" />
+                  </div>
+                </div>
+
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-mail-smtp-port"><?php echo $entry_mail_smtp_port; ?></label>
                   <div class="col-sm-10">

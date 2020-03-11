@@ -2,7 +2,7 @@
 class ControllerCommonCart extends Controller {
 
     public function index() {
-        $this->load->language('common/cart');
+        $data = $this->load->language('common/cart');
 
         // Totals
         $this->load->model('extension/extension');
@@ -60,62 +60,7 @@ class ControllerCommonCart extends Controller {
         $this->load->model('tool/image');
         $this->load->model('tool/upload');
 
-        $data['products'] = array();
-
-        foreach ($this->cart->cartProducts as $product) {
-            if ($product['image']) {
-                $image = $this->model_tool_image->{Config::get('theme_default_image_cart_resize','resize')}($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
-            } else {
-                $image = '';
-            }
-
-            $option_data = array();
-
-            foreach ($product['option'] as $option) {
-                if ($option['type'] != 'file') {
-                    $value = $option['value'];
-                } else {
-                    $upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
-
-                    if ($upload_info) {
-                        $value = $upload_info['name'];
-                    } else {
-                        $value = '';
-                    }
-                }
-
-                $option_data[] = array(
-                    'name'  => $option['name'],
-                    'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value),
-                    'type'  => $option['type']
-                );
-            }
-
-            // Display prices
-            if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-                $unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
-
-                $price = $this->currency->format($unit_price, $this->session->data['currency']);
-                $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
-            } else {
-                $price = false;
-                $total = false;
-            }
-
-            $data['products'][] = array(
-                'cart_id'   => $product['cart_id'],
-                'thumb'     => $image,
-                'name'      => $product['name'],
-                'model'     => $product['model'],
-                'option'    => $option_data,
-                'content_meta' => unserialize($product['content_meta']),
-                'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
-                'quantity'  => $product['quantity'],
-                'price'     => $price,
-                'total'     => $total,
-                'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
-            );
-        }
+        $data['products'] = $this->cart->getProducts();
 
         // Gift Voucher
         $data['vouchers'] = array();
@@ -130,14 +75,7 @@ class ControllerCommonCart extends Controller {
             }
         }
 
-        $data['totals'] = array();
-
-        foreach ($totals as $total) {
-            $data['totals'][] = array(
-                'title' => $total['title'],
-                'text'  => $this->currency->format($total['value'], $this->session->data['currency']),
-            );
-        }
+        $data['totals'] = $this->cart->getTotals_azon();
 
         $data['cart'] = $this->url->link('checkout/cart');
         $data['checkout'] = $this->url->link('checkout/checkout', '', true);
@@ -150,6 +88,10 @@ class ControllerCommonCart extends Controller {
 
     public function info() {
         $this->response->setOutput($this->index());
+    }
+
+    public function getCartTotal() {
+        $this->response->setOutput($this->cart->getCartTotal((int)$this->request->get('formatted')));
     }
 
 }

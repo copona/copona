@@ -8,6 +8,11 @@ return [
     'app_env'               => env('APP_ENV', 'production'),
 
     /**
+     * Default date.timezone
+     */
+    'config_timezone'               => 'Europe/Athens',
+
+    /**
      * Site
      */
     'site_base'             => HTTP_SERVER,
@@ -32,6 +37,13 @@ return [
      * Do not add protocol https or http
      */
     'image_base_url'     => rtrim(BASE_URL_CATALOG, '/') . '/' . PATH_CACHE_PUBLIC . 'image',
+
+    /**
+     * No Image filename
+     *
+     * Set filename for no_image, taken from image_base_url
+     */
+    'image_no_image'     => 'no_image.png',
 
     /**
      * Url

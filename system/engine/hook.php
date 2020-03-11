@@ -13,12 +13,19 @@ class Hook {
     }
 
     public function getHook($string, &$data = [ ]) {
+
         if (!empty($this->hooks[$string])) {
             foreach ($this->hooks[$string] as $function) {
-                if (function_exists($function)) {
+
+
+                // Ability to pass class object and method.
+                if( gettype($function) == 'array' && method_exists($function[0], $function[1]) ) {
+                    $function[0]->{$function[1]}($data, $this->registry);
+                } elseif (is_string($function) && function_exists($function)) {
                     $function($data, $this->registry);
                 } else {
-                    // Functions does not exists!
+                    // pr('Function' . $function . ' does not exist!');
+                    // Functions does not exist!
                 }
             }
         }

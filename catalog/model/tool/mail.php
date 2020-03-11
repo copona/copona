@@ -31,16 +31,20 @@ class ModelToolMail extends Model
         // store_name: $order_info['store_name']
         $html_message = '';
 
+        if($this->config->get('config_mail_protocol') == 'smtp') {
+            $from_email = $this->config->get('config_mail_smtp_from_email');
+        }
+
         $from_email = !$from_email
-            ? $this->model_setting_setting->getSettingValue('config_email', $store_id)
+            ? $this->config->get('config_email')
             : $from_email;
 
         $to_email = !$to_email
-            ? $this->model_setting_setting->getSettingValue('config_email', $store_id)
+            ? $this->config->get('config_email')
             : $to_email;
 
         $from_name = !$store_name
-            ? $this->model_setting_setting->getSettingValue('config_name', $store_id)
+            ? $this->config->get('config_name')
             : $store_name;
 
         $subject = !$subject
@@ -51,14 +55,12 @@ class ModelToolMail extends Model
         // else - format NewLines in Plaintext message to <br />
 
         if ($template) {
-            //prd( $this->load->view( $template , $data) );
             $html_message = $this->load->view($template, $data);
         }
 
-        if (!$from_email) {
-            $from_email = $this->model_setting_setting->getSettingValue('config_email', $store_id);
-        }
- 
+
+
+
         $mail = new Mail();
         $mail->protocol = $this->config->get('config_mail_protocol');
         $mail->parameter = $this->config->get('config_mail_parameter');

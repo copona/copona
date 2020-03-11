@@ -75,7 +75,7 @@ class ModelAccountAddress extends Model {
 
             return $address_data;
         } else {
-            return false;
+            return [];
         }
     }
 

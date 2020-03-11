@@ -148,12 +148,14 @@ $('#button-generate').on('click', function () {
       //--></script>
   <script type="text/javascript"><!--
       var ip_row = <?php echo $ip_row; ?>;
+      var first = true;
 
       function addIp() {
           html = '<tr id="ip-row' + ip_row + '">';
-          html += '  <td class="text-right"><input type="text" name="api_ip[]" value="" placeholder="<?php echo $entry_ip; ?>" class="form-control" /></td>';
+          html += '  <td class="text-right"><input type="text" name="api_ip[]" value="'+(first ? <?=json_encode($http_client_ip);?> : '')+'" placeholder="<?php echo $entry_ip; ?>" class="form-control" /></td>';
           html += '  <td class="text-left"><button type="button" onclick="$(\'#ip-row' + ip_row + '\').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
           html += '</tr>';
+          first = false;
 
           $('#ip tbody').append(html);
 
