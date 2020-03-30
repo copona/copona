@@ -287,6 +287,8 @@ class ControllerCheckoutCart extends Controller {
             foreach ($product_options as $product_option) {
                 if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
                     $json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
+                    $this->flash->error( sprintf($this->language->get('error_required'), $product_option['name']) ) ; 
+
                 }
             }
 
@@ -337,15 +339,16 @@ class ControllerCheckoutCart extends Controller {
                 unset($this->session->data['shipping_methods']);
                 unset($this->session->data['payment_method']);
                 unset($this->session->data['payment_methods']);
-            } elseif ($hook_data['json']) {
+            } elseif ($json || $hook_data['json']) {
+
                 $json = $hook_data['json'];
+
+                $json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']));
 
                 // $json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0),
                 //  $this->currency->format($total, $this->session->data['currency']));
                 // $json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0),
                 // $this->currency->format($total, $this->session->data['currency']));
-            } else {
-                $json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']));
             }
         }
 
