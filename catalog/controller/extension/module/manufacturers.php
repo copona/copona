@@ -1,4 +1,5 @@
 <?php
+
 class ControllerExtensionModuleManufacturers extends Controller {
 
     public function index($setting) {
@@ -38,15 +39,24 @@ class ControllerExtensionModuleManufacturers extends Controller {
                 // }
 
                 //$data['categories'][$key]['manufacturer'][] = array(
-                $data['manufacturers'][] = array(
-                  'name' => $result['name'],
-                  'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id']),
-                  'image' => $this->model_tool_image->{Config::get('theme_default_manufacturers_thumb_resize')}($result['image'],
-                    $setting['width'],
-                  $setting['height']
-                  )
 
-                );
+                if ($result['keyword']) {
+                    $link = HTTP_SERVER . Config::get('code') . "/" . ltrim($result['keyword'], '/');
+                } else {
+                    $link = HTTP_SERVER . Config::get('code') . "/?" . "route=product/manufacturer/info&manufacturer_id={$result['manufacturer_id']}";
+                }
+
+
+                $data['manufacturers'][] = [
+                    'name'  => $result['name'],
+                    //'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id']),
+                    'href'  => $link,
+                    'image' => $this->model_tool_image->{Config::get('theme_default_manufacturers_thumb_resize')}($result['image'],
+                        $setting['width'],
+                        $setting['height']
+                    ),
+
+                ];
             }
 
 
