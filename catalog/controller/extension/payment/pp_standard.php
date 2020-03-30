@@ -58,9 +58,21 @@ class ControllerExtensionPaymentPPStandard extends Controller {
                 );
             }
 
+            // Shipping
+            if ($this->cart->getShipping() > 0) {
+                $data['products'][] = array(
+                    'name'     => $this->language->get('text_shipping'),
+                    'model'    => '',
+                    'price'    => $this->cart->getShipping(),
+                    'quantity' => 1,
+                    'option'   => array(),
+                    'weight'   => 0
+                );
+            }
+
             $data['discount_amount_cart'] = 0;
 
-            $total = $this->currency->format($order_info['total'] - $this->cart->getSubTotal(), $order_info['currency_code'], false, false);
+            $total = $this->currency->format($order_info['total'] - $this->cart->getShipping() - $this->cart->getSubTotal(), $order_info['currency_code'], false, false);
 
             if ($total > 0) {
                 $data['products'][] = array(
