@@ -1,3 +1,5 @@
+<script>
+
 // Manufacturer
 $('input[name=\'manufacturer\']').autocomplete({
     'source': function (request, response) {
@@ -42,9 +44,8 @@ $('#product-group').on('click', '.list-group-item.row', function () {
 })
 ;
 
-$('#product-group').on('click', '.list-group-item.row a
-', function (e) {
-e.stopPropagation();
+$('#product-group').on('click', '.list-group-item.row a', function (e) {
+    e.stopPropagation();
 })
 ;
 
@@ -217,9 +218,7 @@ $('input[name=\'related\']').autocomplete({
     }
 })
 ;
-$('#product-related, #product - backway
-').delegate('.fa - minus - circle
-', 'click', function () {
+$('#product-related, #product - backway').delegate('.fa - minus - circle', 'click', function () {
 $(this).parent().remove();
 })
 ;
@@ -265,9 +264,7 @@ function attributeautocomplete(attribute_row) {
     });
 }
 
-$('#attribute tbody tr
-').each(function (index, element
-) {
+$('#attribute tbody tr').each(function (index, element) {
     attributeautocomplete(index);
 })
 ;
@@ -598,13 +595,11 @@ $(function () {
 
 $("#form-product").on('keyup', "input[name^=\'product_special\']", 'keyup', function () {
     $(this).siblings('input.price-vat').val(($(this).val() * Number(ease_rate)).toFixed(4));
-})
-;
+});
 
 $("#form-product").on('keyup', 'input.price-vat', function () {
     $(this).siblings("input[name^=\'product_special']").val(($(this).val() / Number(ease_rate)).toFixed(4));
-})
-;
-$("input[name^=\'product_special'], input.price - vat
-").trigger('keyup');
-< /script>
+});
+$("input[name^=\'product_special'], input.price - vat").trigger('keyup');
+
+</script>
