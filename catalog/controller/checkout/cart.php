@@ -287,8 +287,8 @@ class ControllerCheckoutCart extends Controller {
             foreach ($product_options as $product_option) {
                 if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
                     $json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
-                    $this->flash->error( sprintf($this->language->get('error_required'), $product_option['name']) ) ; 
-
+                    $this->flash->error( sprintf($this->language->get('error_required'), $product_option['name']) ) ;
+                    $json['flash'] = sprintf($this->language->get('error_required'), $product_option['name']);
                 }
             }
 
@@ -308,7 +308,7 @@ class ControllerCheckoutCart extends Controller {
                 }
 
                 if (!in_array($recurring_id, $recurring_ids)) {
-                    $json['error']['recurring'] = $this->language->get('error_recurring_required');
+                    $json['error']['recurring'] = $this->language->get('error_recurring_required'); 
                 }
             }
             $hook_data = [
