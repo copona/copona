@@ -6,10 +6,8 @@ use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
-class ExtensionCollection extends Collection
-{
-    public function add(SplFileInfo $extensionPath)
-    {
+class ExtensionCollection extends Collection {
+    public function add(SplFileInfo $extensionPath) {
         $finder = new Finder();
 
         $extension = new ExtensionItem();
