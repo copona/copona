@@ -3,9 +3,13 @@
 //prd();
 // quick little helper functions to help format text for html
 // call me paranoid about xss
-function h($str)
-{
-    return htmlentities($str, ENT_NOQUOTES, 'UTF-8');
+if(!function_exists('h')){
+
+    function h($str)
+    {
+        return htmlentities($str, ENT_NOQUOTES, 'UTF-8');
+    }
+    
 }
 
 // a much simpler version of htmlentities that only converts '<' and '>'

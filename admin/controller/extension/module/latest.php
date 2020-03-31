@@ -164,16 +164,6 @@ class ControllerExtensionModuleLatest extends Controller {
 
         return !$this->error;
     }
-	
-	public function install()
-    {
-        
-    }
-
-    public function uninstall()
-    {
-        
-    }
 
     public function install() {
         // bulk OC3 design install function
