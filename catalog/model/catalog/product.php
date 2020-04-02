@@ -463,8 +463,9 @@ class ModelCatalogProduct extends Model {
                   'price_prefix'            => $product_option_value['price_prefix'],
                   'weight'                  => $product_option_value['weight'],
                   'weight_prefix'           => $product_option_value['weight_prefix'],
-                  'description'             => $product_option_value['description'],
-                  'article'                 => $product_option_value['article'],
+                  //TODO: these two, are not standart, should be removed or standartized?
+                  'description'             => !empty($product_option_value['description']) ? $product_option_value['description'] : '',
+                  'article'                 => !empty($product_option_value['article']) ? $product_option_value['article'] : '',
                 );
             }
 

@@ -5,7 +5,7 @@ class ControllerAccountEdit extends Controller {
     public function index() {
         $this->checkCustomerLogin('account/edit');
 
-        $this->load->language('account/edit');
+        $data = $this->load->language('account/edit');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -98,6 +98,13 @@ class ControllerAccountEdit extends Controller {
             $data['error_email'] = '';
         }
 
+
+        if (isset($this->error['telephone'])) {
+            $data['error_telephone'] = $this->error['telephone'];
+        } else {
+            $data['error_telephone'] = '';
+        }
+
         if (isset($this->error['custom_field'])) {
             $data['error_custom_field'] = $this->error['custom_field'];
         } else {
@@ -151,7 +158,7 @@ class ControllerAccountEdit extends Controller {
 
         if (isset($this->request->post['custom_field'])) {
             $data['account_custom_field'] = $this->request->post['custom_field'];
-        } elseif (isset($customer_info)) {
+        } elseif (isset($customer_info) && isset($customer_info['custom_field'])) {
             $data['account_custom_field'] = json_decode($customer_info['custom_field'], true);
         } else {
             $data['account_custom_field'] = array();
@@ -179,6 +186,10 @@ class ControllerAccountEdit extends Controller {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
 
+        if ((utf8_strlen(trim($this->request->post['telephone'])) < 1) || (utf8_strlen(trim($this->request->post['telephone'])) > 32)) {
+            $this->error['telephone'] = $this->language->get('error_telephone');
+        }
+
         if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
             $this->error['lastname'] = $this->language->get('error_lastname');
         }
@@ -204,6 +215,8 @@ class ControllerAccountEdit extends Controller {
                 $this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
             }
         }
+
+        prd($this->error);
 
         return !$this->error;
     }

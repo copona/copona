@@ -11,7 +11,20 @@ class ModelAccountCustomer extends Model {
 
 		$customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 
-		$this->db->query("INSERT INTO " . DB_PREFIX . "customer SET customer_group_id = '" . (int)$customer_group_id . "', store_id = '" . (int)$this->config->get('config_store_id') . "', language_id = '" . (int)$this->config->get('config_language_id') . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', email = '" . $this->db->escape($data['email']) . "', telephone = '" . $this->db->escape($data['telephone']) . "', fax = '" . $this->db->escape($data['fax']) . "', custom_field = '" . $this->db->escape(isset($data['custom_field']['account']) ? json_encode($data['custom_field']['account']) : '') . "', password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "', newsletter = '" . (isset($data['newsletter']) ? (int)$data['newsletter'] : 0) . "', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', status = '1', approved = '" . (int)!$customer_group_info['approval'] . "', date_added = NOW()");
+        $this->db->query("INSERT INTO " . DB_PREFIX . "customer SET customer_group_id = '" . (int)$customer_group_id . "'
+        , store_id = '" . (int)$this->config->get('config_store_id') . "', language_id = '" . (int)$this->config->get('config_language_id') . "'
+        , firstname = '" . $this->db->escape($data['firstname']) . "'
+        , lastname = '" . $this->db->escape($data['lastname']) . "'
+        , email = '" . $this->db->escape($data['email']) . "'
+        , telephone = '" . $this->db->escape($data['telephone']) . "'
+        , fax = ''
+        , custom_field = '" . $this->db->escape(isset($data['custom_field']['account']) ? json_encode($data['custom_field']['account']) : '') . "'
+        , password = '" . password_hash($data['password'], PASSWORD_DEFAULT) . "'
+        , newsletter = '" . (isset($data['newsletter']) ? (int)$data['newsletter'] : 0) . "'
+        , ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "'
+        , status = '1'
+        , approved = '" . (int)!$customer_group_info['approval'] . "'
+        , date_added = NOW()");
 
 		$customer_id = $this->db->getLastId();
 
@@ -96,8 +109,13 @@ class ModelAccountCustomer extends Model {
 
 	public function editCustomer($data) {
 		$customer_id = $this->customer->getId();
-
-		$this->db->query("UPDATE " . DB_PREFIX . "customer SET firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', email = '" . $this->db->escape($data['email']) . "', telephone = '" . $this->db->escape($data['telephone']) . "', fax = '" . $this->db->escape($data['fax']) . "', custom_field = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "' WHERE customer_id = '" . (int)$customer_id . "'");
+        $this->db->query("UPDATE " . DB_PREFIX . "customer SET firstname = '" . $this->db->escape($data['firstname']) . "'
+		, lastname = '" . $this->db->escape($data['lastname']) . "'
+		, email = '" . $this->db->escape($data['email']) . "'
+		, telephone = '" . $this->db->escape($data['telephone']) . "'
+		, fax = ''
+		, custom_field = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '')
+            . "' WHERE customer_id = '" . (int)$customer_id . "'");
 	}
 
 	public function editPassword($email, $password) {
