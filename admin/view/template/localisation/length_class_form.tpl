@@ -30,7 +30,8 @@
             <div class="col-sm-10">
                 <?php foreach ($languages as $language) { ?>
                   <div class="input-group"> <span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
-                    <input type="text" name="length_class_description[<?php echo $language['language_id']; ?>][title]" value="<?php echo isset($length_class_description[$language['language_id']]) ? $length_class_description[$language['language_id']]['title'] : ''; ?>" placeholder="<?php echo $entry_title; ?>" class="form-control" />
+                    <input type="text" name="length_class_description[<?php echo $language['language_id']; ?>][title]" value="<?php echo isset($length_class_description[$language['language_id']]) ? $length_class_description[$language['language_id']]['title'] : ''; ?>"
+                           placeholder="<?php echo htmlspecialchars( $entry_title ); ?>" class="form-control" />
                   </div>
                   <?php if (isset($error_title[$language['language_id']])) { ?>
                       <div class="text-danger"><?php echo $error_title[$language['language_id']]; ?></div>
@@ -42,8 +43,9 @@
             <label class="col-sm-2 control-label"><?php echo $entry_unit; ?></label>
             <div class="col-sm-10">
                 <?php foreach ($languages as $language) { ?>
-                  <div cla ss="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
-                    <input type="text" name="length_class_description[<?php echo $language['language_id']; ?>][unit]" value="<?php echo isset($length_class_description[$language['language_id']]) ? $length_class_description[$language['language_id']]['unit'] : ''; ?>" placeholder="<?php echo $entry_unit; ?>" class="form-control" />
+                  <div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
+                    <input type="text" name="length_class_description[<?php echo $language['language_id']; ?>][unit]" value="<?php echo isset($length_class_description[$language['language_id']]) ? $length_class_description[$language['language_id']]['unit'] : ''; ?>"
+                           placeholder="<?php echo htmlspecialchars( $entry_unit ); ?>" class="form-control" />
                   </div>
                   <?php if (isset($error_unit[$language['language_id']])) { ?>
                       <div class="text-danger"><?php echo $error_unit[$language['language_id']]; ?></div>
@@ -52,9 +54,11 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-value"><span data-toggle="tooltip" title="<?php echo $help_value; ?>"><?php echo $entry_value; ?></span></label>
+            <label class="col-sm-2 control-label" for="input-value"><span data-toggle="tooltip"
+                                                                          title="<?php echo $help_value; ?>"><?php echo $entry_value; ?></span></label>
             <div class="col-sm-10">
-              <input type="text" name="value" value="<?php echo $value; ?>" placeholder="<?php echo $entry_value; ?>" id="input-value" class="form-control" />
+              <input type="text" name="value" value="<?php echo $value; ?>"
+                     placeholder="" id="input-value" class="form-control" />
             </div>
           </div>
         </form>
