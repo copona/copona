@@ -5,7 +5,7 @@
       <div class="pull-right">
 
         <?php if ($product_id) { ?>
-          <a class="btn btn-info" href="/?route=product/product&amp;product_id=<?php echo $product_id; ?>" target="_blank">View product on site</a>
+          <a class="btn btn-info" href="<?=rtrim(HTTP_CATALOG,'/');?>/?route=product/product&amp;product_id=<?php echo $product_id; ?>" target="_blank">View product on site</a>
         <?php }; ?>
 
         <button onclick="saveAndContinue(event);" form="form-product" data-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
