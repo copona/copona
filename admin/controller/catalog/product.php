@@ -735,15 +735,12 @@ class ControllerCatalogProduct extends Controller {
             'admin_description' => '',
             'image' => '',
             'image_url' => '',
-            'model' => '',
-            'model' => '',
-            'model' => '',
         ];
 
         foreach($default_fields as $field => $default_value){
             if (isset($this->request->post[$field])) {
                 $data[$field] = $this->request->post[$field];
-            } elseif (!empty($product_info)) {
+            } elseif (!empty($product_info[$field])) {
                 $data[$field] = $product_info[$field];
             } else {
                 $data[$field] = $default_value;
