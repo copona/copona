@@ -38,7 +38,12 @@ class Weight {
             $to = 1;
         }
 
-        return $value * ($to / $from);
+        if ($from > 0) {
+            return $value * ($to / $from);
+        } else {
+            return $value;
+        }
+
     }
 
     public function format($value, $weight_class_id, $decimal_point = '.', $thousand_point = ',') {
