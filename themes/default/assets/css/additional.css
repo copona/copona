@@ -1,3 +1,7 @@
+
+@import url('easy_checkout.css') ;
+
+
 body .notifyjs-container {
     line-height: 1.1em;
 }
@@ -359,3 +363,5 @@ span.error input {
     display: block;
     font-size: 12px;
 }
+
+
