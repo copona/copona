@@ -134,4 +134,9 @@ class Language extends Controller
         return $this->data;
     }
 
+    public static function getInstance() {
+        return Registry::getInstance()->get('language');
+    }
+    
+
 }
