@@ -19,7 +19,7 @@ class ControllerExtensionModuleFeatured extends Controller {
             $this->session->data['success'] = $this->language->get('text_success');
 
             if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
-                $this->response->redirect($this->url->link('extension/module/featured', 'module_id=' . $this->request->get['module_id'] . '&token=' . $this->session->data['token'] . $url, true));
+                $this->response->redirect($this->url->link('extension/module/featured', 'module_id=' . $this->request->get['module_id'] . '&token=' . $this->session->data['token'], true));
             else
                 $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true));
         }
@@ -197,16 +197,6 @@ class ControllerExtensionModuleFeatured extends Controller {
         }
 
         return !$this->error;
-    }
-    
-    public function install()
-    {
-        
-    }
-
-    public function uninstall()
-    {
-        
     }
 
     public function install() {
