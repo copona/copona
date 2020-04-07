@@ -165,17 +165,11 @@ var cart = {
                 if (json['success']) {
 
                     $('body').append('<div class="alert alert-success alert-success-addtocart">' +
-                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                         json['success'] + '</div>').fadeIn('slow');
                     delay(function () {
                         $('.alert-success-addtocart').fadeOut(500);
                     }, 3000);
-                    //console.log ( $(e.target) );
-
-                    // TODO: must be fixed with correct notify location.
-                    // json['text_added_to_cart'] != 'text_added_to_cart'
-                    //   ? $(e.target).notify(json['text_added_to_cart'], {position: "right", className: 'success'})
-                    //   : false;
 
                     $('#cart').load('index.php?route=common/cart/info');
                 }
