@@ -363,16 +363,6 @@ class ControllerLocalisationLengthClass extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        foreach ($this->request->post['length_class_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['title']) < 3) || (utf8_strlen($value['title']) > 32)) {
-                $this->error['title'][$language_id] = $this->language->get('error_title');
-            }
-
-            if (!$value['unit'] || (utf8_strlen($value['unit']) > 4)) {
-                $this->error['unit'][$language_id] = $this->language->get('error_unit');
-            }
-        }
-
         return !$this->error;
     }
 
