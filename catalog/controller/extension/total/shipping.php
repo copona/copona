@@ -43,7 +43,7 @@ class ControllerExtensionTotalShipping extends Controller {
                 $data['postcode'] = '';
             }
 
-            if (isset($this->session->data['shipping_method'])) {
+            if ( $this->session->data('shipping_address') && isset($this->session->data['shipping_method'])) {
                 $data['shipping_method'] = $this->session->data['shipping_method']['code'];
             } else {
                 $data['shipping_method'] = '';
