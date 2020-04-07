@@ -4,8 +4,6 @@ class ControllerStartupStartup extends Controller {
 
     public function index() {
 
-        // pr($this->session);
-
         // Store
         try {
             if ($this->request->server['HTTPS']) {
@@ -26,10 +24,12 @@ class ControllerStartupStartup extends Controller {
 
         if (isset($this->request->get['store_id'])) {
             $this->config->set('config_store_id', (int)$this->request->get['store_id']);
-        } else if ($query->num_rows) {
-            $this->config->set('config_store_id', $query->row['store_id']);
         } else {
-            $this->config->set('config_store_id', 0);
+            if ($query->num_rows) {
+                $this->config->set('config_store_id', $query->row['store_id']);
+            } else {
+                $this->config->set('config_store_id', 0);
+            }
         }
 
         if (!$query->num_rows) {
@@ -38,9 +38,23 @@ class ControllerStartupStartup extends Controller {
         }
 
         // Settings
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE store_id = '0' OR store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY store_id ASC");
+        $sql = "SELECT * FROM `" . DB_PREFIX . "setting` WHERE store_id = '0' OR store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY store_id ASC";
+        $cache_key = 'setting.all.' . md5($sql);
+        $result_data = $this->cache->get($cache_key);
+        if ($result_data === null) {
+            $query = $this->db->query($sql);
+            // $this->registry->get('log')->write('setting.all:' . dt(2));
+            // pr();
+            $result_data = [];
+            if ($query->num_rows) {
+                $result_data = $query->rows;
+            }
+            $this->cache->set($cache_key, $result_data);
+        }
 
-        foreach ($query->rows as $result) {
+        // $query = $this->db->query($sql);
+
+        foreach ($result_data as $result) {
             if (!$result['serialized']) {
                 $this->config->set($result['key'], $result['value']);
             } else {
@@ -48,8 +62,15 @@ class ControllerStartupStartup extends Controller {
             }
         }
 
+        // Url
+        // Url
+        $this->registry->set('url', new Url($this->config->get('config_url'), $this->config->get('config_ssl'), $this->registry));
+
         $this->config->set('theme_name', !empty($this->config->get('theme_default_directory')) ? $this->config->get('theme_default_directory') : 'default');
         $this->config->set('theme_uri', DIR_TEMPLATE . $this->config->get('theme_name'));
+
+        //$this->config->set('theme_name', DIR_TEMPLATE . $this->config->get('theme_default_directory'));
+        //$this->config->set('theme_uri', DIR_TEMPLATE . $this->config->get('theme_name'));
 
         // Language
         $code = '';
@@ -67,6 +88,9 @@ class ControllerStartupStartup extends Controller {
         $this->load->model('localisation/language');
 
         $languages = $this->model_localisation_language->getLanguages();
+        // $log = new Log('cookie.log');
+        // $log->write($_COOKIE['language']);
+
         $default_language = $this->config->get('config_language');
 
         if (isset($this->request->get["_route_"])) {
@@ -138,6 +162,7 @@ class ControllerStartupStartup extends Controller {
 
         if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
             setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
+            $this->log->write($this->request->cookie['language']);
         }
 
         // Overwrite the default language object
@@ -189,8 +214,6 @@ class ControllerStartupStartup extends Controller {
             $this->db->query("UPDATE `" . DB_PREFIX . "marketing` SET clicks = (clicks + 1) WHERE code = '" . $this->db->escape($this->request->get['tracking']) . "'");
         }
 
-        // Url
-        $this->registry->set('url', new Url($this->config->get('config_url'), $this->config->get('config_ssl'), $this->registry));
 
         // Affiliate
         $this->registry->set('affiliate', new Cart\Affiliate($this->registry));
@@ -227,19 +250,22 @@ class ControllerStartupStartup extends Controller {
         // Tax
         $this->registry->set('tax', new Cart\Tax($this->registry));
 
-        if (isset($this->session->data['shipping_address'])) {
+        if (isset($this->session->data['shipping_address']) && isset($this->session->data['shipping_address']['country_id'])) {
             $this->tax->setShippingAddress($this->session->data['shipping_address']['country_id'], $this->session->data['shipping_address']['zone_id']);
         } elseif ($this->config->get('config_tax_default') == 'shipping') {
             $this->tax->setShippingAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
         }
 
-        if (isset($this->session->data['payment_address'])
-            && !empty($this->session->data['payment_address']['country_id'])
-            && !empty($this->session->data['payment_address']['zone_id'])) {
+        if (
+            isset($this->session->data['payment_address'])
+            && isset($this->session->data['payment_address']['country_id'])
+            && isset($this->session->data['payment_address']['zone_id'])
+        ) {
             $this->tax->setPaymentAddress($this->session->data['payment_address']['country_id'], $this->session->data['payment_address']['zone_id']);
         } elseif ($this->config->get('config_tax_default') == 'payment') {
             $this->tax->setPaymentAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
         }
+
 
         $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 
@@ -251,6 +277,8 @@ class ControllerStartupStartup extends Controller {
 
         // Cart
         $this->registry->set('cart', new Cart\Cart($this->registry));
+        $this->registry->get('cart')->init();
+
 
         // Encryption
         $this->registry->set('encryption', new Encryption($this->config->get('config_encryption')));

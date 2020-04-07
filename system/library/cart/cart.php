@@ -1,13 +1,23 @@
 <?php
+
 namespace Cart;
 
 class Cart {
+
+    public $cartProducts = [];
     private $data = [];
     private $dd_count = 0;
     private $cartTotal = 0;
     private $shipping = 0;
+    private $shipping_methods = [];
+    private $shipping_address = [];
+    private $address2 = [];
+    private $shipping_method = [];
+    private $payment_method = [];
+    private $payment_address = [];
+    private $payment_methods = [];
 
-    public $cartProducts = [];
+    private $payment_instruction = ''; // Used in "success"  payment.
 
     public function __construct($registry) {
 
@@ -31,7 +41,16 @@ class Cart {
         $this->load->model('extension/extension');
         $this->load->model('catalog/content');
         $this->load->model('tool/image');
+        $this->load->model('catalog/product');
+        $this->load->model('localisation/country');
         $this->extension = $registry->get('model_extension_extension');
+
+        $this->countries = $registry->get('model_localisation_country')->getCountries() ;
+
+
+
+        $this->log = new \Log('cart.log');
+
 
         $this->cur_constr(); // Does the minimum currency constructor for formatting
 
@@ -57,7 +76,11 @@ class Cart {
             }
         }
         $this->cartProducts = $this->getProducts(true);
+
+
     }
+
+
 
     public function getProducts($update = false) {
 
@@ -66,7 +89,7 @@ class Cart {
         }
 
 
-        $product_data = array();
+        $product_data = [];
         $this->dd_count++;
 
         $cart_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
@@ -81,7 +104,7 @@ class Cart {
                 $option_points = 0;
                 $option_weight = 0;
 
-                $option_data = array();
+                $option_data = [];
 
                 foreach (json_decode($cart['option']) as $product_option_id => $value) {
                     $option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, od.display, o.type FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$cart['product_id'] . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
@@ -116,7 +139,7 @@ class Cart {
                                     $stock = false;
                                 }
 
-                                $option_data[] = array(
+                                $option_data[] = [
                                     'product_option_id'       => $product_option_id,
                                     'product_option_value_id' => $value,
                                     'option_id'               => $option_query->row['option_id'],
@@ -131,22 +154,22 @@ class Cart {
                                     'points'                  => $option_value_query->row['points'],
                                     'points_prefix'           => $option_value_query->row['points_prefix'],
                                     'weight'                  => $option_value_query->row['weight'],
-                                    'weight_prefix'           => $option_value_query->row['weight_prefix']
-                                );
+                                    'weight_prefix'           => $option_value_query->row['weight_prefix'],
+                                ];
                             }
                         } elseif ($option_query->row['type'] == 'checkbox' && is_array($value)) {
                             foreach ($value as $product_option_value_id) {
                                 $option_value_query = $this->db->query("SELECT pov.option_value_id"
-                                                                       . ", pov.quantity, pov.subtract, pov.price, pov.price_prefix"
-                                                                       . ", pov.points"
-                                                                       . ", pov.points_prefix"
-                                                                       . ", pov.weight"
-                                                                       . ", pov.weight_prefix"
-                                                                       . ", ovd.name FROM " . DB_PREFIX . "product_option_value pov "
-                                                                       . "LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (pov.option_value_id = ovd.option_value_id) "
-                                                                       . "WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' "
-                                                                       . "AND pov.product_option_id = '" . (int)$product_option_id . "' "
-                                                                       . "AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+                                    . ", pov.quantity, pov.subtract, pov.price, pov.price_prefix"
+                                    . ", pov.points"
+                                    . ", pov.points_prefix"
+                                    . ", pov.weight"
+                                    . ", pov.weight_prefix"
+                                    . ", ovd.name FROM " . DB_PREFIX . "product_option_value pov "
+                                    . "LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (pov.option_value_id = ovd.option_value_id) "
+                                    . "WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' "
+                                    . "AND pov.product_option_id = '" . (int)$product_option_id . "' "
+                                    . "AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
                                 if ($option_value_query->num_rows) {
                                     if ($option_value_query->row['price_prefix'] == '+') {
@@ -171,7 +194,7 @@ class Cart {
                                         $stock = false;
                                     }
 
-                                    $option_data[] = array(
+                                    $option_data[] = [
                                         'product_option_id'       => $product_option_id,
                                         'product_option_value_id' => $product_option_value_id,
                                         'option_id'               => $option_query->row['option_id'],
@@ -186,17 +209,17 @@ class Cart {
                                         'points'                  => $option_value_query->row['points'],
                                         'points_prefix'           => $option_value_query->row['points_prefix'],
                                         'weight'                  => $option_value_query->row['weight'],
-                                        'weight_prefix'           => $option_value_query->row['weight_prefix']
-                                    );
+                                        'weight_prefix'           => $option_value_query->row['weight_prefix'],
+                                    ];
                                 }
                             }
                         } elseif ($option_query->row['type'] == 'text'
-                                  || $option_query->row['type'] == 'textarea'
-                                  || $option_query->row['type'] == 'file'
-                                  || $option_query->row['type'] == 'date'
-                                  || $option_query->row['type'] == 'datetime'
-                                  || $option_query->row['type'] == 'time') {
-                            $option_data[] = array(
+                            || $option_query->row['type'] == 'textarea'
+                            || $option_query->row['type'] == 'file'
+                            || $option_query->row['type'] == 'date'
+                            || $option_query->row['type'] == 'datetime'
+                            || $option_query->row['type'] == 'time') {
+                            $option_data[] = [
                                 'product_option_id'       => $product_option_id,
                                 'product_option_value_id' => '',
                                 'option_id'               => $option_query->row['option_id'],
@@ -211,8 +234,8 @@ class Cart {
                                 'points'                  => '',
                                 'points_prefix'           => '',
                                 'weight'                  => '',
-                                'weight_prefix'           => ''
-                            );
+                                'weight_prefix'           => '',
+                            ];
                         }
                     }
                 }
@@ -267,17 +290,17 @@ class Cart {
 
 
                 // Downloads
-                $download_data = array();
+                $download_data = [];
 
                 $download_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_download p2d LEFT JOIN " . DB_PREFIX . "download d ON (p2d.download_id = d.download_id) LEFT JOIN " . DB_PREFIX . "download_description dd ON (d.download_id = dd.download_id) WHERE p2d.product_id = '" . (int)$cart['product_id'] . "' AND dd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
                 foreach ($download_query->rows as $download) {
-                    $download_data[] = array(
+                    $download_data[] = [
                         'download_id' => $download['download_id'],
                         'name'        => $download['name'],
                         'filename'    => $download['filename'],
-                        'mask'        => $download['mask']
-                    );
+                        'mask'        => $download['mask'],
+                    ];
                 }
 
                 // Stock
@@ -288,7 +311,7 @@ class Cart {
                 $recurring_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "recurring r LEFT JOIN " . DB_PREFIX . "product_recurring pr ON (r.recurring_id = pr.recurring_id) LEFT JOIN " . DB_PREFIX . "recurring_description rd ON (r.recurring_id = rd.recurring_id) WHERE r.recurring_id = '" . (int)$cart['recurring_id'] . "' AND pr.product_id = '" . (int)$cart['product_id'] . "' AND rd.language_id = " . (int)$this->config->get('config_language_id') . " AND r.status = 1 AND pr.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "'");
 
                 if ($recurring_query->num_rows) {
-                    $recurring = array(
+                    $recurring = [
                         'recurring_id'    => $cart['recurring_id'],
                         'name'            => $recurring_query->row['name'],
                         'frequency'       => $recurring_query->row['frequency'],
@@ -299,8 +322,8 @@ class Cart {
                         'trial_frequency' => $recurring_query->row['trial_frequency'],
                         'trial_price'     => $recurring_query->row['trial_price'],
                         'trial_cycle'     => $recurring_query->row['trial_cycle'],
-                        'trial_duration'  => $recurring_query->row['trial_duration']
-                    );
+                        'trial_duration'  => $recurring_query->row['trial_duration'],
+                    ];
                 } else {
                     $recurring = false;
                 }
@@ -319,7 +342,7 @@ class Cart {
                 // TODO: check in common/cart.php controller!
                 // We need product price + option price for opened product.
                 $price_enduser = $this->currency->format($this->tax->calculate($price, $product_query->row['tax_class_id'], $this->config->get('config_tax')), '', '', false)
-                                 + $this->currency->format($this->tax->calculate($option_price, $product_query->row['tax_class_id'], $this->config->get('config_tax')), '', '',
+                    + $this->currency->format($this->tax->calculate($option_price, $product_query->row['tax_class_id'], $this->config->get('config_tax')), '', '',
                         false);
                 $price_enduser_total = $price_enduser * $cart['quantity'];
 
@@ -346,9 +369,12 @@ class Cart {
                         $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
                 }
 
-                $href = $this->registry->get('url')->link('product/product','product_id=' . $product_query->row['product_id']);
+                $href = $this->registry->get('url')->link('product/product', 'product_id=' . $product_query->row['product_id']);
 
-                $product_data[] = array(
+
+                $attribute_groups = $this->registry->get('model_catalog_product')->getProductAttributes($product_query->row['product_id']);
+
+                $product_data[] = [
                     'cart_id'                       => $cart['cart_id'],
                     'product_id'                    => $product_query->row['product_id'],
                     'name'                          => $product_query->row['name'],
@@ -385,8 +411,9 @@ class Cart {
                     'width'                         => $product_query->row['width'],
                     'height'                        => $product_query->row['height'],
                     'length_class_id'               => $product_query->row['length_class_id'],
-                    'recurring'                     => $recurring
-                );
+                    'recurring'                     => $recurring,
+                    'attribute_groups'              => $attribute_groups,
+                ];
 
             } else {
                 $this->remove($cart['cart_id']);
@@ -398,7 +425,7 @@ class Cart {
         return $product_data;
     }
 
-    public function add($product_id, $quantity = 1, $option = array(), $recurring_id = 0) {
+    public function add($product_id, $quantity = 1, $option = [], $recurring_id = 0) {
         $query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "' AND product_id = '" . (int)$product_id . "' AND recurring_id = '" . (int)$recurring_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 
         if (!$query->row['total']) {
@@ -418,6 +445,15 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     public function update($cart_id, $quantity) {
         $this->db->query("UPDATE " . DB_PREFIX . "cart SET quantity = '" . (int)$quantity . "' WHERE cart_id = '" . (int)$cart_id . "' AND api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
         $this->cartProducts = $this->getProducts(true);
+
+        $this->setShippingMethods();
+
+
+
+        // TODO: Cart is very dependant from shipping methods
+
+        $this->setShippingMethod( $this->getShippingMethod( $this->getShippingMethodCode() ) );
+
     }
 
     public function remove($cart_id) {
@@ -431,7 +467,7 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     }
 
     public function getRecurringProducts() {
-        $product_data = array();
+        $product_data = [];
 
         foreach ($this->cartProducts as $value) {
             if ($value['recurring']) {
@@ -454,6 +490,55 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         return $weight;
     }
 
+
+
+
+
+
+
+    public function init($update = false) {
+
+
+        if (!is_array($this->session->data('shipping_address'))) {
+            $this->session->data['shipping_address'] = [];
+        }
+
+        $this->setShippingAddress($this->session->data('shipping_address'));
+
+        // prd($this->session->data('payment_address'));
+
+        $this->setPaymentAddress($this->session->data('payment_address'));
+
+        $this->setShippingMethods();
+        $this->setPaymentMethods();
+
+        $this->setShippingMethod($this->session->data('shipping_method'));
+        $this->setPaymentMethod($this->session->data('payment_method'));
+
+        $this->setAddress2($this->session->data('address2'));
+
+
+        $this->setPaymentInstruction($this->session->data('payment_instruction'));
+
+
+        //azon metode init();
+
+        /*
+        if ($this->customer->getId()) {
+            // We want to change the session ID on all the old items in the customers cart
+            $this->db->query("UPDATE " . DB_PREFIX . "cart SET session_id = '" . $this->db->escape($this->session->getId()) . "' WHERE api_id = '0' AND customer_id = '" . (int)$this->customer->getId() . "'");
+            // Once the customer is logged in we want to update the customers cart
+            $cart_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '0' AND customer_id = '0' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+            foreach ($cart_query->rows as $cart) {
+                $this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE cart_id = '" . (int)$cart['cart_id'] . "'");
+                // The advantage of using $this->add is that it will check if the products already exist and increaser the quantity if necessary.
+                $this->add($cart['product_id'], $cart['quantity'], json_decode($cart['option']), $cart['recurring_id']);
+            }
+        }  */
+        // $this->cartProducts = $this->getProducts(true);
+    }
+
+
     public function getSubTotal() {
         $total = 0;
         foreach ($this->cartProducts as $product) {
@@ -466,6 +551,10 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         }
 
 
+        if ($this->shipping_method) {
+            $total += $this->shipping_method['price_enduser'];
+        }
+
         foreach ($this->getTaxes() as $tax) {
             $total -= $tax;
         }
@@ -475,28 +564,6 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
         return $total;
     }
-
-    /*
-    public function getTaxes_OLD() {
-        $tax_data = array();
-
-        foreach ($this->cartProducts as $product) {
-
-            if ($product['tax_class_id']) {
-                $tax_rates = $this->tax->getRates($product['total'], $product['tax_class_id']);
-
-                foreach ($tax_rates as $tax_rate) {
-                    if (!isset($tax_data[$tax_rate['tax_rate_id']])) {
-                        $tax_data[$tax_rate['tax_rate_id']] = ($tax_rate['amount']);
-                    } else {
-                        $tax_data[$tax_rate['tax_rate_id']] += ($tax_rate['amount']);
-                    }
-                }
-            }
-        }
-        return $tax_data;
-    } */
-
 
     public function getTaxes() {
         $tax = [];
@@ -528,6 +595,31 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         }
 
 
+        if ($this->shipping_method) {
+
+            $tax_class_id = $this->shipping_method['tax_class_id'];
+            $enduser_price = $this->shipping_method['price_enduser'];
+
+            if (isset($tax_classes[$tax_class_id])) {
+                $multiplier = 1;
+                foreach ($tax_classes[$tax_class_id] as $tax_rate_id => $tax_rate) {
+                    $multiplier *= (1 + $tax_rate['rate'] / 100);
+                }
+
+                $total_wo_tax = $enduser_price / $multiplier;
+                // now - extract tax from every "total" without tax
+
+                foreach ($tax_classes[$tax_class_id] as $tax_rate_id => $tax_rate) {
+                    if (!isset($tax[$tax_rate_id])) {
+                        $tax[$tax_rate_id] = 0;
+                    }
+                    $tax[$tax_rate_id] += $total_wo_tax * ($tax_rate['rate'] / 100);
+                }
+            }
+
+        }
+
+
         // ROund every total value.
         array_walk($tax, function (&$val) {
             $val = round($val, $this->decimal_places);
@@ -536,19 +628,21 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     }
 
 
-    public function getTotal() {
+    public function getTotal( $formatted = false ) {
         $total = 0;
         foreach ($this->cartProducts as $product) {
             // $total += $this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax'));
             $total += $product['price_enduser_total'];
         }
-        return $total;
+        return $formatted ? $this->currency->format($total) : $total ;
     }
 
     public function getShipping() {
         $this->getTotals_azon();
         return $this->shipping;
     }
+
+
 
     public function countProducts($product_id = false) {
         $product_total = 0;
@@ -576,6 +670,11 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     public function hasRecurringProducts() {
         return count($this->getRecurringProducts());
     }
+
+
+
+
+
 
     public function hasStock() {
         foreach ($this->cartProducts as $product) {
@@ -634,25 +733,177 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         // $query = $this->db->query($sql);
 
         foreach ($result_data as $result) {
-            $this->currencies[$result['code']] = array(
+            $this->currencies[$result['code']] = [
                 'currency_id'   => $result['currency_id'],
                 'title'         => $result['title'],
                 'symbol_left'   => $result['symbol_left'],
                 'symbol_right'  => $result['symbol_right'],
                 'decimal_place' => $result['decimal_place'],
-                'value'         => $result['value']
-            );
-        }
-        if (isset($this->request->get['currency']) && (array_key_exists($this->request->get['currency'], $this->currencies))) {
-            $this->code = $this->request->get['currency'];
-        } elseif ((isset($this->session->data['currency'])) && (array_key_exists($this->session->data['currency'], $this->currencies))) {
-            $this->code = $this->session->data['currency'];
-        } elseif ((isset($this->request->cookie['currency'])) && (array_key_exists($this->request->cookie['currency'], $this->currencies))) {
-            $this->code = $this->request->cookie['currency'];
-        } else {
-            $this->code = $this->config->get('config_currency');
+                'value'         => $result['value'],
+            ];
         }
 
+        //        if (isset($this->request->get['currency']) && (array_key_exists($this->request->get['currency'], $this->currencies))) {
+        //            $code = $this->request->get['currency'];
+        //        } elseif ((isset($this->session->data['currency'])) && (array_key_exists($this->session->data['currency'], $this->currencies))) {
+        //            $code = $this->session->data['currency'];
+        //        } elseif ((isset($this->request->cookie['currency'])) && (array_key_exists($this->request->cookie['currency'], $this->currencies))) {
+        //            $code = $this->request->cookie['currency'];
+        //        } else {
+        //            $code = $this->config->get('config_currency');
+        //        }
+
+    }
+
+
+
+
+
+
+
+
+    /* collect shipping methods */
+
+    public function getAddress2() {
+        return $this->address2;
+    }
+
+    /**
+     * @return void
+     */
+
+    public function clearAddress2( ) {
+
+        $this->session->data['address2'] = $this->address2 = [] ;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function setAddress2($address2) {
+
+        //  $this->log->write ( $address2 ) ;
+
+
+        $fields = [
+            'firstname',
+            'email',
+            'telephone',
+            'address_1',
+            'city',
+            'postcode',
+            'country_id',
+            'billing_address_details',
+        ];
+
+
+        foreach ($fields as $key) {
+            // $data[$field] = !empty($address2[$field]) ? $address2[$field] : '';
+
+            if(isset($address2[$key])) {
+                $this->address2[$key] = $address2[$key];
+            } elseif(isset($this->address[$key])) {
+                //continue;
+            } else {
+                $this->address2[$key] = '';
+            }
+
+        }
+
+        $this->session->data['address2'] = $this->address2;
+        return true;
+    }
+
+    /**
+     * @param string $code
+     * @return mixed
+     */
+    public function getShippingMethod($code = '') {
+
+        // pr(ddd());
+
+        $method = [];
+
+        if ($code) {
+
+            $shipping = explode('.', $code);
+
+            if (isset($this->shipping_methods[$shipping[0]]['quote'][$shipping[1]])) {
+                $method = $this->shipping_methods[$shipping[0]]['quote'][$shipping[1]];
+            }
+
+        } elseif ($this->shipping_method) {
+            $method = $this->shipping_method;
+        } else {
+
+
+        }
+
+        // prd($key);
+        return $method;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function setShippingMethod($method = []) {
+
+        //  $this->log->write ( ddd() ) ;
+
+        // pr($method);
+        //  pr(ddd());
+        // pr($this->shipping_methods);
+
+        // $this->log->write( $method);
+
+        if ($method && isset($method['cost']) && $this->hasProducts()) {
+
+            $price_enduser = $this->currency->format($this->tax->calculate($method['cost'], $method['tax_class_id'], $this->config->get('config_tax')), '', '', false);
+            $price_enduser_formatted = $this->currency->format2($price_enduser);
+            // $price_enduser_total_formatted = $this->currency->format2($price_enduser_total);
+
+            $method['price_enduser'] = $price_enduser;
+            $method['price_enduser_formatted'] = $price_enduser_formatted;
+
+        } elseif ($this->hasProducts() && $this->shipping_methods) {
+
+            /* Settings FIRST shipping method, as current! */
+
+            $key1 = key($this->shipping_methods);
+            $key2 = key($this->shipping_methods[$key1]['quote']);
+            $method = $this->shipping_methods[$key1]['quote'][$key2];
+
+
+            $price_enduser = $this->currency->format($this->tax->calculate($method['cost'], $method['tax_class_id'], $this->config->get('config_tax')), '', '', false);
+            $price_enduser_formatted = $this->currency->format2($price_enduser);
+            // $price_enduser_total_formatted = $this->currency->format2($price_enduser_total);
+            $method['price_enduser'] = $price_enduser;
+            $method['price_enduser_formatted'] = $price_enduser_formatted;
+
+
+        } else {
+            $method = [];
+        }
+
+        // prd($method);
+
+        $this->session->data['shipping_method'] = $this->shipping_method = $method;
+
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShippingMethodCode() {
+        return isset($this->shipping_method['code']) ? $this->shipping_method['code'] : '';
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShippingMethods() {
+        return $this->shipping_methods;
     }
 
     public function getTotals($par = []) {
@@ -665,17 +916,17 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         $taxes = $this->getTaxes();
 
         $totals = [];
-        $total_data = array(
+        $total_data = [
             'totals' => &$totals,
             'taxes'  => &$taxes,
-            'total'  => &$total
-        );
+            'total'  => &$total,
+        ];
 
         $this->cartTotal = 0;
         $this->shipping = 0;
 
         if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
-            $sort_order = array();
+            $sort_order = [];
             $results = $this->extension->getExtensions('total');
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
@@ -696,26 +947,134 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                     $this->cartTotal += $this->currency->format($total['value'], $this->session->data['currency'], '', false);
                 }
 
-                // if($total['code'] == 'shipping'){
-                //     pr($total);
-                // }
+                // TODO: commented!?
+                // $this->shipping += $total['code'] == 'shipping' ? $total['value'] : 0;
 
-                $this->shipping += $total['code'] == 'shipping' ? $total['value'] : 0;
-
-                $data['totals'][] = array(
+                $data['totals'][] = [
                     'code'       => $total['code'],
                     'title'      => $total['title'],
+
                     // We need to covert between currencies, to set correct number
                     'value'      => $total['code'] == 'total' ? $this->currency->convert($this->cartTotal, $this->session->data['currency'], 1) : $total['value'],
                     'sort_order' => $total['sort_order'],
                     'text'       => $total['code'] == 'total' ? $this->currency->format2($this->cartTotal) : $this->currency->format($total['value'],
                         $this->session->data['currency']),
-                );
+                    // 'price_enduser_formatted'       => $this->format2,
+                ];
 
             }
         }
         return $data['totals'];
     }
+
+    public function setShippingMethods() {
+
+        // pr($this->shipping_address['country_id']);
+
+        if ($this->shipping_address) {
+
+            $method_data = [];
+            $results = $this->extension->getExtensions('shipping');
+
+            foreach ($results as $result) {
+                if ($this->config->get($result['code'] . '_status')) {
+                    $this->load->model('extension/shipping/' . $result['code']);
+
+
+                    $quote = $this->registry->get('model_extension_shipping_' . $result['code'])->getQuote($this->shipping_address);
+
+                    //                    pr($result['code']);
+                    //                    pr($quote);
+                    //                    pr($this->shipping_address);
+
+                    //  $this->log->write (   $quote['quote']  ) ;
+
+                    if ($quote) {
+
+                        $method_data[$result['code']] = [
+                            'title'      => $quote['title'],
+                            'template'   => !empty($quote['template']) ? $quote['template'] : '',
+                            'quote'      => $quote['quote'],
+                            'sort_order' => $quote['sort_order'],
+                            'error'      => $quote['error'],
+                            'sub_quote'  => (!empty($quote['sub_quote']) && $quote['sub_quote'] ? $quote['sub_quote'] : ''),
+                        ];
+                    }
+                }
+            }
+
+
+            $sort_order = [];
+
+            foreach ($method_data as $key => $value) {
+                $sort_order[$key] = $value['sort_order'];
+            }
+
+            array_multisort($sort_order, SORT_ASC, $method_data);
+
+            //pr($method_data);
+
+
+            $this->shipping_methods = $method_data;
+        }
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentAddress() {
+        return $this->payment_address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentMethod() {
+        return $this->payment_method;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function setPaymentMethod($method = []) {
+        // TODO: this comes without validation
+        // we are not validating anything here !
+        // probaly, should be validated for available methods only
+
+        if ($method) {
+            //$price_enduser = $this->currency->format($this->tax->calculate($method['cost'], $method['tax_class_id'], $this->config->get('config_tax')), '', '', false);
+            //$price_enduser_formatted = $this->currency->format2($price_enduser);
+
+            //$method['price_enduser'] = $price_enduser;
+            //$method['price_enduser_formatted'] = $price_enduser_formatted;
+
+            // We can't validate anything here. Just read variables from session.
+            if (is_string($method) && isset($this->payment_methods[$method])) {
+                $method = $this->payment_methods[$method];
+            } elseif (is_array($method) && isset($method['code'])) {
+                $method = $method;
+            } else {
+                $method = [];
+            }
+
+
+        }
+
+        //        pr($this->payment_methods);
+
+        $this->session->data['payment_method'] = $this->payment_method = $method;
+    }
+
+
+    public function setPaymentInstruction($text) {
+        $this->session->data['payment_instruction'] = $this->payment_instruction = $text;
+    }
+
+    public function getPaymentInstruction() {
+        return $this->payment_instruction;
+    }
+
 
     /**
      * Correct Total with discount
@@ -730,6 +1089,191 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         } else {
             return $this->currency->format($this->cartTotal, '', 1, false);
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentMethods() {
+        return $this->payment_methods;
+    }
+
+    public function setPaymentMethods() {
+
+
+
+        $method_data = [];
+        $results = $this->extension->getExtensions('payment');
+
+
+        // pr($results);
+
+        foreach ($results as $result) {
+            if ($this->config->get($result['code'] . '_status')) {
+                $this->load->model('extension/payment/' . $result['code']);
+
+                // TODO: total can be requested in any Total module directly, without passing as argument.
+                // But that must be included in all modules then...
+
+                $method = $this->registry->get('model_extension_payment_' . $result['code'])->getMethod($this->payment_address, $this->getTotal());
+
+                if ($method) {
+                    $method_data[$result['code']] = [
+                        'title'      => $method['title'],
+                        'code'       => $method['code'],
+                        'template'   => !empty($method['template']) ? $method['template'] : '',
+                        // 'quote'      => $method['quote'],
+                        'sort_order' => $method['sort_order'],
+                        // 'error'      => $method['error'],
+                    ];
+                }
+            }
+
+            $sort_order = [];
+
+            foreach ($method_data as $key => $value) {
+                $sort_order[$key] = $value['sort_order'];
+            }
+
+            array_multisort($sort_order, SORT_ASC, $method_data);
+            // prd($method_data);
+            $this->payment_methods = $this->session->data['payment_methods'] = $method_data;
+
+
+        }
+    }
+
+
+
+    public function setShippingAddress($address = []) {
+        // $this->shipping_address = $this->session->data('shipping_address');
+
+
+
+        if (!is_array($address)) {
+            $address = [];
+        }
+
+
+        if (empty($address['country_id'])) {
+            $address['country_id'] = $this->config->get('config_country_id');
+        }
+
+        $address['zone_id'] = isset($address['zone_id']) ? $address['zone_id'] : 0;
+
+        $fields = [
+            'firstname',
+            'telephone',
+            'email',
+            'lastname',
+            'company',
+            'company_id',
+            'tax_id',
+            'address_1',
+            'address_2',
+            'city',
+            'postcode',
+            'zone',
+            'zone_id',
+            'country',
+            'country_id',
+            'address_format',
+            'custom_field', // array
+            'customer_group_id', // array
+        ];
+
+        foreach ($fields as $field) {
+            if (isset($address[$field]) && !is_array( $address[$field] )) {
+                $this->shipping_address[$field] = $address[$field];
+            } elseif ( isset($address[$field]) && is_array( $address[$field] ) ) {
+                $this->log->write("ERROR: $field is ARRAY! No WAY! Not allowed!");
+                $this->shipping_address[$field] = '';
+            } elseif (isset($this->shipping_address[$field])) {
+                // continue
+            } else {
+                $this->shipping_address[$field] = '';
+            }
+        }
+
+        if($this->shipping_address["country_id"]) {
+            $this->shipping_address["country"] = $this->countries[ $this->shipping_address["country_id"]]['name'] ;
+        }
+
+        $this->session->data['shipping_address'] = $this->shipping_address;
+
+        $this->tax->setShippingAddress($this->shipping_address['country_id'], $this->shipping_address['zone_id']);
+
+    }
+
+    public function getShippingAddress() {
+        return $this->shipping_address;
+    }
+
+
+    public function setPaymentAddress($address = []) {
+
+        if (!$address) {
+            $address = $this->shipping_address;
+        }
+
+        if (empty($address['country_id'])) {
+            $address['country_id'] = $this->config->get('config_country_id');
+        }
+
+        $address['zone_id'] = isset($address['zone_id']) ? $address['zone_id'] : 0;
+
+
+        $fields = [
+            'firstname',
+            'lastname',
+            'company',
+            'company_id',
+            'tax_id',
+            'address_1',
+            'address_2',
+            'city',
+            'postcode',
+            'zone',
+            'zone_id',
+            'country',
+            'country_id',
+            'address_format',
+            'custom_field', // array
+            'email', // 2 new fields
+            'telephone', // 2 new fields
+        ];
+
+
+        foreach ($fields as $field) {
+            if (isset($address[$field])) {
+                $this->payment_address[$field] = $address[$field];
+            } elseif (isset($this->payment_address[$field])) {
+                // continue
+            } else {
+                $this->payment_address[$field] = '';
+            }
+        }
+
+        if($this->payment_address["country_id"]) {
+            $this->payment_address["country"] = $this->countries[ $this->payment_address["country_id"]]['name'] ;
+        }
+
+
+        $this->session->data['payment_address'] = $this->payment_address;
+    }
+    // TODO, is this done?
+    public function setComment($comment) {
+        $this->session->data['comment'] = $this->comment = $comment;
+    }
+
+
+    public function unset() {
+
+        unset($this->session->data['shipping_country_id']);
+        unset($this->session->data['shipping_zone_id']);
+        unset($this->session->data['shipping_postcode']);
+        unset($this->session->data['payment_country_id']);
+        unset($this->session->data['payment_zone_id']);
     }
 
 }

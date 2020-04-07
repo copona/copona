@@ -20,10 +20,13 @@ if (is_array($ips) && count($ips) && array_search($client_ip, $ips) === false) {
 
 
 // if PHP is accessed from http://php.net/manual/en/reserved.variables.server.php#92121
-if (isset($_SERVER['SHELL'])) {
+if (isset($_SERVER['SHELL']) || $debug_mode) {
     $debug_mode = true;
     $GLOBALS['debug_mode'] = true;
+    $config->set('debug.mode', true);
 }
+
+
 
 if (defined('DEBUG')) {
     $start_time = microtime();
@@ -63,4 +66,19 @@ if (!function_exists('ddd')) {
 
         return $output;
     }
+}
+
+
+if (!function_exists('debug_template')) {
+
+    function debug_template($template )
+    {
+        if (@$GLOBALS['debug_mode']) {
+            echo "<small>" . preg_replace('/^' . preg_quote(DIR_PUBLIC, '/') . '/', '', $template). " (".
+
+                substr(microtime(true), strpos(microtime(true), ".") + 1)                .")</small>"  ;
+            // strpos( $template, DIR_PUBLIC ) ;
+        }
+    }
+ 
 }
