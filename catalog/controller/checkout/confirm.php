@@ -242,8 +242,9 @@ class ControllerCheckoutConfirm extends Controller {
             $data1['vouchers'] = $voucher_data;
             $data1['totals'] = $this->cart->getTotals_azon();
             $data1['comment'] = empty($this->session->data['comment']) ? '' : $this->session->data['comment'];
-            $data1['total'] = $this->cart->getTotal();
 
+            // Workaround: while we don't have the new checkout, this is back compatible, right?
+            $data1['total'] = $this->cart->getCartTotal() ? $this->cart->getCartTotal() : $this->cart->getTotal();
 
             if (isset($this->request->cookie['tracking'])) {
                 $data1['tracking'] = $this->request->cookie['tracking'];
