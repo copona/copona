@@ -32,13 +32,15 @@ class BannerImageDescription extends AbstractMigration
             $banner_image_table = $this->table('banner_image');
 
             if (!$banner_image_table->hasColumn('description')) {
-                $banner_image_table
-                    ->setOptions([
-                        'charset'   => 'utf8mb4',
-                        'collation' => 'utf8mb4_unicode_ci'
-                    ])
+                $banner_image_table                   
                     ->addColumn('description', 'text')
                     ->save();
+
+                $banner_image_table->changeColumn('description', 'text', [
+                    'encoding'   => 'utf8mb4',
+                    'collation' => 'utf8mb4_unicode_ci'
+                ]);
+
             }
 
         }

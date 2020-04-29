@@ -606,9 +606,15 @@ class ControllerProductProduct extends Controller {
             $this->model_catalog_product->updateViewed($product_id);
 
 
+
+
             $data['breadcrumbs_html'] = $bread_crumbs->render(); // we have breadcrumbs html
             $data['breadcrumbs_path'] = $bread_crumbs->getPath(); //GTM
             $data['breadcrumbs'] = $bread_crumbs->getPath(); // for compatibility
+
+
+
+            $data['flash'] = $this->flash->display('error', false);
 
             $data['column_left'] = $this->load->controller('common/column_left');
             $data['column_right'] = $this->load->controller('common/column_right');

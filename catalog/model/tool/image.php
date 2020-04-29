@@ -197,8 +197,6 @@ class ModelToolImage extends Model {
 
         $watermark = is_null($watermark) ? Config::get('config_watermark_downsize') : $watermark;
 
-        pr($watermark);
-
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
         if (strtolower($extension) == 'svg') {
