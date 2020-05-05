@@ -248,6 +248,8 @@ class ModelCatalogProduct extends Model {
 
     public function editProduct($product_id, $data) {
 
+
+
         $this->load->model('catalog/content');
         $this->db->query("UPDATE " . DB_PREFIX . "product SET model = '" . $this->db->escape($data['model']) . "'
         , sku = '" . $this->db->escape($data['sku']) . "', upc = '" . $this->db->escape($data['upc']) . "'
@@ -276,6 +278,7 @@ class ModelCatalogProduct extends Model {
         , sort_order = '" . (int)$data['sort_order'] . "'
         , date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");
 
+        // prd($data);
 
         // Saving remote Image, if URL given.
         if (isset($data['image']) || !empty($data['image_url'])) {

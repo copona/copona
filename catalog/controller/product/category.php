@@ -104,7 +104,7 @@ class ControllerProductCategory extends Controller {
             );
 
             if (isset($category_info['image']) && $category_info['image']) {
-                $data['thumb'] = $this->model_tool_image->resize($category_info['image'],
+                $data['thumb'] = $this->model_tool_image->propsize($category_info['image'],
 
                     $this->config->get($this->config->get('config_theme') . '_image_category_width'),
                     $this->config->get($this->config->get('config_theme') . '_image_category_height'));

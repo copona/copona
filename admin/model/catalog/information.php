@@ -43,10 +43,11 @@ class ModelCatalogInformation extends Model {
         if (isset($data['seo_keyword'])) {
             foreach ($data['seo_keyword'] as $language_id => $keyword) {
                 if (empty($keyword)) {
-                    $keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($data['information_id'][$language_id]['title']), $language_id);
+                    $keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($data['information_description'][$language_id]['title']), $language_id);
                 } else {
                     $keyword = $this->seourl->uniqueSeoKeyword($this->seourl->seoURL($keyword), $language_id);
                 }
+				
                 $this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = 'information_id=" . (int)$information_id . "', keyword = '" . $this->db->escape($keyword) . "', language_id = '" . (int)$language_id . "'");
             }
         }
@@ -136,7 +137,7 @@ class ModelCatalogInformation extends Model {
     }
 
     public function getInformation($information_id) {
-        $query = $this->db->query("SELECT DISTINCT *, (SELECT DISTINCT keyword FROM " . DB_PREFIX . "url_alias WHERE language_id='" . (int)$this->config->get('config_language_id') . "' AND query = 'information_id=" . (int)$information_id . "') AS keyword FROM " . DB_PREFIX . "information WHERE information_id = '" . (int)$information_id . "'");
+        $query = $this->db->query("SELECT DISTINCT *, (SELECT DISTINCT keyword FROM " . DB_PREFIX . "url_alias WHERE language_id='" . (int)$this->config->get('config_language_id') . "' AND query = 'information_id=" . (int)$information_id . "' LIMIT 1) AS keyword FROM " . DB_PREFIX . "information WHERE information_id = '" . (int)$information_id . "'");
 
         return $query->row;
     }
