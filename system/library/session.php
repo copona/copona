@@ -6,6 +6,7 @@ class Session {
     public $data = array();
 
     public function __construct($adaptor = 'native') {
+
         $class = 'Session\\' . $adaptor;
 
         if (class_exists($class)) {
@@ -33,6 +34,13 @@ class Session {
             ini_set('session.use_trans_sid', 'Off');
             ini_set('session.cookie_httponly', 'On');
 
+            //
+            // ini_set('session.gc_divisor', 1);
+            // ini_set('session.gc_probability', 1);
+
+            // phpinfo();
+            // prd();
+
             if (isset($_COOKIE[session_name()]) && !preg_match('/^[a-zA-Z0-9,\-]+$/', $_COOKIE[session_name()])) {
                 exit('Error: Invalid session ID!');
             }
@@ -40,6 +48,13 @@ class Session {
             session_set_cookie_params(0, '/');
             session_start();
         }
+
+
+
+
+
+
+
     }
 
     public function start($key = 'default', $value = '') {
@@ -59,9 +74,19 @@ class Session {
 
         $this->data = &$_SESSION[$this->session_id];
 
+
+
+
         if ($key != 'PHPSESSID') {
-            setcookie($key, $this->session_id, ini_get('session.cookie_lifetime'), ini_get('session.cookie_path'), ini_get('session.cookie_domain'),
-                ini_get('session.cookie_secure'), ini_get('session.cookie_httponly'));
+            setcookie(
+                $key,
+                $this->session_id,
+                ini_get('session.cookie_lifetime'),
+                ini_get('session.cookie_path'),
+                ini_get('session.cookie_domain'),
+                ini_get('session.cookie_secure'),
+                ini_get('session.cookie_httponly')
+            );
         }
 
         return $this->session_id;
