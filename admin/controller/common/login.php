@@ -41,9 +41,20 @@ class ControllerCommonLogin extends Controller {
 
         $data['button_login'] = $this->language->get('button_login');
 
-        if ((isset($this->session->data['token']) && !isset($this->request->get['token'])) || ((isset($this->request->get['token']) && (isset($this->session->data['token']) && ($this->request->get['token'] != $this->session->data['token']))))) {
+
+
+        if ((isset($this->session->data['token']) && !isset($this->request->get['token']))
+            || ((isset($this->request->get['token']) && (isset($this->session->data['token'])
+                    && ($this->request->get['token'] != $this->session->data['token']))))) {
             $this->error['warning'] = $this->language->get('error_token');
+
+            pr( $this->request->get['token'] );
+            pr( $this->session->data['token'] );
+            prd($this->error);
+
         }
+
+
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];

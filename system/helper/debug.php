@@ -73,12 +73,15 @@ if (!function_exists('debug_template')) {
 
     function debug_template($template )
     {
+
+        return false;
+
         if (@$GLOBALS['debug_mode']) {
-            echo "<small>" . preg_replace('/^' . preg_quote(DIR_PUBLIC, '/') . '/', '', $template). " (".
+            echo "<small style='position: absolute; left: 0; top: 0 ; '>" . preg_replace('/^' . preg_quote(DIR_PUBLIC, '/') . '/', '', $template). " (".
 
                 substr(microtime(true), strpos(microtime(true), ".") + 1)                .")</small>"  ;
             // strpos( $template, DIR_PUBLIC ) ;
         }
     }
- 
+
 }
