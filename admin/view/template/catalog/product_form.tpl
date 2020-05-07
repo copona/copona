@@ -513,7 +513,7 @@
                     <td class="text-left">
                       <a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="<?php echo $thumb; ?>" title="<?php echo $thumb; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a>
 
-                      <input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" />
+                      <input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" /> (<?php echo $image  ?>)
 
                       <div class="input-group">
                         <span>Remote URL to download from: </span>
