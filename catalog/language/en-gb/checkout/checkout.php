@@ -1,13 +1,13 @@
 <?php
 $_['heading_title'] = 'Checkout';
-$_['text_checkout_option'] = 'Step %s: Checkout Options';
-$_['text_checkout_account'] = 'Step %s: Account &amp; Billing Details';
-$_['text_checkout_payment_address'] = 'Step %s: Billing Details';
-$_['text_checkout_shipping_address'] = 'Step %s: Delivery Details';
-$_['text_checkout_shipping_method'] = 'Step %s: Delivery Method';
-$_['text_checkout_payment_method'] = 'Step %s: Payment Method';
+$_['text_checkout_option'] = 'Checkout Options';
+$_['text_checkout_account'] = 'Account &amp; Billing Details';
+$_['text_checkout_payment_address'] = 'Billing Details';
+$_['text_checkout_shipping_address'] = 'Delivery Details';
+$_['text_checkout_shipping_method'] = 'Delivery Method';
+$_['text_checkout_payment_method'] = 'Payment Method';
 $_['text_shipping'] = 'Shipping (including VAT)';
-$_['text_checkout_confirm'] = 'Step %s: Confirm Order';
+$_['text_checkout_confirm'] = 'Confirm Order';
 $_['text_modify'] = 'Modify &raquo;';
 $_['text_new_customer'] = 'New Customer';
 $_['text_returning_customer'] = 'Returning Customer';
@@ -80,3 +80,4 @@ $_['entry_company_id'] = 'Registration number';
 $_['error_minimum'] = 'Warning: Minimum order for %s is %s.';
 $_['error_custom_field_validate'] = '%s incorrect';
 $_['entry_zone'] = 'Region / State';
+$_['text_delivery_address'] = 'Delivery address';

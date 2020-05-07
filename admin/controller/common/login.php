@@ -1,8 +1,11 @@
 <?php
-class ControllerCommonLogin extends Controller {
-    private $error = array();
 
-    public function index() {
+class ControllerCommonLogin extends Controller
+{
+    private $error = [];
+
+    public function index()
+    {
         $this->load->language('common/login');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -42,18 +45,16 @@ class ControllerCommonLogin extends Controller {
         $data['button_login'] = $this->language->get('button_login');
 
 
-
         if ((isset($this->session->data['token']) && !isset($this->request->get['token']))
             || ((isset($this->request->get['token']) && (isset($this->session->data['token'])
                     && ($this->request->get['token'] != $this->session->data['token']))))) {
             $this->error['warning'] = $this->language->get('error_token');
 
-            pr( $this->request->get['token'] );
-            pr( $this->session->data['token'] );
-            prd($this->error);
+            // pr( $this->request->get['token'] );
+            // pr( $this->session->data['token'] );
+            // prd($this->error);
 
         }
-
 
 
         if (isset($this->error['warning'])) {
@@ -113,8 +114,10 @@ class ControllerCommonLogin extends Controller {
         $this->response->setOutput($this->load->view('common/login', $data));
     }
 
-    protected function validate() {
-        if (!isset($this->request->post['username']) || !isset($this->request->post['password']) || !$this->user->login($this->request->post['username'], html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8'))) {
+    protected function validate()
+    {
+        if (!isset($this->request->post['username']) || !isset($this->request->post['password']) || !$this->user->login($this->request->post['username'],
+                html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8'))) {
             $this->error['warning'] = $this->language->get('error_login');
         }
 

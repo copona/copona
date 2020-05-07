@@ -6,12 +6,12 @@
 
 ?>
 
-  <div class="container">
+<div class="container">
     <ul class="breadcrumb">
         <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-          <li class="breadcrumb-item">
-            <a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
-          </li>
+            <li class="breadcrumb-item">
+                <a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
+            </li>
         <?php } ?>
     </ul>
     <div class="row"><?php echo $column_left; ?>
@@ -22,43 +22,39 @@
         <?php } else { ?>
             <?php $class = 'col-sm-12'; ?>
         <?php } ?>
-      <div id="content" class="<?php echo $class; ?> checkout-success">
+        <div id="content" class="<?php echo $class; ?> checkout-success">
 
 
-          <?php if ($after_purchase) { ?>
+            <?php if ($after_purchase) { ?>
 
 
-            <div class="row">
-              <div class="col-sm-9">
-                <div class="row block">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="row block">
 
-                  <div class="col-sm-12">
-                    <h1><?= $heading_title ?></h1>
+                            <div class="col-sm-12">
+                                <h1><?= $heading_title ?></h1>
 
-					<ul class="list-unstyled">
-                        <?php foreach ($products as $product) { ?>
-                          <li>
+                                <h2><?php echo $text_order_number ?>: #<?=$order_id?></h2>
 
-                              <img src="<?=$product['thumb']?>" style="max-width: 70px;">
-                              <?php echo $product['name'] ?> <strong> &times; </strong> <?php echo $product['quantity'] ?>
-                          </li>
-                        <?php } ?>
-                    </ul>
+                                <ul class="list-unstyled">
+                                    <?php foreach ($products as $product) { ?>
+                                        <li>
 
-                     <?php
+                                            <img src="<?= $product['thumb'] ?>" style="max-width: 70px;">
+                                            <?php echo $product['name'] ?> <strong> &times; </strong> <?php echo $product['quantity'] ?>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
 
-                     /* if($payment_instruction) { ?>
-                        <h2>Payment Instruction</h2>
-                        <p><?php echo $payment_instruction; ?>  </p>
-                      <?php } */ ?>
+                                <?php
 
-
-
-                    <h5><?= $text_thanks ?></h5>
-
-
-
-                    <?php /*
+                                /* if($payment_instruction) { ?>
+                                   <h2>Payment Instruction</h2>
+                                   <p><?php echo $payment_instruction; ?>  </p>
+                                 <?php } */ ?>
+                                <h5><?= $text_thanks ?></h5>
+                                <?php /*
 
 					 <p class="idText">
                         <?= $text_order_id ?> #<?= $order_id ?>
@@ -94,82 +90,82 @@
 					*/ ?>
 
 
-                  </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </div>
-
-              </div>
-
-
-            </div>
-          <?php } else { ?>
-            <div class="row">
-              <div class="col-sm-11">
-                <h1><?= $button_shopping ?></h1>
-              </div>
-            </div>
-          <?php } ?>
+            <?php } else { ?>
+                <div class="row">
+                    <div class="col-sm-11">
+                        <h1><?= $button_shopping ?></h1>
+                    </div>
+                </div>
+            <?php } ?>
 
 
-      </div>
+        </div>
         <?php echo $content_bottom; ?>
     </div>
-      <?php echo $column_right; ?></div>
-  </div>
+    <?php echo $column_right; ?></div>
+</div>
 
 
 <?php if ($after_purchase || !empty($debug)) { ?>
-  <!-- Global site tag (gtag.js) - Google AdWords: 812961930 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-812961930"></script>
+    <!-- Global site tag (gtag.js) - Google AdWords: 812961930 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-812961930"></script>
 
-  <script>
-      window.dataLayer = window.dataLayer || [];
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-      function gtag() {
-          dataLayer.push(arguments);
-      }
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
-      gtag('js', new Date());
-      gtag('config', 'AW-812961930');
+        gtag('js', new Date());
+        gtag('config', 'AW-812961930');
 
-      gtag('event', 'page_view', {
-          'send_to': 'AW-812961930',
-          'dynx_pagetype': <?=json_encode('conversion'); ?>, // conversion - Thank you page,
-          // 'user_id': <?php // json_encode( $remarketing_user_id ); ?>
+        gtag('event', 'page_view', {
+            'send_to': 'AW-812961930',
+            'dynx_pagetype': <?=json_encode('conversion'); ?>, // conversion - Thank you page,
+            // 'user_id': <?php // json_encode( $remarketing_user_id ); ?>
 
-      });
-
-
-      dataLayer.push({
-          event: 'azon.purchase',
-          ecommerce: {
-              purchase: {
-                  actionField: {
-                      'id': '<?=$order_id?>', // Transaction ID. Required.
-                      'affiliation': <?=json_encode($store_name, JSON_UNESCAPED_UNICODE) ?>, // Affiliation or store name.
-                      'revenue': '<?=$order_total?>', // Grand Total.
-                      'transactionCurrency': <?=json_encode($currency_code) ?>,
-                      'currency': <?=json_encode($currency_code) ?>,
-                      'shipping': '<?=$shipping_total?>', // Shipping.
-                      // 'tax': '1.29' // Tax.
-
-                  },
-                  products: [ <?php foreach($products as $product) { ?>
-                      {
-                          'id': '<?=$product['product_id']?>', // Transaction ID. Required.
-                          'name': <?=json_encode($product['name'], JSON_UNESCAPED_UNICODE)?>, // Product name. Required.
-                          'sku': <?=json_encode($product['model'])?>, // SKU/code.
-                          'category': <?=json_encode($product['category'], JSON_UNESCAPED_UNICODE)?>, // Category or variation.
-                          'price': '<?=(float)$product['price_numeric']?>', // Unit price.
-                          'quantity': '<?=(float)$product['quantity']?>' // Quantity.
-                      },
-                      <?php } ?>
-                  ]
-              }
-          }
-      });
+        });
 
 
-  </script>
+        dataLayer.push({
+            event: 'azon.purchase',
+            ecommerce: {
+                purchase: {
+                    actionField: {
+                        'id': '<?=$order_id?>', // Transaction ID. Required.
+                        'affiliation': <?=json_encode($store_name, JSON_UNESCAPED_UNICODE) ?>, // Affiliation or store name.
+                        'revenue': '<?=$order_total?>', // Grand Total.
+                        'transactionCurrency': <?=json_encode($currency_code) ?>,
+                        'currency': <?=json_encode($currency_code) ?>,
+                        'shipping': '<?=$shipping_total?>', // Shipping.
+                        // 'tax': '1.29' // Tax.
+
+                    },
+                    products: [ <?php foreach($products as $product) { ?>
+                        {
+                            'id': '<?=$product['product_id']?>', // Transaction ID. Required.
+                            'name': <?=json_encode($product['name'], JSON_UNESCAPED_UNICODE)?>, // Product name. Required.
+                            'sku': <?=json_encode($product['model'])?>, // SKU/code.
+                            'category': <?=json_encode($product['category'], JSON_UNESCAPED_UNICODE)?>, // Category or variation.
+                            'price': '<?=(float)$product['price_numeric']?>', // Unit price.
+                            'quantity': '<?=(float)$product['quantity']?>' // Quantity.
+                        },
+                        <?php } ?>
+                    ]
+                }
+            }
+        });
+
+
+    </script>
 <?php } ?>
 <?php echo $footer; ?>
 <?php // echo $content_top; ?>

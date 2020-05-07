@@ -23,11 +23,13 @@ class Cart
     public function __construct($registry)
     {
 
+
         $this->registry = &$registry;
 
         $this->config = $registry->get('config');
         $this->customer = $registry->get('customer');
         $this->session = $registry->get('session');
+
         $this->db = $registry->get('db');
         $this->tax = $registry->get('tax');
         $this->weight = $registry->get('weight');
@@ -77,8 +79,6 @@ class Cart
             }
         }
         $this->cartProducts = $this->getProducts(true);
-
-
     }
 
 
@@ -860,7 +860,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         //  $this->log->write ( ddd() ) ;
 
         // pr($method);
-        //  pr(ddd());
+        // pr($method);
+        // pr(ddd());
         // pr($this->shipping_methods);
 
         // $this->log->write( $method);
@@ -1171,7 +1172,7 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
                         $method_data[$val['code']] = [
                             'title'      => $val['title'],
-                            'title_html'      => $val['title_html'] ?? '',
+                            'title_html' => $val['title_html'] ?? '',
                             'code'       => $val['code'],
                             'template'   => !empty($val['template']) ? $val['template'] : '',
                             // 'quote'      => $method['quote'],
@@ -1334,6 +1335,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
     public function unset()
     {
+        // Deletes Products from current cart!
+        $this->clear();
 
         unset($this->session->data['shipping_country_id']);
         unset($this->session->data['shipping_zone_id']);

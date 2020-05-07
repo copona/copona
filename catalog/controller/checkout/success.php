@@ -28,27 +28,26 @@ class ControllerCheckoutSuccess extends Controller
         // Process, Notify IF and ONLY, current Order Status ID is NOT 0 ! That means,
         // it's already somewhere (in Payment modules)  processed.
 
+        $this->session->data['order_id'] = 3;
+
         $order = isset($this->session->data['order_id']) ? $this->model_checkout_order->getOrder($this->session->data['order_id']) : [];
+
 
         if ($order && $order['order_status_id']) {
 
-            // Ja ir kupons, tad to vajag atzīmēt, kā "izmantotu"
+            // If Coupon is selected, then it will be set as "used" here
             // if($this->model_checkout_order->getOrderTotals($this->session->data['order_id'], 'coupon')){
-            // ŠIS ir salabots! model/checkout/order metodē nomainīts property_exists uz method_exists !
-            // izmainīts arī Copona! :)
+            // property_exists changed to method_exists !
             // $this->model_extension_total_coupon->confirm_azon($order);
             //}
 
             $products = $this->model_checkout_order->getOrderProducts($this->session->data['order_id']);
-
 
             $data['products'] = [];
             $data['currency_code'] = $order['currency_code'];
             $data['store_name'] = $this->config->get('config_name');
             $data['shipping_total'] = 0;
             $data['order_total'] = $this->currency->format($this->tax->calculate($order['total'], false, $this->config->get('config_tax')), $order['currency_code'], false, false);;
-
-            // prd($data['order_total']);
 
             foreach ($this->model_checkout_order->getOrderTotals($this->session->data['order_id'], 'shipping') as $shipping) {
                 $data['shipping_total'] += $shipping['value'];
@@ -123,8 +122,6 @@ class ControllerCheckoutSuccess extends Controller
                 }
             }
             $data['order_id'] = $this->session->data['order_id'];
-            //$data['order_id'] = 5;
-            //$this->load->model('checkout/order');
             $data['free_product'] = false;
             $free_product_id = false;
 
@@ -147,9 +144,6 @@ class ControllerCheckoutSuccess extends Controller
             $data['shipping_address'] = $this->session->data['shipping_address'];
 
             $data['payment_instruction'] = nl2br($this->cart->getPaymentInstruction());
-
-            // prd($data['payment_instruction']);
-            // $shipping_method = explode('.', $order['shipping_code'])[0];
 
             $shipping_method = $this->cart->getShippingMethod();
             $data['shipping_type_address'] = '';
@@ -209,26 +203,23 @@ class ControllerCheckoutSuccess extends Controller
             $data['footer'] = $this->load->controller('common/footer');
             $data['header'] = $this->load->controller('common/header');
 
-            // prd($data);
-
             // Clear Everything uppon successfull order !
             // Clearing All and Everything in Cart !
             if (!$debug) {
-               $this->cart->unset();
+                $this->cart->unset();
             }
-
-
             $this->response->setOutput($this->load->view('checkout/easy_success', $data));
+
         } else {
 
 
             $this->load->language('error/not_found');
             $this->document->setTitle($this->language->get('heading_title'));
-            $data['breadcrumbs'] = array();
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'] = [];
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
-                'href' => $this->url->link('common/home')
-            );
+                'href' => $this->url->link('common/home'),
+            ];
 
             if (isset($this->request->get['route'])) {
                 $url_data = $this->request->get;
@@ -240,10 +231,10 @@ class ControllerCheckoutSuccess extends Controller
                     $url = '&' . urldecode(http_build_query($url_data, '', '&'));
                 }
 
-                $data['breadcrumbs'][] = array(
+                $data['breadcrumbs'][] = [
                     'text' => $this->language->get('heading_title'),
-                    'href' => $this->url->link($route, $url, $this->request->server['HTTPS'])
-                );
+                    'href' => $this->url->link($route, $url, $this->request->server['HTTPS']),
+                ];
             }
 
             $data['heading_title'] = $this->language->get('heading_title');

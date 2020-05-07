@@ -59,7 +59,7 @@ class ControllerCheckoutCheckout extends Controller
             if (isset($this->session->data['checkout_customer_id']) && $this->session->data['checkout_customer_id'] === true) {
                 //cleanup previous incomplete checkout attempts
 
-               $this->cart->unset();
+                $this->cart->unset();
 
                 //if customer account was created by checkout module then delete it
                 //$this->deleteCustomer($this->session->data['customer_id']);
@@ -2056,7 +2056,13 @@ class ControllerCheckoutCheckout extends Controller
         if ($render !== false) {
             $code = explode('.', $this->session->data['payment_method']['code'])[0];
 
-            $data['payment'] = $this->load->controller('extension/payment/' . $code);
+
+            if ($code) {
+                $data['payment'] = $this->load->controller('extension/payment/' . $code);
+            } else {
+                $data['payment'] = '';
+            }
+
             $this->response->setOutput($this->load->view('checkout/easy_confirm', $data));
         }
 
