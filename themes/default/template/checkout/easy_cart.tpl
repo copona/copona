@@ -17,16 +17,26 @@ if($products) {
       <tbody>
       <?php foreach ($products as $product) { ?>
         <tr>
-          <td class="text-center"><?php if ($product['thumb']) { ?>
+          <td class="text-center">
+
+
+
+
+               <?php if ($product['thumb']) { ?>
               <a href="<?php echo $product['href']; ?>">
-                <img src="<?php echo $product['thumb']; ?>"
-                     alt="<?php echo $product['name']; ?>"
-                     title="<?php echo $product['name']; ?>"
-                     class="img-thumbnail"
-                     style="width: 95px; height:95px;"
-                />
+
+                  <picture class="fixed-ratio"
+                           style="padding-bottom:100%;">
+                      <!-- multiple <source>s here -->
+                      <img alt="<?php echo htmlspecialchars( $product['name'] . '"> ' ); ?>"
+                           src="<?php echo $product['thumb']; ?>"
+                           class="fixed-ratio-content">
+                  </picture>
+
               </a>
               <?php } ?></td>
+
+
           <td class="text-left align-middle"><a
               href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
               <?php if (!$product['stock']) { ?>
@@ -80,7 +90,7 @@ if($products) {
                     <button type="button" data-toggle="tooltip" title="<?php echo $button_remove; ?>"
                             data-cart-id="<?php echo $product['cart_id']; ?>"
 
-                            class="btn btn-danger btn-remove ">
+                            class="btn btn-remove">
                       <i class="fa fa-times-circle"></i>
                     </button>
 
@@ -100,7 +110,7 @@ if($products) {
               <input type="text" name="" value="1" size="1" disabled="disabled" class="form-control"/>
               <span class="input-group-btn">
                     <button type="button" data-toggle="tooltip" title="<?php echo $button_remove; ?>"
-                            class="btn btn-danger" onclick="voucher.remove('<?php echo $voucher['key']; ?>');"><i
+                            class="btn btn-primary" onclick="voucher.remove('<?php echo $voucher['key']; ?>');"><i
                         class="fa fa-times-circle"></i>
                     </button>
                     </span></div>
@@ -132,9 +142,9 @@ if($products) {
       <?php foreach ($totals as $total) { ?>
         <?php if($total['code'] == 'shipping'){ continue; } // doc: 'shipping' attēlojas kā atsevišķa produkta pozīcija ar PVN :) tāpēc šeit skipojam. ?>
         <tr>
-          <td class="text-right border-left-0 border-bottom-0 border-top-0 d-none d-sm-table-cell " colspan="2">&nbsp;
+          <td class="text-right border-left-0 border-bottom-0 border-top-0 d-none d-sm-table-cell " colspan="1">&nbsp;
           </td>
-          <td class="text-right" colspan="2"><strong><?php echo $total['title']; ?>:</strong></td>
+          <td class="text-right" colspan="3"><strong><?php echo $total['title']; ?>:</strong></td>
           <td class="text-right"><?php echo $total['text']; ?></td>
         </tr>
       <?php } ?>
@@ -145,10 +155,6 @@ if($products) {
   </div>
 </form>
     <?php } else { ?>
-
   <h2><?php echo $text_empty; ?></h2>
-
 <?php } ?>
-
-
 <?php debug_template(__FILE__); ?>

@@ -1,10 +1,12 @@
 <?php  // TODO:  this is bad, if there is no customer_groups set in admin!  ?>
+
+
 <?php if($customer_groups) { ?>
 <div class="form-group row">
   <div class="col-12 col-sm-5">
     <div class="row">
 
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-5">
         <div class="row">
           <div class="col-12">
             <label>
@@ -18,7 +20,7 @@
 
 
         <?php if(!empty($customer_groups[1])) { ?>
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-7">
         <div class="row">
           <div class="col-12">
             <label>
@@ -53,8 +55,11 @@
 
     <div class="row company_details" style="display: none">
       <div class="col-12">
-          <?php eff('company', 'Company name', 0);
-          eff('custom_field1', 'VAT.nr', 0); ?>
+          <?php
+          // eff('company', 'Uzņēmuma nosaukums', 0);
+          eff('custom_field1', 'Uzņēmuma nosaukums', 0);
+          eff('custom_field2', 'PVN.nr', 0);
+          ?>
       </div>
     </div>
 
@@ -94,9 +99,21 @@
       ?>
 
     <div class="form-group row required">
-      <label class="col-2 control-label" for="input-payment-country"><?php echo $entry_country; ?></label>
+      <label class="col-2 control-label" for="input-payment-country"><?php echo $entry_country; ?>:</label>
       <div class="col-10">
-        <select name="country_id" id="input-payment-country" class="form-control">
+
+
+          <strong>Latvija</strong> <br />
+
+          Preci iespējams saņemt ar piegādi uz Omniva pakomātu vai personīgi mūsu birojā*.<br />
+
+          * Nav iespējams valstī izsludinātā ārkārtas stāvokļa laikā.
+
+          <input name="country_id" type="hidden" id="input-payment-country" class="form-control" value="117">
+
+
+          <?php /*
+          <select name="country_id" id="input-payment-country" class="form-control">
           <option value=""><?php echo $text_select; ?></option>
             <?php foreach ($countries as $country) { ?><?php if ($country['country_id'] == $country_id) { ?>
               <option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
@@ -104,20 +121,23 @@
               <option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
             <?php } ?><?php } ?>
         </select>
+          */?>
       </div>
     </div>
 
+      <?php if($text_my_billing_address_is_different) { ?>
     <div class="form-group row">
       <div class="col-12">
         <label>
           <input type="checkbox" name="billing_address_details" value="1">
-          <span style="font-style: italic"> My Billing address is different </span>
+          <span style="font-style: italic"><?php echo $text_my_billing_address_is_different ;  ?></span>
 
 
         </label>
 
       </div>
     </div>
+      <?php } ?>
 
 
   </div>
@@ -198,7 +218,7 @@
 
 <script>
     $('input[type=radio][name=customer_group_id]').on('change', function () {
-        if (this.checked && this.value == 3) {
+        if (this.checked && this.value == 2) {
             $('.company_details').show();
         } else {
             $('.company_details').hide();

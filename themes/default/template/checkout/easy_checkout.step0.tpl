@@ -13,38 +13,27 @@
     <div class="col-5">
         <div class="row">
 
-              <div class="col-4">
+              <div class="col-6 col-xs-12">
                 <div class="row">
                   <div class="col-12">
                     <label>
                       <input type="radio" name="checkout_type" value="1" checked="checked" />
-                      Guest checkout
+                      <?php echo $text_guest_checkout; ?>
                     </label>
                   </div>
                 </div>
               </div>
 
-          <div class="col-4">
+          <div class="col-6 col-xs-12">
                 <div class="row">
                   <div class="col-12">
                     <label>
-                      <input type="radio" name="checkout_type" value="2" onclick="window.location = '/?route=account/login&amp;return=checkout';"/>
-                      Login / register
+                      <input type="radio" name="checkout_type" value="2" onclick="window.location = '/e-veikals/?route=account/login&amp;return=checkout';"/>
+                      <?php echo $text_login_register; ?>
                     </label>
                   </div>
                 </div>
               </div>
-
-
-
-
-
-
-
-
-
-
-
       </div>
 
       <div class="login-form registerbox clearfix" style="display:none">

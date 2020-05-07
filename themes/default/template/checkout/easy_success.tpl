@@ -9,7 +9,7 @@
   <div class="container">
     <ul class="breadcrumb">
         <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-          <li>
+          <li class="breadcrumb-item">
             <a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
           </li>
         <?php } ?>
@@ -34,10 +34,14 @@
 
                   <div class="col-sm-12">
                     <h1><?= $heading_title ?></h1>
-					
-					<ul>
+
+					<ul class="list-unstyled">
                         <?php foreach ($products as $product) { ?>
-                          <li><?php echo $product['name'] ?> <strong>x</strong> <?php echo $product['quantity'] ?>  </li>
+                          <li>
+
+                              <img src="<?=$product['thumb']?>" style="max-width: 70px;">
+                              <?php echo $product['name'] ?> <strong> &times; </strong> <?php echo $product['quantity'] ?>
+                          </li>
                         <?php } ?>
                     </ul>
 
@@ -48,24 +52,20 @@
                         <p><?php echo $payment_instruction; ?>  </p>
                       <?php } */ ?>
 
-					
-					
-                    <p><?= $text_thanks ?></p>
 
-                   
 
-                    <p>
-                      <a href="<?php echo $continue; ?>"><?php echo $button_shopping; ?></a>
-                    </p>
+                    <h5><?= $text_thanks ?></h5>
 
-                    <?php /* 
-					
+
+
+                    <?php /*
+
 					 <p class="idText">
                         <?= $text_order_id ?> #<?= $order_id ?>
                     </p>
-					
-					
-					
+
+
+
 					<p>
                         <?= $text_shipping_address ?>:
                       <span><?= $shipping_type_address ?></span>
@@ -75,7 +75,7 @@
                       <span><?= $shipping_type_text ?></span>
 
 
-                    </p> 
+                    </p>
 
 
                     <p>
@@ -89,9 +89,9 @@
                       <a href="<?= $ordercheck_link ?>"><?= $text_wheres_my_shipment ?></a>
                     </p>
 
-                   
-					
-					*/ ?>  
+
+
+					*/ ?>
 
 
                   </div>

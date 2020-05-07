@@ -47,7 +47,7 @@ if (!empty($error_warning)) { ?>
 <?php } ?>
 <?php //pr (  $code )  ?>
 <?php if ($shipping_methods) { ?>
-  <p><?php echo $text_shipping_method; ?></p>
+
 
     <?php foreach ($shipping_methods as $type => $shipping_method) {  //prd($shipping_method)?>
         <?php $show_address = ($type !== 'pickup' ? true : false); // pārbauda vai rādīt adreses lauku   ?>
@@ -103,8 +103,8 @@ if (!empty($error_warning)) { ?>
                 <select style='max-width: 100%;' data-name="" class="form-control selected_sub_quote" onchange="setSelectedValue(this);" onfocus="focusSelectedValue(this);">
                     <?php foreach ($shipping_method['quote'] as $key => $sub_quote) { ?>
                       <option data-cost="<?= $sub_quote['cost_with_tax'] ?>"
-
-                          <?= ($sub_quote_data['code'] == $sub_quote['code'] ? 'selected="selected"' : '') ?> value="<?= $sub_quote['code'] ?>"><?php echo $sub_quote['title'] ?></option>
+                          <?= ($sub_quote_data['code'] == $sub_quote['code'] ? 'selected="selected"' : '') ?> value="<?= $sub_quote['code'] ?>"><?php echo $sub_quote['title'] ?>
+                      </option>
                     <?php } ?>
                 </select>
               <?php } ?>
@@ -144,9 +144,9 @@ if (!empty($error_warning)) { ?>
     <?php } ?>
 <?php } ?>
 
-<b><?php echo $text_comments; ?></b>
 
-<textarea class="form-control" name="comment" rows="4" style="width: 100%;"><?php echo $comment; ?></textarea>
+
+
 
 <?php debug_template( __FILE__ ) ; ?>
 

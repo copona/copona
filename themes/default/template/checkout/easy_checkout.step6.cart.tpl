@@ -13,7 +13,7 @@
 
     <?php if ($text_agree) { ?>
       <div class="buttons clearfix" id="terms-id">
-        <div class="pull-right">
+        <div class="">
           <label>
             <?php if ($agree) { ?>
               <input type="checkbox" name="agree" value="1" checked="checked"/>
@@ -59,5 +59,8 @@
 
 
   </div>
+
+
+
 
 </div>

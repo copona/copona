@@ -2,7 +2,7 @@ var error = true;
 
 function delay(callback, ms) {
     var timer = 0;
-    return function() {
+    return function () {
         var context = this, args = arguments;
         clearTimeout(timer);
         timer = setTimeout(function () {
@@ -13,7 +13,12 @@ function delay(callback, ms) {
 
 
 var easy_cart = {
-    'loading': function () {
+    'loading': function (speed) {
+
+        // if (speed == 'fast') {
+        //     $('#cart_table').css('opacity', 0)
+        // }
+
         $('#cart_table').addClass('loading');
     },
     'loaded': function () {
@@ -35,12 +40,18 @@ var easy_cart = {
 
         easy_cart.valid = false;
 
-        $.ajax({
+
+        var validateProgress = $.ajax({
             url: '?route=checkout/checkout/validate',
             type: 'post',
             data: data,
             dataType: 'json',
             beforeSend: function () {
+
+                if (validateProgress != null) {
+                    validateProgress.abort();
+                }
+
                 $('#button-checkout-loading').toggle();
                 $('#button-confirm').hide();
                 $('#button-checkout').hide();
@@ -150,24 +161,37 @@ var easy_cart = {
     },
     remove: function (cart_id) {
         $('#cart_id_' + cart_id).val(0);
+
         this.edit_only();
+
+        delay(function () {
+            $('#cart_id_' + cart_id).closest('tr').remove();
+        }, 100);
+
         // alert();
     },
     edit_only: function () {
 
         $('.alert').remove();
+        easy_cart.loading('fast');
 
         var data = $('input[name^=quantity]').serialize();
         // data += '&_shipping_method=' + jQuery('.checkout_form input[name=\'shipping_method\']:checked').prop('title') + '&_payment_method=' + jQuery('.checkout_form input[name=\'payment_method\']:checked').prop('title');
 
 
-        $.ajax({
+
+        var edit_onlyProgress = $.ajax({
             url: '?route=checkout/checkout/edit_only',
             type: 'post',
             data: data,
             dataType: 'json',
             beforeSend: function () {
                 $('#cart > button').button('loading');
+
+                if (edit_onlyProgress != null) {
+                    edit_onlyProgress.abort();
+                }
+
             },
             success: function (json) {
                 // Need to set timeout otherwise it wont update the total
@@ -176,7 +200,7 @@ var easy_cart = {
                 // }, 100);
                 $('.cart .cart-link').load('?route=common/cart/render');
 
-                jQuery("#shipping_method_block").load('?route=checkout/checkout/shipping_method', function(){
+                jQuery("#shipping_method_block").load('?route=checkout/checkout/shipping_method', function () {
                     shippingMethod.update();
                 });
 
@@ -224,19 +248,29 @@ var easy_cart = {
     }
 }
 
-
+var shippingMethodProgress = null;
 var shippingMethod = {
     'update': function (method) {
         easy_cart.loading();
-        $.ajax({
+        shippingMethodProgress = $.ajax({
             url: '?route=checkout/checkout/shipping_method_set&shipping_method=' + method,
             type: 'POST',
             data: 'shipping_method=' + method,
             dataType: 'json',
+
+            beforeSend: function () {
+                if (shippingMethodProgress != null) {
+                    shippingMethodProgress.abort();
+                }
+            },
             success: function (json) {
                 // console.log('Shipping method set: '.method)
                 // console.log(json.success);
-                delay(function(){ cartLoad(); /* load updated cart . */}, 500);
+                // delay(function () {
+                //
+                // }, 500);
+                // Kāpēc te bija Delay?
+                cartLoad(); /* load updated cart . */
 
                 // jQuery(".payment-method").load('?route=checkout/checkout/payment_method');
                 // alert(  ) ;
@@ -247,7 +281,7 @@ var shippingMethod = {
 
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText)
             }
         });
     },
@@ -256,24 +290,30 @@ var shippingMethod = {
     }
 };
 
-
+var paymentMethodProgress = null;
 var paymentMethod = {
     'update': function (method) {
-        $.ajax({
+        easy_cart.loading();
+        paymentMethodProgress = $.ajax({
             url: '?route=checkout/checkout/payment_method_set&payment_method=' + method,
             type: 'POST',
             data: 'payment_method=' + method,
             dataType: 'json',
+            beforeSend: function () {
+                if (paymentMethodProgress != null) {
+                    paymentMethodProgress.abort();
+                }
+            },
             success: function (json) {
-                console.log('Payment method set: ' + method);
+                // console.log('Payment method set: ' + method);
                 // mums jāielādē maksājumu metodes, jo tās "mēdz" būt atkarīgas no piegādes veida!
                 jQuery(".payment-method").load('?route=checkout/checkout/payment_method');
                 jQuery(".payment").html('');
-
-                delay(function(){ cartLoad(); /* load updated cart . */}, 500);
+                cartLoad();
+                // delay(function(){ cartLoad(); /* load updated cart . */ }, 400);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText)
             }
         });
     },
@@ -287,17 +327,15 @@ var cartLoad = function () {
     $('.alert').remove();
 
     jQuery("#cart_table").load('?route=checkout/checkout/cart', function () {
-        easy_cart.loaded() ;
+        easy_cart.loaded();
 
-        if( $('#cart_table form').length > 0 ) {
+        if ($('#cart_table form').length > 0) {
             $('#button-checkout').show();
             $('#button-continue').hide();
         } else {
             $('#button-checkout').hide();
             $('#button-continue').show();
         }
-
-
 
 
     })
@@ -501,49 +539,47 @@ jQuery(document).ready(function () {
         }
 
 
-
-
         // decrease of product
         function plus(el) {
             var currentval = parseInt($(el).val());
             $(el).val(currentval + 1);
         }
 
-        $(document).ready(function () {
-            // $("#input-quantity").change(function () {
-            //   if ($(this).val() < minimum) {
-            //     alert("Minimum Quantity: " + minimum);
-            //     $("#input-quantity").val(minimum);
-            //   }
-            // });
 
-            $('.checkout_form').on('blur', '.box-input-qty input[name^=quantity]', function () {
-                easy_cart.edit_only();
-            });
-
-            $(document).on('click', '#button-coupon', function (e) {
-                e.preventDefault();
-                easy_cart.validateCoupon();
-            });
-
-
-            $('.checkout_form').on('click', '.btn-minus input', function () {
-                minus(document.getElementById($(this).data('for')));
-                delay( function(){ easy_cart.edit_only(); }, 500 ) ;
-            });
-
-            $('.checkout_form').on('click', '.btn-plus input', function () {
-                plus(document.getElementById($(this).data('for')));
-                delay( function(){ easy_cart.edit_only(); }, 500 ) ;
-            });
-
-
-            $('#cart_table').on('click','.btn-remove',function(){
-                easy_cart.remove( $(this).data('cart-id') ) ;
-            })
-
-
+        $('.checkout_form').on('blur', '.box-input-qty input[name^=quantity]', function () {
+            easy_cart.edit_only();
         });
+
+        $(document).on('click', '#button-coupon', function (e) {
+            e.preventDefault();
+            easy_cart.validateCoupon();
+        });
+
+
+        $('.checkout_form').on('click', '.btn-minus input', function () {
+            minus(document.getElementById($(this).data('for')));
+            // delay(function () {
+            //
+            // }, 500);
+            // Kāpēc te bija delay?
+            easy_cart.edit_only();
+        });
+
+        $('.checkout_form').on('click', '.btn-plus input', function () {
+            plus(document.getElementById($(this).data('for')));
+            // delay(function () {
+            //     easy_cart.edit_only();
+            // }, 500);
+            // Kāpēc te bija delay?
+            easy_cart.edit_only();
+        });
+
+
+        $('#cart_table').on('click', '.btn-remove', function () {
+            easy_cart.remove($(this).data('cart-id'));
+        })
+
+
     }
 });
 
