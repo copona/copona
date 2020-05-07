@@ -3,7 +3,7 @@ class ControllerExtensionModuleSlideshow extends Controller {
 
     public function index($setting) {
         static $module = 0;
-
+        $data = $this->load->language('extension/module/slideshow');
         $this->load->model('design/banner');
         $this->load->model('tool/image');
 
