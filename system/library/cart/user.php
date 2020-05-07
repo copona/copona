@@ -15,6 +15,8 @@ class User {
         $this->request = $registry->get('request');
         $this->session = $registry->get('session');
 
+        
+
         if (isset($this->session->data['user_id'])) {
             $user_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "user WHERE user_id = '" . (int)$this->session->data['user_id'] . "' AND status = '1'");
 
@@ -24,7 +26,8 @@ class User {
                 $this->password = $user_query->row['password'];
                 $this->user_group_id = $user_query->row['user_group_id'];
 
-                $this->db->query("UPDATE " . DB_PREFIX . "user SET ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "' WHERE user_id = '" . (int)$this->session->data['user_id'] . "'");
+                $this->db->query("UPDATE " . DB_PREFIX . "user SET ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "' 
+                WHERE user_id = '" . (int)$this->session->data['user_id'] . "'");
 
                 $user_group_query = $this->db->query("SELECT permission FROM " . DB_PREFIX . "user_group WHERE user_group_id = '" . (int)$user_query->row['user_group_id'] . "'");
 
