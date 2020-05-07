@@ -1363,7 +1363,5 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         unset($this->session->data['survey']);
         // unset($this->session->data['shipping_address']);
         unset($this->session->data['payment_address']);
-
     }
-
 }

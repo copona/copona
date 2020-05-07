@@ -28,10 +28,7 @@ class ControllerCheckoutSuccess extends Controller
         // Process, Notify IF and ONLY, current Order Status ID is NOT 0 ! That means,
         // it's already somewhere (in Payment modules)  processed.
 
-        $this->session->data['order_id'] = 3;
-
         $order = isset($this->session->data['order_id']) ? $this->model_checkout_order->getOrder($this->session->data['order_id']) : [];
-
 
         if ($order && $order['order_status_id']) {
 
