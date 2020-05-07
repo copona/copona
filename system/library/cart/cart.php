@@ -2,7 +2,8 @@
 
 namespace Cart;
 
-class Cart {
+class Cart
+{
 
     public $cartProducts = [];
     private $data = [];
@@ -19,7 +20,8 @@ class Cart {
 
     private $payment_instruction = ''; // Used in "success"  payment.
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
 
         $this->registry = &$registry;
 
@@ -45,8 +47,7 @@ class Cart {
         $this->load->model('localisation/country');
         $this->extension = $registry->get('model_extension_extension');
 
-        $this->countries = $registry->get('model_localisation_country')->getCountries() ;
-
+        $this->countries = $registry->get('model_localisation_country')->getCountries();
 
 
         $this->log = new \Log('cart.log');
@@ -81,8 +82,8 @@ class Cart {
     }
 
 
-
-    public function getProducts($update = false) {
+    public function getProducts($update = false)
+    {
 
         if (!$update) {
             return $this->cartProducts;
@@ -425,7 +426,8 @@ class Cart {
         return $product_data;
     }
 
-    public function add($product_id, $quantity = 1, $option = [], $recurring_id = 0) {
+    public function add($product_id, $quantity = 1, $option = [], $recurring_id = 0)
+    {
         $query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "' AND product_id = '" . (int)$product_id . "' AND recurring_id = '" . (int)$recurring_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 
         if (!$query->row['total']) {
@@ -442,31 +444,40 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         $this->cartProducts = $this->getProducts(true);
     }
 
-    public function update($cart_id, $quantity) {
-        $this->db->query("UPDATE " . DB_PREFIX . "cart SET quantity = '" . (int)$quantity . "' WHERE cart_id = '" . (int)$cart_id . "' AND api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
-        $this->cartProducts = $this->getProducts(true);
-
-        $this->setShippingMethods();
-
-
-
-        // TODO: Cart is very dependant from shipping methods
-
-        $this->setShippingMethod( $this->getShippingMethod( $this->getShippingMethodCode() ) );
-
+    /*
+     *
+     * For performance - We are updating only Table, and then - we can
+     * "refresh it". Refreshing takes time, for performance - we are assuming, that cart products will be updated always by 'getCartProducts(true) at the end'
+     * by request controller!
+     *  Thes ame - for celar/remove/ - we are refreshing cart at every session start  anyway !
+     * */
+    public function update($cart_id, $quantity)
+    {
+        $this->db->query("UPDATE " . DB_PREFIX . "cart SET quantity = '" . (int)$quantity . "' 
+            WHERE cart_id = '" . (int)$cart_id . "' 
+            AND api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' 
+            AND customer_id = '" . (int)$this->customer->getId() . "' 
+            AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+        // $this->cartProducts = $this->getProducts(true);
+        // $this->setShippingMethods();
+        // // TODO: Cart is very dependant from shipping methods
+        // $this->setShippingMethod($this->getShippingMethod($this->getShippingMethodCode()));
     }
 
-    public function remove($cart_id) {
+    public function remove($cart_id)
+    {
         $this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE cart_id = '" . (int)$cart_id . "' AND api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
-        $this->cartProducts = $this->getProducts(true);
+        //$this->cartProducts = $this->getProducts(true);
     }
 
-    public function clear() {
+    public function clear()
+    {
         $this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
-        $this->cartProducts = $this->getProducts(true);
+        //$this->cartProducts = $this->getProducts(true);
     }
 
-    public function getRecurringProducts() {
+    public function getRecurringProducts()
+    {
         $product_data = [];
 
         foreach ($this->cartProducts as $value) {
@@ -478,7 +489,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         return $product_data;
     }
 
-    public function getWeight() {
+    public function getWeight()
+    {
         $weight = 0;
 
         foreach ($this->cartProducts as $product) {
@@ -491,22 +503,15 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     }
 
 
-
-
-
-
-
-    public function init($update = false) {
-
+    public function init($update = false)
+    {
 
         if (!is_array($this->session->data('shipping_address'))) {
             $this->session->data['shipping_address'] = [];
         }
 
         $this->setShippingAddress($this->session->data('shipping_address'));
-
         // prd($this->session->data('payment_address'));
-
         $this->setPaymentAddress($this->session->data('payment_address'));
 
         $this->setShippingMethods();
@@ -517,11 +522,10 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
         $this->setAddress2($this->session->data('address2'));
 
-
         $this->setPaymentInstruction($this->session->data('payment_instruction'));
 
 
-        //azon metode init();
+        //metode init();
 
         /*
         if ($this->customer->getId()) {
@@ -539,7 +543,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     }
 
 
-    public function getSubTotal() {
+    public function getSubTotal()
+    {
         $total = 0;
         foreach ($this->cartProducts as $product) {
             //TODO: dirty workaround for free_product gift - bezmaksas produkts.
@@ -565,7 +570,11 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         return $total;
     }
 
-    public function getTaxes() {
+    /* Contains BASE sums for price ! Without Taxes! */
+    private $tax_basis = [];
+
+    public function getTaxes()
+    {
         $tax = [];
         $enduser_prices = [];
         foreach ($this->cartProducts as $product) {
@@ -574,6 +583,9 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         }
 
         $tax_classes = $this->tax->getTaxClasses();
+
+        $this->tax_basis = [];
+
 
         foreach ($enduser_prices as $tax_class_id => $enduser_price) {
             if (isset($tax_classes[$tax_class_id])) {
@@ -588,8 +600,11 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                 foreach ($tax_classes[$tax_class_id] as $tax_rate_id => $tax_rate) {
                     if (!isset($tax[$tax_rate_id])) {
                         $tax[$tax_rate_id] = 0;
+                        $this->tax_basis[$tax_rate['name']] = 0;
                     }
                     $tax[$tax_rate_id] += $total_wo_tax * ($tax_rate['rate'] / 100);
+                    $this->tax_basis[$tax_rate['name']] += $total_wo_tax;
+
                 }
             }
         }
@@ -612,39 +627,43 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                 foreach ($tax_classes[$tax_class_id] as $tax_rate_id => $tax_rate) {
                     if (!isset($tax[$tax_rate_id])) {
                         $tax[$tax_rate_id] = 0;
+                        $this->tax_basis[$tax_rate['name']] = 0;
                     }
                     $tax[$tax_rate_id] += $total_wo_tax * ($tax_rate['rate'] / 100);
+                    $this->tax_basis[$tax_rate['name']] += $total_wo_tax;
                 }
             }
 
         }
 
-
         // ROund every total value.
         array_walk($tax, function (&$val) {
             $val = round($val, $this->decimal_places);
         });
+
         return $tax;
     }
 
 
-    public function getTotal( $formatted = false ) {
+    public function getTotal($formatted = false)
+    {
         $total = 0;
         foreach ($this->cartProducts as $product) {
             // $total += $this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax'));
             $total += $product['price_enduser_total'];
         }
-        return $formatted ? $this->currency->format($total) : $total ;
+        return $formatted ? $this->currency->format($total) : $total;
     }
 
-    public function getShipping() {
+    public function getShipping()
+    {
         $this->getTotals_azon();
         return $this->shipping;
     }
 
 
-
-    public function countProducts($product_id = false) {
+    public function countProducts($product_id = false)
+    {
         $product_total = 0;
 
         $products = $this->cartProducts;
@@ -663,20 +682,19 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         return $product_total;
     }
 
-    public function hasProducts() {
+    public function hasProducts()
+    {
         return count($this->cartProducts);
     }
 
-    public function hasRecurringProducts() {
+    public function hasRecurringProducts()
+    {
         return count($this->getRecurringProducts());
     }
 
 
-
-
-
-
-    public function hasStock() {
+    public function hasStock()
+    {
         foreach ($this->cartProducts as $product) {
             if (!$product['stock']) {
                 return false;
@@ -686,7 +704,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         return true;
     }
 
-    public function hasShipping() {
+    public function hasShipping()
+    {
         foreach ($this->cartProducts as $product) {
             if ($product['shipping']) {
                 return true;
@@ -696,7 +715,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         return false;
     }
 
-    public function hasDownload() {
+    public function hasDownload()
+    {
         foreach ($this->cartProducts as $product) {
             if ($product['download']) {
                 return true;
@@ -711,7 +731,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     TODO: This is needed to generate Currencies array
     to format data according to this.
     */
-    private function cur_constr() {
+    private function cur_constr()
+    {
 
         $sql = "SELECT * FROM " . DB_PREFIX . "currency where true ";
 
@@ -742,29 +763,13 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                 'value'         => $result['value'],
             ];
         }
-
-        //        if (isset($this->request->get['currency']) && (array_key_exists($this->request->get['currency'], $this->currencies))) {
-        //            $code = $this->request->get['currency'];
-        //        } elseif ((isset($this->session->data['currency'])) && (array_key_exists($this->session->data['currency'], $this->currencies))) {
-        //            $code = $this->session->data['currency'];
-        //        } elseif ((isset($this->request->cookie['currency'])) && (array_key_exists($this->request->cookie['currency'], $this->currencies))) {
-        //            $code = $this->request->cookie['currency'];
-        //        } else {
-        //            $code = $this->config->get('config_currency');
-        //        }
-
     }
-
-
-
-
-
-
 
 
     /* collect shipping methods */
 
-    public function getAddress2() {
+    public function getAddress2()
+    {
         return $this->address2;
     }
 
@@ -772,15 +777,17 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
      * @return void
      */
 
-    public function clearAddress2( ) {
+    public function clearAddress2()
+    {
 
-        $this->session->data['address2'] = $this->address2 = [] ;
+        $this->session->data['address2'] = $this->address2 = [];
     }
 
     /**
      * @return mixed
      */
-    public function setAddress2($address2) {
+    public function setAddress2($address2)
+    {
 
         //  $this->log->write ( $address2 ) ;
 
@@ -800,9 +807,9 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         foreach ($fields as $key) {
             // $data[$field] = !empty($address2[$field]) ? $address2[$field] : '';
 
-            if(isset($address2[$key])) {
+            if (isset($address2[$key])) {
                 $this->address2[$key] = $address2[$key];
-            } elseif(isset($this->address[$key])) {
+            } elseif (isset($this->address[$key])) {
                 //continue;
             } else {
                 $this->address2[$key] = '';
@@ -818,7 +825,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
      * @param string $code
      * @return mixed
      */
-    public function getShippingMethod($code = '') {
+    public function getShippingMethod($code = '')
+    {
 
         // pr(ddd());
 
@@ -846,7 +854,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     /**
      * @return mixed
      */
-    public function setShippingMethod($method = []) {
+    public function setShippingMethod($method = [])
+    {
 
         //  $this->log->write ( ddd() ) ;
 
@@ -895,25 +904,30 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     /**
      * @return mixed
      */
-    public function getShippingMethodCode() {
+    public function getShippingMethodCode()
+    {
         return isset($this->shipping_method['code']) ? $this->shipping_method['code'] : '';
     }
 
     /**
      * @return mixed
      */
-    public function getShippingMethods() {
+    public function getShippingMethods()
+    {
         return $this->shipping_methods;
     }
 
-    public function getTotals($par = []) {
+    public function getTotals($par = [])
+    {
         return $this->getTotals_azon($par);
     }
 
-    public function getTotals_azon($params = []) {
+    public function getTotals_azon($params = [])
+    {
         $data = [];
         $total = 0;
         $taxes = $this->getTaxes();
+
 
         $totals = [];
         $total_data = [
@@ -939,6 +953,17 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                 }
             }
 
+            // Aprēķinām pamatlikmi!
+            // $pamatlikme = [];
+            // foreach( $this->tax->getTaxClasses() as $tax_class){
+            //     foreach($tax_class as $rate) {
+            //         if(!empty($this->getTaxes()[$rate['tax_rate_id']])){
+            //             $pamatlikme[$rate['name']] = $this->getTaxes()[ $rate['tax_rate_id'] ] * 100 / $rate['rate'];
+            //         }
+            //     }
+            // }
+
+
             foreach ($total_data['totals'] as $total) {
 
                 // Needed, for correct TOTAL price for cart
@@ -950,9 +975,14 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
                 // TODO: commented!?
                 // $this->shipping += $total['code'] == 'shipping' ? $total['value'] : 0;
 
+                $pamatlikme_text = '';
+                if (!empty($this->tax_basis[$total['title']])) {
+                    $pamatlikme_text = '<small>(pamatlikme ' . $this->currency->format2($this->tax_basis[$total['title']]) . ')</small> ';
+                }
+
                 $data['totals'][] = [
                     'code'       => $total['code'],
-                    'title'      => $total['title'],
+                    'title'      => $pamatlikme_text . $total['title'],
 
                     // We need to covert between currencies, to set correct number
                     'value'      => $total['code'] == 'total' ? $this->currency->convert($this->cartTotal, $this->session->data['currency'], 1) : $total['value'],
@@ -964,10 +994,13 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
             }
         }
+
+
         return $data['totals'];
     }
 
-    public function setShippingMethods() {
+    public function setShippingMethods()
+    {
 
         // pr($this->shipping_address['country_id']);
 
@@ -1023,24 +1056,28 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     /**
      * @return mixed
      */
-    public function getPaymentAddress() {
+    public function getPaymentAddress()
+    {
         return $this->payment_address;
     }
 
     /**
      * @return mixed
      */
-    public function getPaymentMethod() {
+    public function getPaymentMethod()
+    {
         return $this->payment_method;
     }
 
     /**
      * @return mixed
      */
-    public function setPaymentMethod($method = []) {
+    public function setPaymentMethod($method = [])
+    {
         // TODO: this comes without validation
         // we are not validating anything here !
         // probaly, should be validated for available methods only
+
 
         if ($method) {
             //$price_enduser = $this->currency->format($this->tax->calculate($method['cost'], $method['tax_class_id'], $this->config->get('config_tax')), '', '', false);
@@ -1050,15 +1087,16 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
             //$method['price_enduser_formatted'] = $price_enduser_formatted;
 
             // We can't validate anything here. Just read variables from session.
-            if (is_string($method) && isset($this->payment_methods[$method])) {
-                $method = $this->payment_methods[$method];
+
+            if (is_string($method)) {
+
+                // $method = isset($this->payment_methods[$parts[0]]) ? $this->payment_methods[$parts[0]] : null ;
+                $method = isset($this->payment_methods[$method]) ? $this->payment_methods[$method] : null;
             } elseif (is_array($method) && isset($method['code'])) {
-                $method = $method;
+                // $method = $method;
             } else {
                 $method = [];
             }
-
-
         }
 
         //        pr($this->payment_methods);
@@ -1067,11 +1105,13 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     }
 
 
-    public function setPaymentInstruction($text) {
+    public function setPaymentInstruction($text)
+    {
         $this->session->data['payment_instruction'] = $this->payment_instruction = $text;
     }
 
-    public function getPaymentInstruction() {
+    public function getPaymentInstruction()
+    {
         return $this->payment_instruction;
     }
 
@@ -1080,7 +1120,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
      * Correct Total with discount
      * @return int
      */
-    public function getCartTotal($format = false) {
+    public function getCartTotal($format = false)
+    {
         // Thus function generates cart total! Together with correct totals built.
         $this->getTotals_azon();
 
@@ -1094,12 +1135,13 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     /**
      * @return mixed
      */
-    public function getPaymentMethods() {
+    public function getPaymentMethods()
+    {
         return $this->payment_methods;
     }
 
-    public function setPaymentMethods() {
-
+    public function setPaymentMethods()
+    {
 
 
         $method_data = [];
@@ -1117,7 +1159,27 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
                 $method = $this->registry->get('model_extension_payment_' . $result['code'])->getMethod($this->payment_address, $this->getTotal());
 
-                if ($method) {
+                // TODO: be compatible with back compatibility
+                // ability to add multiple payment mothdos by one plugin!
+                // code must be divided with DOT as for shipping
+                // Must be added as always return multiple array, no tsingle one.
+                // For Swedbank e.g.
+
+                if (is_array($method) && isset($method[0])) {
+
+                    foreach ($method as $key => $val) {
+
+                        $method_data[$val['code']] = [
+                            'title'      => $val['title'],
+                            'title_html'      => $val['title_html'] ?? '',
+                            'code'       => $val['code'],
+                            'template'   => !empty($val['template']) ? $val['template'] : '',
+                            // 'quote'      => $method['quote'],
+                            'sort_order' => $val['sort_order'],
+                            // 'error'      => $method['error'],
+                        ];
+                    }
+                } elseif ($method) {
                     $method_data[$result['code']] = [
                         'title'      => $method['title'],
                         'code'       => $method['code'],
@@ -1144,10 +1206,9 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
     }
 
 
-
-    public function setShippingAddress($address = []) {
+    public function setShippingAddress($address = [])
+    {
         // $this->shipping_address = $this->session->data('shipping_address');
-
 
 
         if (!is_array($address)) {
@@ -1183,9 +1244,9 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         ];
 
         foreach ($fields as $field) {
-            if (isset($address[$field]) && !is_array( $address[$field] )) {
+            if (isset($address[$field]) && !is_array($address[$field])) {
                 $this->shipping_address[$field] = $address[$field];
-            } elseif ( isset($address[$field]) && is_array( $address[$field] ) ) {
+            } elseif (isset($address[$field]) && is_array($address[$field])) {
                 $this->log->write("ERROR: $field is ARRAY! No WAY! Not allowed!");
                 $this->shipping_address[$field] = '';
             } elseif (isset($this->shipping_address[$field])) {
@@ -1195,8 +1256,8 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
             }
         }
 
-        if($this->shipping_address["country_id"]) {
-            $this->shipping_address["country"] = $this->countries[ $this->shipping_address["country_id"]]['name'] ;
+        if ($this->shipping_address["country_id"]) {
+            $this->shipping_address["country"] = $this->countries[$this->shipping_address["country_id"]]['name'];
         }
 
         $this->session->data['shipping_address'] = $this->shipping_address;
@@ -1205,12 +1266,14 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
     }
 
-    public function getShippingAddress() {
+    public function getShippingAddress()
+    {
         return $this->shipping_address;
     }
 
 
-    public function setPaymentAddress($address = []) {
+    public function setPaymentAddress($address = [])
+    {
 
         if (!$address) {
             $address = $this->shipping_address;
@@ -1254,26 +1317,50 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
             }
         }
 
-        if($this->payment_address["country_id"]) {
-            $this->payment_address["country"] = $this->countries[ $this->payment_address["country_id"]]['name'] ;
+        if ($this->payment_address["country_id"]) {
+            $this->payment_address["country"] = $this->countries[$this->payment_address["country_id"]]['name'];
         }
 
 
         $this->session->data['payment_address'] = $this->payment_address;
     }
+
     // TODO, is this done?
-    public function setComment($comment) {
+    public function setComment($comment)
+    {
         $this->session->data['comment'] = $this->comment = $comment;
     }
 
 
-    public function unset() {
+    public function unset()
+    {
 
         unset($this->session->data['shipping_country_id']);
         unset($this->session->data['shipping_zone_id']);
         unset($this->session->data['shipping_postcode']);
         unset($this->session->data['payment_country_id']);
         unset($this->session->data['payment_zone_id']);
+        unset($this->session->data['shipping_method']);
+        unset($this->session->data['shipping_methods']);
+        unset($this->session->data['payment_method']);
+        unset($this->session->data['payment_methods']);
+        unset($this->session->data['guest']);
+        unset($this->session->data['comment']);
+        unset($this->session->data['order_id']);
+        unset($this->session->data['coupon']);
+        unset($this->session->data['reward']);
+        unset($this->session->data['voucher']);
+        unset($this->session->data['vouchers']);
+        unset($this->session->data['totals']);
+
+        // Beos MOD
+        unset($this->session->data['order_comment']);
+        unset($this->session->data['delivery_date']);
+        unset($this->session->data['delivery_time']);
+        unset($this->session->data['survey']);
+        // unset($this->session->data['shipping_address']);
+        unset($this->session->data['payment_address']);
+
     }
 
 }
