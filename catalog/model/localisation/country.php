@@ -13,7 +13,9 @@ class ModelLocalisationCountry extends Model {
         if (!$country_data) {
             $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE status = '1' ORDER BY name ASC");
 
-            $country_data = $query->rows;
+            foreach( $query->rows as $row) {
+                $country_data[$row['country_id']] = $row;
+            }
 
             $this->cache->set('country.catalog', $country_data);
         }
