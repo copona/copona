@@ -160,9 +160,22 @@ class ControllerStartupStartup extends Controller {
 
         $this->session->data['language'] = $code;
 
+
+
+
         if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
-            setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
-            $this->log->write($this->request->cookie['language']);
+            setcookie('language', $code, time() - 3600, '/', $this->request->server['HTTP_HOST']);
+            setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/');
+
+            // pr(!isset($this->request->cookie['language']));
+            // pr($this->request->cookie['language']);
+            // pr($code);
+            // prd($_COOKIE);
+            // prd($this->request->cookie);
+
+            // $cookie_log = new Log('cookie.log');
+            // $cookie_log->write($this->request->cookie['language']);
+
         }
 
         // Overwrite the default language object
