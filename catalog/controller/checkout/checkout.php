@@ -3,13 +3,15 @@
 use PH7\Eu\Vat\Validator;
 use PH7\Eu\Vat\Provider\Europa;
 
-class ControllerCheckoutCheckout extends Controller {
+class ControllerCheckoutCheckout extends Controller
+{
 
     private $checkout_hide_tax_id;
     private $checkout_hide_company_id;
     private $error;
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         parent::__Construct($registry);
 
         $this->load->language('checkout/checkout');
@@ -17,10 +19,12 @@ class ControllerCheckoutCheckout extends Controller {
         $this->load->model('account/customer');
         $this->load->model('localisation/country');
 
+
     }
 
 
-    public function deleteCustomer($customer_id) {
+    public function deleteCustomer($customer_id)
+    {
         $this->db->query("DELETE FROM " . DB_PREFIX . "customer WHERE customer_id = '" . (int)$customer_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "customer_reward WHERE customer_id = '" . (int)$customer_id . "'");
         $this->db->query("DELETE FROM " . DB_PREFIX . "customer_transaction WHERE customer_id = '" . (int)$customer_id . "'");
@@ -28,22 +32,25 @@ class ControllerCheckoutCheckout extends Controller {
         $this->db->query("DELETE FROM " . DB_PREFIX . "address WHERE customer_id = '" . (int)$customer_id . "'");
     }
 
-    public function index() {
+    public function index()
+    {
+        // https://gp.11.indeed.pro/e-veikals/?route=extension/payment/swedbank_portal/callback_failure&dts_reference=3700900030263517
 
 
         $data = $this->load->language('checkout/checkout');
 
         $this->document->setTitle($this->language->get('heading_title'));
-        $this->document->addScript('catalog/view/javascript/jquery/jquery.colorbox-min.js');
-        $this->document->addStyle('catalog/view/javascript/jquery/colorbox.css');
-        $this->document->addStyle('catalog/view/javascript/jquery/checkout.css');
+
+        // $this->document->addScript('catalog/view/javascript/jquery/jquery.colorbox-min.js');
+        // $this->document->addStyle('catalog/view/javascript/jquery/colorbox.css');
+        // $this->document->addStyle('catalog/view/javascript/jquery/checkout.css');
 
         $data['checkout_hide_tax_id'] = false; //config
         $data['checkout_hide_company_id'] = false; //config
 
         if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
             // $this->response->redirect($this->url->link('checkout/cart'));
-            $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
+            $this->flash->error("NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ");
         }
 
 
@@ -51,21 +58,8 @@ class ControllerCheckoutCheckout extends Controller {
             $data['customer_id'] = $this->session->data['customer_id'];
             if (isset($this->session->data['checkout_customer_id']) && $this->session->data['checkout_customer_id'] === true) {
                 //cleanup previous incomplete checkout attempts
-                // unset($this->session->data['shipping_method']);
 
-                unset($this->session->data['shipping_address']);
-                unset($this->session->data['shipping_address_id']);
-                unset($this->session->data['payment_address']);
-                unset($this->session->data['payment_address_id']);
-                unset($this->session->data['payment_method']);
-                unset($this->session->data['payment_methods']);
-
-                unset($this->session->data['guest']);
-                unset($this->session->data['account']);
-                unset($this->session->data['shipping_country_id']);
-                unset($this->session->data['shipping_zone_id']);
-                unset($this->session->data['payment_country_id']);
-                unset($this->session->data['payment_zone_id']);
+               $this->cart->unset();
 
                 //if customer account was created by checkout module then delete it
                 //$this->deleteCustomer($this->session->data['customer_id']);
@@ -118,9 +112,6 @@ class ControllerCheckoutCheckout extends Controller {
         }
 
 
-
-        
-
         if ($this->config->get('config_checkout_id')) {
             $this->load->model('catalog/information');
 
@@ -146,11 +137,8 @@ class ControllerCheckoutCheckout extends Controller {
         }
 
         $data['payment'] = '';
-        $this->load->model('account/address');        
+        $this->load->model('account/address');
 
-
-        
-        
 
         //var_dump($this->session->data);
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -178,21 +166,8 @@ class ControllerCheckoutCheckout extends Controller {
         $this->load->model('account/custom_field');
         $data['custom_fields'] = $this->model_account_custom_field->getCustomFields();
 
-        
-
-
         $data['address'] = $this->cart->getShippingAddress();
-
-        
-
-
         $data['address2'] = $this->cart->getAddress2();
-
-
-        dt();
-
-
-
 
 
         // $this->validate();
@@ -201,28 +176,24 @@ class ControllerCheckoutCheckout extends Controller {
         $this->guest(false, $data);
 
         $this->checkout(false, $data);
+
+        // $this->flash->display(); prd();
+
         $this->shipping_address(false, $data);
-        
 
         // Set/Load initial/session shipping method!
         $this->shipping_method(false, $data);
-
-
 
         $this->payment_address(false, $data);
         $this->payment_method(false, $data);
         // $this->confirm(false, $data);
 
-
         if (isset($this->request->get['quickconfirm'])) {
             $data['quickconfirm'] = $this->request->get['quickconfirm'];
         }
 
-
         if ($this->customer->isLogged()) {
-
             // $data['addresses'] = $this->model_account_address->getAddresses();
-
             $data['firstname'] = $this->customer->getFirstName();
             $data['lastname'] = $this->customer->getLastName();
             $data['email'] = $this->customer->getEmail();
@@ -232,16 +203,13 @@ class ControllerCheckoutCheckout extends Controller {
         }
 
 
-
-
-        
-
         $this->response->setOutput($this->load->view('checkout/easy_checkout', $data));
 
     }
 
 
-    public function shipping_address($render = true, &$data = []) {
+    public function shipping_address($render = true, &$data = [])
+    {
 
         $this->load->language('checkout/checkout');
 
@@ -299,7 +267,8 @@ class ControllerCheckoutCheckout extends Controller {
         }
     }
 
-    public function shipping_method($render = true, &$data = []) {
+    public function shipping_method($render = true, &$data = [])
+    {
 
         $this->load->language('checkout/checkout');
 
@@ -344,7 +313,8 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
 
-    public function payment_address($render = true, &$data = []) {
+    public function payment_address($render = true, &$data = [])
+    {
 
         $this->load->language('checkout/checkout');
 
@@ -425,7 +395,8 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
 
-    public function payment_method($render = true, &$data = []) {
+    public function payment_method($render = true, &$data = [])
+    {
 
         $this->load->language('checkout/checkout');
         $this->load->model('account/address');
@@ -437,9 +408,7 @@ class ControllerCheckoutCheckout extends Controller {
             $this->session->data['guest']['payment']['country_id'] = $payment_address['country_id'] = $this->request->post['country_id'];
 
             $this->session->data['shipping_country_id'] =
-            $this->session->data['payment_country_id'] =
-                $this->session->data['guest']['payment']['payment_country_id'] =
-            $payment_address['payment_country_id'] =
+            $this->session->data['payment_country_id'] = $this->session->data['guest']['payment']['payment_country_id'] = $payment_address['payment_country_id'] =
                 $this->request->post['country_id'];
 
             //            // Todo: zone_id
@@ -495,16 +464,16 @@ class ControllerCheckoutCheckout extends Controller {
         }
 
 
+        // Esmu izlasījis (-usi) un piekrītu preču saņemšanai un noteikumiem
+
         if ($this->config->get('config_checkout_id')) {
             $this->load->model('catalog/information');
 
             $information_info = $this->model_catalog_information->getInformation($this->config->get('config_checkout_id'));
 
             if ($information_info) {
-
                 $data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_checkout_id'), 'SSL'),
                     $information_info['title'], $information_info['title']);
-
             } else {
                 $data['text_agree'] = '';
             }
@@ -515,21 +484,19 @@ class ControllerCheckoutCheckout extends Controller {
         $this->processPostData();
         $payment_method = $this->cart->getPaymentMethod();
 
-        // pr($payment_method);
-
         if ($payment_method && isset($payment_method['code'])) {
             $data['payment_method_code'] = $payment_method['code'];
         } else {
             $data['payment_method_code'] = '';
         }
 
-
         if ($render !== false) {
             $this->response->setOutput($this->load->view('checkout/easy_payment_method', $data));
         }
     }
 
-    public function payment_method_set($render = true, &$data = []) {
+    public function payment_method_set($render = true, &$data = [])
+    {
 
         // šo vajag šeit, jo Adreses gadījumā - tas tiek postēts ar visiem valsts datiem,
         // bet piegādei - vajag jau sadefinētas adreses, lai šis strādātu.
@@ -538,6 +505,7 @@ class ControllerCheckoutCheckout extends Controller {
 
 
         $json = [];
+
 
         if (!$this->request->get('payment_method')) {
             $json['error']['warning'] = $this->language->get('error_payment');
@@ -549,39 +517,32 @@ class ControllerCheckoutCheckout extends Controller {
 
     }
 
-    public function checkout($render = true, &$data = []) {
+    public function checkout($render = true, &$data = [])
+    {
         // Validate cart has products and has stock.
-
-
+        // WHERE DO WE NEED THIS METHOD AT ALL ?
         // Validate minimum quantity requirments.
-        $products = $this->cart->getProducts();
-
-        foreach ($products as $product) {
-            $product_total = 0;
-
-            foreach ($products as $product_2) {
-                if ($product_2['product_id'] == $product['product_id']) {
-                    $product_total += $product_2['quantity'];
-                }
-            }
-
-            if ($product['minimum'] > $product_total) {
-                // $this->response->redirect($this->url->link('checkout/cart'));
-                $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
-            }
-        }
+        // $products = $this->cart->getProducts();
+        // foreach ($products as $product) {
+        //     $product_total = 0;
+        //     foreach ($products as $product_2) {
+        //         if ($product_2['product_id'] == $product['product_id']) {
+        //             $product_total += $product_2['quantity'];
+        //         }
+        //     }
+        //
+        //     if ($product['minimum'] > $product_total) {
+        //         // $this->response->redirect($this->url->link('checkout/cart'));
+        //         $this->flash->error(" NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ");
+        //
+        //     }
+        // }
 
         $this->load->language('checkout/checkout');
-
         $this->document->setTitle($this->language->get('heading_title'));
-        // $this->document->addScript('catalog/view/javascript/jquery/jquery.colorbox-min.js');
-        // $this->document->addStyle('catalog/view/javascript/jquery/colorbox.css');
-        // $this->document->addStyle('catalog/view/javascript/jquery/checkout.css');
-
-        $this->document->addScript('assets/js/easy_checkout/jquery.colorbox-min.js');
-        $this->document->addStyle('assets/js/easy_checkout/colorbox.css');
-        $this->document->addStyle('assets/js/easy_checkout/checkout.css');
-
+        // $this->document->addScript('assets/js/easy_checkout/jquery.colorbox-min.js');
+        // $this->document->addStyle('assets/js/easy_checkout/colorbox.css');
+        // $this->document->addStyle('assets/js/easy_checkout/checkout.css');
 
         $data['breadcrumbs'] = [];
 
@@ -591,12 +552,6 @@ class ControllerCheckoutCheckout extends Controller {
             'separator' => false,
         ];
 
-        //        $data['breadcrumbs'][] = [
-        //            'text'      => $this->language->get('text_cart'),
-        //            'href'      => $this->url->link('checkout/cart'),
-        //            'separator' => $this->language->get('text_separator'),
-        //        ];
-
         $data['breadcrumbs'][] = [
             'text'      => $this->language->get('heading_title'),
             'href'      => $this->url->link('checkout/checkout', '', 'SSL'),
@@ -604,46 +559,24 @@ class ControllerCheckoutCheckout extends Controller {
         ];
 
         $data['heading_title'] = $this->language->get('heading_title');
-
-        //        $data['text_checkout_account'] = sprintf($this->language->get('text_checkout_account'), 1);
-        //        $data['text_checkout_payment_address'] = sprintf($this->language->get('text_checkout_payment_address'), 2);
-        //        $data['text_checkout_shipping_address'] = sprintf($this->language->get('text_checkout_shipping_address'), 3);
-        //        $data['text_checkout_shipping_method'] = sprintf($this->language->get('text_checkout_shipping_method'), 4);
-
-        //        if ($this->cart->hasShipping()) {
-        //            $data['text_checkout_payment_method'] = sprintf($this->language->get('text_checkout_payment_method'), 5);
-        //            $data['text_checkout_confirm'] = sprintf($this->language->get('text_checkout_confirm'), 6);
-        //        } else {
-        //            $data['text_checkout_payment_method'] = sprintf($this->language->get('text_checkout_payment_method'), 3);
-        //            $data['text_checkout_confirm'] = sprintf($this->language->get('text_checkout_confirm'), 4);
-        //        }
-
         $data['text_modify'] = $this->language->get('text_modify');
-
         $data['logged'] = $this->customer->isLogged();
         $data['shipping_required'] = $this->cart->hasShipping();
 
-
         $data['cart_table'] = $this->cart(false);
 
-
-        $this->response->setOutput($this->load->view('checkout/easy_checkout', $data));
-
         if ($render !== false) {
-
             if (isset($this->request->get['quickconfirm'])) {
                 $data['quickconfirm'] = $this->request->get['quickconfirm'];
             }
-
-
         }
     }
 
-    public function validate($data = [], $render = true) {
+    public function validate($data = [], $render = true)
+    {
 
         $this->load->language('checkout/cart');
         $this->load->language('checkout/checkout');
-
 
 
         $json = [];
@@ -656,8 +589,6 @@ class ControllerCheckoutCheckout extends Controller {
         } else {
             $customer_group_id = $this->config->get('config_customer_group_id');
         }
-
-
 
 
         if (!isset($json['error'])) {
@@ -676,7 +607,6 @@ class ControllerCheckoutCheckout extends Controller {
 
 
         if (!isset($json['error']) && !$this->customer->isLogged()) {
-            // pr($this->shipping_method_validate());
             $json = array_merge($json, $this->shipping_method_validate());
             if (isset($json['error'])) {
                 $this->log->write($json['error']);
@@ -715,36 +645,32 @@ class ControllerCheckoutCheckout extends Controller {
 
         // address fields !
         $fields = [
-            'firstname'  => '',
-            'lastname'   => '',
-            'email'   => '',
-            'telephone'   => '',
-            'company'    => '',
-            'address_1'  => '',
-            'address_2'  => '',
-            'postcode'   => '',
-            'city'       => '',
-            'country_id' => '',
-            'zone_id'    => '',
-            'customer_group_id'    => '',
+            'firstname'         => '',
+            'lastname'          => '',
+            'email'             => '',
+            'telephone'         => '',
+            'company'           => '',
+            'address_1'         => '',
+            'address_2'         => '',
+            'postcode'          => '',
+            'city'              => '',
+            'country_id'        => '',
+            'zone_id'           => '',
+            'customer_group_id' => '',
         ];
 
-        $shipping_address = [] ;
+        $shipping_address = [];
         foreach ($fields as $key => $field) {
             $shipping_address[$key] = empty($this->request->post[$key]) ? "" : $this->request->post[$key];
         }
 
-        // $this->log->write($this->request->post);
-
-//        if(!$render){
-//            $this->log->write( $shipping_address) ;
-//        }
-        $this->cart->setShippingAddress( $shipping_address );
-        $this->cart->setPaymentAddress( $shipping_address );
+        $this->cart->setShippingAddress($shipping_address);
+        $this->cart->setPaymentAddress($shipping_address);
 
 
-
-        // prd( $json );
+        if ($this->cart->getTotal() < 10) {
+            $json = array_merge($json, ['error' => ['warning' => $this->language->get('text_minimum_order')]]);
+        }
 
         if ($render) {
             $this->response->setOutput(json_encode($json));
@@ -759,7 +685,8 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
 
-    public function country($data = []) {
+    public function country($data = [])
+    {
         $json = [];
 
         $this->load->model('localisation/country');
@@ -798,7 +725,8 @@ class ControllerCheckoutCheckout extends Controller {
 
     //validate
 
-    public function login_validate($data = []) {
+    public function login_validate($data = [])
+    {
 
         $this->load->language('checkout/checkout');
 
@@ -857,184 +785,168 @@ class ControllerCheckoutCheckout extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-  /*  public function guest_validate() {
+    /*  public function guest_validate() {
 
-        $this->load->language('checkout/checkout');
-
-
-        $json = [];
-
-        // Validate if customer is logged in.
-        if ($this->customer->isLogged()) {
-            $json['redirect'] = $this->url->link('checkout/checkout', '', 'SSL');
-        }
-
-        // Validate cart has products and has stock.
-        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-            // $json['redirect'] = $this->url->link('checkout/cart');
-            $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
-        }
-
-        // Check if guest checkout is available.
-        if (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload()) {
-            $json['redirect'] = $this->url->link('checkout/checkout', '', 'SSL');
-        }
-
-        // pr( ddd());
-
-        if (!$json) {
+          $this->load->language('checkout/checkout');
 
 
+          $json = [];
 
-            if (isset($this->request->post['firstname'])
-                && ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32))) {
-                $json['error']['firstname'] = $this->language->get('error_firstname');
-            }
+          // Validate if customer is logged in.
+          if ($this->customer->isLogged()) {
+              $json['redirect'] = $this->url->link('checkout/checkout', '', 'SSL');
+          }
 
-            if (isset($this->request->post['email']) && ((utf8_strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*.[a-z]{2,15}$/i', $this->request->post['email']))) {
-                $json['error']['email'] = $this->language->get('error_email');
-            }
+          // Validate cart has products and has stock.
+          if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+              // $json['redirect'] = $this->url->link('checkout/cart');
+              $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
+          }
 
-            if (isset($this->request->post['telephone']) && ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32))) {
-                $json['error']['telephone'] = $this->language->get('error_telephone');
-            }
+          // Check if guest checkout is available.
+          if (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload()) {
+              $json['redirect'] = $this->url->link('checkout/checkout', '', 'SSL');
+          }
 
-            if (isset($this->request->post['address_1']) && ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128))) {
-                $json['error']['address_1'] = $this->language->get('error_address_1');
-            }
+          // pr( ddd());
 
-            if (isset($this->request->post['city']) && ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128))) {
-                $json['error']['city'] = $this->language->get('error_city');
-            }
-
-            $this->load->model('localisation/country');
-            $country_info = [];
-            if (isset($this->request->post['country_id'])) {
-                $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
-            }
-
-            if ($country_info && $country_info['postcode_required'] && (utf8_strlen(trim($this->request->post['postcode'])) < 2 || utf8_strlen(trim($this->request->post['postcode'])) > 10)) {
-                $json['error']['postcode'] = $this->language->get('error_postcode');
-            }
-
-            if (isset($this->request->post['country_id']) && $this->request->post['country_id'] == '') {
-                // $json['error']['country'] = $this->language->get('error_country');
-                $json['error']['country_id'] = $this->language->get('error_country');
-            }
-
-            //TODO: zone_id is required in checkout, used by many modules!
-            // but must be set deprecated! Too many errors starts from this!
-            if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
-                // $json['error']['zone'] = $this->language->get('error_zone');
-                // $json['error']['zone_id'] = $this->language->get('error_zone');
-            }
+          if (!$json) {
 
 
 
-            // Custom field validation
-            $this->load->model('account/custom_field');
+              if (isset($this->request->post['firstname'])
+                  && ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32))) {
+                  $json['error']['firstname'] = $this->language->get('error_firstname');
+              }
 
-            $custom_fields = $this->model_account_custom_field->getCustomFields($customer_group_id);
+              if (isset($this->request->post['email']) && ((utf8_strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*.[a-z]{2,15}$/i', $this->request->post['email']))) {
+                  $json['error']['email'] = $this->language->get('error_email');
+              }
 
-            foreach ($custom_fields as $custom_field) {
-                if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
-                    $json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-                }
-            }
-        }
+              if (isset($this->request->post['telephone']) && ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32))) {
+                  $json['error']['telephone'] = $this->language->get('error_telephone');
+              }
 
-        if (!$json && $this->request->post) {
-            //  $this->session->data['account'] = 'guest';
+              if (isset($this->request->post['address_1']) && ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128))) {
+                  $json['error']['address_1'] = $this->language->get('error_address_1');
+              }
+
+              if (isset($this->request->post['city']) && ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128))) {
+                  $json['error']['city'] = $this->language->get('error_city');
+              }
+
+              $this->load->model('localisation/country');
+              $country_info = [];
+              if (isset($this->request->post['country_id'])) {
+                  $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
+              }
+
+              if ($country_info && $country_info['postcode_required'] && (utf8_strlen(trim($this->request->post['postcode'])) < 2 || utf8_strlen(trim($this->request->post['postcode'])) > 10)) {
+                  $json['error']['postcode'] = $this->language->get('error_postcode');
+              }
+
+              if (isset($this->request->post['country_id']) && $this->request->post['country_id'] == '') {
+                  // $json['error']['country'] = $this->language->get('error_country');
+                  $json['error']['country_id'] = $this->language->get('error_country');
+              }
+
+              //TODO: zone_id is required in checkout, used by many modules!
+              // but must be set deprecated! Too many errors starts from this!
+              if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '') {
+                  // $json['error']['zone'] = $this->language->get('error_zone');
+                  // $json['error']['zone_id'] = $this->language->get('error_zone');
+              }
+          }
+
+          if (!$json && $this->request->post) {
+              //  $this->session->data['account'] = 'guest';
 
 
 
 
-            $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
+              $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
-            //            if ($country_info) {
-            //                $this->session->data['payment_address']['country'] = $country_info['name'];
-            //                $this->session->data['payment_address']['iso_code_2'] = $country_info['iso_code_2'];
-            //                $this->session->data['payment_address']['iso_code_3'] = $country_info['iso_code_3'];
-            //                $this->session->data['payment_address']['address_format'] = $country_info['address_format'];
-            //            } else {
-            //                $this->session->data['payment_address']['country'] = '';
-            //                $this->session->data['payment_address']['iso_code_2'] = '';
-            //                $this->session->data['payment_address']['iso_code_3'] = '';
-            //                $this->session->data['payment_address']['address_format'] = '';
-            //            }
-
-            //            if (isset($this->request->post['custom_field']['address'])) {
-            //                $this->session->data['payment_address']['custom_field'] = $this->request->post['custom_field']['address'];
-            //            } else {
-            //                $this->session->data['payment_address']['custom_field'] = [];
-            //            }
-
-            $this->load->model('localisation/zone');
-
-            //TODO: fix this!
-            $zone_info = [];
-            if (!empty($this->request->post['zone_id'])) {
-                $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
-            }
-
-            //            if ($zone_info) {
-            //                $this->session->data['payment_address']['zone'] = $zone_info['name'];
-            //                $this->session->data['payment_address']['zone_code'] = $zone_info['code'];
-            //            } else {
-            //                $this->session->data['payment_address']['zone'] = '';
-            //                $this->session->data['payment_address']['zone_code'] = '';
-            //            }
-
-            //            if (!empty($this->request->post['shipping_address'])) {
-            //                $this->session->data['guest']['shipping_address'] = $this->request->post['shipping_address'];
-            //            } else {
-            //                $this->session->data['guest']['shipping_address'] = false;
-            //            }
-
-            // Default Payment Address
-            if ($this->cart->getShippingAddress()) {
+              //            if ($country_info) {
+              //                $this->session->data['payment_address']['country'] = $country_info['name'];
+              //                $this->session->data['payment_address']['iso_code_2'] = $country_info['iso_code_2'];
+              //                $this->session->data['payment_address']['iso_code_3'] = $country_info['iso_code_3'];
+              //                $this->session->data['payment_address']['address_format'] = $country_info['address_format'];
+              //            } else {
+              //                $this->session->data['payment_address']['country'] = '';
+              //                $this->session->data['payment_address']['iso_code_2'] = '';
+              //                $this->session->data['payment_address']['iso_code_3'] = '';
+              //                $this->session->data['payment_address']['address_format'] = '';
+              //            }
 
 
-                $fields = [
-                    'firstname'  => '',
-                    'lastname'   => '',
-                    'email'      => '',
-                    'telephone'  => '',
-                    'company'    => '',
-                    'address_1'  => '',
-                    'address_2'  => '',
-                    'postcode'   => '',
-                    'city'       => '',
-                    'country_id' => '',
-                    'zone_id'    => '',
-                ];
 
-                $shipping_address = [];
-                foreach ($fields as $key => $field) {
+              $this->load->model('localisation/zone');
 
-                    if ($field == 'lastname') {
-                        $shipping_address['lastname'] = empty($this->request->post['lastname']) ? "" : $this->request->post['lastname'];
-                    } else {
-                        $shipping_address[$key] = empty($this->request->post[$key]) ? "" : $this->request->post[$key];
-                    }
-                }
+              //TODO: fix this!
+              $zone_info = [];
+              if (!empty($this->request->post['zone_id'])) {
+                  $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
+              }
 
-                prd($shipping_address);
+              //            if ($zone_info) {
+              //                $this->session->data['payment_address']['zone'] = $zone_info['name'];
+              //                $this->session->data['payment_address']['zone_code'] = $zone_info['code'];
+              //            } else {
+              //                $this->session->data['payment_address']['zone'] = '';
+              //                $this->session->data['payment_address']['zone_code'] = '';
+              //            }
 
+              //            if (!empty($this->request->post['shipping_address'])) {
+              //                $this->session->data['guest']['shipping_address'] = $this->request->post['shipping_address'];
+              //            } else {
+              //                $this->session->data['guest']['shipping_address'] = false;
+              //            }
 
-            }
-
-            // TODO; vajag
-            // $this->cart->unset();
-        }
-
-        return $json;
+              // Default Payment Address
+              if ($this->cart->getShippingAddress()) {
 
 
-    } */
+                  $fields = [
+                      'firstname'  => '',
+                      'lastname'   => '',
+                      'email'      => '',
+                      'telephone'  => '',
+                      'company'    => '',
+                      'address_1'  => '',
+                      'address_2'  => '',
+                      'postcode'   => '',
+                      'city'       => '',
+                      'country_id' => '',
+                      'zone_id'    => '',
+                  ];
+
+                  $shipping_address = [];
+                  foreach ($fields as $key => $field) {
+
+                      if ($field == 'lastname') {
+                          $shipping_address['lastname'] = empty($this->request->post['lastname']) ? "" : $this->request->post['lastname'];
+                      } else {
+                          $shipping_address[$key] = empty($this->request->post[$key]) ? "" : $this->request->post[$key];
+                      }
+                  }
+
+                  prd($shipping_address);
 
 
-    public function register_validate(&$data = []) {
+              }
+
+              // TODO; vajag
+              // $this->cart->unset();
+          }
+
+          return $json;
+
+
+      } */
+
+
+    public function register_validate(&$data = [])
+    {
 
         $this->load->language('checkout/checkout');
 
@@ -1060,7 +972,6 @@ class ControllerCheckoutCheckout extends Controller {
             if (isset($this->request->post['firstname']) && ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32))) {
                 $json['error']['firstname'] = $this->language->get('error_firstname');
             }
-
 
 
             if (isset($this->request->post['email']) && ((utf8_strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email']))) {
@@ -1210,7 +1121,8 @@ class ControllerCheckoutCheckout extends Controller {
         return $json;
     }
 
-    public function payment_address_validate(&$data = []) {
+    public function payment_address_validate(&$data = [])
+    {
 
         $this->load->language('checkout/checkout');
 
@@ -1320,7 +1232,7 @@ class ControllerCheckoutCheckout extends Controller {
                     // $address_id = $this->model_account_address->addAddress($this->request->post);
                     // $this->session->data['payment_address'] = $this->model_account_address->getAddress($address_id);
 
-                    $this->cart->setPaymentAddress( $this->request->post );
+                    $this->cart->setPaymentAddress($this->request->post);
 
 
                     /*
@@ -1338,7 +1250,8 @@ class ControllerCheckoutCheckout extends Controller {
         return $json;
     }
 
-    public function shipping_address_validate(&$data = []) {
+    public function shipping_address_validate(&$data = [])
+    {
 
         $this->load->language('checkout/checkout');
 
@@ -1467,9 +1380,8 @@ class ControllerCheckoutCheckout extends Controller {
         return $json;
     }
 
-    public function shipping_method_set() {
-
-
+    public function shipping_method_set()
+    {
         $json = [];
 
         if (!isset($this->request->request['shipping_method'])) {
@@ -1490,7 +1402,7 @@ class ControllerCheckoutCheckout extends Controller {
 
         if (!$json) {
 
-            $this->cart->setShippingMethods() ;
+            $this->cart->setShippingMethods();
 
             $this->cart->setShippingMethod($this->cart->getShippingMethod($this->request->request['shipping_method']));
             $this->cart->setComment((isset($this->request->request['comment'])) ? strip_tags($this->request->request['comment']) : '');
@@ -1501,7 +1413,8 @@ class ControllerCheckoutCheckout extends Controller {
 
     }
 
-    private function shipping_method_validate(&$data = []) {
+    private function shipping_method_validate(&$data = [])
+    {
 
         $this->load->language('checkout/checkout');
         $json = [];
@@ -1515,7 +1428,8 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
 
-    public function payment_method_validate(&$data = []) {
+    public function payment_method_validate(&$data = [])
+    {
         $this->load->language('checkout/checkout');
 
         $json = [];
@@ -1613,7 +1527,8 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
 
-    public function guest( $render = false, &$data = [] ) {
+    public function guest($render = false, &$data = [])
+    {
         $this->load->language('checkout/checkout');
 
         $data['text_select'] = $this->language->get('text_select');
@@ -1822,8 +1737,8 @@ class ControllerCheckoutCheckout extends Controller {
         }
     }
 
-    public function cart($render = true, &$data = []) {
-
+    public function cart($render = true, &$data = [])
+    {
 
 
         // return $this->load->controller('checkout/cart/getCartTable');
@@ -1834,6 +1749,8 @@ class ControllerCheckoutCheckout extends Controller {
         // $this->log->write($this->session->data('shipping_address'));
 
 
+        // $cart_data = $this->load->language('checkout/checkout');
+        // $cart_data = array_merge($cart_data, $this->load->controller('checkout/cart/getCartTableData'));
         $cart_data = $this->load->controller('checkout/cart/getCartTableData');
 
         // prd($cart_data);
@@ -1852,7 +1769,8 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
 
-    public function confirm($render = true, &$data = []) {
+    public function confirm($render = true, &$data = [])
+    {
 
 
         // WIP
@@ -1863,7 +1781,6 @@ class ControllerCheckoutCheckout extends Controller {
 
         // JA VALIDĒJAS korekti, tad netiks atgriezts NEKAS,
         // bet jha nevalidējas, tad būs error masīvs!
-
 
 
         if ($this->validate($this->request->post, false))// tukšs masivs, un FALSE - jo gribam RETURN nevis render oiutput !
@@ -1925,7 +1842,7 @@ class ControllerCheckoutCheckout extends Controller {
             //               $customer['email'] = $customer_info['email'];
             //               $customer['telephone'] = $customer_info['telephone'];
             //               $customer['fax'] = $customer_info['fax'];
-            //               $customer['custom_field'] = json_decode($customer_info['custom_field'], true);
+
             //            } elseif (isset($this->session->data['guest'])) {
             //                $customer['customer_id'] = 0;
             //                $customer['customer_group_id'] = isset($this->session->data['guest']['customer_group_id']) ? $this->session->data['guest']['customer_group_id'] : $this->config->get('config_customer_group_id');;
@@ -1934,7 +1851,7 @@ class ControllerCheckoutCheckout extends Controller {
             //                $customer['email'] = isset($this->session->data['guest']['email']) ? $this->session->data['guest']['email'] : '';
             //                $customer['telephone'] = isset($this->session->data['guest']['telephone']) ? $this->session->data['guest']['telephone'] : '';
             //                $customer['fax'] = isset($this->session->data['guest']['fax']) ? $this->session->data['guest']['fax'] : '';
-            //                $customer['custom_field'] = isset($this->session->data['guest']['custom_field']) ? $this->session->data['guest']['custom_field'] : '';
+
             //            }
 
 
@@ -1960,18 +1877,18 @@ class ControllerCheckoutCheckout extends Controller {
 
             // pr($this->cart->getAddress2());
 
-            foreach( $this->cart->getAddress2() as $key => $val ) {
-                if($val > '') $order_data['payment_address'][$key] = $val;
+            foreach ($this->cart->getAddress2() as $key => $val) {
+                if ($val > '') {
+                    $order_data['payment_address'][$key] = $val;
+                }
             }
 
-            if($this->cart->getAddress2()) {
+            if ($this->cart->getAddress2()) {
                 // tātad, ir billing_address_details !
-                $order_data['payment_address_different'] = 1 ; // TODO: Tizli, a ko darīt ....
+                $order_data['payment_address_different'] = 1; // TODO: Tizli, a ko darīt ....
             } else {
-                $order_data['payment_address_different'] = 0 ;
+                $order_data['payment_address_different'] = 0;
             }
-
-
 
 
             // prd( $this->cart->getShippingAddress() ) ;
@@ -1991,7 +1908,9 @@ class ControllerCheckoutCheckout extends Controller {
             }
 
             $order_data = array_merge($order_data, $this->cart->getShippingAddress());
-            $order_data['shipping_method'] = $this->cart->getShippingMethod()['title'];
+            // mums vajag kā masīvu, jo addOrder metode pievieno arī šos iekš Totals tabulas!!! (tas ir labo, jo tad pagaidām tas
+            // nekur netraucē!
+            $order_data['shipping_method'] = $this->cart->getShippingMethod();
             $order_data['shipping_code'] = $this->cart->getShippingMethod()['code'];
             $order_data['products'] = $this->cart->getProducts();
 
@@ -2101,7 +2020,6 @@ class ControllerCheckoutCheckout extends Controller {
         }
 
 
-
         $data['column_image'] = $this->language->get('column_image');
         $data['column_name'] = $this->language->get('column_name');
         $data['column_model'] = $this->language->get('column_model');
@@ -2135,17 +2053,16 @@ class ControllerCheckoutCheckout extends Controller {
             ];
         }
 
-
         if ($render !== false) {
-            $data['payment'] = $this->load->controller('extension/payment/' . $this->session->data['payment_method']['code']);
+            $code = explode('.', $this->session->data['payment_method']['code'])[0];
+
+            $data['payment'] = $this->load->controller('extension/payment/' . $code);
             $this->response->setOutput($this->load->view('checkout/easy_confirm', $data));
         }
 
-
     }
 
-    public
-    function vatValidation(
+    public function vatValidation(
         $vat = ''
     ) {
 
@@ -2186,7 +2103,8 @@ class ControllerCheckoutCheckout extends Controller {
         }
     }
 
-    public function customfield() {
+    public function customfield()
+    {
         $json = [];
         $this->load->model('account/custom_field');
         // Customer Group
@@ -2208,7 +2126,8 @@ class ControllerCheckoutCheckout extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    private function processPostData() {
+    private function processPostData()
+    {
 
 
         return;
@@ -2238,18 +2157,19 @@ class ControllerCheckoutCheckout extends Controller {
      *
      * otrās adreses validēšana.
      * */
-    public function address2_validate() {
+    public function address2_validate()
+    {
         $json = [];
         $this->load->model('account/custom_field');
 
-        if($this->request->post('billing_address_details')) {
+        if ($this->request->post('billing_address_details')) {
 
             $this->cart->setAddress2($this->request->post('address2'));
 
             // prd($this->cart->getAddress2());
 
         } else {
-            $this->cart->clearAddress2( );
+            $this->cart->clearAddress2();
         }
         return [];
     }
@@ -2258,7 +2178,9 @@ class ControllerCheckoutCheckout extends Controller {
      * Tikai redigesana groza atlikumam!
      */
 
-    public function edit_only() {
+    public function edit_only()
+    {
+
 
         // Update
         if (!empty($this->request->post['quantity'])) {
@@ -2267,13 +2189,6 @@ class ControllerCheckoutCheckout extends Controller {
             }
 
             $this->session->data['success'] = $this->language->get('text_remove');
-
-            // unset($this->session->data['shipping_method']);
-            // unset($this->session->data['shipping_methods']);
-            // unset($this->session->data['payment_method']);
-            // unset($this->session->data['payment_methods']);
-            // unset($this->session->data['reward']);
-
         }
 
 
@@ -2281,7 +2196,8 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
 
-    public function validateCoupon() {
+    public function validateCoupon()
+    {
         $this->load->language('checkout/checkout');
         $this->load->language('extension/total/coupon');
 

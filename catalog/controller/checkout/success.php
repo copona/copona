@@ -1,7 +1,9 @@
 <?php
 
-class ControllerCheckoutSuccess extends Controller {
-    public function index() {
+class ControllerCheckoutSuccess extends Controller
+{
+    public function index()
+    {
         $data = $this->load->language('checkout/success');
 
         $this->load->model('account/order');
@@ -12,9 +14,7 @@ class ControllerCheckoutSuccess extends Controller {
 
         $data['config_azon_store_info_email'] = $this->config->get('config_azon_store_info_email');
         $data['config_telephone'] = $this->config->get('config_telephone');
-
         $data['after_purchase'] = false;
-
 
         //$debug = true;
         $debug = false;
@@ -25,15 +25,12 @@ class ControllerCheckoutSuccess extends Controller {
 
         $data['debug'] = $debug;
 
+        // Process, Notify IF and ONLY, current Order Status ID is NOT 0 ! That means,
+        // it's already somewhere (in Payment modules)  processed.
 
-        // if($debug) {
-        //     $this->session->data['order_id'] = 25081; //arnis@indeed.pro debug order id
-        // }
+        $order = isset($this->session->data['order_id']) ? $this->model_checkout_order->getOrder($this->session->data['order_id']) : [];
 
-
-        if (isset($this->session->data['order_id'])) {
-
-            $order = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        if ($order && $order['order_status_id']) {
 
             // Ja ir kupons, tad to vajag atzīmēt, kā "izmantotu"
             // if($this->model_checkout_order->getOrderTotals($this->session->data['order_id'], 'coupon')){
@@ -59,7 +56,6 @@ class ControllerCheckoutSuccess extends Controller {
 
             $data['shipping_total'] = $this->currency->format($this->tax->calculate($data['shipping_total'], false, $this->config->get('config_tax')), $order['currency_code'], false, false);
 
-
             foreach ($products as $product) {
                 $categories = $this->model_catalog_product->getCategories($product['product_id']);
                 $product_categories = [];
@@ -75,9 +71,17 @@ class ControllerCheckoutSuccess extends Controller {
                     }
                 }
 
+                if (!empty($product['image'])) {
+                    $image = $this->model_tool_image->resize($product['image'], 150, 150);
+                }
+
+                if (!$image) {
+                    $image = $this->model_tool_image->resize(Config::get('config_no_image', 'placeholder.png'), 150, 150);
+                }
 
                 $data['products'][] = [
                     'product_id'         => $product['product_id'],
+                    'thumb'              => $image,
                     'name'               => html_entity_decode($product['name']),
                     'sku'                => html_entity_decode($product['model']),
                     'model'              => html_entity_decode($product['model']),
@@ -94,10 +98,6 @@ class ControllerCheckoutSuccess extends Controller {
                 ];
             }
             // prd($data['products']);
-
-            if (!$debug) {
-                $this->cart->clear();
-            }
 
             $data['after_purchase'] = true;
 
@@ -146,108 +146,121 @@ class ControllerCheckoutSuccess extends Controller {
             $data['shipping_method'] = $this->session->data['shipping_method'];
             $data['shipping_address'] = $this->session->data['shipping_address'];
 
-            $data['payment_instruction'] = nl2br( $this->cart->getPaymentInstruction() ) ;
+            $data['payment_instruction'] = nl2br($this->cart->getPaymentInstruction());
 
             // prd($data['payment_instruction']);
+            // $shipping_method = explode('.', $order['shipping_code'])[0];
 
+            $shipping_method = $this->cart->getShippingMethod();
+            $data['shipping_type_address'] = '';
 
-            $data['order'] = $this->model_account_order->getOrder($data['order_id']);
-            $shipping_method = explode('.', $data['shipping_method']['code'])[0];
-            // $data['shipping_type_text'] = $data['text_' . $shipping_method];
-
-
-            switch ($shipping_method) {
-                case 'location_based_shipping':
-                    $data['shipping_type_address'] = $data['shipping_address']['city']
-                        . ", " . $data['shipping_address']['address_1']
-                        . ", " . $data['shipping_address']['postcode']
-                        . ", " . $data['shipping_address']['country']
-                        . ".";
-                    break;
-                default:
-                    $data['shipping_type_address'] = $data['shipping_method']['title']; // Omniva, Pasta stacija u.c.
+            if ($shipping_method) {
+                switch (explode(".", $shipping_method['code'])[0]) {
+                    case 'location_based_shipping':
+                        $data['shipping_type_address'] = $data['shipping_address']['city']
+                            . ", " . $data['shipping_address']['address_1']
+                            . ", " . $data['shipping_address']['postcode']
+                            . ", " . $data['shipping_address']['country']
+                            . ".";
+                        break;
+                    default:
+                        $data['shipping_type_address'] = $shipping_method['title']; // Omniva, Pasta stacija u.c.
+                }
             }
-
 
             $data['estimated_delivery_date'] = date("d-m-Y", time() + 24 * 3600 * 14); // Harkodēts!!! Nomainīt!!!!!!!!!!!!!!!
             $data['ordercheck_link'] = $this->url->link('account/ordercheck');
 
-            // /*
-
-
             $data['text_thanks'] = sprintf($this->language->get('text_thanks'), $data['order_id']);
             $data['text_success'] = sprintf($this->language->get('text_success'), $data['order_id']);
 
-            if (!$debug) {
-                unset($this->session->data['shipping_method']);
-                unset($this->session->data['shipping_methods']);
-                unset($this->session->data['payment_method']);
-                unset($this->session->data['payment_methods']);
-                unset($this->session->data['guest']);
-                unset($this->session->data['comment']);
-                unset($this->session->data['order_id']);
-                unset($this->session->data['coupon']);
-                unset($this->session->data['reward']);
-                unset($this->session->data['voucher']);
-                unset($this->session->data['vouchers']);
-                unset($this->session->data['totals']);
 
-                // Beos MOD
-                unset($this->session->data['order_comment']);
-                unset($this->session->data['delivery_date']);
-                unset($this->session->data['delivery_time']);
-                unset($this->session->data['survey']);
-                // unset($this->session->data['shipping_address']);
-                unset($this->session->data['payment_address']);
+            $this->document->setTitle($this->language->get('heading_title'));
+
+            $data['breadcrumbs'] = [];
+
+            $data['breadcrumbs'][] = [
+                'text' => $this->language->get('text_home'),
+                'href' => $this->url->link('common/home'),
+            ];
+
+            $data['breadcrumbs'][] = [
+                'text' => $this->language->get('text_success'),
+                'href' => $this->url->link('checkout/success'),
+            ];
+
+            $data['heading_title'] = $this->language->get('heading_title');
+
+            if ($this->customer->isLogged()) {
+                $data['text_message'] = sprintf($data['text_customer'], $this->url->link('account/account', '', true), $this->url->link('account/order', '', true), $this->url->link('account/download', '', true),
+                    $this->url->link('information/contact'));
+            } else {
+                $data['text_message'] = sprintf($data['text_guest'], $this->url->link('information/contact'));
             }
-            // */
-        }
 
-        $this->document->setTitle($this->language->get('heading_title'));
+            $data['button_continue'] = $this->language->get('button_continue');
 
-        $data['breadcrumbs'] = [];
+            $data['continue'] = $this->url->link('common/home');
 
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home'),
-        ];
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
+            $data['content_bottom'] = $this->load->controller('common/content_bottom');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('text_basket'),
-            'href' => $this->url->link('checkout/cart'),
-        ];
+            // prd($data);
 
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('text_checkout'),
-            'href' => $this->url->link('checkout/checkout', '', true),
-        ];
+            // Clear Everything uppon successfull order !
+            // Clearing All and Everything in Cart !
+            if (!$debug) {
+               $this->cart->unset();
+            }
 
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('text_success'),
-            'href' => $this->url->link('checkout/success'),
-        ];
 
-        $data['heading_title'] = $this->language->get('heading_title');
-
-        if ($this->customer->isLogged()) {
-            $data['text_message'] = sprintf($data['text_customer'], $this->url->link('account/account', '', true), $this->url->link('account/order', '', true), $this->url->link('account/download', '', true),
-                $this->url->link('information/contact'));
+            $this->response->setOutput($this->load->view('checkout/easy_success', $data));
         } else {
-            $data['text_message'] = sprintf($data['text_guest'], $this->url->link('information/contact'));
+
+
+            $this->load->language('error/not_found');
+            $this->document->setTitle($this->language->get('heading_title'));
+            $data['breadcrumbs'] = array();
+            $data['breadcrumbs'][] = array(
+                'text' => $this->language->get('text_home'),
+                'href' => $this->url->link('common/home')
+            );
+
+            if (isset($this->request->get['route'])) {
+                $url_data = $this->request->get;
+                unset($url_data['_route_']);
+                $route = $url_data['route'];
+                unset($url_data['route']);
+                $url = '';
+                if ($url_data) {
+                    $url = '&' . urldecode(http_build_query($url_data, '', '&'));
+                }
+
+                $data['breadcrumbs'][] = array(
+                    'text' => $this->language->get('heading_title'),
+                    'href' => $this->url->link($route, $url, $this->request->server['HTTPS'])
+                );
+            }
+
+            $data['heading_title'] = $this->language->get('heading_title');
+            $data['text_error'] = $this->language->get('text_error');
+            $data['button_continue'] = $this->language->get('button_continue');
+            $data['continue'] = $this->url->link('common/home');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
+            $data['content_bottom'] = $this->load->controller('common/content_bottom');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
+
+            // $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
+
+            $this->response->setOutput($this->load->view('error/not_found', $data));
+
         }
-
-        $data['button_continue'] = $this->language->get('button_continue');
-
-        $data['continue'] = $this->url->link('common/home');
-
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['column_right'] = $this->load->controller('common/column_right');
-        $data['content_top'] = $this->load->controller('common/content_top');
-        $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer'] = $this->load->controller('common/footer');
-        $data['header'] = $this->load->controller('common/header');
-
-
-        $this->response->setOutput($this->load->view('checkout/easy_success', $data));
     }
 }

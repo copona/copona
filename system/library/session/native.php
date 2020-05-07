@@ -29,6 +29,9 @@ class Native extends \SessionHandler {
     }
 
     public function gc($maxlifetime) {
+        $log = new \Log('session_gx.log');
+        $log->write($maxlifetime);
+
         return parent::gc($maxlifetime);
     }
 

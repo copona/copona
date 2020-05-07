@@ -43,6 +43,12 @@ class ControllerCommonFooter extends Controller {
         $data['wishlist'] = $this->url->link('account/wishlist', '', true);
         $data['newsletter'] = $this->url->link('account/newsletter', '', true);
 
+        $information_info = $this->model_catalog_information->getInformation(Config::get('config_account_id'));
+
+        //TODO: Terms rename, replace, add additional variable for admin options?
+        $data['terms'] = $information_info ? $this->url->link('information/information', 'information_id=' . $information_info['information_id'])  : '' ;
+        $data['terms_title'] = $information_info ? $information_info['title'] : '' ;
+
         // For EDIT link in footer.
         $data['token'] = $this->session->data('token');
 
