@@ -17,13 +17,18 @@ class Php implements TemplateAdapterInterface
             extract($data);
 
             $registry = \Registry::getInstance();
+            $this->flash = $registry->get('flash');
+
+
 
             //TODO: just remove!
             if(empty($breadcrumbs)) $breadcrumbs = [];
 
             ob_start();
 
+            // debug_template( $template_file ) ;
             include $template_file;
+
 
             return ob_get_clean();
         } else {
