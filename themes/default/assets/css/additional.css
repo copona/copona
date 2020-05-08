@@ -364,4 +364,8 @@ span.error input {
     font-size: 12px;
 }
 
+#full-width-slider img{
+    max-width: 100%;
+}
+
 
