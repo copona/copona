@@ -432,6 +432,9 @@ class ControllerCatalogCategory extends Controller {
             $data['action'] = $this->url->link('catalog/category/edit', 'token=' . $this->session->data['token'] . '&category_id=' . $this->request->get['category_id'] . $url, true);
         }
 
+        $data['category_id'] = $this->request->get('category_id');
+
+
         $data['cancel'] = $this->url->link('catalog/category', 'token=' . $this->session->data['token'] . $url, true);
 
         if (isset($this->request->get['category_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
