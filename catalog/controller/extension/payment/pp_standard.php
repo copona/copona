@@ -21,7 +21,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
         if ($order_info) {
-            $data['business'] = $this->config->get('pp_standard_email');
+            $data['business'] = trim($this->config->get('pp_standard_email'));
             $data['item_name'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
             $data['products'] = array();
