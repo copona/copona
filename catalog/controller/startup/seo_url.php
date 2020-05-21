@@ -1,14 +1,17 @@
 <?php
 
-class ControllerStartupSeoUrl extends Controller {
+class ControllerStartupSeoUrl extends Controller
+{
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         parent::__construct($registry);
         $registry->load->model('catalog/category');
     }
 
 
-    public function index() {
+    public function index()
+    {
         // Add rewrite to url class
         if ($this->config->get('config_seo_url')) {
             $this->url->addRewrite($this);
@@ -92,7 +95,8 @@ class ControllerStartupSeoUrl extends Controller {
         }
     }
 
-    public function rewrite($link) {
+    public function rewrite($link)
+    {
 
         $url_info = parse_url(str_replace('&amp;', '&', $link));
 
@@ -153,7 +157,6 @@ class ControllerStartupSeoUrl extends Controller {
                     $this->load->model('catalog/category');
 
                     $url = $this->model_catalog_category->getCategorySeoLink($category_id, false) . $url;
-
 
 
                     unset($data[$key]);
