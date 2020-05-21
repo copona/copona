@@ -8,6 +8,9 @@ class ControllerProductProduct extends Controller {
     public function index() {
         //$this->load->language('product/product');
         $data = $this->language->load('product/product');
+
+
+
         $data['config_url'] = $this->config->get('config_url');
         $data['currency'] = $this->session->data['currency'];
         $data['user_id'] = $this->customer->getId() ? $this->customer->getId() : $this->session->data('visitor_id');
@@ -294,13 +297,35 @@ class ControllerProductProduct extends Controller {
                 $data['wishlist'] = $this->session->data('wishlist');
             }
 
-            if ($product_info['quantity'] <= 0) {
-                $data['stock'] = $product_info['stock_status'];
-            } elseif ($this->config->get('config_stock_display')) {
-                $data['stock'] = $product_info['quantity'];
+
+            /* Logic, how to display product stock
+           A) Config set to: DISPLAY STOCK:
+              - if out of stock, display product stock status
+              - if in stock, display exact number
+           B) else,
+              - if out of stock, display product stock status
+              - if in stock, display "In stock"
+            */
+
+            if( $this->config->get('config_stock_display') ) {
+                if ($product_info['quantity'] <= 0) {
+                    $data['stock'] = $product_info['stock_status'];
+                } else {
+                    $data['stock'] = $product_info['quantity'];
+                }
             } else {
-                $data['stock'] = $data['text_instock'];
+                if ($product_info['quantity'] <= 0) {
+                    $data['stock'] = $data['text_out_of_stock'];
+                } else {
+                    $data['stock'] = $data['text_in_stock'];
+                }
             }
+
+
+
+
+
+
 
             $this->load->model('tool/image');
 
