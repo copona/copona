@@ -18,6 +18,18 @@ class ModelExtensionShippingFlat extends Model {
 
         $method_data = array();
 
+
+        if ($this->cart->getTotal() > $this->config->get('flat_free_from')) {
+            $cost = 0; // Fre delivery from.
+        } else {
+            $cost = $this->config->get('flat_cost');
+        }
+
+        if ($this->cart->getTotal() < $this->config->get('flat_available_from')) {
+            $status = 0;
+        }
+
+
         if ($status) {
             $quote_data = array();
 
@@ -26,10 +38,10 @@ class ModelExtensionShippingFlat extends Model {
                 'title'        => !empty($flat_description[$this->config->get('config_language_id')]['title'])
                   ? $flat_description[$this->config->get('config_language_id')]['title']
                   : $this->language->get('text_description'),
-                'cost'         => $this->config->get('flat_cost'),
-                'cost_with_tax'=> $this->currency->format($this->tax->calculate($this->config->get('flat_cost'), $this->config->get('flat_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'],"",false),
+                'cost'         => $cost,
+                'cost_with_tax'=> $this->currency->format($this->tax->calculate($cost, $this->config->get('flat_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'],"",false),
                 'tax_class_id' => $this->config->get('flat_tax_class_id'),
-                'text'         => $this->currency->format($this->tax->calculate($this->config->get('flat_cost'), $this->config->get('flat_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
+                'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('flat_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
             );
 
             $method_data = array(

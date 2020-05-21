@@ -10,4 +10,5 @@ $_['entry_status'] = 'Status';
 $_['entry_sort_order'] = 'Sort Order';
 $_['error_permission'] = 'Warning: You do not have permission to modify flat rate shipping!';
 $_['text_extension'] = 'Extension';
-?>
+$_['entry_flat_free_from'] = 'Free delivery  for orders above. Set to huge number, to "disable" it. ';
+$_['entry_flat_available_from'] = 'Shipping method available for orders above';

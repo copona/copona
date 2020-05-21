@@ -94,6 +94,21 @@ class ControllerExtensionShippingFlat extends Controller {
         } else {
             $data['flat_description'] = $this->config->get('flat_description');
         }
+
+        $data['fields'] = [
+            'flat_free_from',
+            'flat_available_from',
+        ];
+
+        foreach($data['fields'] as $field) {
+            if (isset($this->request->post[$field])) {
+                $data[$field] = $this->request->post[$field];
+            } else {
+                $data[$field] = $this->config->get($field);
+            }
+        }
+
+
         $data['languages'] = $this->model_localisation_language->getLanguages();
 
         //pr($data['module_description']);
