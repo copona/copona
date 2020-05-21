@@ -50,7 +50,9 @@ class ControllerCheckoutCheckout extends Controller
 
         if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
             // $this->response->redirect($this->url->link('checkout/cart'));
-            $this->flash->error("NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ");
+            // This, log, only for DEBUG time:
+            $this->log->write( $this->language->get('text_warning_not_enough_in_stock') );
+            $this->flash->error( $this->language->get('text_warning_not_enough_in_stock') );
         }
 
 
@@ -531,9 +533,7 @@ class ControllerCheckoutCheckout extends Controller
         //         }
         //     }
         //
-        //     if ($product['minimum'] > $product_total) {
-        //         // $this->response->redirect($this->url->link('checkout/cart'));
-        //         $this->flash->error(" NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ");
+        //     if ($product['minimum'] > $product_total) {                
         //
         //     }
         // }
@@ -736,8 +736,7 @@ class ControllerCheckoutCheckout extends Controller
             $json['redirect'] = $this->url->link('checkout/checkout', '', 'SSL');
         }
 
-        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-            // $json['redirect'] = $this->url->link('checkout/cart');
+        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {            
             $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
         }
 
@@ -799,8 +798,8 @@ class ControllerCheckoutCheckout extends Controller
 
           // Validate cart has products and has stock.
           if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-              // $json['redirect'] = $this->url->link('checkout/cart');
-              $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
+              
+              
           }
 
           // Check if guest checkout is available.
@@ -1134,8 +1133,7 @@ class ControllerCheckoutCheckout extends Controller
         }
 
         // Validate cart has products and has stock.
-        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-            //			$json['redirect'] = $this->url->link('checkout/cart');
+        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {            
             $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
         }
 
@@ -1152,9 +1150,7 @@ class ControllerCheckoutCheckout extends Controller
         //     }
         //
         //     if ($product['minimum'] > $product_total) {
-        //         // $json['redirect'] = $this->url->link('checkout/cart');
-        //         $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
-        //
+        //         // $json['redirect'] = $this->url->link('checkout/cart');        //
         //         break;
         //     }
         // }
@@ -1286,8 +1282,7 @@ class ControllerCheckoutCheckout extends Controller
         //     }
         //
         //     if ($product['minimum'] > $product_total) {
-        //         // $json['redirect'] = $this->url->link('checkout/cart');
-        //         $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
+        //         // $json['redirect'] = $this->url->link('checkout/cart');        
         //
         //         break;
         //     }
@@ -1466,8 +1461,7 @@ class ControllerCheckoutCheckout extends Controller
         //     }
         //
         //     if ($product['minimum'] > $product_total) {
-        //         // $json['redirect'] = $this->url->link('checkout/cart');
-        //         $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
+        //         // $json['redirect'] = $this->url->link('checkout/cart');        
         //
         //         break;
         //     }
