@@ -94,6 +94,9 @@ class ControllerCommonFooter extends Controller {
 
             $this->model_tool_online->addOnline($ip, $this->customer->getId(), $url, $referer);
         }
+
+        $data['config_social_media'] = is_array($this->config->get('config_social_media')) ? $this->config->get('config_social_media') : [];
+
         $this->hook->getHook('footer/index/after', $data);
         return $this->load->view('common/footer', $data);
     }
