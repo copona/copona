@@ -34,5 +34,7 @@
       "Theme\\": "./themes/"
     }
   },
-  "repositories": []
+  "repositories": [],
+  "require-dev": {
+  }
 }
