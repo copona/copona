@@ -2,10 +2,11 @@
 class ControllerExtensionPaymentPPStandard extends Controller {
 
     public function index() {
-        $this->load->language('extension/payment/pp_standard');
+        $data = $this->load->language('extension/payment/pp_standard');
 
         $data['text_testmode'] = $this->language->get('text_testmode');
         $data['button_confirm'] = $this->language->get('button_confirm');
+        $data['back'] = $this->url->link('checkout/checkout');
 
         $data['testmode'] = $this->config->get('pp_standard_test');
 
@@ -57,9 +58,21 @@ class ControllerExtensionPaymentPPStandard extends Controller {
                 );
             }
 
+            // Shipping
+            if ($this->cart->getShipping() > 0) {
+                $data['products'][] = array(
+                    'name'     => $this->language->get('text_shipping'),
+                    'model'    => '',
+                    'price'    => $this->cart->getShipping(),
+                    'quantity' => 1,
+                    'option'   => array(),
+                    'weight'   => 0
+                );
+            }
+
             $data['discount_amount_cart'] = 0;
 
-            $total = $this->currency->format($order_info['total'] - $this->cart->getSubTotal(), $order_info['currency_code'], false, false);
+            $total = $this->currency->format($order_info['total'] - $this->cart->getShipping() - $this->cart->getSubTotal(), $order_info['currency_code'], false, false);
 
             if ($total > 0) {
                 $data['products'][] = array(

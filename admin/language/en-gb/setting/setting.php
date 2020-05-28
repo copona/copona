@@ -61,6 +61,11 @@ $_['entry_weight_class'] = 'Weight Class';
 $_['entry_limit_admin'] = 'Default Items Per Page (Admin)';
 $_['entry_product_count'] = 'Category Product Count';
 
+$_['entry_contact_id'] = 'Contact us page';
+$_['text_contact_id'] = 'Contact info';
+
+
+
 $_['text_part_numbers'] = 'Part Numbers';
 
 $_['entry_review'] = 'Allow Reviews';
@@ -112,7 +117,8 @@ $_['entry_mail_smtp_hostname'] = 'SMTP Hostname';
 $_['entry_mail_smtp_username'] = 'SMTP Username';
 $_['entry_mail_smtp_password'] = 'SMTP Password';
 $_['entry_mail_smtp_port'] = 'SMTP Port';
-$_['entry_mail_smtp_timeout'] = 'SMTP Timeout';
+$_['entry_mail_smtp_timeout'] = 'SMTP Timeout (seconds)';
+$_['entry_mail_smtp_from_email'] = 'SMTP "From:" e-mail address';
 $_['entry_mail_alert'] = 'Alert Mail';
 $_['entry_mail_alert_email'] = 'Additional Alert Mail';
 $_['entry_secure'] = 'Use SSL';
@@ -214,4 +220,3 @@ $_['error_malformed_filename'] = 'Error Malformed Log Filename!';
 $_['error_encryption'] = 'Encryption Key must be between 32 and 1024 characters!';
 $_['entry_timezone'] = 'Time Zone';
 $_['help_timezone'] = 'Select City for Time Zone';
-?>

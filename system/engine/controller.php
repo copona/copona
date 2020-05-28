@@ -1,5 +1,7 @@
 <?php
 
+use Copona\System\Library\Breadcrumbs;
+
 /**
  * @property string $id
  * @property string $template
@@ -112,14 +114,29 @@
  * @property ModelUserApi $model_user_api
  * @property ModelUserUserGroup $model_user_user_group
  * @property ModelUserUser $model_user_user
+ * @property \Copona\System\Library\Extension\ExtensionManager $extension
  * */
 abstract class Controller
 {
+    /**
+     * @var Registry
+     */
     protected $registry;
 
-    public function __construct($registry)
+    /**
+     * @var Breadcrumbs
+     */
+    protected $breadcrumbs;
+
+    /**
+     * Controller constructor.
+     *
+     * @param null $registry
+     */
+    public function __construct($registry = null)
     {
-        $this->registry = $registry;
+        $this->registry = $registry ? $registry : \Registry::getInstance();
+        $this->breadcrumbs = new Breadcrumbs($registry);
     }
 
     public function __get($key)
@@ -132,7 +149,8 @@ abstract class Controller
         $this->registry->set($key, $value);
     }
 
-    public function checkCustomerLogin($redirect_route, $args = '', $is_secured = true){
+    public function checkCustomerLogin($redirect_route, $args = '', $is_secured = true)
+    {
         if (!$this->customer->isLogged()) {
             $this->session->data['redirect'] = $this->url->link($redirect_route, '', true);
             $this->response->redirect($this->url->link('account/login', '', true));

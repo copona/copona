@@ -2,7 +2,7 @@
 class ControllerProductCompare extends Controller {
 
     public function index() {
-        $this->load->language('product/compare');
+        $data = $this->load->language('product/compare');
 
         $this->load->model('catalog/product');
 
@@ -164,6 +164,8 @@ class ControllerProductCompare extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
+
+        $this->hook->getHook('product/compare/after', $data);
 
         $this->response->setOutput($this->load->view('product/compare', $data));
     }

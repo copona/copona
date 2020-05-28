@@ -25,6 +25,7 @@ class ControllerCommonHome extends Controller {
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
 
+        $this->hook->getHook('controller/home/after', $data);
         $this->response->setOutput($this->load->view('common/home', $data));
     }
 

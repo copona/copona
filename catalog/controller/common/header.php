@@ -5,7 +5,7 @@ class ControllerCommonHeader extends Controller {
         // Analytics
         $this->load->model('extension/extension');
 
-        $data = array_merge(array(), $this->load->language('common/header'));
+        $data = $this->load->language('common/header');
 
         $data['analytics'] = array();
         /* Theme upgrade additional start */
@@ -33,7 +33,6 @@ class ControllerCommonHeader extends Controller {
         }
 
         $data['title'] = $this->document->getTitle();
-
         $data['base'] = $server;
         //Deprecated
         $data['template_name'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
@@ -82,6 +81,7 @@ class ControllerCommonHeader extends Controller {
         $data['shopping_cart'] = $this->url->link('checkout/cart');
         $data['checkout'] = $this->url->link('checkout/checkout', '', true);
         $data['contact'] = $this->url->link('information/contact');
+        $data['email'] = $this->config->get('config_email');
         $data['telephone'] = $this->config->get('config_telephone');
         $data['product_catalog'] = $this->url->link('product/category', '', true);
 
@@ -93,6 +93,7 @@ class ControllerCommonHeader extends Controller {
         $this->load->model('catalog/category');
 
         $this->load->model('catalog/product');
+        $this->load->model('tool/image');
 
         $data['categories'] = array();
 
@@ -111,9 +112,12 @@ class ControllerCommonHeader extends Controller {
                         'filter_sub_category' => true
                     );
 
+                    //prd($child);
+
                     $children_data[] = array(
                         'name' => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-                        'href' => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])
+                        'href' => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id']),
+                        'thumb' => $this->model_tool_image->resize($child['image'], 300, 300),
                     );
                 }
 
@@ -122,10 +126,13 @@ class ControllerCommonHeader extends Controller {
                     'name'     => $category['name'],
                     'children' => $children_data,
                     'column'   => $category['column'] ? $category['column'] : 1,
-                    'href'     => $this->url->link('product/category', 'path=' . $category['category_id'])
+                    'href'     => $this->url->link('product/category', 'path=' . $category['category_id']),
+                    'thumb'    => $this->model_tool_image->resize($category['image'], 50, 50),
                 );
             }
         }
+
+        // prd($data['categories']);
 
         $this->load->model('catalog/information');
 
@@ -145,24 +152,38 @@ class ControllerCommonHeader extends Controller {
         $data['search'] = $this->load->controller('common/search');
         $data['cart'] = $this->load->controller('common/cart');
 
+        $class = '';
+
+        if(!empty( $this->request->get['route'] ) && $this->request->get['route'] == 'product/product') {
+            $class = 'product ';
+        }
+
         // For page specific css
         if (isset($this->request->get['route'])) {
             if (isset($this->request->get['product_id'])) {
-                $class = '-' . $this->request->get['product_id'];
+                $class .= 'product-' . $this->request->get['product_id'] . " ";
+                $this->document->addOGMeta('property="og:type"', 'product');
             } elseif (isset($this->request->get['path'])) {
-                $class = '-' . $this->request->get['path'];
+                $class .= 'category-' . $this->request->get['path'] . " ";
             } elseif (isset($this->request->get['manufacturer_id'])) {
-                $class = '-' . $this->request->get['manufacturer_id'];
+                $class .= 'manufacturer-' . $this->request->get['manufacturer_id'] . " ";
             } elseif (isset($this->request->get['information_id'])) {
-                $class = '-' . $this->request->get['information_id'];
+                $class .= 'information-' . $this->request->get['information_id'] . " ";
+                $this->document->addOGMeta('property="og:type"', 'article');
             } else {
-                $class = '';
+                $class .= '';
             }
 
-            $data['class'] = str_replace('/', '-', $this->request->get['route']) . $class;
+            $data['class'] = $class . str_replace('/', '-', $this->request->get['route']);
         } else {
             $data['class'] = 'common-home';
+            $this->document->addOGMeta('property="og:type"', 'website');
         }
+
+        $data['logo_meta'] = str_replace(' ', '%20', $this->model_tool_image->resize($this->config->get('config_logo'), 300, 300));
+        $data['ogmeta'] = $this->document->getOGMeta();
+
+        $this->hook->getHook('header/index/after', $data);
 
         return $this->load->view('common/header', $data);
     }

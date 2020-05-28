@@ -2,7 +2,9 @@
 class ControllerCheckoutPaymentMethod extends Controller {
 
     public function index() {
-        ;
+
+
+
         $this->language->load('checkout/checkout');
         $this->load->model('account/address');
 
@@ -53,6 +55,8 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
             $results = $this->model_extension_extension->getExtensions('payment');
 
+
+
             foreach ($results as $result) {
                 $this->language->set('text_title', $result['code']);
                 if ($this->config->get($result['code'] . '_status')) {
@@ -64,6 +68,8 @@ class ControllerCheckoutPaymentMethod extends Controller {
                     }
                 }
             }
+
+
             $sort_order = array();
 
             foreach ($method_data as $key => $value) {
@@ -120,6 +126,8 @@ class ControllerCheckoutPaymentMethod extends Controller {
             $data['agree'] = '';
         }
 
+        // WIP: this is loaded as controller from checkout/checkout/guest. And available from web. Should split in 2 functions!
+        $this->response->setOutput($this->load->view('checkout/payment_method', $data));
         return $this->load->view('checkout/payment_method', $data);
     }
 

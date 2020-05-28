@@ -20,10 +20,19 @@
         </tr>
       </thead>
       <tbody>
-          <?php if ($menus) { ?>
-              <?php foreach ($menus as $menu) { ?>
+          <?php if ($extensions) { ?>
+              <?php foreach ($extensions as $extension) { ?>
                 <tr>
-                  <td class="text-left" colspan="2"><b><?php echo $menu['name']; ?></b></td>
+                  <td class="name">
+                    <strong>
+                        <?php if ($extension['installed']) { ?>
+                          <a href="<?php echo $extension['edit']; ?>"><?php echo $extension['name']; ?></a>
+                        <?php } else { ?>
+                            <?php echo $extension['name']; ?>
+                        <?php } ?>
+                    </strong>
+                    (<?php echo $extension['extension']; ?>)
+                  </td>
                   <td class="text-right"><?php if (!$menu['installed']) { ?>
                         <a href="<?php echo $menu['install']; ?>" data-toggle="tooltip" title="<?php echo $button_install; ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i></a>
                     <?php } else { ?>

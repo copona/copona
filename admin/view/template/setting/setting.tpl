@@ -3,7 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button onclick="saveAndContinue(event);" form="form-product" data-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
+        <button onclick="saveAndContinue(event);" form="form-setting" data-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
                 class="btn btn-primary savecontinue"><i class="fa fa-save"></i><?= $button_save_continue ?></button>
         <button type="submit" id="button-save" form="form-setting" data-toggle="tooltip" title="<?php echo $button_save; ?>" disabled="disabled" class="btn btn-primary"><i class="fa fa-save"></i></button>
         <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
@@ -16,8 +16,14 @@
     </div>
   </div>
   <div class="container-fluid">
-      <?php if ($error_warning) { ?>
-        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
+
+
+      <?php if ($error) { ?>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>
+            <?php foreach( $error as $val ) { ?>
+            <?php //echo $error_warning; ?>
+            <?php echo $val . "<br />"; ?>
+          <?php } ?>
           <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
@@ -257,16 +263,24 @@
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-language"><?php echo $entry_language; ?></label>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                   <select name="config_language" id="input-language" class="form-control">
                       <?php foreach ($languages as $language) { ?>
                           <?php if ($language['code'] == $config_language) { ?>
-                            <option value="<?php echo $language['code']; ?>" selected="selected"><?php echo $language['name']; ?></option>
-                        <?php } else { ?>
-                            <option value="<?php echo $language['code']; ?>"><?php echo $language['name']; ?></option>
-                        <?php } ?>
-                    <?php } ?>
+                          <option value="<?php echo $language['code']; ?>" selected="selected"><?php echo $language['name']; ?></option>
+                          <?php } else { ?>
+                          <option value="<?php echo $language['code']; ?>"><?php echo $language['name']; ?></option>
+                          <?php } ?>
+                      <?php } ?>
                   </select>
+                </div>
+                <div class="col-sm-2 checkbox" id="forced_language">
+                  <label class="control-label">
+                  <input type="checkbox" name="config_forced_language" <?php echo (isset($config_forced_language)&&$config_forced_language==1)? "checked='checked'":""; ?> value="1">
+
+                    <span data-toggle="tooltip" title="<?php echo $help_force_language; ?>"><?php echo $entry_force_language; ?></span>
+
+                  </label>
                 </div>
               </div>
               <div class="form-group">
@@ -401,6 +415,37 @@
                   </div>
                 </div>
               </fieldset>
+
+
+
+              <fieldset>
+                <legend><?=$text_contact_id?></legend>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-contact-id"><span data-toggle="tooltip" title=""><?=$entry_contact_id?></span></label>
+                  <div class="col-sm-10">
+                    <select name="config_contact_id" id="input-contact-id" class="form-control">
+                      <option value="0"><?php echo $text_none; ?></option>
+                      <?php foreach ($informations as $information) { ?>
+                          <?php if ($information['information_id'] == $config_contact_id) { ?>
+                              <option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
+                          <?php } else { ?>
+                              <option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
+                          <?php } ?>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+
+              </fieldset>
+              <fieldset>
+
+
+
+
+
+
+
+
               <fieldset>
                 <legend><?php echo $text_part_numbers; ?></legend>
                 <div class="form-group">
@@ -1090,6 +1135,12 @@
                   <input type="hidden" name="config_icon" value="<?php echo $config_icon; ?>" id="input-icon" />
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-no_image"><span data-toggle="tooltip" title="<?php echo $help_no_image; ?>"><?php echo $entry_no_image; ?></span></label>
+                <div class="col-sm-10"><a href="" id="thumb-no_image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $no_image; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a>
+                  <input type="hidden" name="config_no_image" value="<?php echo $config_no_image; ?>" id="input-no_image" />
+                </div>
+              </div>
             </div>
             <div class="tab-pane" id="tab-ftp">
               <div class="form-group">
@@ -1202,6 +1253,15 @@
                     <input type="text" name="config_mail_smtp_password" value="<?php echo $config_mail_smtp_password; ?>" placeholder="<?php echo $entry_mail_smtp_password; ?>" id="input-mail-smtp-password" class="form-control" />
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-mail-smtp-from-email"><?php echo $entry_mail_smtp_from_email; ?></label>
+                  <div class="col-sm-10">
+                    <input type="text" name="config_mail_smtp_from_email" value="<?php echo $config_mail_smtp_from_email; ?>" placeholder="<?php echo $entry_mail_smtp_from_email; ?>"
+                           id="input-mail-smtp-from-email" class="form-control" />
+                  </div>
+                </div>
+
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-mail-smtp-port"><?php echo $entry_mail_smtp_port; ?></label>
                   <div class="col-sm-10">

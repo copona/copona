@@ -43,13 +43,38 @@ class ControllerCommonFooter extends Controller {
         $data['wishlist'] = $this->url->link('account/wishlist', '', true);
         $data['newsletter'] = $this->url->link('account/newsletter', '', true);
 
+        // For EDIT link in footer.
+        $data['token'] = $this->session->data('token');
+
+        if ($data['token']) {
+            $data['token'] = $this->session->data['token'];
+            $data['route'] = $this->request->get('route');
+            $data['product_id'] = $this->request->get('product_id');
+
+            $parts = explode('_', (string)$this->request->get('path'));
+            $data['category_id'] = (int)array_pop($parts);
+
+            if ($data['category_id']) {
+                $category = $this->model_catalog_category->getCategory($data['category_id']);
+            }
+
+            $data['path'] = $this->request->get('path');
+            $data['information_id'] = $this->request->get('information_id');
+            $data['infocategory_id'] = $this->request->get('infocategory_id');
+            $data['manufacturer_id'] = $this->request->get('manufacturer_id');
+            $data['filter_name'] = $this->request->get('search');
+        }
+
+
         $data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));
 
         // Whos Online
         if ($this->config->get('config_customer_online')) {
             $this->load->model('tool/online');
 
-            if (isset($this->request->server['REMOTE_ADDR'])) {
+            if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+                $ip = $this->request->server['HTTP_X_REAL_IP'];
+            } else if (isset($this->request->server['REMOTE_ADDR'])) {
                 $ip = $this->request->server['REMOTE_ADDR'];
             } else {
                 $ip = '';
@@ -70,8 +95,9 @@ class ControllerCommonFooter extends Controller {
             $this->model_tool_online->addOnline($ip, $this->customer->getId(), $url, $referer);
         }
 
-        $data['config_social_media'] = is_array($this->config->get('config_social_media')) ? $this->config->get('config_social_media') : array();
+        $data['config_social_media'] = is_array($this->config->get('config_social_media')) ? $this->config->get('config_social_media') : [];
 
+        $this->hook->getHook('footer/index/after', $data);
         return $this->load->view('common/footer', $data);
     }
 

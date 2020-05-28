@@ -20,7 +20,7 @@ class ControllerCatalogInformation extends Controller {
         $this->load->model('catalog/information');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-            $this->model_catalog_information->addInformation($this->request->post);
+            $information_id = $this->model_catalog_information->addInformation($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -38,7 +38,10 @@ class ControllerCatalogInformation extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link('catalog/information', 'token=' . $this->session->data['token'] . $url, true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+                $this->response->redirect($this->url->link('catalog/information/edit', 'information_id=' . $information_id . '&token=' . $this->session->data['token'] . $url, true));
+            else
+                $this->response->redirect($this->url->link('catalog/information', 'token=' . $this->session->data['token'] . $url, true));
         }
 
         $this->getForm();
@@ -52,7 +55,8 @@ class ControllerCatalogInformation extends Controller {
         $this->load->model('catalog/information');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-            $this->model_catalog_information->editInformation($this->request->get['information_id'], $this->request->post);
+            $information_id = (int)$this->request->get['information_id'];
+            $this->model_catalog_information->editInformation($information_id, $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -70,7 +74,10 @@ class ControllerCatalogInformation extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link('catalog/information', 'token=' . $this->session->data['token'] . $url, true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+                $this->response->redirect($this->url->link('catalog/information/edit', 'information_id=' . $information_id . '&token=' . $this->session->data['token'] . $url, true));
+            else
+                $this->response->redirect($this->url->link('catalog/information', 'token=' . $this->session->data['token'] . $url, true));
         }
 
         $this->getForm();

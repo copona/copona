@@ -2,7 +2,7 @@
     <?php foreach ($categories as $category) { ?>
       <div class="category-item">
           <?php if ($category['children']) { ?>
-            <a href="#" class="dropdown-toggle list-group-item" data-toggle="dropdown"
+            <a href="<?php echo $category['href'] ?>" class="list-group-item"
               aria-expanded="true"><?php echo $category['name'] ?> <i class="fa fa-caret-right" aria-hidden="true"></i></a>
             <div class="dropdown-menu mega-dropdown-menu">
                 <?php $column_count = 4; ?>
@@ -19,7 +19,8 @@
                                   $i2 = 0;
                                   foreach ($child_2['children'] as $child_3) { ?>
                                     <li>
-                                      <a href="<?= $child_3['href'] ?>"><?php echo $child_3['name'] . " (" . $child_3['total'] . ")" ?></a>
+                                      <a href="<?= $child_3['href'] ?>"><?php echo $child_3['name']
+                                            . ($child_3['total'] ? " (" . $child_3['total'] . ")" : '') ?></a>
                                     </li>
                                       <?php if (count($child_2['children']) > $i2 && $i2++ > $column_childs) { ?>
                                       <li><a href="<?= $child_2['href'] ?>"><strong class="all-categories">

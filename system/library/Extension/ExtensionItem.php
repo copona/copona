@@ -13,30 +13,30 @@ class ExtensionItem
     public $name;
 
     /**
-     * @var
+     * @var string
      */
     public $vendor;
-
-    /**
-     * @var ExtensionBase
-     */
-    protected $instance;
-
-    /**
-     * @var SplFileInfo
-     */
-    public $path;
 
     /**
      * @var string
      */
     public $namespace;
+    
+    /**	
+     * @var SplFileInfo	
+     */	
+    public $path;
 
     /**
-     * @var Finder
+     * @var ExtensionBase
      */
-    public $finder;
+    public $instance;
 
+    /**
+     * List all files inside extension
+     *
+     * @var array
+     */
     public $files = [];
 
     /**
@@ -47,9 +47,15 @@ class ExtensionItem
      */
     public function getIntance()
     {
-        $this->instance = new $this->namespace($this->name);
-        if (($this->instance instanceof ExtensionBase) == false) {
-            throw new \Exception($this->namespace . ' is not instance of ' . ExtensionBase::class);
+        if(!$this->instance) {
+
+            $extensionClass = $this->namespace . '\\Extension';
+
+            $this->instance = new $extensionClass($this);
+
+            if (($this->instance instanceof ExtensionBase) == false) {
+                throw new \Exception($this->namespace . ' is not instance of ' . ExtensionBase::class);
+            }
         }
 
         return $this->instance;

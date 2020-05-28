@@ -10,11 +10,17 @@ CKEDITOR.editorConfig = function (config) {
 	//config.language='en';
 	config.height = 400;
 	config.entities = false;
+	// console.log ( config.fillEmptyBlocks ) ;
+	config.fillEmptyBlocks = true;
 
 	config.entities_greek = false;
 	config.entities_latin = false;
 	config.htmlEncodeOutput = false;
-	config.extraPlugins = 'image2,btgrid,colordialog,pbckcode,codemirror,textselection,oembed,widget,lineutils,youtube,slideshow,widgetbootstrap,widgettemplatemenu,quicktable,tableresize,autocorrect,wordcount,lineheight,zoom,backgrounds,ckeditor-gwf-plugin,letterspacing,nbsp,simplebutton,wenzgmap,osem_googlemaps,videosnapshot,qrc,symbol,html5validation,extraformattributes';
+
+	config.extraPlugins = 'dialogadvtab,dialog,dialogui,btgrid,colordialog,pbckcode,codemirror,textselection,oembed,widget,lineutils,youtube,slideshow,widgetbootstrap,widgettemplatemenu,quicktable,tableresize,autocorrect,wordcount,lineheight,zoom,backgrounds,ckeditor-gwf-plugin,letterspacing,nbsp,simplebutton,wenzgmap,osem_googlemaps,videosnapshot,qrc,symbol,html5validation,extraformattributes';
+
+	// alert();
+
 	config.pbckcode = {
 		cls: '',
 		highlighter: 'PRETTIFY',
@@ -22,7 +28,7 @@ CKEDITOR.editorConfig = function (config) {
 		tab_size: '4'
 	};
 
-	config.codemirror_theme = 'paraiso-light';
+		config.codemirror_theme = 'paraiso-dark';
 	config.oembed_maxWidth = '560';
 	config.oembed_maxHeight = '315';
 
@@ -42,7 +48,7 @@ CKEDITOR.editorConfig = function (config) {
 
 	//config.toolbar = 'Full';
 	config.toolbar_Full = [
-		{name: 'document', groups: ['mode', 'document', 'doctools'], items: ['pbckcode', 'Source', '-', 'autoFormat', 'CommentSelectedRange', 'UncommentSelectedRange', 'AutoComplete', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+		{name: 'document', groups: ['mode', 'document', 'doctools'], items: ['Source', 'pbckcode', '-', 'autoFormat', 'CommentSelectedRange', 'UncommentSelectedRange', 'AutoComplete', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
 		{name: 'clipboard', groups: ['clipboard', 'undo'], items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
 		{name: 'editing', groups: ['find', 'selection', 'spellchecker'], items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt', 'AutoCorrect']},
 		{name: 'forms', items: ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField']},
@@ -65,9 +71,5 @@ CKEDITOR.editorConfig = function (config) {
 		{name: 'editing', groups: ['find', 'selection', 'spellchecker'], items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt', 'AutoCorrect']},
 		{name: 'fonts', items: ['Font', 'FontSize','Source']}
 	];
-
-
-
 	//config.toolbar =
-
 };

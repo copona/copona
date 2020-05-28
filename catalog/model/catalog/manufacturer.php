@@ -1,23 +1,34 @@
 <?php
-class ModelCatalogManufacturer extends Model
-{
 
-    public function getManufacturer($manufacturer_id)
-    {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id) WHERE m.manufacturer_id = '" . (int)$manufacturer_id . "' AND m2s.store_id = '" . (int)$this->config->get('config_store_id') . "'");
+class ModelCatalogManufacturer extends Model {
+    private $language_id;
+
+    public function __construct($registry) {
+        parent::__construct($registry);
+        $this->language_id = (int)$registry->config->get('config_language_id');
+    }
+
+    public function getManufacturer($manufacturer_id) {
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "manufacturer m 
+        LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id) 
+        WHERE m.manufacturer_id = '" . (int)$manufacturer_id . "' AND m2s.store_id = '" . (int)$this->config->get('config_store_id') . "'");
 
         return $query->row;
     }
 
-    public function getManufacturers($data = array())
-    {
+    public function getManufacturers($data = []) {
         if ($data) {
-            $sql = "SELECT * FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id) WHERE m2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
+            $sql = "SELECT * FROM " . DB_PREFIX . "manufacturer m 
+            LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id)
+            LEFT JOIN " . DB_PREFIX . "url_alias ul on ul.query = concat('manufacturer_id=', m.manufacturer_id) and ul.language_id = '" . $this->language_id . "' 
+            WHERE m2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
 
-            $sort_data = array(
+            prd($sql);
+
+            $sort_data = [
                 'name',
-                'sort_order'
-            );
+                'sort_order',
+            ];
 
             if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
                 $sql .= " ORDER BY " . $data['sort'];
@@ -50,7 +61,12 @@ class ModelCatalogManufacturer extends Model
             $manufacturer_data = $this->cache->get('manufacturer.' . (int)$this->config->get('config_store_id'));
 
             if (!$manufacturer_data) {
-                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id) WHERE m2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY name");
+                $sql = "SELECT * FROM " . DB_PREFIX . "manufacturer m 
+                LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id)
+                LEFT JOIN " . DB_PREFIX . "url_alias ul on ul.query = concat('manufacturer_id=', m.manufacturer_id) and ul.language_id = '" . $this->language_id . "' 
+                WHERE m2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY name";
+                
+                $query = $this->db->query($sql);
 
                 $manufacturer_data = $query->rows;
 
@@ -62,10 +78,17 @@ class ModelCatalogManufacturer extends Model
     }
 
 
-    public function getManufacturersByCategory($category_id)
-    {
+    public function getManufacturersByCategory($category_id) {
         $category_ids = [];
         $sql = "select cp.* from " . DB_PREFIX . "category_path cp where cp.path_id = " . (int)$category_id;
+
+        $cache_key = 'manufacturer.getbycategory.' . (int)$category_id . '.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
+        $result = $this->cache->get($cache_key);
+
+        if ($result) {
+            return $result;
+        }
+
         $query = $this->db->query($sql);
 
         if ($query->rows) {
@@ -90,8 +113,8 @@ class ModelCatalogManufacturer extends Model
 
         $query = $this->db->query($sql);
 
+        $this->cache->set($cache_key, $query->rows);
+
         return $query->rows;
     }
-
-
 }

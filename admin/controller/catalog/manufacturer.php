@@ -8,6 +8,7 @@ class ControllerCatalogManufacturer extends Controller {
         $this->document->setTitle($this->language->get('heading_title'));
 
         $this->load->model('catalog/manufacturer');
+        $this->load->model('tool/image');
 
         $this->getList();
     }
@@ -111,6 +112,9 @@ class ControllerCatalogManufacturer extends Controller {
     }
 
     protected function getList() {
+
+        $data = $this->load->language('catalog/manufacturer');
+
         if (isset($this->request->get['sort'])) {
             $sort = $this->request->get['sort'];
         } else {
@@ -172,9 +176,16 @@ class ControllerCatalogManufacturer extends Controller {
         $results = $this->model_catalog_manufacturer->getManufacturers($filter_data);
 
         foreach ($results as $result) {
+
+            $image = $this->model_tool_image->resize($result['image'], 100, 100);
+            if(!$image){
+                $image = $this->model_tool_image->resize(Config::get('config_no_image','placeholder.png'), 100, 100);
+            }
+
             $data['manufacturers'][] = array(
                 'manufacturer_id' => $result['manufacturer_id'],
                 'name'            => $result['name'],
+                'image'           => $image,
                 'sort_order'      => $result['sort_order'],
                 'edit'            => $this->url->link('catalog/manufacturer/edit', 'token=' . $this->session->data['token'] . '&manufacturer_id=' . $result['manufacturer_id'] . $url, true)
             );

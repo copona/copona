@@ -64,7 +64,7 @@ class ControllerMarketingMarketing extends Controller {
         $this->load->model('marketing/marketing');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-            $this->model_marketing_marketing->editMarketing($this->request->get['marketing_id'], $this->request->post);
+            $this->model_marketing_marketing->editMarketing((int)$this->request->get['marketing_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -449,13 +449,13 @@ class ControllerMarketingMarketing extends Controller {
         if (!isset($this->request->get['marketing_id'])) {
             $data['action'] = $this->url->link('marketing/marketing/add', 'token=' . $this->session->data['token'] . $url, true);
         } else {
-            $data['action'] = $this->url->link('marketing/marketing/edit', 'token=' . $this->session->data['token'] . '&marketing_id=' . $this->request->get['marketing_id'] . $url, true);
+            $data['action'] = $this->url->link('marketing/marketing/edit', 'token=' . $this->session->data['token'] . '&marketing_id=' . (int)$this->request->get['marketing_id'] . $url, true);
         }
 
         $data['cancel'] = $this->url->link('marketing/marketing', 'token=' . $this->session->data['token'] . $url, true);
 
         if (isset($this->request->get['marketing_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-            $marketing_info = $this->model_marketing_marketing->getMarketing($this->request->get['marketing_id']);
+            $marketing_info = $this->model_marketing_marketing->getMarketing((int)$this->request->get['marketing_id']);
         }
 
         $data['token'] = $this->session->data['token'];

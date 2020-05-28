@@ -7,8 +7,7 @@
  * Calls helper function for HTML 4 entity decoding.
  * Per: http://www.lazycat.org/software/html_entity_decode_full.phps
  */
-function decode_entities_full($string, $quotes = ENT_COMPAT, $charset = 'ISO-8859-1')
-{
+function decode_entities_full($string, $quotes = ENT_COMPAT, $charset = 'ISO-8859-1') {
     $string = str_replace("&nbsp;", " ", $string);
     return html_entity_decode(preg_replace_callback('/&([a-zA-Z][a-zA-Z0-9]+);/', 'convert_entity', $string), $quotes,
         $charset);
@@ -23,8 +22,7 @@ function decode_entities_full($string, $quotes = ENT_COMPAT, $charset = 'ISO-885
  * the faulty entity unmodified, if you're ill or something.
  * Per: http://www.lazycat.org/software/html_entity_decode_full.phps
  */
-function convert_entity($matches, $destroy = true)
-{
+function convert_entity($matches, $destroy = true) {
     static $table = array(
         'quot'     => '&#34;',
         'amp'      => '&#38;',
@@ -287,16 +285,17 @@ function convert_entity($matches, $destroy = true)
 }
 
 
-function html_to_plaintext($string = '', $newlines = false)
-{
+function html_to_plaintext($string = '', $newlines = false, $remove_quotes = false) {
     $string = decode_entities_full(html_entity_decode($string), ENT_COMPAT, "utf-8");
     $string = preg_replace('/(<(script|style)\b[^>]*>).*?(<\/\2>)/is', "$1$3", $string);
     $string = strip_tags($string);
 
     // if we want to LEAVE newlines, to be outputted then as eg <br />
-    $pattern = $newlines ? '/[[:blank:]]+/' : '/\s\s+/';
+    $pattern = $newlines ? '/[[:blank:]]+/' : '/\s+/';
 
     $string = trim(preg_replace($pattern, ' ', $string));
+    $string = $remove_quotes ? htmlspecialchars($string) : $string;
+
     return $string;
 }
 
@@ -304,11 +303,11 @@ function html_to_plaintext($string = '', $newlines = false)
  * @param string $short_description
  * @param int $string_length
  * @param bool $newlines If true, newlines will not be removed
+ *
  * @return string
  */
 
-function strip2words($short_description = '', $string_length = 200, $newlines = false)
-{
+function strip2words($short_description = '', $string_length = 200, $newlines = false) {
     $short_description = html_to_plaintext($short_description, $newlines);
     $str_prefix = '';
     $short_description = $str_prefix . (mb_strlen($short_description) > $string_length ?
@@ -317,4 +316,62 @@ function strip2words($short_description = '', $string_length = 200, $newlines = 
             $short_description);
     return $short_description;
 }
+
+/**
+ * @param string $val size in B K or M (like 8M)
+ *
+ * @return int
+ * from: http://php.net/manual/en/function.ini-get.php#example-548
+ */
+function return_bytes($val) {
+    $val = trim($val);
+    $last = strtolower($val[strlen($val)-1]);
+    $val = (double)trim(strtolower($val),$last);
+    switch($last) {
+        // The 'G' modifier is available since PHP 5.1.0
+        case 'g':
+            $val *= 1024;
+        case 'm':
+            $val *= 1024;
+        case 'k':
+            $val *= 1024;
+    }
+
+    return $val;
+}
+
+/*
+ * To get the memory usage in KB or MB
+ * http://php.net/manual/en/function.memory-get-usage.php#96280
+ * */
+function return_readable_bytes($size) {
+    $unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
+    return @round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $unit[$i];
+}
+
+/*
+ * To get the memory usage in KB or MB
+ * http://php.net/manual/en/function.memory-get-usage.php#96280
+ * */
+function convert($size) {
+    $unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
+    return @round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $unit[$i];
+}
+
+/*
+    Convert MONEY to number. Taken from here: https://stackoverflow.com/a/19764699/1720476
+*/
+
+function getAmount($money) {
+    $cleanString = preg_replace('/([^0-9\.,])/i', '', $money);
+    $onlyNumbersString = preg_replace('/([^0-9])/i', '', $money);
+
+    $separatorsCountToBeErased = strlen($cleanString) - strlen($onlyNumbersString) - 1;
+
+    $stringWithCommaOrDot = preg_replace('/([,\.])/', '', $cleanString, $separatorsCountToBeErased);
+    $removedThousendSeparator = preg_replace('/(\.|,)(?=[0-9]{3,}$)/', '', $stringWithCommaOrDot);
+
+    return (float)str_replace(',', '.', $removedThousendSeparator);
+}
+
 

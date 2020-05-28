@@ -18,7 +18,12 @@ class ControllerExtensionModuleSlideshow extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+            $this->response->redirect($this->url->link('design/banner/edit', 'token=' . $this->session->data['token']));
+            else
+                $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token']));
+
+
         }
 
         $data['heading_title'] = $this->language->get('heading_title');
@@ -166,5 +171,15 @@ class ControllerExtensionModuleSlideshow extends Controller {
 
         return !$this->error;
     }
+	
+	public function install()
+    {
+        
+    }
+
+    public function uninstall()
+    {
+        
+    }	
 
 }

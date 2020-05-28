@@ -3,9 +3,13 @@
 //prd();
 // quick little helper functions to help format text for html
 // call me paranoid about xss
-function h($str)
-{
-    return htmlentities($str, ENT_NOQUOTES, 'UTF-8');
+if(!function_exists('h')){
+
+    function h($str)
+    {
+        return htmlentities($str, ENT_NOQUOTES, 'UTF-8');
+    }
+    
 }
 
 // a much simpler version of htmlentities that only converts '<' and '>'
@@ -136,6 +140,8 @@ class ControllerExtensionModuleCrTranslateMate extends Controller
     protected function setErrorHandler($ajax = false)
     {
 
+      return; 
+
         set_error_handler(function ($errno, $errstr, $errfile, $errline, $ajax) {
             if ($ajax && !headers_sent()) {
                 header('HTTP/1.1 500 Internal Server Error');
@@ -145,12 +151,13 @@ class ControllerExtensionModuleCrTranslateMate extends Controller
                 error_handler($errno, $errstr, $errfile, $errline);
             } else {
                 $action = new \Copona\System\Engine\Action('startup/error/handler');
-                $action->execute($this->registry, array(
-                  $errno,
-                  $errstr,
-                  $errfile,
-                  $errline
-                ));
+               $args1 = array(
+                   $errno,
+                   $errstr,
+                   $errfile,
+                   $errline
+               );
+                $action->execute($this->registry, $args1 );
             }
 
             if ($ajax) {

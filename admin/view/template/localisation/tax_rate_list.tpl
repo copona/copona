@@ -77,7 +77,7 @@
                             <?php } else { ?>
                                 <input type="checkbox" name="selected[]" value="<?php echo $tax_rate['tax_rate_id']; ?>" />
                             <?php } ?></td>
-                          <td class="text-left"><?php echo $tax_rate['name']; ?></td>
+                          <td class="text-left"><a href="<?php echo $tax_rate['edit']; ?>"><?php echo $tax_rate['name']; ?></a></td>
                           <td class="text-right"><?php echo $tax_rate['rate']; ?></td>
                           <td class="text-left"><?php echo $tax_rate['type']; ?></td>
                           <td class="text-left"><?php echo $tax_rate['geo_zone']; ?></td>

@@ -11,7 +11,7 @@
         <ul class="dropdown-menu">
           <?php foreach ($languages as $language) { ?>
               <li>
-                <a href="<?= $language['code'] ?>">
+                <a href="<?= $language['href'] ?>">
                   <img src="catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png"
                        alt="<?php echo $language['name']; ?>"
                        title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?>

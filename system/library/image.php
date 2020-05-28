@@ -7,12 +7,22 @@ class Image {
     private $bits;
     private $mime;
     private $info;
+    private $registry;
 
     public function __construct($file) {
+        $this->registry = Registry::getInstance();
+
         if (file_exists($file)) {
             $this->file = $file;
 
+            // If, there is no file, or file is with size 0, or any other error,
+            // this will not generate error now, but it will be logged.
+            ob_start();
             $info = getimagesize($file);
+            $resize_warning = ob_get_clean();
+            if ($resize_warning) {
+                $this->registry->log->write("Cannot resize system/library/image: $resize_warning");
+            }
 
             /* OC1 methods compatibility start */
             $this->info = array(
@@ -34,9 +44,11 @@ class Image {
                 $this->image = imagecreatefrompng($file);
             } elseif ($this->mime == 'image/jpeg') {
                 $this->image = imagecreatefromjpeg($file);
+            } else {
+                throw new RuntimeException('Could not found image mime' . $file . '!');
             }
         } else {
-            exit('Error: Could not load image ' . $file . '!');
+            $this->registry->log->write('Error: Could not load image ' . $file . '!');
         }
     }
 
@@ -64,7 +76,7 @@ class Image {
         return $this->mime;
     }
 
-    public function save($file, $quality = 90) {
+    public function save($file, $quality = 100) {
         $info = pathinfo($file);
 
         $extension = strtolower($info['extension']);
@@ -225,11 +237,17 @@ class Image {
         }
 
         if (strlen($color) == 6) {
-            list($r, $g, $b) = array( $color[0] . $color[1], $color[2] . $color[3],
-                $color[4] . $color[5] );
+            list($r, $g, $b) = array(
+                $color[0] . $color[1],
+                $color[2] . $color[3],
+                $color[4] . $color[5]
+            );
         } elseif (strlen($color) == 3) {
-            list($r, $g, $b) = array( $color[0] . $color[0], $color[1] . $color[1],
-                $color[2] . $color[2] );
+            list($r, $g, $b) = array(
+                $color[0] . $color[0],
+                $color[1] . $color[1],
+                $color[2] . $color[2]
+            );
         } else {
             return false;
         }
@@ -238,7 +256,7 @@ class Image {
         $g = hexdec($g);
         $b = hexdec($b);
 
-        return array( $r, $g, $b );
+        return array($r, $g, $b);
     }
 
     /*
@@ -371,7 +389,6 @@ class Image {
 
         imagefilledrectangle($this->image, 0, 0, $width, $height, $background);
 
-
         imagecopyresampled($this->image, $image_old, 0, 0, $from_x, $from_y, $new_width, $new_height, $photo_x, $photo_y);
         imagedestroy($image_old);
 
@@ -435,7 +452,7 @@ class Image {
         $this->info['height'] = $height;
     }
 
-    /* resaizo TIKAI UZ LEJU, ja kāds no izmēriem lielāks, pēc lielākā iespējamā izmēra, BEZ baltajām malām! */
+    /* Resizing only down, if any of original width is biiger then sizes */
 
     public function downsize($width = 0, $height = 0, $default = '') {
         if (!$this->info['width'] || !$this->info['height']) {
@@ -454,7 +471,6 @@ class Image {
         };
 
         //pr( $this->info['width']  );
-
 
 
         $scale_w = $width / $this->info['width'];
@@ -498,6 +514,69 @@ class Image {
 
         $this->info['width'] = $width;
         $this->info['height'] = $height;
+    }
+
+    public function addwatermark($position = 'bottomright') {
+
+        if (!file_exists(Config::get('config_watermark_image_path', DIR_IMAGE . 'watermark.png'))) {
+            imagedestroy($this->image);
+            $this->registry->log->write('Function addwatermark() error: '.Config::get('config_watermark_image_path', DIR_IMAGE . 'watermark.png').' does not exist');
+            return false;
+        }
+
+        $width = imagesx($this->image);
+        $height = imagesy($this->image);
+
+        $watermark = imagecreatefrompng(Config::get('config_watermark_image_path', DIR_IMAGE . 'watermark.png')); //TODO: add to Config!
+        imageAlphaBlending($watermark, false);
+        imageSaveAlpha($watermark, true);
+
+        $watermark_width = imagesx($watermark);
+        $watermark_height = imagesy($watermark);
+
+        $scale_w = $width / $watermark_width;
+        $scale_h = $height / $watermark_height;
+        $scale = min($scale_w, $scale_h) * 0.7;
+
+        $dest_width = $watermark_width * $scale;
+        $dest_height = $watermark_height * $scale;
+
+        switch ($position) {
+            case 'topleft':
+                $watermark_pos_x = 0;
+                $watermark_pos_y = 0;
+                break;
+            case 'topright':
+                $watermark_pos_x = $width - $watermark_width;
+                $watermark_pos_y = 0;
+                break;
+            case 'bottomleft':
+                $watermark_pos_x = 0;
+                $watermark_pos_y = $height - $watermark_height;
+                break;
+            case 'bottomright':
+                $watermark_pos_x = $width - $watermark_width;
+                $watermark_pos_y = $height - $watermark_height;
+                break;
+            case 'middle':
+                $watermark_pos_x = ($width - $dest_width) / 2;
+                $watermark_pos_y = ($height - $dest_height) / 2;
+                break;
+        }
+
+        $slate = imagecreatetruecolor($width, $height);
+        $transparent = imagecolorallocatealpha($slate, 0, 255, 0, 127);
+        imagefill($slate, 0, 0, $transparent);
+
+        // now do the copying
+        imagecopy($slate, $this->image, 0, 0, 0, 0, $width, $height);
+        imagecopyresampled($slate, $watermark, $watermark_pos_x, $watermark_pos_y, 0, 0, $dest_width, $dest_height, $watermark_width, $watermark_height);
+        imageAlphaBlending($slate, false);
+        imageSaveAlpha($slate, true);
+        imagealphablending($watermark, true);
+        imagecopyresampled($this->image, $watermark, $watermark_pos_x, $watermark_pos_y, 0, 0, $dest_width, $dest_height, $watermark_width, $watermark_height);
+        $this->image = $slate;
+        imagedestroy($watermark);
     }
 
 }

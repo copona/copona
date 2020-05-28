@@ -27,7 +27,7 @@ class ControllerStartupStartup extends Controller {
 
         // Language
 
-        $language = new Language($code, $this->registry);
+        $language = new Language($code);
         $language->load($code);
         $this->registry->set('language', $language);
 
@@ -68,6 +68,9 @@ class ControllerStartupStartup extends Controller {
 
         $this->config->set('theme_name', !empty($this->config->get('theme_default_directory')) ? $this->config->get('theme_default_directory') : 'default');
         $this->config->set('theme_uri', DIR_PUBLIC . "/themes/" . $this->config->get('theme_name'));
+
+        // Execute Extensions Init, if them has a method.
+        \Copona\System\Library\Extension\ExtensionManager::initAllAdmin();
 
         //Theme settings override
         if (file_exists($this->config->get('theme_uri') . '/functions.php')) {

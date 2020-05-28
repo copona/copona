@@ -28,8 +28,9 @@ class ControllerSettingSetting extends Controller {
         $data = $this->load->language('catalog/product');
         $data = array_merge($data, $this->load->language('setting/setting'));
 
-        $this->document->setTitle($this->language->get('heading_title'));
+        $data['error'] = [];
 
+        $this->document->setTitle($this->language->get('heading_title'));
 
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -75,10 +76,13 @@ class ControllerSettingSetting extends Controller {
         foreach ($errors as $val) {
             if (isset($this->error[$val])) {
                 $data['error_' . $val] = $this->error[$val];
+                $data['error']['error_' . $val] = $this->error[$val];
             } else {
                 $data['error_' . $val] = '';
+                unset ( $data['error']['error_' . $val] );
             }
         }
+
 
         $data['breadcrumbs'] = array();
 
@@ -163,6 +167,25 @@ class ControllerSettingSetting extends Controller {
 
         $data['countries'] = $this->model_localisation_country->getCountries();
 
+        if (isset($this->request->post['config_zone_id'])) {
+            $data['config_zone_id'] = $this->request->post['config_zone_id'];
+        } else {
+            $data['config_zone_id'] = $this->config->get('config_zone_id');
+        }
+
+        if (isset($this->request->post['config_language'])) {
+            $data['config_language'] = $this->request->post['config_language'];
+        } else {
+            $data['config_language'] = $this->config->get('config_language');
+        }
+
+        if (isset($this->request->post['config_forced_language'])) {
+            $data['config_forced_language'] = $this->request->post['config_forced_language'];
+
+
+        } else {
+            $data['config_forced_language'] = $this->config->get('config_forced_language');
+        }
 
         $data['languages'] = $this->model_localisation_language->getLanguages(array(
             'all' ));
@@ -221,7 +244,7 @@ class ControllerSettingSetting extends Controller {
         } elseif ($this->config->get('config_processing_status')) {
             $data['config_processing_status'] = $this->config->get('config_processing_status');
         } else {
-            $data['config_processing_status'] = array();
+            $data['config_processing_status'] = [];
         }
 
         if (isset($this->request->post['config_complete_status'])) {
@@ -261,6 +284,31 @@ class ControllerSettingSetting extends Controller {
         } else {
             $data['config_affiliate_commission'] = '5.00';
         }
+
+        if (isset($this->request->post['config_affiliate_id'])) {
+            $data['config_affiliate_id'] = $this->request->post['config_affiliate_id'];
+        } else {
+            $data['config_affiliate_id'] = $this->config->get('config_affiliate_id');
+        }
+
+        if (isset($this->request->post['config_return_id'])) {
+            $data['config_return_id'] = $this->request->post['config_return_id'];
+        } else {
+            $data['config_return_id'] = $this->config->get('config_return_id');
+        }
+
+        if (isset($this->request->post['config_contact_id'])) {
+            $data['config_contact_id'] = $this->request->post['config_contact_id'];
+        } else {
+            $data['config_contact_id'] = $this->config->get('config_contact_id');
+        }
+
+        if (isset($this->request->post['config_return_status_id'])) {
+            $data['config_return_status_id'] = $this->request->post['config_return_status_id'];
+        } else {
+            $data['config_return_status_id'] = $this->config->get('config_return_status_id');
+        }
+
 
         $data['return_statuses'] = $this->model_localisation_return_status->getReturnStatuses();
 
@@ -344,6 +392,20 @@ class ControllerSettingSetting extends Controller {
             $data['icon'] = $this->model_tool_image->resize('no_image.png', 100, 100);
         }
 
+        if (isset($this->request->post['config_placeholder'])) {
+            $data['config_no_image'] = $this->request->post['config_no_image'];
+        } else {
+            $data['config_no_image'] = $this->config->get('config_no_image');
+        }
+
+        if (isset($this->request->post['config_no_image']) && is_file(DIR_IMAGE . $this->request->post['config_no_image'])) {
+            $data['no_image'] = $this->model_tool_image->resize($this->request->post['config_no_image'], 100, 100);
+        } elseif ($this->config->get('config_no_image') && is_file(DIR_IMAGE . $this->config->get('config_no_image'))) {
+            $data['no_image'] = $this->model_tool_image->resize($this->config->get('config_no_image'), 100, 100);
+        } else {
+            $data['no_image'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+        }
+
         if (isset($this->request->post['config_ftp_hostname'])) {
             $data['config_ftp_hostname'] = $this->request->post['config_ftp_hostname'];
         } elseif ($this->config->get('config_ftp_hostname')) {
@@ -374,6 +436,14 @@ class ControllerSettingSetting extends Controller {
             $data['config_mail_smtp_timeout'] = $this->config->get('config_mail_smtp_timeout');
         } else {
             $data['config_mail_smtp_timeout'] = 5;
+        }
+
+        if (isset($this->request->post['config_mail_smtp_from_email'])) {
+            $data['config_mail_smtp_from_email'] = $this->request->post['config_mail_smtp_from_email'];
+        } elseif ($this->config->has('config_mail_smtp_timeout')) {
+            $data['config_mail_smtp_from_email'] = $this->config->get('config_mail_smtp_from_email');
+        } else {
+            $data['config_mail_smtp_from_email'] = '';
         }
 
         if (isset($this->request->post['config_mail_alert'])) {
@@ -515,7 +585,7 @@ class ControllerSettingSetting extends Controller {
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
-        //pr($this->error);
+
         return !$this->error;
     }
 

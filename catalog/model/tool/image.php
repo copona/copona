@@ -1,21 +1,33 @@
 <?php
 
-class ModelToolImage extends Model
-{
+class ModelToolImage extends Model {
 
-    public function resize($filename, $width, $height)
-    {
-        if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE) . DIRECTORY_SEPARATOR . $filename), 0, strlen(DIR_IMAGE . $filename)) != str_replace('\\', '/', DIR_IMAGE . $filename)) {
+    public function resize($filename, $width, $height, $type = "", $watermark = NULL, $position = 'middle') {
+        if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE) . DIRECTORY_SEPARATOR . $filename), 0,
+                strlen(DIR_IMAGE . $filename)) != str_replace('\\', '/', DIR_IMAGE . $filename)) {
             return;
         }
 
+        $watermark = is_null($watermark) ? Config::get('config_watermark_resize') : $watermark;
+
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+        if (strtolower($extension) == 'svg') {
+            return $this->url->getImageUrlOriginal($filename);
+        }
 
         $image_old = $filename;
         $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
 
         if (!is_file(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $image_old) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image))) {
+
+            ob_start();
             list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
+            $resize_warning = ob_get_clean();
+            if ($resize_warning) {
+                $image_old =
+                    $this->log->write("Cannot resize image $filename. Error: $resize_warning");
+            }
 
             if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {
                 return DIR_IMAGE . $image_old;
@@ -28,6 +40,11 @@ class ModelToolImage extends Model
             if ($width_orig != $width || $height_orig != $height) {
                 $image = new Image(DIR_IMAGE . $image_old);
                 $image->resize($width, $height);
+
+                if ($watermark) {
+                    $image->addwatermark($position);
+                }
+
                 $image->save(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image);
             } else {
                 copy(DIR_IMAGE . $image_old, $this->config->get('image_cache_path') . $new_image);
@@ -44,16 +61,21 @@ class ModelToolImage extends Model
      *
      * @param $filename
      * @param $maxsize
+     *
      * @return string|void
      */
-    public function onesize($filename, $maxsize)
-    {
+    public function onesize($filename, $maxsize, $height = "", $type = "", $watermark = NULL, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
 
-        $info = pathinfo($filename);
-        $extension = $info['extension'];
+        $watermark = is_null($watermark) ? Config::get('config_watermark_onesize') : $watermark;
+
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+        if (strtolower($extension) == 'svg') {
+            return $this->url->getImageUrlOriginal($filename);
+        }
 
         $old_image = $filename;
         $new_image = substr($filename, 0, strrpos($filename, '.')) . '-max-' . $maxsize . '.' . $extension;
@@ -66,6 +88,11 @@ class ModelToolImage extends Model
 
             $image = new Image(DIR_IMAGE . $old_image);
             $image->onesize($maxsize);
+
+            if ($watermark) {
+                $image->addwatermark($position);
+            }
+
             $image->save(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image);
         }
 
@@ -78,18 +105,23 @@ class ModelToolImage extends Model
      * @param        $filename
      * @param        $width
      * @param        $height
-     * @param bool   $watermark
+     * @param bool $watermark
      * @param string $position
+     *
      * @return string|void
      */
-    public function cropsize($filename, $width, $height, $watermark = false, $position = 'middle')
-    {
+    public function cropsize($filename, $width, $height, $type = "", $watermark = NULL, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
 
-        $info = pathinfo($filename);
-        $extension = $info['extension'];
+        $watermark = is_null($watermark) ? Config::get('config_watermark_cropsize') : $watermark;
+
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+        if (strtolower($extension) == 'svg') {
+            return $this->url->getImageUrlOriginal($filename);
+        }
 
         $old_image = $filename;
         $new_image = substr($filename, 0, strrpos($filename, '.')) . '-cr-' . $width . 'x' . $height . '.' . $extension;
@@ -112,15 +144,18 @@ class ModelToolImage extends Model
         return $this->url->getImageUrl($new_image);
     }
 
-    public function propsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
-    {
+    public function propsize($filename, $width, $height, $type = "", $watermark = NULL, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
             return;
         }
 
-        $info = pathinfo($filename);
+        $watermark = is_null($watermark) ? Config::get('config_watermark_propsize') : $watermark;
 
-        $extension = $info['extension'];
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+        if (strtolower($extension) == 'svg') {
+            return $this->url->getImageUrlOriginal($filename);
+        }
 
         $old_image = $filename;
         $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
@@ -131,11 +166,17 @@ class ModelToolImage extends Model
                 @mkdir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($new_image), $this->config->get('directory_permission', 0777), true);
             }
 
+            ob_start();
             list($width_orig, $height_orig) = getimagesize(DIR_IMAGE . $old_image);
+            $resize_warning = ob_get_clean();
+            if ($resize_warning) {
+                $this->log->write("Cannot resize image $filename. Error: $resize_warning");
+            }
 
             if ($width_orig != $width || $height_orig != $height) {
                 $image = new Image(DIR_IMAGE . $old_image);
                 $image->propsize($width, $height, $type);
+
                 if ($watermark) {
                     $image->addwatermark($position);
                 }
@@ -149,18 +190,21 @@ class ModelToolImage extends Model
         return $this->url->getImageUrl($new_image);
     }
 
-    public function downsize($filename, $width, $height, $type = "", $watermark = false, $position = 'middle')
-    {
+    public function downsize($filename, $width, $height, $type = "", $watermark = NULL, $position = 'middle') {
         if (!file_exists(DIR_IMAGE . $filename) || !is_file(DIR_IMAGE . $filename)) {
-            //return;
+            return;
         }
 
-        $info = pathinfo($filename);
+        $watermark = is_null($watermark) ? Config::get('config_watermark_downsize') : $watermark;
 
-        $extension = $info['extension'];
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+        if (strtolower($extension) == 'svg') {
+            return $this->url->getImageUrlOriginal($filename);
+        }
 
         $old_image = $filename;
-        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
+        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ds-' . $width . 'x' . $height . $type . '.' . $extension;
 
         if (!file_exists(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image)) || filesize(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) < 1) {
 
@@ -173,10 +217,10 @@ class ModelToolImage extends Model
             if ($width_orig != $width || $height_orig != $height) {
                 $image = new Image(DIR_IMAGE . $old_image);
                 $image->downsize($width, $height, $type);
+
                 if ($watermark) {
                     $image->addwatermark($position);
                 }
-
 
                 $image->save(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image);
             } else {
@@ -184,8 +228,7 @@ class ModelToolImage extends Model
             }
         }
 
-
-        $new_image = implode('/', array_map('rawurlencode', explode('/', $new_image)));
+        // $new_image = implode('/', array_map('rawurlencode', explode('/', $new_image)));
 
         return $this->url->getImageUrl($new_image);
     }

@@ -14,7 +14,7 @@
   <input type="hidden" name="weight_<?php echo $i; ?>" value="<?php echo $product['weight']; ?>" />
   <?php $j = 0; ?>
   <?php foreach ($product['option'] as $option) { ?>
-  <input t ype="hidden" name="on<?php echo $j; ?>_<?php echo $i; ?>" value="<?php echo $option['name']; ?>" />
+  <input type="hidden" name="on<?php echo $j; ?>_<?php echo $i; ?>" value="<?php echo $option['name']; ?>" />
   <input type="hidden" name="os<?php echo $j; ?>_<?php echo $i; ?>" value="<?php echo $option['value']; ?>" />
   <?php $j++; ?>
   <?php } ?>
@@ -46,6 +46,11 @@
   <input type="hidden" name="custom" value="<?php echo $custom; ?>" />
   <input type="hidden" name="bn" value="OpenCart_2.0_WPS" />
   <div class="buttons">
+
+    <div class="pull-left">
+      <a href="<?php echo $back; ?>" class="btn btn-primary"><?php echo $button_back; ?></a>
+    </div>
+
     <div class="pull-right">
       <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
     </div>

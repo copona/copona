@@ -61,7 +61,7 @@ class ModelReportCustomer extends Model {
             );
         }
 
-        $query = $this->db->query("SELECT COUNT(*) AS total, date_added FROM `" . DB_PREFIX . "customer` WHERE DATE(date_added) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(date_added)");
+        $query = $this->db->query("SELECT COUNT(*) AS total, DATE(date_added) as date_added FROM `" . DB_PREFIX . "customer` WHERE DATE(date_added) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(date_added)");
 
         foreach ($query->rows as $result) {
             $customer_data[date('j', strtotime($result['date_added']))] = array(

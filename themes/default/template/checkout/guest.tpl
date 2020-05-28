@@ -15,24 +15,13 @@
             <?php echo $success; ?>
         </div>
     <?php } ?>
+    <?php echo $this->flash->display();?>
     <?php if ($error_warning) { ?>
-
-        <?php // echo $error_warning;?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>
           <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <?php
-            $i = 0;
-            foreach ($error_warning as $val) {
-                ?>
-                <?= $val ?>
-                <?php
-                $i++;
-                if ((count($error_warning) - $i) > 0) {
-                    echo "<br>";
-                }
-                ?>
-            <?php } ?>
-
+            <?php foreach ($error_warning as $val) {
+                echo  $val . "<br />";
+            } ?>
         </div>
     <?php } ?>
     <div class="row">
@@ -61,10 +50,9 @@
                       <label for="zone_id"><?= $entry_city; ?>:</label>
                       <select id="shipping_method_zone" name="zone_id" class="large-field form-control"></select>
                     </div>
-                    <br><br>
                     <div id="shipping-method">
                       <div style="display:none; margin: 0 auto; width: 50%; text-align: center;">
-                        <img src="themes/<?php echo $theme_default_directory ?>/assets/img/AjaxLoader.gif" alt=""/>
+                        <img src="themes/<?php echo Config::get('theme_default_directory') ?>/assets/img/AjaxLoader.gif" alt=""/>
                       </div>
                     </div>
                     <div id="shipping_address">
@@ -131,7 +119,7 @@
                     <legend><?= $text_total_title ?>:</legend>
                     <h4><?= $text_price; ?>: <span id="cart_total_value"><?= number_format($cart_total_value, 2); ?> €</span></h4>
                     <h4><?= $text_shipping; ?>: <span id="order_shipping"><?= number_format($order_shipping, 2); ?> €</span></h4>
-                    <h3><?= $text_total_payment; ?>: <span id="order_total"><?= number_format($cart_total_value + $order_shipping, 2); ?> €</span></h3>
+                    <h3><?= $text_total_payment; ?>: <span id="order_total"><?= number_format($cart_total_value + $order_shipping, 2); ?></span></h3>
                   </fieldset>
                   <fieldset>
                     <div id="payment-method"><?= $payment_method; ?></div>
@@ -162,7 +150,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text"id="<?= $field; ?>"  name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text"id="<?= $field; ?>"  name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -172,7 +160,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -182,7 +170,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -192,7 +180,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -202,7 +190,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -212,7 +200,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -222,7 +210,7 @@
                             <div class="<?= $field; ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                               <span class="field<?= ($$field ? " show-label" : ''); ?><?= (isset($error_warning[$field]) ? " error" : ""); ?>">
                                 <label for="<?= $field; ?>"><?= ${"entry_" . $field}; ?>:</label>
-                                <input class="form-control" type="text" id="<?= $field; ?>" name="<?= $field; ?>" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
+                                <input class="form-control" type="text" id="<?= $field; ?>" name="serial[<?= $field; ?>]" placeholder="<?= ${"entry_" . $field}; ?>" value="<?= ${$field}; ?>"><br />
                               </span>
                             </div>
                           </div>
@@ -238,7 +226,7 @@
                           <input id="agree" type="checkbox" name="agree" <?= ($agree ? 'checked' : ''); ?>>
                           <?= $text_agree; ?></label>
                         <div align="right">
-                          <span class="wait" style="display: none; margin-right: 10px;">&nbsp;<img src="themes/<?php echo $theme_default_directory ?>/assets/img/AjaxLoader.gif" width="20px" alt="Loading" /></span>
+                          <span class="wait" style="display: none; margin-right: 10px;"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
                           <input type="submit" value="<?= $text_make_order; ?>" id="button-payment-method" class="btn btn-primary" />
                         </div>
                       </div>
@@ -250,12 +238,12 @@
           </form>
         </div>
         <!-- Close div row -->
-        <?php
-        // Checkout Javascript
-        require_once('checkout.js.tpl');
-        ?>
-
-        <?php echo $content_bottom; ?></div>
+        <script>
+            <?php
+            // Checkout Javascript
+            require_once('checkout.js.tpl'); ?>
+        </script>
+          <?php echo $content_bottom; ?></div>
       <?php echo $column_right; ?></div>
   </div>
 </div>

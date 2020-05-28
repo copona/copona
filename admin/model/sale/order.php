@@ -178,7 +178,18 @@ class ModelSaleOrder extends Model {
     }
 
     public function getOrders($data = array()) {
-        $sql = "SELECT o.order_id, CONCAT(o.firstname, ' ', o.lastname) AS customer, (SELECT os.name FROM " . DB_PREFIX . "order_status os WHERE os.order_status_id = o.order_status_id AND os.language_id = '" . (int)$this->config->get('config_language_id') . "') AS order_status, o.shipping_code, o.total, o.currency_code, o.currency_value, o.date_added, o.date_modified FROM `" . DB_PREFIX . "order` o";
+        $sql = "SELECT 
+          o.order_id
+          , CONCAT(o.firstname, ' ', o.lastname) AS customer
+          , (SELECT os.name FROM " . DB_PREFIX . "order_status os WHERE os.order_status_id = o.order_status_id AND os.language_id = '" . (int)$this->config->get('config_language_id') . "') AS order_status
+          , o.shipping_code
+          , o.payment_method
+          , o.total
+          , o.currency_code
+          , o.currency_value
+          , o.date_added
+          , o.date_modified 
+          FROM `" . DB_PREFIX . "order` o";
 
         if (isset($data['filter_order_status'])) {
             $implode = array();
@@ -415,7 +426,10 @@ class ModelSaleOrder extends Model {
             $limit = 10;
         }
 
-        $query = $this->db->query("SELECT oh.date_added, os.name AS status, oh.comment, oh.notify FROM " . DB_PREFIX . "order_history oh LEFT JOIN " . DB_PREFIX . "order_status os ON oh.order_status_id = os.order_status_id WHERE oh.order_id = '" . (int)$order_id . "' AND os.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY oh.date_added ASC LIMIT " . (int)$start . "," . (int)$limit);
+        $query = $this->db->query("SELECT oh.date_added, os.name AS status, oh.comment, oh.notify FROM " . DB_PREFIX . "order_history oh 
+        LEFT JOIN " . DB_PREFIX . "order_status os ON oh.order_status_id = os.order_status_id 
+        WHERE oh.order_id = '" . (int)$order_id . "' AND os.language_id = '" . (int)$this->config->get('config_language_id') . "' 
+        ORDER BY oh.date_added DESC LIMIT " . (int)$start . "," . (int)$limit);
 
         return $query->rows;
     }

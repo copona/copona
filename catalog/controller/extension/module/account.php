@@ -3,26 +3,72 @@ class ControllerExtensionModuleAccount extends Controller {
 
     public function index() {
         $data = $this->load->language('extension/module/account');
-
         $data['heading_title'] = $this->language->get('heading_title');
+        $this->load->model('account/wishlist');
 
-        $data['logged'] = $this->customer->isLogged();
-        $data['register'] = $this->url->link('account/register', '', true);
-        $data['login'] = $this->url->link('account/login', '', true);
-        $data['logout'] = $this->url->link('account/logout', '', true);
-        $data['forgotten'] = $this->url->link('account/forgotten', '', true);
-        $data['account'] = $this->url->link('account/account', '', true);
-        $data['edit'] = $this->url->link('account/edit', '', true);
-        $data['password'] = $this->url->link('account/password', '', true);
-        $data['address'] = $this->url->link('account/address', '', true);
-        $data['wishlist'] = $this->url->link('account/wishlist');
-        $data['order'] = $this->url->link('account/order', '', true);
-        $data['download'] = $this->url->link('account/download', '', true);
-        $data['reward'] = $this->url->link('account/reward', '', true);
-        $data['return'] = $this->url->link('account/return', '', true);
-        $data['transaction'] = $this->url->link('account/transaction', '', true);
-        $data['newsletter'] = $this->url->link('account/newsletter', '', true);
-        $data['recurring'] = $this->url->link('account/recurring', '', true);
+        $modules_any = [
+            'wishlist',
+            'return',
+        ];
+
+        $modules_guest = [
+            'register',
+            'login',
+            'forgotten',
+        ];
+
+        $modules_logged = [
+            'account',
+            'edit',
+            'password',
+            'address',
+            'order',
+            'download',
+            'reward',
+            'transaction',
+            'newsletter',
+            'recurring',
+        ];
+
+        $data['logged'] = $this->customer->isLogged() ? true : false;
+
+        if($this->customer->isLogged()) {
+            foreach($modules_logged as $module) {
+                $data['links'][$module] = [
+                    'href' => $this->url->link('account/' . $module),
+                    'name'  => $data["text_" . $module],
+                    'status'  => true, // set to "false" in Hook, if you need to turn output off.
+                ];
+            }
+        } else {
+            foreach($modules_guest as $module) {
+                $data['links'][$module] = [
+                    'href' => $this->url->link('account/' . $module),
+                    'name'  => $data["text_" . $module],
+                    'status'  => true, // set to "false" in Hook, if you need to turn output off.
+                ];
+            }
+        }
+
+        foreach($modules_any as $module) {
+            $data['links'][$module] = [
+                'href' => $this->url->link('account/' . $module),
+                'name'  => ($module === 'wishlist')? sprintf($data["text_" . $module], $this->model_account_wishlist->getTotalWishlist()) : $data["text_" . $module],
+                'status'  => true, // set to "false" in Hook, if you need to turn output off.
+            ];
+        }
+
+        $module = 'logout';
+        if($this->customer->isLogged()) {
+            $data['links'][$module] = [
+                'href'   => $this->url->link('account/' . $module),
+                'name'   => $data["text_" . $module],
+                'status' => true, // set to "false" in Hook, if you need to turn output off.
+            ];
+        }
+
+
+        $this->hook->getHook('extension/module/account/after', $data);
 
         return $this->load->view('extension/module/account', $data);
     }

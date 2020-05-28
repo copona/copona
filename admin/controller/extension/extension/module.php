@@ -159,13 +159,16 @@ class ControllerExtensionExtensionModule extends Controller {
                 }
 
                 $data['extensions'][] = array(
-                    'name'      => $this->language->get('heading_title'),
+                    'name'      => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
                     'module'    => $module_data,
+                    'extension' => $extension,
                     'install'   => $this->url->link('extension/extension/module/install', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'uninstall' => $this->url->link('extension/extension/module/uninstall', 'token=' . $this->session->data['token'] . '&extension=' . $extension, true),
                     'installed' => in_array($extension, $extensions),
                     'edit'      => $this->url->link('extension/module/' . $extension, 'token=' . $this->session->data['token'], true)
                 );
+
+                $this->language->set('heading_title', '');
             }
         }
 

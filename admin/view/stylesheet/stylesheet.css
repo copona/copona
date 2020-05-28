@@ -12,6 +12,19 @@ html, body {
 h1, h2, h3, h4, h5, h6, p {
 	margin-top: 0;
 }
+/* Product form, Modules form */
+select.status-enabled, .status-enabled option {
+	color: green;
+}
+
+select.status-disabled, option.status-disabled {
+	color: red;
+}
+
+select.status-disabled optgroup[label],  select.status-enabled optgroup[label] {
+color: black;
+}
+
 .page-header {
 	vertical-align: middle;
 	margin: 15px 0;
@@ -645,3 +658,9 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 #filemanager .fa-folder.fa-5x {
 	font-size: 10.5em;
 }
+/*Styles for froced language*/
+#forced_language label{
+	padding-top: 0;
+	padding-left: 0;
+}
+/****************************/

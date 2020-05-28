@@ -52,7 +52,7 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label"><?php echo $entry_description; ?></label>
                     <div class="col-sm-10">
-                      <div class="input-group"><span class="input-group-addon"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
+                      <div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
                         <textarea name="order_status[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="ck-basic form-control "><?php echo isset($order_status[$language['language_id']]) ? $order_status[$language['language_id']]['description'] : ''; ?></textarea>
                       </div>
                     </div>

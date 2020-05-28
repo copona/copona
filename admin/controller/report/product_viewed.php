@@ -1,6 +1,8 @@
 <?php
 class ControllerReportProductViewed extends Controller {
 
+    private $error;
+    
     public function index() {
         $this->load->language('report/product_viewed');
 

@@ -31,7 +31,8 @@ class Url
         $this->url = $url;
         $this->ssl = $ssl;
 
-        $this->code = ($this->config->get('config_seo_url') && APPLICATION == 'catalog' ? $this->session->data['language'] : '');
+        $this->code = ($this->config->get('config_seo_url') && APPLICATION == 'catalog' && !empty($this->session->data['language']) ? $this->session->data['language'] : '');
+        Config::set('code', $this->code);
     }
 
     public function addRewrite($rewrite)
@@ -41,11 +42,12 @@ class Url
 
     public function link($route, $args = '', $secure = false)
     {
-        $code = $this->code ? $this->code . "/" : '';
+        // $code = $this->code ? $this->code : '';
+        $code = $this->config->get('code');
         if ($_SERVER['HTTPS'] == true) {
-            $url = $this->ssl . $code . 'index.php?route=' . $route;
+            $url = $this->ssl . $code . '?route=' . $route;
         } else {
-            $url = $this->url . $code . 'index.php?route=' . $route;
+            $url = $this->url . $code . '?route=' . $route;
         }
 
         if ($args) {
@@ -84,10 +86,18 @@ class Url
      * 1. return partly built URL from CURRENT get params in format key=val&key1=val1...
      * 2. return ARRAY of needed keys from current get url, to be able to override them
      * 3. additional: pass all parameters in once, and build url
+     * 4. custom get params also loaded on exec.
      */
     public function getParams()
     {
         $result = [];
+
+        foreach( $this->request->get as $key => $val ) {
+            array_push($this->url_parts, $key);
+        }
+
+        $this->url_parts = array_unique($this->url_parts);
+
         foreach ($this->url_parts as $key) {
             $result[$key] = isset($this->request->get[$key]) ? $this->request->get[$key] : '';
         }
@@ -140,4 +150,44 @@ class Url
             return 'http://' . rtrim($this->config->get('image_base_url', $this->config->get('site_ssl')), '/') . '/' . $image;
         }
     }
+
+    /**
+     * Make original, full size image URL
+     *
+     * @param string $image
+     * @return string
+     */
+    public function getImageUrlOriginal($image)
+    {
+        if ($this->request->server['HTTPS']) {
+            return 'https://' . BASE_URL_IMAGE . '/' . $image;
+        } else {
+            return 'http://' . BASE_URL_IMAGE . '/' . $image;
+        }
+    }
+
+    /*
+     * Get current URL, add additional parameters if needed.
+     * TODO: method $this->link ($this->url->link) is slow by default because of $this->rewrite,
+     * so calling this method for URL building in some Loop is not an optimal solution.
+     * */
+    public function getCurrentUrl($additional = []){
+
+        if ($this->request->get('route')) {
+            $url_data = $this->request->get;
+            unset($url_data['_route_']);
+            $route = $url_data['route'];
+            unset($url_data['route']);
+            $url = '';
+            if ($url_data) {
+                $url = '&' . urldecode(http_build_query($url_data, '', '&'));
+            }
+
+            if($additional){
+                $url .= '&' . urldecode(http_build_query($additional, '', '&'));
+            }
+        }
+        return $this->link($route, $url);
+    }
+
 }

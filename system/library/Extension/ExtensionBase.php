@@ -2,32 +2,87 @@
 
 namespace Copona\System\Library\Extension;
 
+use Copona\Classes\Migration;
+
 abstract class ExtensionBase
 {
-    protected $name;
+    /**
+     * @var ExtensionItem
+     */
+    protected $extensionItem;
 
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
+    /**
+     * @var \Registry
+     */
+    protected $registry;
 
-    public function getName()
+    public function __construct(ExtensionItem $extensionItem)
     {
-        return $this->name;
+        $this->extensionItem = $extensionItem;
+        $this->registry = \Registry::getInstance();
     }
 
     /**
-     * Type Extension
-     * @return TypeInterface
+     * Executed before load controllers and views
      */
-    public abstract function getType();
+    public function onInit()
+    {
 
+    }
+
+    /**
+     * Executed in catalog ControllerStartupStartup
+     */
+    public function initCatalog()
+    {
+
+    }
+
+    /**
+     * Executed in catalog ControllerStartupStartup
+     */
+    public function initAdmin()
+    {
+
+    }
+
+    /**
+     * Define details about extension
+     * @return array
+     */
+    public abstract function details();
+
+    /**
+     * Get detail extension
+     *
+     * @param $key
+     * @return mixed|null
+     */
+    public function getDetail($key)
+    {
+        return isset($this->details()[$key]) ? $this->details()[$key] : null;
+    }
+
+    /**
+     * Get Name extension
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->detail('name')
+            ? $this->detail('name')
+            : $this->extensionItem->getName();
+    }
+
+    /**
+     * Check extension is enable
+     *
+     * @return bool
+     */
     public function isEnable()
     {
-        /** /Registry */
-        global $registry;
-
-        return (boolean)$registry->get('config')->get($this->getName() . '_status');
+        return (boolean)$this->registry->get('config')->get($this->getName() . '_status');
     }
 
     /**
@@ -37,5 +92,27 @@ abstract class ExtensionBase
     public function registerCronjob()
     {
         return [];
+    }
+
+    /**
+     * Update extension
+     *
+     * @return string
+     */
+    public function update()
+    {
+        // TODO: Fix this! Returns fatal error.
+        // return Migration::migrate($this->extensionItem->getPath()->getRealPath() . '/migrations');
+        return true;
+    }
+
+    /**
+     * Unistall extension
+     *
+     * @return string
+     */
+    public function uninstall()
+    {
+        return Migration::rollback($this->extensionItem->getPath()->getRealPath() . '/migrations');
     }
 }

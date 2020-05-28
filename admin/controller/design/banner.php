@@ -13,7 +13,7 @@ class ControllerDesignBanner extends Controller {
     }
 
     public function add() {
-        $this->load->language('design/banner');
+        $data = $this->load->language('design/banner');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -38,14 +38,17 @@ class ControllerDesignBanner extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link('design/banner', 'token=' . $this->session->data['token'] . $url, true));
+
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+                $this->response->redirect($this->url->link('design/banner/edit', 'token=' . $this->session->data['token'] . $url));
+            else
+                $this->response->redirect($this->url->link('design/banner', 'token=' . $this->session->data['token'] . $url, true));
         }
 
         $this->getForm();
     }
 
     public function edit() {
-        $this->load->language('design/banner');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -70,7 +73,10 @@ class ControllerDesignBanner extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link('design/banner', 'token=' . $this->session->data['token'] . $url, true));
+            if (isset($this->request->post['save_continue']) && $this->request->post['save_continue'])
+                $this->response->redirect($this->url->link('design/banner/edit', 'banner_id='.$this->request->get('banner_id').'&token=' . $this->session->data['token'] . $url));
+            else
+                $this->response->redirect($this->url->link('design/banner', 'token=' . $this->session->data['token'] . $url, true));
         }
 
         $this->getForm();
@@ -260,6 +266,9 @@ class ControllerDesignBanner extends Controller {
     }
 
     protected function getForm() {
+
+        $data =  $this->load->language('design/banner');
+
         $data['heading_title'] = $this->language->get('heading_title');
 
         $data['text_form'] = !isset($this->request->get['banner_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
@@ -404,17 +413,7 @@ class ControllerDesignBanner extends Controller {
         if (!$this->user->hasPermission('modify', 'design/banner')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
-
-        if (isset($this->request->post['banner_image'])) {
-            foreach ($this->request->post['banner_image'] as $language_id => $value) {
-                foreach ($value as $banner_image_id => $banner_image) {
-                    if ((utf8_strlen($banner_image['title']) < 2) || (utf8_strlen($banner_image['title']) > 64)) {
-                        $this->error['banner_image'][$language_id][$banner_image_id] = $this->language->get('error_title');
-                    }
-                }
-            }
-        }
-
+        
         return !$this->error;
     }
 

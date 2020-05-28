@@ -1,15 +1,27 @@
 <?php
 
-class ControllerStartupStartup extends Controller
-{
+class ControllerStartupStartup extends Controller {
 
-    public function index()
-    {
+    public function index() {
+
+        // pr($this->session);
+
         // Store
-        if ($this->request->server['HTTPS']) {
-            $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`ssl`, 'www.', '') = '" . $this->db->escape('https://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
-        } else {
-            $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape('http://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
+        try {
+            if ($this->request->server['HTTPS']) {
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`ssl`, 'www.', '') = '" . $this->db->escape('https://' . str_replace('www.', '',
+                            $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
+            } else {
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape('http://' . str_replace('www.', '',
+                            $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
+            }
+        } catch (Exception $e) {
+            $log = new Log('error.log');
+            $private_message = "Error selecting correct table. DB connection problems or TABLE " . DB_PREFIX . "store not avvailable?";
+            $log->write($private_message);
+            $log->write($e->getMessage());
+            error_log($private_message . " @" . __FILE__ . ":" . __LINE__, 0);
+            die("Something went wrong, please, try again later...");
         }
 
         if (isset($this->request->get['store_id'])) {
@@ -42,15 +54,26 @@ class ControllerStartupStartup extends Controller
         // Language
         $code = '';
 
+        /* Will detect language in the following priority:
+         * 1. Read from URL
+         * 2. Read from Cookie
+         * 3. Read from PHP session
+         * 4. If Forced language is set, then set from default language
+         * 4a. if not, then try to detect from browser
+         * 5. if nothing succeeds OR, detected language is not in available languages - we'll set default language
+         *
+        */
+
         $this->load->model('localisation/language');
 
         $languages = $this->model_localisation_language->getLanguages();
+        $default_language = $this->config->get('config_language');
 
-        if (isset($this->request->get["_route_"])) { // seo_language define
+        if (isset($this->request->get["_route_"])) {
+            // 1. Read from URL
             $seo_path = explode('/', $this->request->get["_route_"]);
             if (array_key_exists($seo_path[0], $languages)) {
-                $this->session->data['language'] = $code = $seo_path[0];
-                $seo_language = true;
+                $code = $seo_path[0];
                 //remove first element! And shift!
                 array_shift($seo_path);
                 if (!empty($seo_path[0]) && $seo_path[0] == 'index.php') {
@@ -62,29 +85,21 @@ class ControllerStartupStartup extends Controller
                     $this->request->get["_route_"] = implode($seo_path, '/');
                 }
             }
+        } elseif (isset($this->request->cookie['language']) && array_key_exists($this->request->cookie['language'],
+                $languages)) {
+            // 2. Detect from Cookie
+            $code = $this->request->cookie['language'];
+        } elseif (isset($this->session->data['language']) && array_key_exists($this->session->data['language'],
+                $languages)) {
+            // 3. Detect from PHP session
+            $code = $this->session->data['language'];
+        } elseif ($this->config->get("config_forced_language")) {
+            // 4. If set forced - set default language forced
+            $code = $default_language;
         } else {
-
-            // Set default language for domain without language link
-            if (empty($seo_language)) {
-                // TODO: must be fixed, otherwise Ajax has problems if nex line is enabled
-                // $session->data['language'] = $code = $config->get('config_language');
-            }
-            /* seo language OC23 end */
-
-            if (isset($this->session->data['language'])) {
-                $code = $this->session->data['language'];
-            }
-
-            if (isset($this->request->cookie['language']) && !array_key_exists($code, $languages)) {
-                $code = $this->request->cookie['language'];
-            }
-
-            $default_language = $this->config->get('config_language');
-
-            // Language Detection
+            // 5. Try to detect from the browser
             if (!empty($this->request->server['HTTP_ACCEPT_LANGUAGE']) && !array_key_exists($code, $languages)) {
                 $detect = '';
-
                 // lets use Default language, if it's accepted by Customer Browser correctly.
                 // $browser_languages = explode(',', $this->request->server['HTTP_ACCEPT_LANGUAGE']);
                 $browser_languages = explode(",", $this->request->server['HTTP_ACCEPT_LANGUAGE']);
@@ -102,7 +117,6 @@ class ControllerStartupStartup extends Controller
                         foreach ($languages as $key => $value) {
                             if ($value['status']) {
                                 $locale = explode(',', $value['locale']);
-
                                 if (in_array($browser_language, $locale)) {
                                     $detect = $key;
                                     break 2;
@@ -111,36 +125,23 @@ class ControllerStartupStartup extends Controller
                         }
                     }
                 }
-
-                if (!$detect) {
-                    // Try using language folder to detect the language
-                    foreach ($browser_languages as $browser_language) {
-                        if (array_key_exists(strtolower($browser_language), $languages)) {
-                            $detect = strtolower($browser_language);
-
-                            break;
-                        }
-                    }
-                }
-
                 $code = $detect ? $detect : '';
             }
         }
 
+        // check, if language is available
         if (!array_key_exists($code, $languages)) {
-            $code = $this->config->get('config_language');
+            $code = $default_language;
         }
 
-        if (!isset($this->session->data['language']) || $this->session->data['language'] != $code) {
-            $this->session->data['language'] = $code;
-        }
+        $this->session->data['language'] = $code;
 
         if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
             setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
         }
 
         // Overwrite the default language object
-        $language = new Language($code, $this->registry);
+        $language = new Language($code);
         $language->load($code);
 
         $this->registry->set('language', $language);
@@ -153,10 +154,19 @@ class ControllerStartupStartup extends Controller
             require_once(DIR_TEMPLATE . 'default/functions.php');
         }
 
+        // Execute Extensions Init, if them has a method.
+        \Copona\System\Library\Extension\ExtensionManager::initAllCatalog();
+
         //Theme settings override
         if ($this->config->get('theme_name') != 'default' && file_exists($this->config->get('theme_uri') . '/functions.php')) {
             require_once($this->config->get('theme_uri') . '/functions.php');
         }
+
+
+        $this->language->get('locale') ? setlocale(LC_ALL, $this->language->get('locale') . ".UTF-8") : '';
+        // For numeric calculations, we need to have "dot" as decimal separator.
+        // Numbers are still formatted by \Cart\Currency class.
+        setlocale(LC_NUMERIC, "C");
 
         // Customer
         $customer = new Cart\Customer($this->registry);
@@ -223,7 +233,9 @@ class ControllerStartupStartup extends Controller
             $this->tax->setShippingAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
         }
 
-        if (isset($this->session->data['payment_address'])) {
+        if (isset($this->session->data['payment_address'])
+            && !empty($this->session->data['payment_address']['country_id'])
+            && !empty($this->session->data['payment_address']['zone_id'])) {
             $this->tax->setPaymentAddress($this->session->data['payment_address']['country_id'], $this->session->data['payment_address']['zone_id']);
         } elseif ($this->config->get('config_tax_default') == 'payment') {
             $this->tax->setPaymentAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));

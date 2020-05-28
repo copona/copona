@@ -262,7 +262,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
         if ($this->config->get('realex_remote_status')) {
             $this->load->model('extension/payment/realex_remote');
 
-            $realex_order = $this->model_extension_payment_realex_remote->getOrder($this->request->get['order_id']);
+            $realex_order = $this->model_extension_payment_realex_remote->getOrder((int)$this->request->get['order_id']);
 
             if (!empty($realex_order)) {
                 $this->load->language('extension/payment/realex_remote');
@@ -296,8 +296,8 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                 $data['text_confirm_capture'] = $this->language->get('text_confirm_capture');
                 $data['text_confirm_rebate'] = $this->language->get('text_confirm_rebate');
 
-                $data['order_id'] = $this->request->get['order_id'];
-                $data['token'] = $this->request->get['token'];
+                $data['order_id'] = (int)$this->request->get['order_id'];
+                $data['token'] = $this->session->data['token'];
 
                 return $this->load->view('extension/payment/realex_remote_order', $data);
             }
@@ -448,6 +448,16 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
         }
 
         return !$this->error;
+    }
+
+    public function install() {
+        // bulk OC3 design install function
+        return 0;
+    }
+
+    public function uninstall() {
+        // bulk OC3 design install function
+        return 0;
     }
 
 }

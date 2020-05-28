@@ -2,98 +2,125 @@
 
 namespace Copona\System\Engine;
 
+use Registry;
 use Copona\Exception\ActionException;
 use Copona\System\Library\Extension\ExtensionManager;
 
+/**
+ * Class Action
+ *
+ * @package Copona\System\Engine
+ * @author Mykhailo YATSYSHYN <mail@maykl-yatsyshyn.info>
+ */
 class Action
 {
-    private $id;
-    private $method = 'index';
-    public $extension_file;
+    /**
+     * Default called method
+     */
+    const DEFAULT_METHOD = 'index';
 
-    public function __construct($route)
+    /**
+     * Action object
+     *
+     * @var \stdClass
+     */
+    private $action;
+
+    /**
+     * Action constructor.
+     *
+     * @param string $route
+     */
+    public function __construct(string $route)
     {
-        $this->id = $route;
-
-        // Break apart the route
-        $parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
-
-        $info_file = $this->prepareController($parts);
-        $this->file = $info_file->file;
-        $this->class = 'Controller' . preg_replace('/[^a-zA-Z0-9]/', '', $info_file->supposed_class);
-        $this->method = $info_file->supposed_method;
-    }
-
-    public function getId()
-    {
-        return $this->id;
+        $this->prepareController($route);
     }
 
     /**
-     * @param $registry
+     * @TODO used only Events
+     *
+     * Get action id
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->action->id;
+    }
+
+    /**
+     * Execute action
+     *
+     * @param Registry $registry
      * @param mixed $args
+     *
      * @return bool|mixed
+     *
      * @throws ActionException
      */
-    public function execute($registry, &$args = [])
+    public function execute(Registry $registry, &$args = [])
     {
         // Stop any magical methods being called
-        if (substr($this->method, 0, 2) == '__') {
+        if (substr($this->action->method, 0, 2) == '__') {
             return false;
         }
 
-        if (is_file($this->file)) {
-            include_once($this->file);
-
-            $class = $this->class;
-
-            $controller = new $class($registry);
-
-            if (is_callable([$controller, $this->method])) {
-                return call_user_func([$controller, $this->method], $args);
-            } else {
-                throw new ActionException('Method ' . $this->method . ' not found in Controller ' . $this->class);
-            }
-
-        } else {
-            throw new ActionException('Controller ' . $this->file . ' not found.');
+        // Check is exists file
+        if (!is_file($this->action->file)) {
+            throw new ActionException('Controller ' . $this->action->file . ' not found.');
         }
+
+        include_once($this->action->file);
+
+        $controller = new $this->action->class($registry);
+        // Check is callable class
+        if (!is_callable([$controller, $this->action->method])) {
+            throw new ActionException('Method ' . $this->action->method . ' not found in Controller ' . $this->action->class);
+        }
+
+        return call_user_func([$controller, $this->action->method], $args);
     }
 
     /**
      * Find and prepare controller file
      *
-     * @param array $parts
-     * @return \stdClass
+     * @param string $route
      */
-    private function prepareController(array $parts)
+    private function prepareController(string $route)
     {
-        $supposed_method = 'index';
+        // Create action object
+        $action = new \stdClass();
+        $action->id = $route;
+        $action->method = self::DEFAULT_METHOD;
+
+        // Parse route params
+        $parts = explode('/', preg_replace(
+            '/[^a-zA-Z0-9_\/]/', '', $route
+        ));
 
         while (count($parts)) {
+            $class_name = implode('/', $parts);
 
-            $supposed_class = implode('/', $parts);
+            // Create class name
+            $action->class = 'Controller' . preg_replace(
+                    '/[^a-zA-Z0-9]/', '', $class_name
+                );
 
-            $extensions_file = ExtensionManager::findController($supposed_class . '.php');
+            // Search controller file
+            $controller_file = ExtensionManager::findController($class_name . '.php');
+            $action->file = (bool)$controller_file
+                ? $controller_file
+                : DIR_APPLICATION . 'controller/' . $class_name . '.php';
 
-            if ($extensions_file) {
-                $file = $extensions_file;
-            } else {
-                $file = DIR_APPLICATION . 'controller/' . $supposed_class . '.php';
-            }
-
-            if (!file_exists($file)) {
-                $supposed_method = end($parts);
+            // Select file and set method
+            if (!file_exists($action->file)) {
+                $action->method = end($parts);
                 array_pop($parts);
             } else {
                 break;
             }
         }
 
-        $object = new \stdClass();
-        $object->file = $file;
-        $object->supposed_class = $supposed_class;
-        $object->supposed_method = $supposed_method;
-        return $object;
+        $this->action = $action;
     }
 }

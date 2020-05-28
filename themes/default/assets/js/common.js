@@ -164,7 +164,7 @@ var cart = {
 
                 if (json['success']) {
 
-                    $('body').after('<div class="alert alert-success alert-success-addtocart">' +
+                    $('body').append('<div class="alert alert-success alert-success-addtocart">' +
                             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                         json['success'] + '</div>').fadeIn('slow');
                     delay(function () {
@@ -172,7 +172,10 @@ var cart = {
                     }, 3000);
                     //console.log ( $(e.target) );
 
-                    json['text_added_to_cart'] != 'text_added_to_cart' ? $(e.target).notify( json['text_added_to_cart'] ,{position: "right", className: 'success'}) : false;
+                    // TODO: must be fixed with correct notify location.
+                    // json['text_added_to_cart'] != 'text_added_to_cart'
+                    //   ? $(e.target).notify(json['text_added_to_cart'], {position: "right", className: 'success'})
+                    //   : false;
 
                     $('#cart').load('index.php?route=common/cart/info');
                 }
@@ -254,7 +257,7 @@ var cart = {
         });
 
     }
-}
+};
 
 var voucher = {
     'add': function () {
@@ -288,7 +291,7 @@ var voucher = {
             }
         });
     }
-}
+};
 
 var wishlist = {
     'add': function (product_id) {
@@ -318,7 +321,7 @@ var wishlist = {
     'remove': function () {
 
     }
-}
+};
 
 var compare = {
     'add': function (product_id) {
@@ -342,7 +345,7 @@ var compare = {
     'remove': function () {
 
     }
-}
+};
 
 /* Agree to Terms */
 $(document).delegate('.agree', 'click', function (e) {
@@ -407,7 +410,7 @@ $(document).delegate('.agree', 'click', function (e) {
                 if (value && this.items[value]) {
                     this.select(this.items[value]);
                 }
-            }
+            };
 
             // Show
             this.show = function () {
@@ -417,7 +420,7 @@ $(document).delegate('.agree', 'click', function (e) {
                     left: pos.left
                 });
                 $(this).siblings('ul.dropdown-menu').show();
-            }
+            };
 
             // Hide
             this.hide = function () {
@@ -430,7 +433,7 @@ $(document).delegate('.agree', 'click', function (e) {
                 this.timer = setTimeout(function (object) {
                     object.source($(object).val(), $.proxy(object.response, object));
                 }, 200, this);
-            }
+            };
 
             // Response
             this.response = function (json) {
@@ -475,12 +478,23 @@ $(document).delegate('.agree', 'click', function (e) {
                 }
 
                 $(this).siblings('ul.dropdown-menu').html(html);
-            }
+            };
 
             $(this).after('<ul class="dropdown-menu"></ul>');
             $(this).siblings('ul.dropdown-menu').delegate('a', 'click', $.proxy(this.click, this));
         });
-    }
+    };
 
+    /*
+    Smooth scrolling when clicking an anchor link (Joseph Silber)
+     */
+
+    $(document).on('click', 'a[href^="#"]:not([data-toggle])', function (event) {
+        event.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $($.attr(this, 'href')).offset().top - 60
+        }, 500);
+    });
 
 })(window.jQuery);

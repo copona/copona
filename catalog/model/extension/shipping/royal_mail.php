@@ -1305,6 +1305,7 @@ class ModelExtensionShippingRoyalMail extends Model {
                         'title'        => $title,
                         'cost'         => $cost,
                         'tax_class_id' => $this->config->get('royal_mail_tax_class_id'),
+                        'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'],'',false),
                         'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get('royal_mail_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
                     );
                 }
