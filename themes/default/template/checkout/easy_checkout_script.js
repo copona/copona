@@ -179,7 +179,6 @@ var easy_cart = {
         // data += '&_shipping_method=' + jQuery('.checkout_form input[name=\'shipping_method\']:checked').prop('title') + '&_payment_method=' + jQuery('.checkout_form input[name=\'payment_method\']:checked').prop('title');
 
 
-
         var edit_onlyProgress = $.ajax({
             url: '?route=checkout/checkout/edit_only',
             type: 'post',
@@ -211,7 +210,7 @@ var easy_cart = {
             }
         });
     },
-    validateCoupon: function () {
+    validateCoupon: function (el) {
 
         // $(document).on('click', '#button-coupon', function () {
         $.ajax({
@@ -221,26 +220,27 @@ var easy_cart = {
             dataType: 'json',
             cache: false,
             beforeSend: function () {
+                $('#coupon-content .coupon_alert').remove();
                 $('#button-coupon').prop('disabled', true);
                 $('#button-coupon').after('<i class=" fa fa-spinner fa-spin "></i>');
+
             },
             complete: function () {
                 $('#button-coupon').prop('disabled', false);
                 $('#coupon-content .fa-spinner').remove();
             },
             success: function (json) {
-                $('.alert').remove();
-                $('html, body').animate({scrollTop: 0}, 'slow');
+                // $('html, body').animate({scrollTop: 0}, 'slow');
                 if (json['success']) {
-                    // location.reload();
                     shippingMethod.update();
-                    $('#success-messages').prepend('<div class=" alert alert-success " style=" display:none;"><i class=" fa fa-check-circle "></i> ' + json['success'] + '</div>');
-                    $('.alert-success').fadeIn('slow');
-                } else if (json['error']) {
-                    $('#warning-messages').prepend('<div class=" alert alert-danger " style=" display: none;"><i class=" fa fa-exclamation-circle "></i> ' + json['error']['warning'] + '</div>');
+                    $("#coupon-content").append('<div class="coupon_alert alert alert-success" style="display:none"><i class=" fa fa-check-circle "></i> ' + json['success'] + '</div>');
 
-                    $('.alert-danger').fadeIn('slow');
+                } else if (json['error']) {
+                    $("#coupon-content").append('<div class="coupon_alert alert alert-danger" style="display: none"><i class=" fa fa-exclamation-circle "></i> ' + json['error']['warning'] + '</div>');
                 }
+
+                $("#coupon-content .coupon_alert").fadeIn();
+
             },
         });
         // })
@@ -552,7 +552,7 @@ jQuery(document).ready(function () {
 
         $(document).on('click', '#button-coupon', function (e) {
             e.preventDefault();
-            easy_cart.validateCoupon();
+            easy_cart.validateCoupon($(this));
         });
 
 

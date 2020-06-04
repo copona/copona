@@ -120,7 +120,7 @@ if (!function_exists('eff')) {
 
         ?>
         <div class="form-group row<?= ($required ? " $required" : '') ?>">
-            <label class="col-lg-<?=$label_col?> col-form-label" for="input-payment-<?=$key?>"><?php echo $entry_name; ?></label>
+            <label class="col-lg-<?=$label_col?> col-form-label-sm" for="input-payment-<?=$key?>"><?php echo $entry_name; ?></label>
             <div class="col-lg-<?=(12-$label_col);?>">
 
                 <?php switch($type) {
@@ -129,9 +129,9 @@ if (!function_exists('eff')) {
                                value="<?php echo $default_value; ?>"
 
                                <?php if(empty($props['disable_placeholder'])) { ?>placeholder="<?php echo str_replace(':', '', $entry_name); ?>"<?php } ?>
-                               class="form-control<?=$invalid?>"
+                               class="form-control form-control-sm<?=$invalid?>"
 
-                               id="input-payment-<?= $key ?>" class="form-control" <?php if (isset($customer_id)) { ?> readonly<?php } ?>
+                               id="input-payment-<?= $key ?>" class="form-control form-control-sm" <?php if (isset($customer_id)) { ?> readonly<?php } ?>
                             <?php if(!empty($props['disabled'])) { echo 'disabled="disabled"'; } ?>
 
                         />

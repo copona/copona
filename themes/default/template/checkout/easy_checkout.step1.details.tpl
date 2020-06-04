@@ -67,7 +67,7 @@
       <?php
       $fields = [
           'firstname' => ['required' => 1],
-          //'lastname'=>['required' => 1],
+          'lastname'=>['required' => 1],
           'email'     => ['required' => 1],
           'telephone' => ['required' => 1],
       ];
