@@ -11,7 +11,7 @@
   "homepage": "https://github.com/copona/copona",
   "license": "GPL-3.0-or-later",
   "require": {
-    "php": ">=7.1.0",
+    "php": ">=7.2",
     "copona/core": "dev-master",
     "plasticbrain/php-flash-messages": "^1.0"
   },
