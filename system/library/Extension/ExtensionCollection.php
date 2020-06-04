@@ -7,7 +7,8 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
 class ExtensionCollection extends Collection {
-    public function add(SplFileInfo $extensionPath) {
+    // public function add(SplFileInfo $extensionPath) {
+    public function add($extensionPath) {
         $finder = new Finder();
 
         $extension = new ExtensionItem();
