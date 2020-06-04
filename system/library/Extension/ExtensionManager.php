@@ -42,20 +42,41 @@ class ExtensionManager
             self::$extensionCollection = $cache->get('extensionCollection');
         } else {
 
-            self::$extension_dir = rtrim(\Config::get('extension.dir', DIR_PUBLIC . '/extensions/'), '/');
+            self::$extension_dir = rtrim(\Config::get('extension.dir', rtrim(DIR_PUBLIC,"/") . '/extensions/'), '/');
+
+//            prd(self::$extension_dir);
 
             self::$finder = new Finder();
             self::$finder->in(self::$extension_dir);
             $finder = self::$finder;
 
+
+            prd($finder );  
+
             $finder->depth('1')->directories();
+
+
+
 
             self::$extensionCollection = new ExtensionCollection();
 
             /** @var SplFileInfo $extensionPath */
             foreach ($finder as $extensionPath) {
+                // pr($extensionPath);
+
+
+
                 self::$extensionCollection->add($extensionPath);
+
+                prd(self::$extensionCollection);
+
+
+
+
             }
+
+
+
 
             // WIP: BUG:  Serialization of 'Symfony\Component\Finder\SplFileInfo' is not allowed #214
             // $cache->set('extensionCollection', self::$extensionCollection);
@@ -290,6 +311,8 @@ class ExtensionManager
 
         $extensions_file = self::findFile($language);
 
+
+
         if ($extensions_file && count($extensions_file)) {
             return reset($extensions_file);
         }
@@ -304,6 +327,9 @@ class ExtensionManager
     public static function findFile($query)
     {
         $filesCollection = self::$extensionCollection->pluck('files')->toArray();
+
+
+
         $filesInterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($filesCollection));
         $files = iterator_to_array($filesInterator, false);
 

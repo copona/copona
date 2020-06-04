@@ -45,7 +45,7 @@ class IndexesForCartTable extends AbstractMigration
             ->addIndex(['customer_id','date_added'])
             ->addIndex(['customer_id','product_id'])
             ->addIndex(['api_id','customer_id'])
-            ->update(); 
+            ->update();
 
     }
 }

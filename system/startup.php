@@ -165,7 +165,7 @@ if (\Copona\Classes\Install::checkIfInstalled() == false
 
 //Dotenv
 if (file_exists(DIR_PUBLIC . '/.env')) {
-    $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
+    $dotenv = Dotenv\Dotenv::create(DIR_PUBLIC);
     $dotenv->load();
 }
 
