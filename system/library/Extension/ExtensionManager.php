@@ -51,7 +51,7 @@ class ExtensionManager
             $finder = self::$finder;
 
 
-            prd($finder );  
+            // prd($finder );
 
             $finder->depth('1')->directories();
 
@@ -63,16 +63,8 @@ class ExtensionManager
             /** @var SplFileInfo $extensionPath */
             foreach ($finder as $extensionPath) {
                 // pr($extensionPath);
-
-
-
                 self::$extensionCollection->add($extensionPath);
-
-                prd(self::$extensionCollection);
-
-
-
-
+                // prd(self::$extensionCollection);
             }
 
 
