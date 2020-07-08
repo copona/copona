@@ -1,5 +1,7 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 class Mail {
     protected $to;
     protected $from;
@@ -91,11 +93,12 @@ class Mail {
             $to = $this->to;
         }
 
-        if(!class_exists('PHPMailer')){
-            $this->log->write('ERROR: PHP Mailer class required! Install using Composer!');
+        if(!class_exists('PHPMailer\PHPMailer\PHPMailer')){
+            $this->log->write('ERROR: PHP Mailer class required! Install using Composer1!');
             return false;
         }
         try {
+
 
             $mail = new PHPMailer;
             $mail->CharSet = 'UTF-8';
@@ -171,6 +174,9 @@ class Mail {
             }
 
             $mail->Subject = $this->subject;
+
+            prd();
+
 
             if (!$mail->send()) {
                 echo "<h4>Mailer Error:</h4><p>" . $mail->ErrorInfo . ".<br><br>";

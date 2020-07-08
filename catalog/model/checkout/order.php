@@ -7,6 +7,7 @@ class ModelCheckoutOrder extends Model
     {
         parent::__construct($parms);
         $this->load->model('catalog/content');
+        $this->load->model('catalog/product');
         $this->load->model('setting/setting');
         $this->load->model("tool/mail");
     }
@@ -615,8 +616,10 @@ class ModelCheckoutOrder extends Model
                 ];
             }
 
+            $product_info = $this->model_catalog_product->getProduct($product['product_id']);
             $data['products'][] = [
                 'name'     => $product['name'],
+                'upc'      => $product_info['upc'],
                 'model'    => $product['model'],
                 'option'   => $option_data,
                 'quantity' => $product['quantity'],
@@ -672,7 +675,7 @@ class ModelCheckoutOrder extends Model
         $data['text_greeting'] = $language->get('text_received');
         $data['comment'] = $order_info['comment'];
         $data['text_download'] = '';
-        $data['text_footer'] = '';
+        // $data['text_footer'] = ''; // Needed in e-mail template!
         $data['text_link'] = '';
         $data['link'] = '';
         $data['download'] = '';
