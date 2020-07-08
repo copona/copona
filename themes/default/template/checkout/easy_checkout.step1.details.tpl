@@ -105,10 +105,6 @@
 
           <strong>Latvija</strong> <br />
 
-          Preci iespējams saņemt ar piegādi uz Omniva pakomātu vai personīgi mūsu birojā*.<br />
-
-          * Nav iespējams valstī izsludinātā ārkārtas stāvokļa laikā.
-
           <input name="country_id" type="hidden" id="input-payment-country" class="form-control" value="117">
 
 
