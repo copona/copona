@@ -467,7 +467,10 @@ class ModelCheckoutOrder extends Model
             // pr($order_status_id);
             // prd($order_info);
 
-            if (!$order_info['order_status_id'] && $order_status_id) {
+            // $notify - Needed for "bulk" mails, if order is created, let's say, from Paymant System, which "Cancels" order, (that means, it's not "created" normally
+            // then we still want to "track that", but we don't  need to send Anything to customer!
+
+            if (!$order_info['order_status_id'] && $order_status_id && $notify) {
                 $this->sendOrderEmails($order_id);
             }
 
@@ -476,15 +479,12 @@ class ModelCheckoutOrder extends Model
         }
     }
 
-    /* FUNKCIJAS, kas pieejamas TIKAI API darbībām vajadzētu būt! START */
+    /* Functions, needed and available only for API (must be!) START */
     public function getOrderProducts($order_id)
     {
         /* Beos MOD: */
-        // ŠIS - arī dublējas /admin/model/sale/order !!!
-        // ŠIS - arī dublējas /catalog/model/checkout/order !!!
-        // ŠIS - arī cron/myshop_order_arpi_send.php  !!!
-        // ŠIS - arī cron/myshop_order_arpi_send_manual.php  !!!
-        /*$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");*/
+        // dub from /admin/model/sale/order !!!
+        // dub from /catalog/model/checkout/order !!!
 
         $query = $this->db->query("SELECT product.* , p.image
             FROM " . DB_PREFIX . "order_product product
