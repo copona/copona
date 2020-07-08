@@ -175,9 +175,6 @@ class Mail {
 
             $mail->Subject = $this->subject;
 
-            prd();
-
-
             if (!$mail->send()) {
                 echo "<h4>Mailer Error:</h4><p>" . $mail->ErrorInfo . ".<br><br>";
                 echo "Please check your mail configuration.</p>";
