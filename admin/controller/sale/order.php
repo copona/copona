@@ -1439,6 +1439,8 @@ class ControllerSaleOrder extends Controller {
             $data['base'] = HTTP_SERVER;
         }
 
+        $data['logo'] = HTTPS_CATALOG . 'image/' . $this->config->get('config_logo') ;
+
         $data['direction'] = $this->language->get('direction');
         $data['lang'] = $this->language->get('code');
 
