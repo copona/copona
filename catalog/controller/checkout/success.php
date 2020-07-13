@@ -12,7 +12,6 @@ class ControllerCheckoutSuccess extends Controller
         $this->load->model('checkout/order');
         $this->load->model('extension/total/coupon');
 
-        $data['config_azon_store_info_email'] = $this->config->get('config_azon_store_info_email');
         $data['config_telephone'] = $this->config->get('config_telephone');
         $data['after_purchase'] = false;
 
@@ -32,15 +31,7 @@ class ControllerCheckoutSuccess extends Controller
 
         if ($order && $order['order_status_id']) {
 
-            // Ja ir kupons, tad to vajag atzīmēt, kā "izmantotu"
-            // if($this->model_checkout_order->getOrderTotals($this->session->data['order_id'], 'coupon')){
-            // ŠIS ir salabots! model/checkout/order metodē nomainīts property_exists uz method_exists !
-            // izmainīts arī Copona! :)
-            // $this->model_extension_total_coupon->confirm_azon($order);
-            //}
-
             $products = $this->model_checkout_order->getOrderProducts($this->session->data['order_id']);
-
 
             $data['products'] = [];
             $data['currency_code'] = $order['currency_code'];
@@ -220,7 +211,6 @@ class ControllerCheckoutSuccess extends Controller
 
             $this->response->setOutput($this->load->view('checkout/easy_success', $data));
         } else {
-
 
             $this->load->language('error/not_found');
             $this->document->setTitle($this->language->get('heading_title'));
