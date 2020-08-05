@@ -23,7 +23,6 @@ class Url
 
     public function __construct($url, $ssl = '', $registry)
     {
-
         $this->config = $registry->get('config');
         $this->session = $registry->get('session');
         $this->request = $registry->get('request');
@@ -50,6 +49,8 @@ class Url
             $url = $this->url . $code . '?route=' . $route;
         }
 
+
+
         if ($args) {
             if (is_array($args)) {
                 $url .= '&amp;' . http_build_query($args);
@@ -57,6 +58,8 @@ class Url
                 $url .= str_replace('&', '&amp;', '&' . ltrim($args, '&'));
             }
         }
+
+
 
         foreach ($this->rewrite as $rewrite) {
             $url = $rewrite->rewrite($url);
