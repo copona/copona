@@ -1,8 +1,5 @@
 <?php
-// Heading
 $_['heading_title'] = 'Orders';
-
-// Text
 $_['text_success'] = 'Success: You have modified orders!';
 $_['text_list'] = 'Order List';
 $_['text_add'] = 'Add Order';
@@ -20,10 +17,9 @@ $_['text_customer_group'] = 'Customer Group';
 $_['text_email'] = 'E-Mail';
 $_['text_telephone'] = 'Telephone';
 $_['text_invoice'] = 'Invoice';
-$_['text_order'] = 'Order';
+$_['text_order'] = 'Order (#%s)';
 $_['text_reward'] = 'Reward Points';
 $_['text_affiliate'] = 'Affiliate';
-$_['text_order'] = 'Order (#%s)';
 $_['text_payment_address'] = 'Payment Address';
 $_['text_shipping_address'] = 'Shipping Address';
 $_['text_comment'] = 'Customer Comment';
@@ -61,8 +57,6 @@ $_['text_commission_removed'] = 'Success: Commission removed!';
 $_['text_restock'] = 'Success: Products have been restocked!';
 $_['text_upload'] = 'Your file was successfully uploaded!';
 $_['text_picklist'] = 'Dispatch Note';
-
-// Column
 $_['column_order_id'] = 'Order ID';
 $_['column_customer'] = 'Customer';
 $_['column_status'] = 'Status';
@@ -79,8 +73,6 @@ $_['column_location'] = 'Location';
 $_['column_reference'] = 'Reference';
 $_['column_action'] = 'Action';
 $_['column_weight'] = 'Product Weight';
-
-// Entry
 $_['entry_store'] = 'Store';
 $_['entry_customer'] = 'Customer';
 $_['entry_customer_group'] = 'Customer Group';
@@ -119,15 +111,11 @@ $_['entry_payment_method'] = 'Payment Method';
 $_['entry_coupon'] = 'Coupon';
 $_['entry_voucher'] = 'Voucher';
 $_['entry_reward'] = 'Reward';
-$_['entry_order_id'] = 'Order ID';
+$_['entry_order_id'] = 'Order or Invoice ID';
 $_['entry_total'] = 'Total';
 $_['entry_date_added'] = 'Date Added';
 $_['entry_date_modified'] = 'Date Modified';
-
-// Help
 $_['help_override'] = 'If the customers order is being blocked from changing the order status due to an anti-fraud extension enable override.';
-
-// Error
 $_['error_warning'] = 'Warning: Please check the form carefully for errors!';
 $_['error_permission'] = 'Warning: You do not have permission to modify orders!';
 $_['error_action'] = 'Warning: Could not complete this action!';
