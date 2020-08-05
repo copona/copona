@@ -185,6 +185,8 @@ class ModelSaleOrder extends Model {
           , o.shipping_code
           , o.payment_method
           , o.total
+          , o.invoice_no
+          , o.invoice_prefix
           , o.currency_code
           , o.currency_value
           , o.date_added
@@ -208,7 +210,7 @@ class ModelSaleOrder extends Model {
         }
 
         if (!empty($data['filter_order_id'])) {
-            $sql .= " AND o.order_id = '" . (int)$data['filter_order_id'] . "'";
+            $sql .= " AND ( o.order_id = '" . (int)$data['filter_order_id'] . "' OR CONCAT(o.invoice_prefix, o.invoice_no) LIKE  '%" . (int)$data['filter_order_id'] . "%'  )";
         }
 
         if (!empty($data['filter_customer'])) {

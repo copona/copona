@@ -138,7 +138,10 @@
                                 <input type="checkbox" name="selected[]" value="<?php echo $order['order_id']; ?>" />
                             <?php } ?>
                             <input type="hidden" name="shipping_code[]" value="<?php echo $order['shipping_code']; ?>" /></td>
-                          <td class="text-right"><a href="<?php echo $order['view']; ?>"><?php echo $order['order_id']; ?></a></td>
+                          <td class="text-right"><a href="<?php echo $order['view']; ?>"><?php echo $order['order_id']; ?></a>
+                              <br>
+                              <?php echo Translation::get('text_invoice'); ?>: <a href="<?php echo $order['invoice_view']; ?>"><?php echo $order['invoice_number']; ?></a>
+                          </td>
                           <td class="text-left"><a href="<?php echo $order['view']; ?>"><?php echo $order['customer']; ?></a>
                           </td>
                           <td class="text-left"><?php echo $order['order_status']; ?><br />

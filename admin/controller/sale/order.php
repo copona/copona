@@ -219,6 +219,7 @@ class ControllerSaleOrder extends Controller {
                 'date_modified'  => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
                 'shipping_code'  => $result['shipping_code'],
                 'payment_method' => $result['payment_method'],
+                'invoice_number' => $result['invoice_prefix'] . $result['invoice_no'],
                 'view'           => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, true),
                 'edit'           => $this->url->link('sale/order/edit', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, true)
             );
