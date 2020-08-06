@@ -22,13 +22,13 @@ final class MySQLi {
 
         if(\Config::get('debug.sql')) {
             $start_time = microtime(true);
-            
+
             $this->log->write( "Started: (".substr( md5( $sql ), 0, 8) .") $sql" );
             $query = $this->connection->query($sql);
 
-            $msec = number_format(microtime(true) - $start_time, 4, '.', ',') . " msec";            
+            $msec = number_format(microtime(true) - $start_time, 4, '.', ',') . " msec";
             $output = "Ended (".substr( md5( $sql ), 0, 8).") in: $msec" . " \t" . $sql . "\n";
-            
+
             for ($i = 0; $i < 3; $i++) {
                     if(empty( debug_backtrace()[$i]['file']) ) {
                         break;
@@ -37,7 +37,7 @@ final class MySQLi {
                     $output .= debug_backtrace()[$i]['file'] . ":" . debug_backtrace()[$i]['line'] . " \n";
                 }
 
-            $this->log->write( $output );            
+            $this->log->write( $output );
         } else {
             $query = $this->connection->query($sql);
         }
@@ -63,6 +63,10 @@ final class MySQLi {
         } else {
             throw new \Exception('Error: ' . $this->connection->error . '<br />Error No: ' . $this->connection->errno . '<br />' . $sql);
         }
+    }
+
+    public function getColumn($key) {
+        return isset($this->first_row[$key]) ? $this->first_row[$key] : NULL;
     }
 
     public function escape($value) {

@@ -32,4 +32,8 @@ class DB {
         return $this->adaptor->connected();
     }
 
+    public function getColumn($key = '') {
+        return $this->adaptor->getColumn($key);
+    }
+
 }
