@@ -128,7 +128,12 @@ if (!function_exists('eff')) {
                         <input type="text" name="<?=(!empty($props['named_array']) ? $props['named_array'] . "[" . $key . "]" : $key )?>"
                                value="<?php echo $default_value; ?>"
 
-                               <?php if(empty($props['disable_placeholder'])) { ?>placeholder="<?php echo str_replace(':', '', $entry_name); ?>"<?php } ?>
+                               <?php if(empty($props['disable_placeholder'])) {
+
+                               $entry_name = str_replace(':', '', $entry_name);
+                               $entry_name = html_to_plaintext($entry_name);
+
+                                   ?>placeholder="<?php echo $entry_name; ?>"<?php } ?>
                                class="form-control form-control-sm<?=$invalid?>"
 
                                id="input-payment-<?= $key ?>" class="form-control form-control-sm" <?php if (isset($customer_id)) { ?> readonly<?php } ?>

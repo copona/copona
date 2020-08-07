@@ -3,8 +3,6 @@
 class ModelToolMail extends Model
 {
     /**
-     * @author Arnis Juraga <arnis.juraga@gmail.com>
-     *
      * @param string $from_email
      * @param string $to_email
      * @param string $subject
@@ -12,16 +10,18 @@ class ModelToolMail extends Model
      * @param string $template Loads template from $template path, or sends plain text, if no template is specified.
      * @param int $store_id
      * @param string $store_name taken from store value, if set.
+     * @author Arnis Juraga <arnis.juraga@gmail.com>
+     *
      */
-    public function sendMail($from_email = '',
-                             $to_email = '',
-                             $subject = '',
-                             $data = [],
-                             $template = '',
-                             $store_id = 0,
-                             $store_name = ''
-    )
-    {
+    public function sendMail(
+        $from_email = '',
+        $to_email = '',
+        $subject = '',
+        $data = [],
+        $template = '',
+        $store_id = 0,
+        $store_name = ''
+    ) {
 
 
         $this->load->model('setting/setting');
@@ -31,7 +31,7 @@ class ModelToolMail extends Model
         // store_name: $order_info['store_name']
         $html_message = '';
 
-        if($this->config->get('config_mail_protocol') == 'smtp') {
+        if ($this->config->get('config_mail_protocol') == 'smtp') {
             $from_email = $this->config->get('config_mail_smtp_from_email');
         }
 
@@ -59,8 +59,6 @@ class ModelToolMail extends Model
         }
 
 
-
-
         $mail = new Mail();
         $mail->protocol = $this->config->get('config_mail_protocol');
         $mail->parameter = $this->config->get('config_mail_parameter');
@@ -76,11 +74,11 @@ class ModelToolMail extends Model
         $mail->setSender(html_entity_decode($from_name, ENT_QUOTES, 'UTF-8'));
         $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
 
-        if($html_message) {
+        if ($html_message) {
             $mail->setHtml($html_message);
         }
 
-        $mail->setText($data['message']);
+        $mail->setText($data['message'] ?? html_to_plaintext($html_message));
         $mail->send();
     }
 }

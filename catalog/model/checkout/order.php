@@ -166,7 +166,7 @@ class ModelCheckoutOrder extends Model
 
         // Everyone wil have shipping method! Bt just chak anyway for sake:
         // NOt needed to add in template extra.
-        if($shipping_method){
+        if ($shipping_method) {
             $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "'"
                 . ", code = 'shipping'"
                 . ", title = '" . $this->db->escape($shipping_method['title']) . "'"
@@ -482,16 +482,13 @@ class ModelCheckoutOrder extends Model
     /* Functions, needed and available only for API (must be!) START */
     public function getOrderProducts($order_id)
     {
-        /* Beos MOD: */
         // dub from /admin/model/sale/order !!!
         // dub from /catalog/model/checkout/order !!!
 
-        $query = $this->db->query("SELECT product.* , p.image
+        $query = $this->db->query("SELECT product.* , p.weight,  p.image
             FROM " . DB_PREFIX . "order_product product
-            LEFT JOIN " . DB_PREFIX . "product p on product.product_id = p.product_id 
+            LEFT JOIN " . DB_PREFIX . "product p on product.product_id = p.product_id
             WHERE order_id = " . (int)$order_id);
-
-
         return $query->rows;
     }
 
