@@ -97,6 +97,10 @@ class ModelCustomerCustomField extends Model {
             $sql .= " AND cfd.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
         }
 
+        if (!empty($data['filter_location'])) {
+            $sql .= " AND cf.location = '" . $this->db->escape($data['filter_location']) . "'";
+        }
+
         if (!empty($data['filter_customer_group_id'])) {
             $sql .= " AND cfcg.customer_group_id = '" . (int)$data['filter_customer_group_id'] . "'";
         }
