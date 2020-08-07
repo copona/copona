@@ -574,7 +574,7 @@ class ControllerCheckoutCheckout extends Controller
             $key = "custom_field" . $custom_field['custom_field_id'];
 
             if ($custom_field['required'] && !$this->request->post($key)) {
-                $json = array_merge($json, ['error' => ['warning' => $this->language->get('text_company_name_required')]]);
+                $json = array_merge($json, ['error' => ['warning' => $this->language->get('text_company_data_required')]]);
             }
             $order_custom_fields[$key] = $this->request->post($key);
         }

@@ -168,4 +168,4 @@ $_['text_my_billing_address_is_different'] = 'Billing is different';
 $_['text_checkout_coupon'] = 'Use coupon';
 $_['text_thanks'] = 'Thank You!';
 $_['text_order_number'] = 'Order number';
-$_['text_company_name_required'] = 'Please provide Company name!';
+$_['text_company_data_required'] = 'Please provide Company name!';
