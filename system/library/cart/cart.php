@@ -17,6 +17,7 @@ class Cart
     private $payment_method = [];
     private $payment_address = [];
     private $payment_methods = [];
+    private $custom_fields = [];
 
     private $payment_instruction = ''; // Used in "success"  payment.
 
@@ -48,13 +49,8 @@ class Cart
         $this->load->model('catalog/product');
         $this->load->model('localisation/country');
         $this->extension = $registry->get('model_extension_extension');
-
         $this->countries = $registry->get('model_localisation_country')->getCountries();
-
-
         $this->log = new \Log('cart.log');
-
-
         $this->cur_constr(); // Does the minimum currency constructor for formatting
 
         // in Admin - session can be empty!
@@ -517,13 +513,14 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
         $this->setShippingMethods();
         $this->setPaymentMethods();
 
+        $this->setCustomFields($this->session->data('custom_fields'));
+
         $this->setShippingMethod($this->session->data('shipping_method'));
         $this->setPaymentMethod($this->session->data('payment_method'));
 
         $this->setAddress2($this->session->data('address2'));
 
         $this->setPaymentInstruction($this->session->data('payment_instruction'));
-
 
         //metode init();
 
@@ -1325,6 +1322,18 @@ product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id 
 
         $this->session->data['payment_address'] = $this->payment_address;
     }
+
+
+    public function setCustomFields($custom_fields = [])
+    {
+        $this->custom_fields = $custom_fields;
+    }
+
+    public function getCustomFields()
+    {
+         return $this->custom_fields;
+    }
+
 
     // TODO, is this done?
     public function setComment($comment)

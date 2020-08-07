@@ -58,6 +58,7 @@
           <?php
           // eff('company', 'Uzņēmuma nosaukums', 0);
           eff('custom_field1', 'Uzņēmuma nosaukums', 0);
+          eff('custom_field3', 'Reģ.Nr.', 0);
           eff('custom_field2', 'PVN.nr', 0);
           ?>
       </div>

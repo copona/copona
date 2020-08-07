@@ -20,6 +20,7 @@ class ModelCheckoutOrder extends Model
         $shipping_method = $data['shipping_method'];
 
 
+
         $sql = "INSERT INTO `" . DB_PREFIX . "order` SET invoice_prefix = '" . $this->db->escape($data['invoice_prefix']) . "'"
             . ", store_id = '" . (int)$data['store_id'] . "'"
             . ", store_name = '" . $this->db->escape($data['store_name']) . "'"
@@ -31,7 +32,7 @@ class ModelCheckoutOrder extends Model
             . ", email = '" . $this->db->escape($data['email']) . "'"
             . ", telephone = '" . $this->db->escape($data['telephone']) . "'"
             . ", fax = ''" // Removed forever!
-            . ", custom_field = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "'"
+            . ", custom_field = '" . $this->db->escape(json_encode($data['custom_field'], JSON_UNESCAPED_UNICODE)) . "'"
             . ", payment_firstname = '" . $this->db->escape($payment_address['firstname']) . "'"
             . ", payment_lastname = '" . $this->db->escape($payment_address['lastname']) . "'"
 
