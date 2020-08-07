@@ -4,6 +4,7 @@ namespace DB;
 
 final class MySQLi {
     private $connection;
+    private $first_row = [];
 
     public function __construct($hostname, $username, $password, $database, $port = '3306') {
         $this->connection = new \mysqli($hostname, $username, $password, $database, $port);
@@ -47,12 +48,14 @@ final class MySQLi {
                 $result = new \stdClass();
                 $result->num_rows = $query->num_rows;
                 $result->rows = [];
+                $this->first_row = [];
 
                 while ($row = $query->fetch_assoc()) {
 					$result->rows[] = $row;
                 }
 
                 $result->row = isset($result->rows[0]) ? $result->rows[0] : [];
+                $this->first_row = $result->row; // WIP: Need to be defined by reference better, don't You think?
 
                 $query->close();
 

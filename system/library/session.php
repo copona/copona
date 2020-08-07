@@ -112,8 +112,14 @@ class Session {
         setcookie($key, '', time() - 42000, ini_get('session.cookie_path'), ini_get('session.cookie_domain'));
     }
 
-    public function data($key = '') {
-        return isset($this->data[$key]) ? $this->data[$key] : null;
+    /**
+     * Get session variable. If not defined, return default parameter (NULL if not secified)
+     * @param string $key
+     * @param null $default
+     * @return mixed|null
+     */
+    public function data($key = '', $default = null) {
+        return isset($this->data[$key]) ? $this->data[$key] : $default;
     }
 
     public function get($key = '') {
