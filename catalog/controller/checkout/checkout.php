@@ -570,13 +570,15 @@ class ControllerCheckoutCheckout extends Controller
 
 
 
+
         $order_custom_fields = [];
         foreach ($custom_fields as $custom_field) {
 
             $key = "custom_field" . $custom_field['custom_field_id'];
 
             if ($custom_field['required'] && !$this->request->post($key)) {
-                $json = array_merge($json, ['error' => ['warning' => sprintf( $this->language->get('error_custom_field') , $custom_field['name'] )]]);
+                $error = ['custom_field' . $custom_field['custom_field_id'] => sprintf( $this->language->get('error_custom_field') , $custom_field['name'] )];
+                $json['error'] = array_merge($json['error'] ?? [] , $error);
             }
             $order_custom_fields[$key] = $this->request->post($key);
         }
