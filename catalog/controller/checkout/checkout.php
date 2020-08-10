@@ -583,15 +583,11 @@ class ControllerCheckoutCheckout extends Controller
         foreach ($custom_fields as $custom_field) {
             $key = "custom_field" . $custom_field['custom_field_id'];
             if ($custom_field['required'] && !$this->request->post($key)) {
-
-                $error = ['custom_field' . $custom_field['custom_field_id'] => "X " . sprintf( $this->language->get('error_custom_field') , $custom_field['name'] )];
-
-                $json = array_merge($json['error'], $error);
+                $error = ['custom_field' . $custom_field['custom_field_id'] => sprintf( $this->language->get('error_custom_field') , $custom_field['name'] )];
+                $json['error'] = array_merge($json['error'] ?? [] , $error);
             }
             $order_custom_fields[$key] = $this->request->post($key);
         }
-
-        pr($json);
 
         $this->cart->setCustomFields($order_custom_fields);
         $this->cart->setShippingAddress($shipping_address);
