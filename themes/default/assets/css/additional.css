@@ -1,6 +1,11 @@
 
 @import url('easy_checkout.css') ;
 
+.form-group.required label:after {
+    color: red;
+    content: "*";
+}
+
 
 body .notifyjs-container {
     line-height: 1.1em;
