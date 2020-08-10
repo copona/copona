@@ -98,8 +98,6 @@ class ControllerCheckoutCheckout extends Controller
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
 
-        $data['custom_fields'] = $this->model_account_custom_field->getCustomFields();
-
         $data['address'] = $this->cart->getShippingAddress();
         $data['address2'] = $this->cart->getAddress2();
         $data['quickconfirm'] = $this->request->get('quickconfirm');
@@ -112,9 +110,13 @@ class ControllerCheckoutCheckout extends Controller
         $this->checkout(false, $data);
         $this->shipping_address(false, $data);
 
+
+
         // Set/Load initial/session shipping method!
         $this->shipping_method(false, $data);
+
         $this->payment_address(false, $data);
+
         $this->payment_method(false, $data);
 
         if ($this->customer->isLogged()) {
@@ -124,7 +126,7 @@ class ControllerCheckoutCheckout extends Controller
             $data['payment_address_id'] = $this->customer->getAddressId();
         }
 
-        // prd($data);
+
 
         // prd($data);
         $this->response->setOutput($this->load->view('checkout/easy_checkout', $data));
@@ -240,29 +242,28 @@ class ControllerCheckoutCheckout extends Controller
     public function payment_address($render = true, &$data = [])
     {
 
+        // IMPORTANT! This cannot be "merged" into data array, as it contains a lot of "local" variables not safe for other modules!
+        // as we are using $data as reference. Must be merged improved in the future.
         $this->load->language('checkout/checkout');
-
         $data['text_address_existing'] = $this->language->get('text_address_existing');
         $data['text_address_new'] = $this->language->get('text_address_new');
         $data['text_select'] = $this->language->get('text_select');
         $data['text_none'] = $this->language->get('text_none');
-
         $data['entry_firstname'] = $this->language->get('entry_firstname');
         $data['entry_lastname'] = $this->language->get('entry_lastname');
         $data['entry_company'] = $this->language->get('entry_company');
-
         // Two new translations:
         $data['entry_company_id'] = $this->language->get('entry_company_id');
         $data['entry_tax_id'] = $this->language->get('entry_tax_id');
-
         $data['entry_address_1'] = $this->language->get('entry_address_1');
         $data['entry_address_2'] = $this->language->get('entry_address_2');
         $data['entry_postcode'] = $this->language->get('entry_postcode');
         $data['entry_city'] = $this->language->get('entry_city');
         $data['entry_country'] = $this->language->get('entry_country');
         $data['entry_zone'] = $this->language->get('entry_zone');
-
         $data['button_continue'] = $this->language->get('button_continue');
+
+        // Two new translations:
 
         if (isset($this->session->data['payment_address']['address_id'])) {
             $data['payment_address_id'] = $this->session->data['payment_address']['address_id'];
@@ -276,9 +277,6 @@ class ControllerCheckoutCheckout extends Controller
         $this->load->model('account/address');
 
         $data['addresses'] = $this->model_account_address->getAddresses();
-        //$this->session->data['addresses'] = $data['addresses'];
-
-
         $this->load->model('account/customer_group');
 
 
@@ -298,8 +296,21 @@ class ControllerCheckoutCheckout extends Controller
 
         $data['countries'] = $this->model_localisation_country->getCountries();
 
-        // Custom Fields
-        $data['custom_fields'] = $this->model_account_custom_field->getCustomFields(['filter_customer_group_id' => $this->config->get('config_customer_group_id')]);
+        // Custom Fields !
+        // Generated un der Payment Address, but used globally for now!
+        // Originally - Custom Fields can be added to Account, or Address. Not specifically "Payment" or "Shipping" address. So, we generate them here,
+        // Payment address is most likely available!
+        $data['custom_fields'] = [];
+        if (is_array($this->config->get('config_customer_group_display'))) {
+            $customer_groups = $this->model_account_customer_group->getCustomerGroups();
+            foreach ($customer_groups as $customer_group) {
+                $fields = $this->model_account_custom_field->getCustomFields( $customer_group['customer_group_id'] );
+                if($fields){
+                    $data['custom_fields'][$customer_group['customer_group_id']] = $fields;
+                }
+
+            }
+        }
 
         // if (isset($this->session->data['payment_address']['custom_field'])) {
         //     $data['payment_address_custom_field'] = $this->session->data['payment_address']['custom_field'];
@@ -568,18 +579,19 @@ class ControllerCheckoutCheckout extends Controller
         $customer_group_id = $this->request->post('customer_group_id');
         $custom_fields = $this->model_account_custom_field->getCustomFields($customer_group_id);
 
-
-
         $order_custom_fields = [];
         foreach ($custom_fields as $custom_field) {
-
             $key = "custom_field" . $custom_field['custom_field_id'];
-
             if ($custom_field['required'] && !$this->request->post($key)) {
-                $json = array_merge($json, ['error' => ['warning' => sprintf( $this->language->get('error_custom_field') , $custom_field['name'] )]]);
+
+                $error = ['custom_field' . $custom_field['custom_field_id'] => "X " . sprintf( $this->language->get('error_custom_field') , $custom_field['name'] )];
+
+                $json = array_merge($json['error'], $error);
             }
             $order_custom_fields[$key] = $this->request->post($key);
         }
+
+        pr($json);
 
         $this->cart->setCustomFields($order_custom_fields);
         $this->cart->setShippingAddress($shipping_address);
@@ -1076,6 +1088,10 @@ class ControllerCheckoutCheckout extends Controller
 
 
         if (!$json) {
+
+
+
+
             if (isset($this->request->post['payment_address']) && $this->request->post['payment_address'] == 'existing') {
                 $this->load->model('account/address');
 
@@ -1129,6 +1145,9 @@ class ControllerCheckoutCheckout extends Controller
                 // }
                 // Custom Fields
                 // Payment Address Custom fields, needs to be implemented. Similar to custom_Fields for customer groups?
+
+
+
 
                 if (!$json) {
                     // Default Payment Address

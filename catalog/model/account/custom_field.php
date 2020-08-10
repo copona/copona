@@ -10,6 +10,7 @@ class ModelAccountCustomField extends Model {
     public function getCustomFields($customer_group_id = 0) {
         $custom_field_data = array();
 
+
         if (!$customer_group_id) {
             $custom_field_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field` cf LEFT JOIN `" . DB_PREFIX . "custom_field_description` cfd ON (cf.custom_field_id = cfd.custom_field_id) WHERE cf.status = '1' AND cfd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY cf.sort_order ASC");
         } else {
@@ -18,7 +19,6 @@ class ModelAccountCustomField extends Model {
 
         foreach ($custom_field_query->rows as $custom_field) {
             $custom_field_value_data = array();
-
             if ($custom_field['type'] == 'select' || $custom_field['type'] == 'radio' || $custom_field['type'] == 'checkbox') {
                 $custom_field_value_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "custom_field_value cfv LEFT JOIN " . DB_PREFIX . "custom_field_value_description cfvd ON (cfv.custom_field_value_id = cfvd.custom_field_value_id) WHERE cfv.custom_field_id = '" . (int)$custom_field['custom_field_id'] . "' AND cfvd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY cfv.sort_order ASC");
 
@@ -38,7 +38,7 @@ class ModelAccountCustomField extends Model {
                 'value'              => $custom_field['value'],
                 'validation'         => $custom_field['validation'],
                 'location'           => $custom_field['location'],
-                'required'           => empty($custom_field['required']) || $custom_field['required'] == 0 ? false : true,
+                'required'           => (empty($custom_field['required']) || $custom_field['required'] == 0) ? false : true,
                 'sort_order'         => $custom_field['sort_order']
             );
         }
@@ -70,9 +70,7 @@ class ModelAccountCustomField extends Model {
         $this->db->query("SELECT * FROM " . DB_PREFIX . "order o WHERE o.order_id = '" . $this->db->escape($order_id) . "'");
         $order_custom_fields = json_decode($this->db->getColumn('custom_field'), true);
         // Custom Fields Data for ORDER:
-        // $order_custom_fields = json_decode($order_info['custom_field'], true);
 
-        // pr($order_custom_fields);
         // pr($filter_data);
         // prd($this->getCustomFields($customer_group_id));
         // TODO: We have changed this to be different from ADMIN, - to select only by order's customer group.

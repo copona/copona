@@ -119,7 +119,7 @@ if (!function_exists('eff')) {
         }
 
         ?>
-        <div class="form-group row<?= ($required ? " $required" : '') ?>">
+        <div class="form-group row<?= ($required ? " required" : '') ?>">
             <label class="col-lg-<?=$label_col?> col-form-label-sm" for="input-payment-<?=$key?>"><?php echo $entry_name; ?></label>
             <div class="col-lg-<?=(12-$label_col);?>">
 
