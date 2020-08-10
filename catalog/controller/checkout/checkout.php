@@ -568,13 +568,15 @@ class ControllerCheckoutCheckout extends Controller
         $customer_group_id = $this->request->post('customer_group_id');
         $custom_fields = $this->model_account_custom_field->getCustomFields($customer_group_id);
 
+
+
         $order_custom_fields = [];
         foreach ($custom_fields as $custom_field) {
 
             $key = "custom_field" . $custom_field['custom_field_id'];
 
             if ($custom_field['required'] && !$this->request->post($key)) {
-                $json = array_merge($json, ['error' => ['warning' => $this->language->get('text_company_data_required')]]);
+                $json = array_merge($json, ['error' => ['warning' => sprintf( $this->language->get('error_custom_field') , $custom_field['name'] )]]);
             }
             $order_custom_fields[$key] = $this->request->post($key);
         }

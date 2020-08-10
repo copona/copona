@@ -46,4 +46,53 @@ class ModelAccountCustomField extends Model {
         return $custom_field_data;
     }
 
+    /**
+     * This is available in Catalog model/account/custom_field.php also! Must be changed in both locations - Catalog/Admin if altered!
+     * @param array $filter_data
+     * @return array
+     */
+
+    /**
+     * This is available in Catalog also! Must be changed in both locations - Catalog/Admin if altered!
+     * @param array $filter_data
+     * @return array
+     */
+
+    public function getOrderCustomFields($filter_data = [])
+    {
+
+        $order_id = (int)$filter_data['order_id'] ?? 0;
+        if (!$order_id) {
+            return [];
+        }
+
+        $result = [];
+        $this->db->query("SELECT * FROM " . DB_PREFIX . "order o WHERE o.order_id = '" . $this->db->escape($order_id) . "'");
+        $order_custom_fields = json_decode($this->db->getColumn('custom_field'), true);
+        // Custom Fields Data for ORDER:
+        // $order_custom_fields = json_decode($order_info['custom_field'], true);
+
+        // pr($order_custom_fields);
+        // pr($filter_data);
+        // prd($this->getCustomFields($customer_group_id));
+        // TODO: We have changed this to be different from ADMIN, - to select only by order's customer group.
+        // This can get us in trouble, if somehov Customer Group fields changes, - in this case we loose a track on which fields are address, which account fields for historical orders!
+        $customer_group_id = $this->db->getColumn('customer_group_id');
+
+        foreach ($this->getCustomFields($customer_group_id) as $field) {
+            $key = "custom_field" . $field['custom_field_id'];
+            if (isset($order_custom_fields[$key])) {
+                $result[] = [
+                    'name'  => $field['name'],
+                    'value' => $order_custom_fields[$key],
+                ];
+            }
+        }
+        return ($result);
+
+    }
+
+
+
+
 }

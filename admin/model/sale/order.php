@@ -498,6 +498,12 @@ class ModelSaleOrder extends Model
         return $query->row['total'];
     }
 
+    /**
+     * This is available in Catalog model/account/custom_field.php also! Must be changed in both locations - Catalog/Admin if altered!
+     * @param array $filter_data
+     * @return array
+     */
+
     public function getOrderCustomFields($filter_data = [])
     {
 

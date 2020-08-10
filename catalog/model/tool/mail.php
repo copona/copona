@@ -58,6 +58,8 @@ class ModelToolMail extends Model
             $html_message = $this->load->view($template, $data);
         }
 
+        // DEBUG: Output HTML message on screen for payment_method/confirm method
+        // echo $html_message ; die();
 
         $mail = new Mail();
         $mail->protocol = $this->config->get('config_mail_protocol');

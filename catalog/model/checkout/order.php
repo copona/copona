@@ -10,6 +10,7 @@ class ModelCheckoutOrder extends Model
         $this->load->model('catalog/product');
         $this->load->model('setting/setting');
         $this->load->model("tool/mail");
+        $this->load->model("account/custom_field");
     }
 
     public function addOrder($data)
@@ -658,16 +659,8 @@ class ModelCheckoutOrder extends Model
         // $data['serial'] is already available into the template.
         //* Comment this, to temporary disable E-mail to customer
 
-        // SHIS bija totally WRONG! Tāpēc, ka šis var izpildīties jebkuram mailam
-        // jebkurā brīdī. Jā
-        // SEND mails jābūt no DB !
-
         $data['debug_process'] = __LINE__;
         $data['payment_address_different'] = $order_info['payment_address_different'];
-
-        // prd($this->config->get('config_mail_alert'));
-
-        //if (in_array('order', (array)$this->config->get('config_mail_alert'))) {
         $subject = sprintf($language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'), $order_id);
         // HTML Mail
         $data['text_greeting'] = $language->get('text_received');
@@ -739,8 +732,10 @@ class ModelCheckoutOrder extends Model
         $data['payment_address'] .= $order_info['payment_address_1'] ? $order_info['payment_address_1'] . "<br /> " : '';
         $data['payment_address'] .= $order_info['payment_postcode'] ? $order_info['payment_postcode'] . "<br /> " : '';
         $data['payment_address'] .= $order_info['payment_city'] ? $order_info['payment_city'] . "<br /> " : '';
-
         $data['payment_address'] .= $order_info['telephone'] . "<br /> ";
+        $data['address_custom_fields'] = $this->model_account_custom_field->getOrderCustomFields(['filter_location' => 'address', 'order_id' => $order_id]);
+
+
 
 
         // ADMINS !!!! Could have different Email Templates !
@@ -757,7 +752,6 @@ class ModelCheckoutOrder extends Model
             }
         }
     }
-
 
     /*
      * BULK for BACKUP - will not be used !
