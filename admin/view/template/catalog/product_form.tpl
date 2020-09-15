@@ -1132,7 +1132,14 @@
                       <td class="text-right"><input type="text" name="product_special[<?php echo $special_row; ?>][priority]" value="<?php echo $product_special['priority']; ?>" placeholder="<?php echo $entry_priority; ?>" class="form-control" /></td>
                       <td class="text-right">
                         <input type="text" name="product_special[<?php echo $special_row; ?>][price]" value="<?php echo $product_special['price']; ?>" placeholder="<?php echo $entry_price; ?>" class="form-control" />
-                        <input data-toggle="tooltip" title="<?= $label_price_with_base_vat; ?>" placeholder="<?= $label_price_with_base_vat; ?>"  type="text" name="" value="" class="form-control price-vat" />
+
+                          <?php /*
+
+                               <input data-toggle="tooltip" title="<?= $label_price_with_base_vat; ?>"
+                               placeholder="<?= $label_price_with_base_vat; ?>"  type="text" name="" value=""
+                               class="form-control price-vat" />
+
+                            */ ?>
                       </td>
                       <td class="text-left" style="width: 20%;"><div class="input-group date">
                           <input type="text" name="product_special[<?php echo $special_row; ?>][date_start]" value="<?php echo $product_special['date_start']; ?>" placeholder="<?php echo $entry_date_start; ?>" data-date-format="YYYY-MM-DD" class="form-control" />
