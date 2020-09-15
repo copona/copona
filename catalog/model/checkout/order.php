@@ -21,7 +21,6 @@ class ModelCheckoutOrder extends Model
         $shipping_method = $data['shipping_method'];
 
 
-
         $sql = "INSERT INTO `" . DB_PREFIX . "order` SET invoice_prefix = '" . $this->db->escape($data['invoice_prefix']) . "'"
             . ", store_id = '" . (int)$data['store_id'] . "'"
             . ", store_name = '" . $this->db->escape($data['store_name']) . "'"
@@ -474,6 +473,54 @@ class ModelCheckoutOrder extends Model
 
             if (!$order_info['order_status_id'] && $order_status_id && $notify) {
                 $this->sendOrderEmails($order_id);
+            } elseif ($order_info['order_status_id'] && $order_status_id && $notify) {
+                // If order status is not 0 then send update text email
+
+                $language = new Language($order_info['language_code']);
+                $language->load($order_info['language_code']);
+                $language->load('mail/order');
+
+                $subject = sprintf($language->get('text_update_subject'), html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'), $order_id);
+
+                $message = $language->get('text_update_order') . ' ' . $order_id . "\n";
+                $message .= $language->get('text_update_date_added') . ' ' . date($language->get('date_format_short'), strtotime($order_info['date_added'])) . "\n\n";
+
+                $order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "' AND language_id = '" . (int)$order_info['language_id'] . "'");
+                if ($order_status_query->num_rows) {
+                    $message .= $language->get('text_update_order_status') . "\n\n";
+                    $message .= $order_status_query->row['name'] . "\n\n";
+                }
+
+                if ($order_info['customer_id']) {
+                    $message .= $language->get('text_update_link') . "\n";
+                    $message .= $order_info['store_url'] . 'index.php?route=account/order/info&order_id=' . $order_id . "\n\n";
+                }
+
+                if (!empty($comment)) {
+
+                    $message .= $language->get('text_update_comment') . "\n\n";
+                    $message .= strip_tags($comment) . "\n\n";
+                }
+
+                $message .= $language->get('text_update_footer');
+
+                $data['message'] = $message;
+
+                // Send E-mail, from admin order status change!
+                $this->model_tool_mail->sendMail(
+                    '',
+                    $order_info['email'],
+                    $subject,
+                    $data, // $data array!
+                    '', // Template!
+                    $order_info['store_id']);
+                // $from_email = '',
+                // $to_email = '',
+                // $subject = '',
+                // $data = [],
+                // $template = '',
+                // $store_id = 0,
+                // $store_name = ''
             }
 
             $this->cache->delete('product');
@@ -734,8 +781,6 @@ class ModelCheckoutOrder extends Model
         $data['payment_address'] .= $order_info['payment_city'] ? $order_info['payment_city'] . "<br /> " : '';
         $data['payment_address'] .= $order_info['telephone'] . "<br /> ";
         $data['address_custom_fields'] = $this->model_account_custom_field->getOrderCustomFields(['filter_location' => 'address', 'order_id' => $order_id]);
-
-
 
 
         // ADMINS !!!! Could have different Email Templates !
