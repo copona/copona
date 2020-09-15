@@ -1085,7 +1085,7 @@ class ControllerCheckoutCheckout extends Controller
                 // for configurable settings!
                 $validation_rules = [
                     'firstname' => ['min_length' => 1, 'max_length' => 32],
-                    'email' => ['min_length' => 1, 'max_length' => 32],
+                    'email'     => ['min_length' => 1, 'max_length' => 32],
                     'telephone' => ['min_length' => 1, 'max_length' => 32],
                     // 'city' => ['min_length' => 2, 'max_length' => 132],
                 ];
@@ -1105,15 +1105,16 @@ class ControllerCheckoutCheckout extends Controller
                         }
 
                         if (isset($validation_rule['max_length'])) {
-                            if ((utf8_strlen(trim($this->request->post[$key])) > $validation_rule['min_length'])) {
+                            if ((utf8_strlen(trim($this->request->post[$key])) > $validation_rule['max_length'])) {
                                 $error = true;
                             }
                         }
                     }
 
-                    if($error) {
+                    if ($error) {
                         $json['error'][$key] = $this->language->get('error_' . $key);
                     }
+
                 }
 
 
