@@ -79,7 +79,7 @@ class ModelCatalogProduct extends Model {
                             , option_value_id = '" . (int)$product_option_value['option_value_id'] . "'
                             , quantity = '" . (int)$product_option_value['quantity'] . "'
                             , subtract = '" . (int)$product_option_value['subtract'] . "'
-                            , price = '" . (float)$product_option_value['price'] . "'
+                            , price = '" . (float)str_replace(",", ".", $product_option_value['price']) . "'
                             , price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "'
                             , points = '" . (int)$product_option_value['points'] . "'
                             , points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "'
@@ -102,7 +102,8 @@ class ModelCatalogProduct extends Model {
 
         if (isset($data['product_discount'])) {
             foreach ($data['product_discount'] as $product_discount) {
-                $this->db->query("INSERT INTO " . DB_PREFIX . "product_discount SET product_id = '" . (int)$product_id . "', customer_group_id = '" . (int)$product_discount['customer_group_id'] . "', quantity = '" . (int)$product_discount['quantity'] . "', priority = '" . (int)$product_discount['priority'] . "', price = '" . (float)$product_discount['price'] . "', date_start = '" . $this->db->escape($product_discount['date_start']) . "', date_end = '" . $this->db->escape($product_discount['date_end']) . "'");
+                $this->db->query("INSERT INTO " . DB_PREFIX . "product_discount SET product_id = '" . (int)$product_id . "', customer_group_id = '" . (int)$product_discount['customer_group_id'] . "', quantity = '" . (int)$product_discount['quantity'] . "', priority = '" . (int)$product_discount['priority'] . "'
+                , price = '" . (float)str_replace(",", ".", $product_discount['price']) . "', date_start = '" . $this->db->escape($product_discount['date_start']) . "', date_end = '" . $this->db->escape($product_discount['date_end']) . "'");
             }
         }
 
@@ -116,7 +117,7 @@ class ModelCatalogProduct extends Model {
                 SET product_id = '" . (int)$product_id . "'
                 , customer_group_id = '" . (int)$product_special['customer_group_id'] . "'
                 , priority = '" . (int)$product_special['priority'] . "'
-                , price = '" . (float)$product_special['price'] . "'
+                , price = '" . (float)str_replace(",", ".", $product_special['price']) . "'
                 , date_start = '".$this->db->escape($product_special['date_start'])."'
                 , date_end = '".$this->db->escape($product_special['date_end'])."'");
             }
@@ -412,7 +413,7 @@ class ModelCatalogProduct extends Model {
                                              . ", option_value_id = '" . (int)$product_option_value['option_value_id'] . "'"
                                              . ", quantity = '" . (int)$product_option_value['quantity'] . "'"
                                              . ", subtract = '" . (int)$product_option_value['subtract'] . "'"
-                                             . ", price = '" . (float)$product_option_value['price'] . "'"
+                                             . ", price = '" . (float)str_replace(",", ".", $product_option_value['price']) . "'"
                                              . ", price_prefix = '" . $this->db->escape($product_option_value['price_prefix']) . "'"
                                              . ", points = '" . (int)$product_option_value['points'] . "'"
                                              . ", points_prefix = '" . $this->db->escape($product_option_value['points_prefix']) . "'"
@@ -439,7 +440,8 @@ class ModelCatalogProduct extends Model {
 
         if (isset($data['product_discount'])) {
             foreach ($data['product_discount'] as $product_discount) {
-                $this->db->query("INSERT INTO " . DB_PREFIX . "product_discount SET product_id = '" . (int)$product_id . "', customer_group_id = '" . (int)$product_discount['customer_group_id'] . "', quantity = '" . (int)$product_discount['quantity'] . "', priority = '" . (int)$product_discount['priority'] . "', price = '" . (float)$product_discount['price'] . "', date_start = '" . $this->db->escape($product_discount['date_start']) . "', date_end = '" . $this->db->escape($product_discount['date_end']) . "'");
+                $this->db->query("INSERT INTO " . DB_PREFIX . "product_discount SET product_id = '" . (int)$product_id . "', customer_group_id = '" . (int)$product_discount['customer_group_id'] . "', quantity = '" . (int)$product_discount['quantity'] . "', priority = '" . (int)$product_discount['priority'] . "'
+                , price = '" . (float)str_replace(",", ".", $product_discount['price']) . "', date_start = '" . $this->db->escape($product_discount['date_start']) . "', date_end = '" . $this->db->escape($product_discount['date_end']) . "'");
             }
         }
 
@@ -456,7 +458,7 @@ class ModelCatalogProduct extends Model {
                 SET product_id = '" . (int)$product_id . "'
                 , customer_group_id = '" . (int)$product_special['customer_group_id'] . "'
                 , priority = '" . (int)$product_special['priority'] . "'
-                , price = '" . (float)$product_special['price'] . "'
+                , price = '" . (float)str_replace(",", ".", $product_special['price']) . "'
                 , date_start = '".$this->db->escape($product_special['date_start'])."'
                 , date_end = '".$this->db->escape($product_special['date_end'])."'");
             }
@@ -868,7 +870,7 @@ class ModelCatalogProduct extends Model {
                     'option_value_id'         => $product_option_value['option_value_id'],
                     'quantity'                => $product_option_value['quantity'],
                     'subtract'                => $product_option_value['subtract'],
-                    'price'                   => $product_option_value['price'],
+                    'price'                   => (float)str_replace(",", ".", $product_option_value['price']),
                     'price_prefix'            => $product_option_value['price_prefix'],
                     'points'                  => $product_option_value['points'],
                     'points_prefix'           => $product_option_value['points_prefix'],
