@@ -111,7 +111,6 @@ class ControllerCheckoutCheckout extends Controller
         $this->shipping_address(false, $data);
 
 
-
         // Set/Load initial/session shipping method!
         $this->shipping_method(false, $data);
 
@@ -125,7 +124,6 @@ class ControllerCheckoutCheckout extends Controller
             $data['telephone'] = $this->customer->getTelephone();
             $data['payment_address_id'] = $this->customer->getAddressId();
         }
-
 
 
         // prd($data);
@@ -304,8 +302,8 @@ class ControllerCheckoutCheckout extends Controller
         if (is_array($this->config->get('config_customer_group_display'))) {
             $customer_groups = $this->model_account_customer_group->getCustomerGroups();
             foreach ($customer_groups as $customer_group) {
-                $fields = $this->model_account_custom_field->getCustomFields( $customer_group['customer_group_id'] );
-                if($fields){
+                $fields = $this->model_account_custom_field->getCustomFields($customer_group['customer_group_id']);
+                if ($fields) {
                     $data['custom_fields'][$customer_group['customer_group_id']] = $fields;
                 }
 
@@ -511,7 +509,7 @@ class ControllerCheckoutCheckout extends Controller
             $json = array_merge($json, $this->shipping_address_validate());
         }
 
-        // Šis arī Setto adress2 !
+        // This validates AND sets default values for address_2
         if (!isset($json['error'])) {
             $json = array_merge($json, $this->address2_validate());
         }
@@ -583,8 +581,8 @@ class ControllerCheckoutCheckout extends Controller
         foreach ($custom_fields as $custom_field) {
             $key = "custom_field" . $custom_field['custom_field_id'];
             if ($custom_field['required'] && !$this->request->post($key)) {
-                $error = ['custom_field' . $custom_field['custom_field_id'] => sprintf( $this->language->get('error_custom_field') , $custom_field['name'] )];
-                $json['error'] = array_merge($json['error'] ?? [] , $error);
+                $error = ['custom_field' . $custom_field['custom_field_id'] => sprintf($this->language->get('error_custom_field'), $custom_field['name'])];
+                $json['error'] = array_merge($json['error'] ?? [], $error);
             }
             $order_custom_fields[$key] = $this->request->post($key);
         }
@@ -1064,29 +1062,7 @@ class ControllerCheckoutCheckout extends Controller
             $this->session->data['message'] = " NOT ENOUGH PRODUCTS IN STOCK ! ( error: " . __LINE__ . " ) ";
         }
 
-        // // Validate minimum quantity requirments.
-        // $products = $this->cart->getProducts();
-        //
-        // foreach ($products as $product) {
-        //     $product_total = 0;
-        //
-        //     foreach ($products as $product_2) {
-        //         if ($product_2['product_id'] == $product['product_id']) {
-        //             $product_total += $product_2['quantity'];
-        //         }
-        //     }
-        //
-        //     if ($product['minimum'] > $product_total) {
-        //         // $json['redirect'] = $this->url->link('checkout/cart');        //
-        //         break;
-        //     }
-        // }
-
-
         if (!$json) {
-
-
-
 
             if (isset($this->request->post['payment_address']) && $this->request->post['payment_address'] == 'existing') {
                 $this->load->model('account/address');
@@ -1100,26 +1076,46 @@ class ControllerCheckoutCheckout extends Controller
                 if (!$json) {
                     // Default Payment Address
                     $this->load->model('account/address');
-
-
                     $this->session->data['payment_address'] = $this->model_account_address->getAddress($this->request->post['payment_address_id']);
                 }
             } else {
-                if (!isset($this->request->post['firstname']) || ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32))) {
-                    $json['error']['firstname'] = $this->language->get('error_firstname');
+
+
+                // This array should be set in themes functions.php file!
+                // for configurable settings!
+                $validation_rules = [
+                    'firstname' => ['min_length' => 1, 'max_length' => 32],
+                    'email' => ['min_length' => 1, 'max_length' => 32],
+                    'telephone' => ['min_length' => 1, 'max_length' => 32],
+                    // 'city' => ['min_length' => 2, 'max_length' => 132],
+                ];
+
+                foreach ($validation_rules as $key => $validation_rule) {
+
+                    $error = false;
+
+                    if (!$this->request->post($key)) {
+                        $error = true;
+                    } else {
+
+                        if (isset($validation_rule['min_length'])) {
+                            if ((utf8_strlen(trim($this->request->post[$key])) < $validation_rule['min_length'])) {
+                                $error = true;
+                            }
+                        }
+
+                        if (isset($validation_rule['max_length'])) {
+                            if ((utf8_strlen(trim($this->request->post[$key])) > $validation_rule['min_length'])) {
+                                $error = true;
+                            }
+                        }
+                    }
+
+                    if($error) {
+                        $json['error'][$key] = $this->language->get('error_' . $key);
+                    }
                 }
 
-                //                if (!isset($this->request->post['lastname']) || ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32))) {
-                //                    $json['error']['lastname'] = $this->language->get('error_lastname');
-                //                }
-
-                if (!isset($this->request->post['address_1']) || ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128))) {
-                    $json['error']['address_1'] = $this->language->get('error_address_1');
-                }
-
-                if (!isset($this->request->post['city']) || ((utf8_strlen($this->request->post['city']) < 2) || (utf8_strlen($this->request->post['city']) > 32))) {
-                    $json['error']['city'] = $this->language->get('error_city');
-                }
 
                 $this->load->model('localisation/country');
 
@@ -1141,8 +1137,6 @@ class ControllerCheckoutCheckout extends Controller
                 // }
                 // Custom Fields
                 // Payment Address Custom fields, needs to be implemented. Similar to custom_Fields for customer groups?
-
-
 
 
                 if (!$json) {
