@@ -12,20 +12,26 @@ if (APPLICATION == 'catalog') {
     // The new addScripts and addStyles method:
     // Theme name: $this->config->get('theme_name')
     // $this->document->addScript('themes/default/assets/vendor/jquery/jquery-2.1.1.min.js');
+
+
+    // Bootstrap 5 update
+    $this->document->addScript('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js', 'header');
+    $this->document->addStyle('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css', 'stylesheet', 'screen');
+
     $this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header', 'product/product');
 
-    $this->document->addScript('themes/default/assets/vendor/jquery/jquery-ui.button.min.js', 'footer');
+    // $this->document->addScript('themes/default/assets/vendor/jquery/jquery-ui.button.min.js', 'footer');
     $this->document->addScript('themes/default/assets/vendor/notify/notify.min.js', 'footer');
     $this->document->addScript('assets/vendor/jquery.print/jquery.print.min.js', 'footer');
     $this->document->addScript('assets/js/common.js', 'footer');
 
     $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'footer', 'product/product');
-    $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header', 'product/product');
+    // $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header', 'product/product');
 
     $this->document->addStyle('assets/vendor/font-awesome/css/font-awesome.min.css', 'stylesheet', 'screen');
     $this->document->addStyle('//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen');
-    $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css', 'stylesheet', 'screen','product/product');
+    // $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css', 'stylesheet', 'screen','product/product');
 
     $this->document->addStyle('assets/css/stylesheet.css', 'stylesheet', 'screen');
     $this->document->addStyle('assets/css/additional.css', 'stylesheet', 'screen');
@@ -45,6 +51,7 @@ $template_config_settings = [
     'theme_default_manufacturers_thumb_resize'           => 'propsize',
     'theme_default_product_category_popup_resize'        => 'propsize',
     'theme_default_product_cart_thumb_resize'            => 'cropsize',
+    'theme_default_product_info_group_resize'            => 'resize',
     'theme_default_latest_thumb_resize'                  => 'resize',
     'theme_default_category_sort'                        => 'p.sort_order',
     'theme_default_category_order'                       => 'ASC',

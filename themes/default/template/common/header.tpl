@@ -48,13 +48,13 @@
       <?php echo $language; ?>
     <div id="top-links" class="nav pull-right">
         <?php if (!$cms_hide_top_eshop_links) { ?>
-          <ul class="list-inline">
+          <ul class="list-inline list">
               <?php if ($telephone) { ?>
-                <li><a href="<?php echo $contact; ?>"><i class="fa fa-phone"></i></a> <span
+                <li class="list-item"><a href="<?php echo $contact; ?>"><i class="fa fa-phone"></i></a> <span
                       class="hidden-xs hidden-sm hidden-md"><?php echo $telephone; ?></span></li>
               <?php } ?>
-            <li class="dropdown"><a href="<?php echo $account; ?>" title="<?php echo $text_account; ?>"
-                                    class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span
+            <li class="dropdown">
+                <a href="<?php echo $account; ?>" title="<?php echo $text_account; ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span
                     class="hidden-xs hidden-sm hidden-md"><?php echo $text_account; ?></span> <span
                     class="caret"></span></a>
               <ul class="dropdown-menu dropdown-menu-right">
@@ -107,19 +107,66 @@
   </div>
 </header>
 <?php if ($categories || $informations) { ?>
-  <div class="container">
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <!--                <a class="navbar-brand" href="#">Navbar</a>-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+
+                    <?php if ($categories) { ?>
+                        <?php foreach ($categories as $category) { ?>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $category['href'] ?>"><?php echo $category['name'] ?></a>
+                            </li>
+
+                        <?php } ?>
+                    <?php } ?>
+
+                    <?php if ($informations) { ?>
+                        <?php foreach ($informations as $information) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $information['href'] ?>"><?php echo $information['name'] ?></a>
+                            </li>
+                        <?php } ?>
+                    <?php } ?>
+
+
+                    <!--                        <li class="nav-item">-->
+                    <!--                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+                    <!--                        </li>-->
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+    <?php /*> <div class="container">
     <nav id="menu" class="navbar">
       <div class="navbar-header"><span id="category" class="visible-xs"><?php echo $text_category; ?></span>
         <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse"
                 data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
       </div>
+
+
+
+
+
+
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
             <?php if ($categories) { ?>
                 <?php foreach ($categories as $category) { ?>
                     <?php if ($category['children']) { ?>
-                  <li class="dropdown"><a href="<?php echo $category['href']; ?>" class="dropdown-toggle"
-                                          data-toggle="dropdown"><?php echo $category['name']; ?></a>
+                  <li class="dropdown"><a href="<?php echo $category['href']; ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $category['name']; ?></a>
                     <div class="dropdown-menu">
                       <div class="dropdown-inner">
                           <?php foreach (array_chunk($category['children'], ceil(count($category['children']) / $category['column'])) as $children) { ?>
@@ -145,6 +192,6 @@
             <?php } ?>
         </ul>
       </div>
-    </nav>
-  </div>
+  </nav>
+  </div><*/ ?>
 <?php } ?>

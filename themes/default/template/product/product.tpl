@@ -44,13 +44,13 @@
               </ul>
           <?php } ?>
 
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-description" data-toggle="tab"><?php echo $tab_description; ?></a></li>
+          <ul class="nav nav-tabs tabs">
+            <li class="active tabs-item"><a href="#tab-description" data-toggle="tab"><?php echo $tab_description; ?></a></li>
             <?php if ($attribute_groups) { ?>
-                <li><a href="#tab-specification" data-toggle="tab"><?php echo $tab_attribute; ?></a></li>
+                <li class="tabs-item"><a href="#tab-specification" data-toggle="tab"><?php echo $tab_attribute; ?></a></li>
             <?php } ?>
             <?php if ($review_status) { ?>
-                <li><a href="#tab-review" data-toggle="tab"><?php echo $tab_review; ?></a></li>
+                <li class="tabs-item"><a href="#tab-review" data-toggle="tab"><?php echo $tab_review; ?></a></li>
             <?php } ?>
           </ul>
           <div class="tab-content">

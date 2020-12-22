@@ -2,12 +2,8 @@
 
 
 <?php if ($content_top) { ?>
-    <div class="home-content-top">
-        <div class="container-fluid">
-            <div class="row">
-                <?php echo $content_top; ?>
-            </div>
-        </div>
+    <div class="container">
+        <?php echo $content_top; ?>
     </div>
 <?php } ?>
 
