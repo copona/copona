@@ -7,10 +7,21 @@ final class MySQLi {
     private $first_row = [];
 
     public function __construct($hostname, $username, $password, $database, $port = '3306') {
-        $this->connection = new \mysqli($hostname, $username, $password, $database, $port);
+
+        $this->connection = mysqli_init();
+        $timeout_seconds = 10;
+        mysqli_options($this->connection, MYSQLI_OPT_CONNECT_TIMEOUT, $timeout_seconds);
+        mysqli_real_connect(
+            $this->connection,
+            $hostname,
+            $username,
+            $password,
+            $database,
+            $port
+        );
 
         if ($this->connection->connect_errno) {
-            throw new \Exception('Error: ' . $this->connection->connect_errno . '<br />Error No: ' . $this->connection->errno);
+            throw new \Exception('Error: ' . $this->connection->error . '<br />Error No: ' . $this->connection->errno);
         }
 
         $this->log = new \Log('mysql_queries.log');

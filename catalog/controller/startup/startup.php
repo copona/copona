@@ -19,6 +19,7 @@ class ControllerStartupStartup extends Controller {
             $log->write($private_message);
             $log->write($e->getMessage());
             error_log($private_message . " @" . __FILE__ . ":" . __LINE__, 0);
+            pr($e->getMessage() . " @" . __FILE__ . ":" . __LINE__);
             die("Something went wrong, please, try again later...");
         }
 
