@@ -53,13 +53,10 @@ if (!function_exists('env')) {
 }
 
 
-
-
-
 // debug hack endd
 if (!function_exists('pr')) {
 
-    function pr($data = 'w/o variable', $vardump = false, $prd = false, $plaintext = false )
+    function pr($data = 'w/o variable', $vardump = false, $prd = false, $plaintext = false)
     {
         if (@$GLOBALS['debug_mode']) {
             echo "\n\n";
@@ -95,7 +92,7 @@ if (!function_exists('pr')) {
             $debug = debug_backtrace();
 
             // if called FROM PRD, then line index will be +1
-            if($prd) {
+            if ($prd) {
                 $fileindex = 1;
             } else {
                 $fileindex = 0;
@@ -110,14 +107,14 @@ if (!function_exists('pr')) {
             }
             $html .= "</div>";
 
-            if(!isset($_SERVER['SHELL']) && !$plaintext ) {
+            if (!isset($_SERVER['SHELL']) && !$plaintext) {
                 echo $html;
-            }  else {
+            } else {
                 echo "/************ start ****************/\n\n";
-                echo $result ."\n";
+                echo $result . "\n";
                 echo "\n/************* end *****************/\n";
-                echo trim($file_from[$debug[$fileindex]['line'] - 1]) ."\n";
-                echo $debug[$fileindex]['file'] .":" . $debug[$fileindex]['line'] ."\n";
+                echo trim($file_from[$debug[$fileindex]['line'] - 1]) . "\n";
+                echo $debug[$fileindex]['file'] . ":" . $debug[$fileindex]['line'] . "\n";
             }
 
 
@@ -129,17 +126,17 @@ if (!function_exists('pr')) {
 
 if (!function_exists('prd')) {
 
-    function prd($data = 'w/o variable', $vardump = false, $bulk = false, $palintext = false )
+    function prd($data = 'w/o variable', $vardump = false, $bulk = false, $palintext = false)
     {
         if (@$GLOBALS['debug_mode']) {
-            pr( $data, $vardump, true, $palintext );
+            pr($data, $vardump, true, $palintext);
 
             // DIE, only if we are not in CLI.
 
-            if(php_sapi_name() === 'cli') {
-                $handle = fopen ("php://stdin","r");
+            if (php_sapi_name() === 'cli') {
+                $handle = fopen("php://stdin", "r");
                 $line = fgets($handle);
-                if(trim($line) != 'yes'){
+                if (trim($line) != 'yes') {
                     echo "Continuing!!\n";
                 }
                 fclose($handle);
@@ -210,7 +207,7 @@ if (version_compare(phpversion(), '7.1.0', '<') == true) {
 // Set Default Timezone
 if (strcmp($config->get('config_timezone'), ini_get('date.timezone'))) {
     $timezone = $config->get('config_timezone') ? $config->get('config_timezone') : ini_get('date.timezone');
-    date_default_timezone_set( $timezone );
+    date_default_timezone_set($timezone);
 }
 
 // Windows IIS Compatibility
@@ -241,21 +238,29 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 // Check if SSL
 if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) {
     $_SERVER['HTTPS'] = true;
-} else if (!empty($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https') {
-    $_SERVER['HTTPS'] = true;
-} else if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
-    $_SERVER['HTTPS'] = true;
 } else {
-    $_SERVER['HTTPS'] = false;
+    if (!empty($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https') {
+        $_SERVER['HTTPS'] = true;
+    } else {
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+            $_SERVER['HTTPS'] = true;
+        } else {
+            $_SERVER['HTTPS'] = false;
+        }
+    }
 }
 
 // Correct Client IP @ https://stackoverflow.com/questions/3003145/how-to-get-the-client-ip-address-in-php
 if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
     $client_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-} else if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
-    $client_ip = $_SERVER["REMOTE_ADDR"];
-} else if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
-    $client_ip = $_SERVER["HTTP_CLIENT_IP"];
+} else {
+    if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+        $client_ip = $_SERVER["REMOTE_ADDR"];
+    } else {
+        if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
+            $client_ip = $_SERVER["HTTP_CLIENT_IP"];
+        }
+    }
 }
 
 $_SERVER['HTTP_CLIENT_IP'] = $client_ip;
