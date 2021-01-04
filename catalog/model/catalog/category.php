@@ -1,5 +1,7 @@
 <?php
-class ModelCatalogCategory extends Model {
+
+class ModelCatalogCategory extends Model
+{
 
     private $paths = [];
     private $language_id;
@@ -7,7 +9,8 @@ class ModelCatalogCategory extends Model {
     private $code;
     private $log;
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         parent::__construct($registry);
         $this->language_id = (int)$registry->config->get('config_language_id');
         $this->paths = $this->paths();
@@ -16,7 +19,8 @@ class ModelCatalogCategory extends Model {
         $this->code = Config::get('code') ? Config::get('code') . "/" : '';
     }
 
-    public function getCategory($category_id) {
+    public function getCategory($category_id)
+    {
         $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "category c 
             LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) 
             LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) 
@@ -27,7 +31,8 @@ class ModelCatalogCategory extends Model {
         return $query->row;
     }
 
-    public function getCategories($parent_id = 0) {
+    public function getCategories($parent_id = 0)
+    {
 
         if (empty($this->paths[$parent_id])) {
             return [];
@@ -44,7 +49,7 @@ class ModelCatalogCategory extends Model {
 
         // Correct categories sorting
         array_multisort(array_column($cats, 'sort_order'), SORT_ASC,
-          array_column($cats, 'name'), SORT_ASC, $cats);
+            array_column($cats, 'name'), SORT_ASC, $cats);
 
         if (Config::get('debug.mode')) {
             $output = microtime(true) - $start_time;
@@ -54,8 +59,9 @@ class ModelCatalogCategory extends Model {
         return $cats;
     }
 
-    public function getCategoryFilters($category_id) {
-        $implode = array();
+    public function getCategoryFilters($category_id)
+    {
+        $implode = [];
 
         $query = $this->db->query("SELECT filter_id FROM " . DB_PREFIX . "category_filter WHERE category_id = '" . (int)$category_id . "'");
 
@@ -63,31 +69,31 @@ class ModelCatalogCategory extends Model {
             $implode[] = (int)$result['filter_id'];
         }
 
-        $filter_group_data = array();
+        $filter_group_data = [];
 
         if ($implode) {
             $filter_group_query = $this->db->query("SELECT DISTINCT f.filter_group_id, fgd.name, fg.sort_order FROM " . DB_PREFIX . "filter f LEFT JOIN " . DB_PREFIX . "filter_group fg ON (f.filter_group_id = fg.filter_group_id) LEFT JOIN " . DB_PREFIX . "filter_group_description fgd ON (fg.filter_group_id = fgd.filter_group_id) WHERE f.filter_id IN (" . implode(',',
-                $implode) . ") AND fgd.language_id = '" . (int)$this->config->get('config_language_id') . "' GROUP BY f.filter_group_id ORDER BY fg.sort_order, LCASE(fgd.name)");
+                    $implode) . ") AND fgd.language_id = '" . (int)$this->config->get('config_language_id') . "' GROUP BY f.filter_group_id ORDER BY fg.sort_order, LCASE(fgd.name)");
 
             foreach ($filter_group_query->rows as $filter_group) {
-                $filter_data = array();
+                $filter_data = [];
 
                 $filter_query = $this->db->query("SELECT DISTINCT f.filter_id, fd.name FROM " . DB_PREFIX . "filter f LEFT JOIN " . DB_PREFIX . "filter_description fd ON (f.filter_id = fd.filter_id) WHERE f.filter_id IN (" . implode(',',
-                    $implode) . ") AND f.filter_group_id = '" . (int)$filter_group['filter_group_id'] . "' AND fd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY f.sort_order, LCASE(fd.name)");
+                        $implode) . ") AND f.filter_group_id = '" . (int)$filter_group['filter_group_id'] . "' AND fd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY f.sort_order, LCASE(fd.name)");
 
                 foreach ($filter_query->rows as $filter) {
-                    $filter_data[] = array(
-                      'filter_id' => $filter['filter_id'],
-                      'name'      => $filter['name']
-                    );
+                    $filter_data[] = [
+                        'filter_id' => $filter['filter_id'],
+                        'name'      => $filter['name'],
+                    ];
                 }
 
                 if ($filter_data) {
-                    $filter_group_data[] = array(
-                      'filter_group_id' => $filter_group['filter_group_id'],
-                      'name'            => $filter_group['name'],
-                      'filter'          => $filter_data
-                    );
+                    $filter_group_data[] = [
+                        'filter_group_id' => $filter_group['filter_group_id'],
+                        'name'            => $filter_group['name'],
+                        'filter'          => $filter_data,
+                    ];
                 }
             }
         }
@@ -95,7 +101,8 @@ class ModelCatalogCategory extends Model {
         return $filter_group_data;
     }
 
-    public function getCategoryLayoutId($category_id) {
+    public function getCategoryLayoutId($category_id)
+    {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "category_to_layout WHERE category_id = '" . (int)$category_id . "' AND store_id = '" . (int)$this->config->get('config_store_id') . "'");
 
         if ($query->num_rows) {
@@ -105,16 +112,18 @@ class ModelCatalogCategory extends Model {
         }
     }
 
-    public function getTotalCategoriesByCategoryId($parent_id = 0) {
+    public function getTotalCategoriesByCategoryId($parent_id = 0)
+    {
         $query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "category c 
         LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) 
         WHERE c.parent_id = '" . (int)$parent_id . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id')
-                                  . "' AND c.status = '1'");
+            . "' AND c.status = '1'");
 
         return $query->row['total'];
     }
 
-    public function getCategoryPath($category_id = 0, $product_id = 0) {
+    public function getCategoryPath($category_id = 0, $product_id = 0)
+    {
 
         if (isset($product_id) && $product_id && !$category_id) {
             //TODO: is this used?
@@ -132,7 +141,8 @@ class ModelCatalogCategory extends Model {
     }
 
 
-    private function paths() {
+    private function paths()
+    {
         $cache_key = 'category.paths.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
         $categories = $this->cache->get($cache_key);
         if ($categories) {
@@ -183,7 +193,8 @@ class ModelCatalogCategory extends Model {
     /*
      * TODO: Finish him! Not USED anywhere yet! :)
      */
-    private function getAllCategories() {
+    private function getAllCategories()
+    {
 
 
         $cache_key = 'category.getall.' . $this->language_id . '.' . Config::get('config_store_id') . '.' . Config::get('config_customer_group_id');
@@ -195,7 +206,7 @@ class ModelCatalogCategory extends Model {
 
         // select all categories, already with SEO link
         $language_id = $this->language_id;
-        $categories = array();
+        $categories = [];
         $sql = "SELECT c.category_id as category_id, c2.category_id as parent_id, ul.keyword,
                     date_format(c.date_modified, '%Y-%m-%d') as date_modified,
                     ul2.keyword as keyword_neutral, cd.name
@@ -291,7 +302,8 @@ class ModelCatalogCategory extends Model {
      * bool $server - return with full pre-link, or only category path.
      *
      */
-    public function getCategorySeoLink($category_id, $server = true) {
+    public function getCategorySeoLink($category_id, $server = true)
+    {
 
         // building full category link
         $i = 0;
