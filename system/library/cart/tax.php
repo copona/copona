@@ -2,10 +2,12 @@
 
 namespace Cart;
 
-final class Tax {
+final class Tax
+{
     private $tax_rates = [];
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         $this->config = $registry->get('config');
         $this->db = $registry->get('db');
         $this->session = $registry->get('session');
@@ -28,15 +30,18 @@ final class Tax {
      * Except, at first - all prices will be displayed in STORE address tax (_construct)
     */
 
-    public function setShippingAddress($country_id, $zone_id) {
+    public function setShippingAddress($country_id, $zone_id)
+    {
         $this->setPaymentAddress($country_id, $zone_id);
     }
 
-    public function setStoreAddress($country_id, $zone_id) {
+    public function setStoreAddress($country_id, $zone_id)
+    {
         $this->setPaymentAddress($country_id, $zone_id);
     }
 
-    public function setPaymentAddress($country_id, $zone_id) {
+    public function setPaymentAddress($country_id, $zone_id)
+    {
         $tax_query = $this->db->query("SELECT tr1.tax_class_id, tr2.tax_rate_id, tr2.name, tr2.rate, tr2.type, tr1.priority FROM " . DB_PREFIX . "tax_rule tr1 
         LEFT JOIN " . DB_PREFIX . "tax_rate tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id) 
         INNER JOIN " . DB_PREFIX . "tax_rate_to_customer_group tr2cg ON (tr2.tax_rate_id = tr2cg.tax_rate_id) 
@@ -62,11 +67,13 @@ final class Tax {
     }
 
 
-    public function unsetRates() {
+    public function unsetRates()
+    {
         $this->tax_rates = [];
     }
 
-    public function calculate($value, $tax_class_id, $calculate = true) {
+    public function calculate($value, $tax_class_id, $calculate = true)
+    {
 
 
         if ($tax_class_id && $calculate) {
@@ -88,7 +95,8 @@ final class Tax {
         }
     }
 
-    public function getRates($value, $tax_class_id) {
+    public function getRates($value, $tax_class_id)
+    {
         $tax_rate_data = [];
 
         if (isset($this->tax_rates[$tax_class_id])) {
@@ -119,7 +127,8 @@ final class Tax {
         return $tax_rate_data;
     }
 
-    public function getTax($value, $tax_class_id) {
+    public function getTax($value, $tax_class_id)
+    {
         $amount = 0;
 
         $tax_rates = $this->getRates($value, $tax_class_id);
@@ -131,7 +140,8 @@ final class Tax {
         return $amount;
     }
 
-    public function getRateName($tax_rate_id) {
+    public function getRateName($tax_rate_id)
+    {
         $tax_query = $this->db->query("SELECT name FROM " . DB_PREFIX . "tax_rate WHERE tax_rate_id = '" . (int)$tax_rate_id . "'");
 
         if ($tax_query->num_rows) {
@@ -141,11 +151,13 @@ final class Tax {
         }
     }
 
-    public function has($tax_class_id) {
+    public function has($tax_class_id)
+    {
         return isset($this->taxes[$tax_class_id]);
     }
 
-    public function getTaxClasses() {
+    public function getTaxClasses()
+    {
         return $this->tax_rates;
     }
 
