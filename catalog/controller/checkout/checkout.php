@@ -61,7 +61,7 @@ class ControllerCheckoutCheckout extends Controller
 
         $data['shipping_methods'] = $this->cart->getShippingMethods();
         $data['comment'] = $this->session->data('comment', '');
-        $data['payment_methods'] = $this->session->data('comment', []);
+        $data['payment_methods'] = $this->session->data('payment_methods', []); // Not Used?! was  ```$this->session->data('comment', [])``` - AND WORKED! Weird!
 
         // Totals, Products
         $data['products'] = $this->cart->getProducts(); // May be will be needed
@@ -88,7 +88,7 @@ class ControllerCheckoutCheckout extends Controller
             }
         }
 
-        $data['payment_methods'] = $this->session->data('agree');
+        $data['payment_methods'] = $this->session->data('payment_methods'); // Not used?! Was ```$this->session->data('agree')```, and worked! Weird!
         $data['payment'] = '';
 
         $data['column_left'] = $this->load->controller('common/column_left');
