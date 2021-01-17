@@ -1,5 +1,11 @@
 <?php
 
+
+
+if(!isset( $_SERVER['SHELL'] )) {
+    die("\n\nPhinx must be run from console!");
+}
+
 if (!defined('DIR_COPONA')) {
     if(!defined('DIR_PUBLIC')) {
         define('DIR_PUBLIC', __DIR__);
@@ -7,8 +13,12 @@ if (!defined('DIR_COPONA')) {
     require_once DIR_PUBLIC . "/system/startup.php";
 }
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 if (file_exists(DIR_PUBLIC . '/.env')) {
-    $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
+    $dotenv = Dotenv\Dotenv::create(DIR_PUBLIC);
     $dotenv->load();
 }
 
