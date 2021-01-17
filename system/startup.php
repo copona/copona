@@ -165,7 +165,7 @@ if (\Copona\Classes\Install::checkIfInstalled() == false
 
 //Dotenv
 if (file_exists(DIR_PUBLIC . '/.env')) {
-    $dotenv = new Dotenv\Dotenv(DIR_PUBLIC);
+    $dotenv = Dotenv\Dotenv::create(DIR_PUBLIC);
     $dotenv->load();
 }
 
@@ -186,10 +186,18 @@ if ($config->get('debug.mode') == true) {
     $whoops = new \Whoops\Run;
     if (Whoops\Util\Misc::isAjaxRequest()) { //ajax
         $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
-    } else if (Whoops\Util\Misc::isCommandLine()) { //command line
-        $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler);
-    } else { //html
-        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    } else {
+        if (Whoops\Util\Misc::isCommandLine()) { //command line
+            $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler);
+        } else { //html
+            $handler = new \Whoops\Handler\PrettyPageHandler;
+            foreach (['_ENV', '_GET', '_POST', '_COOKIE', '_SERVER', '_SESSION'] as $global) {
+                $handler->blacklist($global, 'DB_PASSWORD');
+                $handler->blacklist($global, 'DB_HOSTNAME');
+                $handler->blacklist($global, 'DEBUG_ALLOW_IP');
+            }
+            $whoops->pushHandler($handler);
+        }
     }
     $whoops->register();
 }

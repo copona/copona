@@ -136,6 +136,8 @@ class ControllerExtensionModuleLatest extends Controller {
                 );
             }
 
+            // TODO:  Hard hack, - replace "latest" module template with "Featured" module.
+            // This is bad practice, I think ... Let's temove it and move it to Hook ?
             $data['template'] = 'extension/module/featured';
 
             $this->hook->getHook('extension/module/featured/after', $data);

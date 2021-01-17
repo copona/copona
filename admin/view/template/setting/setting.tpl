@@ -194,6 +194,50 @@
                     </div>
                   </div>
               <?php } ?>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="social-media-inputs"><span data-toggle="tooltip" data-container="#tab-general" title="<?php echo $help_social_media; ?>"><?= $text_social_media; ?></span></label>
+                  <div class="col-sm-10">
+                    <div class="col-sm-12 sortable" id="social-media-inputs" style="padding-left: 0px">
+                      <?php
+                          $counter = 0;
+                          foreach($config_social_media as $social_media){
+                            $counter++;
+                            ?>
+                          <div class="col-sm-12 ui-state-default" style="padding-left:0px;margin-bottom:10px;">
+                            <div class="col-sm-1" style="padding-left: 0px;">
+                              <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-sm-1">
+                              <a href="" id="social-media-icon-<?= $counter ?>" data-toggle="image" class="img-social-media-icon-<?= $counter ?>" data-original-title="<?= $entry_social_media_icon ?>">
+                                <img src="<?= $social_media['real_icon_path'] ?>" width="32" height="32" alt="" title="" data-placeholder="">
+                              </a>
+                              <input type="hidden" name="config_social_media[][icon]" value="<?= $social_media['icon'] ?>" class="config-social-media-icon-<?= $counter ?>" id="config-social-media-icon-<?= $counter ?>" />
+                            </div>
+                            <div class="col-sm-3">
+                              <input type="text" name="config_social_media[][name]" value="<?= $social_media['name'] ?>" placeholder="<?= $entry_social_media_name ?>"
+                                     class="form-control config-social-media-name"/>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="text" name="config_social_media[][link]" value="<?= $social_media['link'] ?>" placeholder="<?= $entry_social_media_link ?>"
+                                     class="form-control config-social-media-link"/>
+                            </div>
+                            <div class="col-sm-1">
+                              <i class="fa fa-times fa-2x red social-media-remove" aria-hidden="true"></i>
+                            </div>
+                          </div>
+
+                            <?php
+                          }
+                      ?>
+                     </div>
+                    <div class="col-sm-10" style="margin-bottom:10px;padding-left:0px;">
+                      <div class="col-sm-12" style="padding-left: 0px;">
+                        <button data-toggle="tooltip" id="social-media-add-more" onclick="javascript:void(0);return false;" title="" class="btn btn-success add-more-social-icon" data-original-title="<?= $text_add_more ?>"><i class="fa fa-plus"></i> <?= $text_add_more ?></button>
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
             </div>
             <div class="tab-pane" id="tab-local">
               <div class="form-group">
@@ -1489,6 +1533,32 @@
       </div>
     </div>
   </div>
+
+  <div id="social-media-item-content-template" style="display:none;">
+    <div class="col-sm-12 ui-state-default" style="padding-left:0px;margin-bottom:10px;">
+      <div class="col-sm-1" style="padding-left: 0px;">
+        <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+      </div>
+      <div class="col-sm-1">
+        <a href="" id="social-media-icon-##counter##" data-toggle="image" class="img-social-media-icon-##counter##" data-original-title="<?= $entry_social_media_icon ?>">
+          <img src="" width="32" height="32" alt="" title="" data-placeholder="">
+        </a>
+        <input type="hidden" name="config_social_media[][icon]" value="" class="config-social-media-icon-##counter##" id="config-social-media-icon-##counter##" />
+      </div>
+      <div class="col-sm-3">
+        <input type="text" name="config_social_media[][name]" value="" placeholder="<?= $entry_social_media_name ?>"
+               class="form-control config-social-media-name"/>
+      </div>
+      <div class="col-sm-6">
+        <input type="text" name="config_social_media[][link]" value="" placeholder="<?= $entry_social_media_link ?>"
+               class="form-control config-social-media-link"/>
+      </div>
+      <div class="col-sm-1">
+        <i class="fa fa-times fa-2x red social-media-remove" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
   <script type="text/javascript"><!--
 $('select[name=\'config_theme\']').on('change', function () {
           $.ajax({
@@ -1550,5 +1620,42 @@ $('select[name=\'config_theme\']').on('change', function () {
       });
 
       $('select[name=\'config_country_id\']').trigger('change');
-      //--></script></div>
+      //--></script>
+  <script type="text/javascript">
+
+    var counter = '<?= sizeof($config_social_media) + 1 ?>';
+    $(".social-media-remove").on( "click", function() {
+        $(this).parent().parent().remove();
+    });
+
+    $("#social-media-add-more").click(function() {
+        counter++;
+        var templateContent = $("#social-media-item-content-template").html();
+        templateContent = templateContent.replace(/##counter##/g, counter);
+        $("#social-media-inputs").append(templateContent);
+        $(".social-media-remove").on( "click", function() {
+            $(this).parent().parent().remove();
+        });
+    });
+
+    $('#form-setting').submit(function() {
+        $( ".config-social-media-name" ).each(function( index ) {
+            $( this ).attr("name", "config_social_media[" + index + "][name]")
+        });
+        $( ".config-social-media-link" ).each(function( index ) {
+            $( this ).attr("name", "config_social_media[" + index + "][link]")
+        });
+        $( ".config-social-media-icon" ).each(function( index ) {
+            $( this ).attr("name", "config_social_media[" + index + "][icon]")
+        });
+    });
+  </script>
+  <script type="text/javascript">
+      $( function() {
+          $( ".sortable" ).sortable();
+          $( ".sortable" ).disableSelection();
+      } );
+  </script>
+
+</div>
 <?php echo $footer; ?>

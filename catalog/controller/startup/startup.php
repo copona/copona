@@ -21,6 +21,7 @@ class ControllerStartupStartup extends Controller {
             $log->write($private_message);
             $log->write($e->getMessage());
             error_log($private_message . " @" . __FILE__ . ":" . __LINE__, 0);
+            pr($e->getMessage() . " @" . __FILE__ . ":" . __LINE__);
             die("Something went wrong, please, try again later...");
         }
 
@@ -164,9 +165,9 @@ class ControllerStartupStartup extends Controller {
 
 
         $this->language->get('locale') ? setlocale(LC_ALL, $this->language->get('locale') . ".UTF-8") : '';
-        setlocale(LC_NUMERIC, "en_GB");
-        setlocale(LC_NUMERIC, "en_GB.UTF-8");
-
+        // For numeric calculations, we need to have "dot" as decimal separator.
+        // Numbers are still formatted by \Cart\Currency class.
+        setlocale(LC_NUMERIC, "C");
 
         // Customer
         $customer = new Cart\Customer($this->registry);

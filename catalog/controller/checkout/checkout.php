@@ -55,6 +55,10 @@ class ControllerCheckoutCheckout extends Controller {
             }
         }
 
+        $data['theme_default_directory'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
+        
+
+
         if (empty($this->session->data['shipping_address'])) {
             $this->session->data['shipping_address'] = $this->model_localisation_location->getStoreAddress();
         }
