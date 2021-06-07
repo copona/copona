@@ -2,7 +2,8 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 
-class Mail {
+class Mail
+{
     protected $to;
     protected $from;
     protected $sender;
@@ -10,7 +11,7 @@ class Mail {
     protected $subject;
     protected $text;
     protected $html;
-    protected $attachments = array();
+    protected $attachments = [];
     protected $log;
     protected $sentMIMEMessage;
     public $protocol = 'mail';
@@ -23,50 +24,61 @@ class Mail {
     public $parameter = '';
     public $ErrorInfo = '';
 
-    public function __construct($config = array()) {
+    public function __construct($config = [])
+    {
         foreach ($config as $key => $value) {
             $this->$key = $value;
         }
         $this->log = new Log('maillog.log');
     }
 
-    public function setTo($to) {
+    public function setTo($to)
+    {
         $this->to = $to;
     }
 
-    public function setFrom($from) {
+    public function setFrom($from)
+    {
         $this->from = $from;
     }
 
-    public function setSender($sender) {
+    public function setSender($sender)
+    {
         $this->sender = $sender;
     }
 
-    public function setReplyTo($reply_to) {
+    public function setReplyTo($reply_to)
+    {
         $this->reply_to = $reply_to;
     }
 
-    public function setSubject($subject) {
+    public function setSubject($subject)
+    {
         $this->subject = $subject;
     }
 
-    public function setText($text) {
+    public function setText($text)
+    {
         $this->text = $text;
     }
 
-    public function setHtml($html) {
+    public function setHtml($html)
+    {
         $this->html = $html;
     }
 
-    public function addAttachment($filename) {
+    public function addAttachment($filename)
+    {
         $this->attachments[] = $filename;
     }
 
-    public function getSentMIMEMessage() {
+    public function getSentMIMEMessage()
+    {
         return $this->sentMIMEMessage;
     }
 
-    public function send() {
+    public function send()
+    {
         if (!$this->to) {
             throw new \Exception('Error: E-Mail to required!');
         }
@@ -93,7 +105,7 @@ class Mail {
             $to = $this->to;
         }
 
-        if(!class_exists('PHPMailer\PHPMailer\PHPMailer')){
+        if (!class_exists('PHPMailer\PHPMailer\PHPMailer')) {
             $this->log->write('ERROR: PHP Mailer class required! Install using Composer1!');
             return false;
         }
@@ -114,13 +126,12 @@ class Mail {
                     $hostname = $this->smtp_hostname;
                 }
 
-                $this->log->write( $hostname );
+                $this->log->write($hostname);
 
                 $mail->isSMTP();                                      // Set mailer to use SMTP
                 $mail->Host = $hostname;  // Specify main and backup SMTP servers
                 $mail->Helo = getenv('SERVER_NAME');
                 $mail->Hostname = getenv('SERVER_NAME');
-
 
 
                 if (!empty($this->smtp_username) && !empty($this->smtp_password)) {
@@ -181,17 +192,17 @@ class Mail {
 
                 $this->ErrorInfo = $mail->ErrorInfo;
 
-                $this->log->write( "ERROR: From: $this->from To: $this->to Subject: $this->subject" );
+                $this->log->write("ERROR: From: $this->from To: $this->to Subject: $this->subject");
                 // $this->log->write( "ERROR: ******************* HTML ******************* " );
                 // $this->log->write( "ERROR: $this->html" );
                 // $this->log->write( "ERROR: ******************* TEXT ******************* " );
                 // $this->log->write( "ERROR: $this->text" );
                 // $this->log->write( "ERROR: ******************* ERROR ******************* " );
-                $this->log->write( "ERROR: " . $mail->ErrorInfo );
+                $this->log->write("ERROR: " . $mail->ErrorInfo);
                 return false;
             } else {
                 $this->sentMIMEMessage = $mail->getSentMIMEMessage();
-                $this->log->write( "SUCCESS: From: $this->from To: $this->to Subject: $this->subject" );
+                $this->log->write("SUCCESS: From: $this->from To: $this->to Subject: $this->subject");
                 return true;
             }
         } catch (phpmailerException $e) {
