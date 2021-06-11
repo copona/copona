@@ -21,8 +21,9 @@ class BannerImageDescription extends AbstractMigration
                 ]);
 
             }
+
+            $banner_image_table->update();
         }
 
-        return true;
     }
 }
