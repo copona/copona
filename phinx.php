@@ -3,7 +3,7 @@
 
 
 if(!isset( $_SERVER['SHELL'] )) {
-    die("\n\nPhinx must be run from console!");
+    die("\n\nInstallation probably done... Ensure to run phinx must be run from console!");
 }
 
 if (!defined('DIR_COPONA')) {

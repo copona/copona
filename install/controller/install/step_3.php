@@ -195,17 +195,24 @@ class ControllerInstallStep3 extends Controller
         }
 
         if ($this->request->post['db_driver'] == 'mysqli') {
+            mysqli_report(MYSQLI_REPORT_STRICT);
+
             $mysqli = mysqli_init();
             $timeout_seconds = 15;
             mysqli_options($mysqli, MYSQLI_OPT_CONNECT_TIMEOUT, $timeout_seconds);
-            mysqli_real_connect(
-                $mysqli,
-                $this->request->post['db_hostname'],
-                $this->request->post['db_username'],
-                html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8'),
-                $this->request->post['db_database'],
-                $this->request->post['db_port']
-            );
+            try {
+                mysqli_real_connect(
+                    $mysqli,
+                    $this->request->post['db_hostname'],
+                    $this->request->post['db_username'],
+                    html_entity_decode($this->request->post['db_password'], ENT_QUOTES, 'UTF-8'),
+                    $this->request->post['db_database'],
+                    $this->request->post['db_port']
+                );
+
+            } catch (Exception $e) {
+                // nothing. Just continue!
+            }
 
             if ($mysqli->connect_error) {
                 $this->error['warning'] = $mysqli->connect_error;
