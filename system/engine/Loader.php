@@ -46,11 +46,11 @@ class Loader
         $output = null;
 
         // Trigger the pre events
-        $result = $this->registry->get('event')->trigger('controller/' . $route . '/before', array(
+        $result = $this->registry->get('event')->trigger('controller/' . $route . '/before', [
             &$route,
             &$data,
-            &$output
-        ));
+            &$output,
+        ]);
 
         if ($result) {
             return $result;
@@ -66,11 +66,11 @@ class Loader
         }
 
         // Trigger the post events
-        $this->registry->get('event')->trigger('controller/' . $route . '/after', array(
+        $this->registry->get('event')->trigger('controller/' . $route . '/after', [
             &$route,
             &$data,
-            &$output
-        ));
+            &$output,
+        ]);
 
         if ($output instanceof \RuntimeException) {
             return false;
@@ -91,9 +91,9 @@ class Loader
         $route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 
         // Trigger the pre events
-        $this->registry->get('event')->trigger('model/' . $route . '/before', array(
-            &$route
-        ));
+        $this->registry->get('event')->trigger('model/' . $route . '/before', [
+            &$route,
+        ]);
 
         $model_name = 'model_' . str_replace(['/', '-', '.'], ['_', '', ''], (string)$route);
 
@@ -118,9 +118,9 @@ class Loader
                 $this->registry->set($model_name, $model);
 
                 // Trigger the post events
-                $result = $this->registry->get('event')->trigger('model/' . $route . '/after', array(
-                    &$route
-                ));
+                $result = $this->registry->get('event')->trigger('model/' . $route . '/after', [
+                    &$route,
+                ]);
 
                 return $result ? $result : $model;
 
@@ -139,7 +139,7 @@ class Loader
      * @param array $data
      * @return string
      */
-    public function view($route, Array $data = [])
+    public function view($route, array $data = [])
     {
         // Sanitize the call
         $route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
@@ -147,6 +147,7 @@ class Loader
         $extensions_support = $this->template->getExtensionsSupport();
 
         $extension_view = ExtensionManager::findView($route, $extensions_support);
+
 
         if ($extension_view) {
             $file = $extension_view;
@@ -183,42 +184,59 @@ class Loader
                     if (is_file(DIR_TEMPLATE . $theme . '/template/' . $route . '.' . $ext)) {
                         $file = DIR_TEMPLATE . $theme . '/template/' . $route . '.' . $ext;
                         break;
-                    } else if (is_file(DIR_TEMPLATE . \Config::get('parent_theme', $theme) . '/template/' . $route . '.' . $ext)) {
-                        $file = DIR_TEMPLATE . \Config::get('parent_theme', $theme) . '/template/' . $route . '.' . $ext;
-                        break;
-                    } else if (is_file(DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext)) {
-                        $file = DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext;
-                        break;
                     } else {
-                        if (APPLICATION == 'catalog') {
-                            $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/themes/default/template/" . $route . '.' . $ext);
-                            if(!$extension_files) {
-                                // Back compatibility :; ( TODO: remove!
-                                $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/catalog/view/theme/default/template/" . $route . '.' . $ext);
-                            }
+                        if (is_file(DIR_TEMPLATE . \Config::get('parent_theme', $theme) . '/template/' . $route . '.' . $ext)) {
+                            $file = DIR_TEMPLATE . \Config::get('parent_theme', $theme) . '/template/' . $route . '.' . $ext;
+                            break;
                         } else {
-                            $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/admin/view/template/" . $route . '.' . $ext);
-                        }
-                        // First, let's check for Extension template
-                        if (!empty($extension_files[0])) {
-                            $file = $extension_files[0];
+                            if (is_file(DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext)) {
+                                $file = DIR_TEMPLATE . 'default/template/' . $route . '.' . $ext;
+                                break;
+                            } else {
+                                if (APPLICATION == 'catalog') {
+                                    $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/themes/default/template/" . $route . '.' . $ext);
+                                    if (!$extension_files) {
+                                        // Back compatibility :; ( TODO: remove!
+                                        $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/catalog/view/theme/default/template/" . $route . '.' . $ext);
+                                    }
+                                } else {
+                                    $extension_files = glob(DIR_PUBLIC . "/extensions/*/*/admin/view/template/" . $route . '.' . $ext);
+                                }
+                                // First, let's check for Extension template
+                                if (!empty($extension_files[0])) {
+                                    $file = $extension_files[0];
+                                }
+                            }
                         }
                     }
                 }
             }
         }
 
+
         // for debug - to see template route, if template does not exists.
         $file = !$file ? $route : $file;
 
-        return $this->template->render($file, $data);
+        if ($ext == 'tpl') {
+            return $this->template->render($file, $data);
+        } else {
+
+            // At first - we decide - WHERE to search for tempalte, ant this is found $file
+            // Then, we need to add desired path to Twig, and file's "route" separately.
+            // prd(dirname(dirname($file)));
+
+            $this->template->addPath(dirname(dirname($file))); // THis is needed for ONLY Twig tmeplates and must be implemented correctly!
+            return $this->template->render($route . "." . $ext, $data);
+        }
+
+
     }
 
     /**
      * Load Library
      *
-     * @deprecated
      * @param $route
+     * @deprecated
      */
     public function library($route)
     {
@@ -263,17 +281,17 @@ class Loader
     {
         $output = null;
 
-        $this->registry->get('event')->trigger('language/' . $route . '/before', array(
+        $this->registry->get('event')->trigger('language/' . $route . '/before', [
             &$route,
-            &$output
-        ));
+            &$output,
+        ]);
 
         $output = $this->registry->get('language')->load($route);
 
-        $this->registry->get('event')->trigger('language/' . $route . '/after', array(
+        $this->registry->get('event')->trigger('language/' . $route . '/after', [
             &$route,
-            &$output
-        ));
+            &$output,
+        ]);
 
         return $output;
     }

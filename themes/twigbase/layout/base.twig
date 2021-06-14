@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% block head %}{% include '@theme/layout/head.twig' %}{% endblock %}
+
+<body class="{% block body_class %}{% endblock %}">
+
+{% block header %}{{ header|raw }}{% endblock %}
+
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% block plain_html %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section><!-- start main content block -->
+    <div class="container mt-3">
+        <div class="row">
+
+            {% if column_left %}
+                <div class="col-lg-3 col-12">
+                    {% block column_left %}{{ column_left }}{% endblock %}
+                </div>
+            {% endif %}
+
+            {% if content_top or content_bottom %}
+                <div class="col-lg-9 col-12">
+                    {% block content_top %}{{ content_top|raw }}{% endblock %}
+
+                    {% block content_bottom %}{{ content_bottom|raw }}{% endblock %}
+
+
+                </div>
+            {% endif %}
+
+            {% if column_right %}
+                <div class="col-lg-3 col-12">
+                    {% block column_right %}{{ column_right|raw }}{% endblock %}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</section><!-- end main content block -->
+
+<hr class="my-5 hr-border" />
+
+{% block content_footer %}
+    <section><!-- start content footer -->
+        <div class="container">
+            {{ content_footer|raw }}
+        </div>
+    </section><!-- end content footer -->
+{% endblock %}
+
+{% block footer %}
+    {{ footer|raw }}
+{% endblock %}
+
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,26 @@
+{% extends '@theme/layout/base.twig' %}
+
+{% block title %}This is title{% endblock %}
+
+{# "head - is for Head section, but in Opencart variable is called "header", thats misleading: #}
+
+{#{% block head %}{{ header|raw }}{% endblock %}#}
+
+
+{% block slider %}
+    {% include '@theme/partials/home-slider.twig' %}
+{% endblock %}
+
+{% block plain_html %}
+    <small>plaintext_block</small>
+{% endblock %}
+
+
+
+
+{% block column_left %}
+    {{ column_left|raw }}
+    {% include '@theme/partials/example.twig' %}
+    {{ column_left_debug }}
+{% endblock %}
+

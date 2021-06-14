@@ -181,6 +181,7 @@ class ControllerCommonHeader extends Controller {
             $this->document->addOGMeta('property="og:type"', 'website');
         }
 
+        $data['route'] = $this->request->get('route');
         $data['logo_meta'] = str_replace(' ', '%20', $this->model_tool_image->resize($this->config->get('config_logo'), 300, 300));
         $data['ogmeta'] = $this->document->getOGMeta();
 
