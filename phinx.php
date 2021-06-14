@@ -3,7 +3,9 @@
 
 
 if(!isset( $_SERVER['SHELL'] )) {
-    die("\n\nPhinx must be run from console!");
+    echo "Continue from console - run Phinx migration (currently - the only way to run it is from console!...";
+    echo "<pre>vendor/bin/phinx migrate</pre>";
+    die("\n\nInstallation probably done... Ensure to run Phinx!");
 }
 
 if (!defined('DIR_COPONA')) {
