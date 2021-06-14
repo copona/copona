@@ -374,4 +374,7 @@ function getAmount($money) {
     return (float)str_replace(',', '.', $removedThousendSeparator);
 }
 
-
+// https://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
+function endsWith($haystack, $needle) {
+    return substr_compare($haystack, $needle, -strlen($needle)) === 0;
+}
