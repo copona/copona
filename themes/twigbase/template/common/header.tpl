@@ -1,5 +1,5 @@
 <?php
-if(empty($route) || $route!= 'common/home') { ?>
+if(!empty($route) && $route != 'common/home') { ?>
         <!DOCTYPE html>
         <!--[if IE]><![endif]-->
         <!--[if IE 8 ]>

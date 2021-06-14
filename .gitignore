@@ -61,6 +61,7 @@ catalog/controller/xml/*.xml
 /themes/*
 !/themes/default/
 !/themes/simplica/
+!/themes/twigbase/
 
 # Languages
 /catalog/language/*
