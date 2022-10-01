@@ -1737,16 +1737,16 @@
         },
         {
             "name": "phpfastcache/phpfastcache",
-            "version": "6.1.4",
+            "version": "6.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPSocialNetwork/phpfastcache.git",
-                "reference": "63e1afc65d962b8dbafb68599cd9cb2767f53d72"
+                "reference": "cab4e79f1ad353302c82d7b73de0aa4b6b00144c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/63e1afc65d962b8dbafb68599cd9cb2767f53d72",
-                "reference": "63e1afc65d962b8dbafb68599cd9cb2767f53d72",
+                "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/cab4e79f1ad353302c82d7b73de0aa4b6b00144c",
+                "reference": "cab4e79f1ad353302c82d7b73de0aa4b6b00144c",
                 "shasum": ""
             },
             "require": {
@@ -1832,9 +1832,19 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPSocialNetwork/phpfastcache/issues",
-                "source": "https://github.com/PHPSocialNetwork/phpfastcache/tree/6.1.4"
+                "source": "https://github.com/PHPSocialNetwork/phpfastcache/tree/6.1.5"
             },
-            "time": "2019-09-15T15:11:12+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/geolim4",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/geolim4",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2021-08-12T11:55:27+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
