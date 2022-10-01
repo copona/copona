@@ -31,7 +31,7 @@ Copona is in DEV mode so, please, use it and test it. Post issues, bugs or **fea
         * `git config core.fileMode false`
 		* `composer install`
 		* open installation `http://domain/install`
-    * Download files
+    * Using manual download:
         * [Click here to download master branch](https://github.com/copona/copona/archive/master.zip)
 * Prepared environment
     * With Docker
