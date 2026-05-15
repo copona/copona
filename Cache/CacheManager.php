@@ -2,49 +2,44 @@
 
 namespace Copona\Cache;
 
-
-use phpFastCache\Helper\Psr16Adapter;
+use Phpfastcache\Helper\Psr16Adapter;
 
 class CacheManager extends Psr16Adapter
 {
-    public function flush()
+    public function flush(): bool
     {
-        $this->clear();
+        return $this->clear();
     }
 
-    public function set($key, $value, $ttl = null)
+    public function set($key, $value, $ttl = null): bool
     {
         if (\Config::get('cache.enable', false)) {
             return parent::set($key, $value, $ttl);
-        } else {
-            return false;
         }
+        return false;
     }
 
-    public function get($key, $default = null)
+    public function get($key, $default = null): mixed
     {
         if (\Config::get('cache.enable', false)) {
             return parent::get($key, $default);
-        } else {
-            return null;
         }
+        return null;
     }
 
-    public function getMultiple($keys, $default = null)
+    public function getMultiple($keys, $default = null): iterable
     {
         if (\Config::get('cache.enable', false)) {
             return parent::getMultiple($keys, $default);
-        } else {
-            return null;
         }
+        return [];
     }
 
-    public function setMultiple($values, $ttl = null)
+    public function setMultiple($values, $ttl = null): bool
     {
         if (\Config::get('cache.enable', false)) {
             return parent::setMultiple($values, $ttl);
-        } else {
-            return null;
         }
+        return false;
     }
 }

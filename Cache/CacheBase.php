@@ -3,7 +3,7 @@
 namespace Copona\Cache;
 
 
-use phpFastCache\Core\Pool\ExtendedCacheItemPoolInterface;
+use Phpfastcache\Core\Pool\ExtendedCacheItemPoolInterface;
 
 class CacheBase implements ExtendedCacheItemPoolInterface
 {
