@@ -20,11 +20,11 @@ class Registry extends \Illuminate\Container\Container
     {
     }
 
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 
-    public function get($key)
+    public function get(string $key): mixed
     {
         return $this->make($key);
     }
@@ -39,8 +39,8 @@ class Registry extends \Illuminate\Container\Container
         return self::getInstance()->get($name);
     }
 
-    public function has($key)
+    public function has(string $key): bool
     {
-        return isset($this->instances[$key]) ? true : false;
+        return isset($this->instances[$key]);
     }
 }

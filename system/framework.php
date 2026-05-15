@@ -10,8 +10,7 @@ $registry->set('config', $config);
 // Cache
 $registry->singleton('cache', function ($registry) use ($config) {
     $driver = $config->get('cache.driver', 'Files');
-    $configs = $config->get('cache.configs', []);
-    return new \Copona\Cache\CacheManager($driver, $configs);
+    return new \Copona\Cache\CacheManager($driver, null);
 });
 
 //Extension
@@ -34,13 +33,6 @@ if ($config->has($application_config . '.action_event')) {
 // Hook
 $registry->singleton('hook', function ($registry) {
     return new Hook($registry);
-});
-
-// Flash messages
-use \Plasticbrain\FlashMessages\FlashMessages;
-
-$registry->singleton('flash', function ($registry) {
-    return new FlashMessages();
 });
 
 //Template Engine
