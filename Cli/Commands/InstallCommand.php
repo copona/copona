@@ -41,9 +41,9 @@ class InstallCommand extends Command
      *
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return bool|int|null
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = CommandHelper::prepareIO($input, $output);
 
@@ -57,17 +57,20 @@ class InstallCommand extends Command
             $questionReinstall = new ConfirmationQuestion("<error>Do you want to reinstall again? All database will be erased. (yes/no) [no]</error>", false);
             $answerReinstall = $helper->ask($input, $output, $questionReinstall);
 
-            if ($answerReinstall) {
-                $this->reinstall = true;
-                CommandHelper::clear($io, $output);
-                $this->checkRequirementsStep($io, $output, $input);
-                $output->writeln('<info>Copona successfully installed</info>');
+            if (!$answerReinstall) {
+                return Command::SUCCESS;
             }
 
+            $this->reinstall = true;
+            CommandHelper::clear($io, $output);
+            $this->checkRequirementsStep($io, $output, $input);
+            $output->writeln('<info>Copona successfully installed</info>');
         } else {
             $this->checkRequirementsStep($io, $output, $input);
             $output->writeln('<info>Copona successfully installed</info>');
         }
+
+        return Command::SUCCESS;
     }
 
     protected function checkRequirementsStep(SymfonyStyle $io, OutputInterface $output, InputInterface $input)
