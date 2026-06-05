@@ -92,6 +92,11 @@ class InstallCommand extends Command
         $io->text('4. Please make sure you have set the correct permissions on the directories list below.');
         $this->tableFour($output);
 
+        if (!$input->isInteractive()) {
+            $this->settingsStep($io, $output, $input);
+            return;
+        }
+
         $helper = $this->getHelper('question');
         $questionNextStep = new ConfirmationQuestion("<question>Do you want to continue to the next step? (yes/no ) [yes]</question>", true);
         $answerNextStep = $helper->ask($input, $output, $questionNextStep);
@@ -106,6 +111,29 @@ class InstallCommand extends Command
         CommandHelper::clear($io, $output);
 
         $io->section('Enter your database and administration details');
+
+        // Non-interactive mode: read all values from environment variables.
+        // Usage: DB_HOSTNAME=database DB_DATABASE=copona ... php copona install --no-interaction
+        if (!$input->isInteractive()) {
+            $data['db_driver']   = getenv('DB_DRIVER')   ?: 'mysqli';
+            $data['db_hostname'] = getenv('DB_HOSTNAME') ?: 'localhost';
+            $data['db_database'] = getenv('DB_DATABASE') ?: '';
+            $data['db_username'] = getenv('DB_USERNAME') ?: 'root';
+            $data['db_password'] = getenv('DB_PASSWORD') ?: '';
+            $data['db_port']     = getenv('DB_PORT')     ?: 3306;
+            $data['db_prefix']   = getenv('DB_PREFIX')   ?: 'cp_';
+            $data['username']    = getenv('ADMIN_USERNAME') ?: 'admin';
+            $data['password']    = getenv('ADMIN_PASSWORD') ?: '';
+            $data['email']       = getenv('ADMIN_EMAIL')    ?: '';
+
+            if (!$data['db_database'] || !$data['db_password'] || !$data['password'] || !$data['email']) {
+                $io->error('Non-interactive install requires DB_DATABASE, DB_PASSWORD, ADMIN_PASSWORD, and ADMIN_EMAIL environment variables.');
+                return;
+            }
+
+            $this->installationStep($data, $io, $output);
+            return;
+        }
 
         $io->text('1. Please enter your database connection details.');
 
