@@ -14,7 +14,7 @@ class Twig implements TemplateAdapterInterface
     protected $config = [];
 
     /**
-     * @var \Twig_Environment
+     * @var \Twig\Environment
      */
     protected $twig;
 
@@ -25,9 +25,9 @@ class Twig implements TemplateAdapterInterface
 
         $paths[] = DIR_TEMPLATE;
 
-        $fileSystem = new \Twig_Loader_Filesystem($paths);
+        $fileSystem = new \Twig\Loader\FilesystemLoader($paths);
 
-        $this->twig = new \Twig_Environment($fileSystem, [
+        $this->twig = new \Twig\Environment($fileSystem, [
             'autoescape' => isset($this->config['autoescape']) ? $this->config['autoescape'] : false,
             'cache'      => isset($this->config['cache']) && $this->config['cache'] ? DIR_CACHE_PRIVATE . '/twig' : false,
             'debug'      => isset($this->config['debug']) ? $this->config['debug'] : false
@@ -63,7 +63,7 @@ class Twig implements TemplateAdapterInterface
 
             return $output;
 
-        } catch (\Twig_Error_Syntax $e) {
+        } catch (\Twig\Error\SyntaxError $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode());
         }
     }
