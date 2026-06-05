@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a4bd27b6c85fad1c05adf118da17ad6",
+    "content-hash": "be3951f175d2f6bf8f5bf49c0f3b7ffe",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -468,16 +468,16 @@
         },
         {
             "name": "copona/core",
-            "version": "dev-laravel10-upgrade",
+            "version": "dev-php8",
             "source": {
                 "type": "git",
                 "url": "git@github.com:copona/core.git",
-                "reference": "5e598ccc7d96ff8f660bed023be2a8b6ff9de46c"
+                "reference": "f36f673c34166365b9536e5396e75bcb1c115cd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/5e598ccc7d96ff8f660bed023be2a8b6ff9de46c",
-                "reference": "5e598ccc7d96ff8f660bed023be2a8b6ff9de46c",
+                "url": "https://api.github.com/repos/copona/core/zipball/f36f673c34166365b9536e5396e75bcb1c115cd0",
+                "reference": "f36f673c34166365b9536e5396e75bcb1c115cd0",
                 "shasum": ""
             },
             "require": {
@@ -517,7 +517,7 @@
                 "framework",
                 "opensource"
             ],
-            "time": "2026-06-05T22:51:15+00:00"
+            "time": "2026-06-05T22:52:26+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
