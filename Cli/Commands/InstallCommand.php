@@ -179,13 +179,13 @@ class InstallCommand extends Command
 
         $env = [
             'APP_ENV'     => 'dev',
-            'DB_DRIVER'   => addslashes($data['db_driver']),
-            'DB_HOSTNAME' => addslashes($data['db_hostname']),
-            'DB_USERNAME' => addslashes($data['db_username']),
-            'DB_PASSWORD' => addslashes(html_entity_decode($data['db_password'], ENT_QUOTES, 'UTF-8')),
-            'DB_DATABASE' => addslashes($data['db_database']),
-            'DB_PORT'     => addslashes($data['db_port']),
-            'DB_PREFIX'   => addslashes($data['db_prefix']),
+            'DB_DRIVER'   => addslashes($data['db_driver'] ?? ''),
+            'DB_HOSTNAME' => addslashes($data['db_hostname'] ?? ''),
+            'DB_USERNAME' => addslashes($data['db_username'] ?? ''),
+            'DB_PASSWORD' => addslashes(html_entity_decode($data['db_password'] ?? '', ENT_QUOTES, 'UTF-8')),
+            'DB_DATABASE' => addslashes($data['db_database'] ?? ''),
+            'DB_PORT'     => addslashes($data['db_port'] ?? ''),
+            'DB_PREFIX'   => addslashes($data['db_prefix'] ?? ''),
         ];
 
         if ($this->advenced) {
