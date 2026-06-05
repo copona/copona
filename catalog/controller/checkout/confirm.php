@@ -29,7 +29,7 @@ class ControllerCheckoutConfirm extends Controller {
         // Validate if payment method has been set.
 
         if (empty($this->session->data['payment_method'])) {
-            $this->flash->error($this->language->get('error_payment'));
+            $this->session->data['error'] = $this->language->get('error_payment');
             $redirect = $this->url->link('checkout/checkout/guest', '', 'SSL');
         }
 
@@ -243,13 +243,7 @@ class ControllerCheckoutConfirm extends Controller {
             $data1['totals'] = $this->cart->getTotals_azon();
             $data1['comment'] = empty($this->session->data['comment']) ? '' : $this->session->data['comment'];
 
-            // this is TOTAL. Used in admin, and in  "total" for orders/
-            // it's SHOULD be correct "total" for order, including all discounts
-            // and Taxes and shipping.
-            /// $data1['total'] = $this->cart->getCartTotal();
-
-            // Workaround: while we don't have the new checkout, this is back compatible, right?
-            $data1['total'] = $this->cart->getCartTotal() ? $this->cart->getCartTotal() : $this->cart->getTotal();
+            $data1['total'] = $this->cart->getTotal();
 
             if (isset($this->request->cookie['tracking'])) {
                 $data1['tracking'] = $this->request->cookie['tracking'];

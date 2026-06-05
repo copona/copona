@@ -2,6 +2,23 @@
 namespace Cart;
 
 class Cart {
+    private $registry;
+    private $config;
+    private $customer;
+    private $session;
+    private $db;
+    private $tax;
+    private $weight;
+    private $hook;
+    private $currency;
+    private $cache;
+    private $language;
+    private $request;
+    private $load;
+    private $extension;
+    private $currencies;
+    private $decimal_places;
+    private $code;
     private $data = [];
     private $dd_count = 0;
     private $cartTotal = 0;

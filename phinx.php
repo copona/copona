@@ -20,7 +20,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 if (file_exists(DIR_PUBLIC . '/.env')) {
-    $dotenv = Dotenv\Dotenv::create(DIR_PUBLIC);
+    $dotenv = Dotenv\Dotenv::createMutable(DIR_PUBLIC);
     $dotenv->load();
 }
 

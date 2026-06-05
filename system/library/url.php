@@ -21,7 +21,11 @@ class Url
         'route'
     ];
 
-    public function __construct($url, $ssl = '', $registry)
+    private $config;
+    private $session;
+    private $request;
+
+    public function __construct($url, $ssl, $registry)
     {
 
         $this->config = $registry->get('config');

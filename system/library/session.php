@@ -4,6 +4,7 @@ class Session {
     public $session_id = '';
     public $ip_address = '';
     public $data = array();
+    private $adaptor;
 
     public function __construct($adaptor = 'native') {
         $class = 'Session\\' . $adaptor;

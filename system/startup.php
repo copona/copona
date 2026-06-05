@@ -19,8 +19,8 @@ if (!function_exists('env')) {
      */
     function env($key, $default = null)
     {
-        $value = getenv($key);
-        if ($value === false) {
+        $value = isset($_ENV[$key]) ? $_ENV[$key] : getenv($key);
+        if ($value === false || $value === null) {
             return $default;
         }
         switch (strtolower($value)) {
@@ -165,7 +165,7 @@ if (\Copona\Classes\Install::checkIfInstalled() == false
 
 //Dotenv
 if (file_exists(DIR_PUBLIC . '/.env')) {
-    $dotenv = Dotenv\Dotenv::create(DIR_PUBLIC);
+    $dotenv = Dotenv\Dotenv::createMutable(DIR_PUBLIC);
     $dotenv->load();
 }
 
@@ -203,8 +203,8 @@ if ($config->get('debug.mode') == true) {
 }
 
 // Check Version
-if (version_compare(phpversion(), '7.1.0', '<') == true) {
-    exit('PHP7.1+ Required');
+if (version_compare(phpversion(), '8.3', '<') == true) {
+    exit('PHP8.3+ Required');
 }
 
 // Set Default Timezone

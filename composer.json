@@ -11,9 +11,8 @@
   "homepage": "https://github.com/copona/copona",
   "license": "GPL-3.0-or-later",
   "require": {
-    "php": ">=7.2",
-    "copona/core": "dev-master",
-    "plasticbrain/php-flash-messages": "^1.0"
+    "php": ">=8.3",
+    "copona/core": "dev-php8"
   },
   "autoload": {
     "psr-4": {
@@ -34,7 +33,21 @@
       "Theme\\": "./themes/"
     }
   },
-  "repositories": [],
+  "config": {
+    "audit": {
+      "block-insecure": false
+    },
+    "allow-plugins": {
+      "copona/composer-installers": true,
+      "prhost/composer-vendor-merge": true
+    }
+  },
+  "repositories": {
+    "copona-core": {
+      "type": "vcs",
+      "url": "git@github.com:copona/core.git"
+    }
+  },
   "require-dev": {
   }
 }
