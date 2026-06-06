@@ -1,3 +1,3 @@
-<script type="text/javascript"><!--
+<script>
 window.top.location.href = "<?php echo $url; ?>";
-//--></script>
+</script>

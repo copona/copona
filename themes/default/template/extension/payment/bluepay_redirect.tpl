@@ -83,7 +83,7 @@
     </div>
   </fieldset>
 </form>
-<script type="text/javascript"><!--
+<script>
     $(document).ready(function () {
 <?php if (!empty($existing_cards)) { ?>
                 $('#card-new input').prop('disabled', true);
@@ -91,8 +91,8 @@
             $('#card-new select').prop('disabled', true);
 <?php } ?>
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
         $('input[name=\'new-existing\']').on('change', function () {
     if (this.value === 'existing') {
             $('#card-existing').show();
@@ -110,7 +110,7 @@
             $('#card-existing input').prop('disabled', true);
         }
     });
-//--></script>
+</script>
 <script type="text/javascript">
             $('#button-confirm').bind('click', function () {
         $.ajax({

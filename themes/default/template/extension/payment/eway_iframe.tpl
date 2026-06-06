@@ -13,7 +13,7 @@
     </div>
 
     <script src="https://secure.ewaypayments.com/scripts/eCrypt.js"></script>
-    <script type="text/javascript">//<!--
+    <script>
 
         /**
          * eWAY Rapid IFrame config object.
@@ -41,6 +41,6 @@
             eCrypt.showModalPayment(eWAYConfig, resultCallback);
         });
 
-    //--></script>
+    </script>
 
 <?php } ?>

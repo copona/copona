@@ -126,7 +126,7 @@
     <?php echo $column_right; ?></div>
 </div>
 <?php echo $footer; ?>
-<script type="text/javascript"><!--
+<script>
 $('input[name=\'shipping_method\']').change(function () {
         $('#shipping_form').submit();
     });
@@ -136,4 +136,4 @@ $('input[name=\'shipping_method\']').change(function () {
 
         $('#' + this.value).show();
     });
-//--></script>
+</script>

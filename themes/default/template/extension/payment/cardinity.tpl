@@ -45,7 +45,7 @@
   </div>
 </form>
 <div id="cardinity-3ds"></div>
-<script type="text/javascript"><!--
+<script>
 $('#button-confirm').on('click', function () {
         $.ajax({
             url: 'index.php?route=extension/payment/cardinity/send',
@@ -107,4 +107,4 @@ $('#button-confirm').on('click', function () {
             }
         });
     });
-//--></script>
+</script>

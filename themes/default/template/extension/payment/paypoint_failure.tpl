@@ -15,8 +15,8 @@
       <p><?php echo $text_failure; ?></p>
       <p><?php echo $text_failure_wait; ?></p>
     </div>
-    <script type="text/javascript"><!--
+    <script>
     setTimeout('location = \'<?php echo $continue; ?>\';', 2500);
-        //--></script>
+        </script>
   </body>
 </html>

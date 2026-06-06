@@ -91,9 +91,9 @@
             </table>
             <?php echo $payment; ?>
         <?php } else { ?>
-            <script type="text/javascript"><!--
+            <script>
     					location = '<?php echo $redirect; ?>';
-                  //--></script>
+                  </script>
         <?php } ?>
 
 

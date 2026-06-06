@@ -1,4 +1,4 @@
-<script type="text/javascript"><!--
+<script>
   $('.breadcrumb').parent().hide();
     location = '<?php echo $klarna_checkout; ?>';
-//--></script>
+</script>

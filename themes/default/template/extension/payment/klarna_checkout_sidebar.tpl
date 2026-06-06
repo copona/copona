@@ -94,7 +94,7 @@
   <?php } ?>
 </div>
 
-<script type="text/javascript"><!--
+<script>
 $('#klarna-shipping-method input[type=\'radio\'], #confirm-shipping input[type=\'radio\']').change(function () {
         window._klarnaCheckout(function (api) {
             addSidebarOverlay();
@@ -225,4 +225,4 @@ $('#klarna-shipping-method input[type=\'radio\'], #confirm-shipping input[type=\
             });
         }
     };
-//--></script>
+</script>

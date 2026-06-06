@@ -36,7 +36,7 @@
         </div>
         <button type="button" id="button-quote" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><?php echo $button_quote; ?></button>
       </div>
-      <script type="text/javascript"><!--
+      <script>
 $('#button-quote').on('click', function () {
               $.ajax({
                   url: 'index.php?route=extension/total/shipping/quote',
@@ -160,8 +160,8 @@ $('#button-quote').on('click', function () {
             }
         });
           });
-    //--></script>
-      <script type="text/javascript"><!--
+    </script>
+      <script>
           $('select[name=\'country_id\']').on('change', function () {
               $.ajax({
                   url: 'index.php?route=extension/total/shipping/country&country_id=' + this.value,
@@ -204,7 +204,7 @@ $('#button-quote').on('click', function () {
           });
 
                                                                       $('select[name=\'country_id\']').trigger('change');
-          //--></script>
+          </script>
     </div>
   </div>
 </div>

@@ -229,7 +229,7 @@
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
-<script type="text/javascript"><!--
+<script>
 // Sort the custom fields
     $('.form-group[data-sort]').detach().each(function () {
         if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('.form-group').length) {
@@ -248,8 +248,8 @@
             $('.form-group:first').before(this);
         }
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('button[id^=\'button-custom-field\']').on('click', function () {
         var node = this;
 
@@ -301,8 +301,8 @@
             }
         }, 500);
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('.date').datetimepicker({
         pickTime: false
     });
@@ -315,5 +315,5 @@
     $('.time').datetimepicker({
         pickDate: false
     });
-//--></script>
+</script>
 <?php echo $footer; ?>

@@ -6,7 +6,7 @@
   <?php } ?>
   <div class="float-end"><a href="<?php echo $continue; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>
 </div>
-<script type="text/javascript"><!--
+<script>
 $(document).delegate('#button-cancel', 'click', function () {
         $.ajax({
             url: 'index.php?route=extension/recurring/pp_express/cancel',
@@ -33,4 +33,4 @@ $(document).delegate('#button-cancel', 'click', function () {
             }
         });
     });
-//--></script>
+</script>

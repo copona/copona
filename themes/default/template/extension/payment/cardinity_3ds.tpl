@@ -4,12 +4,12 @@
       <input type="hidden" name="TermUrl" value="<?php echo $TermUrl; ?>" />
       <input type="hidden" name="MD" value="<?php echo $MD; ?>" />
     </form>
-    <script type="text/javascript"><!--
+    <script>
       $('#cardinity-3ds-form').submit();
-    //--></script>
+    </script>
 <?php } ?>
 <?php if ($redirect) { ?>
-    <script type="text/javascript"><!--
+    <script>
         location = '<?php echo $redirect; ?>';
-    //--></script>
+    </script>
 <?php } ?>

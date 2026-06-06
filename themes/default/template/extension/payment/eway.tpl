@@ -100,7 +100,7 @@
         <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
       </div>
     </div>
-    <script language="JavaScript" type="text/javascript" >//<!--
+    <script>
         function select_eWAYPaymentOption(v) {
             if ($("#creditcard-info").length) {
                 $("#creditcard-info").hide();
@@ -120,8 +120,8 @@
                 $("#tip-" + v).show();
             }
         }
-    //--></script>
-    <script type="text/javascript"><!--
+    </script>
+    <script>
     $('#button-confirm').bind('click', function () {
 
             if ($('#eway-radio-cc').is(':checked')) {
@@ -181,6 +181,6 @@
             return !(d % 10)
         };
 
-    //--></script>
+    </script>
 
 <?php } ?>

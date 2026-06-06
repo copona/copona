@@ -58,7 +58,7 @@
   </div>
 </div>
 
-<script type="text/javascript"><!--
+<script>
 $(document).ready(function () {
         $('#laybuy-form').on('change', 'select', function () {
             calculate($('#input-down-payment').val(), $('#input-months').val());
@@ -132,10 +132,10 @@ $(document).ready(function () {
             $('#payment-table').find('tbody').append(row);
         }
     });
-//--></script>
+</script>
 
-<script type="text/javascript"><!--
+<script>
     $('#button-confirm').on('click', function () {
         $('#button-confirm').button('loading');
     });
-//--></script>
+</script>

@@ -26,7 +26,7 @@
     <button type="button" id="button-filter" class="btn btn-primary"><?php echo $button_filter; ?></button>
   </div>
 </div>
-<script type="text/javascript"><!--
+<script>
 $('#button-filter').on('click', function () {
         filter = [];
 
@@ -36,4 +36,4 @@ $('#button-filter').on('click', function () {
 
         location = '<?php echo $action; ?>&filter=' + filter.join(',');
     });
-//--></script>
+</script>

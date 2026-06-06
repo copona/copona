@@ -43,7 +43,7 @@
     <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn btn-primary" />
   </div>
 </div>
-<script type="text/javascript"><!--
+<script>
 $('#button-confirm').on('click', function () {
         $.ajax({
             url: 'index.php?route=extension/payment/authorizenet_aim/send',
@@ -68,4 +68,4 @@ $('#button-confirm').on('click', function () {
             }
         });
     });
-//--></script>
+</script>

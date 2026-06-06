@@ -53,8 +53,8 @@
   </div>
 </div>
 
-<script type="text/javascript"><!--
+<script>
 $('#button-confirm').bind('click', function () {
         $('#firstdata_form_redirect').submit();
     });
-//--></script>
+</script>

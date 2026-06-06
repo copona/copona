@@ -55,7 +55,7 @@
   }
 </style>
 
-<script type="text/javascript"><!--
+<script>
 $('.klarna-checkout-main').load('index.php?route=extension/payment/klarna_checkout/main', {response: 'template'}, function (data) {
         window._klarnaCheckout(function (api) {
             addSidebarOverlay();
@@ -107,5 +107,5 @@ $('.klarna-checkout-main').load('index.php?route=extension/payment/klarna_checko
     function removeSidebarOverlay() {
         $('.sidebar-overlay').remove();
     }
-//--></script>
+</script>
 <?php echo $footer; ?>

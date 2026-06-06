@@ -24,7 +24,7 @@
     <?php echo $content_bottom; ?>
   </div>
 </div>
-<script type="text/javascript"><!--
+<script>
   $(document).ready(function () {
         amazon.Login.setClientId('<?php echo $amazon_login_pay_client_id; ?>');
 
@@ -52,5 +52,5 @@
             }
         }).bind("walletWidgetDiv");
     });
-    //--></script>
+    </script>
 <?php echo $footer; ?>

@@ -30,13 +30,13 @@
           </div>
         </div>
 
-        <script type="text/javascript"><!--
+        <script>
         $('#button-confirm').bind('click', function () {
                 $('#button-confirm').button('loading');
 
                 $('#pilibaba-form').submit();
             });
-            //--></script>
+            </script>
     <?php } ?>
 
     <?php if ($auto_submit) { ?>
