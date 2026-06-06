@@ -2,6 +2,8 @@
 
 class Seourl
 {
+    private $config;
+    private $db;
 
     public function __construct($registry)
     {

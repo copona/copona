@@ -4,6 +4,7 @@ namespace DB;
 
 final class MySQLi {
     private $connection;
+    private $log;
 
     public function __construct($hostname, $username, $password, $database, $port = '3306') {
 

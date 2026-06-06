@@ -4,6 +4,14 @@ RUN echo display_errors = On >> /opt/docker/etc/php/php.ini
 RUN echo error_reporting = E_ALL >> /opt/docker/etc/php/php.ini
 RUN echo display_startup_errors = On >> /opt/docker/etc/php/php.ini
 RUN mkdir -p /var/lib/php/session && chmod 777 /var/lib/php/session
+RUN mkdir -p /app/storage/public/cache/image \
+    /app/storage/public/cache \
+    /app/storage/private/cache \
+    /app/storage/private/logs \
+    /app/storage/private/download \
+    /app/storage/private/upload \
+    /app/storage/private/modification \
+    && chmod -R 777 /app/storage
 
 # xdebug 3.x config (xdebug 2.x ini keys removed in xdebug 3)
 RUN echo "xdebug.mode = off" >> /opt/docker/etc/php/php.ini

@@ -3,6 +3,11 @@
 namespace Cart;
 
 class Currency {
+    private $config;
+    private $db;
+    private $language;
+    private $request;
+    private $session;
     public $currencies = [];
     private $code;
     private $log;

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be3951f175d2f6bf8f5bf49c0f3b7ffe",
+    "content-hash": "780827c561a43426823c2ea08ecd3654",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -468,16 +468,16 @@
         },
         {
             "name": "copona/core",
-            "version": "dev-php8",
+            "version": "dev-fix-install-command",
             "source": {
                 "type": "git",
-                "url": "git@github.com:copona/core.git",
-                "reference": "f36f673c34166365b9536e5396e75bcb1c115cd0"
+                "url": "https://github.com/copona/core.git",
+                "reference": "4024adbfa794a6bd9e4aca469fed47b61415e349"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/f36f673c34166365b9536e5396e75bcb1c115cd0",
-                "reference": "f36f673c34166365b9536e5396e75bcb1c115cd0",
+                "url": "https://api.github.com/repos/copona/core/zipball/4024adbfa794a6bd9e4aca469fed47b61415e349",
+                "reference": "4024adbfa794a6bd9e4aca469fed47b61415e349",
                 "shasum": ""
             },
             "require": {
@@ -493,8 +493,9 @@
                 "prhost/composer-vendor-merge": "^0.1",
                 "robmorgan/phinx": "^0.12 || ^0.16",
                 "symfony/console": "^6.0 || ^7.0",
+                "symfony/css-selector": "^6.0 || ^7.0",
                 "symfony/finder": "^6.0 || ^7.0",
-                "twig/twig": "^2.0 || ^3.0"
+                "twig/twig": "^3.26"
             },
             "bin": [
                 "bin/copona"
@@ -517,7 +518,11 @@
                 "framework",
                 "opensource"
             ],
-            "time": "2026-06-05T22:52:26+00:00"
+            "support": {
+                "source": "https://github.com/copona/core/tree/fix-install-command",
+                "issues": "https://github.com/copona/core/issues"
+            },
+            "time": "2026-06-05T23:41:49+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -3480,20 +3485,20 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v8.1.0",
+            "version": "v7.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "dc0e2be45c9b5588c82414f02ac574b4b986abcd"
+                "reference": "b75663ed96cf4756e28e3105476f220f92886cc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/dc0e2be45c9b5588c82414f02ac574b4b986abcd",
-                "reference": "dc0e2be45c9b5588c82414f02ac574b4b986abcd",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/b75663ed96cf4756e28e3105476f220f92886cc4",
+                "reference": "b75663ed96cf4756e28e3105476f220f92886cc4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.4.1"
+                "php": ">=8.2"
             },
             "type": "library",
             "autoload": {
@@ -3525,7 +3530,7 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v8.1.0"
+                "source": "https://github.com/symfony/css-selector/tree/v7.4.9"
             },
             "funding": [
                 {
@@ -3545,7 +3550,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-29T05:06:50+00:00"
+            "time": "2026-04-18T13:18:21+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -6023,6 +6028,6 @@
     "platform": {
         "php": ">=8.3"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
