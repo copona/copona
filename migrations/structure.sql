@@ -450,8 +450,6 @@ CREATE TABLE `oc_address` (
   PRIMARY KEY (`address_id`),
   KEY `customer_id` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_affiliate_login`;
 CREATE TABLE `oc_affiliate_login` (
   `affiliate_login_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -464,8 +462,6 @@ CREATE TABLE `oc_affiliate_login` (
   KEY `email` (`email`),
   KEY `ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_attribute`;
 CREATE TABLE `oc_attribute` (
   `attribute_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -486,8 +482,6 @@ INSERT INTO `oc_attribute` VALUES
 (10,4,10),
 (11,4,11),
 (12,4,12);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_attribute_description`;
 CREATE TABLE `oc_attribute_description` (
   `attribute_id` int(11) NOT NULL,
@@ -508,8 +502,6 @@ INSERT INTO `oc_attribute_description` VALUES
 (10,1,'Operating System'),
 (11,1,'Weight'),
 (12,1,'Connectivity');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_attribute_group`;
 CREATE TABLE `oc_attribute_group` (
   `attribute_group_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -521,8 +513,6 @@ INSERT INTO `oc_attribute_group` VALUES
 (2,2),
 (3,3),
 (4,4);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_attribute_group_description`;
 CREATE TABLE `oc_attribute_group_description` (
   `attribute_group_id` int(11) NOT NULL,
@@ -535,8 +525,6 @@ INSERT INTO `oc_attribute_group_description` VALUES
 (2,1,'Performance'),
 (3,1,'Camera'),
 (4,1,'Battery & Connectivity');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_banner`;
 CREATE TABLE `oc_banner` (
   `banner_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -549,8 +537,6 @@ INSERT INTO `oc_banner` VALUES
 (6,'HP Products',1),
 (7,'Home Page Slideshow',1),
 (8,'Manufacturers',1);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_banner_image`;
 CREATE TABLE `oc_banner_image` (
   `banner_image_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -580,8 +566,6 @@ INSERT INTO `oc_banner_image` VALUES
 (96,8,1,'Sony','','catalog/demo/manufacturer/sony.png',0,''),
 (97,8,1,'Starbucks','','catalog/demo/manufacturer/starbucks.png',0,''),
 (98,8,1,'Nintendo','','catalog/demo/manufacturer/nintendo.png',0,'');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_banner_image_description`;
 CREATE TABLE `oc_banner_image_description` (
   `banner_image_id` int(11) NOT NULL,
@@ -593,8 +577,6 @@ CREATE TABLE `oc_banner_image_description` (
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`banner_image_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_category`;
 CREATE TABLE `oc_category` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -623,8 +605,6 @@ INSERT INTO `oc_category` VALUES
 (108,NULL,107,0,'',1,1,1,'2026-06-06 11:39:09','2026-06-06 11:39:09'),
 (109,NULL,107,0,'',1,2,1,'2026-06-06 11:39:09','2026-06-06 11:39:09'),
 (110,NULL,0,1,'',1,7,1,'2026-06-06 11:39:09','2026-06-06 11:39:09');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_category_description`;
 CREATE TABLE `oc_category_description` (
   `category_id` int(11) NOT NULL,
@@ -653,16 +633,12 @@ INSERT INTO `oc_category_description` VALUES
 (108,1,'Consoles','PlayStation, Xbox and more — the latest gaming consoles.','Consoles','PlayStation, Xbox and more — the latest gaming consoles.','Consoles',1,NULL),
 (109,1,'Gaming Accessories','Mice, keyboards, headsets and more gaming peripherals.','Gaming Accessories','Mice, keyboards, headsets and more gaming peripherals.','Gaming Accessories',1,NULL),
 (110,1,'Smart Home','Smart speakers, displays and home automation devices.','Smart Home','Smart speakers, displays and home automation devices.','Smart Home',1,NULL);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_category_filter`;
 CREATE TABLE `oc_category_filter` (
   `category_id` int(11) NOT NULL,
   `filter_id` int(11) NOT NULL,
   PRIMARY KEY (`category_id`,`filter_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_category_path`;
 CREATE TABLE `oc_category_path` (
   `category_id` int(11) NOT NULL,
@@ -687,8 +663,6 @@ INSERT INTO `oc_category_path` VALUES
 (109,107,0),
 (109,109,1),
 (110,110,0);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_category_to_layout`;
 CREATE TABLE `oc_category_to_layout` (
   `category_id` int(11) NOT NULL,
@@ -696,8 +670,6 @@ CREATE TABLE `oc_category_to_layout` (
   `layout_id` int(11) NOT NULL,
   PRIMARY KEY (`category_id`,`store_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_category_to_store`;
 CREATE TABLE `oc_category_to_store` (
   `category_id` int(11) NOT NULL,
@@ -716,8 +688,6 @@ INSERT INTO `oc_category_to_store` VALUES
 (108,0),
 (109,0),
 (110,0);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_content_meta`;
 CREATE TABLE `oc_content_meta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -731,8 +701,6 @@ INSERT INTO `oc_content_meta` VALUES
 (1,'order',1,'{\"company_name\":\"\",\"address_1\":\"\",\"vat_num\":\"\",\"reg_num\":\"\",\"address_2\":\"\",\"postcode2\":\"\",\"customer_type\":\"\"}'),
 (2,'order',2,'{\"company_name\":\"\",\"address_1\":\"\",\"vat_num\":\"\",\"reg_num\":\"\",\"address_2\":\"\",\"postcode2\":\"\",\"customer_type\":\"\"}'),
 (3,'product',42,'[]');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_country`;
 CREATE TABLE `oc_country` (
   `country_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -998,8 +966,6 @@ INSERT INTO `oc_country` VALUES
 (255,'Tristan da Cunha','TA','SHN','',0,1),
 (256,'Guernsey','GG','GGY','',0,1),
 (257,'Jersey','JE','JEY','',0,1);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_coupon`;
 CREATE TABLE `oc_coupon` (
   `coupon_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1022,16 +988,12 @@ INSERT INTO `oc_coupon` VALUES
 (4,'-10% Discount','2222','P',10.0000,0,0,0.0000,'2014-01-01','2020-01-01',10,'10',0,'2009-01-27 13:55:03'),
 (5,'Free Shipping','3333','P',0.0000,0,1,100.0000,'2014-01-01','2014-02-01',10,'10',0,'2009-03-14 21:13:53'),
 (6,'-10.00 Discount','1111','F',10.0000,0,0,10.0000,'2014-01-01','2020-01-01',100000,'10000',0,'2009-03-14 21:15:18');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_coupon_category`;
 CREATE TABLE `oc_coupon_category` (
   `coupon_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   PRIMARY KEY (`coupon_id`,`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_coupon_history`;
 CREATE TABLE `oc_coupon_history` (
   `coupon_history_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1042,8 +1004,6 @@ CREATE TABLE `oc_coupon_history` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`coupon_history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_coupon_product`;
 CREATE TABLE `oc_coupon_product` (
   `coupon_product_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1051,8 +1011,6 @@ CREATE TABLE `oc_coupon_product` (
   `product_id` int(11) NOT NULL,
   PRIMARY KEY (`coupon_product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_currency`;
 CREATE TABLE `oc_currency` (
   `currency_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1070,8 +1028,6 @@ INSERT INTO `oc_currency` VALUES
 (1,'Pound Sterling','GBP','£','','2',0.61250001,1,'2014-09-25 14:40:00'),
 (2,'US Dollar','USD','$','','2',1.00000000,1,'2014-09-25 14:40:00'),
 (3,'Euro','EUR','','€','2',0.78460002,1,'2014-09-25 14:40:00');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_custom_field`;
 CREATE TABLE `oc_custom_field` (
   `custom_field_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1083,8 +1039,6 @@ CREATE TABLE `oc_custom_field` (
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`custom_field_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_custom_field_customer_group`;
 CREATE TABLE `oc_custom_field_customer_group` (
   `custom_field_id` int(11) NOT NULL,
@@ -1092,8 +1046,6 @@ CREATE TABLE `oc_custom_field_customer_group` (
   `required` tinyint(1) NOT NULL,
   PRIMARY KEY (`custom_field_id`,`customer_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_custom_field_description`;
 CREATE TABLE `oc_custom_field_description` (
   `custom_field_id` int(11) NOT NULL,
@@ -1101,8 +1053,6 @@ CREATE TABLE `oc_custom_field_description` (
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`custom_field_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_custom_field_value`;
 CREATE TABLE `oc_custom_field_value` (
   `custom_field_value_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1110,8 +1060,6 @@ CREATE TABLE `oc_custom_field_value` (
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`custom_field_value_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_custom_field_value_description`;
 CREATE TABLE `oc_custom_field_value_description` (
   `custom_field_value_id` int(11) NOT NULL,
@@ -1120,8 +1068,6 @@ CREATE TABLE `oc_custom_field_value_description` (
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`custom_field_value_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_customer_group`;
 CREATE TABLE `oc_customer_group` (
   `customer_group_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1131,8 +1077,6 @@ CREATE TABLE `oc_customer_group` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 INSERT INTO `oc_customer_group` VALUES
 (1,0,1);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_customer_group_description`;
 CREATE TABLE `oc_customer_group_description` (
   `customer_group_id` int(11) NOT NULL,
@@ -1143,8 +1087,6 @@ CREATE TABLE `oc_customer_group_description` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 INSERT INTO `oc_customer_group_description` VALUES
 (1,1,'Default','test');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_customer_history`;
 CREATE TABLE `oc_customer_history` (
   `customer_history_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1153,8 +1095,6 @@ CREATE TABLE `oc_customer_history` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_customer_ip`;
 CREATE TABLE `oc_customer_ip` (
   `customer_ip_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1164,8 +1104,6 @@ CREATE TABLE `oc_customer_ip` (
   PRIMARY KEY (`customer_ip_id`),
   KEY `ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_customer_online`;
 CREATE TABLE `oc_customer_online` (
   `ip` varchar(40) NOT NULL,
@@ -1175,8 +1113,6 @@ CREATE TABLE `oc_customer_online` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_customer_search`;
 CREATE TABLE `oc_customer_search` (
   `customer_search_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1192,8 +1128,6 @@ CREATE TABLE `oc_customer_search` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_search_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_download`;
 CREATE TABLE `oc_download` (
   `download_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1202,8 +1136,6 @@ CREATE TABLE `oc_download` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`download_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_download_description`;
 CREATE TABLE `oc_download_description` (
   `download_id` int(11) NOT NULL,
@@ -1211,8 +1143,6 @@ CREATE TABLE `oc_download_description` (
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`download_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_event`;
 CREATE TABLE `oc_event` (
   `event_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1225,8 +1155,6 @@ CREATE TABLE `oc_event` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 INSERT INTO `oc_event` VALUES
 (1,'voucher','catalog/model/checkout/order/addOrderHistory/after','extension/total/voucher/send',0,'0000-00-00 00:00:00');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_extension`;
 CREATE TABLE `oc_extension` (
   `extension_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1265,8 +1193,6 @@ INSERT INTO `oc_extension` VALUES
 (27,'dashboard','customer'),
 (28,'dashboard','chart'),
 (29,'module','cr_translate_mate');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_filter`;
 CREATE TABLE `oc_filter` (
   `filter_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1274,8 +1200,6 @@ CREATE TABLE `oc_filter` (
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`filter_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_filter_description`;
 CREATE TABLE `oc_filter_description` (
   `filter_id` int(11) NOT NULL,
@@ -1284,16 +1208,12 @@ CREATE TABLE `oc_filter_description` (
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`filter_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_filter_group`;
 CREATE TABLE `oc_filter_group` (
   `filter_group_id` int(11) NOT NULL AUTO_INCREMENT,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`filter_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_filter_group_description`;
 CREATE TABLE `oc_filter_group_description` (
   `filter_group_id` int(11) NOT NULL,
@@ -1301,8 +1221,6 @@ CREATE TABLE `oc_filter_group_description` (
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`filter_group_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_geo_zone`;
 CREATE TABLE `oc_geo_zone` (
   `geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1315,8 +1233,6 @@ CREATE TABLE `oc_geo_zone` (
 INSERT INTO `oc_geo_zone` VALUES
 (3,'UK VAT Zone','UK VAT','2010-02-26 22:33:24','2009-01-06 23:26:25'),
 (4,'UK Shipping','UK Shipping Zones','2010-12-15 15:18:13','2009-06-23 01:14:53');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_information`;
 CREATE TABLE `oc_information` (
   `information_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1332,8 +1248,6 @@ INSERT INTO `oc_information` VALUES
 (4,NULL,1,0,1,1),
 (5,NULL,1,0,4,1),
 (6,NULL,1,0,2,1);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_information_description`;
 CREATE TABLE `oc_information_description` (
   `information_id` int(11) NOT NULL,
@@ -1351,8 +1265,6 @@ INSERT INTO `oc_information_description` VALUES
 (4,1,'About Us','&lt;p&gt;\r\n	About Us&lt;/p&gt;\r\n','About Us','','',NULL),
 (5,1,'Terms &amp; Conditions','&lt;p&gt;\r\n	Terms &amp;amp; Conditions&lt;/p&gt;\r\n','Terms &amp; Conditions','','',NULL),
 (6,1,'Delivery Information','&lt;p&gt;\r\n	Delivery Information&lt;/p&gt;\r\n','Delivery Information','','',NULL);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_information_image`;
 CREATE TABLE `oc_information_image` (
   `information_image_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1362,8 +1274,6 @@ CREATE TABLE `oc_information_image` (
   PRIMARY KEY (`information_image_id`),
   KEY `information_id` (`information_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_information_to_layout`;
 CREATE TABLE `oc_information_to_layout` (
   `information_id` int(11) NOT NULL,
@@ -1371,8 +1281,6 @@ CREATE TABLE `oc_information_to_layout` (
   `layout_id` int(11) NOT NULL,
   PRIMARY KEY (`information_id`,`store_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_information_to_store`;
 CREATE TABLE `oc_information_to_store` (
   `information_id` int(11) NOT NULL,
@@ -1384,8 +1292,6 @@ INSERT INTO `oc_information_to_store` VALUES
 (4,0),
 (5,0),
 (6,0);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_language`;
 CREATE TABLE `oc_language` (
   `language_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1402,8 +1308,6 @@ CREATE TABLE `oc_language` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 INSERT INTO `oc_language` VALUES
 (1,'English','en','en-gb,en','en-gb.png','en-gb',1,1);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_layout`;
 CREATE TABLE `oc_layout` (
   `layout_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1424,8 +1328,6 @@ INSERT INTO `oc_layout` VALUES
 (11,'Information'),
 (12,'Compare'),
 (13,'Search');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_layout_module`;
 CREATE TABLE `oc_layout_module` (
   `layout_module_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1447,8 +1349,6 @@ INSERT INTO `oc_layout_module` VALUES
 (69,10,'affiliate','column_right',1),
 (72,3,'category','column_left',1),
 (73,3,'banner.30','column_left',2);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_layout_route`;
 CREATE TABLE `oc_layout_route` (
   `layout_route_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1471,8 +1371,6 @@ INSERT INTO `oc_layout_route` VALUES
 (45,5,0,'product/manufacturer'),
 (52,12,0,'product/compare'),
 (53,13,0,'product/search');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_length_class`;
 CREATE TABLE `oc_length_class` (
   `length_class_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1483,8 +1381,6 @@ INSERT INTO `oc_length_class` VALUES
 (1,1.00000000),
 (2,10.00000000),
 (3,0.39370000);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_length_class_description`;
 CREATE TABLE `oc_length_class_description` (
   `length_class_id` int(11) NOT NULL,
@@ -1497,8 +1393,6 @@ INSERT INTO `oc_length_class_description` VALUES
 (1,1,'Centimeter','cm'),
 (2,1,'Millimeter','mm'),
 (3,1,'Inch','in');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_location`;
 CREATE TABLE `oc_location` (
   `location_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1513,8 +1407,6 @@ CREATE TABLE `oc_location` (
   PRIMARY KEY (`location_id`),
   KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_manufacturer`;
 CREATE TABLE `oc_manufacturer` (
   `manufacturer_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1533,8 +1425,6 @@ INSERT INTO `oc_manufacturer` VALUES
 (5,'Sony',NULL,5,'2026-06-06 11:39:08',NULL),
 (6,'Microsoft',NULL,6,'2026-06-06 11:39:08',NULL),
 (7,'Logitech',NULL,7,'2026-06-06 11:39:08',NULL);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_manufacturer_to_store`;
 CREATE TABLE `oc_manufacturer_to_store` (
   `manufacturer_id` int(11) NOT NULL,
@@ -1549,8 +1439,6 @@ INSERT INTO `oc_manufacturer_to_store` VALUES
 (5,0),
 (6,0),
 (7,0);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_menu`;
 CREATE TABLE `oc_menu` (
   `menu_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1561,8 +1449,6 @@ CREATE TABLE `oc_menu` (
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`menu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_menu_description`;
 CREATE TABLE `oc_menu_description` (
   `menu_id` int(11) NOT NULL,
@@ -1570,8 +1456,6 @@ CREATE TABLE `oc_menu_description` (
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`menu_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_menu_module`;
 CREATE TABLE `oc_menu_module` (
   `menu_module_id` int(11) NOT NULL,
@@ -1581,8 +1465,6 @@ CREATE TABLE `oc_menu_module` (
   PRIMARY KEY (`menu_module_id`),
   KEY `menu_id` (`menu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_migrations`;
 CREATE TABLE `oc_migrations` (
   `version` bigint(20) NOT NULL,
@@ -1622,8 +1504,6 @@ INSERT INTO `oc_migrations` VALUES
 (20191114145807,'ImageUrlForImages','2026-06-06 14:37:26','2026-06-06 14:37:26',0),
 (20200330074111,'IndexesForCartTable','2026-06-06 14:38:23','2026-06-06 14:38:23',0),
 (20260606143409,'SeedModernDemoProducts','2026-06-06 14:39:08','2026-06-06 14:39:09',0);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_modification`;
 CREATE TABLE `oc_modification` (
   `modification_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1637,8 +1517,6 @@ CREATE TABLE `oc_modification` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`modification_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_module`;
 CREATE TABLE `oc_module` (
   `module_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1653,8 +1531,6 @@ INSERT INTO `oc_module` VALUES
 (29,'Home Page','carousel','{\"name\":\"Home Page\",\"banner_id\":\"8\",\"width\":\"130\",\"height\":\"100\",\"status\":\"1\"}'),
 (30,'Category','banner','{\"name\":\"Category\",\"banner_id\":\"6\",\"width\":\"182\",\"height\":\"182\",\"status\":\"1\"}'),
 (31,'Banner 1','banner','{\"name\":\"Banner 1\",\"banner_id\":\"6\",\"width\":\"182\",\"height\":\"182\",\"status\":\"1\"}');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_option`;
 CREATE TABLE `oc_option` (
   `option_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1674,8 +1550,6 @@ INSERT INTO `oc_option` VALUES
 (10,'datetime',9),
 (11,'select',10),
 (12,'date',11);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_option_description`;
 CREATE TABLE `oc_option_description` (
   `option_id` int(11) NOT NULL,
@@ -1696,8 +1570,6 @@ INSERT INTO `oc_option_description` VALUES
 (10,1,'Date &amp; Time',''),
 (11,1,'Size',''),
 (12,1,'Delivery Date','');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_option_value`;
 CREATE TABLE `oc_option_value` (
   `option_value_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1729,8 +1601,6 @@ INSERT INTO `oc_option_value` VALUES
 (56,1,'',7),
 (60,1,'',1),
 (61,1,'',2);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_option_value_description`;
 CREATE TABLE `oc_option_value_description` (
   `option_value_id` int(11) NOT NULL,
@@ -1762,8 +1632,6 @@ INSERT INTO `oc_option_value_description` VALUES
 (56,1,1,'Platinum Silver'),
 (60,1,1,'42mm'),
 (61,1,1,'46mm');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_order_status`;
 CREATE TABLE `oc_order_status` (
   `order_status_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1788,8 +1656,6 @@ INSERT INTO `oc_order_status` VALUES
 (14,1,'Expired','',0),
 (15,1,'Processed','',0),
 (16,1,'Voided','',0);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product`;
 CREATE TABLE `oc_product` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1851,8 +1717,6 @@ INSERT INTO `oc_product` VALUES
 (13,'MS-XBXSX','MS-XBXSX','','','','','','',100,7,'','https://placehold.co/800x600/107C10/ffffff?text=Xbox+Series+X',6,1,499.0000,0,9,'2026-06-06',0.20000000,1,0.00000000,0.00000000,0.00000000,1,1,1,2,1,0,'2026-06-06 11:39:09','2026-06-06','','',499.0000),
 (14,'LOGI-MXM3S','LOGI-MXM3S','','','','','','',100,7,'','https://placehold.co/800x600/0f172a/e2e8f0?text=MX+Master+3S',7,1,99.0000,0,9,'2026-06-06',0.20000000,1,0.00000000,0.00000000,0.00000000,1,1,1,1,1,0,'2026-06-06 11:39:09','2026-06-06','','',99.0000),
 (15,'APPLE-HPM','APPLE-HPM','','','','','','',100,7,'','https://placehold.co/800x600/f5f5f7/1d1d1f?text=HomePod+mini',1,1,99.0000,0,9,'2026-06-06',0.20000000,1,0.00000000,0.00000000,0.00000000,1,1,1,1,1,1,'2026-06-06 11:39:09','2026-06-06','','',99.0000);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_attribute`;
 CREATE TABLE `oc_product_attribute` (
   `product_id` int(11) NOT NULL,
@@ -1982,8 +1846,6 @@ INSERT INTO `oc_product_attribute` VALUES
 (15,10,1,'audioOS / HomePod Software'),
 (15,11,1,'345 g'),
 (15,12,1,'Wi-Fi 6, Bluetooth 5.0, Thread, Ultra Wideband');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_description`;
 CREATE TABLE `oc_product_description` (
   `product_id` int(11) NOT NULL,
@@ -2019,8 +1881,6 @@ INSERT INTO `oc_product_description` VALUES
 (13,1,'Xbox Series X','The most powerful Xbox ever. Xbox Series X delivers 12 teraflops of raw GPU performance, 4K gaming at up to 120 fps, 1 TB Custom NVMe SSD, and Quick Resume — jump back into multiple games exactly where you left off.','','microsoft,xbox,series-x,console,gaming,4k','Xbox Series X','The most powerful Xbox ever. Xbox Series X delivers 12 teraflops of raw GPU performance, 4K gaming at up to 120 fps, 1 TB Custom NVMe SSD, and Quick Resume — ','microsoft,xbox,series-x,console,gaming,4k','12 TFLOPS · 4K 120fps · Quick Resume',1,''),
 (14,1,'Logitech MX Master 3S','The ultimate mouse for creators and power users. MX Master 3S features an ultra-fast MagSpeed electromagnetic scroll wheel, whisper-quiet clicks, 8000 DPI precision on any surface including glass, and connects to up to 3 devices via Bolt USB or Bluetooth.','','logitech,mouse,mx-master,productivity,wireless,ergonomic','Logitech MX Master 3S','The ultimate mouse for creators and power users. MX Master 3S features an ultra-fast MagSpeed electromagnetic scroll wheel, whisper-quiet clicks, 8000 DPI preci','logitech,mouse,mx-master,productivity,wireless,ergonomic','8K DPI · MagSpeed scroll · Multi-device',1,''),
 (15,1,'Apple HomePod mini','Surprisingly powerful sound in a compact design. HomePod mini delivers full 360° audio with computational audio, acts as a smart home hub for HomeKit and Matter accessories, supports Thread networking, and integrates seamlessly with all your Apple devices.','','apple,homepod,smart-speaker,smart-home,homekit,siri','Apple HomePod mini','Surprisingly powerful sound in a compact design. HomePod mini delivers full 360° audio with computational audio, acts as a smart home hub for HomeKit and Matte','apple,homepod,smart-speaker,smart-home,homekit,siri','360° audio · Smart home hub · Thread',1,'');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_discount`;
 CREATE TABLE `oc_product_discount` (
   `product_discount_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2038,16 +1898,12 @@ CREATE TABLE `oc_product_discount` (
   KEY `date_start` (`date_start`),
   KEY `date_end` (`date_end`)
 ) ENGINE=InnoDB AUTO_INCREMENT=453 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_filter`;
 CREATE TABLE `oc_product_filter` (
   `product_id` int(11) NOT NULL,
   `filter_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`filter_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_image`;
 CREATE TABLE `oc_product_image` (
   `product_image_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2058,8 +1914,6 @@ CREATE TABLE `oc_product_image` (
   PRIMARY KEY (`product_image_id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2363 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_image_description`;
 CREATE TABLE `oc_product_image_description` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2075,8 +1929,6 @@ INSERT INTO `oc_product_image_description` VALUES
 (4,2360,'1','',42),
 (5,2361,'1','',42),
 (6,2362,'1','',42);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_option`;
 CREATE TABLE `oc_product_option` (
   `product_option_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2109,8 +1961,6 @@ INSERT INTO `oc_product_option` VALUES
 (246,12,5,'',1),
 (247,14,1,'',1),
 (248,15,1,'',1);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_option_value`;
 CREATE TABLE `oc_product_option_value` (
   `product_option_value_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2191,8 +2041,6 @@ INSERT INTO `oc_product_option_value` VALUES
 (74,248,15,1,54,20,1,0.0000,'+',0,'+',0.00000000,'+',NULL,''),
 (75,248,15,1,50,20,1,0.0000,'+',0,'+',0.00000000,'+',NULL,''),
 (76,248,15,1,52,15,1,0.0000,'+',0,'+',0.00000000,'+',NULL,'');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_recurring`;
 CREATE TABLE `oc_product_recurring` (
   `product_id` int(11) NOT NULL,
@@ -2200,16 +2048,12 @@ CREATE TABLE `oc_product_recurring` (
   `customer_group_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`recurring_id`,`customer_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_related`;
 CREATE TABLE `oc_product_related` (
   `product_id` int(11) NOT NULL,
   `related_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`related_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_reward`;
 CREATE TABLE `oc_product_reward` (
   `product_reward_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2220,8 +2064,6 @@ CREATE TABLE `oc_product_reward` (
   KEY `customer_group_id` (`customer_group_id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=547 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_special`;
 CREATE TABLE `oc_product_special` (
   `product_special_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2238,8 +2080,6 @@ CREATE TABLE `oc_product_special` (
   KEY `date_end` (`date_end`),
   KEY `customer_group_id_2` (`customer_group_id`,`date_start`,`date_end`)
 ) ENGINE=InnoDB AUTO_INCREMENT=444 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_to_category`;
 CREATE TABLE `oc_product_to_category` (
   `product_id` int(11) NOT NULL,
@@ -2263,16 +2103,12 @@ INSERT INTO `oc_product_to_category` VALUES
 (13,108),
 (14,109),
 (15,110);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_to_download`;
 CREATE TABLE `oc_product_to_download` (
   `product_id` int(11) NOT NULL,
   `download_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`download_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_to_layout`;
 CREATE TABLE `oc_product_to_layout` (
   `product_id` int(11) NOT NULL,
@@ -2280,8 +2116,6 @@ CREATE TABLE `oc_product_to_layout` (
   `layout_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`store_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_to_product`;
 CREATE TABLE `oc_product_to_product` (
   `product_group_id` int(55) NOT NULL AUTO_INCREMENT,
@@ -2290,8 +2124,6 @@ CREATE TABLE `oc_product_to_product` (
   PRIMARY KEY (`product_group_id`,`product_id`),
   KEY `product_id` (`product_id`,`default_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_product_to_store`;
 CREATE TABLE `oc_product_to_store` (
   `product_id` int(11) NOT NULL,
@@ -2314,8 +2146,6 @@ INSERT INTO `oc_product_to_store` VALUES
 (13,0),
 (14,0),
 (15,0);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_recurring`;
 CREATE TABLE `oc_recurring` (
   `recurring_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2332,8 +2162,6 @@ CREATE TABLE `oc_recurring` (
   `sort_order` int(11) NOT NULL,
   PRIMARY KEY (`recurring_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_recurring_description`;
 CREATE TABLE `oc_recurring_description` (
   `recurring_id` int(11) NOT NULL,
@@ -2341,8 +2169,6 @@ CREATE TABLE `oc_recurring_description` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`recurring_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_return`;
 CREATE TABLE `oc_return` (
   `return_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2366,8 +2192,6 @@ CREATE TABLE `oc_return` (
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`return_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_return_action`;
 CREATE TABLE `oc_return_action` (
   `return_action_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2379,8 +2203,6 @@ INSERT INTO `oc_return_action` VALUES
 (1,1,'Refunded'),
 (2,1,'Credit Issued'),
 (3,1,'Replacement Sent');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_return_history`;
 CREATE TABLE `oc_return_history` (
   `return_history_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2391,8 +2213,6 @@ CREATE TABLE `oc_return_history` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`return_history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_return_reason`;
 CREATE TABLE `oc_return_reason` (
   `return_reason_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2406,8 +2226,6 @@ INSERT INTO `oc_return_reason` VALUES
 (3,1,'Order Error'),
 (4,1,'Faulty, please supply details'),
 (5,1,'Other, please supply details');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_return_status`;
 CREATE TABLE `oc_return_status` (
   `return_status_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2419,8 +2237,6 @@ INSERT INTO `oc_return_status` VALUES
 (1,1,'Pending'),
 (2,1,'Awaiting Products'),
 (3,1,'Complete');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_search_register`;
 CREATE TABLE `oc_search_register` (
   `search_id` int(11) NOT NULL,
@@ -2430,8 +2246,6 @@ CREATE TABLE `oc_search_register` (
   `result` int(11) NOT NULL,
   PRIMARY KEY (`search_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_search_table`;
 CREATE TABLE `oc_search_table` (
   `text` text NOT NULL,
@@ -2441,16 +2255,12 @@ CREATE TABLE `oc_search_table` (
   `language_id` tinyint(4) NOT NULL,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_search_types`;
 CREATE TABLE `oc_search_types` (
   `type_id` tinyint(4) NOT NULL,
   `name` varchar(254) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_uca1400_ai_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_setting`;
 CREATE TABLE `oc_setting` (
   `setting_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2636,8 +2446,6 @@ INSERT INTO `oc_setting` VALUES
 (174,0,'config','config_email','admin@example.com',0),
 (175,0,'config','config_encryption','0fFBDovjQbKswTSu3pT7lW1blwWCzLdW1F5L7IiAL5PMxfRIwUk8WEWGcoAgXDSZzGtht3fvSzv70CsinAW2a8ghnUS2SPyNqFgJn9KQ0dKGFXTkv1wiH3CirFZYImT8RtCYKKglqzttgkQCZqZVTWFggvkH3OkiwyguiR9JLZNF0lmgF16QcND0ag0PMX78WjgPTjBRuSSxrZ7t0fZQWLySP92VcKeKvReqgZJbckVTKIXdECgTyrhxoEhKVgloqZluCEv1wjSQoyZV3zauY0zXWLtE2e2QH7IO5OLsuuyX0hQibUe2wOdIJpMW9Ri6OcAzWFbIIPMHXx9ged1lVCz8G5g7pLwrGmZkRtTgBU9nJWt4MAvDoUIcD6wRqMPC5J3WMoJ24NuUS6RtVnJFuskOBLJI3HctagmeDzgS8E1D028E11roayMDWgv0OS8kySSOYb55lDPgF2DhkRgQBhxAi2eBjT6x2VJTSRUiE3jgG3f1pAXnc55ss3PyMOwPGV7NlAcUIv6iYumFFlgk1GKLVTLYpqBbSQrvWzM422ZTZ8NrQkbH6IvtsJja2yto1jVmxZJljKxjETgFigDReIXKFIZ95rBUfTcwfMymLYb4NQFtExJ3ds2iK3cIvw0Fp0GATEOFjsmd31DLckfVBz6mCti6OjdS9JnmPL19ycBuDLOGIxDcD5vd4q9JxwzlTsF3OSUwxoHfAkQHjvkJebxS3dgaA1UPD1645lrxd79ZuHSqRs1SfVUad0VD8pP4oOcGp4fNmK52nBLqCR0i6BDLOaZlAXAMvDeEqNM3zo5LtU6Wq22U7bdEn8X7M6qEoJZfzuLUknBA3jZEYAaLz4KPKgyeLuwx44P2nGn3ydZepvY0nlReAzzeeNH7VpI483nQB8qAsPeFkZZzzbpYzZFaKnKOn0fyFmmllvNYXeJcRtLpIPUriwZsKFrWKiqTQQwW8Tp7qZ4rsSEPA6r5h2A1OzEwxIVzaUnU9fVqv7pUxIHaUe0j6ykbQV3MNOhc',0),
 (176,0,'config','config_api_id','1',0);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_stock_status`;
 CREATE TABLE `oc_stock_status` (
   `stock_status_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2650,8 +2458,6 @@ INSERT INTO `oc_stock_status` VALUES
 (6,1,'2-3 Days'),
 (7,1,'In Stock'),
 (8,1,'Pre-Order');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_store`;
 CREATE TABLE `oc_store` (
   `store_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2661,8 +2467,6 @@ CREATE TABLE `oc_store` (
   PRIMARY KEY (`store_id`),
   KEY `url` (`url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_tax_class`;
 CREATE TABLE `oc_tax_class` (
   `tax_class_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2675,8 +2479,6 @@ CREATE TABLE `oc_tax_class` (
 INSERT INTO `oc_tax_class` VALUES
 (9,'Taxable Goods','Taxed goods','2009-01-06 23:21:53','2011-09-23 14:07:50'),
 (10,'Downloadable Products','Downloadable','2011-09-21 22:19:39','2011-09-22 10:27:36');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_tax_rate`;
 CREATE TABLE `oc_tax_rate` (
   `tax_rate_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2691,8 +2493,6 @@ CREATE TABLE `oc_tax_rate` (
 INSERT INTO `oc_tax_rate` VALUES
 (86,3,'VAT (20%)',20.0000,'P','2011-03-09 21:17:10','2011-09-22 22:24:29'),
 (87,3,'Eco Tax (-2.00)',2.0000,'F','2011-09-21 21:49:23','2011-09-23 00:40:19');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_tax_rate_to_customer_group`;
 CREATE TABLE `oc_tax_rate_to_customer_group` (
   `tax_rate_id` int(11) NOT NULL,
@@ -2702,8 +2502,6 @@ CREATE TABLE `oc_tax_rate_to_customer_group` (
 INSERT INTO `oc_tax_rate_to_customer_group` VALUES
 (86,1),
 (87,1);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_tax_rule`;
 CREATE TABLE `oc_tax_rule` (
   `tax_rule_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2718,8 +2516,6 @@ INSERT INTO `oc_tax_rule` VALUES
 (121,10,86,'payment',1),
 (127,9,87,'shipping',2),
 (128,9,86,'shipping',1);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_theme`;
 CREATE TABLE `oc_theme` (
   `theme_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2729,8 +2525,6 @@ CREATE TABLE `oc_theme` (
   `code` text NOT NULL,
   PRIMARY KEY (`theme_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_translation`;
 CREATE TABLE `oc_translation` (
   `translation_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2741,8 +2535,6 @@ CREATE TABLE `oc_translation` (
   `value` text NOT NULL,
   PRIMARY KEY (`translation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_url_alias`;
 CREATE TABLE `oc_url_alias` (
   `url_alias_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2791,8 +2583,6 @@ INSERT INTO `oc_url_alias` VALUES
 (869,'product_id=13','xbox-series-x',1),
 (870,'product_id=14','logitech-mx-master-3s',1),
 (871,'product_id=15','apple-homepod-mini',1);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_user_group`;
 CREATE TABLE `oc_user_group` (
   `user_group_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2803,8 +2593,6 @@ CREATE TABLE `oc_user_group` (
 INSERT INTO `oc_user_group` VALUES
 (1,'Administrator','{\"access\":[\"catalog/attribute\",\"catalog/attribute_group\",\"catalog/category\",\"catalog/download\",\"catalog/filter\",\"catalog/information\",\"catalog/manufacturer\",\"catalog/option\",\"catalog/product\",\"catalog/recurring\",\"catalog/review\",\"common/column_left\",\"common/filemanager\",\"customer/custom_field\",\"customer/customer\",\"customer/customer_group\",\"design/banner\",\"design/language\",\"design/layout\",\"design/menu\",\"design/theme\",\"design/translation\",\"event/compatibility\",\"event/theme\",\"extension/analytics/google_analytics\",\"extension/captcha/basic_captcha\",\"extension/captcha/google_captcha\",\"extension/dashboard/activity\",\"extension/dashboard/chart\",\"extension/dashboard/customer\",\"extension/dashboard/map\",\"extension/dashboard/online\",\"extension/dashboard/order\",\"extension/dashboard/recent\",\"extension/dashboard/sale\",\"extension/event\",\"extension/extension\",\"extension/extension/analytics\",\"extension/extension/captcha\",\"extension/extension/dashboard\",\"extension/extension/feed\",\"extension/extension/fraud\",\"extension/extension/menu\",\"extension/extension/module\",\"extension/extension/payment\",\"extension/extension/shipping\",\"extension/extension/theme\",\"extension/extension/total\",\"extension/feed/google_base\",\"extension/feed/google_sitemap\",\"extension/fraud/fraudlabspro\",\"extension/fraud/ip\",\"extension/fraud/maxmind\",\"extension/installer\",\"extension/modification\",\"extension/module/account\",\"extension/module/affiliate\",\"extension/module/amazon_login\",\"extension/module/amazon_pay\",\"extension/module/banner\",\"extension/module/bestseller\",\"extension/module/carousel\",\"extension/module/category\",\"extension/module/divido_calculator\",\"extension/module/ebay_listing\",\"extension/module/featured\",\"extension/module/filter\",\"extension/module/google_hangouts\",\"extension/module/html\",\"extension/module/information\",\"extension/module/klarna_checkout_module\",\"extension/module/latest\",\"extension/module/laybuy_layout\",\"extension/module/pilibaba_button\",\"extension/module/pp_button\",\"extension/module/pp_login\",\"extension/module/sagepay_direct_cards\",\"extension/module/sagepay_server_cards\",\"extension/module/slideshow\",\"extension/module/special\",\"extension/module/store\",\"extension/payment/amazon_login_pay\",\"extension/payment/authorizenet_aim\",\"extension/payment/authorizenet_sim\",\"extension/payment/bank_transfer\",\"extension/payment/bluepay_hosted\",\"extension/payment/bluepay_redirect\",\"extension/payment/cardconnect\",\"extension/payment/cardinity\",\"extension/payment/cheque\",\"extension/payment/cod\",\"extension/payment/divido\",\"extension/payment/eway\",\"extension/payment/firstdata\",\"extension/payment/firstdata_remote\",\"extension/payment/free_checkout\",\"extension/payment/g2apay\",\"extension/payment/globalpay\",\"extension/payment/globalpay_remote\",\"extension/payment/klarna_account\",\"extension/payment/klarna_checkout\",\"extension/payment/klarna_invoice\",\"extension/payment/laybuy\",\"extension/payment/liqpay\",\"extension/payment/nochex\",\"extension/payment/paymate\",\"extension/payment/paypoint\",\"extension/payment/payza\",\"extension/payment/perpetual_payments\",\"extension/payment/pilibaba\",\"extension/payment/pp_express\",\"extension/payment/pp_payflow\",\"extension/payment/pp_payflow_iframe\",\"extension/payment/pp_pro\",\"extension/payment/pp_pro_iframe\",\"extension/payment/pp_standard\",\"extension/payment/realex\",\"extension/payment/realex_remote\",\"extension/payment/sagepay_direct\",\"extension/payment/sagepay_server\",\"extension/payment/sagepay_us\",\"extension/payment/securetrading_pp\",\"extension/payment/securetrading_ws\",\"extension/payment/skrill\",\"extension/payment/twocheckout\",\"extension/payment/web_payment_software\",\"extension/payment/worldpay\",\"extension/shipping/auspost\",\"extension/shipping/citylink\",\"extension/shipping/fedex\",\"extension/shipping/flat\",\"extension/shipping/free\",\"extension/shipping/item\",\"extension/shipping/parcelforce_48\",\"extension/shipping/pickup\",\"extension/shipping/royal_mail\",\"extension/shipping/ups\",\"extension/shipping/usps\",\"extension/shipping/weight\",\"extension/store\",\"extension/theme/theme_default\",\"extension/total/coupon\",\"extension/total/credit\",\"extension/total/handling\",\"extension/total/klarna_fee\",\"extension/total/low_order_fee\",\"extension/total/reward\",\"extension/total/shipping\",\"extension/total/sub_total\",\"extension/total/tax\",\"extension/total/total\",\"extension/total/voucher\",\"localisation/country\",\"localisation/currency\",\"localisation/geo_zone\",\"localisation/language\",\"localisation/length_class\",\"localisation/location\",\"localisation/order_status\",\"localisation/return_action\",\"localisation/return_reason\",\"localisation/return_status\",\"localisation/stock_status\",\"localisation/tax_class\",\"localisation/tax_rate\",\"localisation/weight_class\",\"localisation/zone\",\"marketing/affiliate\",\"marketing/contact\",\"marketing/coupon\",\"marketing/marketing\",\"report/affiliate\",\"report/affiliate_activity\",\"report/affiliate_login\",\"report/customer_activity\",\"report/customer_credit\",\"report/customer_login\",\"report/customer_online\",\"report/customer_order\",\"report/customer_reward\",\"report/customer_search\",\"report/marketing\",\"report/product_purchased\",\"report/product_viewed\",\"report/sale_coupon\",\"report/sale_order\",\"report/sale_return\",\"report/sale_shipping\",\"report/sale_tax\",\"sale/order\",\"sale/recurring\",\"sale/return\",\"sale/voucher\",\"sale/voucher_theme\",\"setting/setting\",\"setting/store\",\"startup/compatibility\",\"startup/error\",\"startup/event\",\"startup/login\",\"startup/permission\",\"startup/router\",\"startup/sass\",\"startup/startup\",\"tool/backup\",\"tool/log\",\"tool/upload\",\"user/api\",\"user/user\",\"user/user_permission\",\"extension/module/cr_translate_mate\"],\"modify\":[\"catalog/attribute\",\"catalog/attribute_group\",\"catalog/category\",\"catalog/download\",\"catalog/filter\",\"catalog/information\",\"catalog/manufacturer\",\"catalog/option\",\"catalog/product\",\"catalog/recurring\",\"catalog/review\",\"common/column_left\",\"common/filemanager\",\"customer/custom_field\",\"customer/customer\",\"customer/customer_group\",\"design/banner\",\"design/language\",\"design/layout\",\"design/menu\",\"design/theme\",\"design/translation\",\"event/compatibility\",\"event/theme\",\"extension/analytics/google_analytics\",\"extension/captcha/basic_captcha\",\"extension/captcha/google_captcha\",\"extension/dashboard/activity\",\"extension/dashboard/chart\",\"extension/dashboard/customer\",\"extension/dashboard/map\",\"extension/dashboard/online\",\"extension/dashboard/order\",\"extension/dashboard/recent\",\"extension/dashboard/sale\",\"extension/event\",\"extension/extension\",\"extension/extension/analytics\",\"extension/extension/captcha\",\"extension/extension/dashboard\",\"extension/extension/feed\",\"extension/extension/fraud\",\"extension/extension/menu\",\"extension/extension/module\",\"extension/extension/payment\",\"extension/extension/shipping\",\"extension/extension/theme\",\"extension/extension/total\",\"extension/feed/google_base\",\"extension/feed/google_sitemap\",\"extension/fraud/fraudlabspro\",\"extension/fraud/ip\",\"extension/fraud/maxmind\",\"extension/installer\",\"extension/modification\",\"extension/module/account\",\"extension/module/affiliate\",\"extension/module/amazon_login\",\"extension/module/amazon_pay\",\"extension/module/banner\",\"extension/module/bestseller\",\"extension/module/carousel\",\"extension/module/category\",\"extension/module/divido_calculator\",\"extension/module/ebay_listing\",\"extension/module/featured\",\"extension/module/filter\",\"extension/module/google_hangouts\",\"extension/module/html\",\"extension/module/information\",\"extension/module/klarna_checkout_module\",\"extension/module/latest\",\"extension/module/laybuy_layout\",\"extension/module/pilibaba_button\",\"extension/module/pp_button\",\"extension/module/pp_login\",\"extension/module/sagepay_direct_cards\",\"extension/module/sagepay_server_cards\",\"extension/module/slideshow\",\"extension/module/special\",\"extension/module/store\",\"extension/payment/amazon_login_pay\",\"extension/payment/authorizenet_aim\",\"extension/payment/authorizenet_sim\",\"extension/payment/bank_transfer\",\"extension/payment/bluepay_hosted\",\"extension/payment/bluepay_redirect\",\"extension/payment/cardconnect\",\"extension/payment/cardinity\",\"extension/payment/cheque\",\"extension/payment/cod\",\"extension/payment/divido\",\"extension/payment/eway\",\"extension/payment/firstdata\",\"extension/payment/firstdata_remote\",\"extension/payment/free_checkout\",\"extension/payment/g2apay\",\"extension/payment/globalpay\",\"extension/payment/globalpay_remote\",\"extension/payment/klarna_account\",\"extension/payment/klarna_checkout\",\"extension/payment/klarna_invoice\",\"extension/payment/laybuy\",\"extension/payment/liqpay\",\"extension/payment/nochex\",\"extension/payment/paymate\",\"extension/payment/paypoint\",\"extension/payment/payza\",\"extension/payment/perpetual_payments\",\"extension/payment/pilibaba\",\"extension/payment/pp_express\",\"extension/payment/pp_payflow\",\"extension/payment/pp_payflow_iframe\",\"extension/payment/pp_pro\",\"extension/payment/pp_pro_iframe\",\"extension/payment/pp_standard\",\"extension/payment/realex\",\"extension/payment/realex_remote\",\"extension/payment/sagepay_direct\",\"extension/payment/sagepay_server\",\"extension/payment/sagepay_us\",\"extension/payment/securetrading_pp\",\"extension/payment/securetrading_ws\",\"extension/payment/skrill\",\"extension/payment/twocheckout\",\"extension/payment/web_payment_software\",\"extension/payment/worldpay\",\"extension/shipping/auspost\",\"extension/shipping/citylink\",\"extension/shipping/fedex\",\"extension/shipping/flat\",\"extension/shipping/free\",\"extension/shipping/item\",\"extension/shipping/parcelforce_48\",\"extension/shipping/pickup\",\"extension/shipping/royal_mail\",\"extension/shipping/ups\",\"extension/shipping/usps\",\"extension/shipping/weight\",\"extension/store\",\"extension/theme/theme_default\",\"extension/total/coupon\",\"extension/total/credit\",\"extension/total/handling\",\"extension/total/klarna_fee\",\"extension/total/low_order_fee\",\"extension/total/reward\",\"extension/total/shipping\",\"extension/total/sub_total\",\"extension/total/tax\",\"extension/total/total\",\"extension/total/voucher\",\"localisation/country\",\"localisation/currency\",\"localisation/geo_zone\",\"localisation/language\",\"localisation/length_class\",\"localisation/location\",\"localisation/order_status\",\"localisation/return_action\",\"localisation/return_reason\",\"localisation/return_status\",\"localisation/stock_status\",\"localisation/tax_class\",\"localisation/tax_rate\",\"localisation/weight_class\",\"localisation/zone\",\"marketing/affiliate\",\"marketing/contact\",\"marketing/coupon\",\"marketing/marketing\",\"report/affiliate\",\"report/affiliate_activity\",\"report/affiliate_login\",\"report/customer_activity\",\"report/customer_credit\",\"report/customer_login\",\"report/customer_online\",\"report/customer_order\",\"report/customer_reward\",\"report/customer_search\",\"report/marketing\",\"report/product_purchased\",\"report/product_viewed\",\"report/sale_coupon\",\"report/sale_order\",\"report/sale_return\",\"report/sale_shipping\",\"report/sale_tax\",\"sale/order\",\"sale/recurring\",\"sale/return\",\"sale/voucher\",\"sale/voucher_theme\",\"setting/setting\",\"setting/store\",\"startup/compatibility\",\"startup/error\",\"startup/event\",\"startup/login\",\"startup/permission\",\"startup/router\",\"startup/sass\",\"startup/startup\",\"tool/backup\",\"tool/log\",\"tool/upload\",\"user/api\",\"user/user\",\"user/user_permission\",\"extension/module/cr_translate_mate\"]}'),
 (10,'Demonstration','');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_voucher_theme`;
 CREATE TABLE `oc_voucher_theme` (
   `voucher_theme_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2815,8 +2603,6 @@ INSERT INTO `oc_voucher_theme` VALUES
 (6,'catalog/demo/apple_logo.jpg'),
 (7,'catalog/demo/gift-voucher-birthday.jpg'),
 (8,'catalog/demo/canon_eos_5d_2.jpg');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_voucher_theme_description`;
 CREATE TABLE `oc_voucher_theme_description` (
   `voucher_theme_id` int(11) NOT NULL,
@@ -2828,8 +2614,6 @@ INSERT INTO `oc_voucher_theme_description` VALUES
 (6,1,'Christmas'),
 (7,1,'Birthday'),
 (8,1,'General');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_webform`;
 CREATE TABLE `oc_webform` (
   `id` int(11) NOT NULL,
@@ -2848,8 +2632,6 @@ CREATE TABLE `oc_webform` (
   `language_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_weight_class`;
 CREATE TABLE `oc_weight_class` (
   `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2861,8 +2643,6 @@ INSERT INTO `oc_weight_class` VALUES
 (2,1000.00000000),
 (5,2.20460000),
 (6,35.27400000);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_weight_class_description`;
 CREATE TABLE `oc_weight_class_description` (
   `weight_class_id` int(11) NOT NULL,
@@ -2876,8 +2656,6 @@ INSERT INTO `oc_weight_class_description` VALUES
 (2,1,'Gram','g'),
 (5,1,'Pound ','lb'),
 (6,1,'Ounce','oz');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_zone`;
 CREATE TABLE `oc_zone` (
   `zone_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -6996,8 +6774,6 @@ INSERT INTO `oc_zone` VALUES
 (4236,105,'Barletta-Andria-Trani','BT',1),
 (4237,105,'Fermo','FM',1),
 (4238,105,'Monza Brianza','MB',1);
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 DROP TABLE IF EXISTS `oc_zone_to_geo_zone`;
 CREATE TABLE `oc_zone_to_geo_zone` (
   `zone_to_geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -7118,6 +6894,4 @@ INSERT INTO `oc_zone_to_geo_zone` VALUES
 (107,222,3954,3,'0000-00-00 00:00:00','0000-00-00 00:00:00'),
 (108,222,3955,3,'0000-00-00 00:00:00','0000-00-00 00:00:00'),
 (109,222,3972,3,'0000-00-00 00:00:00','0000-00-00 00:00:00');
-COMMIT;
-SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 SET FOREIGN_KEY_CHECKS=1;
