@@ -10,9 +10,8 @@ class ControllerExtensionModuleBanner extends Controller {
         // Needed to replace $this->config->get('theme_name') with "default", to load files from "default" folder.
         // then replaced to "addets/.. " :) to allow control in document class.
 
-        $this->document->addStyle('assets/vendor/owl-carousel/owl.carousel.css');
-        $this->document->addStyle('assets/vendor/owl-carousel/owl.transitions.css');
-        $this->document->addScript('assets/vendor/owl-carousel/owl.carousel.min.js');
+        $this->document->addStyle('themes/default/assets/vendor/swiper/css/swiper.min.css');
+        $this->document->addScript('themes/default/assets/vendor/swiper/js/swiper.min.js');
 
         $data['banners'] = array();
 
