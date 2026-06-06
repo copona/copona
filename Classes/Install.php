@@ -147,7 +147,24 @@ return [
             $db->query("DELETE FROM `" . $data['db_prefix'] . "setting` WHERE `key` = 'config_api_id'");
             $db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_api_id', value = '" . (int)$api_id . "'");
 
-            //Enable seo url if .htaccess exist
+            //Create .htaccess with mod_rewrite rules if not present, then enable SEO URLs
+            if (!file_exists(DIR_PUBLIC . '/.htaccess')) {
+                file_put_contents(DIR_PUBLIC . '/.htaccess', <<<'HTACCESS'
+Options +FollowSymlinks
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|webp|js|css)$
+RewriteRule ^([^?]*) index.php?_route_=$1 [L,QSA]
+</IfModule>
+HTACCESS
+                );
+            }
             if (file_exists(DIR_PUBLIC . '/.htaccess')) {
                 $db->query("UPDATE `" . $data['db_prefix'] . "setting` SET value = '1' WHERE `key` = 'config_seo_url'");
             }
