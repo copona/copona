@@ -3,6 +3,9 @@
 class ControllerExtensionModuleManufacturers extends Controller {
 
     public function index($setting) {
+        $this->document->addStyle('themes/default/assets/vendor/swiper/css/swiper.min.css');
+        $this->document->addScript('themes/default/assets/vendor/swiper/js/swiper.min.js');
+
         $data = $this->load->language('extension/module/manufacturers');
 
         $data['heading_title'] = $this->language->get('heading_title');
