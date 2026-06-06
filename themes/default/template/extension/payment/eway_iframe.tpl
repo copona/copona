@@ -7,7 +7,7 @@
     <?php } ?>
 
     <div class="buttons">
-      <div class="pull-right">
+      <div class="float-end">
         <input type="button" value="<?php echo $button_pay; ?>" id="button-confirm" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
       </div>
     </div>

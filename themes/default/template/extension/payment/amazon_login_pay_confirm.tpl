@@ -27,43 +27,43 @@
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <td class="text-left"><?php echo $column_name; ?></td>
-          <td class="text-left"><?php echo $column_model; ?></td>
-          <td class="text-right"><?php echo $column_quantity; ?></td>
-          <td class="text-right"><?php echo $column_price; ?></td>
-          <td class="text-right"><?php echo $column_total; ?></td>
+          <td class="text-start"><?php echo $column_name; ?></td>
+          <td class="text-start"><?php echo $column_model; ?></td>
+          <td class="text-end"><?php echo $column_quantity; ?></td>
+          <td class="text-end"><?php echo $column_price; ?></td>
+          <td class="text-end"><?php echo $column_total; ?></td>
         </tr>
       </thead>
       <tbody>
           <?php foreach ($products as $product) { ?>
             <tr>
-              <td class="text-left"><?php echo $product['name']; ?>
+              <td class="text-start"><?php echo $product['name']; ?>
                   <?php foreach ($product['option'] as $option) { ?>
                     <br />
                     &nbsp;<small> - <?php echo $option['name']; ?>: <?php echo $option['value']; ?></small>
                 <?php } ?></td>
-              <td class="text-left"><?php echo $product['model']; ?></td>
-              <td class="text-right"><?php echo $product['quantity']; ?></td>
-              <td class="text-right"><?php echo $product['price']; ?></td>
-              <td class="text-right"><?php echo $product['total']; ?></td>
+              <td class="text-start"><?php echo $product['model']; ?></td>
+              <td class="text-end"><?php echo $product['quantity']; ?></td>
+              <td class="text-end"><?php echo $product['price']; ?></td>
+              <td class="text-end"><?php echo $product['total']; ?></td>
             </tr>
         <?php } ?>
       </tbody>
       <tfoot>
           <?php foreach ($totals as $total) { ?>
             <tr>
-              <td colspan="4" class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
-              <td class="text-right"><?php echo $total['text']; ?></td>
+              <td colspan="4" class="text-end"><strong><?php echo $total['title']; ?>:</strong></td>
+              <td class="text-end"><?php echo $total['text']; ?></td>
             </tr>
         <?php } ?>
       </tfoot>
     </table>
   </div>
   <div class="buttons">
-    <div class="pull-left">
+    <div class="float-start">
       <a href="<?php echo $back; ?>" class="btn btn-primary"><?php echo $text_back; ?></a>
     </div>
-    <div class="pull-right">
+    <div class="float-end">
       <input class="btn btn-primary" id="confirm-button" type="submit" value="<?php echo $text_confirm; ?>" />
     </div>
   </div>

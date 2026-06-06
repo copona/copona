@@ -83,7 +83,7 @@ class ControllerStartupStartup extends Controller {
                 if (empty($seo_path)) {
                     unset($this->request->get["_route_"]);
                 } else {
-                    $this->request->get["_route_"] = implode($seo_path, '/');
+                    $this->request->get["_route_"] = implode('/', $seo_path);
                 }
             }
         } elseif (isset($this->request->cookie['language']) && array_key_exists($this->request->cookie['language'],

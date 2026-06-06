@@ -1,10 +1,10 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <div class="row"><?php echo $column_left; ?>
       <?php if ($column_left && $column_right) { ?>
           <?php $class = 'col-sm-6'; ?>
@@ -18,14 +18,14 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <td class="text-left" colspan="2"><?php echo $text_return_detail; ?></td>
+            <td class="text-start" colspan="2"><?php echo $text_return_detail; ?></td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="text-left" style="width: 50%;"><b><?php echo $text_return_id; ?></b> #<?php echo $return_id; ?><br />
+            <td class="text-start" style="width: 50%;"><b><?php echo $text_return_id; ?></b> #<?php echo $return_id; ?><br />
               <b><?php echo $text_date_added; ?></b> <?php echo $date_added; ?></td>
-            <td class="text-left" style="width: 50%;"><b><?php echo $text_order_id; ?></b> #<?php echo $order_id; ?><br />
+            <td class="text-start" style="width: 50%;"><b><?php echo $text_order_id; ?></b> #<?php echo $order_id; ?><br />
               <b><?php echo $text_date_ordered; ?></b> <?php echo $date_ordered; ?></td>
           </tr>
         </tbody>
@@ -35,16 +35,16 @@
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <td class="text-left" style="width: 33.3%;"><?php echo $column_product; ?></td>
-              <td class="text-left" style="width: 33.3%;"><?php echo $column_model; ?></td>
-              <td class="text-right" style="width: 33.3%;"><?php echo $column_quantity; ?></td>
+              <td class="text-start" style="width: 33.3%;"><?php echo $column_product; ?></td>
+              <td class="text-start" style="width: 33.3%;"><?php echo $column_model; ?></td>
+              <td class="text-end" style="width: 33.3%;"><?php echo $column_quantity; ?></td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-left"><?php echo $product; ?></td>
-              <td class="text-left"><?php echo $model; ?></td>
-              <td class="text-right"><?php echo $quantity; ?></td>
+              <td class="text-start"><?php echo $product; ?></td>
+              <td class="text-start"><?php echo $model; ?></td>
+              <td class="text-end"><?php echo $quantity; ?></td>
             </tr>
           </tbody>
         </table>
@@ -54,16 +54,16 @@
         <table class="list table table-bordered table-hover">
           <thead>
             <tr>
-              <td class="text-left" style="width: 33.3%;"><?php echo $column_reason; ?></td>
-              <td class="text-left" style="width: 33.3%;"><?php echo $column_opened; ?></td>
-              <td class="text-left" style="width: 33.3%;"><?php echo $column_action; ?></td>
+              <td class="text-start" style="width: 33.3%;"><?php echo $column_reason; ?></td>
+              <td class="text-start" style="width: 33.3%;"><?php echo $column_opened; ?></td>
+              <td class="text-start" style="width: 33.3%;"><?php echo $column_action; ?></td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-left"><?php echo $reason; ?></td>
-              <td class="text-left"><?php echo $opened; ?></td>
-              <td class="text-left"><?php echo $action; ?></td>
+              <td class="text-start"><?php echo $reason; ?></td>
+              <td class="text-start"><?php echo $opened; ?></td>
+              <td class="text-start"><?php echo $action; ?></td>
             </tr>
           </tbody>
         </table>
@@ -73,12 +73,12 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td class="text-left"><?php echo $text_comment; ?></td>
+                  <td class="text-start"><?php echo $text_comment; ?></td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="text-left"><?php echo $comment; ?></td>
+                  <td class="text-start"><?php echo $comment; ?></td>
                 </tr>
               </tbody>
             </table>
@@ -89,18 +89,18 @@
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <td class="text-left" style="width: 33.3%;"><?php echo $column_date_added; ?></td>
-              <td class="text-left" style="width: 33.3%;"><?php echo $column_status; ?></td>
-              <td class="text-left" style="width: 33.3%;"><?php echo $column_comment; ?></td>
+              <td class="text-start" style="width: 33.3%;"><?php echo $column_date_added; ?></td>
+              <td class="text-start" style="width: 33.3%;"><?php echo $column_status; ?></td>
+              <td class="text-start" style="width: 33.3%;"><?php echo $column_comment; ?></td>
             </tr>
           </thead>
           <tbody>
               <?php if ($histories) { ?>
                   <?php foreach ($histories as $history) { ?>
                     <tr>
-                      <td class="text-left"><?php echo $history['date_added']; ?></td>
-                      <td class="text-left"><?php echo $history['status']; ?></td>
-                      <td class="text-left"><?php echo $history['comment']; ?></td>
+                      <td class="text-start"><?php echo $history['date_added']; ?></td>
+                      <td class="text-start"><?php echo $history['status']; ?></td>
+                      <td class="text-start"><?php echo $history['comment']; ?></td>
                     </tr>
                 <?php } ?>
             <?php } else { ?>

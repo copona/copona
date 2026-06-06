@@ -1,10 +1,10 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
       <?php } ?>
-  </ul>
+  </ol></nav>
   <div class="row"><?php echo $column_left; ?>
       <?php if ($column_left && $column_right) { ?>
           <?php $class = 'col-sm-6'; ?>
@@ -23,8 +23,8 @@
         <?php } ?>
 
       <h3><?php echo $text_location; ?></h3>
-      <div class="panel panel-default">
-        <div class="panel-body">
+      <div class="panel card">
+        <div class="card-body">
           <div class="row">
               <?php if ($image) { ?>
                 <div class="col-sm-3"><img src="<?php echo $image; ?>" alt="<?php echo $store; ?>"
@@ -66,15 +66,15 @@
           <h3><?php echo $text_store; ?></h3>
           <div class="panel-group" id="accordion">
               <?php foreach ($locations as $location) { ?>
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title"><a href="#collapse-location<?php echo $location['location_id']; ?>"
-                                               class="accordion-toggle" data-toggle="collapse"
-                                               data-parent="#accordion"><?php echo $location['name']; ?> <i
+                <div class="panel card">
+                  <div class="card-header">
+                    <h4 class="card-title"><a href="#collapse-location<?php echo $location['location_id']; ?>"
+                                               class="accordion-toggle" data-bs-toggle="collapse"
+                                               data-bs-parent="#accordion"><?php echo $location['name']; ?> <i
                             class="fa fa-caret-down"></i></a></h4>
                   </div>
-                  <div class="panel-collapse collapse" id="collapse-location<?php echo $location['location_id']; ?>">
-                    <div class="panel-body">
+                  <div class=" collapse" id="collapse-location<?php echo $location['location_id']; ?>">
+                    <div class="card-body">
                       <div class="row">
                           <?php if ($location['image']) { ?>
                             <div class="col-sm-3"><img src="<?php echo $location['image']; ?>"
@@ -118,11 +118,11 @@
               <?php } ?>
           </div>
         <?php } ?>
-      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
+      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="row">
         <fieldset>
           <legend><?php echo $text_contact; ?></legend>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-name"><?php echo $entry_firstname; ?></label>
+            <label class="col-sm-2 form-label" for="input-name"><?php echo $entry_firstname; ?></label>
             <div class="col-sm-10">
               <input type="text" name="name" value="<?php echo $name; ?>" id="input-name" class="form-control"/>
                 <?php if ($error_name) { ?>
@@ -131,7 +131,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-email"><?php echo $entry_email; ?></label>
+            <label class="col-sm-2 form-label" for="input-email"><?php echo $entry_email; ?></label>
             <div class="col-sm-10">
               <input type="text" name="email" value="<?php echo $email; ?>" id="input-email" class="form-control"/>
                 <?php if ($error_email) { ?>
@@ -140,7 +140,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-enquiry"><?php echo $entry_enquiry; ?></label>
+            <label class="col-sm-2 form-label" for="input-enquiry"><?php echo $entry_enquiry; ?></label>
             <div class="col-sm-10">
               <textarea name="enquiry" rows="10" id="input-enquiry"
                         class="form-control"><?php echo $enquiry; ?></textarea>
@@ -152,7 +152,7 @@
             <?php echo $captcha; ?>
         </fieldset>
         <div class="buttons">
-          <div class="pull-right">
+          <div class="float-end">
             <input class="btn btn-primary" type="submit" value="<?php echo $button_submit; ?>"/>
           </div>
         </div>

@@ -1180,24 +1180,6 @@ class ControllerSaleOrder extends Controller {
                 }
             }
 
-            // The URL we send API requests to
-            $data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
-
-            // API login
-            $this->load->model('user/api');
-
-            $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
-
-            if ($api_info) {
-                $data['api_id'] = $api_info['api_id'];
-                $data['api_key'] = $api_info['key'];
-                $data['api_ip'] = $this->request->server['REMOTE_ADDR'];
-            } else {
-                $data['api_id'] = '';
-                $data['api_key'] = '';
-                $data['api_ip'] = '';
-            }
-
             $data['header'] = $this->load->controller('common/header');
             $data['column_left'] = $this->load->controller('common/column_left');
             $data['footer'] = $this->load->controller('common/footer');
@@ -1426,6 +1408,37 @@ class ControllerSaleOrder extends Controller {
             ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
         $this->response->setOutput($this->load->view('sale/order_history', $data));
+    }
+
+    public function addHistory() {
+        $this->load->language('sale/order');
+
+        $json = [];
+
+        if (!isset($this->session->data['token']) || !isset($this->request->get['token']) || $this->session->data['token'] !== $this->request->get['token']) {
+            $json['error'] = $this->language->get('error_permission');
+        } elseif (!$this->user->hasPermission('modify', 'sale/order')) {
+            $json['error'] = $this->language->get('error_permission');
+        } else {
+            $order_id        = (int)($this->request->get['order_id'] ?? 0);
+            $order_status_id = (int)($this->request->post['order_status_id'] ?? 0);
+            $comment         = $this->request->post['comment'] ?? '';
+            $notify          = !empty($this->request->post['notify']);
+            $override        = !empty($this->request->post['override']);
+
+            $this->load->model('sale/order');
+
+            $result = $this->model_sale_order->addOrderHistory($order_id, $order_status_id, $comment, $notify, $override);
+
+            if ($result) {
+                $json['success'] = $this->language->get('text_success');
+            } else {
+                $json['error'] = $this->language->get('error_not_found');
+            }
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
     }
 
     public function invoice() {

@@ -11,26 +11,26 @@
 if (APPLICATION == 'catalog') {
 // The new addScripts and addStyles method:
 // Theme name: $this->config->get('theme_name')
-    $this->document->addScript('themes/default/assets/vendor/jquery/jquery-2.1.1.min.js');
-    $this->document->addScript('themes/default/assets/vendor/jquery/jquery-ui.button.min.js');
+    $this->document->addScript('themes/default/assets/vendor/jquery3/jquery.min.js');
+    $this->document->addScript('themes/default/assets/vendor/bootstrap5/js/bootstrap.bundle.min.js');
     $this->document->addScript('themes/default/assets/vendor/notify/notify.min.js');
-    $this->document->addScript('themes/default/assets/vendor/bootstrap/js/bootstrap.min.js');
     $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'footer', 'product/product');
-    $this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header', 'product/product');
-    $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header',
-      'product/product');
+    // datetimepicker: needs replacing for BS5 — disabled for now
+    // $this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header', 'product/product');
+    // $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header', 'product/product');
     $this->document->addScript('assets/vendor/jquery.print/jquery.print.min.js');
     $this->document->addScript('assets/js/common.js');
 
-    $this->document->addStyle('assets/vendor/bootstrap/css/bootstrap.min.css', 'stylesheet', 'screen');
+    $this->document->addStyle('assets/vendor/bootstrap5/css/bootstrap.min.css', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/font-awesome/css/font-awesome.min.css', 'stylesheet', 'screen');
     $this->document->addStyle('//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen');
-    $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css', 'stylesheet', 'screen',
-      'product/product');
+    // datetimepicker: needs replacing for BS5 — disabled for now
+    // $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css', 'stylesheet', 'screen', 'product/product');
 
-    $this->document->addStyle('assets/css/stylesheet.css', 'stylesheet', 'screen');
-    $this->document->addStyle('assets/css/additional.css', 'stylesheet', 'screen');
+    // Custom CSS temporarily disabled during BS5 migration — re-enable and fix after template pass
+    // $this->document->addStyle('assets/css/stylesheet.css', 'stylesheet', 'screen');
+    // $this->document->addStyle('assets/css/additional.css', 'stylesheet', 'screen');
 }
 /* * * Theme specific - override Settings !  * * */
 

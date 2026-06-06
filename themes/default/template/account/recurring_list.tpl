@@ -1,10 +1,10 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <div class="row"><?php echo $column_left; ?>
       <?php if ($column_left && $column_right) { ?>
           <?php $class = 'col-sm-6'; ?>
@@ -20,27 +20,27 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td class="text-right"><?php echo $column_order_recurring_id; ?></td>
-                  <td class="text-left"><?php echo $column_product; ?></td>
-                  <td class="text-left"><?php echo $column_status; ?></td>
-                  <td class="text-left"><?php echo $column_date_added; ?></td>
-                  <td class="text-right"></td>
+                  <td class="text-end"><?php echo $column_order_recurring_id; ?></td>
+                  <td class="text-start"><?php echo $column_product; ?></td>
+                  <td class="text-start"><?php echo $column_status; ?></td>
+                  <td class="text-start"><?php echo $column_date_added; ?></td>
+                  <td class="text-end"></td>
                 </tr>
               </thead>
               <tbody>
                   <?php foreach ($recurrings as $recurring) { ?>
                     <tr>
-                      <td class="text-right">#<?php echo $recurring['order_recurring_id']; ?></td>
-                      <td class="text-left"><?php echo $recurring['product']; ?></td>
-                      <td class="text-left"><?php echo $recurring['status']; ?></td>
-                      <td class="text-left"><?php echo $recurring['date_added']; ?></td>
-                      <td class="text-right"><a href="<?php echo $recurring['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
+                      <td class="text-end">#<?php echo $recurring['order_recurring_id']; ?></td>
+                      <td class="text-start"><?php echo $recurring['product']; ?></td>
+                      <td class="text-start"><?php echo $recurring['status']; ?></td>
+                      <td class="text-start"><?php echo $recurring['date_added']; ?></td>
+                      <td class="text-end"><a href="<?php echo $recurring['view']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
                     </tr>
                 <?php } ?>
               </tbody>
             </table>
           </div>
-          <div class="text-right"><?php echo $pagination; ?></div>
+          <div class="text-end"><?php echo $pagination; ?></div>
       <?php } else { ?>
           <p><?php echo $text_empty; ?></p>
       <?php } ?>

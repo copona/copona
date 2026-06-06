@@ -34,7 +34,7 @@
   <input type="hidden" name="x_relay_response" value="<?php echo $x_relay_response; ?>" />
   <input type="hidden" name="x_solution_id" value="A1000015" />
   <div class="buttons">
-    <div class="pull-right">
+    <div class="float-end">
       <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
     </div>
   </div>

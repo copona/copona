@@ -869,7 +869,7 @@ class ModelCatalogProduct extends Model {
                     'weight'                  => $product_option_value['weight'],
                     'weight_prefix'           => $product_option_value['weight_prefix'],
                     'description'           => !empty($product_option_value['description']) ? $product_option_value['description'] : '', //WIP: custom fields! Must be organized!
-                    'article'           => $product_option_value['article'], //WIP: custom fields! Must be organized!
+                    'article'           => $product_option_value['article'] ?? null, //WIP: custom fields! Must be organized!
                 );
             }
 
@@ -902,7 +902,7 @@ class ModelCatalogProduct extends Model {
                 'product_image_id' => $product_image['product_image_id'],
                 'product_id'       => $product_image['product_id'],
                 'image'            => $product_image['image'],
-                'image_url'            => $product_image['image_url'],
+                'image_url'            => $product_image['image_url'] ?? '',
                 'sort_order'       => $product_image['sort_order'],
                 'description'      => $this->getProductImageDescriptions($product_image['product_image_id']),
             );

@@ -571,37 +571,6 @@ $(document).delegate('#button-ip-add', 'click', function () {
           });
       });
 
-      var token = '';
-
-      // Login to the API
-      $.ajax({
-          url: '<?php echo $catalog; ?>index.php?route=api/login',
-          type: 'post',
-          dataType: 'json',
-          data: 'key=<?php echo $api_key; ?>',
-          crossDomain: true,
-          success: function (json) {
-              $('.alert').remove();
-
-              if (json['error']) {
-                  if (json['error']['key']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['key'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-
-                  if (json['error']['ip']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i> <?php echo $button_ip_add; ?></button></div>');
-                  }
-              }
-
-              if (json['token']) {
-                  token = json['token'];
-              }
-          },
-          error: function (xhr, ajaxOptions, thrownError) {
-              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-          }
-      });
-
       $('#history').delegate('.pagination a', 'click', function (e) {
           e.preventDefault();
 
@@ -623,7 +592,7 @@ $(document).delegate('#button-ip-add', 'click', function () {
            }*/
 
           $.ajax({
-              url: '<?php echo $catalog; ?>index.php?route=api/order/history&token=' + token + '&store_id=<?php echo $store_id; ?>&order_id=<?php echo $order_id; ?>',
+              url: 'index.php?route=sale/order/addHistory&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>',
               type: 'post',
               dataType: 'json',
               data: 'order_status_id=' + encodeURIComponent($('select[name=\'order_status_id\']').val()) + '&notify=' + ($('input[name=\'notify\']').prop('checked') ? 1 : 0) + '&override=' + ($('input[name=\'override\']').prop('checked') ? 1 : 0) + '&append=' + ($('input[name=\'append\']').prop('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('textarea[name=\'comment\']').val()),

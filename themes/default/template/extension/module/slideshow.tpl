@@ -1,48 +1,47 @@
-<div id="slideshow<?php echo $module; ?>" class="banner-slideshow">
+<div id="slideshow<?php echo $module; ?>" class="swiper banner-slideshow">
   <div class="swiper-wrapper">
       <?php foreach ($banners as $banner) { ?>
 
         <div class="swiper-slide">
             <?php if ($banner['link']) { ?><?php if ($banner['title']) { ?>
-              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-responsive"/><a class="banner-text" href="<?= $banner['link'] ?>">
+              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-fluid"/><a class="banner-text" href="<?= $banner['link'] ?>">
                 <h2><?php echo $banner['title']; ?></h2>
                     <?= ($banner['description'] ? "<span>" . $banner['description'] . "</span>" : ''); ?>
               </a>
             <?php } else { ?>
-              <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-responsive"/></a>
+              <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-fluid"/></a>
             <?php } ?><?php } else { ?>
-              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-responsive"/>
+              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-fluid"/>
             <?php } ?>
         </div>
 
       <?php } ?>
   </div>
-  <!-- If we need navigation buttons -->
   <div class="swiper-button-prev"></div>
   <div class="swiper-button-next"></div>
   <div class="swiper-pagination"></div>
 </div>
 <script>
   {
-    let mySwiper = new Swiper('#slideshow<?=$module?>', {
+    const slideshowEl = '#slideshow<?=$module?>';
+    let mySwiper = new Swiper(slideshowEl, {
       loop: true,
+      autoplay: { delay: 5000, disableOnInteraction: false },
       navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-        autoHeight: true
+        nextEl: slideshowEl + ' .swiper-button-next',
+        prevEl: slideshowEl + ' .swiper-button-prev',
       },
       pagination: {
-        el: '.swiper-pagination',
+        el: slideshowEl + ' .swiper-pagination',
         clickable: true
       }
     });
 
-    mySwiper.el.addEventListener("mouseenter", function (event) {
+    mySwiper.el.addEventListener("mouseenter", function () {
       mySwiper.autoplay.stop();
     }, false);
-    mySwiper.el.addEventListener("mouseleave", function( event ) {
+    mySwiper.el.addEventListener("mouseleave", function () {
       mySwiper.autoplay.start();
     }, false);
   }
-
 </script>

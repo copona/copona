@@ -1,23 +1,23 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <?php if ($attention) { ?>
       <div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $attention; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
   <?php } ?>
   <?php if ($success) { ?>
       <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
   <?php } ?>
   <?php if ($error_warning) { ?>
       <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
   <?php } ?>
   <div class="row"><?php echo $column_left; ?>
@@ -38,7 +38,7 @@
               <div class="warning"><?php echo $error_no_shipping; ?></div>
           <?php } else { ?>
               <form action="<?php echo $action_shipping; ?>" method="post" id="shipping_form">
-                <div class="panel-body">
+                <div class="card-body">
                     <?php foreach ($shipping_methods as $shipping_method) { ?>
                       <p><strong><?php echo $shipping_method['title']; ?></strong></p>
                       <?php if (!$shipping_method['error']) { ?>
@@ -66,38 +66,38 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <td class="text-left"><?php echo $column_name; ?></td>
-              <td class="text-left"><?php echo $column_model; ?></td>
+              <td class="text-start"><?php echo $column_name; ?></td>
+              <td class="text-start"><?php echo $column_model; ?></td>
               <td class="text-center"><?php echo $column_quantity; ?></td>
-              <td class="text-right"><?php echo $column_price; ?></td>
-              <td class="text-right"><?php echo $column_total; ?></td>
+              <td class="text-end"><?php echo $column_price; ?></td>
+              <td class="text-end"><?php echo $column_total; ?></td>
             </tr>
           </thead>
           <tbody>
               <?php foreach ($products as $product) { ?>
                 <tr>
-                  <td class="text-left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
+                  <td class="text-start"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
                       <?php foreach ($product['option'] as $option) { ?>
                         <br />
                         <small> - <?php echo $option['name']; ?>: <?php echo $option['value']; ?></small>
                     <?php } ?>
                     <?php if ($product['recurring']) { ?>
                         <br />
-                        <span class="label label-info"><?php echo $text_recurring_item; ?></span> <small><?php echo $product['recurring_description']; ?></small>
+                        <span class="badge bg-info"><?php echo $text_recurring_item; ?></span> <small><?php echo $product['recurring_description']; ?></small>
                     <?php } ?></td>
-                  <td class="text-left"><?php echo $product['model']; ?></td>
+                  <td class="text-start"><?php echo $product['model']; ?></td>
                   <td class="text-center"><?php echo $product['quantity']; ?></td>
-                  <td class="text-right"><?php echo $product['price']; ?></td>
-                  <td class="text-right"><?php echo $product['total']; ?></td>
+                  <td class="text-end"><?php echo $product['price']; ?></td>
+                  <td class="text-end"><?php echo $product['total']; ?></td>
                 </tr>
             <?php } ?>
             <?php foreach ($vouchers as $voucher) { ?>
                 <tr>
-                  <td class="text-left"><?php echo $voucher['description']; ?></td>
-                  <td class="text-left"></td>
+                  <td class="text-start"><?php echo $voucher['description']; ?></td>
+                  <td class="text-start"></td>
                   <td class="text-center">1</td>
-                  <td class="text-right"><?php echo $voucher['amount']; ?></td>
-                  <td class="text-right"><?php echo $voucher['amount']; ?></td>
+                  <td class="text-end"><?php echo $voucher['amount']; ?></td>
+                  <td class="text-end"><?php echo $voucher['amount']; ?></td>
                 </tr>
             <?php } ?>
           </tbody>
@@ -105,22 +105,22 @@
       </div>
       <br />
       <div class="row">
-        <div class="col-sm-4 col-sm-offset-8">
+        <div class="col-sm-4 offset-sm-8">
           <table class="table table-bordered">
               <?php foreach ($totals as $total) { ?>
                 <tr>
-                  <td class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
-                  <td class="text-right"><?php echo $total['text']; ?></td>
+                  <td class="text-end"><strong><?php echo $total['title']; ?>:</strong></td>
+                  <td class="text-end"><?php echo $total['text']; ?></td>
                 </tr>
             <?php } ?>
           </table>
         </div>
       </div>
       <div class="buttons">
-        <div class="pull-left">
+        <div class="float-start">
           <a href="<?php echo $back; ?>" class="btn btn-primary"><?php echo $button_back; ?></a>
         </div>
-        <div class="pull-right"><a href="<?php echo $action_confirm; ?>" class="btn btn-primary"><?php echo $button_confirm; ?></a></div>
+        <div class="float-end"><a href="<?php echo $action_confirm; ?>" class="btn btn-primary"><?php echo $button_confirm; ?></a></div>
       </div>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>

@@ -1,4 +1,4 @@
-<form action="<?php echo $action; ?>" method="POST" class="form-horizontal" id="firstdata_form_redirect">
+<form action="<?php echo $action; ?>" method="POST" class="row" id="firstdata_form_redirect">
   <fieldset id="payment">
     <input type="hidden" name="txntype" value="<?php echo $txntype; ?>" />
     <input type="hidden" name="timezone" value="GMT" />
@@ -48,7 +48,7 @@
 </form>
 
 <div class="buttons">
-  <div class="pull-right">
+  <div class="float-end">
     <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn btn-primary" />
   </div>
 </div>

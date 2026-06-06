@@ -1,3 +1,6 @@
+# Docker / DB runtime data
+.mysql/
+
 # Config and Htaccess Files
 /favicon.ico
 /.htaccess

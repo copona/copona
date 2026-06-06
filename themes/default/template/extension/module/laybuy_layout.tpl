@@ -3,15 +3,15 @@
 <table class="table table-bordered table-hover">
   <thead>
     <tr>
-      <td class="text-left" colspan="2"><?php echo $text_reference_info; ?></td>
+      <td class="text-start" colspan="2"><?php echo $text_reference_info; ?></td>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td class="text-left" style="width: 50%;">
+      <td class="text-start" style="width: 50%;">
         <b><?php echo $text_laybuy_ref_no; ?></b> <?php echo $transaction['laybuy_ref_no']; ?>
       </td>
-      <td class="text-left">
+      <td class="text-start">
         <b><?php echo $text_paypal_profile_id; ?></b> <?php echo $transaction['paypal_profile_id']; ?>
       </td>
     </tr>
@@ -21,18 +21,18 @@
 <table class="table table-bordered table-hover">
   <thead>
     <tr>
-      <td class="text-left" colspan="2"><?php echo $text_payment_plan; ?></td>
+      <td class="text-start" colspan="2"><?php echo $text_payment_plan; ?></td>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td class="text-left" style="width: 50%;">
+      <td class="text-start" style="width: 50%;">
         <b><?php echo $text_status; ?></b> <?php echo $transaction['status']; ?><br />
         <b><?php echo $text_downpayment_percent; ?></b> <?php echo $transaction['downpayment'] . '%'; ?><br />
         <b><?php echo $text_payment_amounts; ?></b> <?php echo $transaction['payment_amounts']; ?><br />
         <b><?php echo $text_first_payment_due; ?></b> <?php echo $transaction['first_payment_due']; ?>
       </td>
-      <td class="text-left">
+      <td class="text-start">
         <b><?php echo $text_amount; ?></b> <?php echo $transaction['amount']; ?><br />
         <b><?php echo $text_downpayment_amount; ?></b> <?php echo $transaction['downpayment_amount']; ?><br />
         <b><?php echo $text_months; ?></b> <?php echo $transaction['months']; ?><br />

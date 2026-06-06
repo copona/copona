@@ -1,5 +1,5 @@
 <div class="buttons">
-  <div class="pull-right">
+  <div class="float-end">
     <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn btn-primary" data-loading-text="<?php echo $text_loading; ?>" />
   </div>
 </div>

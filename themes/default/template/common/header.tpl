@@ -43,104 +43,105 @@
 </head>
 <body class="<?php echo $class; ?>">
 <nav id="top">
-  <div class="container">
+  <div class="container d-flex align-items-center justify-content-between py-1">
+    <div class="d-flex align-items-center gap-2">
       <?php echo $currency; ?>
       <?php echo $language; ?>
-    <div id="top-links" class="nav pull-right">
+    </div>
+    <div id="top-links">
         <?php if (!$cms_hide_top_eshop_links) { ?>
-          <ul class="list-inline">
+          <ul class="list-inline mb-0">
               <?php if ($telephone) { ?>
-                <li><a href="<?php echo $contact; ?>"><i class="fa fa-phone"></i></a> <span
-                      class="hidden-xs hidden-sm hidden-md"><?php echo $telephone; ?></span></li>
+                <li class="list-inline-item"><a href="<?php echo $contact; ?>"><i class="fa fa-phone"></i> <span
+                      class="d-none d-lg-inline"><?php echo $telephone; ?></span></a></li>
               <?php } ?>
-            <li class="dropdown"><a href="<?php echo $account; ?>" title="<?php echo $text_account; ?>"
-                                    class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span
-                    class="hidden-xs hidden-sm hidden-md"><?php echo $text_account; ?></span> <span
-                    class="caret"></span></a>
-              <ul class="dropdown-menu dropdown-menu-right">
+            <li class="list-inline-item dropdown"><a href="<?php echo $account; ?>" title="<?php echo $text_account; ?>"
+                                    class="dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user"></i> <span
+                    class="d-none d-lg-inline"><?php echo $text_account; ?></span></a>
+              <ul class="dropdown-menu dropdown-menu-end">
                   <?php if ($logged) { ?>
-                    <li><a href="<?php echo $account; ?>"><?php echo $text_account; ?></a></li>
-                    <li><a href="<?php echo $order; ?>"><?php echo $text_order; ?></a></li>
-                    <li><a href="<?php echo $transaction; ?>"><?php echo $text_transaction; ?></a></li>
-                    <li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>
-                    <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
+                    <li><a class="dropdown-item" href="<?php echo $account; ?>"><?php echo $text_account; ?></a></li>
+                    <li><a class="dropdown-item" href="<?php echo $order; ?>"><?php echo $text_order; ?></a></li>
+                    <li><a class="dropdown-item" href="<?php echo $transaction; ?>"><?php echo $text_transaction; ?></a></li>
+                    <li><a class="dropdown-item" href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>
+                    <li><a class="dropdown-item" href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
                   <?php } else { ?>
-                    <li><a href="<?php echo $register; ?>"><?php echo $text_register; ?></a></li>
-                    <li><a href="<?php echo $login; ?>"><?php echo $text_login; ?></a></li>
+                    <li><a class="dropdown-item" href="<?php echo $register; ?>"><?php echo $text_register; ?></a></li>
+                    <li><a class="dropdown-item" href="<?php echo $login; ?>"><?php echo $text_login; ?></a></li>
                   <?php } ?>
               </ul>
             </li>
-            <li><a href="<?php echo $wishlist; ?>" id="wishlist-total" title="<?php echo $text_wishlist; ?>"><i
+            <li class="list-inline-item"><a href="<?php echo $wishlist; ?>" id="wishlist-total" title="<?php echo $text_wishlist; ?>"><i
                     class="fa fa-heart"></i> <span
-                    class="hidden-xs hidden-sm hidden-md"><?php echo $text_wishlist; ?></span></a></li>
-            <li><a href="<?php echo $shopping_cart; ?>" title="<?php echo $text_shopping_cart; ?>"><i
+                    class="d-none d-lg-inline"><?php echo $text_wishlist; ?></span></a></li>
+            <li class="list-inline-item"><a href="<?php echo $shopping_cart; ?>" title="<?php echo $text_shopping_cart; ?>"><i
                     class="fa fa-shopping-cart"></i> <span
-                    class="hidden-xs hidden-sm hidden-md"><?php echo $text_shopping_cart; ?></span></a></li>
-            <li><a href="<?php echo $checkout; ?>" title="<?php echo $text_checkout; ?>"><i class="fa fa-share"></i>
-                <span class="hidden-xs hidden-sm hidden-md"><?php echo $text_checkout; ?></span></a></li>
+                    class="d-none d-lg-inline"><?php echo $text_shopping_cart; ?></span></a></li>
+            <li class="list-inline-item"><a href="<?php echo $checkout; ?>" title="<?php echo $text_checkout; ?>"><i class="fa fa-share"></i>
+                <span class="d-none d-lg-inline"><?php echo $text_checkout; ?></span></a></li>
           </ul>
         <?php } ?>
     </div>
   </div>
 </nav>
 <header>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-3">
+  <div class="container py-3">
+    <div class="row align-items-center">
+      <div class="col-sm-3 col-6">
         <div id="logo">
             <?php if ($logo) { ?>
               <a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>"
-                                                  alt="<?php echo $name; ?>" class="img-responsive"/></a>
+                                                  alt="<?php echo $name; ?>" class="img-fluid"/></a>
             <?php } else { ?>
               <h1><a href="<?php echo $home; ?>"><?php echo $name; ?></a></h1>
             <?php } ?>
         </div>
       </div>
         <?php if (!$cms_hide_top_search) { ?>
-          <div class="col-md-6 col-sm-5"><?php echo $search; ?>
+          <div class="col-md-6 col-sm-5 col-12 order-sm-0 order-3 mt-2 mt-sm-0"><?php echo $search; ?>
           </div>
         <?php } ?>
         <?php if (!$cms_hide_top_cart) { ?>
-          <div id="cart" class="col-md-3 col-sm-4"><?php echo $cart; ?></div>
+          <div id="cart" class="col-md-3 col-sm-4 col-6 text-end"><?php echo $cart; ?></div>
         <?php } ?>
     </div>
   </div>
 </header>
 <?php if ($categories || $informations) { ?>
   <div class="container">
-    <nav id="menu" class="navbar">
-      <div class="navbar-header"><span id="category" class="visible-xs"><?php echo $text_category; ?></span>
-        <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse"
-                data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
-      </div>
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav">
+    <nav id="menu" class="navbar navbar-expand-md">
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+              data-bs-target="#navbar-main" aria-controls="navbar-main" aria-expanded="false">
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar-main">
+        <ul class="navbar-nav">
             <?php if ($categories) { ?>
                 <?php foreach ($categories as $category) { ?>
                     <?php if ($category['children']) { ?>
-                  <li class="dropdown"><a href="<?php echo $category['href']; ?>" class="dropdown-toggle"
-                                          data-toggle="dropdown"><?php echo $category['name']; ?></a>
+                  <li class="nav-item dropdown"><a href="<?php echo $category['href']; ?>" class="nav-link dropdown-toggle"
+                                          data-bs-toggle="dropdown"><?php echo $category['name']; ?></a>
                     <div class="dropdown-menu">
                       <div class="dropdown-inner">
                           <?php foreach (array_chunk($category['children'], ceil(count($category['children']) / $category['column'])) as $children) { ?>
                             <ul class="list-unstyled">
                                 <?php foreach ($children as $child) { ?>
-                                  <li><a href="<?php echo $child['href']; ?>"><?php echo $child['name']; ?></a></li>
+                                  <li><a class="dropdown-item" href="<?php echo $child['href']; ?>"><?php echo $child['name']; ?></a></li>
                                 <?php } ?>
                             </ul>
                           <?php } ?>
                       </div>
                       <a href="<?php echo $category['href']; ?>"
-                         class="see-all"><?php echo $text_all; ?><?php echo $category['name']; ?></a></div>
+                         class="dropdown-item see-all"><?php echo $text_all; ?><?php echo $category['name']; ?></a></div>
                   </li>
                     <?php } else { ?>
-                  <li><a href="<?php echo $category['href']; ?>"><?php echo $category['name']; ?></a></li>
+                  <li class="nav-item"><a class="nav-link" href="<?php echo $category['href']; ?>"><?php echo $category['name']; ?></a></li>
                     <?php } ?>
                 <?php } ?>
             <?php } ?>
             <?php if ($informations) { ?>
                 <?php foreach ($informations as $information) { ?>
-                <li><a href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
                 <?php } ?>
             <?php } ?>
         </ul>

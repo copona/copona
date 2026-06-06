@@ -1,10 +1,10 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <div class="row"><?php echo $column_left; ?>
       <?php if ($column_left && $column_right) { ?>
           <?php $class = 'col-sm-6'; ?>
@@ -44,17 +44,17 @@
               </ul>
           <?php } ?>
 
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-description" data-toggle="tab"><?php echo $tab_description; ?></a></li>
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation"><a class="nav-link active" href="#tab-description" data-bs-toggle="tab" role="tab"><?php echo $tab_description; ?></a></li>
             <?php if ($attribute_groups) { ?>
-                <li><a href="#tab-specification" data-toggle="tab"><?php echo $tab_attribute; ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="#tab-specification" data-bs-toggle="tab" role="tab"><?php echo $tab_attribute; ?></a></li>
             <?php } ?>
             <?php if ($review_status) { ?>
-                <li><a href="#tab-review" data-toggle="tab"><?php echo $tab_review; ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="#tab-review" data-bs-toggle="tab" role="tab"><?php echo $tab_review; ?></a></li>
             <?php } ?>
           </ul>
           <div class="tab-content">
-            <div class="tab-pane active" id="tab-description"><?php echo $description; ?></div>
+            <div class="tab-pane show active" id="tab-description"><?php echo $description; ?></div>
             <?php if ($attribute_groups) { ?>
                 <div class="tab-pane" id="tab-specification">
                   <table class="table table-bordered">
@@ -78,26 +78,26 @@
             <?php } ?>
             <?php if ($review_status) { ?>
                 <div class="tab-pane" id="tab-review">
-                  <form class="form-horizontal" id="form-review">
+                  <form class="row" id="form-review">
                     <div id="review"></div>
                     <h2><?php echo $text_write; ?></h2>
                     <?php if ($review_guest) { ?>
                         <div class="form-group required">
                           <div class="col-sm-12">
-                            <label class="control-label" for="input-name"><?php echo $entry_name; ?></label>
+                            <label class="form-label" for="input-name"><?php echo $entry_name; ?></label>
                             <input type="text" name="name" value="<?php echo $customer_name; ?>" id="input-name" class="form-control" />
                           </div>
                         </div>
                         <div class="form-group required">
                           <div class="col-sm-12">
-                            <label class="control-label" for="input-review"><?php echo $entry_review; ?></label>
+                            <label class="form-label" for="input-review"><?php echo $entry_review; ?></label>
                             <textarea name="text" rows="5" id="input-review" class="form-control"></textarea>
-                            <div class="help-block"><?php echo $text_note; ?></div>
+                            <div class="form-text text-muted"><?php echo $text_note; ?></div>
                           </div>
                         </div>
                         <div class="form-group required">
                           <div class="col-sm-12">
-                            <label class="control-label"><?php echo $entry_rating; ?></label>
+                            <label class="form-label"><?php echo $entry_rating; ?></label>
                             &nbsp;&nbsp;&nbsp; <?php echo $entry_bad; ?>&nbsp;
                             <input type="radio" name="rating" value="1" />
                             &nbsp;
@@ -112,7 +112,7 @@
                         </div>
                         <?php echo $captcha; ?>
                         <div class="buttons clearfix">
-                          <div class="pull-right">
+                          <div class="float-end">
                             <button type="button" id="button-review" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><?php echo $button_continue; ?></button>
                           </div>
                         </div>
@@ -131,9 +131,9 @@
         <?php } ?>
         <div class="<?php echo $class; ?>">
           <div class="btn-group">
-            <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="fa fa-heart"></i></button>
-            <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
-            <button type="button" data-toggle="tooltip" class="btn btn-default print" title="<?php echo $button_print; ?>"><i class="fa fa-print" aria-hidden="true"></i></button>
+            <button type="button" data-bs-toggle="tooltip" class="btn btn-secondary" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="fa fa-heart"></i></button>
+            <button type="button" data-bs-toggle="tooltip" class="btn btn-secondary" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
+            <button type="button" data-bs-toggle="tooltip" class="btn btn-secondary print" title="<?php echo $button_print; ?>"><i class="fa fa-print" aria-hidden="true"></i></button>
           </div>
           <h1><?php echo $heading_title; ?></h1>
           <ul class="list-unstyled">
@@ -193,7 +193,7 @@
                 <?php foreach ($options as $option) { ?>
                     <?php if ($option['type'] == 'select') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="control-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
                           <select name="option[<?php echo $option['product_option_id']; ?>]" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control">
                             <option value=""><?php echo $text_select; ?></option>
                             <?php foreach ($option['product_option_value'] as $option_value) { ?>
@@ -208,7 +208,7 @@
                     <?php } ?>
                     <?php if ($option['type'] == 'radio') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="control-label"><?php echo $option['name']; ?></label>
+                          <label class="form-label"><?php echo $option['name']; ?></label>
                           <div id="input-option<?php echo $option['product_option_id']; ?>">
                               <?php foreach ($option['product_option_value'] as $option_value) { ?>
                                 <div class="radio">
@@ -229,7 +229,7 @@
                     <?php } ?>
                     <?php if ($option['type'] == 'checkbox') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="control-label"><?php echo $option['name']; ?></label>
+                          <label class="form-label"><?php echo $option['name']; ?></label>
                           <div id="input-option<?php echo $option['product_option_id']; ?>">
                               <?php foreach ($option['product_option_value'] as $option_value) { ?>
                                 <div class="checkbox">
@@ -250,50 +250,50 @@
                     <?php } ?>
                     <?php if ($option['type'] == 'text') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="control-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
                           <input type="text" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" placeholder="<?php echo $option['name']; ?>" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
                         </div>
                     <?php } ?>
                     <?php if ($option['type'] == 'textarea') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="control-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
                           <textarea name="option[<?php echo $option['product_option_id']; ?>]" rows="5" placeholder="<?php echo $option['name']; ?>" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control"><?php echo $option['value']; ?></textarea>
                         </div>
                     <?php } ?>
                     <?php if ($option['type'] == 'file') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="control-label"><?php echo $option['name']; ?></label>
-                          <button type="button" id="button-upload<?php echo $option['product_option_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-default btn-block"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
+                          <label class="form-label"><?php echo $option['name']; ?></label>
+                          <button type="button" id="button-upload<?php echo $option['product_option_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-secondary d-block w-100"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
                           <input type="hidden" name="option[<?php echo $option['product_option_id']; ?>]" value="" id="input-option<?php echo $option['product_option_id']; ?>" />
                         </div>
                     <?php } ?>
                     <?php if ($option['type'] == 'date') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="control-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
                           <div class="input-group date">
                             <input type="text" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['product_option_value']; ?>" data-date-format="YYYY-MM-DD" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
-                            <span class="input-group-btn">
-                              <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                            <span class="input-group-text">
+                              <button class="btn btn-secondary" type="button"><i class="fa fa-calendar"></i></button>
                             </span></div>
                         </div>
                     <?php } ?>
                     <?php if ($option['type'] == 'datetime') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="control-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
                           <div class="input-group datetime">
                             <input type="text" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
-                            <span class="input-group-btn">
-                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                            <span class="input-group-text">
+                              <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                             </span></div>
                         </div>
                     <?php } ?>
                     <?php if ($option['type'] == 'time') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="control-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
                           <div class="input-group time">
                             <input type="text" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" data-date-format="HH:mm" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
-                            <span class="input-group-btn">
-                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                            <span class="input-group-text">
+                              <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                             </span></div>
                         </div>
                     <?php } ?>
@@ -310,15 +310,15 @@
                         <option value="<?php echo $recurring['recurring_id']; ?>"><?php echo $recurring['name']; ?></option>
                     <?php } ?>
                   </select>
-                  <div class="help-block" id="recurring-description"></div>
+                  <div class="form-text text-muted" id="recurring-description"></div>
                 </div>
             <?php } ?>
             <div class="form-group">
-              <label class="control-label" for="input-quantity"><?php echo $entry_qty; ?></label>
+              <label class="form-label" for="input-quantity"><?php echo $entry_qty; ?></label>
               <input type="text" name="quantity" value="<?php echo $minimum; ?>" size="2" id="input-quantity" class="form-control" />
               <input type="hidden" name="product_id" value="<?php echo $product_id; ?>" />
               <br />
-              <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block"><?php echo $button_cart; ?></button>
+              <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg d-block w-100"><?php echo $button_cart; ?></button>
             </div>
             <div class="row">
               <div class="col-md-12 social-icons">
@@ -329,8 +329,8 @@
                     </a>
                   </li>
                   <li class="twitter">
-                    <a href="#" title="Twitter share">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path fill="#000000" d="M41.076,23.131c-0.814,0.36-1.691,0.605-2.611,0.715c0.938-0.562,1.658-1.453,1.998-2.514c-0.877,0.521-1.852,0.899-2.885,1.103C36.75,21.552,35.566,21,34.26,21c-2.508,0-4.543,2.034-4.543,4.544c0,0.357,0.039,0.703,0.117,1.035c-3.777-0.189-7.125-1.999-9.367-4.747c-0.391,0.67-0.615,1.45-0.615,2.284c0,1.576,0.803,2.968,2.021,3.783c-0.744-0.024-1.443-0.229-2.057-0.569c-0.002,0.019-0.002,0.039-0.002,0.058c0,2.202,1.566,4.038,3.645,4.456c-0.381,0.104-0.783,0.16-1.197,0.16c-0.293,0-0.576-0.028-0.855-0.083c0.58,1.805,2.258,3.119,4.246,3.156c-1.557,1.219-3.516,1.945-5.643,1.945c-0.369,0-0.73-0.022-1.086-0.063c2.012,1.289,4.4,2.041,6.967,2.041c8.357,0,12.93-6.925,12.93-12.931c0-0.197-0.004-0.393-0.014-0.587C39.695,24.841,40.465,24.041,41.076,23.131L41.076,23.131z"></path></svg>
+                    <a href="#" title="Share on X">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#000000" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
                   </li>
                 </ul>
@@ -363,62 +363,18 @@
       <?php if ($products) { ?>
           <h3><?php echo $text_related; ?></h3>
           <div class="row">
-              <?php $i = 0; ?>
+              <?php
+              if ($column_left && $column_right) {
+                  $product_col_class = 'col-8 col-sm-6';
+              } elseif ($column_left || $column_right) {
+                  $product_col_class = 'col-6 col-md-4';
+              } else {
+                  $product_col_class = 'col-6 col-sm-3';
+              }
+              ?>
               <?php foreach ($products as $product) { ?>
-                  <?php if ($column_left && $column_right) { ?>
-                      <?php $class = 'col-xs-8 col-sm-6'; ?>
-                  <?php } elseif ($column_left || $column_right) { ?>
-                      <?php $class = 'col-xs-6 col-md-4'; ?>
-                  <?php } else { ?>
-                      <?php $class = 'col-xs-6 col-sm-3'; ?>
-                  <?php } ?>
-                <div class="<?php echo $class; ?>">
-                  <div class="product-thumb transition">
-                    <div class="image"><a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a></div>
-                    <div class="caption">
-                      <h4><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h4>
-                      <p><?php echo $product['description']; ?></p>
-                      <?php if ($product['rating']) { ?>
-                          <div class="rating">
-                              <?php for ($j = 1; $j <= 5; $j++) { ?>
-                                  <?php if ($product['rating'] < $j) { ?>
-                                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                <?php } else { ?>
-                                    <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                <?php } ?>
-                            <?php } ?>
-                          </div>
-                      <?php } ?>
-
-                      <?php if ($product['price']) { ?>
-                          <p class="price">
-                              <?php if (!$product['special']) { ?>
-                                  <?php echo $product['price']; ?>
-                              <?php } else { ?>
-                                <span class="price-new"><?php echo $product['special']; ?></span> <span class="price-old"><?php echo $product['price']; ?></span>
-                            <?php } ?>
-                            <?php if ($product['tax']) { ?>
-                                <span class="price-tax"><?php echo $text_tax; ?> <?php echo $product['tax']; ?></span>
-                            <?php } ?>
-                          </p>
-                      <?php } ?>
-                    </div>
-                    <div class="button-group">
-                      <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');"><span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span> <i class="fa fa-shopping-cart"></i></button>
-                      <button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>
-                      <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>
-                    </div>
-                  </div>
-                </div>
-                <?php if (($column_left && $column_right) && (($i + 1) % 2 == 0)) { ?>
-                    <div class="clearfix visible-md visible-sm"></div>
-                <?php } elseif (($column_left || $column_right) && (($i + 1) % 3 == 0)) { ?>
-                    <div class="clearfix visible-md"></div>
-                <?php } elseif (($i + 1) % 4 == 0) { ?>
-                    <div class="clearfix visible-md"></div>
-                <?php } ?>
-                <?php $i++; ?>
-            <?php } ?>
+                <?php include(__DIR__ . '/../common/_product_card.tpl'); ?>
+              <?php } ?>
           </div>
       <?php } ?>
       <?php if ($tags) { ?>
@@ -471,7 +427,7 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
             },
             success: function (json) {
                 $('.alert, .text-danger').remove();
-                $('.form-group').removeClass('has-error');
+                $('.form-group').removeClass('is-invalid');
 
                 if (json['error']) {
                     if (json['error']['option']) {
@@ -491,13 +447,13 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
                     }
 
                     // Highlight any found errors
-                    $('.text-danger').parent().addClass('has-error');
+                    $('.text-danger').parent().addClass('is-invalid');
                 }
 
                 if (json['success']) {
                     $('.breadcrumb')
                             .after($('<div class="alert alert-success">' + json['success'] +
-                                    '<button type="button" class="close" data-dismiss="alert">&times;</button></div>')
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
                                     .hide()
                                     .fadeIn(200));
                     delay(function () {
@@ -646,7 +602,7 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
         window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL), 'facebook-popup', 'height=400,width=600');
     })
     $('.twitter').on('click', function(){
-        window.open('https://twitter.com/share?url=http://<?php echo urlencode($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>&amp;text=<?= urlencode($heading_title) ?>', 'twitter-popup', 'height=400,width=600');
+        window.open('https://x.com/intent/post?url=http://<?php echo urlencode($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>&text=<?= urlencode($heading_title) ?>', 'x-popup', 'height=400,width=600');
     })
 </script>
 <?php echo $footer; ?>

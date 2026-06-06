@@ -1,7 +1,7 @@
 <?php if (isset($error)) { ?>
     <div class="alert alert-danger">Payment Error: <?php echo $error; ?></div>
 <?php } else { ?>
-    <form action="<?php echo $action; ?>" method="POST" class="form-horizontal" id="eway-payment-form">
+    <form action="<?php echo $action; ?>" method="POST" class="row" id="eway-payment-form">
       <fieldset id="payment">
         <legend><?php echo $text_credit_card; ?></legend>
         <input type="hidden" name="EWAY_ACCESSCODE" value="<?php echo $AccessCode; ?>" />
@@ -48,21 +48,21 @@
         <?php if ($payment_type['visa'] == 1 || $payment_type['mastercard'] == 1 || $payment_type['diners'] == 1 || $payment_type['jcb'] == 1 || $payment_type['amex'] == 1) { ?>
             <div id="creditcard-info">
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="eway-cardname"><?php echo $entry_cc_name; ?></label>
+                <label class="col-sm-2 form-label" for="eway-cardname"><?php echo $entry_cc_name; ?></label>
                 <div class="col-sm-10">
                   <input name="EWAY_CARDNAME" type="text" value="" id="eway-cardname" placeholder="<?php echo $entry_cc_name; ?>"  autocomplete="off" class="form-control"/>
                   <span id="ewaycard-error" class="text-danger"></span>
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="eway-cardnumber"><?php echo $entry_cc_number; ?></label>
+                <label class="col-sm-2 form-label" for="eway-cardnumber"><?php echo $entry_cc_number; ?></label>
                 <div class="col-sm-10">
                   <input name="EWAY_CARDNUMBER" type="text" maxlength="19" id="eway-cardnumber" value="" placeholder="<?php echo $entry_cc_number; ?>"  autocomplete="off" class="form-control" pattern="\d*" />
                   <span id="ewaynumber-error" class="text-danger"></span>
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="eway-card-expiry-month"><?php echo $entry_cc_expire_date; ?></label>
+                <label class="col-sm-2 form-label" for="eway-card-expiry-month"><?php echo $entry_cc_expire_date; ?></label>
                 <div class="col-sm-2">
                   <select name="EWAY_CARDEXPIRYMONTH" id="eway-card-expiry-month" class="form-control">
                       <?php foreach ($months as $month) { ?>
@@ -79,7 +79,7 @@
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="eway-cardcvn"><?php echo $entry_cc_cvv2; ?></label>
+                <label class="col-sm-2 form-label" for="eway-cardcvn"><?php echo $entry_cc_cvv2; ?></label>
                 <div class="col-sm-10">
                   <input name="EWAY_CARDCVN" type="text" maxlength="4" value="" placeholder="<?php echo $entry_cc_cvv2; ?>" id="eway-cardcvn" autocomplete="off" class="form-control" pattern="\d*" />
                   <span id="cvn-details" class="help">
@@ -96,7 +96,7 @@
       <?php } ?>
     </form>
     <div class="buttons">
-      <div class="pull-right">
+      <div class="float-end">
         <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
       </div>
     </div>

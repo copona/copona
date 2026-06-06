@@ -25,7 +25,7 @@
   <input type="hidden" name="callback" value="<?php echo $callback; ?>" />
   <input type="hidden" name="options" value="<?php echo $options; ?>" />
   <div class="buttons">
-    <div class="pull-right">
+    <div class="float-end">
       <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
     </div>
   </div>

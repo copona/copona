@@ -1,48 +1,48 @@
-<form class="form-horizontal">
+<form class="row">
   <div class="form-group required">
-    <label class="col-sm-2 control-label" for="input-shipping-firstname"><?php echo $entry_firstname; ?></label>
+    <label class="col-sm-2 form-label" for="input-shipping-firstname"><?php echo $entry_firstname; ?></label>
     <div class="col-sm-10">
       <input type="text" name="firstname" value="<?php echo $firstname; ?>" placeholder="<?php echo $entry_firstname; ?>" id="input-shipping-firstname" class="form-control" />
     </div>
   </div>
   <div class="form-group required">
-    <label class="col-sm-2 control-label" for="input-shipping-lastname"><?php echo $entry_lastname; ?></label>
+    <label class="col-sm-2 form-label" for="input-shipping-lastname"><?php echo $entry_lastname; ?></label>
     <div class="col-sm-10">
       <input type="text" name="lastname" value="<?php echo $lastname; ?>" placeholder="<?php echo $entry_lastname; ?>" id="input-shipping-lastname" class="form-control" />
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label" for="input-shipping-company"><?php echo $entry_company; ?></label>
+    <label class="col-sm-2 form-label" for="input-shipping-company"><?php echo $entry_company; ?></label>
     <div class="col-sm-10">
       <input type="text" name="company" value="<?php echo $company; ?>" placeholder="<?php echo $entry_company; ?>" id="input-shipping-company" class="form-control" />
     </div>
   </div>
   <div class="form-group required">
-    <label class="col-sm-2 control-label" for="input-shipping-address-1"><?php echo $entry_address_1; ?></label>
+    <label class="col-sm-2 form-label" for="input-shipping-address-1"><?php echo $entry_address_1; ?></label>
     <div class="col-sm-10">
       <input type="text" name="address_1" value="<?php echo $address_1; ?>" placeholder="<?php echo $entry_address_1; ?>" id="input-shipping-address-1" class="form-control" />
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label" for="input-shipping-address-2"><?php echo $entry_address_2; ?></label>
+    <label class="col-sm-2 form-label" for="input-shipping-address-2"><?php echo $entry_address_2; ?></label>
     <div class="col-sm-10">
       <input type="text" name="address_2" value="<?php echo $address_2; ?>" placeholder="<?php echo $entry_address_2; ?>" id="input-shipping-address-2" class="form-control" />
     </div>
   </div>
   <div class="form-group required">
-    <label class="col-sm-2 control-label" for="input-shipping-city"><?php echo $entry_city; ?></label>
+    <label class="col-sm-2 form-label" for="input-shipping-city"><?php echo $entry_city; ?></label>
     <div class="col-sm-10">
       <input type="text" name="city" value="<?php echo $city; ?>" placeholder="<?php echo $entry_city; ?>" id="input-shipping-city" class="form-control" />
     </div>
   </div>
   <div class="form-group required">
-    <label class="col-sm-2 control-label" for="input-shipping-postcode"><?php echo $entry_postcode; ?></label>
+    <label class="col-sm-2 form-label" for="input-shipping-postcode"><?php echo $entry_postcode; ?></label>
     <div class="col-sm-10">
       <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-shipping-postcode" class="form-control" />
     </div>
   </div>
   <div class="form-group required">
-    <label class="col-sm-2 control-label" for="input-shipping-country"><?php echo $entry_country; ?></label>
+    <label class="col-sm-2 form-label" for="input-shipping-country"><?php echo $entry_country; ?></label>
     <div class="col-sm-10">
       <select name="country_id" id="input-shipping-country" class="form-control">
         <option value=""><?php echo $text_select; ?></option>
@@ -57,7 +57,7 @@
     </div>
   </div>
   <div class="form-group required">
-    <label class="col-sm-2 control-label" for="input-shipping-zone"><?php echo $entry_zone; ?></label>
+    <label class="col-sm-2 form-label" for="input-shipping-zone"><?php echo $entry_zone; ?></label>
     <div class="col-sm-10">
       <select name="zone_id" id="input-shipping-zone" class="form-control">
       </select>
@@ -67,7 +67,7 @@
       <?php if ($custom_field['location'] == 'address') { ?>
           <?php if ($custom_field['type'] == 'select') { ?>
               <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
-                <label class="col-sm-2 control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                <label class="col-sm-2 form-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                 <div class="col-sm-10">
                   <select name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control">
                     <option value=""><?php echo $text_select; ?></option>
@@ -84,7 +84,7 @@
           <?php } ?>
           <?php if ($custom_field['type'] == 'radio') { ?>
               <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
-                <label class="col-sm-2 control-label"><?php echo $custom_field['name']; ?></label>
+                <label class="col-sm-2 form-label"><?php echo $custom_field['name']; ?></label>
                 <div class="col-sm-10">
                   <div id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>">
                       <?php foreach ($custom_field['custom_field_value'] as $custom_field_value) { ?>
@@ -106,7 +106,7 @@
           <?php } ?>
           <?php if ($custom_field['type'] == 'checkbox') { ?>
               <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
-                <label class="col-sm-2 control-label"><?php echo $custom_field['name']; ?></label>
+                <label class="col-sm-2 form-label"><?php echo $custom_field['name']; ?></label>
                 <div class="col-sm-10">
                   <div id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>">
                       <?php foreach ($custom_field['custom_field_value'] as $custom_field_value) { ?>
@@ -128,7 +128,7 @@
           <?php } ?>
           <?php if ($custom_field['type'] == 'text') { ?>
               <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
-                <label class="col-sm-2 control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                <label class="col-sm-2 form-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                 <div class="col-sm-10">
                   <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($address_custom_field[$custom_field['custom_field_id']]) ? $address_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                 </div>
@@ -136,7 +136,7 @@
           <?php } ?>
           <?php if ($custom_field['type'] == 'textarea') { ?>
               <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
-                <label class="col-sm-2 control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                <label class="col-sm-2 form-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                 <div class="col-sm-10">
                   <textarea name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" rows="5" placeholder="<?php echo $custom_field['name']; ?>" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"><?php echo (isset($address_custom_field[$custom_field['custom_field_id']]) ? $address_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?></textarea>
                 </div>
@@ -144,45 +144,45 @@
           <?php } ?>
           <?php if ($custom_field['type'] == 'file') { ?>
               <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
-                <label class="col-sm-2 control-label"><?php echo $custom_field['name']; ?></label>
+                <label class="col-sm-2 form-label"><?php echo $custom_field['name']; ?></label>
                 <div class="col-sm-10">
-                  <button type="button" id="button-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
+                  <button type="button" id="button-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-secondary"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
                   <input type="hidden" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($address_custom_field[$custom_field['custom_field_id']]) ? $address_custom_field[$custom_field['custom_field_id']] : ''); ?>" />
                 </div>
               </div>
           <?php } ?>
           <?php if ($custom_field['type'] == 'date') { ?>
               <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
-                <label class="col-sm-2 control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                <label class="col-sm-2 form-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                 <div class="col-sm-10">
                   <div class="input-group date">
                     <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($address_custom_field[$custom_field['custom_field_id']]) ? $address_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                    <span class="input-group-text">
+                      <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                     </span></div>
                 </div>
               </div>
           <?php } ?>
           <?php if ($custom_field['type'] == 'time') { ?>
               <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
-                <label class="col-sm-2 control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                <label class="col-sm-2 form-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                 <div class="col-sm-10">
                   <div class="input-group time">
                     <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($address_custom_field[$custom_field['custom_field_id']]) ? $address_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="HH:mm" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                    <span class="input-group-text">
+                      <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                     </span></div>
                 </div>
               </div>
           <?php } ?>
           <?php if ($custom_field['type'] == 'datetime') { ?>
               <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
-                <label class="col-sm-2 control-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
+                <label class="col-sm-2 form-label" for="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
                 <div class="col-sm-10">
                   <div class="input-group datetime">
                     <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($address_custom_field[$custom_field['custom_field_id']]) ? $address_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                    <span class="input-group-text">
+                      <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                     </span></div>
                 </div>
               </div>
@@ -190,7 +190,7 @@
       <?php } ?>
   <?php } ?>
   <div class="buttons">
-    <div class="pull-right">
+    <div class="float-end">
       <input type="button" value="<?php echo $button_continue; ?>" id="button-guest-shipping" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
     </div>
   </div>

@@ -1,11 +1,11 @@
 <div class="buttons">
-  <div class="pull-right">
+  <div class="float-end">
     <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn btn-primary" data-loading-text="<?php echo $text_loading; ?>" />
   </div>
 </div>
 <h2><?php echo $text_instruction; ?></h2>
 <p><b><?php echo $text_description; ?></b></p>
-<div class="well well-sm">
+<div class="card card-body card card-body-sm">
   <p><?php echo $bank; ?></p>
   <p><?php echo $text_payment; ?></p>
 </div>

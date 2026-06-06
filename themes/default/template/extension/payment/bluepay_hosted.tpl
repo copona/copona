@@ -27,7 +27,7 @@
   <input type="hidden" name="TPS_DEF" value="<?php echo $TPS_DEF; ?>">
   <input type="hidden" name="AMOUNT" value="<?php echo $AMOUNT; ?>">
   <div class="buttons">
-    <div class="pull-right">
+    <div class="float-end">
       <input type="submit" value="<?php echo $button_confirm; ?>" id="button-submit" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
     </div>
   </div>

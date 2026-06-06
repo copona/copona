@@ -10,12 +10,13 @@ class ModelCatalogContent extends Model {
 
         if ($query->num_rows) {
             $value = $query->row['value'];
-            $decoded = json_decode($value, true);
+            // Try JSON first (all new data is JSON); fall back to legacy PHP serialize
+            $json = json_decode($value, true);
             if (json_last_error() === JSON_ERROR_NONE) {
-                return $decoded;
+                return $json;
             }
-            // Legacy: fall back to PHP serialized format
-            return @unserialize($value) ?: [];
+            $data = @unserialize($value);
+            return ($value === 'b:0;' || $data !== false) ? $data : [];
         } else {
             return [];
         }
