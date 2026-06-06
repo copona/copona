@@ -470,4 +470,104 @@ class ModelSaleOrder extends Model {
         return $query->row['total'];
     }
 
+    public function addOrderHistory($order_id, $order_status_id, $comment = '', $notify = false, $override = false) {
+        $order_info = $this->getOrder($order_id);
+
+        if (!$order_info) {
+            return false;
+        }
+
+        $processing_statuses = (array)$this->config->get('config_processing_status');
+        $complete_statuses    = (array)$this->config->get('config_complete_status');
+        $was_complete = in_array($order_info['order_status_id'], array_merge($processing_statuses, $complete_statuses));
+        $now_complete = in_array($order_status_id,              array_merge($processing_statuses, $complete_statuses));
+
+        // Update order status
+        $this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = '" . (int)$order_status_id . "', date_modified = NOW() WHERE order_id = '" . (int)$order_id . "'");
+
+        // Insert history record
+        $this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '" . (int)$order_status_id . "', notify = '" . (int)$notify . "', comment = '" . $this->db->escape($comment) . "', date_added = NOW()");
+
+        // Stock subtraction when moving into processing/complete
+        if (!$was_complete && $now_complete) {
+            $products = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'")->rows;
+
+            foreach ($products as $product) {
+                $this->db->query("UPDATE " . DB_PREFIX . "product SET quantity = (quantity - " . (int)$product['quantity'] . ") WHERE product_id = '" . (int)$product['product_id'] . "' AND subtract = '1'");
+
+                $options = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . (int)$product['order_product_id'] . "'")->rows;
+
+                foreach ($options as $option) {
+                    $this->db->query("UPDATE " . DB_PREFIX . "product_option_value SET quantity = (quantity - " . (int)$product['quantity'] . ") WHERE product_option_value_id = '" . (int)$option['product_option_value_id'] . "' AND subtract = '1'");
+                }
+            }
+        }
+
+        // Stock restock when moving out of processing/complete
+        if ($was_complete && !$now_complete) {
+            $products = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'")->rows;
+
+            foreach ($products as $product) {
+                $this->db->query("UPDATE " . DB_PREFIX . "product SET quantity = (quantity + " . (int)$product['quantity'] . ") WHERE product_id = '" . (int)$product['product_id'] . "' AND subtract = '1'");
+
+                $options = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . (int)$product['order_product_id'] . "'")->rows;
+
+                foreach ($options as $option) {
+                    $this->db->query("UPDATE " . DB_PREFIX . "product_option_value SET quantity = (quantity + " . (int)$product['quantity'] . ") WHERE product_option_value_id = '" . (int)$option['product_option_value_id'] . "' AND subtract = '1'");
+                }
+            }
+        }
+
+        // Send customer notification email for status updates
+        if ($order_info['order_status_id'] && $order_status_id && $notify) {
+            $language = new Language($order_info['language_code']);
+            $language->load($order_info['language_code']);
+            $language->load('mail/order');
+
+            $subject = sprintf($language->get('text_update_subject'), html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'), $order_id);
+
+            $message  = $language->get('text_update_order') . ' ' . $order_id . "\n";
+            $message .= $language->get('text_update_date_added') . ' ' . date($language->get('date_format_short'), strtotime($order_info['date_added'])) . "\n\n";
+
+            $status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "' AND language_id = '" . (int)$order_info['language_id'] . "'");
+
+            if ($status_query->num_rows) {
+                $message .= $language->get('text_update_order_status') . "\n\n";
+                $message .= $status_query->row['name'] . "\n\n";
+            }
+
+            if ($order_info['customer_id']) {
+                $message .= $language->get('text_update_link') . "\n";
+                $message .= $order_info['store_url'] . 'index.php?route=account/order/info&order_id=' . $order_id . "\n\n";
+            }
+
+            if ($comment) {
+                $message .= $language->get('text_update_comment') . "\n\n";
+                $message .= strip_tags($comment) . "\n\n";
+            }
+
+            $message .= $language->get('text_update_footer');
+
+            $mail = new Mail();
+            $mail->protocol      = $this->config->get('config_mail_protocol');
+            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+
+            $mail->setTo($order_info['email']);
+            $mail->setFrom($this->config->get('config_email'));
+            $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
+            $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+            $mail->setText($message);
+            $mail->send();
+        }
+
+        $this->cache->delete('product');
+
+        return true;
+    }
+
 }
