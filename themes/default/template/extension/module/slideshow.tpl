@@ -1,4 +1,4 @@
-<div id="slideshow<?php echo $module; ?>" class="banner-slideshow">
+<div id="slideshow<?php echo $module; ?>" class="swiper banner-slideshow">
   <div class="swiper-wrapper">
       <?php foreach ($banners as $banner) { ?>
 
@@ -17,32 +17,31 @@
 
       <?php } ?>
   </div>
-  <!-- If we need navigation buttons -->
   <div class="swiper-button-prev"></div>
   <div class="swiper-button-next"></div>
   <div class="swiper-pagination"></div>
 </div>
 <script>
   {
-    let mySwiper = new Swiper('#slideshow<?=$module?>', {
+    const slideshowEl = '#slideshow<?=$module?>';
+    let mySwiper = new Swiper(slideshowEl, {
       loop: true,
+      autoplay: { delay: 5000, disableOnInteraction: false },
       navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-        autoHeight: true
+        nextEl: slideshowEl + ' .swiper-button-next',
+        prevEl: slideshowEl + ' .swiper-button-prev',
       },
       pagination: {
-        el: '.swiper-pagination',
+        el: slideshowEl + ' .swiper-pagination',
         clickable: true
       }
     });
 
-    mySwiper.el.addEventListener("mouseenter", function (event) {
+    mySwiper.el.addEventListener("mouseenter", function () {
       mySwiper.autoplay.stop();
     }, false);
-    mySwiper.el.addEventListener("mouseleave", function( event ) {
+    mySwiper.el.addEventListener("mouseleave", function () {
       mySwiper.autoplay.start();
     }, false);
   }
-
 </script>

@@ -41,20 +41,20 @@
                     <?php } ?>
 
                 <?php } ?>
-              </ol></nav>
+              </ul>
           <?php } ?>
 
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-description" data-bs-toggle="tab"><?php echo $tab_description; ?></a></li>
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation"><a class="nav-link active" href="#tab-description" data-bs-toggle="tab" role="tab"><?php echo $tab_description; ?></a></li>
             <?php if ($attribute_groups) { ?>
-                <li><a href="#tab-specification" data-bs-toggle="tab"><?php echo $tab_attribute; ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="#tab-specification" data-bs-toggle="tab" role="tab"><?php echo $tab_attribute; ?></a></li>
             <?php } ?>
             <?php if ($review_status) { ?>
-                <li><a href="#tab-review" data-bs-toggle="tab"><?php echo $tab_review; ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="#tab-review" data-bs-toggle="tab" role="tab"><?php echo $tab_review; ?></a></li>
             <?php } ?>
-          </ol></nav>
+          </ul>
           <div class="tab-content">
-            <div class="tab-pane active" id="tab-description"><?php echo $description; ?></div>
+            <div class="tab-pane show active" id="tab-description"><?php echo $description; ?></div>
             <?php if ($attribute_groups) { ?>
                 <div class="tab-pane" id="tab-specification">
                   <table class="table table-bordered">
@@ -145,7 +145,7 @@
                 <li><?php echo $text_reward; ?> <?php echo $reward; ?></li>
             <?php } ?>
             <li><?php echo $text_stock; ?> <?php echo $stock; ?></li>
-          </ol></nav>
+          </ul>
           <?php if ($group_products) { ?>
               <ul class="list-unstyled product-group">
                   <?php foreach ($group_products as $group_product) { ?>
@@ -153,7 +153,7 @@
                       <a href="<?php echo $group_product['href'] ?>"><img src="<?php echo $group_product['image'] ?>" alt="<?php echo $group_product['name'] ?>" title="<?php echo $group_product['name'] ?>"></a>
                     </li>
                 <?php } ?>
-              </ol></nav>
+              </ul>
           <?php } ?>
 
 
@@ -183,7 +183,7 @@
                         <li><?php echo $discount['quantity']; ?><?php echo $text_discount; ?><?php echo $discount['price']; ?></li>
                     <?php } ?>
                 <?php } ?>
-              </ol></nav>
+              </ul>
           <?php } ?>
           <div id="product">
 
@@ -333,7 +333,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#000000" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
                   </li>
-                </ol></nav>
+                </ul>
               </div>
             </div>
             <?php if ($minimum > 1) { ?>
