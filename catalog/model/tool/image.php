@@ -232,4 +232,21 @@ class ModelToolImage extends Model {
 
         return $this->url->getImageUrl($new_image);
     }
+
+    /**
+     * Resolve a product image URL: local file → resize, image_url → pass-through, fallback → no-image.
+     * Drop-in for the if/else resize+fallback pattern in listing controllers.
+     */
+    public function productImage($localImage, $imageUrl, $width, $height, $method = 'resize') {
+        if (!empty($localImage)) {
+            $result = $this->{$method}($localImage, $width, $height);
+            if ($result) {
+                return $result;
+            }
+        }
+        if (!empty($imageUrl)) {
+            return $imageUrl;
+        }
+        return $this->{$method}(Config::get('config_no_image', 'placeholder.png'), $width, $height);
+    }
 }

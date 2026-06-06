@@ -198,24 +198,19 @@ class ControllerProductSearch extends Controller {
             $results = $this->model_catalog_product->getProducts($filter_data);
             if($results) {
                 foreach ($results as $result) {
-                    if ($result['image']) {
-                        $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}($result['image'],
-                          $this->config->get($this->config->get('config_theme') . '_image_product_width'),
-                          $this->config->get($this->config->get('config_theme') . '_image_product_height'));
-
-                        $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}($result['image'],
-                          $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
-                          $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
-                    } else {
-                        $image = $this->model_tool_image->{$this->config->get('theme_default_product_category_list_resize')}(
-                            Config::get('config_no_image','placeholder.png'),
-                          $this->config->get($this->config->get('config_theme') . '_image_product_width'),
-                          $this->config->get($this->config->get('config_theme') . '_image_product_height'));
-                        $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}(
-                            Config::get('config_no_image','placeholder.png'),
-                          $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
-                          $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
-                    }
+                    $imageUrl = $result['image_url'] ?? '';
+                    $image = $this->model_tool_image->productImage(
+                        $result['image'], $imageUrl,
+                        $this->config->get($this->config->get('config_theme') . '_image_product_width'),
+                        $this->config->get($this->config->get('config_theme') . '_image_product_height'),
+                        $this->config->get('theme_default_product_category_list_resize')
+                    );
+                    $popup = $this->model_tool_image->productImage(
+                        $result['image'], $imageUrl,
+                        $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
+                        $this->config->get($this->config->get('config_theme') . '_image_popup_height'),
+                        $this->config->get('theme_default_product_info_popup_resize')
+                    );
 
                     if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                         $price = $this->currency->format($this->tax->calculate($result['price'],

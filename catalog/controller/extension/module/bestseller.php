@@ -24,11 +24,11 @@ class ControllerExtensionModuleBestSeller extends Controller {
         if ($results) {
             foreach ($results as $result) {
 
-                if ($result['image']) {
-                    $image = $this->model_tool_image->{Config::get('theme_default_bestseller_thumb_resize')}($result['image'], $setting['width'], $setting['height']);
-                } else {
-                    $image = $this->model_tool_image->{Config::get('theme_default_bestseller_thumb_resize')}(Config::get('config_no_image','placeholder.png'), $setting['width'], $setting['height']);
-                }
+                $image = $this->model_tool_image->productImage(
+                    $result['image'], $result['image_url'] ?? '',
+                    $setting['width'], $setting['height'],
+                    Config::get('theme_default_bestseller_thumb_resize')
+                );
 
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                     $price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
