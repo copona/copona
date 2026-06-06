@@ -1,4 +1,46 @@
 <?php echo $header; ?>
+<style>
+#product-gallery { margin-bottom: 20px; }
+.gallery-main {
+  background: #f5f5f7;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-main a { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; }
+.gallery-main img { width: 100%; height: 100%; object-fit: contain; }
+.gallery-thumbs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+.gallery-thumb {
+  position: relative;
+  flex: 0 0 72px;
+  height: 72px;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .15s;
+}
+.gallery-thumb.active, .gallery-thumb:hover { border-color: #0071e3; }
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-play {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  font-size: 20px;
+  pointer-events: none;
+}
+</style>
 <div class="container">
   <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -22,27 +64,45 @@
           <?php } ?>
 
         <div class="<?php echo $class; ?>">
-            <?php if ($thumb || $images) { ?>
-              <ul class="thumbnails">
-                  <?php if ($thumb) { ?>
-                    <li><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+            <?php
+            $gallery_items = array();
+            if ($thumb) {
+                $gallery_items[] = array('popup' => $popup, 'mid' => $image_mid, 'thumb' => $thumb, 'title' => $heading_title, 'type' => 'image');
+            }
+            if ($images) {
+                foreach ($images as $gimg) {
+                    $gallery_items[] = array('popup' => $gimg['popup'], 'mid' => $gimg['image_mid'], 'thumb' => $gimg['thumb'], 'title' => $gimg['description'], 'type' => 'image');
+                }
+            }
+            if (!empty($product_videos)) {
+                foreach ($product_videos as $video) {
+                    $gallery_items[] = array('popup' => $video['video'], 'mid' => $video['video_src'], 'thumb' => $video['video_src'], 'title' => $heading_title, 'type' => 'video');
+                }
+            }
+            ?>
+            <?php if ($gallery_items) { ?>
+            <div id="product-gallery">
+              <div class="gallery-main">
+                <a href="<?php echo htmlspecialchars($gallery_items[0]['popup']); ?>" class="<?php echo $gallery_items[0]['type'] === 'video' ? 'gallery-video' : 'gallery-image'; ?>">
+                  <img id="gallery-main-img" src="<?php echo $gallery_items[0]['mid']; ?>" alt="<?php echo htmlspecialchars($gallery_items[0]['title']); ?>">
+                </a>
+              </div>
+              <?php if (count($gallery_items) > 1) { ?>
+              <div class="gallery-thumbs">
+                <?php foreach ($gallery_items as $gi => $gitem) { ?>
+                <div class="gallery-thumb<?php echo $gi === 0 ? ' active' : ''; ?>"
+                     data-popup="<?php echo htmlspecialchars($gitem['popup']); ?>"
+                     data-mid="<?php echo htmlspecialchars($gitem['mid']); ?>"
+                     data-title="<?php echo htmlspecialchars($gitem['title']); ?>"
+                     data-type="<?php echo $gitem['type']; ?>">
+                  <img src="<?php echo $gitem['thumb']; ?>" alt="<?php echo htmlspecialchars($gitem['title']); ?>">
+                  <?php if ($gitem['type'] === 'video') { ?><span class="gallery-play">&#9654;</span><?php } ?>
+                </div>
                 <?php } ?>
-                <?php if ($images) { ?>
-                    <?php foreach ($images as $image) { ?>
-                        <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $image['description']; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $image['description']; ?>" alt="<?php echo $image['description']; ?>" /></a></li>
-                    <?php } ?>
-                <?php } ?>
-                <?php
-                if (!empty($product_videos)) { ?>
-                    <?php foreach ($product_videos as $video) { ?>
-                        <li class="image-additional"><a class="video" href="<?=$video['video']?>">
-                            <img style="" src="<?php echo $video['video_src'] ?>" title="<?php echo $heading_title . " "; ?>" alt="<?= $heading_title ?>" /></a>
-                        </li>
-                    <?php } ?>
-
-                <?php } ?>
-              </ul>
-          <?php } ?>
+              </div>
+              <?php } ?>
+            </div>
+            <?php } ?>
 
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item" role="presentation"><a class="nav-link active" href="#tab-description" data-bs-toggle="tab" role="tab"><?php echo $tab_description; ?></a></li>
@@ -579,22 +639,37 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
     });
 
     $(document).ready(function () {
-        $('.thumbnails').magnificPopup({
-            delegate: 'a',
-            callbacks: {
-                elementParse: function (item) {
-                    // the class name
-                    if (item.el.context.className == 'video') {
-                        item.type = 'iframe';
-                    } else {
-                        item.type = 'image';
-                    }
-                }
-            },
-            gallery: {enabled: true},
-            type: 'image',
+        // Gallery thumbnail click
+        $('.gallery-thumb').on('click', function () {
+            var popup = $(this).data('popup');
+            var mid   = $(this).data('mid');
+            var title = $(this).data('title');
+            var type  = $(this).data('type');
+            $('.gallery-thumb').removeClass('active');
+            $(this).addClass('active');
+            $('#gallery-main-img').attr('src', mid).attr('alt', title);
+            var $a = $('.gallery-main a');
+            $a.attr('href', popup);
+            $a.removeClass('gallery-image gallery-video').addClass(type === 'video' ? 'gallery-video' : 'gallery-image');
         });
 
+        // Build items array from thumbnails for Magnific gallery
+        var mfpItems = [];
+        $('.gallery-thumb').each(function () {
+            mfpItems.push({
+                src:  $(this).data('popup'),
+                type: $(this).data('type') === 'video' ? 'iframe' : 'image'
+            });
+        });
+
+        $('.gallery-main a').on('click', function (e) {
+            e.preventDefault();
+            $.magnificPopup.open({
+                items:   mfpItems,
+                gallery: { enabled: true },
+                type:    'image'
+            }, $('.gallery-thumb.active').index());
+        });
     });
 </script>
 <script>

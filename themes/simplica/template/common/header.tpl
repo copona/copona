@@ -43,6 +43,14 @@
     <?php } ?>
 </head>
 <body class="<?php echo $class; ?>">
+<?php if (!empty($admin_bar)) { ?>
+<div id="copona-admin-bar" style="position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#1d1d1f;color:#f5f5f7;padding:8px 16px;display:flex;align-items:center;gap:12px;font-family:sans-serif;font-size:13px;box-shadow:0 -2px 8px rgba(0,0,0,.4);">
+  <a href="/admin/" style="opacity:.6;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#f5f5f7;text-decoration:none;">&#9881; Admin</a>
+  <?php foreach ($admin_bar_links as $link) { ?>
+  <a href="<?php echo $link['href']; ?>" style="background:#0071e3;color:#fff;padding:5px 14px;border-radius:6px;text-decoration:none;font-weight:600;"><?php echo $link['text']; ?></a>
+  <?php } ?>
+</div>
+<?php } ?>
 <nav id="top">
   <div class="container">
       <?php echo $currency; ?>

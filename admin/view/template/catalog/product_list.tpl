@@ -44,6 +44,15 @@
             </div>
             <div class="col-sm-4">
               <div class="form-group">
+                <label class="control-label" for="input-category">Category</label>
+                <select name="filter_category_id" id="input-category" class="form-control">
+                  <option value="0">— All categories —</option>
+                  <?php foreach ($filter_categories as $cat) { ?>
+                    <option value="<?php echo $cat['category_id']; ?>"<?php if ($filter_category_id == $cat['category_id']) { ?> selected="selected"<?php } ?>><?php echo $cat['name']; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group">
                 <label class="control-label" for="input-price"><?php echo $entry_price; ?></label>
                 <input type="text" name="filter_price" value="<?php echo $filter_price; ?>" placeholder="<?php echo $entry_price; ?>" id="input-price" class="form-control" />
               </div>
@@ -216,6 +225,12 @@ $('#button-filter').on('click', function () {
 
           if (filter_image != '*') {
               url += '&filter_image=' + encodeURIComponent(filter_image);
+          }
+
+          var filter_category_id = $('select[name=\'filter_category_id\']').val();
+
+          if (filter_category_id && filter_category_id != '0') {
+              url += '&filter_category_id=' + encodeURIComponent(filter_category_id);
           }
 
           location = url;

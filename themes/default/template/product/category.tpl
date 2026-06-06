@@ -93,7 +93,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row gy-4">
             <?php foreach ($products as $product) { ?>
               <?php include(__DIR__ . '/../common/_product_list_card.tpl'); ?>
             <?php } ?>
