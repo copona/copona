@@ -41,7 +41,7 @@ docker compose up -d --build
 sleep 12
 
 # 3. Install Composer deps — run as root (avoids ~/.composer permission issues from host mount)
-docker exec copona-web-1 composer install --no-interaction
+docker exec -w /app copona-web-1 composer install --no-interaction
 
 # 4. Run the CLI installer — MUST use -u application so log files are owned by
 #    uid 1000 (same as PHP-FPM), not root. Root-owned 644 log files can't be
@@ -78,7 +78,7 @@ docker compose up -d --build
 sleep 12 && docker exec copona-db-1 mariadb -u root -proot -e "SELECT 1"
 
 # 7. Install Composer deps and run installer
-docker exec copona-web-1 composer install --no-interaction
+docker exec -w /app copona-web-1 composer install --no-interaction
 docker exec -u application copona-web-1 php /app/copona install --no-interaction
 ```
 
