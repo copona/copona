@@ -2,6 +2,11 @@
 namespace Cart;
 
 final class Tax {
+    private $config;
+    private $db;
+    private $session;
+    private $currency;
+    private $log;
     private $tax_rates = array();
 
     public function __construct($registry) {

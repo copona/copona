@@ -614,7 +614,7 @@ class ControllerProductProduct extends Controller {
 
 
 
-            $data['flash'] = $this->flash->display('error', false);
+            $data['flash'] = '';
 
             $data['column_left'] = $this->load->controller('common/column_left');
             $data['column_right'] = $this->load->controller('common/column_right');

@@ -12,7 +12,7 @@
   "license": "GPL-3.0-or-later",
   "require": {
     "php": ">=8.3",
-    "copona/core": "dev-php8",
+    "copona/core": "dev-fix-install-command",
     "twig/twig": "^3.26"
   },
   "autoload": {

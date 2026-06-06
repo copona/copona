@@ -3,6 +3,8 @@
 namespace Cart;
 
 class Weight {
+    private $db;
+    private $config;
     private $weights = array();
 
     public function __construct($registry) {

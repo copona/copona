@@ -36,7 +36,7 @@ class ModelCatalogCategory extends Model {
         $start_time = microtime(true);
 
         $cats = [];
-        foreach (explode(',', $this->paths[$parent_id]['childrens']) as $category_id) {
+        foreach (explode(',', $this->paths[$parent_id]['childrens'] ?? '') as $category_id) {
             if (!empty($this->paths[$category_id]['path'])) {
                 $cats[] = $this->paths[$category_id];
             }

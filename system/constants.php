@@ -10,7 +10,10 @@ if (!defined('APPLICATION')) {
 
 //Get port
 $server_port = '';
-if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] != 80) && $_SERVER['SERVER_PORT'] != 443) {
+$_http_host = $_SERVER['HTTP_HOST'] ?? null;
+// HTTP_HOST already contains the port when a non-standard port is used (e.g. "localhost:8080").
+// Only append SERVER_PORT when HTTP_HOST doesn't include one, to avoid "host:port:port" duplication.
+if ($_http_host && !str_contains($_http_host, ':') && isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) {
     $server_port = ':' . $_SERVER['SERVER_PORT'];
 }
 
@@ -19,7 +22,7 @@ if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] != 80) && $_SERVE
 // SERVER_NAME ir more reliable, but depends on server config. We should be more flexible and define it from HTTP_HOST,
 // or crerate configurable variable.
 // define('DOMAIN_NAME', isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] . $server_port : null);
-define('DOMAIN_NAME', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] . $server_port : null);
+define('DOMAIN_NAME', $_http_host ? $_http_host . $server_port : null);
 
 $parse_url = parse_url($_SERVER['SCRIPT_NAME']);
 define('BASE_URI', str_replace(['index.php', '//'], '', $parse_url['path']));

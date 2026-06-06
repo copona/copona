@@ -11,6 +11,7 @@
 namespace Session;
 
 final class DB {
+    private $db;
     public $data = array();
     public $expire = array();
 

@@ -1,6 +1,10 @@
 <?php
 namespace Cart;
 class Affiliate {
+    private $config;
+    private $db;
+    private $request;
+    private $session;
 	private $affiliate_id;
 	private $firstname;
 	private $lastname;
