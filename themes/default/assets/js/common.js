@@ -250,7 +250,7 @@ var cart = {
         $.ajax({
             type: "POST",
             url: 'index.php?route=checkout/cart',
-            data: 'checkout',
+            data: 'checkout=1',
             success: (function (data) {
                 $(key).html(data);
             })

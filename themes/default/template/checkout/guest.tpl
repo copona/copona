@@ -114,6 +114,7 @@
                   </fieldset>
                 </div>
                 <div class="col-md-6">
+                  <div id="cart-info"></div>
                   <fieldset>
                     <legend><?= $text_total_title ?>:</legend>
                     <h4><?= $text_price; ?>: <span id="cart_total_value"><?= number_format($cart_total_value, 2); ?> €</span></h4>
@@ -248,7 +249,7 @@
 </div>
 <script>
 
-    cart.get();
+    cart.get('#cart-info');
 
 
 </script>
