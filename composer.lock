@@ -472,12 +472,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/copona/core.git",
-                "reference": "4024adbfa794a6bd9e4aca469fed47b61415e349"
+                "reference": "2559e847653803feb6137c5ed71101d7a87ed161"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/4024adbfa794a6bd9e4aca469fed47b61415e349",
-                "reference": "4024adbfa794a6bd9e4aca469fed47b61415e349",
+                "url": "https://api.github.com/repos/copona/core/zipball/2559e847653803feb6137c5ed71101d7a87ed161",
+                "reference": "2559e847653803feb6137c5ed71101d7a87ed161",
                 "shasum": ""
             },
             "require": {
@@ -522,7 +522,7 @@
                 "source": "https://github.com/copona/core/tree/fix-install-command",
                 "issues": "https://github.com/copona/core/issues"
             },
-            "time": "2026-06-05T23:41:49+00:00"
+            "time": "2026-06-06T09:51:49+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
