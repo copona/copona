@@ -40,18 +40,19 @@ docker compose up -d --build
 # 2. Wait for MariaDB (~12s)
 sleep 12
 
-# 3. Install Composer deps — run as application user (uid 1000) so created files
-#    are owned by the same user that PHP-FPM runs as, avoiding permission errors
-docker exec -u application copona-web-1 composer install --no-interaction
+# 3. Install Composer deps — run as root (avoids ~/.composer permission issues from host mount)
+docker exec copona-web-1 composer install --no-interaction
 
-# 4. Run the CLI installer — MUST use -u application for the same reason
+# 4. Run the CLI installer — MUST use -u application so log files are owned by
+#    uid 1000 (same as PHP-FPM), not root. Root-owned 644 log files can't be
+#    written by the web process and will crash the frontend.
 docker exec -u application copona-web-1 php /app/copona install --no-interaction
 ```
 
 The CLI installer reads these env vars (already set in `docker-compose.yml`):
 `DB_DRIVER`, `DB_HOSTNAME`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`, `DB_PORT`, `DB_PREFIX`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`, `ADMIN_EMAIL`
 
-**Why `-u application`**: `docker exec` defaults to root. Log files created by root get permissions `644`, which PHP-FPM (running as `application`, uid 1000) cannot write to. Always pass `-u application` for any `php` command.
+**Why `-u application` only for the install step**: `docker exec` defaults to root. Log files created by root get permissions `644`, which PHP-FPM (running as `application`, uid 1000) cannot write to. The `composer install` step must run as root because the host `~/.composer` cache mount may have files not readable by uid 1000 inside the container.
 
 ### Full teardown and reinstall from scratch
 
@@ -77,7 +78,7 @@ docker compose up -d --build
 sleep 12 && docker exec copona-db-1 mariadb -u root -proot -e "SELECT 1"
 
 # 7. Install Composer deps and run installer
-docker exec -u application copona-web-1 composer install --no-interaction
+docker exec copona-web-1 composer install --no-interaction
 docker exec -u application copona-web-1 php /app/copona install --no-interaction
 ```
 
