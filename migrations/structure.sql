@@ -2452,6 +2452,7 @@ CREATE TABLE `oc_product` (
   `quantity` int(4) NOT NULL DEFAULT '0',
   `stock_status_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
   `manufacturer_id` int(11) NOT NULL,
   `shipping` tinyint(1) NOT NULL DEFAULT '1',
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
@@ -2641,11 +2642,12 @@ CREATE TABLE `oc_product_image` (
 
 DROP TABLE IF EXISTS `oc_product_image_description`;
 CREATE TABLE `oc_product_image_description` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_image_id` int(11) NOT NULL,
   `language_id` text NOT NULL,
   `description` text CHARACTER SET utf8 NOT NULL,
-  `product_id` int(11) NOT NULL
+  `product_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --

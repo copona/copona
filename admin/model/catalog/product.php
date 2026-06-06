@@ -40,7 +40,7 @@ class ModelCatalogProduct extends Model {
             if(is_file(DIR_IMAGE . $image)) {
                 $data['image'] = $image;
             }
-            $this->db->query("UPDATE " . DB_PREFIX . "product SET image = '" . $this->db->escape($data['image']) . "' WHERE product_id = '" . (int)$product_id . "'");
+            $this->db->query("UPDATE " . DB_PREFIX . "product SET image = '" . $this->db->escape($data['image']) . "', image_url = '" . $this->db->escape($data['image_url'] ?? '') . "' WHERE product_id = '" . (int)$product_id . "'");
         }
 
         foreach ($data['product_description'] as $language_id => $value) {
@@ -283,10 +283,7 @@ class ModelCatalogProduct extends Model {
             if(is_file(DIR_IMAGE . $image)) {
                 $data['image'] = $image;
             }
-            $this->db->query("UPDATE " . DB_PREFIX . "product SET 
-            image = '" . $this->db->escape($data['image']) . "' 
-            , image_url = '" . $this->db->escape($data['image_url']) . "' 
-            WHERE product_id = '" . (int)$product_id . "'");
+            $this->db->query("UPDATE " . DB_PREFIX . "product SET image = '" . $this->db->escape($data['image']) . "', image_url = '" . $this->db->escape($data['image_url'] ?? '') . "' WHERE product_id = '" . (int)$product_id . "'");
 
         }
 

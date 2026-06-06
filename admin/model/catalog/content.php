@@ -9,15 +9,13 @@ class ModelCatalogContent extends Model {
         $query = $this->db->query($sql);
 
         if ($query->num_rows) {
-            // Compatibility: Check if serialized at first, then - json_decode:
-            // https://stackoverflow.com/a/1369946/1720476
-            // TODO: leave only JSON!
-            $data = @unserialize($query->row['value']);
-            if ($query->row['value'] === 'b:0;' || $data !== false) {
-                return unserialize($query->row['value']);
-            } else {
-                return json_decode($query->row['value'], 1);
+            $value = $query->row['value'];
+            $decoded = json_decode($value, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                return $decoded;
             }
+            // Legacy: fall back to PHP serialized format
+            return @unserialize($value) ?: [];
         } else {
             return [];
         }
