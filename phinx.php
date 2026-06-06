@@ -2,10 +2,9 @@
 
 
 
-if(!isset( $_SERVER['SHELL'] )) {
-    echo "Continue from console - run Phinx migration (currently - the only way to run it is from console!...";
-    echo "<pre>vendor/bin/phinx migrate</pre>";
-    die("\n\nInstallation probably done... Ensure to run Phinx!");
+if (PHP_SAPI !== 'cli') {
+    http_response_code(403);
+    exit('Forbidden');
 }
 
 if (!defined('DIR_COPONA')) {
