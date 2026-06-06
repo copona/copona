@@ -101,7 +101,12 @@ ALTER TABLE `oc_            →  ALTER TABLE `{prefix}
 
 After `database()`, the installer calls `migration()` which runs Phinx. On a fresh install with the consolidated `structure.sql`, the `cp_migrations` table is pre-populated with all 29 version records so Phinx runs 0 migrations.
 
-**`app is installed` check**: `Install::checkIfInstalled()` just looks for `.env`. Delete `.env` to enable reinstall.
+**`app is installed` check**: `Install::checkIfInstalled()` just looks for `.env`. If the site shows "Something went wrong" after the containers restart, the DB was likely wiped but `.env` survived. Fix:
+```bash
+rm -f /home/arnis/copona/.env /home/arnis/copona/.htaccess /home/arnis/copona/config/dev/database.php
+docker exec copona-db-1 mariadb -u root -proot -e "DROP DATABASE IF EXISTS copona; CREATE DATABASE copona CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+docker exec -u application copona-web-1 php /app/copona install --no-interaction
+```
 
 ---
 
