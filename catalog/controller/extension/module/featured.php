@@ -27,14 +27,11 @@ class ControllerExtensionModuleFeatured extends Controller {
                 if ($product_info) {
                     if(++$count > $setting['limit'])
                         break;
-                    $image ='';
-                    if ($product_info['image']) {
-                        $image = $this->model_tool_image->{$this->config->get('theme_default_extension_module_featured')}($product_info['image'], $setting['width'], $setting['height']);
-                    }
-
-                    if(!$image) {
-                        $image = $this->model_tool_image->{$this->config->get('theme_default_extension_module_featured')}(Config::get('config_no_image','placeholder.png'), $setting['width'], $setting['height']);
-                    }
+                    $method = $this->config->get('theme_default_extension_module_featured');
+                    $image  = $this->model_tool_image->productImage(
+                        $product_info['image'], $product_info['image_url'] ?? '',
+                        $setting['width'], $setting['height'], $method
+                    );
 
 
 
