@@ -1,9 +1,9 @@
-<button type="button" data-toggle="dropdown" data-loading-text="<?php echo $text_loading; ?>"
-        class="btn btn-inverse btn-block btn-lg dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span
+<button type="button" data-bs-toggle="dropdown" data-loading-text="<?php echo $text_loading; ?>"
+        class="btn btn-inverse w-100 btn-lg dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span
     id="cart-total"><?php echo $text_items; ?></span></button>
-<ul class="dropdown-menu pull-right">
+<ul class="dropdown-menu float-end">
     <?php if ($products || $vouchers) { ?>
-      <li>
+      <li class="px-3 pt-2">
         <table class="table table-striped">
             <?php foreach ($products as $product) { ?>
 
@@ -32,10 +32,10 @@
                            class="img-thumbnail"/></a>
                     <?php } ?></td>
 
-                <td class="text-right"><?php echo $product['price_enduser_total_formatted']; ?></td>
+                <td class="text-end"><?php echo $product['price_enduser_total_formatted']; ?></td>
                 <td class="text-center">
                   <button type="button" onclick="cart.remove('<?php echo $product['cart_id']; ?>');"
-                          title="<?php echo $button_remove; ?>" class="btn btn-danger btn-xs"><i
+                          title="<?php echo $button_remove; ?>" class="btn btn-danger btn-sm"><i
                       class="fa fa-times"></i></button>
                 </td>
               </tr>
@@ -43,35 +43,35 @@
             <?php foreach ($vouchers as $voucher) { ?>
               <tr>
                 <td class="text-center"></td>
-                <td class="text-left"><?php echo $voucher['description']; ?></td>
-                <td class="text-right"><?php echo $voucher['amount']; ?></td>
+                <td class="text-start"><?php echo $voucher['description']; ?></td>
+                <td class="text-end"><?php echo $voucher['amount']; ?></td>
                 <td class="text-center text-danger">
                   <button type="button" onclick="voucher.remove('<?php echo $voucher['key']; ?>');"
-                          title="<?php echo $button_remove; ?>" class="btn btn-danger btn-xs"><i
+                          title="<?php echo $button_remove; ?>" class="btn btn-danger btn-sm"><i
                       class="fa fa-times"></i></button>
                 </td>
               </tr>
             <?php } ?>
         </table>
       </li>
-      <li>
+      <li class="px-3">
         <div>
           <table class="table table-bordered">
               <?php foreach ($totals as $total) { ?>
                 <tr>
-                  <td class="text-right"><strong><?php echo $total['title']; ?></strong></td>
-                  <td class="text-right"><?php echo $total['text']; ?></td>
+                  <td class="text-end"><strong><?php echo $total['title']; ?></strong></td>
+                  <td class="text-end"><?php echo $total['text']; ?></td>
                 </tr>
               <?php } ?>
           </table>
-          <p class="text-right"><a href="<?php echo $cart; ?>"><strong><i
+          <p class="text-end"><a href="<?php echo $cart; ?>"><strong><i
                   class="fa fa-shopping-cart"></i> <?php echo $text_cart; ?></strong></a>&nbsp;&nbsp;&nbsp;<a
               href="<?php echo $checkout; ?>"><strong><i class="fa fa-share"></i> <?php echo $text_checkout; ?></strong></a>
           </p>
         </div>
       </li>
     <?php } else { ?>
-      <li>
+      <li class="px-3 py-2">
         <p class="text-center"><?php echo $text_empty; ?></p>
       </li>
     <?php } ?>

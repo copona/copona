@@ -17,10 +17,10 @@
   </div>
   <div style="clear: both;"></div>
   <div class="buttons">
-    <div class="pull-left">
+    <div class="float-start">
       <a href="<?php echo $cart; ?>" class="btn btn-primary"><?php echo $text_cart; ?></a>
     </div>
-    <div class="pull-right">
+    <div class="float-end">
       <input class="btn btn-primary" id="continue-button" type="submit" value="<?php echo $text_continue; ?>" />
     </div>
   </div>

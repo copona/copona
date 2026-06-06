@@ -1,10 +1,10 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <div class="row"><?php echo $column_left; ?>
       <?php if ($column_left && $column_right) { ?>
           <?php $class = 'col-sm-6'; ?>
@@ -29,15 +29,15 @@
                                       <?php foreach ($category_2['children'] as $category_3) { ?>
                                         <li><a href="<?php echo $category_3['href']; ?>"><?php echo $category_3['name']; ?></a></li>
                                     <?php } ?>
-                                  </ul>
+                                  </ol></nav>
                               <?php } ?>
                             </li>
                         <?php } ?>
-                      </ul>
+                      </ol></nav>
                   <?php } ?>
                 </li>
             <?php } ?>
-          </ul>
+          </ol></nav>
         </div>
         <div class="col-sm-6">
           <ul>
@@ -49,7 +49,7 @@
                 <li><a href="<?php echo $address; ?>"><?php echo $text_address; ?></a></li>
                 <li><a href="<?php echo $history; ?>"><?php echo $text_history; ?></a></li>
                 <li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>
-              </ul>
+              </ol></nav>
             </li>
             <li><a href="<?php echo $cart; ?>"><?php echo $text_cart; ?></a></li>
             <li><a href="<?php echo $checkout; ?>"><?php echo $text_checkout; ?></a></li>
@@ -60,9 +60,9 @@
                     <li><a href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
                 <?php } ?>
                 <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
-              </ul>
+              </ol></nav>
             </li>
-          </ul>
+          </ol></nav>
         </div>
       </div>
       <?php echo $content_bottom; ?></div>

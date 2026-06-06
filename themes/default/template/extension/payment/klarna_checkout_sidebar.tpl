@@ -44,16 +44,16 @@
       <?php } ?>
     </div>
 <?php } ?>
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title">Order Summary</h3>
+<div class="panel card border-primary">
+  <div class="card-header">
+    <h3 class="card-title">Order Summary</h3>
   </div>
   <?php if ($products || $vouchers) { ?>
       <div style="overflow: auto;">
         <table class="table-klarna">
             <?php foreach ($products as $product) { ?>
               <tr>
-                <td class="text-left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
+                <td class="text-start"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
                     <?php if ($product['option']) { ?>
                         <?php foreach ($product['option'] as $option) { ?>
                           <br />
@@ -64,16 +64,16 @@
                       <br />
                       - <small><?php echo $text_recurring; ?> <?php echo $product['recurring']; ?></small>
                   <?php } ?></td>
-                <td class="text-right">x <?php echo $product['quantity']; ?></td>
-                <td class="text-right"><?php echo $product['total']; ?></td>
+                <td class="text-end">x <?php echo $product['quantity']; ?></td>
+                <td class="text-end"><?php echo $product['total']; ?></td>
                 <td class="text-center"><button type="button" onclick="kc.cartRemove('<?php echo $product['cart_id']; ?>');" title="<?php echo $button_remove; ?>" class="btn-link"><i class="fa fa-times"></i></button></td>
               </tr>
           <?php } ?>
           <?php foreach ($vouchers as $voucher) { ?>
               <tr>
-                <td class="text-left"><?php echo $voucher['description']; ?></td>
-                <td class="text-right">x&nbsp;1</td>
-                <td class="text-right"><?php echo $voucher['amount']; ?></td>
+                <td class="text-start"><?php echo $voucher['description']; ?></td>
+                <td class="text-end">x&nbsp;1</td>
+                <td class="text-end"><?php echo $voucher['amount']; ?></td>
                 <td class="text-center"><button type="button" onclick="kc.voucherRemove('<?php echo $voucher['key']; ?>');" title="<?php echo $button_remove; ?>" class="btn-link"><i class="fa fa-times"></i></button></td>
               </tr>
           <?php } ?>
@@ -83,8 +83,8 @@
         <table class="table-klarna">
             <?php foreach ($totals as $total) { ?>
               <tr>
-                <td class="text-right"><strong><?php echo $total['title']; ?></strong></td>
-                <td class="text-right"><?php echo $total['text']; ?></td>
+                <td class="text-end"><strong><?php echo $total['title']; ?></strong></td>
+                <td class="text-end"><?php echo $total['text']; ?></td>
               </tr>
           <?php } ?>
         </table>

@@ -2,7 +2,7 @@
   <input type="hidden" name="operation_xml" value="<?php echo $xml; ?>">
   <input type="hidden" name="signature" value="<?php echo $signature; ?>">
   <div class="buttons">
-    <div class="pull-right">
+    <div class="float-end">
       <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
     </div>
   </div>

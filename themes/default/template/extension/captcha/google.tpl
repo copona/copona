@@ -3,13 +3,13 @@
   <legend><?php echo $text_captcha; ?></legend>
   <div class="form-group required">
       <?php if (substr($route, 0, 9) == 'checkout/') { ?>
-        <label class="control-label" for="input-payment-captcha"><?php echo $entry_captcha; ?></label>
+        <label class="form-label" for="input-payment-captcha"><?php echo $entry_captcha; ?></label>
         <div id="input-payment-captcha" class="g-recaptcha" data-sitekey="<?php echo $site_key; ?>"></div>
         <?php if ($error_captcha) { ?>
             <div class="text-danger"><?php echo $error_captcha; ?></div>
         <?php } ?>
     <?php } else { ?>
-        <?php /* <label class="col-sm-2 control-label"><?php echo $entry_captcha; ?></label> */ ?>
+        <?php /* <label class="col-sm-2 form-label"><?php echo $entry_captcha; ?></label> */ ?>
         <div class="col-sm-12">
           <div id="input-captcha" class="g-recaptcha" data-sitekey="<?php echo $site_key; ?>"></div>
           <?php if ($error_captcha) { ?>

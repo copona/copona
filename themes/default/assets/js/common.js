@@ -1,3 +1,27 @@
+// BS3 .button('loading'/.button('reset') polyfill for Bootstrap 5
+$.fn.button = function(action) {
+    if (action === 'loading') {
+        return this.each(function() {
+            var $btn = $(this);
+            if (!$btn.data('original-html')) {
+                $btn.data('original-html', $btn.html());
+            }
+            $btn.prop('disabled', true).prepend('<span class="spinner-border spinner-border-sm me-1 btn-spinner" role="status" aria-hidden="true"></span>');
+        });
+    } else if (action === 'reset') {
+        return this.each(function() {
+            var $btn = $(this);
+            var orig = $btn.data('original-html');
+            if (orig !== undefined) {
+                $btn.html(orig).prop('disabled', false);
+            } else {
+                $btn.find('.btn-spinner').remove().end().prop('disabled', false);
+            }
+        });
+    }
+    return this;
+};
+
 function getURLVar(key) {
     var value = [];
     var query = String(document.location).split('?');
@@ -60,7 +84,7 @@ $(document).ready(function () {
     $('.text-danger').each(function () {
         var element = $(this).parent().parent();
         if (element.hasClass('form-group')) {
-            element.addClass('has-error');
+            element.addClass('is-invalid');
         }
     });
     // Currency
@@ -97,7 +121,7 @@ $(document).ready(function () {
     // Product List
     $('#list-view').click(function () {
         $('#content .product-grid > .clearfix').remove();
-        $('#content .row > .product-grid').attr('class', 'product-layout product-list col-xs-12');
+        $('#content .row > .product-grid').attr('class', 'product-layout product-list col-12');
         $('#grid-view').removeClass('active');
         $('#list-view').addClass('active');
         localStorage.setItem('display', 'list');
@@ -107,11 +131,11 @@ $(document).ready(function () {
 // What a shame bootstrap does not take into account dynamically loaded columns
         var cols = $('#column-right, #column-left').length;
         if (cols == 2) {
-            $('#content .product-list').attr('class', 'product-layout product-grid col-lg-6 col-md-6 col-sm-12 col-xs-12');
+            $('#content .product-list').attr('class', 'product-layout product-grid col-lg-6 col-md-6 col-sm-12 col-12');
         } else if (cols == 1) {
-            $('#content .product-list').attr('class', 'product-layout product-grid col-lg-4 col-md-4 col-sm-6 col-xs-12');
+            $('#content .product-list').attr('class', 'product-layout product-grid col-lg-4 col-md-4 col-sm-6 col-12');
         } else {
-            $('#content .product-list').attr('class', 'product-layout product-grid col-lg-3 col-md-3 col-sm-6 col-xs-12');
+            $('#content .product-list').attr('class', 'product-layout product-grid col-lg-3 col-md-3 col-sm-6 col-12');
         }
 
         $('#list-view').removeClass('active');
@@ -165,7 +189,7 @@ var cart = {
                 if (json['success']) {
 
                     $('body').append('<div class="alert alert-success alert-success-addtocart">' +
-                            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
                         json['success'] + '</div>').fadeIn('slow');
                     delay(function () {
                         $('.alert-success-addtocart').fadeOut(500);
@@ -307,7 +331,7 @@ var wishlist = {
                 }
 
                 if (json['success']) {
-                    $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
                 }
 
                 $('#wishlist-total span').html(json['total']);
@@ -333,7 +357,7 @@ var compare = {
             success: function (json) {
                 $('.alert').remove();
                 if (json['success']) {
-                    $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
                     $('#compare-total').html(json['total']);
                 }
             },
@@ -362,7 +386,7 @@ $(document).delegate('.agree', 'click', function (e) {
             html += '  <div class="modal-dialog">';
             html += '    <div class="modal-content">';
             html += '      <div class="modal-header">';
-            html += '        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            html += '        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
             html += '        <h4 class="modal-title">' + $(element).text() + '</h4>';
             html += '      </div>';
             html += '      <div class="modal-body">' + data + '</div>';

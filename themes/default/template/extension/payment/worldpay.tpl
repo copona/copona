@@ -1,8 +1,8 @@
 <?php if (!empty($existing_cards)) { ?>
     <legend><?php echo $text_credit_card; ?></legend>
-    <div class="form-horizontal">
+    <div class="row">
       <div id="choose-card" class="form-group">
-        <label class="col-sm-2 control-label"><?php echo $entry_card; ?></label>
+        <label class="col-sm-2 form-label"><?php echo $entry_card; ?></label>
         <div class="col-sm-10">
           <label class="radio-inline">
             <input type="radio" name="existing-card" value="1" checked="checked"/>
@@ -15,11 +15,11 @@
         </div>
       </div>
     </div>
-    <form id="payment-existing-form" action="<?php echo $form_submit; ?>" method="post" class="form-horizontal">
+    <form id="payment-existing-form" action="<?php echo $form_submit; ?>" method="post" class="row">
       <fieldset>
         <div id="card-existing">
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="token"><?php echo $entry_cc_choice; ?></label>
+            <label class="col-sm-2 form-label" for="token"><?php echo $entry_cc_choice; ?></label>
             <div class="col-sm-10">
               <select name="token" data-worldpay="token" class="form-control">
                   <?php foreach ($existing_cards as $existing_card) { ?>
@@ -29,12 +29,12 @@
             </div>
           </div>
           <div class="buttons clearfix">
-            <div class="pull-right">
+            <div class="float-end">
               <input type="button" value="<?php echo $button_delete_card; ?>" id="button-delete" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-cc-cvc"><?php echo $entry_cc_cvc; ?></label>
+            <label class="col-sm-2 form-label" for="input-cc-cvc"><?php echo $entry_cc_cvc; ?></label>
             <div class="col-sm-10">
               <input type="text" data-worldpay="cvc" value="" size="4" placeholder="<?php echo $entry_cc_cvc; ?>" id="input-cc-cvc" class="form-control" />
             </div>
@@ -42,14 +42,14 @@
         </div>
       </fieldset>
       <div class="buttons">
-        <div class="pull-right">
+        <div class="float-end">
           <input type="submit" value="<?php echo $button_confirm; ?>" id="button-confirm" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
         </div>
       </div>
     </form>
-    <form style="display: none" id="payment-new-form" action="<?php echo $form_submit; ?>" method="post" class="form-horizontal">
+    <form style="display: none" id="payment-new-form" action="<?php echo $form_submit; ?>" method="post" class="row">
     <?php } else { ?>
-      <form id="payment-new-form" action="<?php echo $form_submit; ?>" method="post" class="form-horizontal">
+      <form id="payment-new-form" action="<?php echo $form_submit; ?>" method="post" class="row">
       <?php } ?>
     <fieldset>
       <div class="form-group">
@@ -57,7 +57,7 @@
       </div>
       <?php if ($worldpay_card) { ?>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-cc-save"><?php echo $entry_card_save; ?></label>
+            <label class="col-sm-2 form-label" for="input-cc-save"><?php echo $entry_card_save; ?></label>
             <div class="col-sm-2">
               <input type="checkbox" name="save-card" value=true id="input-cc-save"/>
             </div>
@@ -66,7 +66,7 @@
       </div>
     </fieldset>
     <div class="buttons">
-      <div class="pull-right">
+      <div class="float-end">
         <input type="submit" value="<?php echo $button_confirm; ?>" id="button-confirm" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
       </div>
     </div>

@@ -1,10 +1,10 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <div class="row"><?php echo $column_left; ?>
       <?php if ($column_left && $column_right) { ?>
           <?php $class = 'col-sm-6'; ?>
@@ -15,7 +15,7 @@
       <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
-      <label class="control-label" for="input-search"><?php echo $entry_search; ?></label>
+      <label class="form-label" for="input-search"><?php echo $entry_search; ?></label>
       <div class="row">
         <div class="col-sm-4">
           <input type="text" name="search" value="<?php echo $search; ?>" placeholder="<?php echo $text_keyword; ?>" id="input-search" class="form-control" />
@@ -69,10 +69,10 @@
       <h2><?php echo $text_search; ?></h2>
       <?php if ($products) { ?>
           <div class="row">
-            <div class="col-md-2 col-sm-6 hidden-xs">
+            <div class="col-md-2 col-sm-6 d-none d-sm-block">
               <div class="btn-group btn-group-sm">
-                <button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="<?php echo $button_list; ?>"><i class="fa fa-th-list"></i></button>
-                <button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="<?php echo $button_grid; ?>"><i class="fa fa-th"></i></button>
+                <button type="button" id="list-view" class="btn btn-secondary" data-bs-toggle="tooltip" title="<?php echo $button_list; ?>"><i class="fa fa-th-list"></i></button>
+                <button type="button" id="grid-view" class="btn btn-secondary" data-bs-toggle="tooltip" title="<?php echo $button_grid; ?>"><i class="fa fa-th"></i></button>
               </div>
             </div>
             <div class="col-md-3 col-sm-6">
@@ -80,9 +80,9 @@
                 <a href="<?php echo $compare; ?>" id="compare-total" class="btn btn-link"><?php echo $text_compare; ?></a>
               </div>
             </div>
-            <div class="col-md-4 col-xs-6">
+            <div class="col-md-4 col-6">
               <div class="form-group input-group input-group-sm">
-                <label class="input-group-addon" for="input-sort"><?php echo $text_sort; ?></label>
+                <label class="input-group-text" for="input-sort"><?php echo $text_sort; ?></label>
                 <select id="input-sort" class="form-control" onchange="location = this.value;">
                     <?php foreach ($sorts as $sorts) { ?>
                         <?php if ($sorts['value'] == $sort . '-' . $order) { ?>
@@ -94,9 +94,9 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-6">
               <div class="form-group input-group input-group-sm">
-                <label class="input-group-addon" for="input-limit"><?php echo $text_limit; ?></label>
+                <label class="input-group-text" for="input-limit"><?php echo $text_limit; ?></label>
                 <select id="input-limit" class="form-control" onchange="location = this.value;">
                     <?php foreach ($limits as $limits) { ?>
                         <?php if ($limits['value'] == $limit) { ?>
@@ -111,10 +111,10 @@
           </div>
           <div class="row">
               <?php foreach ($products as $product) { if($product['product_id']!=''){ ?>
-                <div class="product-layout product-list col-xs-12">
+                <div class="product-layout product-list col-12">
                   <div class="product-thumb">
-                    <div class="image"><a data-toggle="tooltip" href="<?php echo $product['href']; ?>" title="<?php echo $product['name']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a>
-                      <?php if (!empty($product['group_products'])) { ?> <img class="over" data-toggle="tooltip" title = "<?php echo $text_variations_available; ?>" src="themes/default/assets/img/variations.png"/><?php } ?></div>
+                    <div class="image"><a data-bs-toggle="tooltip" href="<?php echo $product['href']; ?>" title="<?php echo $product['name']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-fluid" /></a>
+                      <?php if (!empty($product['group_products'])) { ?> <img class="over" data-bs-toggle="tooltip" title = "<?php echo $text_variations_available; ?>" src="themes/default/assets/img/variations.png"/><?php } ?></div>
                     <div>
                       <div class="caption">
                         <h4><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h4>
@@ -144,9 +144,9 @@
                         <?php } ?>
                       </div>
                       <div class="button-group">
-                        <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span></button>
-                        <button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>
-                        <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>
+                        <button type="button" class="btn btn-primary" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');"><i class="fa fa-shopping-cart"></i> <span class="d-none d-lg-inline"><?php echo $button_cart; ?></span></button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>
                       </div>
                     </div>
                   </div>
@@ -154,8 +154,8 @@
             <?php }} ?>
           </div>
           <div class="row">
-            <div class="col-sm-7 text-left"><?php echo $pagination; ?></div>
-            <div class="col-sm-5 text-right"><?php echo $results; ?></div>
+            <div class="col-sm-7 text-start"><?php echo $pagination; ?></div>
+            <div class="col-sm-5 text-end"><?php echo $results; ?></div>
           </div>
       <?php } else { ?>
           <p><?php echo $text_empty; ?></p>

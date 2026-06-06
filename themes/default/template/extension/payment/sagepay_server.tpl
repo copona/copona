@@ -1,9 +1,9 @@
-<form class="form-horizontal">
+<form class="row">
   <fieldset id="payment">
       <?php if (!empty($cards)) { ?>
         <legend><?php echo $text_credit_card; ?></legend>
         <div class="form-group">
-          <label class="col-sm-2 control-label"><?php echo $entry_card; ?></label>
+          <label class="col-sm-2 form-label"><?php echo $entry_card; ?></label>
           <div class="col-sm-10">
             <label class="radio-inline">
               <input type="radio" name="CreateToken" value="0" checked="checked"/>
@@ -17,7 +17,7 @@
         </div>
         <div id="card-existing">
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="Token"><?php echo $entry_cc_choice; ?></label>
+            <label class="col-sm-2 form-label" for="Token"><?php echo $entry_cc_choice; ?></label>
             <div class="col-sm-8">
               <select name="Token" class="form-control">
                   <?php foreach ($cards as $card) { ?>
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div style="display:none" id="card-save" class="form-group">
-          <label class="col-sm-2 control-label"><?php echo $entry_card_save; ?></label>
+          <label class="col-sm-2 form-label"><?php echo $entry_card_save; ?></label>
           <div class="col-sm-10">
             <div class="checkbox">
               <label>
@@ -43,7 +43,7 @@
     <?php } elseif ($sagepay_server_card) { ?>
         <legend><?php echo $text_credit_card; ?></legend>
         <div class="form-group">
-          <label class="col-sm-2 control-label"><?php echo $entry_card; ?></label>
+          <label class="col-sm-2 form-label"><?php echo $entry_card; ?></label>
           <div class="col-sm-10">
             <label class="radio-inline">
               <input type="radio" name="CreateToken" value="" checked="checked"/>
@@ -52,7 +52,7 @@
           </div>
         </div>
         <div id="card-save" class="form-group">
-          <label class="col-sm-2 control-label"><?php echo $entry_card_save; ?></label>
+          <label class="col-sm-2 form-label"><?php echo $entry_card_save; ?></label>
           <div class="col-sm-10">
             <div class="checkbox">
               <label>
@@ -63,7 +63,7 @@
         </div>
     <?php } ?>
     <div class="buttons">
-      <div class="pull-right">
+      <div class="float-end">
         <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
       </div>
     </div>
@@ -141,7 +141,7 @@
                             url: 'index.php?route=checkout/confirm',
                                 dataType: 'html',
                             success: function (html) {
-                                    $('#collapse-checkout-confirm .panel-body').html(html);
+                                    $('#collapse-checkout-confirm .card-body').html(html);
                             },
                                     error: function (xhr, ajaxOptions, thrownError) {
                                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

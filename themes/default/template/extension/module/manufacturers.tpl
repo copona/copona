@@ -18,9 +18,9 @@
         } ?>
       <div class="item text-center" style="display: flex;">
           <?php if ($banner['href']) { ?>
-            <a href="<?php echo $banner['href']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['name']; ?>" class="img-responsive"/></a>
+            <a href="<?php echo $banner['href']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['name']; ?>" class="img-fluid"/></a>
           <?php } else { ?>
-            <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['name']; ?>" class="img-responsive"/>
+            <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['name']; ?>" class="img-fluid"/>
           <?php } ?>
       </div>
     <?php } ?>

@@ -1,23 +1,23 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <?php if ($attention) { ?>
       <div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $attention; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
   <?php } ?>
   <?php if ($success) { ?>
       <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
   <?php } ?>
   <?php if ($error_warning) { ?>
       <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
   <?php } ?>
   <div class="row"><?php echo $column_left; ?>

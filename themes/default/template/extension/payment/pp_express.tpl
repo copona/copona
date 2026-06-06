@@ -1,8 +1,8 @@
 <div class="buttons">
-  <div class="pull-left">
+  <div class="float-start">
     <a href="<?php echo $back; ?>" class="btn btn-primary"><?php echo $button_back; ?></a>
   </div>
-  <div class="pull-right">
+  <div class="float-end">
     <a href="<?php echo $continue; ?>" class="btn btn-primary" id="button-confirm" data-loading-text="<?php echo $text_loading; ?>"><?php echo $button_continue; ?></a>
   </div>
 </div>

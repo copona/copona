@@ -4,20 +4,20 @@
   <div class="container">
       <?php if ($attention) { ?>
         <div class="alert alert-info"><i class="fa fa-info-circle"></i>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <?php echo $attention; ?>
 
         </div>
     <?php } ?>
     <?php if ($success) { ?>
         <div class="alert alert-success"><i class="fa fa-check-circle"></i>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <?php echo $success; ?>
         </div>
     <?php } ?>
     <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <?php foreach ($error_warning as $val) {
                 echo  $val . "<br />";
             } ?>

@@ -1,10 +1,10 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <?php if ($error_warning) { ?>
       <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?></div>
   <?php } ?>
@@ -18,11 +18,11 @@
       <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
-      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
+      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="row">
         <fieldset>
           <legend><?php echo $text_your_details; ?></legend>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-firstname"><?php echo $entry_firstname; ?></label>
+            <label class="col-sm-2 form-label" for="input-firstname"><?php echo $entry_firstname; ?></label>
             <div class="col-sm-10">
               <input type="text" name="firstname" value="<?php echo $firstname; ?>" placeholder="<?php echo $entry_firstname; ?>" id="input-firstname" class="form-control" />
               <?php if ($error_firstname) { ?>
@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-lastname"><?php echo $entry_lastname; ?></label>
+            <label class="col-sm-2 form-label" for="input-lastname"><?php echo $entry_lastname; ?></label>
             <div class="col-sm-10">
               <input type="text" name="lastname" value="<?php echo $lastname; ?>" placeholder="<?php echo $entry_lastname; ?>" id="input-lastname" class="form-control" />
               <?php if ($error_lastname) { ?>
@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-email"><?php echo $entry_email; ?></label>
+            <label class="col-sm-2 form-label" for="input-email"><?php echo $entry_email; ?></label>
             <div class="col-sm-10">
               <input type="text" name="email" value="<?php echo $email; ?>" placeholder="<?php echo $entry_email; ?>" id="input-email" class="form-control" />
               <?php if ($error_email) { ?>
@@ -49,7 +49,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-telephone"><?php echo $entry_telephone; ?></label>
+            <label class="col-sm-2 form-label" for="input-telephone"><?php echo $entry_telephone; ?></label>
             <div class="col-sm-10">
               <input type="text" name="telephone" value="<?php echo $telephone; ?>" placeholder="<?php echo $entry_telephone; ?>" id="input-telephone" class="form-control" />
               <?php if ($error_telephone) { ?>
@@ -58,7 +58,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-fax"><?php echo $entry_fax; ?></label>
+            <label class="col-sm-2 form-label" for="input-fax"><?php echo $entry_fax; ?></label>
             <div class="col-sm-10">
               <input type="text" name="fax" value="<?php echo $fax; ?>" placeholder="<?php echo $entry_fax; ?>" id="input-fax" class="form-control" />
             </div>
@@ -67,19 +67,19 @@
         <fieldset>
           <legend><?php echo $text_your_address; ?></legend>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-company"><?php echo $entry_company; ?></label>
+            <label class="col-sm-2 form-label" for="input-company"><?php echo $entry_company; ?></label>
             <div class="col-sm-10">
               <input type="text" name="company" value="<?php echo $company; ?>" placeholder="<?php echo $entry_company; ?>" id="input-company" class="form-control" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-website"><?php echo $entry_website; ?></label>
+            <label class="col-sm-2 form-label" for="input-website"><?php echo $entry_website; ?></label>
             <div class="col-sm-10">
               <input type="text" name="website" value="<?php echo $website; ?>" placeholder="<?php echo $entry_website; ?>" id="input-website" class="form-control" />
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-address-1"><?php echo $entry_address_1; ?></label>
+            <label class="col-sm-2 form-label" for="input-address-1"><?php echo $entry_address_1; ?></label>
             <div class="col-sm-10">
               <input type="text" name="address_1" value="<?php echo $address_1; ?>" placeholder="<?php echo $entry_address_1; ?>" id="input-address-1" class="form-control" />
               <?php if ($error_address_1) { ?>
@@ -88,13 +88,13 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-address-2"><?php echo $entry_address_2; ?></label>
+            <label class="col-sm-2 form-label" for="input-address-2"><?php echo $entry_address_2; ?></label>
             <div class="col-sm-10">
               <input type="text" name="address_2" value="<?php echo $address_2; ?>" placeholder="<?php echo $entry_address_2; ?>" id="input-address-2" class="form-control" />
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-city"><?php echo $entry_city; ?></label>
+            <label class="col-sm-2 form-label" for="input-city"><?php echo $entry_city; ?></label>
             <div class="col-sm-10">
               <input type="text" name="city" value="<?php echo $city; ?>" placeholder="<?php echo $entry_city; ?>" id="input-city" class="form-control" />
               <?php if ($error_city) { ?>
@@ -103,7 +103,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-postcode"><?php echo $entry_postcode; ?></label>
+            <label class="col-sm-2 form-label" for="input-postcode"><?php echo $entry_postcode; ?></label>
             <div class="col-sm-10">
               <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-postcode" class="form-control" />
               <?php if ($error_postcode) { ?>
@@ -112,7 +112,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-country"><?php echo $entry_country; ?></label>
+            <label class="col-sm-2 form-label" for="input-country"><?php echo $entry_country; ?></label>
             <div class="col-sm-10">
               <select name="country_id" id="input-country" class="form-control">
                 <option value=""><?php echo $text_select; ?></option>
@@ -130,7 +130,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-zone"><?php echo $entry_zone; ?></label>
+            <label class="col-sm-2 form-label" for="input-zone"><?php echo $entry_zone; ?></label>
             <div class="col-sm-10">
               <select name="zone_id" id="input-zone" class="form-control">
               </select>
@@ -141,8 +141,8 @@
           </div>
         </fieldset>
         <div class="buttons clearfix">
-          <div class="pull-left"><a href="<?php echo $back; ?>" class="btn btn-default"><?php echo $button_back; ?></a></div>
-          <div class="pull-right">
+          <div class="float-start"><a href="<?php echo $back; ?>" class="btn btn-secondary"><?php echo $button_back; ?></a></div>
+          <div class="float-end">
             <input type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary" />
           </div>
         </div>

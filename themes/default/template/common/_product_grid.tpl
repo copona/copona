@@ -2,10 +2,10 @@
 <div class="row featured-module">
 <?php if(isset($products)){ ?>
     <?php foreach ($products as $product) { ?>
-    <div class="product-layout product-grid col-lg-4 col-md-4 col-sm-6 col-xs-12">
+    <div class="product-layout product-grid col-lg-4 col-md-4 col-sm-6 col-12">
       <div class="product-thumb">
         <div class="image">
-          <a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive"/></a>
+          <a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-fluid"/></a>
         </div>
         <div>
           <div class="caption">
@@ -38,12 +38,12 @@
               <?php } ?>
           </div>
           <div class="button-group">
-            <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');">
+            <button type="button" class="btn btn-primary" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');">
               <i class="fa fa-shopping-cart"></i>
-              <span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span></button>
-            <button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');">
+              <span class="d-none d-lg-inline"><?php echo $button_cart; ?></span></button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');">
               <i class="fa fa-heart"></i></button>
-            <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');">
+            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');">
               <i class="fa fa-exchange"></i></button>
           </div>
         </div>
