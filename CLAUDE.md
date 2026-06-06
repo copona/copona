@@ -31,13 +31,35 @@ docker run --rm -v /home/arnis/copona/vendor:/vendor alpine sh -c "rm -rf /vendo
 
 ## Fresh Install Procedure
 
-Full teardown and reinstall from scratch:
+### Normal first install (fresh clone)
+
+```bash
+# 1. Start containers (--build builds the image on first run)
+docker compose up -d --build
+
+# 2. Wait for MariaDB (~12s)
+sleep 12
+
+# 3. Install Composer deps — run as application user (uid 1000) so created files
+#    are owned by the same user that PHP-FPM runs as, avoiding permission errors
+docker exec -u application copona-web-1 composer install --no-interaction
+
+# 4. Run the CLI installer — MUST use -u application for the same reason
+docker exec -u application copona-web-1 php /app/copona install --no-interaction
+```
+
+The CLI installer reads these env vars (already set in `docker-compose.yml`):
+`DB_DRIVER`, `DB_HOSTNAME`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`, `DB_PORT`, `DB_PREFIX`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`, `ADMIN_EMAIL`
+
+**Why `-u application`**: `docker exec` defaults to root. Log files created by root get permissions `644`, which PHP-FPM (running as `application`, uid 1000) cannot write to. Always pass `-u application` for any `php` command.
+
+### Full teardown and reinstall from scratch
 
 ```bash
 # 1. Stop containers
 docker compose down
 
-# 2. Wipe DB data (bind mount, owned by uid 999)
+# 2. Wipe DB data (bind mount, owned by uid 999 — needs Alpine container to delete)
 docker run --rm -v /home/arnis/copona/.mysql:/target alpine sh -c "rm -rf /target/* /target/.*" 2>/dev/null
 
 # 3. Wipe vendor (also owned by container user)
@@ -45,23 +67,19 @@ docker run --rm -v /home/arnis/copona/vendor:/vendor alpine sh -c "rm -rf /vendo
 
 # 4. Remove generated files
 rm -f /home/arnis/copona/.env
+rm -f /home/arnis/copona/.htaccess
 rm -f /home/arnis/copona/config/dev/database.php
 
-# 5. Restart (--build rebuilds the image)
+# 5. Rebuild and restart
 docker compose up -d --build
 
-# 6. Wait for MariaDB (~10s), then check
-sleep 10 && docker exec copona-db-1 mariadb -u root -proot -e "SELECT 1"
+# 6. Wait for MariaDB (~12s)
+sleep 12 && docker exec copona-db-1 mariadb -u root -proot -e "SELECT 1"
 
-# 7. Install Composer deps
-docker exec copona-web-1 bash -c "cd /app && composer install --no-interaction"
-
-# 8. Run the Copona CLI installer (reads DB/admin creds from Docker env vars)
-docker exec copona-web-1 php /app/copona install --no-interaction
+# 7. Install Composer deps and run installer
+docker exec -u application copona-web-1 composer install --no-interaction
+docker exec -u application copona-web-1 php /app/copona install --no-interaction
 ```
-
-The CLI installer reads these env vars (already set in docker-compose.yml):
-`DB_DRIVER`, `DB_HOSTNAME`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`, `DB_PORT`, `DB_PREFIX`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`, `ADMIN_EMAIL`
 
 ---
 
