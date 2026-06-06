@@ -1,4 +1,4 @@
-<form action="<?php echo $action; ?>" method="POST" class="form-horizontal" id="globalpay_form_redirect">
+<form action="<?php echo $action; ?>" method="POST" class="row" id="globalpay_form_redirect">
   <input type=hidden name="MERCHANT_ID" value="<?php echo $merchant_id; ?>" />
   <input type=hidden name="ORDER_ID" value="<?php echo $order_id; ?>" />
   <input type=hidden name="CURRENCY" value="<?php echo $currency; ?>" >
@@ -16,7 +16,7 @@
   <?php if ($card_select == true) { ?>
       <fieldset id="payment">
         <div class="form-group required">
-          <label class="col-sm-2 control-label" for="input-cc-type"><span data-toggle="tooltip" title="<?php echo $help_select_card; ?>"><?php echo $entry_cc_type; ?></span></label>
+          <label class="col-sm-2 form-label" for="input-cc-type"><span data-bs-toggle="tooltip" title="<?php echo $help_select_card; ?>"><?php echo $entry_cc_type; ?></span></label>
           <div class="col-sm-10">
             <select name="ACCOUNT" class="form-control" id="input-cc-type">
                 <?php foreach ($cards as $card) { ?>
@@ -28,7 +28,7 @@
   <?php } ?>
 </form>
 <div class="buttons">
-  <div class="pull-right">
+  <div class="float-end">
     <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn btn-primary" />
   </div>
 </div>

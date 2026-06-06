@@ -1,5 +1,5 @@
-<div class="panel panel-default">
-  <div class="panel-heading"><?php echo $heading_title; ?></div>
+<div class="panel card">
+  <div class="card-header"><?php echo $heading_title; ?></div>
   <div class="list-group">
       <?php foreach ($filter_groups as $filter_group) { ?>
         <a class="list-group-item"><?php echo $filter_group['name']; ?></a>
@@ -22,7 +22,7 @@
         </div>
     <?php } ?>
   </div>
-  <div class="panel-footer text-right">
+  <div class="card-footer text-end">
     <button type="button" id="button-filter" class="btn btn-primary"><?php echo $button_filter; ?></button>
   </div>
 </div>

@@ -1,13 +1,13 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <?php if ($success) { ?>
       <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
   <?php } ?>
   <div class="row"><?php echo $column_left; ?>
@@ -131,15 +131,15 @@
             <tr>
               <td></td>
               <?php foreach ($products as $product) { ?>
-                  <td><input type="button" value="<?php echo $button_cart; ?>" class="btn btn-primary btn-block" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');" />
-                    <a href="<?php echo $product['remove']; ?>" class="btn btn-danger btn-block"><?php echo $button_remove; ?></a></td>
+                  <td><input type="button" value="<?php echo $button_cart; ?>" class="btn btn-primary d-block w-100" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');" />
+                    <a href="<?php echo $product['remove']; ?>" class="btn btn-danger d-block w-100"><?php echo $button_remove; ?></a></td>
               <?php } ?>
             </tr>
           </table>
       <?php } else { ?>
           <p><?php echo $text_empty; ?></p>
           <div class="buttons">
-            <div class="pull-right"><a href="<?php echo $continue; ?>" class="btn btn-default"><?php echo $button_continue; ?></a></div>
+            <div class="float-end"><a href="<?php echo $continue; ?>" class="btn btn-secondary"><?php echo $button_continue; ?></a></div>
           </div>
       <?php } ?>
       <?php echo $content_bottom; ?></div>

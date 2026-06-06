@@ -1,10 +1,10 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <div class="row"><?php echo $column_left; ?>
       <?php if ($column_left && $column_right) { ?>
           <?php $class = 'col-sm-6'; ?>
@@ -15,10 +15,10 @@
       <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
-      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
+      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="row">
         <fieldset>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><?php echo $entry_newsletter; ?></label>
+            <label class="col-sm-2 form-label"><?php echo $entry_newsletter; ?></label>
             <div class="col-sm-10">
                 <?php if ($newsletter) { ?>
                   <label class="radio-inline">
@@ -39,8 +39,8 @@
           </div>
         </fieldset>
         <div class="buttons clearfix">
-          <div class="pull-left"><a href="<?php echo $back; ?>" class="btn btn-default"><?php echo $button_back; ?></a></div>
-          <div class="pull-right">
+          <div class="float-start"><a href="<?php echo $back; ?>" class="btn btn-secondary"><?php echo $button_back; ?></a></div>
+          <div class="float-end">
             <input type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary" />
           </div>
         </div>

@@ -353,7 +353,7 @@
 </div>
 
 <div class="buttons">
-  <div class="pull-right">
+  <div class="float-end">
     <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn btn-primary" data-loading-text="<?php echo $text_loading; ?>" />
   </div>
 </div>
@@ -398,7 +398,7 @@
                             location = data.url;
                         } else {
                             message = data.message || '<?php echo $generic_credit_req_error; ?>';
-                            $('#divido-checkout').prepend('<div class="alert alert-warning">' + message + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                            $('#divido-checkout').prepend('<div class="alert alert-warning">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
                         }
                     }
                 });

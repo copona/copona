@@ -4,14 +4,14 @@
 
         <div class="swiper-slide">
             <?php if ($banner['link']) { ?><?php if ($banner['title']) { ?>
-              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-responsive"/><a class="banner-text" href="<?= $banner['link'] ?>">
+              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-fluid"/><a class="banner-text" href="<?= $banner['link'] ?>">
                 <h2><?php echo $banner['title']; ?></h2>
                     <?= ($banner['description'] ? "<span>" . $banner['description'] . "</span>" : ''); ?>
               </a>
             <?php } else { ?>
-              <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-responsive"/></a>
+              <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-fluid"/></a>
             <?php } ?><?php } else { ?>
-              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-responsive"/>
+              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-fluid"/>
             <?php } ?>
         </div>
 

@@ -24,7 +24,7 @@
   <input type="hidden" name="order_id" value="<?php echo $order_id; ?>" />
   <input type="hidden" name="platform" value="<?php echo $platform; ?>" />
   <div class="buttons">
-    <div class="pull-right">
+    <div class="float-end">
       <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
     </div>
   </div>

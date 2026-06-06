@@ -1,10 +1,10 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
         <li><a href="<?php echo $breadcrumb['href']; ?>"> <?php echo $breadcrumb['text']; ?> </a> </li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <div class="row"><?php echo $column_left; ?>
       <?php if ($column_left && $column_right) { ?>
           <?php $class = 'col-sm-6'; ?>
@@ -20,18 +20,18 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-              <td class="text-left"><?php echo $column_date_added; ?></td>
-              <td class="text-left"><?php echo $column_description; ?></td>
-              <td class="text-right"><?php echo $column_amount; ?></td>
+              <td class="text-start"><?php echo $column_date_added; ?></td>
+              <td class="text-start"><?php echo $column_description; ?></td>
+              <td class="text-end"><?php echo $column_amount; ?></td>
             </tr>
           </thead>
           <tbody>
               <?php if ($transactions) { ?>
                   <?php foreach ($transactions as $transaction) { ?>
                     <tr>
-                      <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-                      <td class="text-left"><?php echo $transaction['description']; ?></td>
-                      <td class="text-right"><?php echo $transaction['amount']; ?></td>
+                      <td class="text-start"><?php echo $transaction['date_added']; ?></td>
+                      <td class="text-start"><?php echo $transaction['description']; ?></td>
+                      <td class="text-end"><?php echo $transaction['amount']; ?></td>
                     </tr>
                 <?php } ?>
             <?php } else { ?>
@@ -42,7 +42,7 @@
           </tbody>
         </table>
       </div>
-      <div class="text-right"><?php echo $pagination; ?></div>
+      <div class="text-end"><?php echo $pagination; ?></div>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>

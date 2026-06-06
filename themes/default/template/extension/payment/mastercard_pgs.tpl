@@ -7,7 +7,7 @@
 	<?php } ?>
 	<?php if ($cards) : ?>
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-12">
 			<p><?php echo $text_select_card; ?></p>
 			<select class="form-control" name="mastercard_pgs_token">
 				<option value=""><?php echo $text_new_card; ?></option>
@@ -21,7 +21,7 @@
 	</div>
 	<?php endif; ?>
 	<div class="buttons">
-	  <div class="pull-right">
+	  <div class="float-end">
 	    <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn btn-primary" data-loading-text="<?php echo $text_loading; ?>" />
 	  </div>
 	</div>

@@ -5,10 +5,10 @@
         <thead>
           <tr>
             <th class="image"><?php echo $column_image; ?></th>
-            <th class="name text-left"><?php echo $column_name; ?></th>
-            <th class="quantity text-left"><?php echo $column_quantity; ?></th>
-            <th class="price text-right"><?php echo $column_price; ?></th>
-            <th class="total text-right"><?php echo $column_total; ?></th>
+            <th class="name text-start"><?php echo $column_name; ?></th>
+            <th class="quantity text-start"><?php echo $column_quantity; ?></th>
+            <th class="price text-end"><?php echo $column_price; ?></th>
+            <th class="total text-end"><?php echo $column_total; ?></th>
           </tr>
         </thead>
         <tbody>
@@ -42,16 +42,16 @@
 
                   <?php if ($product['recurring']) { ?>
                       <br />
-                      <span class="label label-info"><?php echo $text_recurring_item; ?></span> <small><?php echo $product['recurring']; ?></small>
+                      <span class="badge bg-info"><?php echo $text_recurring_item; ?></span> <small><?php echo $product['recurring']; ?></small>
                   <?php } ?>
                 </td>
 
-                <td class="text-left quantity">
-                  <div class="input-group btn-block" style="min-width:120px;    max-width: 120px;">
+                <td class="text-start quantity">
+                  <div class="input-group flex-nowrap" style="min-width:120px;    max-width: 120px;">
                     <input type="text" name="quantity[<?php echo $product['cart_id']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" class="checkout-quantity form-control" />
-                    <span class="input-group-btn">
-                      <span onclick="cart.update(<?php echo $product['cart_id']; ?>, $(this).parent().parent().find('.checkout-quantity').val())" data-toggle="tooltip" title="<?php echo $button_update; ?>" class="btn btn-default"><i class="fa fa-refresh"></i></span>
-                      <span type="button" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-default" onclick="cart.remove('<?php echo $product['cart_id']; ?>');"><i class="fa fa-times-circle"></i></span>
+                    <span class="input-group-text">
+                      <span onclick="cart.update(<?php echo $product['cart_id']; ?>, $(this).parent().parent().find('.checkout-quantity').val())" data-bs-toggle="tooltip" title="<?php echo $button_update; ?>" class="btn btn-secondary"><i class="fa fa-refresh"></i></span>
+                      <span type="button" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-secondary" onclick="cart.remove('<?php echo $product['cart_id']; ?>');"><i class="fa fa-times-circle"></i></span>
                     </span>
                   </div>
                 </td>
@@ -69,9 +69,9 @@
                 <td class="image"></td>
                 <td class="name"><?php echo $voucher['description']; ?></td>
                 <td class="quantity">
-                  <div class="input-group btn-block" style="min-width:120px; max-width: 200px;">
+                  <div class="input-group flex-nowrap" style="min-width:120px; max-width: 200px;">
                     <input type="text" name="" value="1" size="1" disabled="disabled" class="form-control" />
-                    <span class="input-group-btn"><button type="button" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-default" onclick="voucher.remove('<?php echo $voucher['key']; ?>');"><i class="fa fa-times-circle"></i></button></span>
+                    <span class="input-group-text"><button type="button" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-secondary" onclick="voucher.remove('<?php echo $voucher['key']; ?>');"><i class="fa fa-times-circle"></i></button></span>
                   </div>
                 </td>
                 <td class="price"><?php echo $voucher['amount']; ?></td>
@@ -84,7 +84,7 @@
   </form>
 </div>
 <div class="row">
-  <div class="col-sm-4 col-sm-offset-8">
+  <div class="col-sm-4 offset-sm-8">
       <?php if ($modules) { ?>
         <h2><?php echo $text_next; ?></h2>
         <p><?php echo $text_next_choice; ?></p>
@@ -97,14 +97,14 @@
     <table class="table table-bordered">
         <?php foreach ($totals as $total) { ?>
           <tr>
-            <td class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
-            <td class="text-right"><?php echo $total['text']; ?></td>
+            <td class="text-end"><strong><?php echo $total['title']; ?>:</strong></td>
+            <td class="text-end"><?php echo $total['text']; ?></td>
           </tr>
         <?php } ?>
     </table>
   </div>
 </div>
 <div class="buttons clearfix">
-  <div class="pull-left"><a href="<?php echo $continue; ?>" class="btn btn-default"><?php echo $button_shopping; ?></a></div>
-  <div class="pull-right"><a href="<?php echo $checkout; ?>" class="btn btn-primary"><?php echo $button_checkout; ?></a></div>
+  <div class="float-start"><a href="<?php echo $continue; ?>" class="btn btn-secondary"><?php echo $button_shopping; ?></a></div>
+  <div class="float-end"><a href="<?php echo $checkout; ?>" class="btn btn-primary"><?php echo $button_checkout; ?></a></div>
 </div>

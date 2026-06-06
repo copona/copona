@@ -1,4 +1,4 @@
-<form action="https://payments.securetrading.net/process/payments/details" method="POST" class="form-horizontal">
+<form action="https://payments.securetrading.net/process/payments/details" method="POST" class="row">
   <fieldset id="payment">
     <legend><?php echo $text_payment_details; ?></legend>
 
@@ -41,7 +41,7 @@
     <?php } ?>
 
     <div class="form-group required">
-      <label class="col-sm-2 control-label" for="input-type"><?php echo $entry_card_type; ?></label>
+      <label class="col-sm-2 form-label" for="input-type"><?php echo $entry_card_type; ?></label>
       <div class="col-sm-10">
         <select name="paymenttypedescription" id="input-type" class="form-control">
             <?php foreach ($cards as $key => $title) { ?>
@@ -54,7 +54,7 @@
     <div class="form-group">
       <div class="col-sm-12">
         <div class="buttons">
-          <div class="pull-right">
+          <div class="float-end">
             <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
           </div>
         </div>

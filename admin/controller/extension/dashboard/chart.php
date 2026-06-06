@@ -197,7 +197,7 @@ class ControllerExtensionDashboardChart extends Controller {
                     $date = date('Y') . '-' . date('m') . '-' . $i;
 
                     $json['xaxis'][] = array(date('j', strtotime($date)), date('d', strtotime($date)));
-                    $json['sales']['data'][] = [$i, $this->currency->format(round($this->model_report_sale->getTotalSales(['filter_date_added' => $date])), '', '', 0)];
+                    $json['sales']['data'][] = [$i, $this->currency->format(round((float)($this->model_report_sale->getTotalSales(['filter_date_added' => $date]) ?? 0)), '', '', 0)];
                 }
                 break;
             case 'year':

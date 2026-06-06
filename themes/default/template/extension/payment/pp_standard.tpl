@@ -47,11 +47,11 @@
   <input type="hidden" name="bn" value="OpenCart_2.0_WPS" />
   <div class="buttons">
 
-    <div class="pull-left">
+    <div class="float-start">
       <a href="<?php echo $back; ?>" class="btn btn-primary"><?php echo $button_back; ?></a>
     </div>
 
-    <div class="pull-right">
+    <div class="float-end">
       <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
     </div>
   </div>

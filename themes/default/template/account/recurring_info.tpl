@@ -1,10 +1,10 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb">
       <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
-  </ul>
+  </ol></nav>
   <div class="row"><?php echo $column_left; ?>
       <?php if ($column_left && $column_right) { ?>
           <?php $class = 'col-sm-6'; ?>
@@ -19,16 +19,16 @@
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <td class="text-left" colspan="2"><?php echo $text_recurring_detail; ?></td>
+              <td class="text-start" colspan="2"><?php echo $text_recurring_detail; ?></td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" style="width: 50%;"><b><?php echo $text_order_recurring_id; ?></b> #<?php echo $order_recurring_id; ?><br />
+              <td class="text-start" style="width: 50%;"><b><?php echo $text_order_recurring_id; ?></b> #<?php echo $order_recurring_id; ?><br />
                 <b><?php echo $text_date_added; ?></b> <?php echo $date_added; ?><br />
                 <b><?php echo $text_status; ?></b> <?php echo $status; ?><br />
                 <b><?php echo $text_payment_method; ?></b> <?php echo $payment_method; ?></td>
-              <td class="text-left" style="width: 50%;"><b><?php echo $text_order_id; ?></b> <a href="<?php echo $order; ?>">#<?php echo $order_id; ?></a><br />
+              <td class="text-start" style="width: 50%;"><b><?php echo $text_order_id; ?></b> <a href="<?php echo $order; ?>">#<?php echo $order_id; ?></a><br />
                 <b><?php echo $text_product; ?></b> <a href="<?php echo $product; ?>"><?php echo $product_name; ?></a><br />
                 <b><?php echo $text_quantity; ?></b> <?php echo $product_quantity; ?></td>
             </tr>
@@ -37,14 +37,14 @@
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <td class="text-left"><?php echo $text_description; ?></td>
-              <td class="text-left"><?php echo $text_reference; ?></td>
+              <td class="text-start"><?php echo $text_description; ?></td>
+              <td class="text-start"><?php echo $text_reference; ?></td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" style="width: 50%;"><?php echo $recurring_description; ?></td>
-              <td class="text-left" style="width: 50%;"><?php echo $reference; ?></td>
+              <td class="text-start" style="width: 50%;"><?php echo $recurring_description; ?></td>
+              <td class="text-start" style="width: 50%;"><?php echo $reference; ?></td>
             </tr>
           </tbody>
         </table>
@@ -54,18 +54,18 @@
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <td class="text-left"><?php echo $column_date_added; ?></td>
-              <td class="text-left"><?php echo $column_type; ?></td>
-              <td class="text-right"><?php echo $column_amount; ?></td>
+              <td class="text-start"><?php echo $column_date_added; ?></td>
+              <td class="text-start"><?php echo $column_type; ?></td>
+              <td class="text-end"><?php echo $column_amount; ?></td>
             </tr>
           </thead>
           <tbody>
               <?php if ($transactions) { ?>
                   <?php foreach ($transactions as $transaction) { ?>
                     <tr>
-                      <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-                      <td class="text-left"><?php echo $transaction['type']; ?></td>
-                      <td class="text-right"><?php echo $transaction['amount']; ?></td>
+                      <td class="text-start"><?php echo $transaction['date_added']; ?></td>
+                      <td class="text-start"><?php echo $transaction['type']; ?></td>
+                      <td class="text-end"><?php echo $transaction['amount']; ?></td>
                     </tr>
                 <?php } ?>
             <?php } else { ?>

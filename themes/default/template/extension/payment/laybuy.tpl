@@ -1,4 +1,4 @@
-<form id="laybuy-form" action="<?php echo $action; ?>" method="post" class="form form-horizontal">
+<form id="laybuy-form" action="<?php echo $action; ?>" method="post" class="form row">
   <div>
     <h3><?php echo $heading_title; ?></h3>
   </div>
@@ -36,7 +36,7 @@
     <thead>
     <th><?php echo $text_payment; ?></th>
     <th><?php echo $text_due_date; ?></th>
-    <th class="text-right"><?php echo $text_amount; ?></th>
+    <th class="text-end"><?php echo $text_amount; ?></th>
     </thead>
     <tbody>
       <tr>
@@ -53,7 +53,7 @@
 <p style="font-size: 1.3em"><?php echo $text_fee_msg; ?></p>
 
 <div class="buttons">
-  <div class="pull-right">
+  <div class="float-end">
     <input type="submit" form="laybuy-form" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn btn-primary" data-loading-text="<?php echo $text_loading; ?>">
   </div>
 </div>
@@ -126,7 +126,7 @@ $(document).ready(function () {
             row = '<tr>';
             row += '<td>' + payment.payment + '</td>';
             row += '<td>' + payment.dueDate + '</td>';
-            row += '<td class="text-right">' + symbol_left + payment.amount + symbol_right + '</td>';
+            row += '<td class="text-end">' + symbol_left + payment.amount + symbol_right + '</td>';
             row += '</tr>';
 
             $('#payment-table').find('tbody').append(row);

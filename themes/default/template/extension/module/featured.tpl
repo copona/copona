@@ -25,14 +25,19 @@
               <?php } ?>
           </div>
         </div>
-        <div class="buttons">
-          <button type="button"
+        <div class="button-group">
+          <button type="button" class="btn btn-primary"
                   onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');">
-            <i class="fa fa-shopping-cart"></i>
+            <i class="fa fa-shopping-cart"></i> <span><?= $button_cart ?></span>
           </button>
-
-          <a class="btn btn-primary" href="<?= $product['href']; ?>"><span><i
-                  class="fa fa-chevron-right"></i><?= $text_know_more ?></span></a>
+          <button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="<?php echo $button_wishlist; ?>"
+                  onclick="wishlist.add('<?php echo $product['product_id']; ?>');">
+            <i class="fa fa-heart"></i>
+          </button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="<?php echo $button_compare; ?>"
+                  onclick="compare.add('<?php echo $product['product_id']; ?>');">
+            <i class="fa fa-exchange"></i>
+          </button>
         </div>
       </div>
   <?php } ?>

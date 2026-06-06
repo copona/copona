@@ -1,9 +1,9 @@
-<form id="cardconnect-form" action="<?php echo $action; ?>" method="post" class="form form-horizontal">
+<form id="cardconnect-form" action="<?php echo $action; ?>" method="post" class="form row">
   <fieldset id="payment">
     <legend><?php echo $text_card_details; ?></legend>
     <?php if ($echeck) { ?>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="input-method"><?php echo $entry_method; ?></label>
+          <label class="col-sm-2 form-label" for="input-method"><?php echo $entry_method; ?></label>
           <div class="col-sm-10">
             <select name="method" id="input-method" class="form-control">
               <option value="card"><?php echo $text_card; ?></option>
@@ -14,7 +14,7 @@
     <?php } ?>
     <div class="card_container">
       <div class="form-group" <?php if (!$store_cards) { echo 'style="display:none"'; } ?>>
-        <label class="col-sm-2 control-label"><?php echo $entry_card_new_or_old; ?></label>
+        <label class="col-sm-2 form-label"><?php echo $entry_card_new_or_old; ?></label>
         <div class="col-sm-10">
           <label class="radio-inline">
             <input type="radio" name="card_new" value="1" checked="checked"/>
@@ -28,7 +28,7 @@
       </div>
       <div class="card_new_container">
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="input-card-type"><?php echo $entry_card_type; ?></label>
+          <label class="col-sm-2 form-label" for="input-card-type"><?php echo $entry_card_type; ?></label>
           <div class="col-sm-10">
             <select name="card_type" id="input-card-type" class="form-control">
                 <?php foreach ($card_types as $card_type) { ?>
@@ -38,13 +38,13 @@
           </div>
         </div>
         <div class="form-group required">
-          <label class="col-sm-2 control-label" for="input-card-number"><?php echo $entry_card_number; ?></label>
+          <label class="col-sm-2 form-label" for="input-card-number"><?php echo $entry_card_number; ?></label>
           <div class="col-sm-10">
             <input type="text" name="card_number" value="" placeholder="<?php echo $entry_card_number; ?>" id="input-card-number" class="form-control" />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="input-card-expiry"><?php echo $entry_card_expiry; ?></label>
+          <label class="col-sm-2 form-label" for="input-card-expiry"><?php echo $entry_card_expiry; ?></label>
           <div class="col-sm-3">
             <select name="card_expiry_month" id="input-card-expiry" class="form-control">
                 <?php foreach ($months as $month) { ?>
@@ -61,14 +61,14 @@
           </div>
         </div>
         <div class="form-group required">
-          <label class="col-sm-2 control-label" for="input-card-cvv2"><?php echo $entry_card_cvv2; ?></label>
+          <label class="col-sm-2 form-label" for="input-card-cvv2"><?php echo $entry_card_cvv2; ?></label>
           <div class="col-sm-10">
             <input type="text" name="card_cvv2" value="" placeholder="<?php echo $entry_card_cvv2; ?>" id="input-card-cvv2" class="form-control" />
           </div>
         </div>
         <?php if ($store_cards) { ?>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-card-save" style="padding-top:0"><?php echo $entry_card_save; ?></label>
+              <label class="col-sm-2 form-label" for="input-card-save" style="padding-top:0"><?php echo $entry_card_save; ?></label>
               <div class="col-sm-10">
                 <input type="checkbox" name="card_save" value="1" id="input-card-save"/>
               </div>
@@ -77,7 +77,7 @@
       </div>
       <div class="card_old_container" style="display:none">
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="input-card-choice"><?php echo $entry_card_choice; ?></label>
+          <label class="col-sm-2 form-label" for="input-card-choice"><?php echo $entry_card_choice; ?></label>
           <div class="col-sm-8">
             <select name="card_choice" id="input-card-choice" class="form-control" <?php if (!$cards) { echo 'disabled'; } ?>>
                 <?php if ($cards) { ?>
@@ -98,13 +98,13 @@
     </div>
     <div class="echeck_container" style="display:none">
       <div class="form-group required">
-        <label class="col-sm-2 control-label" for="input-account-number"><?php echo $entry_account_number; ?></label>
+        <label class="col-sm-2 form-label" for="input-account-number"><?php echo $entry_account_number; ?></label>
         <div class="col-sm-10">
           <input type="text" name="account_number" value="" placeholder="<?php echo $entry_account_number; ?>" id="input-account-number" class="form-control" />
         </div>
       </div>
       <div class="form-group required">
-        <label class="col-sm-2 control-label" for="input-routing-number"><?php echo $entry_routing_number; ?></label>
+        <label class="col-sm-2 form-label" for="input-routing-number"><?php echo $entry_routing_number; ?></label>
         <div class="col-sm-10">
           <input type="text" name="routing_number" value="" placeholder="<?php echo $entry_routing_number; ?>" id="input-routing-number" class="form-control" />
         </div>
@@ -114,7 +114,7 @@
 </form>
 
 <div class="buttons">
-  <div class="pull-right">
+  <div class="float-end">
     <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn btn-primary" data-loading-text="<?php echo $text_loading; ?>">
   </div>
 </div>
@@ -164,7 +164,7 @@ $('select[name="method"]').on('change', function () {
                 },
                 success: function (json) {
                     if (json['error']) {
-                        $('#cardconnect-form').before('<div class="alert alert-danger cardconnect_message" style="display:none"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                        $('#cardconnect-form').before('<div class="alert alert-danger cardconnect_message" style="display:none"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
                         $('.cardconnect_message').fadeIn();
                     } else {
@@ -172,7 +172,7 @@ $('select[name="method"]').on('change', function () {
                             url: 'index.php?route=checkout/confirm',
                             dataType: 'html',
                             success: function (html) {
-                                $('#collapse-checkout-confirm .panel-body').html(html);
+                                $('#collapse-checkout-confirm .card-body').html(html);
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
                                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -195,7 +195,7 @@ $('select[name="method"]').on('change', function () {
             beforeSend: function () {
                 $('.cardconnect_message').remove();
                 $('.text-danger').remove();
-                $('#payment').find('*').removeClass('has-error');
+                $('#payment').find('*').removeClass('is-invalid');
                 $('#payment').before('<div class="alert alert-info cardconnect_wait"><i class="fa fa-info-circle"></i> <?php echo $text_wait; ?></div>');
                 $('#button-confirm').button('loading');
             },
@@ -205,7 +205,7 @@ $('select[name="method"]').on('change', function () {
             },
             success: function (json) {
                 if (json['error']['warning']) {
-                    $('#cardconnect-form').before('<div class="alert alert-danger cardconnect_message" style="display:none"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#cardconnect-form').before('<div class="alert alert-danger cardconnect_message" style="display:none"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
                     $('.cardconnect_message').fadeIn();
                 }
@@ -213,37 +213,37 @@ $('select[name="method"]').on('change', function () {
                 if (json['error']['card_number']) {
                     $('#input-card-number').after('<div class="text-danger">' + json['error']['card_number'] + '</div>');
 
-                    $('#input-card-number').closest('.form-group').addClass('has-error');
+                    $('#input-card-number').closest('.form-group').addClass('is-invalid');
                 }
 
                 if (json['error']['card_cvv2']) {
                     $('#input-card-cvv2').after('<div class="text-danger">' + json['error']['card_cvv2'] + '</div>');
 
-                    $('#input-card-cvv2').closest('.form-group').addClass('has-error');
+                    $('#input-card-cvv2').closest('.form-group').addClass('is-invalid');
                 }
 
                 if (json['error']['card_choice']) {
                     $('#input-card-choice').after('<div class="text-danger">' + json['error']['card_choice'] + '</div>');
 
-                    $('#input-card-choice').closest('.form-group').addClass('has-error');
+                    $('#input-card-choice').closest('.form-group').addClass('is-invalid');
                 }
 
                 if (json['error']['method']) {
                     $('#input-method').after('<div class="text-danger">' + json['error']['method'] + '</div>');
 
-                    $('#input-method').closest('.form-group').addClass('has-error');
+                    $('#input-method').closest('.form-group').addClass('is-invalid');
                 }
 
                 if (json['error']['account_number']) {
                     $('#input-account-number').after('<div class="text-danger">' + json['error']['account_number'] + '</div>');
 
-                    $('#input-account-number').closest('.form-group').addClass('has-error');
+                    $('#input-account-number').closest('.form-group').addClass('is-invalid');
                 }
 
                 if (json['error']['routing_number']) {
                     $('#input-routing-number').after('<div class="text-danger">' + json['error']['routing_number'] + '</div>');
 
-                    $('#input-routing-number').closest('.form-group').addClass('has-error');
+                    $('#input-routing-number').closest('.form-group').addClass('is-invalid');
                 }
 
                 if (json['success']) {

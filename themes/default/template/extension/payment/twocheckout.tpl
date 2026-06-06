@@ -30,7 +30,7 @@
   <input type="hidden" name="lang" value="<?php echo $lang; ?>" />
   <input type="hidden" name="return_url" value="<?php echo $return_url; ?>" />
   <div class="buttons">
-    <div class="pull-right">
+    <div class="float-end">
       <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
     </div>
   </div>

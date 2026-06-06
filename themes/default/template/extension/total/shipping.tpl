@@ -1,13 +1,13 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4 class="panel-title"><a href="#collapse-shipping" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"><?php echo $heading_title; ?> <i class="fa fa-caret-down"></i></a></h4>
+<div class="panel card">
+  <div class="card-header">
+    <h4 class="card-title"><a href="#collapse-shipping" class="accordion-toggle" data-bs-toggle="collapse" data-bs-parent="#accordion"><?php echo $heading_title; ?> <i class="fa fa-caret-down"></i></a></h4>
   </div>
-  <div id="collapse-shipping" class="panel-collapse collapse">
-    <div class="panel-body">
+  <div id="collapse-shipping" class=" collapse">
+    <div class="card-body">
       <p><?php echo $text_shipping; ?></p>
-      <div class="form-horizontal">
+      <div class="row">
         <div class="form-group required">
-          <label class="col-sm-2 control-label" for="input-country"><?php echo $entry_country; ?></label>
+          <label class="col-sm-2 form-label" for="input-country"><?php echo $entry_country; ?></label>
           <div class="col-sm-10">
             <select name="country_id" id="input-country" class="form-control">
               <option value=""><?php echo $text_select; ?></option>
@@ -22,14 +22,14 @@
           </div>
         </div>
         <div class="form-group required">
-          <label class="col-sm-2 control-label" for="input-zone"><?php echo $entry_zone; ?></label>
+          <label class="col-sm-2 form-label" for="input-zone"><?php echo $entry_zone; ?></label>
           <div class="col-sm-10">
             <select name="zone_id" id="input-zone" class="form-control">
             </select>
           </div>
         </div>
         <div class="form-group required">
-          <label class="col-sm-2 control-label" for="input-postcode"><?php echo $entry_postcode; ?></label>
+          <label class="col-sm-2 form-label" for="input-postcode"><?php echo $entry_postcode; ?></label>
           <div class="col-sm-10">
             <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-postcode" class="form-control" />
           </div>
@@ -54,7 +54,7 @@ $('#button-quote').on('click', function () {
 
                       if (json['error']) {
                           if (json['error']['warning']) {
-                              $('.breadcrumb').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                              $('.breadcrumb').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
                               $('html, body').animate({scrollTop: 0}, 'slow');
                           }
@@ -103,7 +103,7 @@ $('#button-quote').on('click', function () {
                                                                               }
 
                                                                               html += '      </div>';                           html += '      <div class="modal-footer">';
-                                                                              html += '        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $button_cancel; ?></button>';
+                                                                              html += '        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $button_cancel; ?></button>';
 
 <?php if ($shipping_method) { ?>
                         html += '        <input type="button" value="<?php echo $button_shipping; ?>" id="button-shipping" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />';
@@ -146,7 +146,7 @@ $('#button-quote').on('click', function () {
                 $('.alert').remove();
 
                 if (json['error']) {
-                    $('.breadcrumb').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('.breadcrumb').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
                     $('html, body').animate({scrollTop: 0}, 'slow');
                 }
