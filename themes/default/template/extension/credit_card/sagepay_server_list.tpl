@@ -60,7 +60,7 @@
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
-<script type="text/javascript"><!--
+<script>
     $('#button-add-card').bind('click', function () {
         $.ajax({
             url: 'index.php?route=extension/credit_card/sagepay_server_cards/addCard',
@@ -93,5 +93,5 @@
             }
         });
     });
-//--></script>
+</script>
 <?php echo $footer; ?>

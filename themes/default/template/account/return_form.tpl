@@ -176,9 +176,9 @@
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
-<script type="text/javascript"><!--
+<script>
 $('.date').datetimepicker({
         pickTime: false
     });
-//--></script>
+</script>
 <?php echo $footer; ?>

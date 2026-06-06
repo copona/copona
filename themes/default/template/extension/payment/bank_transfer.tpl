@@ -9,7 +9,7 @@
   <p><?php echo $bank; ?></p>
   <p><?php echo $text_payment; ?></p>
 </div>
-<script type="text/javascript"><!--
+<script>
 $('#button-confirm').on('click', function () {
         $.ajax({
             type: 'get',
@@ -26,4 +26,4 @@ $('#button-confirm').on('click', function () {
             }
         });
     });
-//--></script>
+</script>

@@ -205,7 +205,7 @@
     </div>
   </div>
 </form>
-<script type="text/javascript"><!--
+<script>
 $('input[name=\'payment_address\']').on('change', function () {
         if (this.value == 'new') {
             $('#payment-existing').hide();
@@ -215,8 +215,8 @@ $('input[name=\'payment_address\']').on('change', function () {
             $('#payment-new').hide();
         }
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
 // Sort the custom fields
     $('#collapse-payment-address .form-group[data-sort]').detach().each(function () {
         if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#collapse-payment-address .form-group').length - 2) {
@@ -235,8 +235,8 @@ $('input[name=\'payment_address\']').on('change', function () {
             $('#collapse-payment-address .form-group:first').before(this);
         }
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('click', function () {
         var node = this;
 
@@ -288,8 +288,8 @@ $('input[name=\'payment_address\']').on('change', function () {
             }
         }, 500);
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('.date').datetimepicker({
         pickTime: false
     });
@@ -302,8 +302,8 @@ $('input[name=\'payment_address\']').on('change', function () {
         pickDate: true,
         pickTime: true
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('#collapse-payment-address select[name=\'country_id\']').on('change', function () {
         $.ajax({
             url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
@@ -346,4 +346,4 @@ $('input[name=\'payment_address\']').on('change', function () {
     });
 
     $('#collapse-payment-address select[name=\'country_id\']').trigger('change');
-//--></script>
+</script>

@@ -87,7 +87,7 @@
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
-<script type="text/javascript"><!--
+<script>
 $(document).on('change', 'input[name=\'account\']', function () {
         if ($('#collapse-payment-address').parent().find('.card-header .card-title > *').is('a')) {
             if (this.value == 'register') {
@@ -797,5 +797,5 @@ $(document).on('change', 'input[name=\'account\']', function () {
             }
         });
     });
-//--></script>
+</script>
 <?php echo $footer; ?>

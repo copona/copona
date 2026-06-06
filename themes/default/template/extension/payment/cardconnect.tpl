@@ -119,7 +119,7 @@
   </div>
 </div>
 
-<script type="text/javascript"><!--
+<script>
 $('select[name="method"]').on('change', function () {
         if ($(this).val() == 'card') {
             $('#payment legend').text('<?php echo $text_card_details; ?>');
@@ -131,9 +131,9 @@ $('select[name="method"]').on('change', function () {
             $('.echeck_container').show();
         }
     });
-//--></script>
+</script>
 
-<script type="text/javascript"><!--
+<script>
     $('input[name="card_new"]').on('change', function () {
         if ($(this).val() == '1') {
             $('.card_new_container').show();
@@ -143,9 +143,9 @@ $('select[name="method"]').on('change', function () {
             $('.card_old_container').show();
         }
     });
-//--></script>
+</script>
 
-<script type="text/javascript"><!--
+<script>
     $('#button-delete').bind('click', function () {
         if (confirm('<?php echo $text_confirm_delete; ?>')) {
             $.ajax({
@@ -183,9 +183,9 @@ $('select[name="method"]').on('change', function () {
             });
         }
     });
-//--></script>
+</script>
 
-<script type="text/javascript"><!--
+<script>
     $('#button-confirm').bind('click', function () {
         $.ajax({
             url: 'index.php?route=extension/payment/cardconnect/send',
@@ -252,4 +252,4 @@ $('select[name="method"]').on('change', function () {
             }
         });
     });
-//--></script>
+</script>

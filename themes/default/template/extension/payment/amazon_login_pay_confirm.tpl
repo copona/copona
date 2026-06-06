@@ -109,5 +109,5 @@
             $(this).attr('disabled', 'disabled');
         });
     });
-//--></script>
+</script>
 <?php echo $footer; ?>

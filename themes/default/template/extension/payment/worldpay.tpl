@@ -73,7 +73,7 @@
   </form>
   <div id="payment-errors">
   </div>
-  <script type="text/javascript"><!--
+  <script>
 
       //Load Worldpay.js and run script functions
       $.getScript("<?php echo $worldpay_script; ?>", function (data, textStatus, jqxhr) {
@@ -176,4 +176,4 @@
               $('#payment-existing-form :input').prop('disabled', true);
           }
       });
-      //--></script>
+      </script>

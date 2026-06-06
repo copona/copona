@@ -391,7 +391,7 @@
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
-<script type="text/javascript"><!--
+<script>
 $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
         $.ajax({
             url: 'index.php?route=product/product/getRecurringDescription',
@@ -410,8 +410,8 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
             }
         });
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('#button-cart').on('click', function () {
         $("alert-success").remove();
         $.ajax({
@@ -468,8 +468,8 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
         });
     });
 
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('.date').datetimepicker({
         pickTime: false
     });
@@ -534,8 +534,8 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
             }
         }, 500);
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('#review').delegate('.pagination a', 'click', function (e) {
         e.preventDefault();
 
@@ -596,7 +596,7 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
         });
 
     });
-//--></script>
+</script>
 <script>
     $('.facebook').on('click', function(){
         window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL), 'facebook-popup', 'height=400,width=600');

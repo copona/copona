@@ -150,7 +150,7 @@
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
-<script type="text/javascript"><!--
+<script>
 $('select[name=\'country_id\']').on('change', function () {
         $.ajax({
             url: 'index.php?route=affiliate/edit/country&country_id=' + this.value,
@@ -193,5 +193,5 @@ $('select[name=\'country_id\']').on('change', function () {
     });
 
     $('select[name=\'country_id\']').trigger('change');
-//--></script>
+</script>
 <?php echo $footer; ?>

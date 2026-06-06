@@ -84,7 +84,7 @@
         }
         });
 //</script>
-<script type="text/javascript"><!--
+<script>
             $('#button-confirm').bind('click', function () {
         $.ajax({
             url: 'index.php?route=extension/payment/sagepay_server/send',
@@ -117,8 +117,8 @@
             }
         });
     });
-                    //--></script>
-<script type="text/javascript"><!--
+                    </script>
+<script>
     $('#button-delete').bind('click', function () {
         if (confirm('<?php echo $text_confirm_delete; ?>')) {
                         $.ajax({
@@ -151,4 +151,4 @@
                                         }             });
         }
     });
-//--></script>
+</script>

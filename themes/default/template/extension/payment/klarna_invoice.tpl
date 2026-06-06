@@ -102,7 +102,7 @@
     <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
   </div>
 </div>
-<script type="text/javascript"><!--
+<script>
 $('#button-confirm').on('click', function () {
         $.ajax({
             url: 'index.php?route=extension/payment/klarna_invoice/send',
@@ -129,4 +129,4 @@ $('#button-confirm').on('click', function () {
             }
         });
     });
-//--></script>
+</script>

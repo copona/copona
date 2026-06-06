@@ -91,7 +91,7 @@
     <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"/>
   </div>
 </div>
-<script type="text/javascript"><!--
+<script>
 $('#button-confirm').bind('click', function () {
         $.ajax({
             url: 'index.php?route=extension/payment/firstdata_remote/send',
@@ -139,4 +139,4 @@ $('#button-confirm').bind('click', function () {
             }
 <?php } ?>
     });
-//--></script>
+</script>

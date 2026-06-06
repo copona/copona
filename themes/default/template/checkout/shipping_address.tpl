@@ -205,7 +205,7 @@
     </div>
   </div>
 </form>
-<script type="text/javascript"><!--
+<script>
 $('input[name=\'shipping_address\']').on('change', function () {
         if (this.value == 'new') {
             $('#shipping-existing').hide();
@@ -215,8 +215,8 @@ $('input[name=\'shipping_address\']').on('change', function () {
             $('#shipping-new').hide();
         }
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('#collapse-shipping-address .form-group[data-sort]').detach().each(function () {
         if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#collapse-shipping-address .form-group').length - 2) {
             $('#collapse-shipping-address .form-group').eq(parseInt($(this).attr('data-sort')) + 2).before(this);
@@ -234,8 +234,8 @@ $('input[name=\'shipping_address\']').on('change', function () {
             $('#collapse-shipping-address .form-group:first').before(this);
         }
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('#collapse-shipping-address button[id^=\'button-shipping-custom-field\']').on('click', function () {
         var node = this;
 
@@ -287,8 +287,8 @@ $('input[name=\'shipping_address\']').on('change', function () {
             }
         }, 500);
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('.date').datetimepicker({
         pickTime: false
     });
@@ -301,8 +301,8 @@ $('input[name=\'shipping_address\']').on('change', function () {
         pickDate: true,
         pickTime: true
     });
-//--></script>
-<script type="text/javascript"><!--
+</script>
+<script>
     $('#collapse-shipping-address select[name=\'country_id\']').on('change', function () {
         $.ajax({
             url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
@@ -345,4 +345,4 @@ $('input[name=\'shipping_address\']').on('change', function () {
     });
 
     $('#collapse-shipping-address select[name=\'country_id\']').trigger('change');
-//--></script>
+</script>

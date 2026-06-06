@@ -111,7 +111,7 @@
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
-<script type="text/javascript"><!--
+<script>
 $('input[name=\'payment\']').on('change', function () {
         $('.payment').hide();
 
@@ -119,5 +119,5 @@ $('input[name=\'payment\']').on('change', function () {
     });
 
     $('input[name=\'payment\']:checked').trigger('change');
-//--></script>
+</script>
 <?php echo $footer; ?>

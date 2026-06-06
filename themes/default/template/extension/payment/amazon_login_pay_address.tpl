@@ -27,7 +27,7 @@
   <input type="hidden" name="addressSelected" value="0" />
   <?php echo $content_bottom; ?>
 </div>
-<script type="text/javascript"><!--
+<script>
 $(document).ready(function () {
         amazon.Login.setClientId('<?php echo $amazon_login_pay_client_id; ?>');
 
@@ -106,5 +106,5 @@ $(document).ready(function () {
         }).bind("addressBookWidgetDiv");
 
     });
-    //--></script>
+    </script>
 <?php echo $footer; ?>
