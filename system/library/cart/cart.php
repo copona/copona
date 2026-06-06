@@ -297,8 +297,8 @@ class Cart {
                     );
                 }
 
-                // Stock
-                if (!$product_query->row['quantity'] || ($product_query->row['quantity'] < $cart['quantity'])) {
+                // Stock: only check quantity when the product subtracts from inventory
+                if ($product_query->row['subtract'] && (!$product_query->row['quantity'] || ($product_query->row['quantity'] < $cart['quantity']))) {
                     $stock = false;
                 }
 

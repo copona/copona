@@ -452,12 +452,13 @@ class ControllerProductProduct extends Controller {
                 } elseif ($option['type'] == 'text' || $option['type'] == 'textarea' || $option['type'] == 'file' || $option['type'] == 'date' || $option['type'] == 'datetime' || $option['type'] == 'time') {
 
                     $data['options'][] = array(
-                        'product_option_id' => $option['product_option_id'],
-                        'option_id'         => $option['option_id'],
-                        'name'              => $option['name'],
-                        'type'              => $option['type'],
-                        'product_option_value'      => $option['value'],
-                        'required'          => $option['required']
+                        'product_option_id'    => $option['product_option_id'],
+                        'option_id'            => $option['option_id'],
+                        'name'                 => $option['name'],
+                        'type'                 => $option['type'],
+                        'product_option_value' => $option['value'],
+                        'value'                => $option['value'],
+                        'required'             => $option['required']
                     );
                 } elseif ($option['type'] == 'custom') {
                     $data['options'][] = array(
