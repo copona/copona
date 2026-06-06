@@ -147,7 +147,7 @@ class ModelCatalogProduct extends Model {
 
 
         // Update content meta - delete, if empty!
-        $this->model_catalog_content->updateContentMeta($product_id, 'product', $data['content_meta']);
+        $this->model_catalog_content->updateContentMeta($product_id, 'product', $data['content_meta'] ?? []);
 
         if (isset($data['product_download'])) {
             foreach ($data['product_download'] as $download_id) {
@@ -620,6 +620,8 @@ class ModelCatalogProduct extends Model {
             $data['product_layout'] = $this->getProductLayouts($product_id);
             $data['product_store'] = $this->getProductStores($product_id);
             $data['product_recurrings'] = $this->getRecurrings($product_id);
+            $this->load->model('catalog/content');
+            $data['content_meta'] = $this->model_catalog_content->getContentMeta($product_id, 'product');
 
             return $this->addProduct($data);
         }
@@ -673,6 +675,10 @@ class ModelCatalogProduct extends Model {
                . "LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) "
                . "LEFT JOIN " . DB_PREFIX . "product_to_product p2p ON (p.product_id = p2p.product_id) "
                . "WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+        if (!empty($data['filter_category_id'])) {
+            $sql .= " AND p.product_id IN (SELECT product_id FROM " . DB_PREFIX . "product_to_category WHERE category_id = '" . (int)$data['filter_category_id'] . "')";
+        }
 
         if (!empty($data['filter_name'])) {
             $sql .= " AND ( pd.name LIKE '%" . $this->db->escape(str_replace('&quot;', '"', $data['filter_name'])) . "%'";
@@ -1014,6 +1020,10 @@ class ModelCatalogProduct extends Model {
         $sql = "SELECT COUNT(DISTINCT p.product_id) AS total FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id)";
 
         $sql .= " WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+        if (!empty($data['filter_category_id'])) {
+            $sql .= " AND p.product_id IN (SELECT product_id FROM " . DB_PREFIX . "product_to_category WHERE category_id = '" . (int)$data['filter_category_id'] . "')";
+        }
 
         if (!empty($data['filter_name'])) {
             $sql .= " AND pd.name LIKE '%" . $this->db->escape($data['filter_name']) . "%'";

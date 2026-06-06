@@ -279,6 +279,12 @@ class ControllerCatalogProduct extends Controller {
             $filter_image = null;
         }
 
+        if (isset($this->request->get['filter_category_id'])) {
+            $filter_category_id = (int)$this->request->get['filter_category_id'];
+        } else {
+            $filter_category_id = null;
+        }
+
         if (isset($this->request->get['sort'])) {
             $sort = $this->request->get['sort'];
         } else {
@@ -323,6 +329,10 @@ class ControllerCatalogProduct extends Controller {
             $url .= '&filter_image=' . $this->request->get['filter_image'];
         }
 
+        if ($filter_category_id) {
+            $url .= '&filter_category_id=' . $filter_category_id;
+        }
+
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
         }
@@ -354,17 +364,18 @@ class ControllerCatalogProduct extends Controller {
         $data['products'] = array();
 
         $filter_data = array(
-            'filter_name'     => $filter_name,
-            'filter_model'    => $filter_model,
-            'filter_price'    => $filter_price,
-            'filter_quantity' => $filter_quantity,
-            'filter_status'   => $filter_status,
-            'filter_image'    => $filter_image,
-            'sort'            => $sort,
-            'order'           => $order,
-            'start'           => ($page - 1) * $this->config->get('config_limit_admin'),
-            'default_product' => true,
-            'limit'           => $this->config->get('config_limit_admin')
+            'filter_name'        => $filter_name,
+            'filter_model'       => $filter_model,
+            'filter_price'       => $filter_price,
+            'filter_quantity'    => $filter_quantity,
+            'filter_status'      => $filter_status,
+            'filter_image'       => $filter_image,
+            'filter_category_id' => $filter_category_id,
+            'sort'               => $sort,
+            'order'              => $order,
+            'start'              => ($page - 1) * $this->config->get('config_limit_admin'),
+            'default_product'    => true,
+            'limit'              => $this->config->get('config_limit_admin')
         );
 
         $this->load->model('tool/image');
@@ -483,6 +494,10 @@ class ControllerCatalogProduct extends Controller {
             $url .= '&filter_image=' . $this->request->get['filter_image'];
         }
 
+        if (!empty($this->request->get['filter_category_id'])) {
+            $url .= '&filter_category_id=' . (int)$this->request->get['filter_category_id'];
+        }
+
         if ($order == 'ASC') {
             $url .= '&order=DESC';
         } else {
@@ -526,6 +541,10 @@ class ControllerCatalogProduct extends Controller {
             $url .= '&filter_image=' . $this->request->get['filter_image'];
         }
 
+        if (!empty($this->request->get['filter_category_id'])) {
+            $url .= '&filter_category_id=' . (int)$this->request->get['filter_category_id'];
+        }
+
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
         }
@@ -550,6 +569,10 @@ class ControllerCatalogProduct extends Controller {
         $data['filter_quantity'] = $filter_quantity;
         $data['filter_status'] = $filter_status;
         $data['filter_image'] = $filter_image;
+        $data['filter_category_id'] = $filter_category_id;
+
+        $this->load->model('catalog/category');
+        $data['filter_categories'] = $this->model_catalog_category->getCategories(array('sort' => 'name', 'order' => 'ASC'));
 
         $data['sort'] = $sort;
         $data['order'] = $order;

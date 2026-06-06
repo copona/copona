@@ -183,6 +183,36 @@ class ControllerCommonHeader extends Controller {
         $data['logo_meta'] = str_replace(' ', '%20', $this->model_tool_image->resize($this->config->get('config_logo'), 300, 300));
         $data['ogmeta'] = $this->document->getOGMeta();
 
+        // Admin bar: admin and catalog share the same PHP session namespace (default cookie),
+        // so user_id in session means the admin is logged in on this browser.
+        $data['admin_bar'] = false;
+        $data['admin_bar_links'] = array();
+        if (!empty($this->session->data['user_id']) && (int)$this->session->data['user_id'] > 0) {
+            $data['admin_bar'] = true;
+            $token = !empty($this->session->data['token']) ? $this->session->data['token'] : '';
+            $route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
+
+            if ($route === 'product/product' && !empty($this->request->get['product_id'])) {
+                $data['admin_bar_links'][] = array(
+                    'text' => 'Edit Product',
+                    'href' => '/admin/index.php?route=catalog/product/edit&product_id=' . (int)$this->request->get['product_id'] . ($token ? '&token=' . htmlspecialchars($token, ENT_QUOTES) : ''),
+                );
+            } elseif ($route === 'product/category' && !empty($this->request->get['path'])) {
+                $path = $this->request->get['path'];
+                $parts = explode('_', $path);
+                $category_id = (int)end($parts);
+                $data['admin_bar_links'][] = array(
+                    'text' => 'Edit Category',
+                    'href' => '/admin/index.php?route=catalog/category/edit&category_id=' . $category_id . ($token ? '&token=' . htmlspecialchars($token, ENT_QUOTES) : ''),
+                );
+            } elseif ($route === 'information/information' && !empty($this->request->get['information_id'])) {
+                $data['admin_bar_links'][] = array(
+                    'text' => 'Edit Page',
+                    'href' => '/admin/index.php?route=catalog/information/edit&information_id=' . (int)$this->request->get['information_id'] . ($token ? '&token=' . htmlspecialchars($token, ENT_QUOTES) : ''),
+                );
+            }
+        }
+
         $this->hook->getHook('header/index/after', $data);
 
         return $this->load->view('common/header', $data);

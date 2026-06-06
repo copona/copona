@@ -157,7 +157,7 @@ class ControllerProductProduct extends Controller {
         $product_info = $this->model_catalog_product->getProduct($product_id);
 
         $data['group_products'] = array();
-        if ($product_info['product_group_id']) {
+        if ($product_info && $product_info['product_group_id']) {
 
             $filter = array(
                 'group_products'   => true,
@@ -332,20 +332,16 @@ class ControllerProductProduct extends Controller {
             $results = $this->model_catalog_product->getProductImages($product_id);
 
             foreach ($results as $result) {
+                $image_url = !empty($result['image_url']) ? $result['image_url'] : '';
 
-                $popup = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
-                $thumb = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
-                $image = $this->url->getImageUrlOriginal( $result['image'] );
-                $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}($result['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'));
-
-
-                if (!$thumb) {
-                    // There is not a smallest need to create "no image", if there is NO IMAGE! :)
+                if (empty($result['image']) && empty($image_url)) {
                     continue;
-                    // $image = $popup = $thumb = $image_mid = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}(Config::get('config_no_image', 'placeholder.png'),
-                    // $this->config->get($this->config->get('config_theme') . '_image_additional_width'),
-                    // $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
                 }
+
+                $thumb     = $this->model_tool_image->productImage($result['image'], $image_url, $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'), $this->config->get('theme_default_product_info_thumb_resize'));
+                $popup     = $this->model_tool_image->productImage($result['image'], $image_url, $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'), $this->config->get('theme_default_product_info_popup_resize'));
+                $image_mid = $this->model_tool_image->productImage($result['image'], $image_url, $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'), $this->config->get('theme_default_product_info_image_mid_resize'));
+                $image     = !empty($result['image']) ? $this->url->getImageUrlOriginal($result['image']) : $image_url;
 
 
                 $data['images'][] = array(
@@ -360,10 +356,7 @@ class ControllerProductProduct extends Controller {
 
 
                 // Additional Og Images.
-                $this->document->addOGMeta('property="og:image"',
-                    $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}($result['image'],
-                        $this->config->get($this->config->get('config_theme') . '_image_popup_width'),
-                        $this->config->get($this->config->get('config_theme') . '_image_popup_height')));
+                $this->document->addOGMeta('property="og:image"', $popup);
                 $this->document->addOGMeta('property="og:image:width"', $this->config->get($this->config->get('config_theme') . '_image_popup_width'));
                 $this->document->addOGMeta('property="og:image:height"', $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
             }
