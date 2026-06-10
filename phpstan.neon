@@ -1,0 +1,14 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 1
+    paths:
+        - catalog
+        - system/engine
+        - system/library
+    excludePaths:
+        - vendor
+        - storage
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false

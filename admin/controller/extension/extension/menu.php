@@ -1,8 +1,11 @@
 <?php
-class ControllerExtensionExtensionMenu extends Controller {
-    private $error = array();
 
-    public function index() {
+class ControllerExtensionExtensionMenu extends Controller
+{
+    private $error = [];
+
+    public function index()
+    {
         $this->load->language('extension/extension/menu');
 
         $this->load->model('setting/extension');
@@ -10,7 +13,8 @@ class ControllerExtensionExtensionMenu extends Controller {
         $this->getList();
     }
 
-    public function install() {
+    public function install()
+    {
         $this->load->language('extension/extension/menu');
 
         $this->load->model('setting/extension');
@@ -32,7 +36,8 @@ class ControllerExtensionExtensionMenu extends Controller {
         $this->getList();
     }
 
-    public function uninstall() {
+    public function uninstall()
+    {
         $this->load->language('extension/extension/menu');
 
         $this->load->model('setting/extension');
@@ -49,10 +54,10 @@ class ControllerExtensionExtensionMenu extends Controller {
         $this->getList();
     }
 
-    protected function getList() {
+    protected function getList()
+    {
 
         $data = $this->load->language('extension/extension/menu');
-
 
         $data['text_layout'] = sprintf($this->language->get('text_layout'), $this->url->link('design/layout', 'user_token=' . $this->session->data['token'], true));
 
@@ -80,7 +85,7 @@ class ControllerExtensionExtensionMenu extends Controller {
             }
         }
 
-        $data['extensions'] = array();
+        $data['extensions'] = [];
 
         // Compatibility code for old extension folders
         $files = glob(DIR_APPLICATION . 'controller/extension/menu/*.php');
@@ -91,21 +96,21 @@ class ControllerExtensionExtensionMenu extends Controller {
 
                 $this->load->language('extension/menu/' . $extension, 'extension');
 
-                $data['extensions'][] = array(
-                    'name'      => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
-                    'status'    => $this->config->get('menu_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-                    'module'    => [],
+                $data['extensions'][] = [
+                    'name' => $this->language->get('heading_title') ? $this->language->get('heading_title') : $extension,
+                    'status' => $this->config->get('menu_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+                    'module' => [],
                     'extension' => $extension,
-                    'install'   => $this->url->link('extension/extension/menu/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+                    'install' => $this->url->link('extension/extension/menu/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
                     'uninstall' => $this->url->link('extension/extension/menu/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
                     'installed' => in_array($extension, $extensions),
-                    'edit'      => $this->url->link('extension/menu/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-                );
+                    'edit' => $this->url->link('extension/menu/' . $extension, 'user_token=' . $this->session->data['user_token'], true),
+                ];
                 $this->language->set('heading_title', '');
             }
         }
 
-        $sort_order = array();
+        $sort_order = [];
 
         foreach ($data['extensions'] as $key => $value) {
             $sort_order[$key] = $value['name'];
@@ -116,7 +121,8 @@ class ControllerExtensionExtensionMenu extends Controller {
         $this->response->setOutput($this->load->view('extension/extension/menu', $data));
     }
 
-    protected function validate() {
+    protected function validate()
+    {
         if (!$this->user->hasPermission('modify', 'extension/extension/menu')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }

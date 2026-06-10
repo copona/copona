@@ -1,8 +1,11 @@
 <?php
-class ControllerExtensionShippingLocationBasedShipping extends Controller {
+
+class ControllerExtensionShippingLocationBasedShipping extends Controller
+{
     private $error;
 
-    public function index() {
+    public function index()
+    {
 
         $data = $this->load->language('extension/shipping/location_based_shipping');
 
@@ -12,15 +15,15 @@ class ControllerExtensionShippingLocationBasedShipping extends Controller {
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 
-            $costs = array();
+            $costs = [];
             foreach ($this->request->post['location_based_shipping_cost'] as $cost) {
                 $costs[$cost['group']][] = $cost;
             }
-            $postData = array(
-                'location_based_shipping_status'     => $this->request->post['location_based_shipping_status'],
+            $postData = [
+                'location_based_shipping_status' => $this->request->post['location_based_shipping_status'],
                 'location_based_shipping_sort_order' => $this->request->post['location_based_shipping_sort_order'],
-                'location_based_shipping_cost'       => $costs,
-            );
+                'location_based_shipping_cost' => $costs,
+            ];
 
             $this->model_setting_setting->editSetting('location_based_shipping', $postData);
 
@@ -48,27 +51,27 @@ class ControllerExtensionShippingLocationBasedShipping extends Controller {
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
         $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
 
-        $data['breadcrumbs'] = array();
-        $data['breadcrumbs'][] = array(
-            'text'      => $this->language->get('text_home'),
-            'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
-            'separator' => false
-        );
+        $data['breadcrumbs'] = [];
+        $data['breadcrumbs'][] = [
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
+            'separator' => false,
+        ];
 
-        $data['breadcrumbs'][] = array(
-            'text'      => $this->language->get('text_shipping'),
-            'href'      => $this->url->link('extension/shipping', 'token=' . $this->session->data['token'], 'SSL'),
-            'separator' => ' :: '
-        );
+        $data['breadcrumbs'][] = [
+            'text' => $this->language->get('text_shipping'),
+            'href' => $this->url->link('extension/shipping', 'token=' . $this->session->data['token'], 'SSL'),
+            'separator' => ' :: ',
+        ];
 
-        $data['breadcrumbs'][] = array(
-            'text'      => $this->language->get('heading_title'),
-            'href'      => $this->url->link('extension/shipping/location_based_shipping', 'token=' . $this->session->data['token'], 'SSL'),
-            'separator' => ' :: '
-        );
+        $data['breadcrumbs'][] = [
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('extension/shipping/location_based_shipping', 'token=' . $this->session->data['token'], 'SSL'),
+            'separator' => ' :: ',
+        ];
 
-        $postKeyArray = array( 'location_based_shipping_status', 'location_based_shipping_sort_order',
-            'location_based_shipping_cost' );
+        $postKeyArray = [ 'location_based_shipping_status', 'location_based_shipping_sort_order',
+            'location_based_shipping_cost' ];
         foreach ($postKeyArray as $key) {
             if (isset($this->request->post['location_based_shipping_status'])) {
                 $data[$key] = $this->request->post[$key];
@@ -84,7 +87,8 @@ class ControllerExtensionShippingLocationBasedShipping extends Controller {
         $this->response->setOutput($this->load->view('extension/shipping/location_based_shipping.tpl', $data));
     }
 
-    protected function validate() {
+    protected function validate()
+    {
         if (!$this->user->hasPermission('modify', 'extension/shipping/location_based_shipping')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
@@ -96,12 +100,14 @@ class ControllerExtensionShippingLocationBasedShipping extends Controller {
         }
     }
 
-    public function install() {
+    public function install()
+    {
         // bulk OC3 design install function
         return 0;
     }
 
-    public function uninstall() {
+    public function uninstall()
+    {
         // bulk OC3 design install function
         return 0;
     }
