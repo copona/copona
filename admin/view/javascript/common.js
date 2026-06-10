@@ -341,10 +341,6 @@ $(document).ready(function () {
 
 });
 
-document.addEventListener('click', function () {
-  $('.dropdown-menu').hide();
-});
-
 // Warn, if user exits EDIT form without saveing
 // TODO: implement AreYouSure
 var formSubmitting = false;

@@ -1,4 +1,5 @@
 <?php
+
 // Heading
 $_['heading_title'] = 'Оповещение по SMS &copy; <a href="http://opencart-russia.ru/">opencart-russia.ru</a>';
 $_['heading_title1'] = 'Оповещение по SMS &copy;  opencart-russia.ru';
@@ -12,7 +13,6 @@ $_['text_edit'] = 'Настройки модуля';
 $_['entry_sms_alert_tel'] = 'Номер телефона для оповещения о заказе';
 $_['entry_sms_alert_id'] = 'Ваш API_ID';
 $_['entry_processing_status'] = 'Статусы заказа для оповещения';
-
 
 $_['entry_status'] = 'Статус';
 
@@ -29,8 +29,3 @@ $_['error_permission'] = 'У Вас нет прав для управления 
 $_['error_sms_alert_tel'] = 'Необходим телефон для оповещения';
 $_['error_sms_alert_id'] = 'Необходим ваш API_ID из личного кабинета';
 $_['error_sms_alert_processing_status'] = 'Необходимо выбрать статус заказа для оповещения';
-
-
-
-
-
