@@ -1,13 +1,17 @@
 <?php
-class ControllerUserPassword extends Controller {
-    private $error = array();
 
-    public function index() {
+class ControllerUserPassword extends Controller
+{
+    private $error = [];
+
+    public function index()
+    {
         // $data = $this->language->load('user/user');
         $this->getForm();
     }
 
-    public function change() {
+    public function change()
+    {
         if ($this->request->post && $this->validate()) {
 
         } else {
@@ -15,7 +19,8 @@ class ControllerUserPassword extends Controller {
         }
     }
 
-    protected function getForm() {
+    protected function getForm()
+    {
         $data = $this->language->load('user/user');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -27,17 +32,18 @@ class ControllerUserPassword extends Controller {
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
         $this->response->setOutput($this->load->view('user/password', $data));
     }
 
-    protected function validate() {
+    protected function validate()
+    {
         if ($this->request->post['new_password'] != $this->request->post['new_password_confirm']) {
             $this->error['error_confirm'] = 'Paroles nav vienādas!';
         }
 
-        $user_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "user WHERE "
-            . "user_id = '" . (int)$this->session->data['user_id'] . "' AND status = '1' limit 1");
+        $user_query = $this->db->query('SELECT * FROM ' . DB_PREFIX . 'user WHERE '
+            . "user_id = '" . (int) $this->session->data['user_id'] . "' AND status = '1' limit 1");
 
         if (!$user_query->num_rows) {
             return false;
@@ -49,7 +55,7 @@ class ControllerUserPassword extends Controller {
         }
 
         // Update password
-        $password_update = $this->db->query("UPDATE " . DB_PREFIX . "user "
+        $password_update = $this->db->query('UPDATE ' . DB_PREFIX . 'user '
             . "SET password = '" . password_hash($this->request->post['new_password'], PASSWORD_DEFAULT) . "' "
             . "WHERE user_id = '" . $this->session->data['user_id'] . "'");
 
@@ -57,4 +63,3 @@ class ControllerUserPassword extends Controller {
     }
 
 }
-?>

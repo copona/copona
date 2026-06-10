@@ -1,7 +1,9 @@
 <?php
 
-class ControllerExtensionPaymentBankTransfer extends Controller {
-    public function index() {
+class ControllerExtensionPaymentBankTransfer extends Controller
+{
+    public function index()
+    {
         $this->load->language('extension/payment/bank_transfer');
 
         $data['text_instruction'] = $this->language->get('text_instruction');
@@ -19,7 +21,8 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
         return $this->load->view('extension/payment/bank_transfer', $data);
     }
 
-    public function confirm() {
+    public function confirm()
+    {
 
         $json = [];
 
@@ -32,12 +35,16 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
             $instruction = html_entity_decode($instruction, ENT_QUOTES, 'UTF-8');
             $instruction = html_to_plaintext($instruction, true);
 
-            $comment = $this->language->get('text_instruction') . ":";
+            $comment = $this->language->get('text_instruction') . ':';
             $comment .= $instruction;
             $comment .= $this->language->get('text_payment');
 
-            $this->model_checkout_order->addOrderHistory($this->session->data['order_id'],
-                $this->config->get('bank_transfer_order_status_id'), $comment, true);
+            $this->model_checkout_order->addOrderHistory(
+                $this->session->data['order_id'],
+                $this->config->get('bank_transfer_order_status_id'),
+                $comment,
+                true
+            );
 
             $json['message'] = 'Order created!';
             $json['order_id'] = $this->session->data['order_id'];

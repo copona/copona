@@ -2,22 +2,26 @@
 
 namespace Session;
 
-class File extends \SessionHandler {
-
-    public function create_sid() {
+class File extends \SessionHandler
+{
+    public function create_sid(): string
+    {
         return parent::create_sid();
     }
 
-    public function open($path, $name) {
+    public function open(string $path, string $name): bool
+    {
         return true;
     }
 
-    public function close() {
+    public function close(): bool
+    {
         return true;
     }
 
-    public function read($session_id) {
-        $file = session_save_path() . '/sess_' . $session_id;
+    public function read(string $id): string|false
+    {
+        $file = session_save_path() . '/sess_' . $id;
 
         if (is_file($file)) {
             $handle = fopen($file, 'r');
@@ -33,11 +37,12 @@ class File extends \SessionHandler {
             return $data;
         }
 
-        return null;
+        return false;
     }
 
-    public function write($session_id, $data) {
-        $file = session_save_path() . '/sess_' . $session_id;
+    public function write(string $id, string $data): bool
+    {
+        $file = session_save_path() . '/sess_' . $id;
 
         $handle = fopen($file, 'w');
 
@@ -54,16 +59,19 @@ class File extends \SessionHandler {
         return true;
     }
 
-    public function destroy($session_id) {
-        $file = session_save_path() . '/sess_' . $session_id;
+    public function destroy(string $id): bool
+    {
+        $file = session_save_path() . '/sess_' . $id;
 
         if (is_file($file)) {
             unlink($file);
         }
+
+        return true;
     }
 
-    public function gc($maxlifetime) {
-        return parent::gc($maxlifetime);
+    public function gc(int $max_lifetime): int|false
+    {
+        return parent::gc($max_lifetime);
     }
-
 }
