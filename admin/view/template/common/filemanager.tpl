@@ -46,20 +46,6 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-    <?php if ($ckedialog) { ?>
-  $(document).on('click', 'a.thumbnail', function (e) {
-
-
-    e.preventDefault();
-    dialog = CKEDITOR.dialog.getCurrent();
-    var targetElement = '<?php echo $ckedialog; ?>' || null;
-    var target = targetElement.split(':');
-    dialog.setValueOf(target[0], target[1], this.getAttribute('href'));
-    $('#modal-image').modal('hide');
-  });
-    <?php } ?>
-
-
     <?php if ($target) { ?>
   $('#filemanager .view_list').on('click', 'a.thumbnail', function (e) {
     e.preventDefault();

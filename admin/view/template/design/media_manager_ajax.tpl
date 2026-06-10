@@ -77,28 +77,6 @@
 </div>
 <script type="text/javascript"><!--
 
-    <?php if ($ckedialog) { ?>
-    $('a.thumbnail').on('click', function (e) {
-        e.preventDefault();
-        dialog = CKEDITOR.dialog.getCurrent();
-        var targetElement = '<?php echo $ckedialog; ?>' || null;
-        var target = targetElement.split(':');
-        dialog.setValueOf(target[0], target[1], this.getAttribute('href'));
-        $('#modal-image').modal('hide');
-    });
-    <?php } ?>
-
-    <?php if ($ckedialog) { ?>
-    $('a.thumbnail').on('click', function (e) {
-        e.preventDefault();
-        dialog = CKEDITOR.dialog.getCurrent();
-        var targetElement = '<?php echo $ckedialog; ?>' || null;
-        var target = targetElement.split(':');
-        dialog.setValueOf(target[0], target[1], this.getAttribute('href'));
-        $('#modal-image').modal('hide');
-    });
-    <?php } ?>
-
     <?php if ($target) { ?>
 
     $('a.thumbnail').on('click', function (e) {
