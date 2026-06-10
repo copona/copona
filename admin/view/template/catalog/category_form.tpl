@@ -2,11 +2,14 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button onclick="saveAndContinue(event);" form="form-category" data-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
+      <div class="float-end">
+        <?php if ($category_id) { ?>
+          <a class="btn btn-info" href="<?= HTTP_CATALOG ?>index.php?route=product/category&amp;path=<?php echo $category_id; ?>" target="_blank">View category on site</a>
+        <?php } ?>
+        <button onclick="saveAndContinue(event);" form="form-category" data-bs-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
                 class="btn btn-primary savecontinue"><i class="fa fa-save"></i><?= $button_save_continue ?></button>
-        <button type="submit" form="form-category" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+        <button type="submit" form="form-category" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -18,7 +21,7 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
 
@@ -33,22 +36,22 @@
       <?php } ?>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-category" class="form-horizontal">
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>
-            <li><a href="#tab-data" data-toggle="tab"><?php echo $tab_data; ?></a></li>
-            <li><a href="#tab-design" data-toggle="tab"><?php echo $tab_design; ?></a></li>
+            <li class="active"><a href="#tab-general" data-bs-toggle="tab"><?php echo $tab_general; ?></a></li>
+            <li><a href="#tab-data" data-bs-toggle="tab"><?php echo $tab_data; ?></a></li>
+            <li><a href="#tab-design" data-bs-toggle="tab"><?php echo $tab_design; ?></a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
               <ul class="nav nav-tabs lng-image" id="language">
                   <?php foreach ($languages as $language) { ?>
-                    <li><a href="#language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>
+                    <li><a href="#language<?php echo $language['language_id']; ?>" data-bs-toggle="tab"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>
                 <?php } ?>
               </ul>
               <div class="tab-content">
@@ -106,7 +109,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-filter"><span data-toggle="tooltip" title="<?php echo $help_filter; ?>"><?php echo $entry_filter; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-filter"><span data-bs-toggle="tooltip" title="<?php echo $help_filter; ?>"><?php echo $entry_filter; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="filter" value="" placeholder="<?php echo $entry_filter; ?>" id="input-filter" class="form-control" />
                   <div id="category-filter" class="well well-sm" style="height: 150px; overflow: auto;">
@@ -150,7 +153,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_multi_seo_keyword; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-keyword"><span data-bs-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_multi_seo_keyword; ?></span></label>
                 <div class="col-sm-3">
                     <?php foreach ($languages as $language) { ?>
                       <div class="input-group">
@@ -163,7 +166,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_keyword; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-keyword"><span data-bs-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_keyword; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="keyword" value="<?php echo $keyword; ?>" placeholder="<?php echo $entry_keyword; ?>" id="input-keyword" class="form-control" />
                   <?php if ($error_keyword) { ?>
@@ -173,12 +176,12 @@
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label"><?php echo $entry_image; ?></label>
-                <div class="col-sm-10"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a>
+                <div class="col-sm-10"><a href="" id="thumb-image" data-bs-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a>
                   <input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" />
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-top"><span data-toggle="tooltip" title="<?php echo $help_top; ?>"><?php echo $entry_top; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-top"><span data-bs-toggle="tooltip" title="<?php echo $help_top; ?>"><?php echo $entry_top; ?></span></label>
                 <div class="col-sm-10">
                   <div class="checkbox">
                     <label>
@@ -192,7 +195,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-column"><span data-toggle="tooltip" title="<?php echo $help_column; ?>"><?php echo $entry_column; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-column"><span data-bs-toggle="tooltip" title="<?php echo $help_column; ?>"><?php echo $entry_column; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="column" value="<?php echo $column; ?>" placeholder="<?php echo $entry_column; ?>" id="input-column" class="form-control" />
                 </div>
@@ -223,14 +226,14 @@
                 <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <td class="text-left"><?php echo $entry_store; ?></td>
-                      <td class="text-left"><?php echo $entry_layout; ?></td>
+                      <td class="text-start"><?php echo $entry_store; ?></td>
+                      <td class="text-start"><?php echo $entry_layout; ?></td>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td class="text-left"><?php echo $text_default; ?></td>
-                      <td class="text-left"><select name="category_layout[0]" class="form-control">
+                      <td class="text-start"><?php echo $text_default; ?></td>
+                      <td class="text-start"><select name="category_layout[0]" class="form-control">
                           <option value=""></option>
                           <?php foreach ($layouts as $layout) { ?>
                               <?php if (isset($category_layout[0]) && $category_layout[0] == $layout['layout_id']) { ?>
@@ -243,8 +246,8 @@
                     </tr>
                     <?php foreach ($stores as $store) { ?>
                         <tr>
-                          <td class="text-left"><?php echo $store['name']; ?></td>
-                          <td class="text-left"><select name="category_layout[<?php echo $store['store_id']; ?>]" class="form-control">
+                          <td class="text-start"><?php echo $store['name']; ?></td>
+                          <td class="text-start"><select name="category_layout[<?php echo $store['store_id']; ?>]" class="form-control">
                               <option value=""></option>
                               <?php foreach ($layouts as $layout) { ?>
                                   <?php if (isset($category_layout[$store['store_id']]) && $category_layout[$store['store_id']] == $layout['layout_id']) { ?>
@@ -262,11 +265,11 @@
             </div>
           </div>
         </form>
-        <div class="pull-right">
-          <button onclick="saveAndContinue(event);" form="form-category" data-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
+        <div class="float-end">
+          <button onclick="saveAndContinue(event);" form="form-category" data-bs-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
                   class="btn btn-primary"><i class="fa fa-save"></i><?= $button_save_continue ?></button>
-          <button type="submit" form="form-category" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-          <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+          <button type="submit" form="form-category" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+          <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       </div>
     </div>
   </div>

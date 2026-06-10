@@ -2,16 +2,16 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
+      <div class="float-end">
 
         <?php if ($product_id) { ?>
-          <a class="btn btn-info" href="/?route=product/product&amp;product_id=<?php echo $product_id; ?>" target="_blank">View product on site</a>
+          <a class="btn btn-info" href="<?= HTTP_CATALOG ?>index.php?route=product/product&amp;product_id=<?php echo $product_id; ?>" target="_blank">View product on site</a>
         <?php }; ?>
 
-        <button onclick="saveAndContinue(event);" form="form-product" data-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
+        <button onclick="saveAndContinue(event);" form="form-product" data-bs-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
                 class="btn btn-primary savecontinue"><i class="fa fa-save"></i><?= $button_save_continue ?></button>
-        <button type="submit" form="form-product" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+        <button type="submit" form="form-product" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -23,31 +23,31 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
       <?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>
+            <li class="active"><a href="#tab-general" data-bs-toggle="tab"><?php echo $tab_general; ?></a></li>
               <?php if (isset($this->request->get['product_id'])) { ?>
-                <li><a href="#tab-group" data-toggle="tab"><?php echo $tab_group; ?></a></li>
+                <li><a href="#tab-group" data-bs-toggle="tab"><?php echo $tab_group; ?></a></li>
               <?php } ?>
-            <li><a href="#tab-data" data-toggle="tab"><?php echo $tab_data; ?></a></li>
-            <li><a href="#tab-image" data-toggle="tab"><?php echo $tab_image; ?></a></li>
-            <li><a href="#tab-links" data-toggle="tab"><?php echo $tab_links; ?></a></li>
-            <li><a href="#tab-attribute" data-toggle="tab"><?php echo $tab_attribute; ?></a></li>
-            <li><a href="#tab-option" data-toggle="tab"><?php echo $tab_option; ?></a></li>
-            <li><a href="#tab-recurring" data-toggle="tab"><?php echo $tab_recurring; ?></a></li>
-            <li><a href="#tab-discount" data-toggle="tab"><?php echo $tab_discount; ?></a></li>
-            <li><a href="#tab-special" data-toggle="tab"><?php echo $tab_special; ?></a></li>
-            <li><a href="#tab-reward" data-toggle="tab"><?php echo $tab_reward; ?></a></li>
-            <li><a href="#tab-design" data-toggle="tab"><?php echo $tab_design; ?></a></li>
-            <li><a href="#tab-custom_fields" data-toggle="tab"><?php echo $tab_custom_fields; ?></a></li>
+            <li><a href="#tab-data" data-bs-toggle="tab"><?php echo $tab_data; ?></a></li>
+            <li><a href="#tab-image" data-bs-toggle="tab"><?php echo $tab_image; ?></a></li>
+            <li><a href="#tab-links" data-bs-toggle="tab"><?php echo $tab_links; ?></a></li>
+            <li><a href="#tab-attribute" data-bs-toggle="tab"><?php echo $tab_attribute; ?></a></li>
+            <li><a href="#tab-option" data-bs-toggle="tab"><?php echo $tab_option; ?></a></li>
+            <li><a href="#tab-recurring" data-bs-toggle="tab"><?php echo $tab_recurring; ?></a></li>
+            <li><a href="#tab-discount" data-bs-toggle="tab"><?php echo $tab_discount; ?></a></li>
+            <li><a href="#tab-special" data-bs-toggle="tab"><?php echo $tab_special; ?></a></li>
+            <li><a href="#tab-reward" data-bs-toggle="tab"><?php echo $tab_reward; ?></a></li>
+            <li><a href="#tab-design" data-bs-toggle="tab"><?php echo $tab_design; ?></a></li>
+            <li><a href="#tab-custom_fields" data-bs-toggle="tab"><?php echo $tab_custom_fields; ?></a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
@@ -125,7 +125,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-stock-status"><span data-toggle="tooltip" title="<?php echo $help_stock_status; ?>"><?php echo $entry_stock_status; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-stock-status"><span data-bs-toggle="tooltip" title="<?php echo $help_stock_status; ?>"><?php echo $entry_stock_status; ?></span></label>
                 <div class="col-sm-10">
                   <select name="stock_status_id" id="input-stock-status" class="form-control">
                     <?php foreach ($stock_statuses as $stock_status) { ?>
@@ -145,7 +145,7 @@
               <ul class="nav nav-tabs" id="language">
                   <?php foreach ($languages as $language) { ?>
                     <li>
-                      <a href="#language<?php echo $language['language_id']; ?>" data-toggle="tab">
+                      <a href="#language<?php echo $language['language_id']; ?>" data-bs-toggle="tab">
                         <img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png"
                              title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?>
                       </a>
@@ -197,7 +197,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-tag<?php echo $language['language_id']; ?>"><span data-toggle="tooltip" title="<?php echo $help_tag; ?>"><?php echo $entry_tag; ?></span></label>
+                        <label class="col-sm-2 control-label" for="input-tag<?php echo $language['language_id']; ?>"><span data-bs-toggle="tooltip" title="<?php echo $help_tag; ?>"><?php echo $entry_tag; ?></span></label>
                         <div class="col-sm-10">
                           <input type="text" name="product_description[<?php echo $language['language_id']; ?>][tag]" value="<?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['tag'] : ''; ?>" placeholder="<?php echo $entry_tag; ?>" id="input-tag<?php echo $language['language_id']; ?>" class="form-control" />
                         </div>
@@ -253,7 +253,7 @@
                                   <div class="col-sm-3"><?= $product_group_product['price'] ?></div>
                                   <input name="product_group[<?= $product_group_row ?>][product_id]" type="hidden" value="<?= $product_group_product['product_id'] ?>">
                                   <div class="col-sm-1">
-                                    <button type="button" data-toggle="tooltip" onclick="remove_product(this,<?= $product_group_product['product_id'] ?>);" title="Remove" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button>
+                                    <button type="button" data-bs-toggle="tooltip" onclick="remove_product(this,<?= $product_group_product['product_id'] ?>);" title="Remove" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button>
                                   </div>
                                 </li>
                                     <?php
@@ -265,7 +265,7 @@
                       </div>
                     </div>
                   </div>
-                  <a href="<?php echo $product_group_href ?>" target="_blank" data-toggle="tooltip" title="add product" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                  <a href="<?php echo $product_group_href ?>" target="_blank" data-bs-toggle="tooltip" title="add product" class="btn btn-secondary"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </div>
               <?php } ?>
               <?php if (isset($this->request->get['product_group_id']) && $this->request->get['product_group_id']) { ?>
@@ -278,7 +278,7 @@
 
                 <?php if ($this->config->get('config_use_sku') == 1) { ?>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-sku"><span data-toggle="tooltip" title="<?php echo $help_sku; ?>"><?php echo $entry_sku; ?></span></label>
+                    <label class="col-sm-2 control-label" for="input-sku"><span data-bs-toggle="tooltip" title="<?php echo $help_sku; ?>"><?php echo $entry_sku; ?></span></label>
                     <div class="col-sm-10">
                       <input type="text" name="sku" value="<?php echo $sku; ?>" placeholder="<?php echo $entry_sku; ?>" id="input-sku" class="form-control" />
                     </div>
@@ -289,7 +289,7 @@
 
                 <?php if ($this->config->get('config_use_upc') == 1) { ?>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-upc"><span data-toggle="tooltip" title="<?php echo $help_upc; ?>"><?php echo $entry_upc; ?></span></label>
+                    <label class="col-sm-2 control-label" for="input-upc"><span data-bs-toggle="tooltip" title="<?php echo $help_upc; ?>"><?php echo $entry_upc; ?></span></label>
                     <div class="col-sm-10">
                       <input type="text" name="upc" value="<?php echo $upc; ?>" placeholder="<?php echo $entry_upc; ?>" id="input-upc" class="form-control" />
                     </div>
@@ -300,7 +300,7 @@
 
                 <?php if ($this->config->get('config_use_ean') == 1) { ?>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-ean"><span data-toggle="tooltip" title="<?php echo $help_ean; ?>"><?php echo $entry_ean; ?></span></label>
+                    <label class="col-sm-2 control-label" for="input-ean"><span data-bs-toggle="tooltip" title="<?php echo $help_ean; ?>"><?php echo $entry_ean; ?></span></label>
                     <div class="col-sm-10">
                       <input type="text" name="ean" value="<?php echo $ean; ?>" placeholder="<?php echo $entry_ean; ?>" id="input-ean" class="form-control" />
                     </div>
@@ -311,7 +311,7 @@
 
                 <?php if ($this->config->get('config_use_jan') == 1) { ?>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-jan"><span data-toggle="tooltip" title="<?php echo $help_jan; ?>"><?php echo $entry_jan; ?></span></label>
+                    <label class="col-sm-2 control-label" for="input-jan"><span data-bs-toggle="tooltip" title="<?php echo $help_jan; ?>"><?php echo $entry_jan; ?></span></label>
                     <div class="col-sm-10">
                       <input type="text" name="jan" value="<?php echo $jan; ?>" placeholder="<?php echo $entry_jan; ?>" id="input-jan" class="form-control" />
                     </div>
@@ -322,7 +322,7 @@
 
                 <?php if ($this->config->get('config_use_isbn') == 1) { ?>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-isbn"><span data-toggle="tooltip" title="<?php echo $help_isbn; ?>"><?php echo $entry_isbn; ?></span></label>
+                    <label class="col-sm-2 control-label" for="input-isbn"><span data-bs-toggle="tooltip" title="<?php echo $help_isbn; ?>"><?php echo $entry_isbn; ?></span></label>
                     <div class="col-sm-10">
                       <input type="text" name="isbn" value="<?php echo $isbn; ?>" placeholder="<?php echo $entry_isbn; ?>" id="input-isbn" class="form-control" />
                     </div>
@@ -333,7 +333,7 @@
 
                 <?php if ($this->config->get('config_use_mpn') == 1) { ?>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-mpn"><span data-toggle="tooltip" title="<?php echo $help_mpn; ?>"><?php echo $entry_mpn; ?></span></label>
+                    <label class="col-sm-2 control-label" for="input-mpn"><span data-bs-toggle="tooltip" title="<?php echo $help_mpn; ?>"><?php echo $entry_mpn; ?></span></label>
                     <div class="col-sm-10">
                       <input type="text" name="mpn" value="<?php echo $mpn; ?>" placeholder="<?php echo $entry_mpn; ?>" id="input-mpn" class="form-control" />
                     </div>
@@ -366,7 +366,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-minimum"><span data-toggle="tooltip" title="<?php echo $help_minimum; ?>"><?php echo $entry_minimum; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-minimum"><span data-bs-toggle="tooltip" title="<?php echo $help_minimum; ?>"><?php echo $entry_minimum; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="minimum" value="<?php echo $minimum; ?>" placeholder="<?php echo $entry_minimum; ?>" id="input-minimum" class="form-control" />
                 </div>
@@ -409,7 +409,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_multi_seo_keyword; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-keyword"><span data-bs-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_multi_seo_keyword; ?></span></label>
                 <div class="col-sm-10">
                     <?php
                     foreach ($languages as $language) {
@@ -424,7 +424,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_keyword; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-keyword"><span data-bs-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_keyword; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="keyword" value="<?php echo $keyword; ?>" placeholder="<?php echo $entry_keyword; ?>" id="input-keyword" class="form-control" />
                     <?php if ($error_keyword) { ?>
@@ -438,7 +438,7 @@
                   <div class="input-group date">
                     <input type="text" name="date_available" value="<?php echo $date_available; ?>" placeholder="<?php echo $entry_date_available; ?>" data-date-format="YYYY-MM-DD" id="input-date-available" class="form-control" />
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                      <button class="btn btn-secondary" type="button"><i class="fa fa-calendar"></i></button>
                     </span></div>
                 </div>
               </div>
@@ -504,14 +504,14 @@
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <td class="text-left"><?php echo $entry_image; ?></td>
+                    <td class="text-start"><?php echo $entry_image; ?></td>
                   </tr>
                   </thead>
 
                   <tbody>
                   <tr>
-                    <td class="text-left">
-                      <a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="<?php echo $thumb; ?>" title="<?php echo $thumb; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a>
+                    <td class="text-start">
+                      <a href="" id="thumb-image" data-bs-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="<?php echo $thumb; ?>" title="<?php echo $thumb; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a>
 
                       <input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" />
 
@@ -529,9 +529,9 @@
                 <table id="images" class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <td class="text-left"><?php echo $entry_additional_image; ?></td>
-                    <td class="text-right"><?php echo $entry_additional_image_description; ?></td>
-                    <td class="text-right"><?php echo $entry_sort_order; ?></td>
+                    <td class="text-start"><?php echo $entry_additional_image; ?></td>
+                    <td class="text-end"><?php echo $entry_additional_image_description; ?></td>
+                    <td class="text-end"><?php echo $entry_sort_order; ?></td>
                     <td></td>
                   </tr>
                   </thead>
@@ -539,13 +539,13 @@
                   <?php $image_row = 0; ?>
                   <?php foreach ($product_images as $product_image) { ?>
                     <tr id="image-row<?php echo $image_row; ?>">
-                      <td class="text-left"><a href="" id="thumb-image<?php echo $image_row; ?>" data-toggle="image" class="img-thumbnail"><img src="<?php echo $product_image['thumb']; ?>" alt="<?php echo $product_image['thumb']; ?>" title="<?php echo $product_image['thumb']; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="product_image[<?php echo $image_row; ?>][image]" value="<?php echo $product_image['image']; ?>" id="input-image<?php echo $image_row; ?>" />
+                      <td class="text-start"><a href="" id="thumb-image<?php echo $image_row; ?>" data-bs-toggle="image" class="img-thumbnail"><img src="<?php echo $product_image['thumb']; ?>" alt="<?php echo $product_image['thumb']; ?>" title="<?php echo $product_image['thumb']; ?>" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="product_image[<?php echo $image_row; ?>][image]" value="<?php echo $product_image['image']; ?>" id="input-image<?php echo $image_row; ?>" />
 
                         <a href="#" id="thumb-imagex<?php echo $image_row; ?>" onclick="$('#thumb-image > img').attr('src',$(this).parent().find('.img-thumbnail img').attr('src') );$('#thumb-image').parent().find('input').val($(this).parent().find('input').val() );return false;">set as default</a>
                         <br>Remote url: <input type="text" class="form-control" name="product_image[<?php echo $image_row; ?>][image_url]" value="<?php echo $product_image['image_url']; ?>"
                                    id="input-image-url<?php echo $image_row; ?>" />
                       </td>
-                      <td class="text-right">
+                      <td class="text-end">
                           <?php foreach ($languages as $language) {// pr($product_video) ?>
                             <div class="input-group">
                                   <span class="input-group-addon lng-image">
@@ -555,8 +555,8 @@
                             </div>
                           <?php } ?>
                       </td>
-                      <td class="text-right"><input type="text" name="product_image[<?php echo $image_row; ?>][sort_order]" value="<?php echo $product_image['sort_order']; ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
-                      <td class="text-left"><button type="button" onclick="$('#image-row<?php echo $image_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                      <td class="text-end"><input type="text" name="product_image[<?php echo $image_row; ?>][sort_order]" value="<?php echo $product_image['sort_order']; ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
+                      <td class="text-start"><button type="button" onclick="$('#image-row<?php echo $image_row; ?>').remove();" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                     </tr>
                       <?php $image_row++; ?>
                   <?php } ?>
@@ -564,7 +564,7 @@
                   <tfoot>
                   <tr>
                     <td colspan="3"></td>
-                    <td class="text-left"><button type="button" onclick="addImage();" data-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    <td class="text-start"><button type="button" onclick="addImage();" data-bs-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                   </tr>
                   </tfoot>
                 </table>
@@ -573,8 +573,8 @@
                 <table id="videos" class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <td class="text-left"><?php echo $entry_video; ?></td>
-                    <td class="text-right"><?php echo $entry_sort_order; ?></td>
+                    <td class="text-start"><?php echo $entry_video; ?></td>
+                    <td class="text-end"><?php echo $entry_sort_order; ?></td>
                     <td></td>
                   </tr>
                   </thead>
@@ -584,7 +584,7 @@
 
                   <?php foreach ($product_video as $product_video) { ?>
                     <tr id="video-row<?php echo $video_row; ?>">
-                      <td class="text-right">
+                      <td class="text-end">
                           <?php foreach ($languages as $language) {// pr($product_video) ?>
                             <div class="input-group">
                                       <span class="input-group-addon lng-image">
@@ -594,8 +594,8 @@
                             </div>
                           <?php } ?>
                       </td>
-                      <td class="text-right"><input type="text" name="content_meta[product_video][<?php echo $video_row; ?>][sort_order]" value="<?php echo $product_video['sort_order'] ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
-                      <td class="text-left"><button type="button" onclick="$('#video-row<?php echo $video_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                      <td class="text-end"><input type="text" name="content_meta[product_video][<?php echo $video_row; ?>][sort_order]" value="<?php echo $product_video['sort_order'] ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
+                      <td class="text-start"><button type="button" onclick="$('#video-row<?php echo $video_row; ?>').remove();" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                     </tr>
                       <?php $video_row++; ?>
                   <?php } ?>
@@ -604,7 +604,7 @@
                   <tfoot>
                   <tr>
                     <td colspan="2"></td>
-                    <td class="text-left"><button type="button" onclick="addVideo();" data-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    <td class="text-start"><button type="button" onclick="addVideo();" data-bs-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                   </tr>
                   </tfoot>
                 </table>
@@ -614,14 +614,14 @@
             </div>
             <div class="tab-pane" id="tab-links">
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-manufacturer"><span data-toggle="tooltip" title="<?php echo $help_manufacturer; ?>"><?php echo $entry_manufacturer; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-manufacturer"><span data-bs-toggle="tooltip" title="<?php echo $help_manufacturer; ?>"><?php echo $entry_manufacturer; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="manufacturer" value="<?php echo $manufacturer; ?>" placeholder="<?php echo $entry_manufacturer; ?>" id="input-manufacturer" class="form-control" />
                   <input type="hidden" name="manufacturer_id" value="<?php echo $manufacturer_id; ?>" />
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-category"><span data-toggle="tooltip" title="<?php echo $help_category; ?>"><?php echo $entry_category; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-category"><span data-bs-toggle="tooltip" title="<?php echo $help_category; ?>"><?php echo $entry_category; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="category" value="" placeholder="<?php echo $entry_category; ?>" id="input-category" class="form-control" />
                   <div id="product_category" class="well well-sm" style="height: 150px; overflow: auto;">
@@ -634,7 +634,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-filter"><span data-toggle="tooltip" title="<?php echo $help_filter; ?>"><?php echo $entry_filter; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-filter"><span data-bs-toggle="tooltip" title="<?php echo $help_filter; ?>"><?php echo $entry_filter; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="filter" value="" placeholder="<?php echo $entry_filter; ?>" id="input-filter" class="form-control" />
                   <div id="product-filter" class="well well-sm" style="height: 150px; overflow: auto;">
@@ -711,7 +711,7 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-download"><span data-toggle="tooltip" title="<?php echo $help_download; ?>"><?php echo $entry_download; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-download"><span data-bs-toggle="tooltip" title="<?php echo $help_download; ?>"><?php echo $entry_download; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="download" value="" placeholder="<?php echo $entry_download; ?>" id="input-download" class="form-control" />
                   <div id="product-download" class="well well-sm" style="height: 150px; overflow: auto;">
@@ -724,7 +724,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-related"><span data-toggle="tooltip" title="<?php echo $help_related; ?>"><?php echo $entry_related; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-related"><span data-bs-toggle="tooltip" title="<?php echo $help_related; ?>"><?php echo $entry_related; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="related" value="" placeholder="<?php echo $entry_related; ?>" id="input-related" class="form-control" />
 
@@ -753,8 +753,8 @@
                 <table id="attribute" class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <td class="text-left"><?php echo $entry_attribute; ?></td>
-                    <td class="text-left"><?php echo $entry_text; ?></td>
+                    <td class="text-start"><?php echo $entry_attribute; ?></td>
+                    <td class="text-start"><?php echo $entry_text; ?></td>
                     <td></td>
                   </tr>
                   </thead>
@@ -762,14 +762,14 @@
                   <?php $attribute_row = 0; ?>
                   <?php foreach ($product_attributes as $product_attribute) { ?>
                     <tr id="attribute-row<?php echo $attribute_row; ?>">
-                      <td class="text-left" style="width: 40%;"><input type="text" name="product_attribute[<?php echo $attribute_row; ?>][name]" value="<?php echo $product_attribute['name']; ?>" placeholder="<?php echo $entry_attribute; ?>" class="form-control" />
+                      <td class="text-start" style="width: 40%;"><input type="text" name="product_attribute[<?php echo $attribute_row; ?>][name]" value="<?php echo $product_attribute['name']; ?>" placeholder="<?php echo $entry_attribute; ?>" class="form-control" />
                         <input type="hidden" name="product_attribute[<?php echo $attribute_row; ?>][attribute_id]" value="<?php echo $product_attribute['attribute_id']; ?>" /></td>
-                      <td class="text-left"><?php foreach ($languages as $language) { ?>
+                      <td class="text-start"><?php foreach ($languages as $language) { ?>
                           <div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
                             <textarea name="product_attribute[<?php echo $attribute_row; ?>][product_attribute_description][<?php echo $language['language_id']; ?>][text]" rows="5" placeholder="<?php echo $entry_text; ?>" class="form-control"><?php echo isset($product_attribute['product_attribute_description'][$language['language_id']]) ? $product_attribute['product_attribute_description'][$language['language_id']]['text'] : ''; ?></textarea>
                           </div>
                           <?php } ?></td>
-                      <td class="text-left"><button type="button" onclick="$('#attribute-row<?php echo $attribute_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                      <td class="text-start"><button type="button" onclick="$('#attribute-row<?php echo $attribute_row; ?>').remove();" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                     </tr>
                       <?php $attribute_row++; ?>
                   <?php } ?>
@@ -777,7 +777,7 @@
                   <tfoot>
                   <tr>
                     <td colspan="2"></td>
-                    <td class="text-left"><button type="button" onclick="addAttribute();" data-toggle="tooltip" title="<?php echo $button_attribute_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    <td class="text-start"><button type="button" onclick="addAttribute();" data-bs-toggle="tooltip" title="<?php echo $button_attribute_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                   </tr>
                   </tfoot>
                 </table>
@@ -789,7 +789,7 @@
                   <ul class="nav nav-pills nav-stacked" id="option">
                       <?php $option_row = 0; ?>
                       <?php foreach ($product_options as $product_option) { ?>
-                        <li><a href="#tab-option<?php echo $option_row; ?>" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('a[href=\'#tab-option<?php echo $option_row; ?>\']').parent().remove(); $('#tab-option<?php echo $option_row; ?>').remove(); $('#option a:first').tab('show');"></i> <?php echo $product_option['name']; ?></a></li>
+                        <li><a href="#tab-option<?php echo $option_row; ?>" data-bs-toggle="tab"><i class="fa fa-minus-circle" onclick="$('a[href=\'#tab-option<?php echo $option_row; ?>\']').parent().remove(); $('#tab-option<?php echo $option_row; ?>').remove(); $('#option a:first').tab('show');"></i> <?php echo $product_option['name']; ?></a></li>
                           <?php $option_row++; ?>
                       <?php } ?>
                     <li>
@@ -855,7 +855,7 @@
                                   <div class="input-group date">
                                     <input type="text" name="product_option[<?php echo $option_row; ?>][value]" value="<?php echo $product_option['value']; ?>" placeholder="<?php echo $entry_option_value; ?>" data-date-format="YYYY-MM-DD" id="input-value<?php echo $option_row; ?>" class="form-control" />
                                     <span class="input-group-btn">
-                                      <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                                      <button class="btn btn-secondary" type="button"><i class="fa fa-calendar"></i></button>
                                     </span></div>
                                 </div>
                               </div>
@@ -867,7 +867,7 @@
                                   <div class="input-group time">
                                     <input type="text" name="product_option[<?php echo $option_row; ?>][value]" value="<?php echo $product_option['value']; ?>" placeholder="<?php echo $entry_option_value; ?>" data-date-format="HH:mm" id="input-value<?php echo $option_row; ?>" class="form-control" />
                                     <span class="input-group-btn">
-                                      <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                      <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                     </span></div>
                                 </div>
                               </div>
@@ -879,7 +879,7 @@
                                   <div class="input-group datetime">
                                     <input type="text" name="product_option[<?php echo $option_row; ?>][value]" value="<?php echo $product_option['value']; ?>" placeholder="<?php echo $entry_option_value; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-value<?php echo $option_row; ?>" class="form-control" />
                                     <span class="input-group-btn">
-                                      <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                      <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                     </span></div>
                                 </div>
                               </div>
@@ -896,19 +896,19 @@
                                 <table id="option-value<?php echo $option_row; ?>" class="table table-striped table-bordered table-hover">
                                   <thead>
                                   <tr>
-                                    <td class="text-left"><?php echo $entry_option_value; ?></td>
-                                    <td class="text-right"><?php echo $entry_quantity; ?></td>
-                                    <td class="text-left"><?php echo $entry_subtract; ?></td>
-                                    <td class="text-right"><?php echo $entry_price; ?></td>
-                                    <td class="text-right"><?php echo $entry_option_points; ?></td>
-                                    <td class="text-right"><?php echo $entry_weight; ?></td>
+                                    <td class="text-start"><?php echo $entry_option_value; ?></td>
+                                    <td class="text-end"><?php echo $entry_quantity; ?></td>
+                                    <td class="text-start"><?php echo $entry_subtract; ?></td>
+                                    <td class="text-end"><?php echo $entry_price; ?></td>
+                                    <td class="text-end"><?php echo $entry_option_points; ?></td>
+                                    <td class="text-end"><?php echo $entry_weight; ?></td>
                                     <td></td>
                                   </tr>
                                   </thead>
                                   <tbody>
                                   <?php foreach ($product_option['product_option_value'] as $product_option_value) { ?>
                                     <tr id="option-value-row<?php echo $option_value_row; ?>">
-                                      <td class="text-left"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][option_value_id]" class="form-control">
+                                      <td class="text-start"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][option_value_id]" class="form-control">
                                               <?php if (isset($option_values[$product_option['option_id']])) { ?>
                                                   <?php foreach ($option_values[$product_option['option_id']] as $option_value) { ?>
                                                       <?php if ($option_value['option_value_id'] == $product_option_value['option_value_id']) { ?>
@@ -920,13 +920,13 @@
                                               <?php } ?>
                                             </select>
                                             <input type="hidden" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][product_option_value_id]" value="<?php echo $product_option_value['product_option_value_id']; ?>" /></td>
-                                          <td class="text-right">
+                                          <td class="text-end">
                                             <input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][quantity]" value="<?php echo $product_option_value['quantity']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" />
                                             <br>
                                             Description: <input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][description]" value="<?php echo $product_option_value['description']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" />
                                             Article: <input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][article]" value="<?php echo $product_option_value['article']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" />
                                           </td>
-                                          <td class="text-left"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][subtract]" class="form-control">
+                                          <td class="text-start"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][subtract]" class="form-control">
                                                   <?php if ($product_option_value['subtract']) { ?>
                                                   <option value="1" selected="selected"><?php echo $text_yes; ?></option>
                                                   <option value="0"><?php echo $text_no; ?></option>
@@ -935,7 +935,7 @@
                                                 <option value="0" selected="selected"><?php echo $text_no; ?></option>
                                               <?php } ?>
                                         </select></td>
-                                      <td class="text-right"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][price_prefix]" class="form-control">
+                                      <td class="text-end"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][price_prefix]" class="form-control">
                                               <?php if ($product_option_value['price_prefix'] == '+') { ?>
                                                 <option value="+" selected="selected">+</option>
                                               <?php } else { ?>
@@ -948,7 +948,7 @@
                                               <?php } ?>
                                         </select>
                                         <input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][price]" value="<?php echo $product_option_value['price']; ?>" placeholder="<?php echo $entry_price; ?>" class="form-control" /></td>
-                                      <td class="text-right"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][points_prefix]" class="form-control">
+                                      <td class="text-end"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][points_prefix]" class="form-control">
                                               <?php if ($product_option_value['points_prefix'] == '+') { ?>
                                                 <option value="+" selected="selected">+</option>
                                               <?php } else { ?>
@@ -961,7 +961,7 @@
                                               <?php } ?>
                                         </select>
                                         <input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][points]" value="<?php echo $product_option_value['points']; ?>" placeholder="<?php echo $entry_points; ?>" class="form-control" /></td>
-                                      <td class="text-right"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][weight_prefix]" class="form-control">
+                                      <td class="text-end"><select name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][weight_prefix]" class="form-control">
                                               <?php if ($product_option_value['weight_prefix'] == '+') { ?>
                                                 <option value="+" selected="selected">+</option>
                                               <?php } else { ?>
@@ -974,7 +974,7 @@
                                               <?php } ?>
                                         </select>
                                         <input type="text" name="product_option[<?php echo $option_row; ?>][product_option_value][<?php echo $option_value_row; ?>][weight]" value="<?php echo $product_option_value['weight']; ?>" placeholder="<?php echo $entry_weight; ?>" class="form-control" /></td>
-                                      <td class="text-left"><button type="button" onclick="$(this).tooltip('destroy'); $('#option-value-row<?php echo $option_value_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                                      <td class="text-start"><button type="button" onclick="$(this).tooltip('destroy'); $('#option-value-row<?php echo $option_value_row; ?>').remove();" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                                     </tr>
                                       <?php $option_value_row++; ?>
                                   <?php } ?>
@@ -982,7 +982,7 @@
                                   <tfoot>
                                   <tr>
                                     <td colspan="6"></td>
-                                    <td class="text-left"><button type="button" onclick="addOptionValue('<?php echo $option_row; ?>');" data-toggle="tooltip" title="<?php echo $button_option_value_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                                    <td class="text-start"><button type="button" onclick="addOptionValue('<?php echo $option_row; ?>');" data-bs-toggle="tooltip" title="<?php echo $button_option_value_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                                   </tr>
                                   </tfoot>
                                 </table>
@@ -1007,9 +1007,9 @@
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <td class="text-left"><?php echo $entry_recurring; ?></td>
-                    <td class="text-left"><?php echo $entry_customer_group; ?></td>
-                    <td class="text-left"></td>
+                    <td class="text-start"><?php echo $entry_recurring; ?></td>
+                    <td class="text-start"><?php echo $entry_customer_group; ?></td>
+                    <td class="text-start"></td>
                   </tr>
                   </thead>
                   <tbody>
@@ -1017,7 +1017,7 @@
                   <?php foreach ($product_recurrings as $product_recurring) { ?>
 
                     <tr id="recurring-row<?php echo $recurring_row; ?>">
-                      <td class="text-left"><select name="product_recurring[<?php echo $recurring_row; ?>][recurring_id]" class="form-control">
+                      <td class="text-start"><select name="product_recurring[<?php echo $recurring_row; ?>][recurring_id]" class="form-control">
                               <?php foreach ($recurrings as $recurring) { ?>
                                   <?php if ($recurring['recurring_id'] == $product_recurring['recurring_id']) { ?>
                                   <option value="<?php echo $recurring['recurring_id']; ?>" selected="selected"><?php echo $recurring['name']; ?></option>
@@ -1026,7 +1026,7 @@
                                   <?php } ?>
                               <?php } ?>
                         </select></td>
-                      <td class="text-left"><select name="product_recurring[<?php echo $recurring_row; ?>][customer_group_id]" class="form-control">
+                      <td class="text-start"><select name="product_recurring[<?php echo $recurring_row; ?>][customer_group_id]" class="form-control">
                               <?php foreach ($customer_groups as $customer_group) { ?>
                                   <?php if ($customer_group['customer_group_id'] == $product_recurring['customer_group_id']) { ?>
                                   <option value="<?php echo $customer_group['customer_group_id']; ?>" selected="selected"><?php echo $customer_group['name']; ?></option>
@@ -1035,7 +1035,7 @@
                                   <?php } ?>
                               <?php } ?>
                         </select></td>
-                      <td class="text-left"><button type="button" onclick="$('#recurring-row<?php echo $recurring_row; ?>').remove()" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                      <td class="text-start"><button type="button" onclick="$('#recurring-row<?php echo $recurring_row; ?>').remove()" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                     </tr>
                       <?php $recurring_row++; ?>
                   <?php } ?>
@@ -1043,7 +1043,7 @@
                   <tfoot>
                   <tr>
                     <td colspan="2"></td>
-                    <td class="text-left"><button type="button" onclick="addRecurring()" data-toggle="tooltip" title="<?php echo $button_recurring_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    <td class="text-start"><button type="button" onclick="addRecurring()" data-bs-toggle="tooltip" title="<?php echo $button_recurring_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                   </tr>
                   </tfoot>
                 </table>
@@ -1054,12 +1054,12 @@
                 <table id="discount" class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <td class="text-left"><?php echo $entry_customer_group; ?></td>
-                    <td class="text-right"><?php echo $entry_quantity; ?></td>
-                    <td class="text-right"><?php echo $entry_priority; ?></td>
-                    <td class="text-right"><?php echo $entry_price; ?></td>
-                    <td class="text-left"><?php echo $entry_date_start; ?></td>
-                    <td class="text-left"><?php echo $entry_date_end; ?></td>
+                    <td class="text-start"><?php echo $entry_customer_group; ?></td>
+                    <td class="text-end"><?php echo $entry_quantity; ?></td>
+                    <td class="text-end"><?php echo $entry_priority; ?></td>
+                    <td class="text-end"><?php echo $entry_price; ?></td>
+                    <td class="text-start"><?php echo $entry_date_start; ?></td>
+                    <td class="text-start"><?php echo $entry_date_end; ?></td>
                     <td></td>
                   </tr>
                   </thead>
@@ -1067,7 +1067,7 @@
                   <?php $discount_row = 0; ?>
                   <?php foreach ($product_discounts as $product_discount) { ?>
                     <tr id="discount-row<?php echo $discount_row; ?>">
-                      <td class="text-left"><select name="product_discount[<?php echo $discount_row; ?>][customer_group_id]" class="form-control">
+                      <td class="text-start"><select name="product_discount[<?php echo $discount_row; ?>][customer_group_id]" class="form-control">
                               <?php foreach ($customer_groups as $customer_group) { ?>
                                   <?php if ($customer_group['customer_group_id'] == $product_discount['customer_group_id']) { ?>
                                   <option value="<?php echo $customer_group['customer_group_id']; ?>" selected="selected"><?php echo $customer_group['name']; ?></option>
@@ -1076,20 +1076,20 @@
                                   <?php } ?>
                               <?php } ?>
                         </select></td>
-                      <td class="text-right"><input type="text" name="product_discount[<?php echo $discount_row; ?>][quantity]" value="<?php echo $product_discount['quantity']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" /></td>
-                      <td class="text-right"><input type="text" name="product_discount[<?php echo $discount_row; ?>][priority]" value="<?php echo $product_discount['priority']; ?>" placeholder="<?php echo $entry_priority; ?>" class="form-control" /></td>
-                      <td class="text-right"><input type="text" name="product_discount[<?php echo $discount_row; ?>][price]" value="<?php echo $product_discount['price']; ?>" placeholder="<?php echo $entry_price; ?>" class="form-control" /></td>
-                      <td class="text-left" style="width: 20%;"><div class="input-group date">
+                      <td class="text-end"><input type="text" name="product_discount[<?php echo $discount_row; ?>][quantity]" value="<?php echo $product_discount['quantity']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" /></td>
+                      <td class="text-end"><input type="text" name="product_discount[<?php echo $discount_row; ?>][priority]" value="<?php echo $product_discount['priority']; ?>" placeholder="<?php echo $entry_priority; ?>" class="form-control" /></td>
+                      <td class="text-end"><input type="text" name="product_discount[<?php echo $discount_row; ?>][price]" value="<?php echo $product_discount['price']; ?>" placeholder="<?php echo $entry_price; ?>" class="form-control" /></td>
+                      <td class="text-start" style="width: 20%;"><div class="input-group date">
                           <input type="text" name="product_discount[<?php echo $discount_row; ?>][date_start]" value="<?php echo $product_discount['date_start']; ?>" placeholder="<?php echo $entry_date_start; ?>" data-date-format="YYYY-MM-DD" class="form-control" />
                           <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                                <button class="btn btn-secondary" type="button"><i class="fa fa-calendar"></i></button>
                               </span></div></td>
-                      <td class="text-left" style="width: 20%;"><div class="input-group date">
+                      <td class="text-start" style="width: 20%;"><div class="input-group date">
                           <input type="text" name="product_discount[<?php echo $discount_row; ?>][date_end]" value="<?php echo $product_discount['date_end']; ?>" placeholder="<?php echo $entry_date_end; ?>" data-date-format="YYYY-MM-DD" class="form-control" />
                           <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                                <button class="btn btn-secondary" type="button"><i class="fa fa-calendar"></i></button>
                               </span></div></td>
-                      <td class="text-left"><button type="button" onclick="$('#discount-row<?php echo $discount_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                      <td class="text-start"><button type="button" onclick="$('#discount-row<?php echo $discount_row; ?>').remove();" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                     </tr>
                       <?php $discount_row++; ?>
                   <?php } ?>
@@ -1097,7 +1097,7 @@
                   <tfoot>
                   <tr>
                     <td colspan="6"></td>
-                    <td class="text-left"><button type="button" onclick="addDiscount();" data-toggle="tooltip" title="<?php echo $button_discount_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    <td class="text-start"><button type="button" onclick="addDiscount();" data-bs-toggle="tooltip" title="<?php echo $button_discount_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                   </tr>
                   </tfoot>
                 </table>
@@ -1108,11 +1108,11 @@
                 <table id="special" class="table table-striped table-bordered table-hover">
                   <thead>
                   <tr>
-                    <td class="text-left"><?php echo $entry_customer_group; ?></td>
-                    <td class="text-right"><?php echo $entry_priority; ?></td>
-                    <td class="text-right"><?php echo $entry_price; ?></td>
-                    <td class="text-left"><?php echo $entry_date_start; ?></td>
-                    <td class="text-left"><?php echo $entry_date_end; ?></td>
+                    <td class="text-start"><?php echo $entry_customer_group; ?></td>
+                    <td class="text-end"><?php echo $entry_priority; ?></td>
+                    <td class="text-end"><?php echo $entry_price; ?></td>
+                    <td class="text-start"><?php echo $entry_date_start; ?></td>
+                    <td class="text-start"><?php echo $entry_date_end; ?></td>
                     <td></td>
                   </tr>
                   </thead>
@@ -1120,7 +1120,7 @@
                   <?php $special_row = 0; ?>
                   <?php foreach ($product_specials as $product_special) { ?>
                     <tr id="special-row<?php echo $special_row; ?>">
-                      <td class="text-left"><select name="product_special[<?php echo $special_row; ?>][customer_group_id]" class="form-control">
+                      <td class="text-start"><select name="product_special[<?php echo $special_row; ?>][customer_group_id]" class="form-control">
                               <?php foreach ($customer_groups as $customer_group) { ?>
                                   <?php if ($customer_group['customer_group_id'] == $product_special['customer_group_id']) { ?>
                                   <option value="<?php echo $customer_group['customer_group_id']; ?>" selected="selected"><?php echo $customer_group['name']; ?></option>
@@ -1129,22 +1129,22 @@
                                   <?php } ?>
                               <?php } ?>
                         </select></td>
-                      <td class="text-right"><input type="text" name="product_special[<?php echo $special_row; ?>][priority]" value="<?php echo $product_special['priority']; ?>" placeholder="<?php echo $entry_priority; ?>" class="form-control" /></td>
-                      <td class="text-right">
+                      <td class="text-end"><input type="text" name="product_special[<?php echo $special_row; ?>][priority]" value="<?php echo $product_special['priority']; ?>" placeholder="<?php echo $entry_priority; ?>" class="form-control" /></td>
+                      <td class="text-end">
                         <input type="text" name="product_special[<?php echo $special_row; ?>][price]" value="<?php echo $product_special['price']; ?>" placeholder="<?php echo $entry_price; ?>" class="form-control" />
-                        <input data-toggle="tooltip" title="<?= $label_price_with_base_vat; ?>" placeholder="<?= $label_price_with_base_vat; ?>"  type="text" name="" value="" class="form-control price-vat" />
+                        <input data-bs-toggle="tooltip" title="<?= $label_price_with_base_vat; ?>" placeholder="<?= $label_price_with_base_vat; ?>"  type="text" name="" value="" class="form-control price-vat" />
                       </td>
-                      <td class="text-left" style="width: 20%;"><div class="input-group date">
+                      <td class="text-start" style="width: 20%;"><div class="input-group date">
                           <input type="text" name="product_special[<?php echo $special_row; ?>][date_start]" value="<?php echo $product_special['date_start']; ?>" placeholder="<?php echo $entry_date_start; ?>" data-date-format="YYYY-MM-DD" class="form-control" />
                           <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                                <button class="btn btn-secondary" type="button"><i class="fa fa-calendar"></i></button>
                               </span></div></td>
-                      <td class="text-left" style="width: 20%;"><div class="input-group date">
+                      <td class="text-start" style="width: 20%;"><div class="input-group date">
                           <input type="text" name="product_special[<?php echo $special_row; ?>][date_end]" value="<?php echo $product_special['date_end']; ?>" placeholder="<?php echo $entry_date_end; ?>" data-date-format="YYYY-MM-DD" class="form-control" />
                           <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                                <button class="btn btn-secondary" type="button"><i class="fa fa-calendar"></i></button>
                               </span></div></td>
-                      <td class="text-left"><button type="button" onclick="$('#special-row<?php echo $special_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                      <td class="text-start"><button type="button" onclick="$('#special-row<?php echo $special_row; ?>').remove();" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                     </tr>
                       <?php $special_row++; ?>
                   <?php } ?>
@@ -1152,7 +1152,7 @@
                   <tfoot>
                   <tr>
                     <td colspan="5"></td>
-                    <td class="text-left"><button type="button" onclick="addSpecial();" data-toggle="tooltip" title="<?php echo $button_special_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    <td class="text-start"><button type="button" onclick="addSpecial();" data-bs-toggle="tooltip" title="<?php echo $button_special_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                   </tr>
                   </tfoot>
                 </table>
@@ -1160,7 +1160,7 @@
             </div>
             <div class="tab-pane" id="tab-reward">
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-points"><span data-toggle="tooltip" title="<?php echo $help_points; ?>"><?php echo $entry_points; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-points"><span data-bs-toggle="tooltip" title="<?php echo $help_points; ?>"><?php echo $entry_points; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="points" value="<?php echo $points; ?>" placeholder="<?php echo $entry_points; ?>" id="input-points" class="form-control" />
                 </div>
@@ -1169,15 +1169,15 @@
                 <table class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <td class="text-left"><?php echo $entry_customer_group; ?></td>
-                    <td class="text-right"><?php echo $entry_reward; ?></td>
+                    <td class="text-start"><?php echo $entry_customer_group; ?></td>
+                    <td class="text-end"><?php echo $entry_reward; ?></td>
                   </tr>
                   </thead>
                   <tbody>
                   <?php foreach ($customer_groups as $customer_group) { ?>
                     <tr>
-                      <td class="text-left"><?php echo $customer_group['name']; ?></td>
-                      <td class="text-right"><input type="text" name="product_reward[<?php echo $customer_group['customer_group_id']; ?>][points]" value="<?php echo isset($product_reward[$customer_group['customer_group_id']]) ? $product_reward[$customer_group['customer_group_id']]['points'] : ''; ?>" class="form-control" /></td>
+                      <td class="text-start"><?php echo $customer_group['name']; ?></td>
+                      <td class="text-end"><input type="text" name="product_reward[<?php echo $customer_group['customer_group_id']; ?>][points]" value="<?php echo isset($product_reward[$customer_group['customer_group_id']]) ? $product_reward[$customer_group['customer_group_id']]['points'] : ''; ?>" class="form-control" /></td>
                     </tr>
                   <?php } ?>
                   </tbody>
@@ -1189,14 +1189,14 @@
                 <table class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <td class="text-left"><?php echo $entry_store; ?></td>
-                    <td class="text-left"><?php echo $entry_layout; ?></td>
+                    <td class="text-start"><?php echo $entry_store; ?></td>
+                    <td class="text-start"><?php echo $entry_layout; ?></td>
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
-                    <td class="text-left"><?php echo $text_default; ?></td>
-                    <td class="text-left"><select name="product_layout[0]" class="form-control">
+                    <td class="text-start"><?php echo $text_default; ?></td>
+                    <td class="text-start"><select name="product_layout[0]" class="form-control">
                         <option value=""></option>
                             <?php foreach ($layouts as $layout) { ?>
                                 <?php if (isset($product_layout[0]) && $product_layout[0] == $layout['layout_id']) { ?>
@@ -1209,8 +1209,8 @@
                   </tr>
                   <?php foreach ($stores as $store) { ?>
                     <tr>
-                      <td class="text-left"><?php echo $store['name']; ?></td>
-                      <td class="text-left"><select name="product_layout[<?php echo $store['store_id']; ?>]" class="form-control">
+                      <td class="text-start"><?php echo $store['name']; ?></td>
+                      <td class="text-start"><select name="product_layout[<?php echo $store['store_id']; ?>]" class="form-control">
                           <option value=""></option>
                               <?php foreach ($layouts as $layout) { ?>
                                   <?php if (isset($product_layout[$store['store_id']]) && $product_layout[$store['store_id']] == $layout['layout_id']) { ?>
@@ -1236,11 +1236,11 @@
           </div>
         </form>
 
-        <div class="pull-right">
-          <button onclick="saveAndContinue(event);" form="form-product" data-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
+        <div class="float-end">
+          <button onclick="saveAndContinue(event);" form="form-product" data-bs-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
                   class="btn btn-primary savecontinue"><i class="fa fa-save"></i><?= $button_save_continue ?></button>
-          <button type="submit" form="form-product" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-          <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+          <button type="submit" form="form-product" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+          <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
 
       </div>
     </div>

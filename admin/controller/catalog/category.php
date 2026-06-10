@@ -438,6 +438,8 @@ class ControllerCatalogCategory extends Controller {
             $category_info = $this->model_catalog_category->getCategory($this->request->get['category_id']);
         }
 
+        $data['category_id'] = isset($this->request->get['category_id']) ? (int)$this->request->get['category_id'] : 0;
+
         $data['token'] = $this->session->data['token'];
 
         $this->load->model('localisation/language');
