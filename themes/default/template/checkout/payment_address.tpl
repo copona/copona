@@ -290,20 +290,6 @@ $('input[name=\'payment_address\']').on('change', function () {
     });
 </script>
 <script>
-    $('.date').datetimepicker({
-        pickTime: false
-    });
-
-    $('.time').datetimepicker({
-        pickDate: false
-    });
-
-    $('.datetime').datetimepicker({
-        pickDate: true,
-        pickTime: true
-    });
-</script>
-<script>
     $('#collapse-payment-address select[name=\'country_id\']').on('change', function () {
         $.ajax({
             url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
