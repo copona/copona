@@ -2,9 +2,9 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button id="button-send" data-loading-text="<?php echo $text_loading; ?>" data-toggle="tooltip" title="<?php echo $button_send; ?>" class="btn btn-primary" onclick="send('index.php?route=marketing/contact/send&token=<?php echo $token; ?>');"><i class="fa fa-envelope"></i></button>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <button id="button-send" data-loading-text="<?php echo $text_loading; ?>" data-bs-toggle="tooltip" title="<?php echo $button_send; ?>" class="btn btn-primary" onclick="send('index.php?route=marketing/contact/send&token=<?php echo $token; ?>');"><i class="fa fa-envelope"></i></button>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -14,11 +14,11 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-envelope"></i> <?php echo $heading_title; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-envelope"></i> <?php echo $heading_title; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form class="form-horizontal">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-store"><?php echo $entry_store; ?></label>
@@ -56,21 +56,21 @@
             </div>
           </div>
           <div class="form-group to" id="to-customer">
-            <label class="col-sm-2 control-label" for="input-customer"><span data-toggle="tooltip" title="<?php echo $help_customer; ?>"><?php echo $entry_customer; ?></span></label>
+            <label class="col-sm-2 control-label" for="input-customer"><span data-bs-toggle="tooltip" title="<?php echo $help_customer; ?>"><?php echo $entry_customer; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="customers" value="" placeholder="<?php echo $entry_customer; ?>" id="input-customer" class="form-control" />
               <div class="well well-sm" style="height: 150px; overflow: auto;"></div>
             </div>
           </div>
           <div class="form-group to" id="to-affiliate">
-            <label class="col-sm-2 control-label" for="input-affiliate"><span data-toggle="tooltip" title="<?php echo $help_affiliate; ?>"><?php echo $entry_affiliate; ?></span></label>
+            <label class="col-sm-2 control-label" for="input-affiliate"><span data-bs-toggle="tooltip" title="<?php echo $help_affiliate; ?>"><?php echo $entry_affiliate; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="affiliates" value="" placeholder="<?php echo $entry_affiliate; ?>" id="input-affiliate" class="form-control" />
               <div class="well well-sm" style="height: 150px; overflow: auto;"></div>
             </div>
           </div>
           <div class="form-group to" id="to-product">
-            <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="<?php echo $help_product; ?>"><?php echo $entry_product; ?></span></label>
+            <label class="col-sm-2 control-label" for="input-product"><span data-bs-toggle="tooltip" title="<?php echo $help_product; ?>"><?php echo $entry_product; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="products" value="" placeholder="<?php echo $entry_product; ?>" id="input-product" class="form-control" />
               <div class="well well-sm" style="height: 150px; overflow: auto;"></div>

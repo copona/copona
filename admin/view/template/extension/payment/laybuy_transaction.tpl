@@ -2,8 +2,8 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -15,27 +15,27 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
     <?php if ($success) { ?>
         <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-info-circle"></i> <?php echo $text_transaction_details; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-info-circle"></i> <?php echo $text_transaction_details; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
           <?php if ($transaction) { ?>
             <form action="" method="post" enctype="multipart/form-data" id="form-laybuy-transaction" class="form-horizontal">
               <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab-reference" data-toggle="tab"><?php echo $tab_reference; ?></a></li>
-                <li class=""><a href="#tab-customer" data-toggle="tab"><?php echo $tab_customer; ?></a></li>
-                <li class=""><a href="#tab-payment-plan" data-toggle="tab"><?php echo $tab_payment; ?></a></li>
+                <li class="active"><a href="#tab-reference" data-bs-toggle="tab"><?php echo $tab_reference; ?></a></li>
+                <li class=""><a href="#tab-customer" data-bs-toggle="tab"><?php echo $tab_customer; ?></a></li>
+                <li class=""><a href="#tab-payment-plan" data-bs-toggle="tab"><?php echo $tab_payment; ?></a></li>
                 <?php if ($transaction['status_id'] == 1) { ?>
-                    <li class=""><a href="#tab-modify" data-toggle="tab"><?php echo $tab_modify; ?></a></li>
+                    <li class=""><a href="#tab-modify" data-bs-toggle="tab"><?php echo $tab_modify; ?></a></li>
                 <?php } ?>
               </ul>
               <div class="tab-content">
@@ -241,7 +241,7 @@
                                 <thead>
                                 <th><?php echo $text_payment; ?></th>
                                 <th><?php echo $text_due_date; ?></th>
-                                <th class="text-right"><?php echo $text_amount; ?></th>
+                                <th class="text-end"><?php echo $text_amount; ?></th>
                                 </thead>
                                 <tbody>
                                   <tr>
@@ -477,7 +477,7 @@ var token = '';
             row = '<tr>';
             row += '<td>' + payment.payment + '</td>';
             row += '<td>' + payment.dueDate + '</td>';
-            row += '<td class="text-right">' + symbol_left + payment.amount + symbol_right + '</td>';
+            row += '<td class="text-end">' + symbol_left + payment.amount + symbol_right + '</td>';
             row += '</tr>';
 
             $('#payment-table').find('tbody').append(row);

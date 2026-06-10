@@ -64,17 +64,17 @@
       <table class="list" id="securetrading_pp_transactions">
         <thead>
           <tr>
-            <td class="text-left"><strong><?php echo $text_column_created; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_created; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_type; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_amount; ?></strong></td>
           </tr>
         </thead>
         <tbody>
             <?php foreach ($securetrading_pp_order['transactions'] as $transaction) { ?>
               <tr>
-                <td class="text-left"><?php echo $transaction['created']; ?></td>
-                <td class="text-left"><?php echo $transaction['type']; ?></td>
-                <td class="text-left"><?php echo $transaction['amount']; ?></td>
+                <td class="text-start"><?php echo $transaction['created']; ?></td>
+                <td class="text-start"><?php echo $transaction['type']; ?></td>
+                <td class="text-start"><?php echo $transaction['amount']; ?></td>
               </tr>
           <?php } ?>
         </tbody>
@@ -99,9 +99,9 @@
                     if (data.error == false) {
                         html = '';
                         html += '<tr>';
-                        html += '<td class="text-left">' + data.data.created + '</td>';
-                        html += '<td class="text-left">reversed</td>';
-                        html += '<td class="text-left">0.00</td>';
+                        html += '<td class="text-start">' + data.data.created + '</td>';
+                        html += '<td class="text-start">reversed</td>';
+                        html += '<td class="text-start">0.00</td>';
                         html += '</tr>';
 
                         $('.void_text').text('<?php echo $text_yes; ?>');
@@ -140,9 +140,9 @@
                     if (data.error == false) {
                         html = '';
                         html += '<tr>';
-                        html += '<td class="text-left">' + data.data.created + '</td>';
-                        html += '<td class="text-left">payment</td>';
-                        html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '<td class="text-start">' + data.data.created + '</td>';
+                        html += '<td class="text-start">payment</td>';
+                        html += '<td class="text-start">' + data.data.amount + '</td>';
                         html += '</tr>';
 
                         $('#securetrading_pp_transactions').append(html);
@@ -195,9 +195,9 @@
                     if (data.error == false) {
                         html = '';
                         html += '<tr>';
-                        html += '<td class="text-left">' + data.data.created + '</td>';
-                        html += '<td class="text-left">rebate</td>';
-                        html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '<td class="text-start">' + data.data.created + '</td>';
+                        html += '<td class="text-start">rebate</td>';
+                        html += '<td class="text-start">' + data.data.amount + '</td>';
                         html += '</tr>';
 
                         $('#securetrading_pp_transactions').append(html);

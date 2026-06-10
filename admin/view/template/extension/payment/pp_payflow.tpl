@@ -2,9 +2,9 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button type="submit" form="form-pp-payflow" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <button type="submit" form="form-pp-payflow" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -16,17 +16,17 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-pp-payflow" class="form-horizontal">
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="entry-vendor"><span data-toggle="tooltip" title="<?php echo $help_vendor; ?>"><?php echo $entry_vendor; ?></span></label>
+            <label class="col-sm-2 control-label" for="entry-vendor"><span data-bs-toggle="tooltip" title="<?php echo $help_vendor; ?>"><?php echo $entry_vendor; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="pp_payflow_vendor" value="<?php echo $pp_payflow_vendor; ?>" placeholder="<?php echo $entry_vendor; ?>" id="entry-vendor" class="form-control"/>
               <?php if ($error_vendor) { ?>
@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="entry-user"><span data-toggle="tooltip" title="<?php echo $help_user; ?>"><?php echo $entry_user; ?></span></label>
+            <label class="col-sm-2 control-label" for="entry-user"><span data-bs-toggle="tooltip" title="<?php echo $help_user; ?>"><?php echo $entry_user; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="pp_payflow_user" value="<?php echo $pp_payflow_user; ?>" placeholder="<?php echo $entry_user; ?>" id="entry-user" class="form-control"/>
               <?php if ($error_user) { ?>
@@ -44,7 +44,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="entry-password"><span data-toggle="tooltip" title="<?php echo $help_password; ?>"><?php echo $entry_password; ?></span></label>
+            <label class="col-sm-2 control-label" for="entry-password"><span data-bs-toggle="tooltip" title="<?php echo $help_password; ?>"><?php echo $entry_password; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="pp_payflow_password" value="<?php echo $pp_payflow_password; ?>" placeholder="<?php echo $entry_password; ?>" id="entry-password" class="form-control"/>
               <?php if ($error_password) { ?>
@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="entry-partner"><span data-toggle="tooltip" title="<?php echo $help_partner; ?>"><?php echo $entry_partner; ?></span></label>
+            <label class="col-sm-2 control-label" for="entry-partner"><span data-bs-toggle="tooltip" title="<?php echo $help_partner; ?>"><?php echo $entry_partner; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="pp_payflow_partner" value="<?php echo $pp_payflow_partner; ?>" placeholder="<?php echo $entry_partner; ?>" id="entry-partner" class="form-control"/>
               <?php if ($error_partner) { ?>
@@ -62,7 +62,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-live-demo"><span data-toggle="tooltip" title="<?php echo $help_test; ?>"><?php echo $entry_test; ?></span></label>
+            <label class="col-sm-2 control-label" for="input-live-demo"><span data-bs-toggle="tooltip" title="<?php echo $help_test; ?>"><?php echo $entry_test; ?></span></label>
             <div class="col-sm-10">
               <select name="pp_payflow_test" id="input-live-demo" class="form-control">
                   <?php if ($pp_payflow_test) { ?>
@@ -107,7 +107,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
+            <label class="col-sm-2 control-label" for="input-total"><span data-bs-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="pp_payflow_total" value="<?php echo $pp_payflow_total; ?>" placeholder="<?php echo $entry_total; ?>" id="input-total" class="form-control" />
             </div>

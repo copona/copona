@@ -2,9 +2,9 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button class="btn btn-primary" data-toggle="tooltip" form="form-google-base" title="<?php echo $button_save; ?>" type="submit"><i class="fa fa-save"></i></button>
-        <a class="btn btn-default" data-toggle="tooltip" href="<?php echo $cancel; ?>" title="<?php echo $button_cancel; ?>"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <button class="btn btn-primary" data-bs-toggle="tooltip" form="form-google-base" title="<?php echo $button_save; ?>" type="submit"><i class="fa fa-save"></i></button>
+        <a class="btn btn-secondary" data-bs-toggle="tooltip" href="<?php echo $cancel; ?>" title="<?php echo $button_cancel; ?>"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -16,23 +16,23 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button class="close" data-dismiss="alert" type="button">&times;</button>
+          <button class="close" data-bs-dismiss="alert" type="button">&times;</button>
         </div>
     <?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" class="form-horizontal" enctype="multipart/form-data" id="form-google-base" method="post">
           <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#tab-general"><?php echo $tab_general; ?></a></li>
-            <li><a data-toggle="tab" href="#tab-ip"><?php echo $tab_ip; ?></a></li>
+            <li class="active"><a data-bs-toggle="tab" href="#tab-general"><?php echo $tab_general; ?></a></li>
+            <li><a data-bs-toggle="tab" href="#tab-ip"><?php echo $tab_ip; ?></a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-order-status"><span data-toggle="tooltip" title="<?php echo $help_order_status; ?>"><?php echo $entry_order_status; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-order-status"><span data-bs-toggle="tooltip" title="<?php echo $help_order_status; ?>"><?php echo $entry_order_status; ?></span></label>
                 <div class="col-sm-10">
                   <select class="form-control" id="input-order-status" name="ip_order_status_id">
                       <?php foreach ($order_statuses as $order_status) { ?>
@@ -110,11 +110,11 @@ $('#ip').delegate('.pagination a', 'click', function (e) {
                   $('.alert').remove();
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       $('#ip').load('index.php?route=extension/fraud/ip/ip&token=<?php echo $token; ?>');
 
@@ -145,11 +145,11 @@ $('#ip').delegate('.pagination a', 'click', function (e) {
                   $('.alert').remove();
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       $('#ip').load('index.php?route=extension/fraud/ip/ip&token=<?php echo $token; ?>');
                   }

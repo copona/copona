@@ -67,7 +67,7 @@ a:hover, a:focus {
 	text-decoration: none;
 }
 /* fix for bootstrap hidden and visible */
-span.hidden-xs, span.hidden-sm, span.hidden-md, span.hidden-lg {
+span.d-none, span.d-sm-block, span.d-md-block, span.d-lg-block {
 	display: inline;
 }
 #container {
@@ -388,7 +388,7 @@ div.required .control-label:not(span):before, td.required:before {
 	color: #F00;
 	font-weight: bold;
 }
-.table thead td span[data-toggle="tooltip"]:after, label.control-label span:after {
+.table thead td span[data-bs-toggle="tooltip"]:after, label.control-label span:after {
 	font-family: FontAwesome;
 	color: #1E91CF;
 	content: "\f059";
@@ -490,33 +490,33 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
     border-top: 1px solid #ededed;
 }
 /* Panels */
-.panel {
+.card {
 	border-radius: 0px;
 }
-.panel .panel-heading {
+.card .card-header {
 	position: relative;
 }
-.panel-heading h3 i {
+.card-header h3 i {
 	margin-right: 8px;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-.panel-heading i {
+.card-header i {
 	font-size: 16px;
 	font-weight: 500;
 }
-.panel-heading h3 {
+.card-header h3 {
 	font-size: 16px;
 	font-weight: 500;
 	display: inline-block;
 }
 
 /* Primary Panel */
-.panel-primary {
+.card.border-primary {
 	border: 1px solid #c3e4f6;
 	border-top: 2px solid #5cb7e7;
 }
 
-.panel-primary .panel-heading {
+.card.border-primary .card-header {
 	color: #1e91cf;
 	border-color: #96d0f0;
 	background: white;
@@ -524,12 +524,12 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 
 
 /* Default Panel */
-.panel-default {
+.card {
 	border: 1px solid #e8e8e8;
 	border-top: 2px solid #bfbfbf;
 }
 
-.panel-default .panel-heading {
+.card .card-header {
 	color: #595959;
 	border-color: #e8e8e8;
 	background: #fcfcfc;
@@ -571,11 +571,11 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 	background-color: #1E91CF;
 	color: #FFF;
 }
-.tile .tile-heading .pull-right {
+.tile .tile-heading .float-end {
 	transition: all 1s;
 	opacity: 0.7;
 }
-.tile:hover .tile-heading .pull-right {
+.tile:hover .tile-heading .float-end {
 	opacity: 1;
 }
 .tile-body {
@@ -636,7 +636,7 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 }
 
 /* Menu Fix For System -> Layout -> Banner */
-.collapse.in {
+.collapse.show {
     display: block;
     visibility: unset;
 }
@@ -651,7 +651,7 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
     margin: 0;
 }
 /* Fixed Sumernote Button Height */
-.note-toolbar.panel-heading i {
+.note-toolbar.card-header i {
 	font-size: 14px;
 }
 /* Filemanager Folder Size */

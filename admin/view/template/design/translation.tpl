@@ -2,7 +2,7 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right"><a href="<?php echo $refresh; ?>" data-toggle="tooltip" title="<?php echo $button_refresh; ?>" class="btn btn-info"><i class="fa fa-refresh"></i></a></div>
+      <div class="float-end"><a href="<?php echo $refresh; ?>" data-bs-toggle="tooltip" title="<?php echo $button_refresh; ?>" class="btn btn-info"><i class="fa fa-refresh"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -12,29 +12,29 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_list; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-list"></i> <?php echo $text_list; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form-layout">
           <div class="table-responsive">
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td class="text-left"><?php echo $column_flag; ?></td>
-                  <td class="text-left"><?php echo $column_country; ?></td>
-                  <td class="text-left"><?php echo $column_progress; ?></td>
-                  <td class="text-right"><?php echo $column_action; ?></td>
+                  <td class="text-start"><?php echo $column_flag; ?></td>
+                  <td class="text-start"><?php echo $column_country; ?></td>
+                  <td class="text-start"><?php echo $column_progress; ?></td>
+                  <td class="text-end"><?php echo $column_action; ?></td>
                 </tr>
               </thead>
               <tbody>
                   <?php if ($translations) { ?>
                       <?php foreach ($translations as $list) { ?>
                         <tr>
-                          <td class="text-left"><img src="<?php echo $list['image']; ?>" height="48" width="48"></img></td>
-                          <td class="text-left"><?php echo $list['name']; ?></td>
-                          <td class="text-left">
+                          <td class="text-start"><img src="<?php echo $list['image']; ?>" height="48" width="48"></img></td>
+                          <td class="text-start"><?php echo $list['name']; ?></td>
+                          <td class="text-start">
                             <div class="progress">
                                 <?php if ($list['progress'] > 75) { ?>
                                   <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width:<?php echo $list['progress']; ?>%"><?php echo $list['progress']; ?>% Complete (success)</div>
@@ -44,13 +44,13 @@
                                   <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width:<?php echo $list['progress']; ?>%"><?php echo $list['progress']; ?>% Complete (success)</div>
                               <?php } ?>
                             </div></td>
-                          <td class="text-right">
+                          <td class="text-end">
                               <?php if (!$list['installed']) { ?>
-                                <a href="<?php echo $list['install']; ?>" data-toggle="tooltip" title="<?php echo $button_install; ?>" class="btn btn-success"><i class="fa fa-magic"></i></a>
+                                <a href="<?php echo $list['install']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_install; ?>" class="btn btn-success"><i class="fa fa-magic"></i></a>
                                 <button type="button" class="btn btn-primary" disabled="disabled"><i class="fa fa-minus-circle"></i></button>
                             <?php } else { ?>
                                 <button type="button" class="btn btn-primary" disabled="disabled"><i class="fa fa-magic"></i></button>
-                                <a href="<?php echo $list['uninstall']; ?>" data-toggle="tooltip" title="<?php echo $button_uninstall; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a>
+                                <a href="<?php echo $list['uninstall']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_uninstall; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a>
                             <?php } ?>
                           </td>
                         </tr>
@@ -65,8 +65,8 @@
           </div>
         </form>
         <div class="row">
-          <div class="col-sm-6 text-left"><?php echo $pagination; ?></div>
-          <div class="col-sm-6 text-right"><?php echo $results; ?></div>
+          <div class="col-sm-6 text-start"><?php echo $pagination; ?></div>
+          <div class="col-sm-6 text-end"><?php echo $results; ?></div>
         </div>
       </div>
     </div>

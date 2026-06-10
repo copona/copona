@@ -6,10 +6,10 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <td class="text-left"><?php echo $column_date; ?></td>
-                <td class="text-left"><?php echo $column_amount; ?></td>
-                <td class="text-left"><?php echo $column_status; ?></td>
-                <td class="text-left"><?php echo $column_description; ?></td>
+                <td class="text-start"><?php echo $column_date; ?></td>
+                <td class="text-start"><?php echo $column_amount; ?></td>
+                <td class="text-start"><?php echo $column_status; ?></td>
+                <td class="text-start"><?php echo $column_description; ?></td>
               </tr>
             </thead>
             <tbody>
@@ -37,7 +37,7 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <td class="text-left"><?php echo $column_refund; ?></td>
+                <td class="text-start"><?php echo $column_refund; ?></td>
               </tr>
             </thead>
             <tbody>

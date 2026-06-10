@@ -33,21 +33,21 @@
     <td><table id="transaction-table" class="table table-striped table-bordered">
         <thead>
           <tr>
-            <td class="text-left"><?php echo $column_transaction_id; ?></td>
-            <td class="text-left"><?php echo $column_transaction_type; ?></td>
-            <td class="text-left"><?php echo $column_amount; ?></td>
-            <td class="text-left"><?php echo $column_time; ?></td>
-            <td class="text-left"><?php echo $column_actions; ?></td>
+            <td class="text-start"><?php echo $column_transaction_id; ?></td>
+            <td class="text-start"><?php echo $column_transaction_type; ?></td>
+            <td class="text-start"><?php echo $column_amount; ?></td>
+            <td class="text-start"><?php echo $column_time; ?></td>
+            <td class="text-start"><?php echo $column_actions; ?></td>
           </tr>
         </thead>
         <tbody>
             <?php foreach ($transactions as $transaction) { ?>
               <tr>
-                <td class="text-left"><?php echo $transaction['transaction_reference']; ?></td>
-                <td class="text-left"><?php echo $transaction['transaction_type']; ?></td>
-                <td class="text-left"><?php echo number_format($transaction['amount'], 2); ?></td>
-                <td class="text-left"><?php echo $transaction['time']; ?></td>
-                <td class="text-left"><?php foreach ($transaction['actions'] as $action) { ?>
+                <td class="text-start"><?php echo $transaction['transaction_reference']; ?></td>
+                <td class="text-start"><?php echo $transaction['transaction_type']; ?></td>
+                <td class="text-start"><?php echo number_format($transaction['amount'], 2); ?></td>
+                <td class="text-start"><?php echo $transaction['time']; ?></td>
+                <td class="text-start"><?php foreach ($transaction['actions'] as $action) { ?>
                       [<a href="<?php echo $action['href']; ?>"><?php echo $action['title']; ?></a>]
                   <?php } ?></td>
               </tr>

@@ -2,7 +2,7 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right"><a id="button-edit" data-toggle="tooltip" style="display:none;" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a> <a id="button-search" data-toggle="tooltip" title="<?php echo $button_search; ?>" class="btn btn-info"><i class="fa fa-search"></i></a></div>
+      <div class="float-end"><a id="button-edit" data-bs-toggle="tooltip" style="display:none;" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a> <a id="button-search" data-bs-toggle="tooltip" title="<?php echo $button_search; ?>" class="btn btn-info"><i class="fa fa-search"></i></a></div>
       <h1><i class="fa fa-search"></i> <?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -12,11 +12,11 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $heading_title; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-list"></i> <?php echo $heading_title; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <div id="search-input">
           <form id="form" class="form-horizontal">
             <h3><?php echo $text_date_search; ?></h3>
@@ -26,7 +26,7 @@
                 <div class="input-group date">
                   <input type="text" name="date_start" value="<?php echo $date_start; ?>" placeholder="<?php echo $text_format; ?>: yy-mm-dd" data-date-format="YYYY-MM-DD" id="input-date-start" class="form-control" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                   </span></div>
               </div>
             </div>
@@ -36,7 +36,7 @@
                 <div class="input-group date">
                   <input type="text" name="date_end" value="<?php echo $date_end; ?>" placeholder="<?php echo $text_format; ?>: yy-mm-dd" data-date-format="YYYY-MM-DD" class="form-control" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                   </span></div>
               </div>
             </div>

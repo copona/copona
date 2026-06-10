@@ -2,9 +2,9 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button type="submit" form="form-amazon-login-pay" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <button type="submit" form="form-amazon-login-pay" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -16,7 +16,7 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
     <div class="alert alert-info">
@@ -34,7 +34,7 @@
         <input type="hidden" value="<?php echo $ipn_url; ?>" name="productionMerchantIPNURL">
         <input type="hidden" value="POST" name="returnMethod">
         <button type="button" class="btn btn-link" id="sign-up"><?php echo $text_amazon_signup; ?></button>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
       </form>
       <div id="container-credentials">
         <div class="col-sm-5">
@@ -45,11 +45,11 @@
         </div>
       </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-amazon-login-pay" class="form-horizontal">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="amazon-login-pay-payment-region"><?php echo $entry_payment_region; ?></label>
@@ -145,7 +145,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-mode"><span data-toggle="tooltip" title="<?php echo $help_pay_mode; ?>"><?php echo $entry_login_pay_mode; ?></span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-mode"><span data-bs-toggle="tooltip" title="<?php echo $help_pay_mode; ?>"><?php echo $entry_login_pay_mode; ?></span></label>
             <div class="col-sm-10">
               <select name="amazon_login_pay_mode" id="amazon-login-pay-mode" class="form-control">
                   <?php if ($amazon_login_pay_mode == 'payment') { ?>
@@ -162,7 +162,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-checkout"><span data-toggle="tooltip" title="<?php echo $help_checkout; ?>"><?php echo $entry_checkout; ?></span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-checkout"><span data-bs-toggle="tooltip" title="<?php echo $help_checkout; ?>"><?php echo $entry_checkout; ?></span></label>
             <div class="col-sm-10">
               <select name="amazon_login_pay_checkout" id="amazon-login-checkout-mode" class="form-control">
                   <?php if ($amazon_login_pay_checkout == 'account') { ?>
@@ -179,7 +179,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-capture-status"><span data-toggle="tooltip" title="<?php echo $help_capture_status; ?>"><?php echo $entry_capture_status; ?></span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-capture-status"><span data-bs-toggle="tooltip" title="<?php echo $help_capture_status; ?>"><?php echo $entry_capture_status; ?></span></label>
             <div class="col-sm-10">
               <select name="amazon_login_pay_capture_status" id="amazon-login-pay-capturet-status" class="form-control">
                 <option value=""><?php echo $text_no_capture; ?></option>
@@ -208,7 +208,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-ipn-token"><span data-toggle="tooltip" title="<?php echo $help_ipn_token; ?>"><?php echo $entry_ipn_token; ?></span></label>
+            <label class="col-sm-2 control-label" for="input-ipn-token"><span data-bs-toggle="tooltip" title="<?php echo $help_ipn_token; ?>"><?php echo $entry_ipn_token; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="amazon_login_pay_ipn_token" value="<?php echo $amazon_login_pay_ipn_token; ?>" id="input-ipn-token" class="form-control" />
             </div>
@@ -222,7 +222,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-minimum-total"><span data-toggle="tooltip" title="<?php echo $help_minimum_total; ?>"><?php echo $text_minimum_total; ?></span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-minimum-total"><span data-bs-toggle="tooltip" title="<?php echo $help_minimum_total; ?>"><?php echo $text_minimum_total; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="amazon_login_pay_minimum_total" value="<?php echo $amazon_login_pay_minimum_total; ?>" placeholder="<?php echo $text_minimum_total; ?>" id="amazon-login-pay-minimum-total" class="form-control" />
               <?php if ($error_minimum_total) { ?>
@@ -250,7 +250,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-input-debug"><span data-toggle="tooltip" title="<?php echo $help_debug; ?>"><?php echo $entry_debug; ?></span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-input-debug"><span data-bs-toggle="tooltip" title="<?php echo $help_debug; ?>"><?php echo $entry_debug; ?></span></label>
             <div class="col-sm-10">
               <select name="amazon_login_pay_debug" id="amazon-login-pay-input-debug" class="form-control">
                   <?php if ($amazon_login_pay_debug) { ?>
@@ -287,7 +287,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-declined_codes"><span data-toggle="tooltip" title="<?php echo $help_declined_codes; ?>"><?php echo $text_declined_codes; ?></span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-declined_codes"><span data-bs-toggle="tooltip" title="<?php echo $help_declined_codes; ?>"><?php echo $text_declined_codes; ?></span></label>
             <div class="col-sm-10">
               <select name="amazon_login_pay_declined_code" id="amazon-login-pay-declined_code" class="form-control">
                 <option value=""><?php echo $text_amazon_no_declined; ?></option>
@@ -320,9 +320,9 @@
                   value: 'true',
                   name: 'language_reload'
               }).appendTo('#form-amazon-login-pay');
-              $('.pull-right > .btn-primary').click();
+              $('.float-end > .btn-primary').click();
           } catch (e) {
-              $('.container-fluid:eq(1)').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_credentials; ?><button type="button" class="close" data-dismiss="alert">&times;</button></div>')
+              $('.container-fluid:eq(1)').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_credentials; ?><button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>')
           }
       });
       //</script>

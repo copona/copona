@@ -67,7 +67,7 @@
                   <td><b><?php echo $column_product; ?></b></td>
                   <td><b><?php echo $column_weight; ?></b></td>
                   <td><b><?php echo $column_model; ?></b></td>
-                  <td class="text-right"><b><?php echo $column_quantity; ?></b></td>
+                  <td class="text-end"><b><?php echo $column_quantity; ?></b></td>
                 </tr>
               </thead>
               <tbody>
@@ -99,7 +99,7 @@
                         <?php } ?></td>
                       <td><?php echo $product['weight']; ?></td>
                       <td><?php echo $product['model']; ?></td>
-                      <td class="text-right"><?php echo $product['quantity']; ?></td>
+                      <td class="text-end"><?php echo $product['quantity']; ?></td>
                     </tr>
                 <?php } ?>
               </tbody>

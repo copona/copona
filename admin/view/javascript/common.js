@@ -187,18 +187,18 @@ $(document).ready(function () {
 
   if (getCookie('mfold') == 'active') {
     // Slide Down Menu
-    $('#menu li.active').has('ul').children('ul').addClass('collapse in');
+    $('#menu li.active').has('ul').children('ul').addClass('collapse show');
     $('#menu li').not('.active').has('ul').children('ul').addClass('collapse');
   } else {
     $('#button-menu i').replaceWith('<i class="fa fa-indent fa-lg"></i>');
 
-    $('#menu li li.active').has('ul').children('ul').addClass('collapse in');
+    $('#menu li li.active').has('ul').children('ul').addClass('collapse show');
     $('#menu li li').not('.active').has('ul').children('ul').addClass('collapse');
-    $('#menu > li > ul').removeClass('in collapse');
+    $('#menu > li > ul').removeClass('show collapse');
   }
 
   // open submenu left (copona)
-  $('#menu li.active').has('ul').children('ul').addClass('collapse in');
+  $('#menu li.active').has('ul').children('ul').addClass('collapse show');
 
   // Menu button
   $('#button-menu').on('click', function () {
@@ -208,14 +208,14 @@ $(document).ready(function () {
       setCookie('mfold', '');
       $('#button-menu i').replaceWith('<i class="fa fa-indent fa-lg"></i>');
       $('#column-left').removeClass('active');
-      $('#menu > li > ul').removeClass('in collapse');
+      $('#menu > li > ul').removeClass('show collapse');
       $('#menu > li > ul').removeAttr('style');
     } else {
       setCookie('mfold', 'active');
       $('#button-menu i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
       $('#column-left').addClass('active');
       // Add the slide down to open menu items
-      $('#menu li.open').has('ul').children('ul').addClass('collapse in');
+      $('#menu li.open').has('ul').children('ul').addClass('collapse show');
       $('#menu li').not('.open').has('ul').children('ul').addClass('collapse');
     }
   });
@@ -224,15 +224,15 @@ $(document).ready(function () {
   $('#menu').find('li').has('ul').children('a').on('click', function () {
     if ($('#column-left').hasClass('active')) {
       $(this).parent('li').toggleClass('open').children('ul').collapse('toggle');
-      $(this).parent('li').siblings().removeClass('open').children('ul.in').collapse('hide');
+      $(this).parent('li').siblings().removeClass('open').children('ul.show').collapse('hide');
     } else if (!$(this).parent().parent().is('#menu')) {
       $(this).parent('li').toggleClass('open').children('ul').collapse('toggle');
-      $(this).parent('li').siblings().removeClass('open').children('ul.in').collapse('hide');
+      $(this).parent('li').siblings().removeClass('open').children('ul.show').collapse('hide');
     }
   });
 
   // Tooltip remove fixed
-  $(document).on('click', '[data-toggle=\'tooltip\']', function (e) {
+  $(document).on('click', '[data-bs-toggle=\'tooltip\']', function (e) {
     $('body > .tooltip').remove();
   });
 
@@ -247,7 +247,7 @@ $(document).ready(function () {
 
 
   // Image Manager
-  $(document).on('click', 'a[data-toggle=\'image\']', function (e) {
+  $(document).on('click', 'a[data-bs-toggle=\'image\']', function (e) {
 
     var $element = $(this);
     var $popover = $element.data('bs.popover'); // element has bs popover?
@@ -255,7 +255,7 @@ $(document).ready(function () {
     e.preventDefault();
 
     // destroy all image popovers
-    $('a[data-toggle="image"]').popover('destroy');
+    $('a[data-bs-toggle="image"]').popover('dispose');
 
     // remove flickering (do not re-add popover when clicking for removal)
     if ($popover) {
@@ -299,7 +299,7 @@ $(document).ready(function () {
         }
       });
 
-      $element.popover('destroy');
+      $element.popover('dispose');
     });
 
     $('#button-clear').on('click', function () {
@@ -308,16 +308,16 @@ $(document).ready(function () {
 
       $element.parent().find('input').val('');
 
-      $element.popover('destroy');
+      $element.popover('dispose');
     });
   });
 
   // tooltips on hover
-  $('[data-toggle=\'tooltip\']').tooltip({container: 'body', html: true});
+  $('[data-bs-toggle=\'tooltip\']').tooltip({container: 'body', html: true});
 
   // Makes tooltips work on ajax generated content
   $(document).ajaxStop(function () {
-    $('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
+    $('[data-bs-toggle=\'tooltip\']').tooltip({container: 'body'});
   });
 
   // https://github.com/opencart/opencart/issues/2595
@@ -329,28 +329,14 @@ $(document).ready(function () {
     }
   }
 
-  $('[data-toggle=\'tooltip\']').on('remove', function () {
-    $(this).tooltip('destroy');
+  $('[data-bs-toggle=\'tooltip\']').on('remove', function () {
+    $(this).tooltip('dispose');
   });
 
   //TODO:  moved from product_form,
   // DateTime calendar
-  $('.date').datetimepicker({
-    pickTime: false
-  });
-
-  $('.time').datetimepicker({
-    pickDate: false
-  });
-
-  $('.datetime').datetimepicker({
-    pickDate: true,
-    pickTime: true
-  });
-
   // Tab actions
   $('#language a:first').tab('show');
-  console.log();
   $('#option a:first').tab('show');
 
 });

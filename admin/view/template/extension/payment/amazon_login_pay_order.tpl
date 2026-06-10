@@ -66,25 +66,25 @@
       <table class="table table-striped table-bordered" id="amazon_login_pay-transactions">
         <thead>
           <tr>
-            <td class="text-left"><strong><?php echo $text_column_date_added; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_status; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_authorization_id; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_capture_id; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_refund_id; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_date_added; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_type; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_status; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_authorization_id; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_capture_id; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_refund_id; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_amount; ?></strong></td>
           </tr>
         </thead>
         <tbody>
             <?php foreach ($amazon_login_pay_order['transactions'] as $transaction) { ?>
               <tr>
-                <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-                <td class="text-left"><?php echo $transaction['type']; ?></td>
-                <td class="text-left"><?php echo $transaction['status']; ?></td>
-                <td class="text-left"><?php echo $transaction['amazon_authorization_id']; ?></td>
-                <td class="text-left"><?php echo $transaction['amazon_capture_id']; ?></td>
-                <td class="text-left"><?php echo $transaction['amazon_refund_id']; ?></td>
-                <td class="text-left"><?php echo $transaction['amount']; ?></td>
+                <td class="text-start"><?php echo $transaction['date_added']; ?></td>
+                <td class="text-start"><?php echo $transaction['type']; ?></td>
+                <td class="text-start"><?php echo $transaction['status']; ?></td>
+                <td class="text-start"><?php echo $transaction['amazon_authorization_id']; ?></td>
+                <td class="text-start"><?php echo $transaction['amazon_capture_id']; ?></td>
+                <td class="text-start"><?php echo $transaction['amazon_refund_id']; ?></td>
+                <td class="text-start"><?php echo $transaction['amount']; ?></td>
               </tr>
           <?php } ?>
         </tbody>
@@ -109,13 +109,13 @@
                     if (data.error == false) {
                         var html = '';
                         html += '<tr>';
-                        html += '<td class="text-left">' + data.data.date_added + '</td>';
-                        html += '<td class="text-left">' + data.data.type + '</td>';
-                        html += '<td class="text-left">' + data.data.status + '</td>';
-                        html += '<td class="text-left"></td>';
-                        html += '<td class="text-left"></td>';
-                        html += '<td class="text-left"></td>';
-                        html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '<td class="text-start">' + data.data.date_added + '</td>';
+                        html += '<td class="text-start">' + data.data.type + '</td>';
+                        html += '<td class="text-start">' + data.data.status + '</td>';
+                        html += '<td class="text-start"></td>';
+                        html += '<td class="text-start"></td>';
+                        html += '<td class="text-start"></td>';
+                        html += '<td class="text-start">' + data.data.amount + '</td>';
                         html += '</tr>';
 
                         $('.cancel_text').text('<?php echo $text_yes; ?>');
@@ -154,13 +154,13 @@
                     if (data.error == false) {
                         var html = '';
                         html += '<tr>';
-                        html += '<td class="text-left">' + data.data.date_added + '</td>';
-                        html += '<td class="text-left">' + data.data.type + '</td>';
-                        html += '<td class="text-left">' + data.data.status + '</td>';
-                        html += '<td class="text-left">' + data.data.amazon_authorization_id + '</td>';
-                        html += '<td class="text-left">' + data.data.amazon_capture_id + '</td>';
-                        html += '<td class="text-left"></td>';
-                        html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '<td class="text-start">' + data.data.date_added + '</td>';
+                        html += '<td class="text-start">' + data.data.type + '</td>';
+                        html += '<td class="text-start">' + data.data.status + '</td>';
+                        html += '<td class="text-start">' + data.data.amazon_authorization_id + '</td>';
+                        html += '<td class="text-start">' + data.data.amazon_capture_id + '</td>';
+                        html += '<td class="text-start"></td>';
+                        html += '<td class="text-start">' + data.data.amount + '</td>';
                         html += '</tr>';
 
                         $('#amazon_login_pay-transactions').append(html);
@@ -210,13 +210,13 @@
                     if (data.data != undefined) {
                         $.each(data.data, function (index, value) {
                             html += '<tr>';
-                            html += '<td class="text-left">' + value['date_added'] + '</td>';
-                            html += '<td class="text-left">' + value['type'] + '</td>';
-                            html += '<td class="text-left">' + value['status'] + '</td>';
-                            html += '<td class="text-left">' + value['amazon_authorization_id'] + '</td>';
-                            html += '<td class="text-left">' + value['amazon_capture_id'] + '</td>';
-                            html += '<td class="text-left">' + value['amazon_refund_id'] + '</td>';
-                            html += '<td class="text-left">' + value['amount'] + '</td>';
+                            html += '<td class="text-start">' + value['date_added'] + '</td>';
+                            html += '<td class="text-start">' + value['type'] + '</td>';
+                            html += '<td class="text-start">' + value['status'] + '</td>';
+                            html += '<td class="text-start">' + value['amazon_authorization_id'] + '</td>';
+                            html += '<td class="text-start">' + value['amazon_capture_id'] + '</td>';
+                            html += '<td class="text-start">' + value['amazon_refund_id'] + '</td>';
+                            html += '<td class="text-start">' + value['amount'] + '</td>';
                             html += '</tr>';
                         });
                         $('#amazon_login_pay-transactions').append(html);
