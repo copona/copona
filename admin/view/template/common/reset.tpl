@@ -4,11 +4,11 @@
     <br />
     <div class="row">
       <div class="col-sm-offset-4 col-sm-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h1 class="panel-title"><i class="fa fa-repeat"></i> <?php echo $heading_title; ?></h1>
+        <div class="card">
+          <div class="card-header">
+            <h1 class="card-title"><i class="fa fa-repeat"></i> <?php echo $heading_title; ?></h1>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
               <p><?php echo $text_password; ?></p>
               <div class="form-group">
@@ -29,9 +29,9 @@
                   <?php } ?>
                 </div>
               </div>
-              <div class="text-right">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button_save; ?></button>
-                <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>
+                <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a>
               </div>
             </form>
           </div>

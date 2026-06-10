@@ -41,25 +41,25 @@
     <td><table class="table table-striped table-bordered" id="paypal_transactions">
         <thead>
           <tr>
-            <td class="text-left"><strong><?php echo $column_trans_id; ?></strong></td>
-            <td class="text-left"><strong><?php echo $column_amount; ?></strong></td>
-            <td class="text-left"><strong><?php echo $column_type; ?></strong></td>
-            <td class="text-left"><strong><?php echo $column_status; ?></strong></td>
-            <td class="text-left"><strong><?php echo $column_pending_reason; ?></strong></td>
-            <td class="text-left"><strong><?php echo $column_date_added; ?></strong></td>
-            <td class="text-left"><strong><?php echo $column_action; ?></strong></td>
+            <td class="text-start"><strong><?php echo $column_trans_id; ?></strong></td>
+            <td class="text-start"><strong><?php echo $column_amount; ?></strong></td>
+            <td class="text-start"><strong><?php echo $column_type; ?></strong></td>
+            <td class="text-start"><strong><?php echo $column_status; ?></strong></td>
+            <td class="text-start"><strong><?php echo $column_pending_reason; ?></strong></td>
+            <td class="text-start"><strong><?php echo $column_date_added; ?></strong></td>
+            <td class="text-start"><strong><?php echo $column_action; ?></strong></td>
           </tr>
         </thead>
         <tbody>
             <?php foreach ($transactions as $transaction) { ?>
               <tr>
-                <td class="text-left"><?php echo $transaction['transaction_id']; ?></td>
-                <td class="text-left"><?php echo $transaction['amount']; ?></td>
-                <td class="text-left"><?php echo $transaction['payment_type']; ?></td>
-                <td class="text-left"><?php echo $transaction['payment_status']; ?></td>
-                <td class="text-left"><?php echo $transaction['pending_reason']; ?></td>
-                <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-                <td class="text-left"><?php if ($transaction['transaction_id']) { ?>
+                <td class="text-start"><?php echo $transaction['transaction_id']; ?></td>
+                <td class="text-start"><?php echo $transaction['amount']; ?></td>
+                <td class="text-start"><?php echo $transaction['payment_type']; ?></td>
+                <td class="text-start"><?php echo $transaction['payment_status']; ?></td>
+                <td class="text-start"><?php echo $transaction['pending_reason']; ?></td>
+                <td class="text-start"><?php echo $transaction['date_added']; ?></td>
+                <td class="text-start"><?php if ($transaction['transaction_id']) { ?>
                       <a href="<?php echo $transaction['view']; ?>"><?php echo $text_view; ?></a>
                       <?php if ($transaction['payment_type'] == 'instant' && ($transaction['payment_status'] == 'Completed' || $transaction['payment_status'] == 'Partially-Refunded')) { ?>
                           &nbsp;<a href="<?php echo $transaction['refund']; ?>"><?php echo $text_refund; ?></a>
@@ -104,13 +104,13 @@
                         html = '';
 
                         html += '<tr>';
-                        html += '<td class="text-left">' + data.data.transaction_id + '</td>';
-                        html += '<td class="text-left">' + data.data.amount + '</td>';
-                        html += '<td class="text-left">' + data.data.payment_type + '</td>';
-                        html += '<td class="text-left">' + data.data.payment_status + '</td>';
-                        html += '<td class="text-left">' + data.data.pending_reason + '</td>';
-                        html += '<td class="text-left">' + data.data.date_added + '</td>';
-                        html += '<td class="text-left">';
+                        html += '<td class="text-start">' + data.data.transaction_id + '</td>';
+                        html += '<td class="text-start">' + data.data.amount + '</td>';
+                        html += '<td class="text-start">' + data.data.payment_type + '</td>';
+                        html += '<td class="text-start">' + data.data.payment_status + '</td>';
+                        html += '<td class="text-start">' + data.data.pending_reason + '</td>';
+                        html += '<td class="text-start">' + data.data.date_added + '</td>';
+                        html += '<td class="text-start">';
                         html += '<a href="<?php echo $view_link; ?>&transaction_id=' + data.data.transaction_id + '"><?php echo $text_view; ?></a>';
                         html += '&nbsp;<a href="<?php echo $refund_link; ?>&transaction_id=' + data.data.transaction_id + '"><?php echo $text_refund; ?></a>';
                         html += '</td>';
@@ -122,13 +122,13 @@
 
                         if (data.data.void != '') {
                             html += '<tr>';
-                            html += '  <td class="text-left">' + data.data.void.transaction_id + '</td>';
-                            html += '  <td class="text-left">' + data.data.void.amount + '</td>';
-                            html += '  <td class="text-left">' + data.data.void.payment_type + '</td>';
-                            html += '  <td class="text-left">' + data.data.void.payment_status + '</td>';
-                            html += '  <td class="text-left">' + data.data.void.pending_reason + '</td>';
-                            html += '  <td class="text-left">' + data.data.void.date_added + '</td>';
-                            html += '  <td class="text-left"></td>';
+                            html += '  <td class="text-start">' + data.data.void.transaction_id + '</td>';
+                            html += '  <td class="text-start">' + data.data.void.amount + '</td>';
+                            html += '  <td class="text-start">' + data.data.void.payment_type + '</td>';
+                            html += '  <td class="text-start">' + data.data.void.payment_status + '</td>';
+                            html += '  <td class="text-start">' + data.data.void.pending_reason + '</td>';
+                            html += '  <td class="text-start">' + data.data.void.date_added + '</td>';
+                            html += '  <td class="text-start"></td>';
                             html += '</tr>';
                         }
 
@@ -143,13 +143,13 @@
                         if (data.failed_transaction) {
                             html = '';
                             html += '<tr>';
-                            html += '<td class="text-left"></td>';
-                            html += '<td class="text-left">' + data.failed_transaction.amount + '</td>';
-                            html += '<td class="text-left"></td>';
-                            html += '<td class="text-left"></td>';
-                            html += '<td class="text-left"></td>';
-                            html += '<td class="text-left">' + data.failed_transaction.date_added + '</td>';
-                            html += '<td class="text-left"><a onclick="resendTransaction(this); return false;" href="<?php echo $resend_link; ?>&paypal_iframe_order_transaction_id=' + data.failed_transaction.paypal_iframe_order_transaction_id + '"><?php echo $text_resend; ?></a></td>';
+                            html += '<td class="text-start"></td>';
+                            html += '<td class="text-start">' + data.failed_transaction.amount + '</td>';
+                            html += '<td class="text-start"></td>';
+                            html += '<td class="text-start"></td>';
+                            html += '<td class="text-start"></td>';
+                            html += '<td class="text-start">' + data.failed_transaction.date_added + '</td>';
+                            html += '<td class="text-start"><a onclick="resendTransaction(this); return false;" href="<?php echo $resend_link; ?>&paypal_iframe_order_transaction_id=' + data.failed_transaction.paypal_iframe_order_transaction_id + '"><?php echo $text_resend; ?></a></td>';
                             html += '/<tr>';
 
                             $('#paypal_transactions').append(html);
@@ -178,13 +178,13 @@
                     if (data.error == false) {
                         html = '';
                         html += '<tr>';
-                        html += '  <td class="text-left"></td>';
-                        html += '  <td class="text-left"></td>';
-                        html += '  <td class="text-left"></td>';
-                        html += '  <td class="text-left">' + data.data.payment_status + '</td>';
-                        html += '  <td class="text-left"></td>';
-                        html += '  <td class="text-left">' + data.data.date_added + '</td>';
-                        html += '  <td class="text-left"></td>';
+                        html += '  <td class="text-start"></td>';
+                        html += '  <td class="text-start"></td>';
+                        html += '  <td class="text-start"></td>';
+                        html += '  <td class="text-start">' + data.data.payment_status + '</td>';
+                        html += '  <td class="text-start"></td>';
+                        html += '  <td class="text-start">' + data.data.date_added + '</td>';
+                        html += '  <td class="text-start"></td>';
                         html += '</tr>';
 
                         $('#paypal_transactions').append(html);
@@ -221,13 +221,13 @@
                 if (data.error == false) {
                     html = '';
                     html += '<tr>';
-                    html += '<td class="text-left">' + data.data.transaction_id + '</td>';
-                    html += '<td class="text-left">0.00</td>';
-                    html += '<td class="text-left">' + data.data.payment_type + '</td>';
-                    html += '<td class="text-left">' + data.data.payment_status + '</td>';
-                    html += '<td class="text-left">' + data.data.pending_reason + '</td>';
-                    html += '<td class="text-left">' + data.data.date_added + '</td>';
-                    html += '<td class="text-left"></td>';
+                    html += '<td class="text-start">' + data.data.transaction_id + '</td>';
+                    html += '<td class="text-start">0.00</td>';
+                    html += '<td class="text-start">' + data.data.payment_type + '</td>';
+                    html += '<td class="text-start">' + data.data.payment_status + '</td>';
+                    html += '<td class="text-start">' + data.data.pending_reason + '</td>';
+                    html += '<td class="text-start">' + data.data.date_added + '</td>';
+                    html += '<td class="text-start"></td>';
                     html += '</tr>';
 
                     $('#paypal_transactions').append(html);

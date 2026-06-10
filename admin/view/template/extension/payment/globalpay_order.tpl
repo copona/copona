@@ -62,17 +62,17 @@
       <table class="table table-striped table-bordered" id="globalpay-transactions">
         <thead>
           <tr>
-            <td class="text-left"><strong><?php echo $text_column_date_added; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_date_added; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_type; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_amount; ?></strong></td>
           </tr>
         </thead>
         <tbody>
             <?php foreach ($globalpay_order['transactions'] as $transaction) { ?>
               <tr>
-                <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-                <td class="text-left"><?php echo $transaction['type']; ?></td>
-                <td class="text-left"><?php echo $transaction['amount']; ?></td>
+                <td class="text-start"><?php echo $transaction['date_added']; ?></td>
+                <td class="text-start"><?php echo $transaction['type']; ?></td>
+                <td class="text-start"><?php echo $transaction['amount']; ?></td>
               </tr>
           <?php } ?>
         </tbody>
@@ -97,9 +97,9 @@
                     if (data.error == false) {
                         html = '';
                         html += '<tr>';
-                        html += '<td class="text-left">' + data.data.date_added + '</td>';
-                        html += '<td class="text-left">void</td>';
-                        html += '<td class="text-left">0.00</td>';
+                        html += '<td class="text-start">' + data.data.date_added + '</td>';
+                        html += '<td class="text-start">void</td>';
+                        html += '<td class="text-start">0.00</td>';
                         html += '</tr>';
 
                         $('.void_text').text('<?php echo $text_yes; ?>');
@@ -138,9 +138,9 @@
                     if (data.error == false) {
                         html = '';
                         html += '<tr>';
-                        html += '<td class="text-left">' + data.data.date_added + '</td>';
-                        html += '<td class="text-left">payment</td>';
-                        html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '<td class="text-start">' + data.data.date_added + '</td>';
+                        html += '<td class="text-start">payment</td>';
+                        html += '<td class="text-start">' + data.data.amount + '</td>';
                         html += '</tr>';
 
                         $('#globalpay-transactions').append(html);
@@ -193,9 +193,9 @@
                     if (data.error == false) {
                         html = '';
                         html += '<tr>';
-                        html += '<td class="text-left">' + data.data.date_added + '</td>';
-                        html += '<td class="text-left">rebate</td>';
-                        html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '<td class="text-start">' + data.data.date_added + '</td>';
+                        html += '<td class="text-start">rebate</td>';
+                        html += '<td class="text-start">' + data.data.amount + '</td>';
                         html += '</tr>';
 
                         $('#globalpay-transactions').append(html);

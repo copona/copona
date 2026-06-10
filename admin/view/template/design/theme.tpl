@@ -12,11 +12,11 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_edit; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-list"></i> <?php echo $text_edit; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <div class="row">
           <div class="col-lg-3 col-md-3 col-sm-12">
             <div class="list-group">
@@ -81,13 +81,13 @@ $('select[name="store_id"]').on('change', function (e) {
 
                   if (json['directory']) {
                       for (i = 0; i < json['directory'].length; i++) {
-                          html += '<a href="' + json['directory'][i]['path'] + '" class="list-group-item directory">' + json['directory'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
+                          html += '<a href="' + json['directory'][i]['path'] + '" class="list-group-item directory">' + json['directory'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw float-end"></i></a>';
                       }
                   }
 
                   if (json['file']) {
                       for (i = 0; i < json['file'].length; i++) {
-                          html += '<a href="' + json['file'][i]['path'] + '" class="list-group-item file">' + json['file'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
+                          html += '<a href="' + json['file'][i]['path'] + '" class="list-group-item file">' + json['file'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw float-end"></i></a>';
                       }
                   }
 
@@ -122,18 +122,18 @@ $('select[name="store_id"]').on('change', function (e) {
 
                   if (json['directory']) {
                       for (i = 0; i < json['directory'].length; i++) {
-                          html += '<a href="' + json['directory'][i]['path'] + '" class="list-group-item directory">' + json['directory'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
+                          html += '<a href="' + json['directory'][i]['path'] + '" class="list-group-item directory">' + json['directory'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw float-end"></i></a>';
                       }
                   }
 
                   if (json['file']) {
                       for (i = 0; i < json['file'].length; i++) {
-                          html += '<a href="' + json['file'][i]['path'] + '" class="list-group-item file">' + json['file'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw pull-right"></i></a>';
+                          html += '<a href="' + json['file'][i]['path'] + '" class="list-group-item file">' + json['file'][i]['name'] + ' <i class="fa fa-arrow-right fa-fw float-end"></i></a>';
                       }
                   }
 
                   if (json['back']) {
-                      html += '<a href="' + json['back']['path'] + '" class="list-group-item directory">' + json['back']['name'] + ' <i class="fa fa-arrow-left fa-fw pull-right"></i></a>';
+                      html += '<a href="' + json['back']['path'] + '" class="list-group-item directory">' + json['back']['name'] + ' <i class="fa fa-arrow-left fa-fw float-end"></i></a>';
                   }
 
                   $('#path').html(html);
@@ -175,14 +175,14 @@ $('select[name="store_id"]').on('change', function (e) {
                           $('#code').show();
                           $('#warning').hide();
 
-                          $('.nav-tabs').append('<li><a href="#tab-' + tab_id + '" data-toggle="tab">' + $(node).attr('href').split('/').join(' / ') + '&nbsp;&nbsp;<i class="fa fa-minus-circle"></i></a></li>');
+                          $('.nav-tabs').append('<li><a href="#tab-' + tab_id + '" data-bs-toggle="tab">' + $(node).attr('href').split('/').join(' / ') + '&nbsp;&nbsp;<i class="fa fa-minus-circle"></i></a></li>');
 
                           html = '<div class="tab-pane" id="tab-' + tab_id + '">';
                           html += '  <textarea name="code" rows="10"></textarea>';
                           html += '  <input type="hidden" name="store_id" value="' + $('select[name="store_id"]').val() + '" />';
                           html += '  <input type="hidden" name="path" value="' + $(node).attr('href') + '" />';
                           html += '  <br />';
-                          html += '  <div class="pull-right">';
+                          html += '  <div class="float-end">';
                           html += '    <button type="button" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-floppy-o"></i> <?php echo $button_save; ?></button>';
                           html += '    <button type="button" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger"><i class="fa fa-recycle"></i> <?php echo $button_reset; ?></button>';
                           html += '  </div>';
@@ -256,11 +256,11 @@ $('select[name="store_id"]').on('change', function (e) {
                   $('.alert').remove();
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '  <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
               },
               error: function (xhr, ajaxOptions, thrownError) {
@@ -286,11 +286,11 @@ $('select[name="store_id"]').on('change', function (e) {
                       $('.alert').remove();
 
                       if (json['error']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '  <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                       }
 
                       if (json['success']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                          $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                       }
 
                       var editor = $('.tab-content .active .CodeMirror')[0].CodeMirror;

@@ -2,7 +2,7 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right"><a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end"><a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -14,11 +14,11 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_recurring_detail; ?></h3>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-list"></i> <?php echo $text_recurring_detail; ?></h3>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             <table class="table table-bordered">
               <tr>
                 <td><?php echo $text_order_recurring_id; ?></td>
@@ -53,11 +53,11 @@
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_order_detail; ?></h3>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-list"></i> <?php echo $text_order_detail; ?></h3>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             <table class="table table-bordered">
               <tr>
                 <td><?php echo $text_order_id; ?></td>
@@ -88,11 +88,11 @@
         </div>
       </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_product_detail; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-list"></i> <?php echo $text_product_detail; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -109,26 +109,26 @@
         </table>
       </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_transaction; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-list"></i> <?php echo $text_transaction; ?></h3>
       </div>
-      <div class="panel-body"> <?php echo $buttons; ?>
+      <div class="card-body"> <?php echo $buttons; ?>
         <table class="table table-bordered">
           <thead>
             <tr>
-              <td class="text-left"><?php echo $column_date_added; ?></td>
-              <td class="text-right"><?php echo $column_amount; ?></td>
-              <td class="text-left"><?php echo $column_type; ?></td>
+              <td class="text-start"><?php echo $column_date_added; ?></td>
+              <td class="text-end"><?php echo $column_amount; ?></td>
+              <td class="text-start"><?php echo $column_type; ?></td>
             </tr>
           </thead>
           <tbody>
               <?php if ($transactions) { ?>
                   <?php foreach ($transactions as $transaction) { ?>
                     <tr>
-                      <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-                      <td class="text-right"><?php echo $transaction['amount']; ?></td>
-                      <td class="text-left"><?php echo $transaction['type']; ?></td>
+                      <td class="text-start"><?php echo $transaction['date_added']; ?></td>
+                      <td class="text-end"><?php echo $transaction['amount']; ?></td>
+                      <td class="text-start"><?php echo $transaction['type']; ?></td>
                     </tr>
                 <?php } ?>
             <?php } else { ?>

@@ -46,10 +46,10 @@
         <?php if ($address_action) { ?>
             <tr>
               <td>
-                <a class="btn btn-primary" data-toggle="modal" data-target="#billing_address"><?php echo $button_edit; ?></a>
+                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#billing_address"><?php echo $button_edit; ?></a>
               </td>
               <td>
-                <a class="btn btn-primary" data-toggle="modal" data-target="#shipping_address"><?php echo $button_edit; ?></a>
+                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shipping_address"><?php echo $button_edit; ?></a>
               </td>
             </tr>
         <?php } ?>
@@ -62,16 +62,16 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <td class="text-left"><?php echo $column_item_reference; ?></td>
-            <td class="text-left"><?php echo $column_type; ?></td>
-            <td class="text-left"><?php echo $column_quantity; ?></td>
-            <td class="text-left"><?php echo $column_quantity_unit; ?></td>
-            <td class="text-left"><?php echo $column_name; ?></td>
-            <td class="text-left"><?php echo $column_total_amount; ?></td>
-            <td class="text-left"><?php echo $column_unit_price; ?></td>
-            <td class="text-left"><?php echo $column_total_discount_amount; ?></td>
-            <td class="text-left"><?php echo $column_tax_rate; ?></td>
-            <td class="text-left"><?php echo $column_total_tax_amount; ?></td>
+            <td class="text-start"><?php echo $column_item_reference; ?></td>
+            <td class="text-start"><?php echo $column_type; ?></td>
+            <td class="text-start"><?php echo $column_quantity; ?></td>
+            <td class="text-start"><?php echo $column_quantity_unit; ?></td>
+            <td class="text-start"><?php echo $column_name; ?></td>
+            <td class="text-start"><?php echo $column_total_amount; ?></td>
+            <td class="text-start"><?php echo $column_unit_price; ?></td>
+            <td class="text-start"><?php echo $column_total_discount_amount; ?></td>
+            <td class="text-start"><?php echo $column_tax_rate; ?></td>
+            <td class="text-start"><?php echo $column_total_tax_amount; ?></td>
           </tr>
         </thead>
         <tbody>
@@ -123,11 +123,11 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <td class="text-left"><?php echo $column_capture_id; ?></td>
-            <td class="text-left"><?php echo $column_date; ?></td>
-            <td class="text-left"><?php echo $column_amount; ?></td>
-            <td class="text-left"><?php echo $column_reference; ?></td>
-            <td class="text-left"><?php echo $column_action; ?></td>
+            <td class="text-start"><?php echo $column_capture_id; ?></td>
+            <td class="text-start"><?php echo $column_date; ?></td>
+            <td class="text-start"><?php echo $column_amount; ?></td>
+            <td class="text-start"><?php echo $column_reference; ?></td>
+            <td class="text-start"><?php echo $column_action; ?></td>
           </tr>
         </thead>
         <tbody>
@@ -140,8 +140,8 @@
                     <td><?php echo $capture['reference']; ?></td>
                     <td>
                       <a class="btn btn-primary button-command" data-type="trigger_send_out" data-id="<?php echo $capture['capture_id']; ?>"><?php echo $button_trigger_send_out; ?></a>
-                      <a class="btn btn-primary" data-toggle="modal" data-target="#capture-shipping-info-<?php echo $capture['capture_id']; ?>"><?php echo $button_edit_shipping_info; ?></a>
-                      <a class="btn btn-primary" data-toggle="modal" data-target="#capture-billing-address-<?php echo $capture['capture_id']; ?>"><?php echo $button_edit_billing_address; ?></a>
+                      <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#capture-shipping-info-<?php echo $capture['capture_id']; ?>"><?php echo $button_edit_shipping_info; ?></a>
+                      <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#capture-billing-address-<?php echo $capture['capture_id']; ?>"><?php echo $button_edit_billing_address; ?></a>
                     </td>
                   </tr>
               <?php } ?>
@@ -155,7 +155,7 @@
             <tfoot>
               <tr>
                 <td colspan="4"></td>
-                <td class="text-left"><a class="btn btn-primary" data-toggle="modal" data-target="#capture"><?php echo $button_new_capture; ?></a></td>
+                <td class="text-start"><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#capture"><?php echo $button_new_capture; ?></a></td>
               </tr>
             </tfoot>
         <?php } ?>
@@ -168,9 +168,9 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <td class="text-left"><?php echo $column_date; ?></td>
-            <td class="text-left"><?php echo $column_amount; ?></td>
-            <td class="text-left"><?php echo $column_action; ?></td>
+            <td class="text-start"><?php echo $column_date; ?></td>
+            <td class="text-start"><?php echo $column_amount; ?></td>
+            <td class="text-start"><?php echo $column_action; ?></td>
           </tr>
         </thead>
         <tbody>
@@ -187,8 +187,8 @@
             <tfoot>
               <tr>
                 <td colspan="2"></td>
-                <td class="text-left">
-                  <a class="btn btn-primary" data-toggle="modal" data-target="#refund"><?php echo $button_new_refund; ?></a>
+                <td class="text-start">
+                  <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund"><?php echo $button_new_refund; ?></a>
                 </td>
               </tr>
             </tfoot>
@@ -203,7 +203,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="billing_address_title"><?php echo $column_billing_address; ?></h4>
       </div>
       <div class="modal-body form-horizontal">
@@ -275,7 +275,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $button_close; ?></button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $button_close; ?></button>
         <button type="button" class="btn btn-primary button-command" data-type="billing_address" data-modal="#billing_address"><?php echo $button_update; ?></button>
       </div>
     </div>
@@ -286,7 +286,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="shipping_address_title"><?php echo $column_shipping_address; ?></h4>
       </div>
       <div class="modal-body form-horizontal">
@@ -358,7 +358,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $button_close; ?></button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $button_close; ?></button>
         <button type="button" class="btn btn-primary button-command" data-type="shipping_address" data-modal="#shipping_address"><?php echo $button_update; ?></button>
       </div>
     </div>
@@ -369,7 +369,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="capture_title"><?php echo $text_new_capture_title; ?></h4>
       </div>
       <div class="modal-body form-horizontal">
@@ -381,7 +381,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $button_close; ?></button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $button_close; ?></button>
         <button type="button" class="btn btn-primary button-command" data-type="capture" data-modal="#capture"><?php echo $button_update; ?></button>
       </div>
     </div>
@@ -392,7 +392,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="refund_title"><?php echo $text_new_refund_title; ?></h4>
       </div>
       <div class="modal-body form-horizontal">
@@ -404,7 +404,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $button_close; ?></button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $button_close; ?></button>
         <button type="button" class="btn btn-primary button-command" data-type="refund" data-modal="#refund"><?php echo $button_update; ?></button>
       </div>
     </div>
@@ -416,7 +416,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="capture-shipping-info-<?php echo $capture['capture_id']; ?>-title"><?php echo $capture['shipping_info_title']; ?></h4>
           </div>
           <div class="modal-body">
@@ -461,13 +461,13 @@
               <tfoot>
                 <tr>
                   <td colspan="<?php echo count($capture['shipping_info']) + 1; ?>"></td>
-                  <td class="text-left"><button id="add-shipping-info" type="button" onclick="addShippingInfo('#capture-shipping-info-<?php echo $capture['capture_id']; ?>');" data-toggle="tooltip" title="<?php echo $button_add_shipping_info; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                  <td class="text-start"><button id="add-shipping-info" type="button" onclick="addShippingInfo('#capture-shipping-info-<?php echo $capture['capture_id']; ?>');" data-bs-toggle="tooltip" title="<?php echo $button_add_shipping_info; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                 </tr>
               </tfoot>
             </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $button_close; ?></button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $button_close; ?></button>
             <button type="button" class="btn btn-primary button-command" data-type="capture_shipping_info" data-id="<?php echo $capture['capture_id']; ?>" data-modal="#capture-shipping-info-<?php echo $capture['capture_id']; ?>"><?php echo $button_update; ?></button>
           </div>
         </div>
@@ -477,7 +477,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="<?php echo $button_close; ?>"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="capture-billing-address-<?php echo $capture['capture_id']; ?>-title"><?php echo $capture['billing_address_title']; ?></h4>
           </div>
           <div class="modal-body form-horizontal">
@@ -549,7 +549,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $button_close; ?></button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $button_close; ?></button>
             <button type="button" class="btn btn-primary button-command" data-type="capture_billing_address" data-id="<?php echo $capture['capture_id']; ?>" data-modal="#capture-billing-address-<?php echo $capture['capture_id']; ?>"><?php echo $button_update; ?></button>
           </div>
         </div>

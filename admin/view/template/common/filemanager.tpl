@@ -10,22 +10,22 @@
 <div id="filemanager" class="modal-dialog modal-lg">
   <div class="modal-content">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
       <h4 class="modal-title"><?php echo $heading_title; ?></h4>
     </div>
     <div class="modal-body">
       <div class="row">
-        <div class="col-sm-5"><a href="<?php echo $parent; ?>" data-toggle="tooltip" title="<?php echo $button_parent; ?>" id="button-parent" class="btn btn-default"><i class="fa fa-level-up"></i></a> <a
-            href="<?php echo $refresh; ?>" data-toggle="tooltip" title="<?php echo $button_refresh; ?>" id="button-refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
-          <button type="button" data-toggle="tooltip" title="<?php echo $button_upload; ?>" id="button-upload" class="btn btn-primary"><i class="fa fa-upload"></i></button>
-          <button type="button" data-toggle="tooltip" title="<?php echo $button_folder; ?>" id="button-folder" class="btn btn-default"><i class="fa fa-folder"></i></button>
-          <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>" id="button-delete" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+        <div class="col-sm-5"><a href="<?php echo $parent; ?>" data-bs-toggle="tooltip" title="<?php echo $button_parent; ?>" id="button-parent" class="btn btn-secondary"><i class="fa fa-level-up"></i></a> <a
+            href="<?php echo $refresh; ?>" data-bs-toggle="tooltip" title="<?php echo $button_refresh; ?>" id="button-refresh" class="btn btn-secondary"><i class="fa fa-refresh"></i></a>
+          <button type="button" data-bs-toggle="tooltip" title="<?php echo $button_upload; ?>" id="button-upload" class="btn btn-primary"><i class="fa fa-upload"></i></button>
+          <button type="button" data-bs-toggle="tooltip" title="<?php echo $button_folder; ?>" id="button-folder" class="btn btn-secondary"><i class="fa fa-folder"></i></button>
+          <button type="button" data-bs-toggle="tooltip" title="<?php echo $button_delete; ?>" id="button-delete" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
         </div>
         <div class="col-sm-7">
           <div class="input-group">
             <input type="text" name="search" value="<?php echo $filter_name; ?>" placeholder="<?php echo $entry_search; ?>" class="form-control">
             <span class="input-group-btn">
-            <button type="button" data-toggle="tooltip" title="<?php echo $button_search; ?>" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button>
+            <button type="button" data-bs-toggle="tooltip" title="<?php echo $button_search; ?>" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button>
             </span></div>
         </div>
       </div>
@@ -33,7 +33,7 @@
 
       <div class="filemanager alert alert-success" style="display:none">
         <i class="fa fa-check-circle"></i><span class="message"></span>
-        <button type="button" class="close" data-dismiss="alert">×</button>
+        <button type="button" class="close" data-bs-dismiss="alert">×</button>
       </div>
 
       <div class="view_list">
@@ -46,19 +46,6 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-    <?php if ($ckedialog) { ?>
-  $(document).on('click', 'a.thumbnail', function (e) {
-
-
-    e.preventDefault();
-    dialog = CKEDITOR.dialog.getCurrent();
-    var targetElement = '<?php echo $ckedialog; ?>' || null;
-    var target = targetElement.split(':');
-    dialog.setValueOf(target[0], target[1], this.getAttribute('href'));
-    $('#modal-image').modal('hide');
-  });
-    <?php } ?>
-
 
     <?php if ($target) { ?>
   $('#filemanager .view_list').on('click', 'a.thumbnail', function (e) {

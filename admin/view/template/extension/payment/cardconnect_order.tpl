@@ -43,27 +43,27 @@
     <td><table class="table table-striped table-bordered" id="cardconnect_transactions">
         <thead>
           <tr>
-            <td class="text-left"><strong><?php echo $text_column_type; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_reference; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_amount; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_status; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_date_modified; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_date_added; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_update; ?></strong></td>
-            <td class="text-left"><strong><?php echo $text_column_void; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_type; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_reference; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_amount; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_status; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_date_modified; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_date_added; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_update; ?></strong></td>
+            <td class="text-start"><strong><?php echo $text_column_void; ?></strong></td>
           </tr>
         </thead>
         <tbody>
             <?php foreach ($cardconnect_order['transactions'] as $transaction) { ?>
               <tr>
-                <td class="text-left"><?php echo $transaction['type']; ?></td>
-                <td class="text-left"><?php echo $transaction['retref']; ?></td>
-                <td class="text-left"><?php echo $transaction['amount']; ?></td>
-                <td class="text-left"><?php echo $transaction['status']; ?></td>
-                <td class="text-left"><?php echo $transaction['date_modified']; ?></td>
-                <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-                <td class="text-left"><a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="<?php echo $transaction['retref']; ?>"><?php echo $button_inquire; ?></a> <span class="btn btn-primary btn-xs img_loading_inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
-                <td class="text-left"><a class="button btn btn-primary button-void btn-xs" data-void-retref="<?php echo $transaction['retref']; ?>"><?php echo $button_void; ?></a> <span class="btn btn-primary btn-xs img_loading_void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
+                <td class="text-start"><?php echo $transaction['type']; ?></td>
+                <td class="text-start"><?php echo $transaction['retref']; ?></td>
+                <td class="text-start"><?php echo $transaction['amount']; ?></td>
+                <td class="text-start"><?php echo $transaction['status']; ?></td>
+                <td class="text-start"><?php echo $transaction['date_modified']; ?></td>
+                <td class="text-start"><?php echo $transaction['date_added']; ?></td>
+                <td class="text-start"><a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="<?php echo $transaction['retref']; ?>"><?php echo $button_inquire; ?></a> <span class="btn btn-primary btn-xs img_loading_inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
+                <td class="text-start"><a class="button btn btn-primary button-void btn-xs" data-void-retref="<?php echo $transaction['retref']; ?>"><?php echo $button_void; ?></a> <span class="btn btn-primary btn-xs img_loading_void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span></td>
               </tr>
           <?php } ?>
         </tbody>
@@ -95,14 +95,14 @@
                     if (json['success']) {
                         html = '';
                         html += '<tr>';
-                        html += '<td class="text-left">Payment</td>';
-                        html += '<td class="text-left">' + json['retref'] + '</td>';
-                        html += '<td class="text-left">' + json['amount'] + '</td>';
-                        html += '<td class="text-left">' + json['status'] + '</td>';
-                        html += '<td class="text-left">' + json['date_modified'] + '</td>';
-                        html += '<td class="text-left">' + json['date_added'] + '</td>';
-                        html += '<td class="text-left">' + '<a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="' + json['retref'] + '"><?php echo $button_inquire; ?></a> <span class="btn btn-primary btn-xs img_loading_inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
-                        html += '<td class="text-left">' + '<a class="button btn btn-primary button-void btn-xs" data-void-retref="' + json['retref'] + '"><?php echo $button_void; ?></a> <span class="btn btn-primary btn-xs img_loading_void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
+                        html += '<td class="text-start">Payment</td>';
+                        html += '<td class="text-start">' + json['retref'] + '</td>';
+                        html += '<td class="text-start">' + json['amount'] + '</td>';
+                        html += '<td class="text-start">' + json['status'] + '</td>';
+                        html += '<td class="text-start">' + json['date_modified'] + '</td>';
+                        html += '<td class="text-start">' + json['date_added'] + '</td>';
+                        html += '<td class="text-start">' + '<a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="' + json['retref'] + '"><?php echo $button_inquire; ?></a> <span class="btn btn-primary btn-xs img_loading_inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
+                        html += '<td class="text-start">' + '<a class="button btn btn-primary button-void btn-xs" data-void-retref="' + json['retref'] + '"><?php echo $button_void; ?></a> <span class="btn btn-primary btn-xs img_loading_void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
                         html += '</tr>';
 
                         $('#cardconnect_transactions').append(html);
@@ -144,14 +144,14 @@
                     if (json['success']) {
                         html = '';
                         html += '<tr>';
-                        html += '<td class="text-left">Refund</td>';
-                        html += '<td class="text-left">' + json['retref'] + '</td>';
-                        html += '<td class="text-left">' + json['amount'] + '</td>';
-                        html += '<td class="text-left">' + json['status'] + '</td>';
-                        html += '<td class="text-left">' + json['date_modified'] + '</td>';
-                        html += '<td class="text-left">' + json['date_added'] + '</td>';
-                        html += '<td class="text-left">' + '<a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="' + json['retref'] + '"><?php echo $button_inquire; ?></a> <span class="btn btn-primary btn-xs img_loading_inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
-                        html += '<td class="text-left">' + '<a class="button btn btn-primary button-void btn-xs" data-void-retref="' + json['retref'] + '"><?php echo $button_void; ?></a> <span class="btn btn-primary btn-xs img_loading_void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
+                        html += '<td class="text-start">Refund</td>';
+                        html += '<td class="text-start">' + json['retref'] + '</td>';
+                        html += '<td class="text-start">' + json['amount'] + '</td>';
+                        html += '<td class="text-start">' + json['status'] + '</td>';
+                        html += '<td class="text-start">' + json['date_modified'] + '</td>';
+                        html += '<td class="text-start">' + json['date_added'] + '</td>';
+                        html += '<td class="text-start">' + '<a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="' + json['retref'] + '"><?php echo $button_inquire; ?></a> <span class="btn btn-primary btn-xs img_loading_inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
+                        html += '<td class="text-start">' + '<a class="button btn btn-primary button-void btn-xs" data-void-retref="' + json['retref'] + '"><?php echo $button_void; ?></a> <span class="btn btn-primary btn-xs img_loading_void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
                         html += '</tr>';
 
                         $('#cardconnect_transactions').append(html);

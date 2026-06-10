@@ -1,0 +1,109 @@
+/* Tiptap rich text editor — Bootstrap 3 skin */
+
+.tiptap-wrapper {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.tiptap-wrapper:focus-within {
+    border-color: #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0;
+}
+
+.tiptap-toolbar {
+    padding: 5px 8px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+}
+
+.tiptap-toolbar .btn.active {
+    background-color: #e8e8e8;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.tiptap-content {
+    padding: 8px 12px;
+    min-height: 160px;
+    cursor: text;
+}
+
+/* ProseMirror inner element */
+.tiptap-content .ProseMirror {
+    min-height: 140px;
+    outline: none;
+    line-height: 1.6;
+}
+
+/* Placeholder text */
+.tiptap-content .ProseMirror p.is-empty:first-child::before {
+    color: #aaa;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Content elements */
+.tiptap-content blockquote {
+    border-left: 4px solid #ddd;
+    color: #666;
+    margin: 0 0 10px;
+    padding: 0 0 0 16px;
+}
+
+.tiptap-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.tiptap-content a {
+    color: #337ab7;
+    text-decoration: underline;
+}
+
+.tiptap-content ul,
+.tiptap-content ol {
+    padding-left: 24px;
+}
+
+.tiptap-content code {
+    background: #f7f7f7;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+    color: #d14;
+    font-size: 85%;
+    padding: 1px 4px;
+}
+
+.tiptap-content pre {
+    background: #f7f7f7;
+    border: 1px solid #e1e1e8;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+/* Source view textarea */
+.tiptap-source-view {
+    border: 0;
+    border-top: 1px solid #ddd;
+    border-radius: 0 0 4px 4px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+    resize: vertical;
+    width: 100%;
+}
+
+.tiptap-source-view:focus {
+    box-shadow: none;
+    border-color: #ddd;
+    outline: 0;
+}

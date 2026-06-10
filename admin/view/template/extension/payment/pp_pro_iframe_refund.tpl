@@ -2,7 +2,7 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right"><a href="<?php echo $cancel; ?>" class="btn btn-primary"><i class="fa fa-reply"></i> <?php echo $button_cancel; ?></a></div>
+      <div class="float-end"><a href="<?php echo $cancel; ?>" class="btn btn-primary"><i class="fa fa-reply"></i> <?php echo $button_cancel; ?></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -14,19 +14,19 @@
   <div class="container-fluid">
       <?php if ($error != '') { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
     <?php if ($attention != '') { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $attention; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $heading_title; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $heading_title; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
           <input type="hidden" name="amount_original" value="<?php echo $amount_original; ?>"/>
           <input type="hidden" name="currency_code" value="<?php echo $currency_code; ?>"/>
@@ -55,7 +55,7 @@
               <textarea name="refund_message" id="paypal_refund_message" cols="40" rows="5"></textarea>
             </div>
           </div>
-          <div class="pull-right"><a onclick="$('#form').submit();" class="btn btn-primary"><?php echo $button_refund; ?></a></div>
+          <div class="float-end"><a onclick="$('#form').submit();" class="btn btn-primary"><?php echo $button_refund; ?></a></div>
         </form>
       </div>
     </div>

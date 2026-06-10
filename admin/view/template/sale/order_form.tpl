@@ -2,7 +2,7 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right"><a href="<?php echo $cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i> <?php echo $button_cancel; ?></a></div>
+      <div class="float-end"><a href="<?php echo $cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i> <?php echo $button_cancel; ?></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -12,18 +12,18 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form class="form-horizontal">
           <ul id="order" class="nav nav-tabs nav-justified">
-            <li class="disabled active"><a href="#tab-customer" data-toggle="tab">1. <?php echo $tab_customer; ?></a></li>
-            <li class="disabled"><a href="#tab-cart" data-toggle="tab">2. <?php echo $tab_product; ?></a></li>
-            <li class="disabled"><a href="#tab-payment" data-toggle="tab">3. <?php echo $tab_payment; ?></a></li>
-            <li class="disabled"><a href="#tab-shipping" data-toggle="tab">4. <?php echo $tab_shipping; ?></a></li>
-            <li class="disabled"><a href="#tab-total" data-toggle="tab">5. <?php echo $tab_total; ?></a></li>
+            <li class="disabled active"><a href="#tab-customer" data-bs-toggle="tab">1. <?php echo $tab_customer; ?></a></li>
+            <li class="disabled"><a href="#tab-cart" data-bs-toggle="tab">2. <?php echo $tab_product; ?></a></li>
+            <li class="disabled"><a href="#tab-payment" data-bs-toggle="tab">3. <?php echo $tab_payment; ?></a></li>
+            <li class="disabled"><a href="#tab-shipping" data-bs-toggle="tab">4. <?php echo $tab_shipping; ?></a></li>
+            <li class="disabled"><a href="#tab-total" data-bs-toggle="tab">5. <?php echo $tab_total; ?></a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-customer">
@@ -189,7 +189,7 @@
                           <div class="form-group custom-field custom-field<?php echo $custom_field['custom_field_id']; ?>" data-sort="<?php echo $custom_field['sort_order'] + 3; ?>">
                             <label class="col-sm-2 control-label"><?php echo $custom_field['name']; ?></label>
                             <div class="col-sm-10">
-                              <button type="button" id="button-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
+                              <button type="button" id="button-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="btn btn-secondary"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
                               <input type="hidden" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($account_custom_field[$custom_field['custom_field_id']]) ? $account_custom_field[$custom_field['custom_field_id']] : ''); ?>" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" />
                             </div>
                           </div>
@@ -201,7 +201,7 @@
                               <div class="input-group date">
                                 <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($account_custom_field[$custom_field['custom_field_id']]) ? $account_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                  <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                 </span></div>
                             </div>
                           </div>
@@ -213,7 +213,7 @@
                               <div class="input-group time">
                                 <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($account_custom_field[$custom_field['custom_field_id']]) ? $account_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="HH:mm" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                  <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                 </span></div>
                             </div>
                           </div>
@@ -225,14 +225,14 @@
                               <div class="input-group datetime">
                                 <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($account_custom_field[$custom_field['custom_field_id']]) ? $account_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                  <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                 </span></div>
                             </div>
                           </div>
                       <?php } ?>
                   <?php } ?>
               <?php } ?>
-              <div class="text-right">
+              <div class="text-end">
                 <button type="button" id="button-customer" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-arrow-right"></i> <?php echo $button_continue; ?></button>
               </div>
             </div>
@@ -241,11 +241,11 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <td class="text-left"><?php echo $column_product; ?></td>
-                      <td class="text-left"><?php echo $column_model; ?></td>
-                      <td class="text-right"><?php echo $column_quantity; ?></td>
-                      <td class="text-right"><?php echo $column_price; ?></td>
-                      <td class="text-right"><?php echo $column_total; ?></td>
+                      <td class="text-start"><?php echo $column_product; ?></td>
+                      <td class="text-start"><?php echo $column_model; ?></td>
+                      <td class="text-end"><?php echo $column_quantity; ?></td>
+                      <td class="text-end"><?php echo $column_price; ?></td>
+                      <td class="text-end"><?php echo $column_total; ?></td>
                       <td><?php echo $column_action; ?></td>
                     </tr>
                   </thead>
@@ -254,7 +254,7 @@
                           <?php $product_row = 0; ?>
                           <?php foreach ($order_products as $order_product) { ?>
                             <tr>
-                              <td class="text-left"><?php echo $order_product['name']; ?><br />
+                              <td class="text-start"><?php echo $order_product['name']; ?><br />
                                 <input type="hidden" name="product[<?php echo $product_row; ?>][product_id]" value="<?php echo $order_product['product_id']; ?>" />
                                 <?php foreach ($order_product['option'] as $option) { ?>
                                     - <small><?php echo $option['name']; ?>: <?php echo $option['value']; ?></small><br />
@@ -268,11 +268,11 @@
                                         <input type="hidden" name="product[<?php echo $product_row; ?>][option][<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" />
                                     <?php } ?>
                                 <?php } ?></td>
-                              <td class="text-left"><?php echo $order_product['model']; ?></td>
-                              <td class="text-right"><?php echo $order_product['quantity']; ?>
+                              <td class="text-start"><?php echo $order_product['model']; ?></td>
+                              <td class="text-end"><?php echo $order_product['quantity']; ?>
                                 <input type="hidden" name="product[<?php echo $product_row; ?>][quantity]" value="<?php echo $order_product['quantity']; ?>" /></td>
-                              <td class="text-right"></td>
-                              <td class="text-right"></td>
+                              <td class="text-end"></td>
+                              <td class="text-end"></td>
                               <td class="text-center"></td>
                             </tr>
                             <?php $product_row++; ?>
@@ -280,7 +280,7 @@
                         <?php $voucher_row = 0; ?>
                         <?php foreach ($order_vouchers as $order_voucher) { ?>
                             <tr>
-                              <td class="text-left"><?php echo $order_voucher['description']; ?>
+                              <td class="text-start"><?php echo $order_voucher['description']; ?>
                                 <input type="hidden" name="voucher[<?php echo $voucher_row; ?>][voucher_id]" value="<?php echo $order_voucher['voucher_id']; ?>" />
                                 <input type="hidden" name="voucher[<?php echo $voucher_row; ?>][description]" value="<?php echo $order_voucher['description']; ?>" />
                                 <input type="hidden" name="voucher[<?php echo $voucher_row; ?>][code]" value="<?php echo $order_voucher['code']; ?>" />
@@ -291,10 +291,10 @@
                                 <input type="hidden" name="voucher[<?php echo $voucher_row; ?>][voucher_theme_id]" value="<?php echo $order_voucher['voucher_theme_id']; ?>" />
                                 <input type="hidden" name="voucher[<?php echo $voucher_row; ?>][message]" value="<?php echo $order_voucher['message']; ?>" />
                                 <input type="hidden" name="voucher[<?php echo $voucher_row; ?>][amount]" value="<?php echo $order_voucher['amount']; ?>" /></td>
-                              <td class="text-left"></td>
-                              <td class="text-right">1</td>
-                              <td class="text-right"></td>
-                              <td class="text-right"></td>
+                              <td class="text-start"></td>
+                              <td class="text-end">1</td>
+                              <td class="text-end"></td>
+                              <td class="text-end"></td>
                               <td class="text-center"></td>
                             </tr>
                             <?php $voucher_row++; ?>
@@ -308,8 +308,8 @@
                 </table>
               </div>
               <ul class="nav nav-tabs nav-justified">
-                <li class="active"><a href="#tab-product" data-toggle="tab"><?php echo $tab_product; ?></a></li>
-                <li><a href="#tab-voucher" data-toggle="tab"><?php echo $tab_voucher; ?></a></li>
+                <li class="active"><a href="#tab-product" data-bs-toggle="tab"><?php echo $tab_product; ?></a></li>
+                <li><a href="#tab-voucher" data-bs-toggle="tab"><?php echo $tab_voucher; ?></a></li>
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="tab-product">
@@ -330,7 +330,7 @@
                     </div>
                     <div id="option"></div>
                   </fieldset>
-                  <div class="text-right">
+                  <div class="text-end">
                     <button type="button" id="button-product-add" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i> <?php echo $button_product_add; ?></button>
                   </div>
                 </div>
@@ -384,17 +384,17 @@
                       </div>
                     </div>
                   </fieldset>
-                  <div class="text-right">
+                  <div class="text-end">
                     <button type="button" id="button-voucher-add" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i> <?php echo $button_voucher_add; ?></button>
                   </div>
                 </div>
               </div>
               <br />
               <div class="row">
-                <div class="col-sm-6 text-left">
-                  <button type="button" onclick="$('a[href=\'#tab-customer\']').tab('show');" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?php echo $button_back; ?></button>
+                <div class="col-sm-6 text-start">
+                  <button type="button" onclick="$('a[href=\'#tab-customer\']').tab('show');" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> <?php echo $button_back; ?></button>
                 </div>
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-end">
                   <button type="button" id="button-cart" class="btn btn-primary"><i class="fa fa-arrow-right"></i> <?php echo $button_continue; ?></button>
                 </div>
               </div>
@@ -558,7 +558,7 @@
                           <div class="form-group custom-field custom-field<?php echo $custom_field['custom_field_id']; ?>" data-sort="<?php echo $custom_field['sort_order'] + 3; ?>">
                             <label class="col-sm-2 control-label"><?php echo $custom_field['name']; ?></label>
                             <div class="col-sm-10">
-                              <button type="button" id="button-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
+                              <button type="button" id="button-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-secondary"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
                               <input type="hidden" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($payment_custom_field[$custom_field['custom_field_id']]) ? $payment_custom_field[$custom_field['custom_field_id']] : ''); ?>" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" />
                             </div>
                           </div>
@@ -570,7 +570,7 @@
                               <div class="input-group date">
                                 <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($payment_custom_field[$custom_field['custom_field_id']]) ? $payment_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                  <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                 </span></div>
                             </div>
                           </div>
@@ -582,7 +582,7 @@
                               <div class="input-group time">
                                 <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($payment_custom_field[$custom_field['custom_field_id']]) ? $payment_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="HH:mm" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                  <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                 </span></div>
                             </div>
                           </div>
@@ -594,7 +594,7 @@
                               <div class="input-group datetime">
                                 <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($payment_custom_field[$custom_field['custom_field_id']]) ? $payment_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                  <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                 </span></div>
                             </div>
                           </div>
@@ -602,10 +602,10 @@
                   <?php } ?>
               <?php } ?>
               <div class="row">
-                <div class="col-sm-6 text-left">
-                  <button type="button" onclick="$('a[href=\'#tab-cart\']').tab('show');" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?php echo $button_back; ?></button>
+                <div class="col-sm-6 text-start">
+                  <button type="button" onclick="$('a[href=\'#tab-cart\']').tab('show');" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> <?php echo $button_back; ?></button>
                 </div>
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-end">
                   <button type="button" id="button-payment-address" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-arrow-right"></i> <?php echo $button_continue; ?></button>
                 </div>
               </div>
@@ -769,7 +769,7 @@
                           <div class="form-group custom-field custom-field<?php echo $custom_field['custom_field_id']; ?>" data-sort="<?php echo $custom_field['sort_order'] + 3; ?>">
                             <label class="col-sm-2 control-label"><?php echo $custom_field['name']; ?></label>
                             <div class="col-sm-10">
-                              <button type="button" id="button-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
+                              <button type="button" id="button-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-secondary"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
                               <input type="hidden" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($shipping_custom_field[$custom_field['custom_field_id']]) ? $shipping_custom_field[$custom_field['custom_field_id']] : ''); ?>" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" />
                             </div>
                           </div>
@@ -781,7 +781,7 @@
                               <div class="input-group date">
                                 <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($shipping_custom_field[$custom_field['custom_field_id']]) ? $shipping_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                  <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                 </span></div>
                             </div>
                           </div>
@@ -793,7 +793,7 @@
                               <div class="input-group time">
                                 <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($shipping_custom_field[$custom_field['custom_field_id']]) ? $shipping_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="HH:mm" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                  <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                 </span></div>
                             </div>
                           </div>
@@ -805,7 +805,7 @@
                               <div class="input-group datetime">
                                 <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($shipping_custom_field[$custom_field['custom_field_id']]) ? $shipping_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                  <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                 </span></div>
                             </div>
                           </div>
@@ -813,10 +813,10 @@
                   <?php } ?>
               <?php } ?>
               <div class="row">
-                <div class="col-sm-6 text-left">
-                  <button type="button" onclick="$('a[href=\'#tab-payment\']').tab('show');" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?php echo $button_back; ?></button>
+                <div class="col-sm-6 text-start">
+                  <button type="button" onclick="$('a[href=\'#tab-payment\']').tab('show');" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> <?php echo $button_back; ?></button>
                 </div>
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-end">
                   <button type="button" id="button-shipping-address" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-arrow-right"></i> <?php echo $button_continue; ?></button>
                 </div>
               </div>
@@ -826,11 +826,11 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <td class="text-left"><?php echo $column_product; ?></td>
-                      <td class="text-left"><?php echo $column_model; ?></td>
-                      <td class="text-right"><?php echo $column_quantity; ?></td>
-                      <td class="text-right"><?php echo $column_price; ?></td>
-                      <td class="text-right"><?php echo $column_total; ?></td>
+                      <td class="text-start"><?php echo $column_product; ?></td>
+                      <td class="text-start"><?php echo $column_model; ?></td>
+                      <td class="text-end"><?php echo $column_quantity; ?></td>
+                      <td class="text-end"><?php echo $column_price; ?></td>
+                      <td class="text-end"><?php echo $column_total; ?></td>
                     </tr>
                   </thead>
                   <tbody id="total">
@@ -932,11 +932,11 @@
                 </div>
               </fieldset>
               <div class="row">
-                <div class="col-sm-6 text-left">
-                  <button type="button" onclick="$('select[name=\'shipping_method\']').prop('disabled') ? $('a[href=\'#tab-payment\']').tab('show') : $('a[href=\'#tab-shipping\']').tab('show');" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?php echo $button_back; ?></button>
+                <div class="col-sm-6 text-start">
+                  <button type="button" onclick="$('select[name=\'shipping_method\']').prop('disabled') ? $('a[href=\'#tab-payment\']').tab('show') : $('a[href=\'#tab-shipping\']').tab('show');" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> <?php echo $button_back; ?></button>
                 </div>
-                <div class="col-sm-6 text-right">
-                  <button type="button" id="button-refresh" data-toggle="tooltip" title="<?php echo $button_refresh; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-warning"><i class="fa fa-refresh"></i></button>
+                <div class="col-sm-6 text-end">
+                  <button type="button" id="button-refresh" data-bs-toggle="tooltip" title="<?php echo $button_refresh; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-warning"><i class="fa fa-refresh"></i></button>
                   <button type="button" id="button-save" class="btn btn-primary"><i class="fa fa-check-circle"></i> <?php echo $button_save; ?></button>
                 </div>
               </div>
@@ -948,7 +948,7 @@
   </div>
   <script type="text/javascript"><!--
 // Disable the tabs
-      $('#order a[data-toggle=\'tab\']').on('click', function (e) {
+      $('#order a[data-bs-toggle=\'tab\']').on('click', function (e) {
           return false;
       });
 
@@ -968,11 +968,11 @@
                   $('.alert').remove();
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
               },
               error: function (xhr, ajaxOptions, thrownError) {
@@ -995,11 +995,11 @@
 
               if (json['error']) {
                   if (json['error']['key']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['key'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['key'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
 
                   if (json['error']['ip']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i> <?php echo $button_ip_add; ?></button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger btn-xs float-end"><i class="fa fa-plus"></i> <?php echo $button_ip_add; ?></button></div>');
                   }
               }
 
@@ -1033,7 +1033,7 @@
                   $('.form-group').removeClass('has-error');
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Highlight any found errors
                       $('select[name=\'currency\']').closest('.form-group').addClass('has-error');
@@ -1057,7 +1057,7 @@
                   // Check for errors
                   if (json['error']) {
                       if (json['error']['warning']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                       }
 
                       if (json['error']['stock']) {
@@ -1066,7 +1066,7 @@
 
                       if (json['error']['minimum']) {
                           for (i in json['error']['minimum']) {
-                              $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['minimum'][i] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                              $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['minimum'][i] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                           }
                       }
                   }
@@ -1080,7 +1080,7 @@
                           product = json['products'][i];
 
                           html += '<tr>';
-                          html += '  <td class="text-left">' + product['name'] + ' ' + (!product['stock'] ? '<span class="text-danger">***</span>' : '') + '<br />';
+                          html += '  <td class="text-start">' + product['name'] + ' ' + (!product['stock'] ? '<span class="text-danger">***</span>' : '') + '<br />';
                           html += '  <input type="hidden" name="product[' + i + '][product_id]" value="' + product['product_id'] + '" />';
 
                           if (product['option']) {
@@ -1104,11 +1104,11 @@
                           }
 
                           html += '</td>';
-                          html += '  <td class="text-left">' + product['model'] + '</td>';
-                          html += '  <td class="text-right"><div class="input-group btn-block" style="max-width: 200px;"><input type="text" name="product[' + i + '][quantity]" value="' + product['quantity'] + '" class="form-control" /><span class="input-group-btn"><button type="button" data-toggle="tooltip" title="<?php echo $button_refresh; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-refresh"></i></button></span></div></td>';
-                          html += '  <td class="text-right">' + product['price'] + '</td>';
-                          html += '  <td class="text-right">' + product['total'] + '</td>';
-                          html += '  <td class="text-center" style="width: 3px;"><button type="button" value="' + product['cart_id'] + '" data-toggle="tooltip" title="<?php echo $button_remove; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+                          html += '  <td class="text-start">' + product['model'] + '</td>';
+                          html += '  <td class="text-end"><div class="input-group btn-block" style="max-width: 200px;"><input type="text" name="product[' + i + '][quantity]" value="' + product['quantity'] + '" class="form-control" /><span class="input-group-btn"><button type="button" data-bs-toggle="tooltip" title="<?php echo $button_refresh; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-refresh"></i></button></span></div></td>';
+                          html += '  <td class="text-end">' + product['price'] + '</td>';
+                          html += '  <td class="text-end">' + product['total'] + '</td>';
+                          html += '  <td class="text-center" style="width: 3px;"><button type="button" value="' + product['cart_id'] + '" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
                           html += '</tr>';
 
                           if (product['shipping'] != 0) {
@@ -1131,7 +1131,7 @@
                           voucher = json['vouchers'][i];
 
                           html += '<tr>';
-                          html += '  <td class="text-left">' + voucher['description'];
+                          html += '  <td class="text-start">' + voucher['description'];
                           html += '    <input type="hidden" name="voucher[' + i + '][code]" value="' + voucher['code'] + '" />';
                           html += '    <input type="hidden" name="voucher[' + i + '][description]" value="' + voucher['description'] + '" />';
                           html += '    <input type="hidden" name="voucher[' + i + '][from_name]" value="' + voucher['from_name'] + '" />';
@@ -1142,11 +1142,11 @@
                           html += '    <input type="hidden" name="voucher[' + i + '][message]" value="' + voucher['message'] + '" />';
                           html += '    <input type="hidden" name="voucher[' + i + '][amount]" value="' + voucher['amount'] + '" />';
                           html += '  </td>';
-                          html += '  <td class="text-left"></td>';
-                          html += '  <td class="text-right">1</td>';
-                          html += '  <td class="text-right">' + voucher['price'] + '</td>';
-                          html += '  <td class="text-right">' + voucher['price'] + '</td>';
-                          html += '  <td class="text-center" style="width: 3px;"><button type="button" value="' + voucher['code'] + '" data-toggle="tooltip" title="<?php echo $button_remove; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+                          html += '  <td class="text-start"></td>';
+                          html += '  <td class="text-end">1</td>';
+                          html += '  <td class="text-end">' + voucher['price'] + '</td>';
+                          html += '  <td class="text-end">' + voucher['price'] + '</td>';
+                          html += '  <td class="text-center" style="width: 3px;"><button type="button" value="' + voucher['code'] + '" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
                           html += '</tr>';
                       }
                   }
@@ -1167,7 +1167,7 @@
                           product = json['products'][i];
 
                           html += '<tr>';
-                          html += '  <td class="text-left">' + product['name'] + ' ' + (!product['stock'] ? '<span class="text-danger">***</span>' : '') + '<br />';
+                          html += '  <td class="text-start">' + product['name'] + ' ' + (!product['stock'] ? '<span class="text-danger">***</span>' : '') + '<br />';
 
                           if (product['option']) {
                               for (j = 0; j < product['option'].length; j++) {
@@ -1178,10 +1178,10 @@
                           }
 
                           html += '  </td>';
-                          html += '  <td class="text-left">' + product['model'] + '</td>';
-                          html += '  <td class="text-right">' + product['quantity'] + '</td>';
-                          html += '  <td class="text-right">' + product['price'] + '</td>';
-                          html += '  <td class="text-right">' + product['total'] + '</td>';
+                          html += '  <td class="text-start">' + product['model'] + '</td>';
+                          html += '  <td class="text-end">' + product['quantity'] + '</td>';
+                          html += '  <td class="text-end">' + product['price'] + '</td>';
+                          html += '  <td class="text-end">' + product['total'] + '</td>';
                           html += '</tr>';
                       }
                   }
@@ -1191,11 +1191,11 @@
                           voucher = json['vouchers'][i];
 
                           html += '<tr>';
-                          html += '  <td class="text-left">' + voucher['description'] + '</td>';
-                          html += '  <td class="text-left"></td>';
-                          html += '  <td class="text-right">1</td>';
-                          html += '  <td class="text-right">' + voucher['amount'] + '</td>';
-                          html += '  <td class="text-right">' + voucher['amount'] + '</td>';
+                          html += '  <td class="text-start">' + voucher['description'] + '</td>';
+                          html += '  <td class="text-start"></td>';
+                          html += '  <td class="text-end">1</td>';
+                          html += '  <td class="text-end">' + voucher['amount'] + '</td>';
+                          html += '  <td class="text-end">' + voucher['amount'] + '</td>';
                           html += '</tr>';
                       }
                   }
@@ -1205,8 +1205,8 @@
                           total = json['totals'][i];
 
                           html += '<tr>';
-                          html += '  <td class="text-right" colspan="4">' + total['title'] + ':</td>';
-                          html += '  <td class="text-right">' + total['text'] + '</td>';
+                          html += '  <td class="text-end" colspan="4">' + total['title'] + ':</td>';
+                          html += '  <td class="text-end">' + total['text'] + '</td>';
                           html += '</tr>';
                       }
                   }
@@ -1355,7 +1355,7 @@
 
                   if (json['error']) {
                       if (json['error']['warning']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                       }
 
                       for (i in json['error']) {
@@ -1389,7 +1389,7 @@
                               $('.form-group').removeClass('has-error');
 
                               if (json['error'] && json['error']['warning']) {
-                                  $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                                  $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                               }
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
@@ -1415,7 +1415,7 @@
                                   $('.form-group').removeClass('has-error');
 
                                   if (json['error'] && json['error']['warning']) {
-                                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                                   }
                               },
                               error: function (xhr, ajaxOptions, thrownError) {
@@ -1582,7 +1582,7 @@
                           html += '<div class="form-group' + (option['required'] ? ' required' : '') + '">';
                           html += '  <label class="col-sm-2 control-label">' + option['name'] + '</label>';
                           html += '  <div class="col-sm-10">';
-                          html += '    <button type="button" id="button-upload' + option['product_option_id'] + '" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>';
+                          html += '    <button type="button" id="button-upload' + option['product_option_id'] + '" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-secondary"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>';
                           html += '    <input type="hidden" name="option[' + option['product_option_id'] + ']" value="' + option['value'] + '" id="input-option' + option['product_option_id'] + '" />';
                           html += '  </div>';
                           html += '</div>';
@@ -1591,21 +1591,21 @@
                       if (option['type'] == 'date') {
                           html += '<div class="form-group' + (option['required'] ? ' required' : '') + '">';
                           html += '  <label class="col-sm-2 control-label" for="input-option' + option['product_option_id'] + '">' + option['name'] + '</label>';
-                          html += '  <div class="col-sm-3"><div class="input-group date"><input type="text" name="option[' + option['product_option_id'] + ']" value="' + option['value'] + '" placeholder="' + option['name'] + '" data-date-format="YYYY-MM-DD" id="input-option' + option['product_option_id'] + '" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></div>';
+                          html += '  <div class="col-sm-3"><div class="input-group date"><input type="text" name="option[' + option['product_option_id'] + ']" value="' + option['value'] + '" placeholder="' + option['name'] + '" data-date-format="YYYY-MM-DD" id="input-option' + option['product_option_id'] + '" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button></span></div></div>';
                           html += '</div>';
                       }
 
                       if (option['type'] == 'datetime') {
                           html += '<div class="form-group' + (option['required'] ? ' required' : '') + '">';
                           html += '  <label class="col-sm-2 control-label" for="input-option' + option['product_option_id'] + '">' + option['name'] + '</label>';
-                          html += '  <div class="col-sm-3"><div class="input-group datetime"><input type="text" name="option[' + option['product_option_id'] + ']" value="' + option['value'] + '" placeholder="' + option['name'] + '" data-date-format="YYYY-MM-DD HH:mm" id="input-option' + option['product_option_id'] + '" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></div>';
+                          html += '  <div class="col-sm-3"><div class="input-group datetime"><input type="text" name="option[' + option['product_option_id'] + ']" value="' + option['value'] + '" placeholder="' + option['name'] + '" data-date-format="YYYY-MM-DD HH:mm" id="input-option' + option['product_option_id'] + '" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button></span></div></div>';
                           html += '</div>';
                       }
 
                       if (option['type'] == 'time') {
                           html += '<div class="form-group' + (option['required'] ? ' required' : '') + '">';
                           html += '  <label class="col-sm-2 control-label" for="input-option' + option['product_option_id'] + '">' + option['name'] + '</label>';
-                          html += '  <div class="col-sm-3"><div class="input-group time"><input type="text" name="option[' + option['product_option_id'] + ']" value="' + option['value'] + '" placeholder="' + option['name'] + '" data-date-format="HH:mm" id="input-option' + option['product_option_id'] + '" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></div>';
+                          html += '  <div class="col-sm-3"><div class="input-group time"><input type="text" name="option[' + option['product_option_id'] + ']" value="' + option['value'] + '" placeholder="' + option['name'] + '" data-date-format="HH:mm" id="input-option' + option['product_option_id'] + '" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button></span></div></div>';
                           html += '</div>';
                       }
                   }
@@ -1651,7 +1651,7 @@
 
                   if (json['error']) {
                       if (json['error']['warning']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                       }
 
                       if (json['error']['option']) {
@@ -1703,7 +1703,7 @@
 
                   if (json['error']) {
                       if (json['error']['warning']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                       }
 
                       for (i in json['error']) {
@@ -1756,7 +1756,7 @@
 
                   // Check for errors
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   } else {
                       // Refresh products, vouchers and totals
                       $('#button-refresh').trigger('click');
@@ -1789,11 +1789,11 @@
                   $('.form-group').removeClass('has-error');
 
                   if (json['error'] && json['error']['warning']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
               },
               error: function (xhr, ajaxOptions, thrownError) {
@@ -1925,7 +1925,7 @@
                   // Check for errors
                   if (json['error']) {
                       if (json['error']['warning']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                       }
 
                       for (i in json['error']) {
@@ -1954,7 +1954,7 @@
                           },
                           success: function (json) {
                               if (json['error']) {
-                                  $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                                  $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                               } else {
                                   html = '<option value=""><?php echo $text_select; ?></option>';
 
@@ -2109,7 +2109,7 @@
                   // Check for errors
                   if (json['error']) {
                       if (json['error']['warning']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                       }
 
                       for (i in json['error']) {
@@ -2137,7 +2137,7 @@
                           },
                           success: function (json) {
                               if (json['error']) {
-                                  $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                                  $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                               } else {
                                   // Shipping Methods
                                   html = '<option value=""><?php echo $text_select; ?></option>';
@@ -2201,14 +2201,14 @@
                   $('.form-group').removeClass('has-error');
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Highlight any found errors
                       $('select[name=\'shipping_method\']').closest('.form-group').addClass('has-error');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Refresh products, vouchers and totals
                       $('#button-refresh').trigger('click');
@@ -2239,14 +2239,14 @@
                   $('.form-group').removeClass('has-error');
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Highlight any found errors
                       $('select[name=\'payment_method\']').closest('.form-group').addClass('has-error');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Refresh products, vouchers and totals
                       $('#button-refresh').trigger('click');
@@ -2277,14 +2277,14 @@
                   $('.form-group').removeClass('has-error');
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Highlight any found errors
                       $('input[name=\'coupon\']').closest('.form-group').addClass('has-error');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Refresh products, vouchers and totals
                       $('#button-refresh').trigger('click');
@@ -2315,14 +2315,14 @@
                   $('.form-group').removeClass('has-error');
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Highlight any found errors
                       $('input[name=\'voucher\']').closest('.form-group').addClass('has-error');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Refresh products, vouchers and totals
                       $('#button-refresh').trigger('click');
@@ -2353,14 +2353,14 @@
                   $('.form-group').removeClass('has-error');
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Highlight any found errors
                       $('input[name=\'reward\']').closest('.form-group').addClass('has-error');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Refresh products, vouchers and totals
                       $('#button-refresh').trigger('click');
@@ -2423,11 +2423,11 @@
                   $('.alert, .text-danger').remove();
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       // Refresh products, vouchers and totals
                       $('#button-refresh').trigger('click');

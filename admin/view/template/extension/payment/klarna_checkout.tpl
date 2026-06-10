@@ -2,9 +2,9 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button type="submit" form="form-klarna-checkout" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <button type="submit" form="form-klarna-checkout" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -16,19 +16,19 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-klarna-checkout" class="form-horizontal">
           <ul class="nav nav-tabs" id="tabs">
-            <li class="active"><a href="#tab-setting" data-toggle="tab"><?php echo $tab_setting; ?></a></li>
-            <li><a href="#tab-account" data-toggle="tab"><?php echo $tab_account; ?></a></li>
-            <li><a href="#tab-settlement" data-toggle="tab"><?php echo $tab_settlement; ?></a></li>
+            <li class="active"><a href="#tab-setting" data-bs-toggle="tab"><?php echo $tab_setting; ?></a></li>
+            <li><a href="#tab-account" data-bs-toggle="tab"><?php echo $tab_account; ?></a></li>
+            <li><a href="#tab-settlement" data-bs-toggle="tab"><?php echo $tab_settlement; ?></a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-setting">
@@ -39,7 +39,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="<?php echo $help_debug; ?>"><?php echo $entry_debug; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-debug"><span data-bs-toggle="tooltip" title="<?php echo $help_debug; ?>"><?php echo $entry_debug; ?></span></label>
                 <div class="col-sm-10">
                   <select name="klarna_checkout_debug" id="input-debug" class="form-control">
                       <?php if ($klarna_checkout_debug) { ?>
@@ -53,7 +53,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-total"><span data-bs-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="klarna_checkout_total" value="<?php echo $klarna_checkout_total; ?>" placeholder="<?php echo $entry_total; ?>" id="input-total" class="form-control" />
                 </div>
@@ -108,14 +108,14 @@
               <table id="account" class="table table-striped table-bordered table-hover">
                 <thead>
                   <tr>
-                    <td class="text-left required"><?php echo $entry_merchant_id; ?></td>
-                    <td class="text-left required"><?php echo $entry_secret; ?></td>
-                    <td class="text-left required"><?php echo $entry_environment; ?></td>
-                    <td class="text-left required"><?php echo $entry_country; ?></td>
-                    <td class="text-left required"><span data-toggle="tooltip" title="<?php echo $help_shipping; ?>"><?php echo $entry_shipping; ?></span></td>
-                    <td class="text-left required"><?php echo $entry_currency; ?></td>
-                    <td class="text-left required"><span data-toggle="tooltip" title="<?php echo $help_locale; ?>"><?php echo $entry_locale; ?></span></td>
-                    <td class="text-left required"><span data-toggle="tooltip" title="<?php echo $help_api; ?>"><?php echo $entry_api; ?></span></td>
+                    <td class="text-start required"><?php echo $entry_merchant_id; ?></td>
+                    <td class="text-start required"><?php echo $entry_secret; ?></td>
+                    <td class="text-start required"><?php echo $entry_environment; ?></td>
+                    <td class="text-start required"><?php echo $entry_country; ?></td>
+                    <td class="text-start required"><span data-bs-toggle="tooltip" title="<?php echo $help_shipping; ?>"><?php echo $entry_shipping; ?></span></td>
+                    <td class="text-start required"><?php echo $entry_currency; ?></td>
+                    <td class="text-start required"><span data-bs-toggle="tooltip" title="<?php echo $help_locale; ?>"><?php echo $entry_locale; ?></span></td>
+                    <td class="text-start required"><span data-bs-toggle="tooltip" title="<?php echo $help_api; ?>"><?php echo $entry_api; ?></span></td>
                     <td></td>
                   </tr>
                 </thead>
@@ -123,19 +123,19 @@
                     <?php $account_row = 0; ?>
                     <?php foreach ($klarna_checkout_account as $key => $account) { ?>
                       <tr id="account-row<?php echo $account_row; ?>">
-                        <td class="text-left">
+                        <td class="text-start">
                           <input type="text" name="klarna_checkout_account[<?php echo $account_row; ?>][merchant_id]" placeholder="<?php echo $entry_merchant_id; ?>" class="form-control" value="<?php echo $account['merchant_id']; ?>" />
                           <?php if (isset($error_account[$key]['merchant_id'])) { ?>
                               <div class="text-danger"><?php echo $error_account[$key]['merchant_id']; ?></div>
                           <?php } ?>
                         </td>
-                        <td class="text-left">
+                        <td class="text-start">
                           <input type="text" name="klarna_checkout_account[<?php echo $account_row; ?>][secret]" placeholder="<?php echo $entry_merchant_id; ?>" class="form-control" value="<?php echo $account['secret']; ?>" />
                           <?php if (isset($error_account[$key]['secret'])) { ?>
                               <div class="text-danger"><?php echo $error_account[$key]['secret']; ?></div>
                           <?php } ?>
                         </td>
-                        <td class="text-left">
+                        <td class="text-start">
                           <select name="klarna_checkout_account[<?php echo $account_row; ?>][environment]" class="form-control">
                               <?php if ($account['environment'] == 'live') { ?>
                                 <option value="test"><?php echo $text_test; ?></option>
@@ -146,7 +146,7 @@
                             <?php } ?>
                           </select>
                         </td>
-                        <td class="text-left">
+                        <td class="text-start">
                           <select name="klarna_checkout_account[<?php echo $account_row; ?>][country]" class="form-control">
                               <?php foreach ($countries as $country) { ?>
                                   <?php if ($country['country_id'] == $account['country']) { ?>
@@ -157,7 +157,7 @@
                             <?php } ?>
                           </select>
                         </td>
-                        <td class="text-left">
+                        <td class="text-start">
                           <select name="klarna_checkout_account[<?php echo $account_row; ?>][shipping]" class="form-control">
                               <?php foreach ($geo_zones as $geo_zone) { ?>
                                   <?php if ($geo_zone['geo_zone_id'] == $account['shipping']) { ?>
@@ -168,7 +168,7 @@
                             <?php } ?>
                           </select>
                         </td>
-                        <td class="text-left">
+                        <td class="text-start">
                           <select name="klarna_checkout_account[<?php echo $account_row; ?>][currency]" class="form-control">
                               <?php foreach ($currencies as $currency) { ?>
                                   <?php if ($currency['code'] == $account['currency']) { ?>
@@ -179,13 +179,13 @@
                             <?php } ?>
                           </select>
                         </td>
-                        <td class="text-left">
+                        <td class="text-start">
                           <input type="text" name="klarna_checkout_account[<?php echo $account_row; ?>][locale]" placeholder="<?php echo $entry_locale; ?>" class="form-control" value="<?php echo $account['locale']; ?>" />
                           <?php if (isset($error_account[$key]['locale'])) { ?>
                               <div class="text-danger"><?php echo $error_account[$key]['locale']; ?></div>
                           <?php } ?>
                         </td>
-                        <td class="text-left">
+                        <td class="text-start">
                           <select name="klarna_checkout_account[<?php echo $account_row; ?>][api]" class="form-control klarna-checkout-api">
                               <?php foreach ($api_locations as $api_location) { ?>
                                   <?php if ($api_location['code'] == $account['api']) { ?>
@@ -196,7 +196,7 @@
                             <?php } ?>
                           </select>
                         </td>
-                        <td class="text-left"><button type="button" onclick="$('#account-row<?php echo $account_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_account_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                        <td class="text-start"><button type="button" onclick="$('#account-row<?php echo $account_row; ?>').remove();" data-bs-toggle="tooltip" title="<?php echo $button_account_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                       </tr>
                       <?php $account_row++; ?>
                   <?php } ?>
@@ -204,26 +204,26 @@
                 <tfoot>
                   <tr>
                     <td colspan="8"></td>
-                    <td class="text-left"><button type="button" onclick="addAccount();" data-toggle="tooltip" title="<?php echo $button_account_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                    <td class="text-start"><button type="button" onclick="addAccount();" data-bs-toggle="tooltip" title="<?php echo $button_account_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                   </tr>
                 </tfoot>
               </table>
             </div>
             <div class="tab-pane" id="tab-settlement">
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-sftp-username"><span data-toggle="tooltip" title="<?php echo $help_sftp_username; ?>"><?php echo $entry_sftp_username; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-sftp-username"><span data-bs-toggle="tooltip" title="<?php echo $help_sftp_username; ?>"><?php echo $entry_sftp_username; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="klarna_checkout_sftp_username" placeholder="<?php echo $entry_sftp_username; ?>" class="form-control" value="<?php echo $klarna_checkout_sftp_username; ?>" />
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-sftp-password"><span data-toggle="tooltip" title="<?php echo $help_sftp_password; ?>"><?php echo $entry_sftp_password; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-sftp-password"><span data-bs-toggle="tooltip" title="<?php echo $help_sftp_password; ?>"><?php echo $entry_sftp_password; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="klarna_checkout_sftp_password" placeholder="<?php echo $entry_sftp_password; ?>" class="form-control" value="<?php echo $klarna_checkout_sftp_password; ?>" />
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-settlement-order-status"><span data-toggle="tooltip" title="<?php echo $help_settlement_order_status; ?>"><?php echo $entry_settlement_order_status; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-settlement-order-status"><span data-bs-toggle="tooltip" title="<?php echo $help_settlement_order_status; ?>"><?php echo $entry_settlement_order_status; ?></span></label>
                 <div class="col-sm-10">
                   <select name="klarna_checkout_settlement_order_status_id" id="input-settlement-order-status" class="form-control">
                       <?php foreach ($order_statuses as $order_status) { ?>
@@ -305,11 +305,11 @@ $('.klarna-checkout-api').on('change', function () {
                                     },
                                     success: function (json) {
                                         if (json['error']) {
-                                            $('.settlement-alerts').append('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                                            $('.settlement-alerts').append('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                                         }
 
                                         if (json['success']) {
-                                            $('.settlement-alerts').append('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                                            $('.settlement-alerts').append('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                                         }
                                     },
                                     error: function (xhr, ajaxOptions, thrownError) {
@@ -342,34 +342,34 @@ $('.klarna-checkout-api').on('change', function () {
 
     function addAccount() {
         html = '<tr id="account-row' + account_row + '">';
-        html += '  <td class="text-left"><input type="text" name="klarna_checkout_account[' + account_row + '][merchant_id]" placeholder="<?php echo $entry_merchant_id; ?>" class="form-control" value="" /></td>';
-        html += '  <td class="text-left"><input type="text" name="klarna_checkout_account[' + account_row + '][secret]" placeholder="<?php echo $entry_secret; ?>" class="form-control" value="" /></td>';
-        html += '  <td class="text-left"><select name="klarna_checkout_account[' + account_row + '][environment]" class="form-control">';
+        html += '  <td class="text-start"><input type="text" name="klarna_checkout_account[' + account_row + '][merchant_id]" placeholder="<?php echo $entry_merchant_id; ?>" class="form-control" value="" /></td>';
+        html += '  <td class="text-start"><input type="text" name="klarna_checkout_account[' + account_row + '][secret]" placeholder="<?php echo $entry_secret; ?>" class="form-control" value="" /></td>';
+        html += '  <td class="text-start"><select name="klarna_checkout_account[' + account_row + '][environment]" class="form-control">';
         html += '    <option value="live"><?php echo $text_live; ?></option>';
         html += '    <option value="test" selected="selected"><?php echo $text_test; ?></option>';
         html += '  </select>';
-        html += '  <td class="text-left"><select name="klarna_checkout_account[' + account_row + '][country]" class="form-control">';
+        html += '  <td class="text-start"><select name="klarna_checkout_account[' + account_row + '][country]" class="form-control">';
 <?php foreach ($countries as $country) { ?>
             html += '    <option value="<?php echo $country['country_id']; ?>"><?php echo addslashes($country['name']); ?></option>';
 <?php } ?>
         html += '  </select></td>';
-        html += '  <td class="text-left"><select name="klarna_checkout_account[' + account_row + '][shipping]" class="form-control">';
+        html += '  <td class="text-start"><select name="klarna_checkout_account[' + account_row + '][shipping]" class="form-control">';
 <?php foreach ($geo_zones as $geo_zone) { ?>
             html += '    <option value="<?php echo $geo_zone['geo_zone_id']; ?>"><?php echo addslashes($geo_zone['name']); ?></option>';
 <?php } ?>
         html += '  </select></td>';
-        html += '  <td class="text-left"><select name="klarna_checkout_account[' + account_row + '][currency]" class="form-control">';
+        html += '  <td class="text-start"><select name="klarna_checkout_account[' + account_row + '][currency]" class="form-control">';
 <?php foreach ($currencies as $currency) { ?>
             html += '    <option value="<?php echo $currency['code']; ?>"><?php echo $currency['title']; ?></option>';
 <?php } ?>
         html += '  </select></td>';
-        html += '  <td class="text-left"><input type="text" name="klarna_checkout_account[' + account_row + '][locale]" placeholder="<?php echo $entry_locale; ?>" class="form-control" value="" /></td>';
-        html += '  <td class="text-left"><select name="klarna_checkout_account[' + account_row + '][api]" class="form-control">';
+        html += '  <td class="text-start"><input type="text" name="klarna_checkout_account[' + account_row + '][locale]" placeholder="<?php echo $entry_locale; ?>" class="form-control" value="" /></td>';
+        html += '  <td class="text-start"><select name="klarna_checkout_account[' + account_row + '][api]" class="form-control">';
 <?php foreach ($api_locations as $api_location) { ?>
             html += '    <option value="<?php echo $api_location['code']; ?>"><?php echo $api_location['name']; ?></option>';
 <?php } ?>
         html += '  </select></td>';
-        html += '  <td class="text-left"><button type="button" onclick="$(\'#account-row' + account_row + '\').remove();" data-toggle="tooltip" title="<?php echo $button_account_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+        html += '  <td class="text-start"><button type="button" onclick="$(\'#account-row' + account_row + '\').remove();" data-bs-toggle="tooltip" title="<?php echo $button_account_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
         html += '</tr>';
 
         $('#account tbody').append(html);
@@ -393,11 +393,11 @@ $('.klarna-checkout-api').on('change', function () {
                 $('.api-alert').remove();
 
                 if (json['error']) {
-                    $('#content > .container-fluid').prepend('<div class="alert alert-danger api-alert"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#content > .container-fluid').prepend('<div class="alert alert-danger api-alert"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                 }
 
                 if (json['success']) {
-                    $('#content > .container-fluid').prepend('<div class="alert alert-success api-alert"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#content > .container-fluid').prepend('<div class="alert alert-success api-alert"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -420,11 +420,11 @@ $('.klarna-checkout-api').on('change', function () {
 
             if (json['error']) {
                 if (json['error']['key']) {
-                    $('#content > .container-fluid').prepend('<div class="alert alert-danger api-alert"><i class="fa fa-exclamation-circle"></i> ' + json['error']['key'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#content > .container-fluid').prepend('<div class="alert alert-danger api-alert"><i class="fa fa-exclamation-circle"></i> ' + json['error']['key'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                 }
 
                 if (json['error']['ip']) {
-                    $('#content > .container-fluid').prepend('<div class="alert alert-danger api-alert"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i> <?php echo $button_ip_add; ?></button></div>');
+                    $('#content > .container-fluid').prepend('<div class="alert alert-danger api-alert"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger btn-xs float-end"><i class="fa fa-plus"></i> <?php echo $button_ip_add; ?></button></div>');
                 }
             }
 

@@ -2,9 +2,9 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button type="submit" form="form-customer" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <button type="submit" form="form-customer" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -16,22 +16,22 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-customer" class="form-horizontal">
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>
+            <li class="active"><a href="#tab-general" data-bs-toggle="tab"><?php echo $tab_general; ?></a></li>
             <?php if ($customer_id) { ?>
-                <li><a href="#tab-history" data-toggle="tab"><?php echo $tab_history; ?></a></li>
-                <li><a href="#tab-transaction" data-toggle="tab"><?php echo $tab_transaction; ?></a></li>
-                <li><a href="#tab-reward" data-toggle="tab"><?php echo $tab_reward; ?></a></li>
-                <li><a href="#tab-ip" data-toggle="tab"><?php echo $tab_ip; ?></a></li>
+                <li><a href="#tab-history" data-bs-toggle="tab"><?php echo $tab_history; ?></a></li>
+                <li><a href="#tab-transaction" data-bs-toggle="tab"><?php echo $tab_transaction; ?></a></li>
+                <li><a href="#tab-reward" data-bs-toggle="tab"><?php echo $tab_reward; ?></a></li>
+                <li><a href="#tab-ip" data-bs-toggle="tab"><?php echo $tab_ip; ?></a></li>
             <?php } ?>
           </ul>
           <div class="tab-content">
@@ -39,10 +39,10 @@
               <div class="row">
                 <div class="col-sm-2">
                   <ul class="nav nav-pills nav-stacked" id="address">
-                    <li class="active"><a href="#tab-customer" data-toggle="tab"><?php echo $tab_general; ?></a></li>
+                    <li class="active"><a href="#tab-customer" data-bs-toggle="tab"><?php echo $tab_general; ?></a></li>
                     <?php $address_row = 1; ?>
                     <?php foreach ($addresses as $address) { ?>
-                        <li><a href="#tab-address<?php echo $address_row; ?>" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('#address a:first').tab('show'); $('#address a[href=\'#tab-address<?php echo $address_row; ?>\']').parent().remove(); $('#tab-address<?php echo $address_row; ?>').remove();"></i> <?php echo $tab_address . ' ' . $address_row; ?></a></li>
+                        <li><a href="#tab-address<?php echo $address_row; ?>" data-bs-toggle="tab"><i class="fa fa-minus-circle" onclick="$('#address a:first').tab('show'); $('#address a[href=\'#tab-address<?php echo $address_row; ?>\']').parent().remove(); $('#tab-address<?php echo $address_row; ?>').remove();"></i> <?php echo $tab_address . ' ' . $address_row; ?></a></li>
                         <?php $address_row++; ?>
                     <?php } ?>
                     <li id="address-add"><a onclick="addAddress();"><i class="fa fa-plus-circle"></i> <?php echo $button_address_add; ?></a></li>
@@ -205,9 +205,9 @@
                                   <div class="form-group custom-field custom-field<?php echo $custom_field['custom_field_id']; ?>" data-sort="<?php echo $custom_field['sort_order']; ?>">
                                     <label class="col-sm-2 control-label"><?php echo $custom_field['name']; ?></label>
                                     <div class="col-sm-10">
-                                      <button type="button" id="button-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
+                                      <button type="button" id="button-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-secondary"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
                                       <?php if (isset($account_custom_field[$custom_field['custom_field_id']]) && $account_custom_field[$custom_field['custom_field_id']]) { ?>
-                                          <a href="<?php echo $download . '&code=' . $account_custom_field[$custom_field['custom_field_id']]; ?>" data-toggle="tooltip" target="_blank" title="Download" class="btn btn-info"><i class="fa fa-download"></i></a>
+                                          <a href="<?php echo $download . '&code=' . $account_custom_field[$custom_field['custom_field_id']]; ?>" data-bs-toggle="tooltip" target="_blank" title="Download" class="btn btn-info"><i class="fa fa-download"></i></a>
                                       <?php } ?>
                                       <input type="hidden" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($account_custom_field[$custom_field['custom_field_id']]) ? $account_custom_field[$custom_field['custom_field_id']] : ''); ?>" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" />
                                       <?php if (isset($error_custom_field[$custom_field['custom_field_id']])) { ?>
@@ -223,7 +223,7 @@
                                       <div class="input-group date">
                                         <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($account_custom_field[$custom_field['custom_field_id']]) ? $account_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                         <span class="input-group-btn">
-                                          <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                          <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                         </span></div>
                                       <?php if (isset($error_custom_field[$custom_field['custom_field_id']])) { ?>
                                           <div class="text-danger"><?php echo $error_custom_field[$custom_field['custom_field_id']]; ?></div>
@@ -238,7 +238,7 @@
                                       <div class="input-group time">
                                         <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($account_custom_field[$custom_field['custom_field_id']]) ? $account_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="HH:mm" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                         <span class="input-group-btn">
-                                          <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                          <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                         </span></div>
                                       <?php if (isset($error_custom_field[$custom_field['custom_field_id']])) { ?>
                                           <div class="text-danger"><?php echo $error_custom_field[$custom_field['custom_field_id']]; ?></div>
@@ -253,7 +253,7 @@
                                       <div class="input-group datetime">
                                         <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($account_custom_field[$custom_field['custom_field_id']]) ? $account_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                         <span class="input-group-btn">
-                                          <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                          <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                         </span></div>
                                       <?php if (isset($error_custom_field[$custom_field['custom_field_id']])) { ?>
                                           <div class="text-danger"><?php echo $error_custom_field[$custom_field['custom_field_id']]; ?></div>
@@ -534,9 +534,9 @@
                                       <div class="form-group custom-field custom-field<?php echo $custom_field['custom_field_id']; ?>" data-sort="<?php echo $custom_field['sort_order'] + 1; ?>">
                                         <label class="col-sm-2 control-label"><?php echo $custom_field['name']; ?></label>
                                         <div class="col-sm-10">
-                                          <button type="button" id="button-address<?php echo $address_row; ?>-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
+                                          <button type="button" id="button-address<?php echo $address_row; ?>-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-secondary"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
                                           <?php if (isset($address['custom_field'][$custom_field['custom_field_id']]) && $address['custom_field'][$custom_field['custom_field_id']]) { ?>
-                                              <a href="<?php echo $download . '&code=' . $address['custom_field'][$custom_field['custom_field_id']]; ?>" data-toggle="tooltip" target="_blank" title="Download" class="btn btn-info"><i class="fa fa-download"></i></a>
+                                              <a href="<?php echo $download . '&code=' . $address['custom_field'][$custom_field['custom_field_id']]; ?>" data-bs-toggle="tooltip" target="_blank" title="Download" class="btn btn-info"><i class="fa fa-download"></i></a>
                                           <?php } ?>
                                           <input type="hidden" name="address[<?php echo $address_row; ?>][custom_field][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($address['custom_field'][$custom_field['custom_field_id']]) ? $address['custom_field'][$custom_field['custom_field_id']] : ''); ?>" />
                                           <?php if (isset($error_address[$address_row]['custom_field'][$custom_field['custom_field_id']])) { ?>
@@ -552,7 +552,7 @@
                                           <div class="input-group date">
                                             <input type="text" name="address[<?php echo $address_row; ?>][custom_field][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($address['custom_field'][$custom_field['custom_field_id']]) ? $address['custom_field'][$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD" id="input-address<?php echo $address_row; ?>-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                             <span class="input-group-btn">
-                                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                              <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                             </span></div>
                                           <?php if (isset($error_address[$address_row]['custom_field'][$custom_field['custom_field_id']])) { ?>
                                               <div class="text-danger"><?php echo $error_address[$address_row]['custom_field'][$custom_field['custom_field_id']]; ?></div>
@@ -567,7 +567,7 @@
                                           <div class="input-group time">
                                             <input type="text" name="address[<?php echo $address_row; ?>][custom_field][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($address['custom_field'][$custom_field['custom_field_id']]) ? $address['custom_field'][$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="HH:mm" id="input-address<?php echo $address_row; ?>-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                             <span class="input-group-btn">
-                                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                              <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                             </span></div>
                                           <?php if (isset($error_address[$address_row]['custom_field'][$custom_field['custom_field_id']])) { ?>
                                               <div class="text-danger"><?php echo $error_address[$address_row]['custom_field'][$custom_field['custom_field_id']]; ?></div>
@@ -582,7 +582,7 @@
                                           <div class="input-group datetime">
                                             <input type="text" name="address[<?php echo $address_row; ?>][custom_field][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($address['custom_field'][$custom_field['custom_field_id']]) ? $address['custom_field'][$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-address<?php echo $address_row; ?>-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
                                             <span class="input-group-btn">
-                                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                              <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                                             </span></div>
                                           <?php if (isset($error_address[$address_row]['custom_field'][$custom_field['custom_field_id']])) { ?>
                                               <div class="text-danger"><?php echo $error_address[$address_row]['custom_field'][$custom_field['custom_field_id']]; ?></div>
@@ -621,7 +621,7 @@
                       <textarea name="comment" rows="8" placeholder="<?php echo $entry_comment; ?>" id="input-comment" class="form-control"></textarea>
                     </div>
                   </div>
-                  <div class="text-right">
+                  <div class="text-end">
                     <button id="button-history" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i> <?php echo $button_history_add; ?></button>
                   </div>
                 </div>
@@ -640,7 +640,7 @@
                       <input type="text" name="amount" value="" placeholder="<?php echo $entry_amount; ?>" id="input-amount" class="form-control" />
                     </div>
                   </div>
-                  <div class="text-right">
+                  <div class="text-end">
                     <button type="button" id="button-transaction" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i> <?php echo $button_transaction_add; ?></button>
                   </div>
                 </div>
@@ -654,12 +654,12 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-points"><span data-toggle="tooltip" title="<?php echo $help_points; ?>"><?php echo $entry_points; ?></span></label>
+                    <label class="col-sm-2 control-label" for="input-points"><span data-bs-toggle="tooltip" title="<?php echo $help_points; ?>"><?php echo $entry_points; ?></span></label>
                     <div class="col-sm-10">
                       <input type="text" name="points" value="" placeholder="<?php echo $entry_points; ?>" id="input-points" class="form-control" />
                     </div>
                   </div>
-                  <div class="text-right">
+                  <div class="text-end">
                     <button type="button" id="button-reward" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i> <?php echo $button_reward_add; ?></button>
                   </div>
                 </div>
@@ -828,7 +828,7 @@ $('select[name=\'customer_group_id\']').on('change', function () {
                       html += '	  <div class="form-group custom-field custom-field<?php echo $custom_field['custom_field_id']; ?>" data-sort="<?php echo $custom_field['sort_order'] + 1; ?>">';
                       html += '		<label class="col-sm-2 control-label"><?php echo addslashes($custom_field['name']); ?></label>';
                       html += '		<div class="col-sm-10">';
-                      html += '		  <button type="button" id="button-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>';
+                      html += '		  <button type="button" id="button-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-secondary"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>';
                       html += '		  <input type="hidden" name="address[' + address_row + '][<?php echo $custom_field['custom_field_id']; ?>]" value="" id="input-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>" />';
                       html += '		</div>';
                       html += '	  </div>';
@@ -838,7 +838,7 @@ $('select[name=\'customer_group_id\']').on('change', function () {
                       html += '	  <div class="form-group custom-field custom-field<?php echo $custom_field['custom_field_id']; ?>" data-sort="<?php echo $custom_field['sort_order'] + 1; ?>">';
                       html += '		<label class="col-sm-2 control-label" for="input-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo addslashes($custom_field['name']); ?></label>';
                       html += '		<div class="col-sm-10">';
-                      html += '		  <div class="input-group date"><input type="text" name="address[' + address_row + '][custom_field][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo addslashes($custom_field['value']); ?>" placeholder="<?php echo addslashes($custom_field['name']); ?>" data-date-format="YYYY-MM-DD" id="input-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div>';
+                      html += '		  <div class="input-group date"><input type="text" name="address[' + address_row + '][custom_field][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo addslashes($custom_field['value']); ?>" placeholder="<?php echo addslashes($custom_field['name']); ?>" data-date-format="YYYY-MM-DD" id="input-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button></span></div>';
                       html += '		</div>';
                       html += '	  </div>';
         <?php } ?>
@@ -847,7 +847,7 @@ $('select[name=\'customer_group_id\']').on('change', function () {
                       html += '	  <div class="form-group custom-field custom-field<?php echo $custom_field['custom_field_id']; ?>" data-sort="<?php echo $custom_field['sort_order'] + 1; ?>">';
                       html += '		<label class="col-sm-2 control-label" for="input-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo addslashes($custom_field['name']); ?></label>';
                       html += '		<div class="col-sm-10">';
-                      html += '		  <div class="input-group time"><input type="text" name="address[' + address_row + '][custom_field][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo addslashes($custom_field['name']); ?>" data-date-format="HH:mm" id="input-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div>';
+                      html += '		  <div class="input-group time"><input type="text" name="address[' + address_row + '][custom_field][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo addslashes($custom_field['name']); ?>" data-date-format="HH:mm" id="input-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button></span></div>';
                       html += '		</div>';
                       html += '	  </div>';
         <?php } ?>
@@ -856,7 +856,7 @@ $('select[name=\'customer_group_id\']').on('change', function () {
                       html += '	  <div class="form-group custom-field custom-field<?php echo $custom_field['custom_field_id']; ?>" data-sort="<?php echo $custom_field['sort_order'] + 1; ?>">';
                       html += '		<label class="col-sm-2 control-label" for="input-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo addslashes($custom_field['name']); ?></label>';
                       html += '		<div class="col-sm-10">';
-                      html += '		  <div class="input-group datetime"><input type="text" name="address[' + address_row + '][custom_field][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo addslashes($custom_field['value']); ?>" placeholder="<?php echo addslashes($custom_field['name']); ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div>';
+                      html += '		  <div class="input-group datetime"><input type="text" name="address[' + address_row + '][custom_field][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo addslashes($custom_field['value']); ?>" placeholder="<?php echo addslashes($custom_field['name']); ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-address' + address_row + '-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button></span></div>';
                       html += '		</div>';
                       html += '	  </div>';
         <?php } ?>
@@ -877,7 +877,7 @@ $('select[name=\'customer_group_id\']').on('change', function () {
 
           $('select[name=\'address[' + address_row + '][country_id]\']').trigger('change');
 
-          $('#address-add').before('<li><a href="#tab-address' + address_row + '" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$(\'#address a:first\').tab(\'show\'); $(\'a[href=\\\'#tab-address' + address_row + '\\\']\').parent().remove(); $(\'#tab-address' + address_row + '\').remove();"></i> <?php echo $tab_address; ?> ' + address_row + '</a></li>');
+          $('#address-add').before('<li><a href="#tab-address' + address_row + '" data-bs-toggle="tab"><i class="fa fa-minus-circle" onclick="$(\'#address a:first\').tab(\'show\'); $(\'a[href=\\\'#tab-address' + address_row + '\\\']\').parent().remove(); $(\'#tab-address' + address_row + '\').remove();"></i> <?php echo $tab_address; ?> ' + address_row + '</a></li>');
 
           $('#address a[href=\'#tab-address' + address_row + '\']').tab('show');
 
@@ -982,11 +982,11 @@ $('select[name=\'customer_group_id\']').on('change', function () {
                   $('.alert').remove();
 
                   if (json['error']) {
-                      $('#tab-history').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div></div>');
+                      $('#tab-history').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div></div>');
                   }
 
                   if (json['success']) {
-                      $('#tab-history').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div></div>');
+                      $('#tab-history').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div></div>');
 
                       $('#history').load('index.php?route=customer/customer/history&token=<?php echo $token; ?>&customer_id=<?php echo $customer_id; ?>');
 
@@ -1023,11 +1023,11 @@ $('select[name=\'customer_group_id\']').on('change', function () {
                   $('.alert').remove();
 
                   if (json['error']) {
-                      $('#tab-transaction').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div></div>');
+                      $('#tab-transaction').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div></div>');
                   }
 
                   if (json['success']) {
-                      $('#tab-transaction').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div></div>');
+                      $('#tab-transaction').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div></div>');
 
                       $('#transaction').load('index.php?route=customer/customer/transaction&token=<?php echo $token; ?>&customer_id=<?php echo $customer_id; ?>');
 
@@ -1065,11 +1065,11 @@ $('select[name=\'customer_group_id\']').on('change', function () {
                   $('.alert').remove();
 
                   if (json['error']) {
-                      $('#tab-reward').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div></div>');
+                      $('#tab-reward').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div></div>');
                   }
 
                   if (json['success']) {
-                      $('#tab-reward').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div></div>');
+                      $('#tab-reward').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div></div>');
 
                       $('#reward').load('index.php?route=customer/customer/reward&token=<?php echo $token; ?>&customer_id=<?php echo $customer_id; ?>');
 

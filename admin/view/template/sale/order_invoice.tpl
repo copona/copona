@@ -28,8 +28,8 @@
         <?php foreach ($orders as $order) { ?>
           <div style="page-break-after: always;">
 
-            <div class="pull-left">
-              <button onclick="window.print()" class="btn btn-default" style="margin: 30px 0">Print this page</button>
+            <div class="float-start">
+              <button onclick="window.print()" class="btn btn-secondary" style="margin: 30px 0">Print this page</button>
               <?php if ($order['invoice_no']) { ?>
                 <h1><?php echo $text_invoice_no; ?> <?php echo $order['invoice_no']; ?></h1>
               <?php } ?>
@@ -81,9 +81,9 @@
                 <tr>
                   <td><b><?php echo $column_product; ?></b></td>
                   <td><b><?php echo $column_model; ?></b></td>
-                  <td class="text-right"><b><?php echo $column_quantity; ?></b></td>
-                  <td class="text-right"><b><?php echo $column_price; ?></b></td>
-                  <td class="text-right"><b><?php echo $column_total; ?></b></td>
+                  <td class="text-end"><b><?php echo $column_quantity; ?></b></td>
+                  <td class="text-end"><b><?php echo $column_price; ?></b></td>
+                  <td class="text-end"><b><?php echo $column_total; ?></b></td>
                 </tr>
               </thead>
               <tbody>
@@ -95,24 +95,24 @@
                             &nbsp;<small> - <?php echo $option['name']; ?>: <?php echo $option['value']; ?></small>
                         <?php } ?></td>
                       <td><?php echo $product['model']; ?></td>
-                      <td class="text-right"><?php echo $product['quantity']; ?></td>
-                      <td class="text-right"><?php echo $product['price']; ?></td>
-                      <td class="text-right"><?php echo $product['total']; ?></td>
+                      <td class="text-end"><?php echo $product['quantity']; ?></td>
+                      <td class="text-end"><?php echo $product['price']; ?></td>
+                      <td class="text-end"><?php echo $product['total']; ?></td>
                     </tr>
                 <?php } ?>
                 <?php foreach ($order['voucher'] as $voucher) { ?>
                     <tr>
                       <td><?php echo $voucher['description']; ?></td>
                       <td></td>
-                      <td class="text-right">1</td>
-                      <td class="text-right"><?php echo $voucher['amount']; ?></td>
-                      <td class="text-right"><?php echo $voucher['amount']; ?></td>
+                      <td class="text-end">1</td>
+                      <td class="text-end"><?php echo $voucher['amount']; ?></td>
+                      <td class="text-end"><?php echo $voucher['amount']; ?></td>
                     </tr>
                 <?php } ?>
                 <?php foreach ($order['total'] as $total) { ?>
                     <tr>
-                      <td class="text-right" colspan="4"><b><?php echo $total['title']; ?></b></td>
-                      <td class="text-right"><?php echo $total['text']; ?></td>
+                      <td class="text-end" colspan="4"><b><?php echo $total['title']; ?></b></td>
+                      <td class="text-end"><?php echo $total['text']; ?></td>
                     </tr>
                 <?php } ?>
               </tbody>

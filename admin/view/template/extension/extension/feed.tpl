@@ -2,21 +2,21 @@
   <legend><?php echo $heading_title; ?></legend>
   <?php if ($error_warning) { ?>
       <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
       </div>
   <?php } ?>
   <?php if ($success) { ?>
       <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
       </div>
   <?php } ?>
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <td class="text-left"><?php echo $column_name; ?></td>
-          <td class="text-left"><?php echo $column_status; ?></td>
-          <td class="text-right"><?php echo $column_action; ?></td>
+          <td class="text-start"><?php echo $column_name; ?></td>
+          <td class="text-start"><?php echo $column_status; ?></td>
+          <td class="text-end"><?php echo $column_action; ?></td>
         </tr>
       </thead>
       <tbody>
@@ -33,18 +33,18 @@
                     </strong>
                     (<?php echo $extension['extension']; ?>)
                   </td>
-                  <td class="text-left">
+                  <td class="text-start">
                     <span class="label <?= ($extension['installed'] ? 'label-success' : 'label-danger') ?>"><?php echo $extension['status']; ?></span>
                   </td>
-                  <td class="text-right"><?php if ($extension['installed']) { ?>
-                        <a href="<?php echo $extension['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                  <td class="text-end"><?php if ($extension['installed']) { ?>
+                        <a href="<?php echo $extension['edit']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                     <?php } else { ?>
                         <button type="button" class="btn btn-primary" disabled="disabled"><i class="fa fa-pencil"></i></button>
                     <?php } ?>
                     <?php if (!$extension['installed']) { ?>
-                        <a href="<?php echo $extension['install']; ?>" data-toggle="tooltip" title="<?php echo $button_install; ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i></a>
+                        <a href="<?php echo $extension['install']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_install; ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i></a>
                     <?php } else { ?>
-                        <a href="<?php echo $extension['uninstall']; ?>" data-toggle="tooltip" title="<?php echo $button_uninstall; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a>
+                        <a href="<?php echo $extension['uninstall']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_uninstall; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a>
                     <?php } ?></td>
                 </tr>
             <?php } ?>

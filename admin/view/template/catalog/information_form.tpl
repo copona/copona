@@ -2,11 +2,11 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button onclick="saveAndContinue(event);" form="form-information" data-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
+      <div class="float-end">
+        <button onclick="saveAndContinue(event);" form="form-information" data-bs-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
                 class="btn btn-primary savecontinue"><i class="fa fa-save"></i><?= $button_save_continue ?></button>
-        <button type="submit" form="form-information" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+        <button type="submit" form="form-information" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -18,26 +18,26 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-information" class="form-horizontal">
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>
-            <li><a href="#tab-data" data-toggle="tab"><?php echo $tab_data; ?></a></li>
-            <li><a href="#tab-image" data-toggle="tab"><?php echo $tab_image; ?></a></li>
-            <li><a href="#tab-design" data-toggle="tab"><?php echo $tab_design; ?></a></li>
+            <li class="active"><a href="#tab-general" data-bs-toggle="tab"><?php echo $tab_general; ?></a></li>
+            <li><a href="#tab-data" data-bs-toggle="tab"><?php echo $tab_data; ?></a></li>
+            <li><a href="#tab-image" data-bs-toggle="tab"><?php echo $tab_image; ?></a></li>
+            <li><a href="#tab-design" data-bs-toggle="tab"><?php echo $tab_design; ?></a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
               <ul class="nav nav-tabs lng-image" id="language">
                   <?php foreach ($languages as $language) { ?>
-                    <li><a href="#language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>
+                    <li><a href="#language<?php echo $language['language_id']; ?>" data-bs-toggle="tab"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>
                 <?php } ?>
               </ul>
               <div class="tab-content">
@@ -54,7 +54,7 @@
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label" for="input-title<?php echo $language['language_id']; ?>">
-                          <span data-toggle="tooltip" title="<?php echo $help_external_link; ?>"><?php echo $label_external_link; ?></span>
+                          <span data-bs-toggle="tooltip" title="<?php echo $help_external_link; ?>"><?php echo $label_external_link; ?></span>
                         </label>
                         <div class="col-sm-10">
                           <input type="text" name="information_description[<?php echo $language['language_id']; ?>][external_link]" value="<?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['external_link'] : ''; ?>" placeholder="<?php echo $entry_external_link; ?>" id="input-external_link<?php echo $language['language_id']; ?>" class="form-control" />
@@ -130,7 +130,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_multi_seo_keyword; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-keyword"><span data-bs-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_multi_seo_keyword; ?></span></label>
                 <div class="col-sm-10">
                     <?php foreach ($languages as $language) { ?>
                       <div class="input-group">
@@ -143,7 +143,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_keyword; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-keyword"><span data-bs-toggle="tooltip" title="<?php echo $help_keyword; ?>"><?php echo $entry_keyword; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="keyword" value="<?php echo $keyword; ?>" placeholder="<?php echo $entry_keyword; ?>" id="input-keyword" class="form-control" />
                   <?php if ($error_keyword) { ?>
@@ -152,7 +152,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-top"><span data-toggle="tooltip" title="<?php echo $help_top; ?>"><?php echo $entry_top; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-top"><span data-bs-toggle="tooltip" title="<?php echo $help_top; ?>"><?php echo $entry_top; ?></span></label>
                 <div class="col-sm-10">
                   <div class="checkbox">
                     <label>
@@ -166,7 +166,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-bottom"><span data-toggle="tooltip" title="<?php echo $help_bottom; ?>"><?php echo $entry_bottom; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-bottom"><span data-bs-toggle="tooltip" title="<?php echo $help_bottom; ?>"><?php echo $entry_bottom; ?></span></label>
                 <div class="col-sm-10">
                   <div class="checkbox">
                     <label>
@@ -206,13 +206,13 @@
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                     <tr>
-                      <td class="text-left"><?php echo $entry_image; ?></td>
+                      <td class="text-start"><?php echo $entry_image; ?></td>
                     </tr>
                   </thead>
 
                   <tbody>
                     <tr>
-                      <td class="text-left"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" /></td>
+                      <td class="text-start"><a href="" id="thumb-image" data-bs-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="image" value="<?php echo $image; ?>" id="input-image" /></td>
                     </tr>
                   </tbody>
                 </table>
@@ -221,8 +221,8 @@
                 <table id="images" class="table table-striped table-bordered table-hover">
                   <thead>
                     <tr>
-                      <td class="text-left"><?php echo $entry_additional_image; ?></td>
-                      <td class="text-right"><?php echo $entry_sort_order; ?></td>
+                      <td class="text-start"><?php echo $entry_additional_image; ?></td>
+                      <td class="text-end"><?php echo $entry_sort_order; ?></td>
                       <td></td>
                     </tr>
                   </thead>
@@ -230,9 +230,9 @@
                       <?php $image_row = 0; ?>
                       <?php foreach ($information_images as $information_image) { ?>
                         <tr id="image-row<?php echo $image_row; ?>">
-                          <td class="text-left"><a href="" id="thumb-image<?php echo $image_row; ?>" data-toggle="image" cla ss="img-thumbnail"><img src="<?php echo $information_image['thumb']; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="information_image[<?php echo $image_row; ?>][image]" value="<?php echo $information_image['image']; ?>" id="input-image<?php echo $image_row; ?>" /></td>
-                          <td class="text-right"><input type="text" name="information_image[<?php echo $image_row; ?>][sort_order]" value="<?php echo $information_image['sort_order']; ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
-                          <td class="text-left"><button type="button" onclick="$('#image-row<?php echo $image_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                          <td class="text-start"><a href="" id="thumb-image<?php echo $image_row; ?>" data-bs-toggle="image" cla ss="img-thumbnail"><img src="<?php echo $information_image['thumb']; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="information_image[<?php echo $image_row; ?>][image]" value="<?php echo $information_image['image']; ?>" id="input-image<?php echo $image_row; ?>" /></td>
+                          <td class="text-end"><input type="text" name="information_image[<?php echo $image_row; ?>][sort_order]" value="<?php echo $information_image['sort_order']; ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>
+                          <td class="text-start"><button type="button" onclick="$('#image-row<?php echo $image_row; ?>').remove();" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                         </tr>
                         <?php $image_row++; ?>
                     <?php } ?>
@@ -240,7 +240,7 @@
                   <tfoot>
                     <tr>
                       <td colspan="2"></td>
-                      <td class="text-left"><button type="button" onclick="addImage();" data-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                      <td class="text-start"><button type="button" onclick="addImage();" data-bs-toggle="tooltip" title="<?php echo $button_image_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                     </tr>
                   </tfoot>
                 </table>
@@ -251,14 +251,14 @@
                 <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <td class="text-left"><?php echo $entry_store; ?></td>
-                      <td class="text-left"><?php echo $entry_layout; ?></td>
+                      <td class="text-start"><?php echo $entry_store; ?></td>
+                      <td class="text-start"><?php echo $entry_layout; ?></td>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td class="text-left"><?php echo $text_default; ?></td>
-                      <td class="text-left"><select name="information_layout[0]" class="form-control">
+                      <td class="text-start"><?php echo $text_default; ?></td>
+                      <td class="text-start"><select name="information_layout[0]" class="form-control">
                           <option value=""></option>
                           <?php foreach ($layouts as $layout) { ?>
                               <?php if (isset($information_layout[0]) && $information_layout[0] == $layout['layout_id']) { ?>
@@ -271,8 +271,8 @@
                     </tr>
                     <?php foreach ($stores as $store) { ?>
                         <tr>
-                          <td class="text-left"><?php echo $store['name']; ?></td>
-                          <td class="text-left"><select name="information_layout[<?php echo $store['store_id']; ?>]" class="form-control">
+                          <td class="text-start"><?php echo $store['name']; ?></td>
+                          <td class="text-start"><select name="information_layout[<?php echo $store['store_id']; ?>]" class="form-control">
                               <option value=""></option>
                               <?php foreach ($layouts as $layout) { ?>
                                   <?php if (isset($information_layout[$store['store_id']]) && $information_layout[$store['store_id']] == $layout['layout_id']) { ?>

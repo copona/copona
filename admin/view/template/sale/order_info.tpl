@@ -8,7 +8,7 @@ function is_multi($array) {
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right"><a href="<?php echo $invoice; ?>" target="_blank" data-toggle="tooltip" title="<?php echo $button_invoice_print; ?>" class="btn btn-info"><i class="fa fa-print"></i></a> <a href="<?php echo $shipping; ?>" target="_blank" data-toggle="tooltip" title="<?php echo $button_shipping_print; ?>" class="btn btn-info"><i class="fa fa-truck"></i></a> <a href="<?php echo $edit; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a> <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end"><a href="<?php echo $invoice; ?>" target="_blank" data-bs-toggle="tooltip" title="<?php echo $button_invoice_print; ?>" class="btn btn-info"><i class="fa fa-print"></i></a> <a href="<?php echo $shipping; ?>" target="_blank" data-bs-toggle="tooltip" title="<?php echo $button_shipping_print; ?>" class="btn btn-info"><i class="fa fa-truck"></i></a> <a href="<?php echo $edit; ?>" data-bs-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a> <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -20,27 +20,27 @@ function is_multi($array) {
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-shopping-cart"></i> <?php echo $text_order_detail; ?></h3>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-shopping-cart"></i> <?php echo $text_order_detail; ?></h3>
           </div>
           <table class="table">
             <tbody>
               <tr>
-                <td style="width: 1%;"><button data-toggle="tooltip" title="<?php echo $text_store; ?>" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart fa-fw"></i></button></td>
+                <td style="width: 1%;"><button data-bs-toggle="tooltip" title="<?php echo $text_store; ?>" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart fa-fw"></i></button></td>
                 <td><a href="<?php echo $store_url; ?>" target="_blank"><?php echo $store_name; ?></a></td>
               </tr>
               <tr>
-                <td><button data-toggle="tooltip" title="<?php echo $text_date_added; ?>" class="btn btn-info btn-xs"><i class="fa fa-calendar fa-fw"></i></button></td>
+                <td><button data-bs-toggle="tooltip" title="<?php echo $text_date_added; ?>" class="btn btn-info btn-xs"><i class="fa fa-calendar fa-fw"></i></button></td>
                 <td><?php echo $date_added; ?></td>
               </tr>
               <tr>
-                <td><button data-toggle="tooltip" title="<?php echo $text_payment_method; ?>" class="btn btn-info btn-xs"><i class="fa fa-credit-card fa-fw"></i></button></td>
+                <td><button data-bs-toggle="tooltip" title="<?php echo $text_payment_method; ?>" class="btn btn-info btn-xs"><i class="fa fa-credit-card fa-fw"></i></button></td>
                 <td><?php echo $payment_method; ?></td>
               </tr>
               <?php if ($shipping_method) { ?>
                   <tr>
-                    <td><button data-toggle="tooltip" title="<?php echo $text_shipping_method; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
+                    <td><button data-bs-toggle="tooltip" title="<?php echo $text_shipping_method; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
                     <td><?php echo htmlspecialchars( $shipping_method ); ?></td>
                   </tr>
               <?php } ?>
@@ -48,7 +48,7 @@ function is_multi($array) {
                 <?php if(is_multi($serial)){
                   foreach($serial as $value){ ?>
                     <tr>
-                      <td><button data-toggle="tooltip" title="<?php echo $text_other_information; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
+                      <td><button data-bs-toggle="tooltip" title="<?php echo $text_other_information; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
                       <td><?php foreach ($value as $key => $val) {
 
                         if(is_array($val)) {
@@ -65,7 +65,7 @@ function is_multi($array) {
                   <?php } ?>
                 <?php } else { ?>
                     <tr>
-                      <td><button data-toggle="tooltip" title="<?php echo $text_other_information; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
+                      <td><button data-bs-toggle="tooltip" title="<?php echo $text_other_information; ?>" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
                       <td><?php foreach ($serial as $key => $val) { ?>
                             <?= $key; ?>: <strong><?=  $val; ?></strong><br />
                         <?php } ?></td>
@@ -78,13 +78,13 @@ function is_multi($array) {
         </div>
       </div>
       <div class="col-md-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-user"></i> <?php echo $text_customer_detail; ?></h3>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-user"></i> <?php echo $text_customer_detail; ?></h3>
           </div>
           <table class="table">
             <tr>
-              <td style="width: 1%;"><button data-toggle="tooltip" title="<?php echo $text_customer; ?>" class="btn btn-info btn-xs"><i class="fa fa-user fa-fw"></i></button></td>
+              <td style="width: 1%;"><button data-bs-toggle="tooltip" title="<?php echo $text_customer; ?>" class="btn btn-info btn-xs"><i class="fa fa-user fa-fw"></i></button></td>
               <td><?php if ($customer) { ?>
                     <a href="<?php echo $customer; ?>" target="_blank"><?php echo $firstname; ?> <?php echo $lastname; ?></a>
                 <?php } else { ?>
@@ -92,44 +92,44 @@ function is_multi($array) {
                 <?php } ?></td>
             </tr>
             <tr>
-              <td><button data-toggle="tooltip" title="<?php echo $text_customer_group; ?>" class="btn btn-info btn-xs"><i class="fa fa-group fa-fw"></i></button></td>
+              <td><button data-bs-toggle="tooltip" title="<?php echo $text_customer_group; ?>" class="btn btn-info btn-xs"><i class="fa fa-group fa-fw"></i></button></td>
               <td><?php echo $customer_group; ?></td>
             </tr>
             <tr>
-              <td><button data-toggle="tooltip" title="<?php echo $text_email; ?>" class="btn btn-info btn-xs"><i class="fa fa-envelope-o fa-fw"></i></button></td>
+              <td><button data-bs-toggle="tooltip" title="<?php echo $text_email; ?>" class="btn btn-info btn-xs"><i class="fa fa-envelope-o fa-fw"></i></button></td>
               <td><a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a></td>
             </tr>
             <tr>
-              <td><button data-toggle="tooltip" title="<?php echo $text_telephone; ?>" class="btn btn-info btn-xs"><i class="fa fa-phone fa-fw"></i></button></td>
+              <td><button data-bs-toggle="tooltip" title="<?php echo $text_telephone; ?>" class="btn btn-info btn-xs"><i class="fa fa-phone fa-fw"></i></button></td>
               <td><?php echo $telephone; ?></td>
             </tr>
           </table>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-cog"></i> <?php echo $text_option; ?></h3>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-cog"></i> <?php echo $text_option; ?></h3>
           </div>
           <table class="table">
             <tbody>
               <tr>
                 <td><?php echo $text_invoice; ?></td>
-                <td id="invoice" class="text-right"><?php echo $invoice_no; ?></td>
+                <td id="invoice" class="text-end"><?php echo $invoice_no; ?></td>
                 <td style="width: 1%;" class="text-center"><?php if (!$invoice_no) { ?>
-                      <button id="button-invoice" data-loading-text="<?php echo $text_loading; ?>" data-toggle="tooltip" title="<?php echo $button_generate; ?>" class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button>
+                      <button id="button-invoice" data-loading-text="<?php echo $text_loading; ?>" data-bs-toggle="tooltip" title="<?php echo $button_generate; ?>" class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button>
                   <?php } else { ?>
                       <button disabled="disabled" class="btn btn-success btn-xs"><i class="fa fa-refresh"></i></button>
                   <?php } ?></td>
               </tr>
               <tr>
                 <td><?php echo $text_reward; ?></td>
-                <td class="text-right"><?php echo $reward; ?></td>
+                <td class="text-end"><?php echo $reward; ?></td>
                 <td class="text-center"><?php if ($customer && $reward) { ?>
                         <?php if (!$reward_total) { ?>
-                          <button id="button-reward-add" data-loading-text="<?php echo $text_loading; ?>" data-toggle="tooltip" title="<?php echo $button_reward_add; ?>" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
+                          <button id="button-reward-add" data-loading-text="<?php echo $text_loading; ?>" data-bs-toggle="tooltip" title="<?php echo $button_reward_add; ?>" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
                       <?php } else { ?>
-                          <button id="button-reward-remove" data-loading-text="<?php echo $text_loading; ?>" data-toggle="tooltip" title="<?php echo $button_reward_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>
+                          <button id="button-reward-remove" data-loading-text="<?php echo $text_loading; ?>" data-bs-toggle="tooltip" title="<?php echo $button_reward_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>
                       <?php } ?>
                   <?php } else { ?>
                       <button disabled="disabled" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
@@ -140,12 +140,12 @@ function is_multi($array) {
                     <?php if ($affiliate) { ?>
                       (<a href="<?php echo $affiliate; ?>"><?php echo $affiliate_firstname; ?> <?php echo $affiliate_lastname; ?></a>)
                   <?php } ?></td>
-                <td class="text-right"><?php echo $commission; ?></td>
+                <td class="text-end"><?php echo $commission; ?></td>
                 <td class="text-center"><?php if ($affiliate) { ?>
                         <?php if (!$commission_total) { ?>
-                          <button id="button-commission-add" data-loading-text="<?php echo $text_loading; ?>" data-toggle="tooltip" title="<?php echo $button_commission_add; ?>" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
+                          <button id="button-commission-add" data-loading-text="<?php echo $text_loading; ?>" data-bs-toggle="tooltip" title="<?php echo $button_commission_add; ?>" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
                       <?php } else { ?>
-                          <button id="button-commission-remove" data-loading-text="<?php echo $text_loading; ?>" data-toggle="tooltip" title="<?php echo $button_commission_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>
+                          <button id="button-commission-remove" data-loading-text="<?php echo $text_loading; ?>" data-bs-toggle="tooltip" title="<?php echo $button_commission_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>
                       <?php } ?>
                   <?php } else { ?>
                       <button disabled="disabled" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
@@ -156,25 +156,25 @@ function is_multi($array) {
         </div>
       </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-info-circle"></i> <?php echo $text_order; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-info-circle"></i> <?php echo $text_order; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <table class="table table-bordered">
           <thead>
             <tr>
-              <td style="width: 50%;" class="text-left"><?php echo $text_payment_address; ?></td>
+              <td style="width: 50%;" class="text-start"><?php echo $text_payment_address; ?></td>
               <?php if ($shipping_method) { ?>
-                  <td style="width: 50%;" class="text-left"><?php echo $text_shipping_address; ?></td>
+                  <td style="width: 50%;" class="text-start"><?php echo $text_shipping_address; ?></td>
               <?php } ?>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-left"><?php echo $payment_address; ?></td>
+              <td class="text-start"><?php echo $payment_address; ?></td>
               <?php if ($shipping_method) { ?>
-                  <td class="text-left"><?php echo $shipping_address; ?></td>
+                  <td class="text-start"><?php echo $shipping_address; ?></td>
               <?php } ?>
             </tr>
           </tbody>
@@ -182,17 +182,17 @@ function is_multi($array) {
         <table class="table table-bordered">
           <thead>
             <tr>
-              <td class="text-left"><?php echo $column_product; ?></td>
-              <td class="text-left"><?php echo $column_model; ?></td>
-              <td class="text-right"><?php echo $column_quantity; ?></td>
-              <td class="text-right"><?php echo $column_price; ?></td>
-              <td class="text-right"><?php echo $column_total; ?></td>
+              <td class="text-start"><?php echo $column_product; ?></td>
+              <td class="text-start"><?php echo $column_model; ?></td>
+              <td class="text-end"><?php echo $column_quantity; ?></td>
+              <td class="text-end"><?php echo $column_price; ?></td>
+              <td class="text-end"><?php echo $column_total; ?></td>
             </tr>
           </thead>
           <tbody>
               <?php foreach ($products as $product) { ?>
                 <tr>
-                  <td class="text-left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
+                  <td class="text-start"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
                       <?php foreach ($product['option'] as $option) { ?>
                         <br />
                         <?php if ($option['type'] != 'file') { ?>
@@ -201,25 +201,25 @@ function is_multi($array) {
                             &nbsp;<small> - <?php echo $option['name']; ?>: <a href="<?php echo $option['href']; ?>"><?php echo $option['value']; ?></a></small>
                         <?php } ?>
                       <?php } ?></td>
-                  <td class="text-left"><?php echo $product['model']; ?></td>
-                  <td class="text-right"><?php echo $product['quantity']; ?></td>
-                  <td class="text-right"><?php echo $product['price']; ?></td>
-                  <td class="text-right"><?php echo $product['total']; ?></td>
+                  <td class="text-start"><?php echo $product['model']; ?></td>
+                  <td class="text-end"><?php echo $product['quantity']; ?></td>
+                  <td class="text-end"><?php echo $product['price']; ?></td>
+                  <td class="text-end"><?php echo $product['total']; ?></td>
                 </tr>
             <?php } ?>
             <?php foreach ($vouchers as $voucher) { ?>
                 <tr>
-                  <td class="text-left"><a href="<?php echo $voucher['href']; ?>"><?php echo $voucher['description']; ?></a></td>
-                  <td class="text-left"></td>
-                  <td class="text-right">1</td>
-                  <td class="text-right"><?php echo $voucher['amount']; ?></td>
-                  <td class="text-right"><?php echo $voucher['amount']; ?></td>
+                  <td class="text-start"><a href="<?php echo $voucher['href']; ?>"><?php echo $voucher['description']; ?></a></td>
+                  <td class="text-start"></td>
+                  <td class="text-end">1</td>
+                  <td class="text-end"><?php echo $voucher['amount']; ?></td>
+                  <td class="text-end"><?php echo $voucher['amount']; ?></td>
                 </tr>
             <?php } ?>
             <?php foreach ($totals as $total) { ?>
                 <tr>
-                  <td colspan="4" class="text-right"><?php echo $total['title']; ?></td>
-                  <td class="text-right"><?php echo $total['text']; ?></td>
+                  <td colspan="4" class="text-end"><?php echo $total['title']; ?></td>
+                  <td class="text-end"><?php echo $total['text']; ?></td>
                 </tr>
             <?php } ?>
           </tbody>
@@ -240,16 +240,16 @@ function is_multi($array) {
         <?php } ?>
       </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-comment-o"></i> <?php echo $text_history; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-comment-o"></i> <?php echo $text_history; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#tab-history" data-toggle="tab"><?php echo $tab_history; ?></a></li>
-          <li><a href="#tab-additional" data-toggle="tab"><?php echo $tab_additional; ?></a></li>
+          <li class="active"><a href="#tab-history" data-bs-toggle="tab"><?php echo $tab_history; ?></a></li>
+          <li><a href="#tab-additional" data-bs-toggle="tab"><?php echo $tab_additional; ?></a></li>
           <?php foreach ($tabs as $tab) { ?>
-              <li><a href="#tab-<?php echo $tab['code']; ?>" data-toggle="tab"><?php echo $tab['title']; ?></a></li>
+              <li><a href="#tab-<?php echo $tab['code']; ?>" data-bs-toggle="tab"><?php echo $tab['title']; ?></a></li>
           <?php } ?>
         </ul>
         <div class="tab-content">
@@ -274,7 +274,7 @@ function is_multi($array) {
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-override"><span data-toggle="tooltip" title="<?php echo $help_override; ?>"><?php echo $entry_override; ?></span></label>
+                  <label class="col-sm-2 control-label" for="input-override"><span data-bs-toggle="tooltip" title="<?php echo $help_override; ?>"><?php echo $entry_override; ?></span></label>
                   <div class="col-sm-10">
                     <input type="checkbox" name="override" value="1" id="input-override" />
                   </div>
@@ -293,7 +293,7 @@ function is_multi($array) {
                 </div>
               </form>
             </fieldset>
-            <div class="text-right">
+            <div class="text-end">
               <button id="button-history" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i> <?php echo $button_history_add; ?></button>
             </div>
           </div>
@@ -409,11 +409,11 @@ $(document).delegate('#button-ip-add', 'click', function () {
                   $('.alert').remove();
 
                   if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
 
                   if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
               },
               error: function (xhr, ajaxOptions, thrownError) {
@@ -472,7 +472,7 @@ $(document).delegate('#button-ip-add', 'click', function () {
                   if (json['success']) {
                       $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
 
-                      $('#button-reward-add').replaceWith('<button id="button-reward-remove" data-toggle="tooltip" title="<?php echo $button_reward_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>');
+                      $('#button-reward-add').replaceWith('<button id="button-reward-remove" data-bs-toggle="tooltip" title="<?php echo $button_reward_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>');
                   }
               },
               error: function (xhr, ajaxOptions, thrownError) {
@@ -502,7 +502,7 @@ $(document).delegate('#button-ip-add', 'click', function () {
                   if (json['success']) {
                       $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
 
-                      $('#button-reward-remove').replaceWith('<button id="button-reward-add" data-toggle="tooltip" title="<?php echo $button_reward_add; ?>" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>');
+                      $('#button-reward-remove').replaceWith('<button id="button-reward-add" data-bs-toggle="tooltip" title="<?php echo $button_reward_add; ?>" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>');
                   }
               },
               error: function (xhr, ajaxOptions, thrownError) {
@@ -532,7 +532,7 @@ $(document).delegate('#button-ip-add', 'click', function () {
                   if (json['success']) {
                       $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
 
-                      $('#button-commission-add').replaceWith('<button id="button-commission-remove" data-toggle="tooltip" title="<?php echo $button_commission_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>');
+                      $('#button-commission-add').replaceWith('<button id="button-commission-remove" data-bs-toggle="tooltip" title="<?php echo $button_commission_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>');
                   }
               },
               error: function (xhr, ajaxOptions, thrownError) {
@@ -562,7 +562,7 @@ $(document).delegate('#button-ip-add', 'click', function () {
                   if (json['success']) {
                       $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
 
-                      $('#button-commission-remove').replaceWith('<button id="button-commission-add" data-toggle="tooltip" title="<?php echo $button_commission_add; ?>" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>');
+                      $('#button-commission-remove').replaceWith('<button id="button-commission-add" data-bs-toggle="tooltip" title="<?php echo $button_commission_add; ?>" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>');
                   }
               },
               error: function (xhr, ajaxOptions, thrownError) {
@@ -606,13 +606,13 @@ $(document).delegate('#button-ip-add', 'click', function () {
                   $('.alert').remove();
 
                   if (json['error']) {
-                      $('#history').before('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#history').before('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                   }
 
                   if (json['success']) {
                       $('#history').load('index.php?route=sale/order/history&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>');
 
-                      $('#history').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#history').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                       $('textarea[name=\'comment\']').val('');
                   }

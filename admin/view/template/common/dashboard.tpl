@@ -13,7 +13,7 @@
   <div class="container-fluid">
       <?php if ($error_install) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_install; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
     <?php foreach ($rows as $row) { ?>

@@ -2,9 +2,9 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button type="button" onclick="$('#form').submit();" form="form-fedex" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <button type="button" onclick="$('#form').submit();" form="form-fedex" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -16,7 +16,7 @@
 
   <?php if ($error_warning) { ?>
       <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
       </div>
   <?php } ?>
 
@@ -84,7 +84,7 @@
                                 <?php } ?>
                             <?php } ?>
                           </select></td>
-                        <td><label class="control-label"><span data-toggle="tooltip" title="" data-original-title="<?php echo $text_rates_info; ?>"><?php echo $text_rates; ?></span></label><input class="form-control" type="text" size="15" name="location_based_shipping_cost[<?php echo $row; ?>][rates]" value="<?php echo $czc['rates']; ?>" /><br />
+                        <td><label class="control-label"><span data-bs-toggle="tooltip" title="" data-original-title="<?php echo $text_rates_info; ?>"><?php echo $text_rates; ?></span></label><input class="form-control" type="text" size="15" name="location_based_shipping_cost[<?php echo $row; ?>][rates]" value="<?php echo $czc['rates']; ?>" /><br />
                           <label><span data-original-title="Shipping cost"><?php echo $text_cost; ?></span></label><input class="form-control" type="text" size="15" name="location_based_shipping_cost[<?php echo $row; ?>][cost]" value="<?php echo $czc['cost']; ?>" />
                         <td>
                             <?php foreach ($languages as $language) {
@@ -187,7 +187,7 @@
             html += '<option value="<?php echo $tax_class['tax_class_id']; ?>"><?php echo $tax_class['title']; ?></option>';
 <?php } ?>
         html += '</select></td>';
-        html += '<td><label class="control-label"><span data-toggle="tooltip" title="" data-original-title="<?php echo $text_rates_info; ?>"><?php echo $text_rates; ?></span></label><input class="form-control" type="text" size="15" name="location_based_shipping_cost[' + row + '][rates]" value=""><br />\n\
+        html += '<td><label class="control-label"><span data-bs-toggle="tooltip" title="" data-original-title="<?php echo $text_rates_info; ?>"><?php echo $text_rates; ?></span></label><input class="form-control" type="text" size="15" name="location_based_shipping_cost[' + row + '][rates]" value=""><br />\n\
         <label><span data-original-title="Shipping cost"><?php echo $text_cost; ?></span></label>\n\
     <input class="form-control" type="text" size="15" name="location_based_shipping_cost[' + row + '][cost]" value=""></td>';
         html += '<td>';

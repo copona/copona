@@ -2,8 +2,8 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
         <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -15,14 +15,14 @@
   <div class="container-fluid">
 	<?php if ($error_warning) { ?>
 	  <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>&nbsp;<?php echo $error_warning; ?>
-	    <button type="button" class="close" data-dismiss="alert">&times;</button>
+	    <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
 	  </div>
 	<?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-info-circle"></i>&nbsp;<?php echo $text_edit; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-info-circle"></i>&nbsp;<?php echo $text_edit; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
       	<form class="form-horizontal" method="POST" id="transaction_form">
 	      	<div class="form-group">
 	      	  <label class="col-sm-2 control-label"><?php echo $entry_transaction_id; ?></label>
@@ -66,15 +66,15 @@
 	      	    <div<?php if ($is_authorized || $is_captured || $is_payment) echo ' class="input-group"'; ?>>
 	      	      <?php if ($is_authorized) { ?>
 	      	      	<input type="text" class="form-control" name="transaction_amount" value="<?php echo $amount; ?>" />
-	      	      	<a class="form-submit input-group-addon btn btn-success" href="<?php echo $url_capture; ?>" data-toggle="tooltip" data-original-title="<?php echo $text_capture; ?>" data-confirm-text="<?php echo $text_confirm_capture; ?>"><i class="fa fa-check"></i>&nbsp;<?php echo $button_capture; ?></a>
-	      	      	<a class="form-submit input-group-addon btn btn-danger" href="<?php echo $url_void; ?>" data-toggle="tooltip" data-original-title="<?php echo $text_void; ?>" data-confirm-text="<?php echo $text_confirm_void; ?>"><i class="fa fa-remove"></i>&nbsp;<?php echo $button_void; ?></a>
+	      	      	<a class="form-submit input-group-addon btn btn-success" href="<?php echo $url_capture; ?>" data-bs-toggle="tooltip" data-original-title="<?php echo $text_capture; ?>" data-confirm-text="<?php echo $text_confirm_capture; ?>"><i class="fa fa-check"></i>&nbsp;<?php echo $button_capture; ?></a>
+	      	      	<a class="form-submit input-group-addon btn btn-danger" href="<?php echo $url_void; ?>" data-bs-toggle="tooltip" data-original-title="<?php echo $text_void; ?>" data-confirm-text="<?php echo $text_confirm_void; ?>"><i class="fa fa-remove"></i>&nbsp;<?php echo $button_void; ?></a>
 	      	      <?php } else if ($is_captured) { ?>
 	      	      	<input type="text" class="form-control" name="transaction_amount" value="<?php echo $amount; ?>" />
-	      	      	<a class="form-submit input-group-addon btn btn-danger" href="<?php echo $url_refund; ?>" data-toggle="tooltip" data-original-title="<?php echo $text_refund; ?>" data-confirm-text="<?php echo $text_confirm_refund; ?>"><i class="fa fa-reply"></i>&nbsp;<?php echo $button_refund; ?></a>
-	      	      	<a class="form-submit input-group-addon btn btn-danger" href="<?php echo $url_void; ?>" data-toggle="tooltip" data-original-title="<?php echo $text_void; ?>" data-confirm-text="<?php echo $text_confirm_void; ?>"><i class="fa fa-remove"></i>&nbsp;<?php echo $button_void; ?></a>
+	      	      	<a class="form-submit input-group-addon btn btn-danger" href="<?php echo $url_refund; ?>" data-bs-toggle="tooltip" data-original-title="<?php echo $text_refund; ?>" data-confirm-text="<?php echo $text_confirm_refund; ?>"><i class="fa fa-reply"></i>&nbsp;<?php echo $button_refund; ?></a>
+	      	      	<a class="form-submit input-group-addon btn btn-danger" href="<?php echo $url_void; ?>" data-bs-toggle="tooltip" data-original-title="<?php echo $text_void; ?>" data-confirm-text="<?php echo $text_confirm_void; ?>"><i class="fa fa-remove"></i>&nbsp;<?php echo $button_void; ?></a>
 	      	      <?php } else if ($is_payment) { ?>
 	      	      	<input type="text" class="form-control" name="transaction_amount" value="<?php echo $amount; ?>" />
-	      	      	<a class="form-submit input-group-addon btn btn-danger" href="<?php echo $url_refund; ?>" data-toggle="tooltip" data-original-title="<?php echo $text_refund; ?>" data-confirm-text="<?php echo $text_confirm_refund; ?>"><i class="fa fa-reply"></i>&nbsp;<?php echo $button_refund; ?></a>
+	      	      	<a class="form-submit input-group-addon btn btn-danger" href="<?php echo $url_refund; ?>" data-bs-toggle="tooltip" data-original-title="<?php echo $text_refund; ?>" data-confirm-text="<?php echo $text_confirm_refund; ?>"><i class="fa fa-reply"></i>&nbsp;<?php echo $button_refund; ?></a>
 	      	      <?php } else { ?>
 	      	      	<div class="form-info"><?php echo $amount; ?></div>
 	      	      <?php } ?>

@@ -2,10 +2,10 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button type="submit" form="form-laybuy" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $fetch; ?>" data-toggle="tooltip" title="<?php echo $button_fetch; ?>" class="btn btn-info"><i class="fa fa-refresh"></i></a>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <button type="submit" form="form-laybuy" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $fetch; ?>" data-bs-toggle="tooltip" title="<?php echo $button_fetch; ?>" class="btn btn-info"><i class="fa fa-refresh"></i></a>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -17,28 +17,28 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
     <?php if ($success) { ?>
         <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-laybuy" class="form-horizontal">
           <ul class="nav nav-tabs">
-            <li class="active" id="li-tab-settings"><a href="#tab-settings" data-toggle="tab"><?php echo $tab_settings; ?></a></li>
-            <li class="" id="li-tab-reports"><a href="#tab-reports" data-toggle="tab"><?php echo $tab_reports; ?></a></li>
+            <li class="active" id="li-tab-settings"><a href="#tab-settings" data-bs-toggle="tab"><?php echo $tab_settings; ?></a></li>
+            <li class="" id="li-tab-reports"><a href="#tab-reports" data-bs-toggle="tab"><?php echo $tab_reports; ?></a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-settings">
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-laybuys-membership-id"><span data-toggle="tooltip" title="<?php echo $help_membership_id; ?>"><?php echo $entry_membership_id; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuys-membership-id"><span data-bs-toggle="tooltip" title="<?php echo $help_membership_id; ?>"><?php echo $entry_membership_id; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="laybuys_membership_id" value="<?php echo $laybuys_membership_id; ?>" placeholder="<?php echo $entry_membership_id; ?>" id="input-laybuys-membership-id" class="form-control" />
                   <?php if ($error_laybuys_membership_id) { ?>
@@ -47,7 +47,7 @@
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-laybuy-token"><span data-toggle="tooltip" title="<?php echo $help_token; ?>"><?php echo $entry_token; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-token"><span data-bs-toggle="tooltip" title="<?php echo $help_token; ?>"><?php echo $entry_token; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="laybuy_token" value="<?php echo $laybuy_token; ?>" placeholder="<?php echo $entry_token; ?>" id="input-laybuy-token" class="form-control" />
                   <?php if ($error_laybuy_token) { ?>
@@ -56,7 +56,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-min-deposit"><span data-toggle="tooltip" title="<?php echo $help_minimum; ?>"><?php echo $entry_minimum; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-min-deposit"><span data-bs-toggle="tooltip" title="<?php echo $help_minimum; ?>"><?php echo $entry_minimum; ?></span></label>
                 <div class="col-sm-10">
                   <select name="laybuy_min_deposit" id="input-laybuy-min-deposit" class="form-control">
                     <option value="10" <?php if ($laybuy_min_deposit == '10') { echo 'selected="selected"'; } ?> >10%</option>
@@ -71,7 +71,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-max-deposit"><span data-toggle="tooltip" title="<?php echo $help_maximum; ?>"><?php echo $entry_maximum; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-max-deposit"><span data-bs-toggle="tooltip" title="<?php echo $help_maximum; ?>"><?php echo $entry_maximum; ?></span></label>
                 <div class="col-sm-10">
                   <select name="laybuy_max_deposit" id="input-laybuy-max-deposit" class="form-control">
                     <option value="10" <?php if ($laybuy_max_deposit == '10') { echo 'selected="selected"'; } ?> >10%</option>
@@ -83,7 +83,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-max-months"><span data-toggle="tooltip" title="<?php echo $help_months; ?>"><?php echo $entry_max_months; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-max-months"><span data-bs-toggle="tooltip" title="<?php echo $help_months; ?>"><?php echo $entry_max_months; ?></span></label>
                 <div class="col-sm-10">
                   <select name="laybuy_max_months" id="input-laybuy-max-months" class="form-control">
                     <option value="1" <?php if ($laybuy_max_months == '1') { echo 'selected="selected"'; } ?> >1</option>
@@ -96,7 +96,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="category"><span data-toggle="tooltip" title="<?php echo $help_category; ?>"><?php echo $entry_category; ?></span></label>
+                <label class="col-sm-2 control-label" for="category"><span data-bs-toggle="tooltip" title="<?php echo $help_category; ?>"><?php echo $entry_category; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="category" value="" placeholder="<?php echo $entry_category; ?>" id="category" class="form-control" />
                   <div id="laybuy-category" class="well well-sm" style="height: 150px; overflow: auto;">
@@ -109,13 +109,13 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-xproducts"><span data-toggle="tooltip" title="<?php echo $help_product_ids; ?>"><?php echo $entry_product_ids; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-xproducts"><span data-bs-toggle="tooltip" title="<?php echo $help_product_ids; ?>"><?php echo $entry_product_ids; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="laybuy_xproducts" value="<?php echo $laybuy_xproducts; ?>" placeholder="<?php echo $entry_product_ids; ?>" id="input-laybuy-xproducts" class="form-control" />
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="customer-group"><span data-toggle="tooltip" title="<?php echo $help_customer_group; ?>"><?php echo $entry_customer_group; ?></span></label>
+                <label class="col-sm-2 control-label" for="customer-group"><span data-bs-toggle="tooltip" title="<?php echo $help_customer_group; ?>"><?php echo $entry_customer_group; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="customer_group" value="" placeholder="<?php echo $entry_customer_group; ?>" id="customer-group" class="form-control" />
                   <div id="laybuy-customer-group" class="well well-sm" style="height: 150px; overflow: auto;">
@@ -128,7 +128,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-logging"><span data-toggle="tooltip" title="<?php echo $help_logging; ?>"><?php echo $entry_logging; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-logging"><span data-bs-toggle="tooltip" title="<?php echo $help_logging; ?>"><?php echo $entry_logging; ?></span></label>
                 <div class="col-sm-10">
                   <select name="laybuy_logging" id="input-laybuy-logging" class="form-control">
                       <?php if ($laybuy_logging) { ?>
@@ -142,13 +142,13 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-total"><span data-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-total"><span data-bs-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="laybuy_total" value="<?php echo $laybuy_total; ?>" placeholder="<?php echo $entry_total; ?>" id="input-laybuy-total" class="form-control" />
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-order-status-pending"><span data-toggle="tooltip" title="<?php echo $help_order_status_pending; ?>"><?php echo $entry_order_status_pending; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-order-status-pending"><span data-bs-toggle="tooltip" title="<?php echo $help_order_status_pending; ?>"><?php echo $entry_order_status_pending; ?></span></label>
                 <div class="col-sm-10">
                   <select name="laybuy_order_status_id_pending" id="input-laybuy-order-status-pending" class="form-control">
                       <?php foreach ($order_statuses as $order_status) { ?>
@@ -162,7 +162,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-order-status-canceled"><span data-toggle="tooltip" title="<?php echo $help_order_status_canceled; ?>"><?php echo $entry_order_status_canceled; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-order-status-canceled"><span data-bs-toggle="tooltip" title="<?php echo $help_order_status_canceled; ?>"><?php echo $entry_order_status_canceled; ?></span></label>
                 <div class="col-sm-10">
                   <select name="laybuy_order_status_id_canceled" id="input-laybuy-order-status-canceled" class="form-control">
                       <?php foreach ($order_statuses as $order_status) { ?>
@@ -176,7 +176,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-order-status-processing"><span data-toggle="tooltip" title="<?php echo $help_order_status_processing; ?>"><?php echo $entry_order_status_processing; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-order-status-processing"><span data-bs-toggle="tooltip" title="<?php echo $help_order_status_processing; ?>"><?php echo $entry_order_status_processing; ?></span></label>
                 <div class="col-sm-10">
                   <select name="laybuy_order_status_id_processing" id="input-laybuy-order-status-processing" class="form-control">
                       <?php foreach ($order_statuses as $order_status) { ?>
@@ -237,13 +237,13 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-cron-url"><span data-toggle="tooltip" title="<?php echo $help_cron_url; ?>"><?php echo $entry_cron_url; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-cron-url"><span data-bs-toggle="tooltip" title="<?php echo $help_cron_url; ?>"><?php echo $entry_cron_url; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="laybuy_cron_url" value="<?php echo $laybuy_cron_url; ?>" readonly placeholder="<?php echo $entry_cron_url; ?>" id="input-laybuy-cron-url" class="form-control" />
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-laybuy-cron-time"><span data-toggle="tooltip" title="<?php echo $help_cron_time; ?>"><?php echo $entry_cron_time; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-laybuy-cron-time"><span data-bs-toggle="tooltip" title="<?php echo $help_cron_time; ?>"><?php echo $entry_cron_time; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="laybuy_cron_time" value="<?php echo $laybuy_cron_time; ?>" readonly disabled placeholder="<?php echo $entry_cron_time; ?>" id="input-laybuy-cron-time" class="form-control" />
                 </div>
@@ -291,10 +291,10 @@
                       <div class="input-group date">
                         <input type="text" name="filter_date_added" value="<?php echo $filter_date_added; ?>" placeholder="<?php echo $entry_date_added; ?>" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control" />
                         <span class="input-group-btn">
-                          <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                          <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                         </span></div>
                     </div>
-                    <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-filter"></i> <?php echo $button_filter; ?></button>
+                    <button type="button" id="button-filter" class="btn btn-primary float-end"><i class="fa fa-filter"></i> <?php echo $button_filter; ?></button>
                   </div>
                 </div>
               </div>
@@ -303,57 +303,57 @@
                   <thead>
                     <tr>
                       <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
-                      <td class="text-left"><?php if ($sort == 'lt.order_id') { ?>
+                      <td class="text-start"><?php if ($sort == 'lt.order_id') { ?>
                             <a href="<?php echo $sort_order_id; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_order_id; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo $sort_order_id; ?>"><?php echo $column_order_id; ?></a>
                         <?php } ?></td>
-                      <td class="text-left"><?php if ($sort == 'customer') { ?>
+                      <td class="text-start"><?php if ($sort == 'customer') { ?>
                             <a href="<?php echo $sort_customer; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_customer; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo $sort_customer; ?>"><?php echo $column_customer; ?></a>
                         <?php } ?></td>
-                      <td class="text-left"><?php if ($sort == 'lt.amount') { ?>
+                      <td class="text-start"><?php if ($sort == 'lt.amount') { ?>
                             <a href="<?php echo $sort_amount; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_amount; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo $sort_amount; ?>"><?php echo $column_amount; ?></a>
                         <?php } ?></td>
-                      <td class="text-left"><?php if ($sort == 'lt.downpayment') { ?>
+                      <td class="text-start"><?php if ($sort == 'lt.downpayment') { ?>
                             <a href="<?php echo $sort_dp_percent; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_dp_percent; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo $sort_dp_percent; ?>"><?php echo $column_dp_percent; ?></a>
                         <?php } ?></td>
-                      <td class="text-left"><?php if ($sort == 'lt.months') { ?>
+                      <td class="text-start"><?php if ($sort == 'lt.months') { ?>
                             <a href="<?php echo $sort_months; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_months; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo $sort_months; ?>"><?php echo $column_months; ?></a>
                         <?php } ?></td>
-                      <td class="text-left"><?php if ($sort == 'lt.downpayment_amount') { ?>
+                      <td class="text-start"><?php if ($sort == 'lt.downpayment_amount') { ?>
                             <a href="<?php echo $sort_dp_amount; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_dp_amount; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo $sort_dp_amount; ?>"><?php echo $column_dp_amount; ?></a>
                         <?php } ?></td>
-                      <td class="text-left"><?php if ($sort == 'lt.first_payment_due') { ?>
+                      <td class="text-start"><?php if ($sort == 'lt.first_payment_due') { ?>
                             <a href="<?php echo $sort_first_payment; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_first_payment; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo $sort_first_payment; ?>"><?php echo $column_first_payment; ?></a>
                         <?php } ?></td>
-                      <td class="text-left"><?php if ($sort == 'lt.last_payment_due') { ?>
+                      <td class="text-start"><?php if ($sort == 'lt.last_payment_due') { ?>
                             <a href="<?php echo $sort_last_payment; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_last_payment; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo $sort_last_payment; ?>"><?php echo $column_last_payment; ?></a>
                         <?php } ?></td>
-                      <td class="text-left"><?php if ($sort == 'lt.status') { ?>
+                      <td class="text-start"><?php if ($sort == 'lt.status') { ?>
                             <a href="<?php echo $sort_status; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_status; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo $sort_status; ?>"><?php echo $column_status; ?></a>
                         <?php } ?></td>
-                      <td class="text-left"><?php if ($sort == 'lt.date_added') { ?>
+                      <td class="text-start"><?php if ($sort == 'lt.date_added') { ?>
                             <a href="<?php echo $sort_date_added; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_date_added; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo $sort_date_added; ?>"><?php echo $column_date_added; ?></a>
                         <?php } ?></td>
-                      <td class="text-right"><?php echo $column_action; ?></td>
+                      <td class="text-end"><?php echo $column_action; ?></td>
                     </tr>
                   </thead>
                   <tbody>
@@ -365,21 +365,21 @@
                                 <?php } else { ?>
                                     <input type="checkbox" name="selected[]" value="<?php echo $report['id']; ?>" />
                                 <?php } ?></td>
-                              <td class="text-left"><a href="<?php echo $report['order_url']; ?>"><?php echo $report['order_id']; ?></a></td>
+                              <td class="text-start"><a href="<?php echo $report['order_url']; ?>"><?php echo $report['order_id']; ?></a></td>
                               <?php if ($report['customer_url']) { ?>
-                                  <td class="text-left"><a href="<?php echo $report['customer_url']; ?>"><?php echo $report['customer_name']; ?></a></td>
+                                  <td class="text-start"><a href="<?php echo $report['customer_url']; ?>"><?php echo $report['customer_name']; ?></a></td>
                               <?php } else { ?>
-                                  <td class="text-left"><?php echo $report['customer_name']; ?></td>
+                                  <td class="text-start"><?php echo $report['customer_name']; ?></td>
                               <?php } ?>
-                              <td class="text-left"><?php echo $report['amount']; ?></td>
-                              <td class="text-left"><?php echo $report['dp_percent'] . '%'; ?></td>
-                              <td class="text-left"><?php echo $report['months']; ?></td>
-                              <td class="text-left"><?php echo $report['dp_amount']; ?></td>
-                              <td class="text-left"><?php echo $report['first_payment']; ?></td>
-                              <td class="text-left"><?php echo $report['last_payment']; ?></td>
-                              <td class="text-left"><?php echo $report['status']; ?></td>
-                              <td class="text-left"><?php echo $report['date_added']; ?></td>
-                              <td class="text-right"><a href="<?php echo $report['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
+                              <td class="text-start"><?php echo $report['amount']; ?></td>
+                              <td class="text-start"><?php echo $report['dp_percent'] . '%'; ?></td>
+                              <td class="text-start"><?php echo $report['months']; ?></td>
+                              <td class="text-start"><?php echo $report['dp_amount']; ?></td>
+                              <td class="text-start"><?php echo $report['first_payment']; ?></td>
+                              <td class="text-start"><?php echo $report['last_payment']; ?></td>
+                              <td class="text-start"><?php echo $report['status']; ?></td>
+                              <td class="text-start"><?php echo $report['date_added']; ?></td>
+                              <td class="text-end"><a href="<?php echo $report['view']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
                             </tr>
                         <?php } ?>
                     <?php } else { ?>
@@ -391,8 +391,8 @@
                 </table>
               </div>
               <div class="row">
-                <div class="col-sm-6 text-left"><?php echo $pagination; ?></div>
-                <div class="col-sm-6 text-right"><?php echo $results; ?></div>
+                <div class="col-sm-6 text-start"><?php echo $pagination; ?></div>
+                <div class="col-sm-6 text-end"><?php echo $results; ?></div>
               </div>
             </div>
           </div>

@@ -2,12 +2,12 @@
   <legend><?php echo $heading_title; ?></legend>
   <?php if ($error_warning) { ?>
       <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
       </div>
   <?php } ?>
   <?php if ($success) { ?>
       <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
       </div>
   <?php } ?>
   <div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $text_layout; ?></div>
@@ -15,8 +15,8 @@
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <td class="text-left"><?php echo $column_name; ?></td>
-          <td class="text-right"><?php echo $column_action; ?></td>
+          <td class="text-start"><?php echo $column_name; ?></td>
+          <td class="text-end"><?php echo $column_action; ?></td>
         </tr>
       </thead>
       <tbody>
@@ -33,27 +33,27 @@
                     </strong>
                     (<?php echo $extension['extension']; ?>)
                   </td>
-                  <td class="text-right">
+                  <td class="text-end">
                       <?php if ($extension['installed']) { ?>
                           <?php if ($extension['module']) { ?>
-                            <a href="<?php echo $extension['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></a>
+                            <a href="<?php echo $extension['edit']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></a>
                         <?php } else { ?>
-                            <a href="<?php echo $extension['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                            <a href="<?php echo $extension['edit']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                         <?php } ?>
                     <?php } else { ?>
                         <button type="button" class="btn btn-primary" disabled="disabled"><i class="fa fa-pencil"></i></button>
                     <?php } ?>
                     <?php if (!$extension['installed']) { ?>
-                        <a href="<?php echo $extension['install']; ?>" data-toggle="tooltip" title="<?php echo $button_install; ?>" class="btn btn-success"><i class="fa fa-magic"></i></a>
+                        <a href="<?php echo $extension['install']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_install; ?>" class="btn btn-success"><i class="fa fa-magic"></i></a>
                     <?php } else { ?>
-                        <a href="<?php echo $extension['uninstall']; ?>" data-toggle="tooltip" title="<?php echo $button_uninstall; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a>
+                        <a href="<?php echo $extension['uninstall']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_uninstall; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a>
                     <?php } ?>
                   </td>
                 </tr>
                 <?php foreach ($extension['module'] as $module) { ?>
                     <tr>
-                      <td class="text-left">&nbsp;&nbsp;&nbsp;<i class="fa fa-folder-open"></i>&nbsp;&nbsp;&nbsp;<a href="<?php echo $module['edit']; ?>"><?php echo $module['name']; ?></a></td>
-                      <td class="text-right"><a href="<?php echo $module['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-info"><i class="fa fa-pencil"></i></a> <a href="<?php echo $module['delete']; ?>" data-toggle="tooltip" title="<?php echo $button_delete; ?>" class="btn btn-warning"><i class="fa fa-trash-o"></i></a></td>
+                      <td class="text-start">&nbsp;&nbsp;&nbsp;<i class="fa fa-folder-open"></i>&nbsp;&nbsp;&nbsp;<a href="<?php echo $module['edit']; ?>"><?php echo $module['name']; ?></a></td>
+                      <td class="text-end"><a href="<?php echo $module['edit']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-info"><i class="fa fa-pencil"></i></a> <a href="<?php echo $module['delete']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_delete; ?>" class="btn btn-warning"><i class="fa fa-trash-o"></i></a></td>
                     </tr>
                 <?php } ?>
             <?php } ?>

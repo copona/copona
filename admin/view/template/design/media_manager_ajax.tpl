@@ -9,20 +9,20 @@
 <div id="filemanager" class="col-md-12">
   <div class="modal-content">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
     </div>
     <div class="modal-body">
       <div class="row">
-        <div class="col-sm-5"><a href="<?php echo $parent; ?>" data-toggle="tooltip"
+        <div class="col-sm-5"><a href="<?php echo $parent; ?>" data-bs-toggle="tooltip"
                                  title="<?php echo $button_parent; ?>" id="button-parent"
-                                 class="btn btn-default"><i class="fa fa-level-up"></i></a> <a
-            href="<?php echo $refresh; ?>" data-toggle="tooltip" title="<?php echo $button_refresh; ?>"
-            id="button-refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
-          <button type="button" data-toggle="tooltip" title="<?php echo $button_upload; ?>"
+                                 class="btn btn-secondary"><i class="fa fa-level-up"></i></a> <a
+            href="<?php echo $refresh; ?>" data-bs-toggle="tooltip" title="<?php echo $button_refresh; ?>"
+            id="button-refresh" class="btn btn-secondary"><i class="fa fa-refresh"></i></a>
+          <button type="button" data-bs-toggle="tooltip" title="<?php echo $button_upload; ?>"
                   id="button-upload" class="btn btn-primary"><i class="fa fa-upload"></i></button>
-          <button type="button" data-toggle="tooltip" title="<?php echo $button_folder; ?>"
-                  id="button-folder" class="btn btn-default"><i class="fa fa-folder"></i></button>
-          <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>"
+          <button type="button" data-bs-toggle="tooltip" title="<?php echo $button_folder; ?>"
+                  id="button-folder" class="btn btn-secondary"><i class="fa fa-folder"></i></button>
+          <button type="button" data-bs-toggle="tooltip" title="<?php echo $button_delete; ?>"
                   id="button-delete" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
         </div>
         <div class="col-sm-7">
@@ -30,7 +30,7 @@
             <input type="text" name="search" value="<?php echo $filter_name; ?>"
                    placeholder="<?php echo $entry_search; ?>" class="form-control">
             <span class="input-group-btn">
-              <button type="button" data-toggle="tooltip" title="<?php echo $button_search; ?>" id="button-search"
+              <button type="button" data-bs-toggle="tooltip" title="<?php echo $button_search; ?>" id="button-search"
                       class="btn btn-primary"><i class="fa fa-search"></i></button>
               <button type="button" id="button-reset" class="btn btn-primary"><i class="fa fa-eraser"></i></button>
             </span></div>
@@ -40,7 +40,7 @@
           <div class="row">
         <?php foreach ($images as $image) { ?>
 
-                <div class="col-sm-2 col-xs-4 text-center">
+                <div class="col-sm-2 col-4 text-center">
                     <?php if ($image['type'] == 'directory') { ?>
                       <div class="text-center"><a href="<?php echo $image['href']; ?>" class="directory"
                                                   style="vertical-align: middle;"><i
@@ -69,35 +69,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span><span class="visually-hidden">Close</span></button>
         <img src="" class="imagepreview" style="width: 100%;" >
       </div>
     </div>
   </div>
 </div>
 <script type="text/javascript"><!--
-
-    <?php if ($ckedialog) { ?>
-    $('a.thumbnail').on('click', function (e) {
-        e.preventDefault();
-        dialog = CKEDITOR.dialog.getCurrent();
-        var targetElement = '<?php echo $ckedialog; ?>' || null;
-        var target = targetElement.split(':');
-        dialog.setValueOf(target[0], target[1], this.getAttribute('href'));
-        $('#modal-image').modal('hide');
-    });
-    <?php } ?>
-
-    <?php if ($ckedialog) { ?>
-    $('a.thumbnail').on('click', function (e) {
-        e.preventDefault();
-        dialog = CKEDITOR.dialog.getCurrent();
-        var targetElement = '<?php echo $ckedialog; ?>' || null;
-        var target = targetElement.split(':');
-        dialog.setValueOf(target[0], target[1], this.getAttribute('href'));
-        $('#modal-image').modal('hide');
-    });
-    <?php } ?>
 
     <?php if ($target) { ?>
 

@@ -9,14 +9,14 @@
         <?php } ?>
       </ul>
 
-      <div class="pull-right">
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php e_cr($button_cancel); ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>
-        <div class="btn-group" data-toggle="buttons" id="optionsGroup">
+      <div class="float-end">
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php e_cr($button_cancel); ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a>
+        <div class="btn-group" data-bs-toggle="buttons" id="optionsGroup">
             <?php
             foreach (array( 'catalog' => 'frontend',
             'admin'   => 'backend' ) as $k => $v) {
                 ?>
-              <label class="btn btn-default <?php if ($interface == $k) { echo 'active'; } ?>">
+              <label class="btn btn-secondary <?php if ($interface == $k) { echo 'active'; } ?>">
                 <input type="radio" name="interface" value="<?php e_cr($k); ?>" autocomplete="translate-interface" <?php if ($interface == "$k") { echo 'checked'; } ?>> <?php e_cr(${'tab_' . $v}); ?>
               </label>
           <?php } // end foreach (array('catalog'=>'frontend', 'admin'=>'backend') as $k=>$v )    ?>
@@ -32,7 +32,7 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php e_cr($error_warning); ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div><!-- end alert-danger -->
     <?php } ?>
 
@@ -83,7 +83,7 @@
   <div id="loadInfoDiv">
     <h2 id="loadingTextsWait"><i class="fa fa-spinner fa-spin"></i> <?php e_cr($text_loading_please_wait); ?></h2>
     <button id="loadMoreBtn" class="btn btn-lg btn-primary"><i class="fa fa-arrow-circle-o-down"></i> <?php e_cr($text_load_more); ?></button>
-    <button id="scrollToTopBtn" class="btn btn-lg btn-default"><i class="fa fa-arrow-up"></i></button>
+    <button id="scrollToTopBtn" class="btn btn-lg btn-secondary"><i class="fa fa-arrow-up"></i></button>
   </div><!-- end #loadInfoDiv -->
 
 </div><!-- end .container-fluid -->
@@ -93,7 +93,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body"></div>

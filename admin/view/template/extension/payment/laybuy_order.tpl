@@ -2,11 +2,11 @@
 <?php if ($transaction) { ?>
     <form action="" method="post" enctype="multipart/form-data" id="form-laybuy-transaction" class="form-horizontal">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab-reference" data-toggle="tab"><?php echo $tab_reference; ?></a></li>
-        <li class=""><a href="#tab-customer" data-toggle="tab"><?php echo $tab_customer; ?></a></li>
-        <li class=""><a href="#tab-payment-plan" data-toggle="tab"><?php echo $tab_payment; ?></a></li>
+        <li class="active"><a href="#tab-reference" data-bs-toggle="tab"><?php echo $tab_reference; ?></a></li>
+        <li class=""><a href="#tab-customer" data-bs-toggle="tab"><?php echo $tab_customer; ?></a></li>
+        <li class=""><a href="#tab-payment-plan" data-bs-toggle="tab"><?php echo $tab_payment; ?></a></li>
         <?php if ($transaction['status_id'] == 1) { ?>
-            <li class=""><a href="#tab-modify" data-toggle="tab"><?php echo $tab_modify; ?></a></li>
+            <li class=""><a href="#tab-modify" data-bs-toggle="tab"><?php echo $tab_modify; ?></a></li>
         <?php } ?>
       </ul>
       <div class="tab-content">
@@ -212,7 +212,7 @@
                         <thead>
                         <th><?php echo $text_payment; ?></th>
                         <th><?php echo $text_due_date; ?></th>
-                        <th class="text-right"><?php echo $text_amount; ?></th>
+                        <th class="text-end"><?php echo $text_amount; ?></th>
                         </thead>
                         <tbody>
                           <tr>
@@ -448,7 +448,7 @@ var token = '';
             row = '<tr>';
             row += '<td>' + payment.payment + '</td>';
             row += '<td>' + payment.dueDate + '</td>';
-            row += '<td class="text-right">' + symbol_left + payment.amount + symbol_right + '</td>';
+            row += '<td class="text-end">' + symbol_left + payment.amount + symbol_right + '</td>';
             row += '</tr>';
 
             $('#payment-table').find('tbody').append(row);

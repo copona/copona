@@ -11,19 +11,19 @@
     <br />
     <div class="row">
       <div class="col-sm-offset-4 col-sm-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h1 class="panel-title"><i class="fa fa-lock"></i> <?php echo $text_login; ?></h1>
+        <div class="card">
+          <div class="card-header">
+            <h1 class="card-title"><i class="fa fa-lock"></i> <?php echo $text_login; ?></h1>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
               <?php if ($success) { ?>
                 <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
                 </div>
             <?php } ?>
             <?php if ($error_warning) { ?>
                 <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
                 </div>
             <?php } ?>
             <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
@@ -42,7 +42,7 @@
                     <span class="help-block"><a href="<?php echo $forgotten; ?>"><?php echo $text_forgotten; ?></a></span>
                 <?php } ?>
               </div>
-              <div class="text-right">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary"><i class="fa fa-key"></i> <?php echo $button_login; ?></button>
               </div>
               <?php if ($redirect) { ?>

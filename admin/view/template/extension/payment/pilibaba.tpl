@@ -2,9 +2,9 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button type="submit" form="form-pilibaba" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="float-end">
+        <button type="submit" form="form-pilibaba" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
           <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -16,44 +16,44 @@
   <div class="container-fluid">
       <?php if ($error_warning) { ?>
         <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
     <?php if ($success) { ?>
         <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
         </div>
     <?php } ?>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-pilibaba" class="form-horizontal">
           <ul class="nav nav-tabs">
               <?php if ($show_register) { ?>
-                <li class="active" id="li-tab-register"><a href="#tab-register" data-toggle="tab"><?php echo $tab_register; ?></a></li>
-                <li id="li-tab-settings"><a href="#tab-settings" data-toggle="tab"><?php echo $tab_settings; ?></a></li>
+                <li class="active" id="li-tab-register"><a href="#tab-register" data-bs-toggle="tab"><?php echo $tab_register; ?></a></li>
+                <li id="li-tab-settings"><a href="#tab-settings" data-bs-toggle="tab"><?php echo $tab_settings; ?></a></li>
             <?php } else { ?>
-                <li class="active" id="li-tab-settings"><a href="#tab-settings" data-toggle="tab"><?php echo $tab_settings; ?></a></li>
+                <li class="active" id="li-tab-settings"><a href="#tab-settings" data-bs-toggle="tab"><?php echo $tab_settings; ?></a></li>
             <?php } ?>
           </ul>
           <div class="tab-content">
             <div class="tab-pane <?php if ($show_register) { echo 'active'; } ?>" id="tab-register">
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-pilibaba-email-address"><span data-toggle="tooltip" title="<?php echo $help_email_address; ?>"><?php echo $entry_email_address; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-pilibaba-email-address"><span data-bs-toggle="tooltip" title="<?php echo $help_email_address; ?>"><?php echo $entry_email_address; ?></span></label>
                 <div class="col-sm-10">
                   <input type="email" name="pilibaba_email_address" value="" placeholder="<?php echo $entry_email_address; ?>" id="input-pilibaba-email-address" class="form-control" />
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-pilibaba-password"><span data-toggle="tooltip" title="<?php echo $help_password; ?>"><?php echo $entry_password; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-pilibaba-password"><span data-bs-toggle="tooltip" title="<?php echo $help_password; ?>"><?php echo $entry_password; ?></span></label>
                 <div class="col-sm-10">
                   <input type="password" name="pilibaba_password" value="" placeholder="<?php echo $entry_password; ?>" id="input-pilibaba-password" class="form-control" />
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-pilibaba-currency"><span data-toggle="tooltip" title="<?php echo $help_currency; ?>"><?php echo $entry_currency; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-pilibaba-currency"><span data-bs-toggle="tooltip" title="<?php echo $help_currency; ?>"><?php echo $entry_currency; ?></span></label>
                 <div class="col-sm-10">
                   <select name="pilibaba_currency" id="input-pilibaba-currency" class="form-control">
                     <option value="">Select Currency</option>
@@ -64,7 +64,7 @@
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-pilibaba-warehouse"><span data-toggle="tooltip" title="<?php echo $help_warehouse; ?>"><?php echo $entry_warehouse; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-pilibaba-warehouse"><span data-bs-toggle="tooltip" title="<?php echo $help_warehouse; ?>"><?php echo $entry_warehouse; ?></span></label>
                 <div class="col-sm-10">
                   <select name="pilibaba_warehouse" id="input-pilibaba-warehouse" class="form-control">
                     <option value="">Select Warehouse</option>
@@ -76,7 +76,7 @@
                 </div>
               </div>
               <div class="form-group" style="display:none">
-                <label class="col-sm-2 control-label" for="input-pilibaba-country"><span data-toggle="tooltip" title="<?php echo $help_country; ?>"><?php echo $entry_country; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-pilibaba-country"><span data-bs-toggle="tooltip" title="<?php echo $help_country; ?>"><?php echo $entry_country; ?></span></label>
                 <div class="col-sm-10">
                   <select name="pilibaba_country" id="input-pilibaba-country" class="form-control">
                     <option value="">Select Country</option>
@@ -98,7 +98,7 @@
               <?php } ?>
 
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-pilibaba-merchant-number"><span data-toggle="tooltip" title="<?php echo $help_merchant_number; ?>"><?php echo $entry_merchant_number; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-pilibaba-merchant-number"><span data-bs-toggle="tooltip" title="<?php echo $help_merchant_number; ?>"><?php echo $entry_merchant_number; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="pilibaba_merchant_number" value="<?php echo $pilibaba_merchant_number; ?>" placeholder="<?php echo $entry_merchant_number; ?>" id="input-pilibaba-merchant-number" class="form-control" />
                   <?php if ($error_pilibaba_merchant_number) { ?>
@@ -107,7 +107,7 @@
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-pilibaba-secret-key"><span data-toggle="tooltip" title="<?php echo $help_secret_key; ?>"><?php echo $entry_secret_key; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-pilibaba-secret-key"><span data-bs-toggle="tooltip" title="<?php echo $help_secret_key; ?>"><?php echo $entry_secret_key; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="pilibaba_secret_key" value="<?php echo $pilibaba_secret_key; ?>" placeholder="<?php echo $entry_secret_key; ?>" id="input-pilibaba-secret-key" class="form-control" />
                   <?php if ($error_pilibaba_secret_key) { ?>
@@ -133,7 +133,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-pilibaba-shipping-fee"><span data-toggle="tooltip" title="<?php echo $help_shipping_fee; ?>"><?php echo $entry_shipping_fee; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-pilibaba-shipping-fee"><span data-bs-toggle="tooltip" title="<?php echo $help_shipping_fee; ?>"><?php echo $entry_shipping_fee; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="pilibaba_shipping_fee" value="<?php echo $pilibaba_shipping_fee; ?>" placeholder="<?php echo $entry_shipping_fee; ?> (e.g. 4.99)" id="input-pilibaba-shipping-fee" class="form-control" />
                   <?php if ($error_pilibaba_shipping_fee) { ?>
@@ -142,7 +142,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-pilibaba-order-status"><span data-toggle="tooltip" title="<?php echo $help_order_status; ?>"><?php echo $entry_order_status; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-pilibaba-order-status"><span data-bs-toggle="tooltip" title="<?php echo $help_order_status; ?>"><?php echo $entry_order_status; ?></span></label>
                 <div class="col-sm-10">
                   <select name="pilibaba_order_status_id" id="input-pilibaba-order-status" class="form-control">
                       <?php foreach ($order_statuses as $order_status) { ?>
@@ -170,7 +170,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-pilibaba-logging"><span data-toggle="tooltip" title="<?php echo $help_logging; ?>"><?php echo $entry_logging; ?></span></label>
+                <label class="col-sm-2 control-label" for="input-pilibaba-logging"><span data-bs-toggle="tooltip" title="<?php echo $help_logging; ?>"><?php echo $entry_logging; ?></span></label>
                 <div class="col-sm-10">
                   <select name="pilibaba_logging" id="input-pilibaba-logging" class="form-control">
                       <?php if ($pilibaba_logging) { ?>

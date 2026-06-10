@@ -45,7 +45,7 @@
             <input type="checkbox" name="complete" value="1" id="input-capture-complete" class="form-control" />
           </div>
         </div>
-        <div class="pull-right">
+        <div class="float-end">
           <button type="button" id="button-capture" data-loading="<?php echo $text_loading; ?>" class="btn btn-primary"><?php echo $button_capture; ?></button>
         </div>
       </form>
@@ -70,11 +70,11 @@
                 $('.alert').remove();
 
                 if (json['error']) {
-                    $('#paypal-capture').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#paypal-capture').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                 }
 
                 if (json['success']) {
-                    $('#paypal-capture').prepend('<div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#paypal-capture').prepend('<div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
 
                     $('#paypal-captured').text(json['captured']);
                     $('#paypal-capture-amount').val(json['remaining']);
@@ -108,7 +108,7 @@
                     $('.alert').remove();
 
                     if (json['error']) {
-                        $('#paypal-capture').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                        $('#paypal-capture').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                     }
 
                     if (json['success']) {
@@ -141,7 +141,7 @@
                 $('.alert').remove();
 
                 if (json['error']) {
-                    $('#tab-pp-express').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#tab-pp-express').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>');
                 }
 
                 if (json['success']) {

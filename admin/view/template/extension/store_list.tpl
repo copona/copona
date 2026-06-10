@@ -11,18 +11,18 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-puzzle-piece"></i> <?php echo $text_list; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-puzzle-piece"></i> <?php echo $text_list; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <div class="well">
           <div class="input-group">
             <input type="text" name="search" value="" placeholder="<?php echo $text_search; ?>" class="form-control" />
             <div class="input-group-btn">
                 <?php foreach ($categories as $category) { ?>
                     <?php if ($category['value'] == $filter_category) { ?>
-                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                           <?php $text_category; ?>
                         (
                         <?php $category['text']; ?>
@@ -40,19 +40,19 @@
         </div>
         </fieldset>
         <div class="row">
-          <div class="col-sm-9 col-xs-7">
+          <div class="col-sm-9 col-7">
             <div class="btn-group">
                 <?php foreach ($licenses as $license) { ?>
                     <?php if ($license['value'] == $filter_license) { ?>
-                      <a href="<?php echo $license['href']; ?>" class="btn btn-default active"><?php echo $license['text']; ?></a>
+                      <a href="<?php echo $license['href']; ?>" class="btn btn-secondary active"><?php echo $license['text']; ?></a>
                   <?php } else { ?>
-                      <a href="<?php echo $license['href']; ?>" class="btn btn-default"><?php echo $license['text']; ?></a>
+                      <a href="<?php echo $license['href']; ?>" class="btn btn-secondary"><?php echo $license['text']; ?></a>
                   <?php } ?>
               <?php } ?>
             </div>
           </div>
-          <div class="col-sm-3 col-xs-5">
-            <div class="input-group pull-right">
+          <div class="col-sm-3 col-5">
+            <div class="input-group float-end">
               <div class="input-group-addon"><i class="fa fa-sort-amount-asc"></i></div>
               <select onchange="location = this.value;" class="form-control">
                   <?php foreach ($sorts as $sorts) { ?>
@@ -81,7 +81,7 @@
                             <?php echo $extension['price']; ?> </div>
                           <div>
                             <div class="row">
-                              <div class="col-xs-6">
+                              <div class="col-6">
                                 <div>
                                     <?php for ($i = 1; $i < 5; $i++) { ?>
                                         <?php if ($i < $extension['rating']) { ?>
@@ -92,8 +92,8 @@
                                   <?php } ?>
                                 </div>
                               </div>
-                              <div class="col-xs-6">
-                                <div class="text-right"><span><?php echo $extension['rating_total']; ?> reviews</span></div>
+                              <div class="col-6">
+                                <div class="text-end"><span><?php echo $extension['rating_total']; ?> reviews</span></div>
                               </div>
                             </div>
                           </div>

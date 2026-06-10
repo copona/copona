@@ -11,11 +11,11 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-bar-chart"></i> <?php echo $text_list; ?></h3>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-bar-chart"></i> <?php echo $text_list; ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <div class="well">
           <div class="row">
             <div class="col-sm-6">
@@ -24,7 +24,7 @@
                 <div class="input-group date">
                   <input type="text" name="filter_date_start" value="<?php echo $filter_date_start; ?>" placeholder="<?php echo $entry_date_start; ?>" data-date-format="YYYY-MM-DD" id="input-date-start" class="form-control" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                   </span></div>
               </div>
               <div class="form-group">
@@ -32,7 +32,7 @@
                 <div class="input-group date">
                   <input type="text" name="filter_date_end" value="<?php echo $filter_date_end; ?>" placeholder="<?php echo $entry_date_end; ?>" data-date-format="YYYY-MM-DD" id="input-date-end" class="form-control" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
                   </span></div>
               </div>
             </div>
@@ -50,7 +50,7 @@
                   <?php } ?>
                 </select>
               </div>
-              <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-filter"></i> <?php echo $button_filter; ?></button>
+              <button type="button" id="button-filter" class="btn btn-primary float-end"><i class="fa fa-filter"></i> <?php echo $button_filter; ?></button>
             </div>
           </div>
         </div>
@@ -58,20 +58,20 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <td class="text-left"><?php echo $column_name; ?></td>
-                <td class="text-left"><?php echo $column_model; ?></td>
-                <td class="text-right"><?php echo $column_quantity; ?></td>
-                <td class="text-right"><?php echo $column_total; ?></td>
+                <td class="text-start"><?php echo $column_name; ?></td>
+                <td class="text-start"><?php echo $column_model; ?></td>
+                <td class="text-end"><?php echo $column_quantity; ?></td>
+                <td class="text-end"><?php echo $column_total; ?></td>
               </tr>
             </thead>
             <tbody>
                 <?php if ($products) { ?>
                     <?php foreach ($products as $product) { ?>
                       <tr>
-                        <td class="text-left"><?php echo $product['name']; ?></td>
-                        <td class="text-left"><?php echo $product['model']; ?></td>
-                        <td class="text-right"><?php echo $product['quantity']; ?></td>
-                        <td class="text-right"><?php echo $product['total']; ?></td>
+                        <td class="text-start"><?php echo $product['name']; ?></td>
+                        <td class="text-start"><?php echo $product['model']; ?></td>
+                        <td class="text-end"><?php echo $product['quantity']; ?></td>
+                        <td class="text-end"><?php echo $product['total']; ?></td>
                       </tr>
                   <?php } ?>
               <?php } else { ?>
@@ -83,8 +83,8 @@
           </table>
         </div>
         <div class="row">
-          <div class="col-sm-6 text-left"><?php echo $pagination; ?></div>
-          <div class="col-sm-6 text-right"><?php echo $results; ?></div>
+          <div class="col-sm-6 text-start"><?php echo $pagination; ?></div>
+          <div class="col-sm-6 text-end"><?php echo $results; ?></div>
         </div>
       </div>
     </div>
