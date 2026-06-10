@@ -552,8 +552,8 @@ CREATE TABLE `oc_banner_image` (
   KEY `language_id` (`language_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 INSERT INTO `oc_banner_image` VALUES
-(79,7,1,'iPhone 6','index.php?route=product/product&amp;path=57&amp;product_id=49','catalog/demo/banners/iPhone6.jpg',0,''),
-(80,7,1,'MacBookAir','','catalog/demo/banners/MacBookAir.jpg',0,''),
+(79,7,1,'Smartphones','index.php?route=product/category&path=100','catalog/demo/banners/slider-smartphone.jpg',1,''),
+(80,7,1,'Laptops','index.php?route=product/category&path=101','catalog/demo/banners/slider-laptop.jpg',2,''),
 (87,6,1,'HP Banner','index.php?route=product/manufacturer/info&amp;manufacturer_id=7','catalog/demo/compaq_presario.jpg',0,''),
 (88,8,1,'Harley Davidson','','catalog/demo/manufacturer/harley.png',0,''),
 (89,8,1,'Dell','','catalog/demo/manufacturer/dell.png',0,''),
