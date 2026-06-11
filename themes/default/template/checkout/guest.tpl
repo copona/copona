@@ -255,8 +255,9 @@
 <script>
 
     cart.get('#cart-info', function() {
-        // Guest page has its own totals + submit — hide the cart sidebar and action button
+        // Guest page has its own totals + submit — hide sidebar and expand product table
         $('#cart-info .cart-info-sidebar, #cart-info .cart-info-actions').hide();
+        $('#cart-info .col-md-8').removeClass('col-md-8').addClass('col-12');
     });
 
 
