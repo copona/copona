@@ -26,6 +26,8 @@ if (APPLICATION == 'catalog') {
     $this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen');
     $this->document->addStyle('themes/default/assets/vendor/flatpickr/flatpickr.min.css', 'stylesheet', 'screen');
 
+    $this->document->addStyle('themes/default/assets/css/main.css', 'stylesheet', 'screen');
+
     // Custom CSS temporarily disabled during BS5 migration — re-enable and fix after template pass
     // $this->document->addStyle('assets/css/stylesheet.css', 'stylesheet', 'screen');
     // $this->document->addStyle('assets/css/additional.css', 'stylesheet', 'screen');

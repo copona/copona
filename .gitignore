@@ -144,3 +144,4 @@ error_log
 !.gitignore
 /admin/language/.gitignore
 /catalog/language/.gitignore
+themes/default/assets/css/_catalog-unused

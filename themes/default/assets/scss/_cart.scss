@@ -1,0 +1,191 @@
+// =========================================================
+// Cart redesign (cart_info.tpl)
+// =========================================================
+
+// Table
+.cart-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+
+    thead th {
+        font-size: .72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .07em;
+        color: #9ca3af;
+        border-bottom: 1px solid #f3f4f6;
+        padding: .4rem .75rem .6rem;
+    }
+
+    tbody tr { transition: background .1s; }
+    tbody tr:not(:last-child) td { border-bottom: 1px solid #f3f4f6; }
+    td { padding: .9rem .75rem; vertical-align: middle; }
+}
+
+.cart-td-img {
+    width: 76px;
+
+    img {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        border-radius: 8px;
+        background: #f9fafb;
+        border: 1px solid #f3f4f6;
+        padding: 4px;
+        display: block;
+    }
+}
+
+.cart-product-name {
+    font-weight: 600;
+    font-size: .9rem;
+    color: #111;
+    text-decoration: none;
+
+    &:hover { color: #0d6efd; }
+}
+
+.cart-product-meta { font-size: .78rem; color: #9ca3af; margin-top: 2px; }
+.cart-product-option { font-size: .78rem; color: #6b7280; }
+.td-unit-price { font-size: .9rem; color: #374151; white-space: nowrap; }
+.td-line-total { font-size: .95rem; font-weight: 700; color: #111; white-space: nowrap; }
+
+// Pill quantity control
+.cart-qty-pill {
+    display: inline-flex;
+    align-items: center;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+
+    button {
+        background: none;
+        border: none;
+        width: 30px;
+        height: 32px;
+        font-size: 1rem;
+        line-height: 1;
+        color: #374151;
+        cursor: pointer;
+        flex-shrink: 0;
+
+        &:hover { background: #e5e7eb; }
+    }
+
+    input {
+        width: 38px;
+        border: none;
+        background: none;
+        text-align: center;
+        font-size: .875rem;
+        font-weight: 600;
+        height: 32px;
+        padding: 0;
+        outline: none;
+        color: #111;
+        border-left: 1px solid #e5e7eb;
+        border-right: 1px solid #e5e7eb;
+    }
+}
+
+// Remove button
+.cart-btn-remove {
+    color: #d1d5db;
+    background: none;
+    border: none;
+    font-size: .9rem;
+    padding: 4px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    line-height: 1;
+
+    &:hover { color: #ef4444; background: #fef2f2; }
+}
+
+// Summary panel
+.cart-summary {
+    background: #f9fafb;
+    border-radius: 14px;
+    padding: 1.4rem 1.5rem;
+    position: sticky;
+    top: 1.5rem;
+}
+
+.cart-summary-heading {
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #9ca3af;
+    margin-bottom: 1rem;
+}
+
+.cart-summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: .875rem;
+    color: #6b7280;
+    padding: .3rem 0;
+
+    &.cart-summary-total {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: #111;
+        border-top: 1px solid #e5e7eb;
+        margin-top: .5rem;
+        padding-top: .7rem;
+    }
+}
+
+// Checkout button
+.cart-btn-checkout {
+    display: block;
+    width: 100%;
+    padding: .75rem 1rem;
+    margin-top: 1rem;
+    font-size: .95rem;
+    font-weight: 700;
+    border-radius: 10px;
+    text-align: center;
+    background: #111;
+    border-color: #111;
+    color: #fff;
+    text-decoration: none;
+    transition: background .15s;
+
+    &:hover { background: #0d6efd; border-color: #0d6efd; color: #fff; }
+}
+
+// Module accordion (coupon, reward, voucher) inside summary panel
+.cart-summary {
+    .accordion-button {
+        font-size: .82rem;
+        padding: .5rem .75rem;
+        background: #fff;
+        border-radius: 6px !important;
+
+        &:not(.collapsed) { background: #eff6ff; color: #0d6efd; box-shadow: none; }
+    }
+
+    .accordion-body { font-size: .82rem; padding: .6rem .75rem; background: #fff; }
+
+    .accordion-item {
+        border: 1px solid #e5e7eb;
+        border-radius: 6px !important;
+        margin-bottom: 4px;
+
+        &:last-child { margin-bottom: 0; }
+    }
+
+    .panel-group { margin-bottom: 0; }
+}
+
+// Responsive
+@media (max-width: 575px) {
+    .cart-summary { position: static; margin-top: 1.5rem; }
+}

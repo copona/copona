@@ -2380,7 +2380,6 @@ INSERT INTO `oc_setting` VALUES
 (108,0,'cod','cod_geo_zone_id','0',0),
 (109,0,'cod','cod_status','1',0),
 (110,0,'shipping','shipping_status','1',0),
-(111,0,'shipping','shipping_estimator','1',0),
 (112,0,'coupon','coupon_sort_order','4',0),
 (113,0,'coupon','coupon_status','1',0),
 (114,0,'flat','flat_sort_order','1',0),

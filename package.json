@@ -3,10 +3,14 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch"
+    "build": "vite build && vite build --config vite.catalog.config.js",
+    "build:admin": "vite build",
+    "build:catalog": "vite build --config vite.catalog.config.js",
+    "dev": "vite build --watch",
+    "dev:catalog": "vite build --watch --config vite.catalog.config.js"
   },
   "devDependencies": {
+    "sass": "^1.100.0",
     "vite": "^8.0.16"
   },
   "dependencies": {
