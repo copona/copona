@@ -6,6 +6,27 @@ import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import Underline from '@tiptap/extension-underline';
 import Placeholder from '@tiptap/extension-placeholder';
+import { basicSetup, EditorView } from 'codemirror';
+import { html } from '@codemirror/lang-html';
+
+// Extend Image to persist width, height, and style attributes
+const ImageExt = Image.extend({
+    addAttributes() {
+        return {
+            ...this.parent?.(),
+            width: {
+                default: null,
+                parseHTML: el => el.getAttribute('width'),
+                renderHTML: attrs => attrs.width ? { width: attrs.width } : {},
+            },
+            height: {
+                default: null,
+                parseHTML: el => el.getAttribute('height'),
+                renderHTML: attrs => attrs.height ? { height: attrs.height } : {},
+            },
+        };
+    },
+});
 
 const FULL_TOOLBAR = `
     <div class="btn-group btn-group-sm" role="group">
@@ -71,13 +92,23 @@ function initEditor(textarea, toolbarHtml) {
     const editorContainer = document.createElement('div');
     editorContainer.className = 'tiptap-content';
 
-    const sourceArea = document.createElement('textarea');
-    sourceArea.className = 'form-control tiptap-source-view';
-    sourceArea.rows = 12;
+    const sourceArea = document.createElement('div');
+    sourceArea.className = 'tiptap-source-view';
     sourceArea.style.display = 'none';
+    let cmEditor = null; // lazy-init CodeMirror on first use
+
+    const imgPanel = document.createElement('div');
+    imgPanel.className = 'tiptap-img-panel';
+    imgPanel.innerHTML =
+        '<label>Width: <input type="text" class="form-control form-control-sm img-dim img-width" placeholder="px or %"></label>' +
+        '<label>Height: <input type="text" class="form-control form-control-sm img-dim img-height" placeholder="auto"></label>' +
+        '<label>Alt text: <input type="text" class="form-control form-control-sm img-alt" placeholder="Description"></label>' +
+        '<button type="button" class="btn btn-sm btn-primary img-apply">Apply</button>' +
+        '<button type="button" class="btn btn-sm btn-danger img-remove">Remove image</button>';
 
     wrapper.appendChild(toolbar);
     wrapper.appendChild(editorContainer);
+    wrapper.appendChild(imgPanel);
     wrapper.appendChild(sourceArea);
     textarea.insertAdjacentElement('afterend', wrapper);
     textarea.style.display = 'none';
@@ -88,13 +119,56 @@ function initEditor(textarea, toolbarHtml) {
             StarterKit,
             Underline,
             Link.configure({ openOnClick: false, autolink: true }),
-            Image.configure({ inline: false }),
+            ImageExt.configure({ inline: false }),
             Placeholder.configure({ placeholder }),
         ],
         content: textarea.value || '',
         onUpdate({ editor }) {
             textarea.value = editor.getHTML();
         },
+    });
+
+    // Show image panel when an image is clicked; hide on click elsewhere in editor
+    editorContainer.addEventListener('click', function (e) {
+        const img = e.target.closest('img');
+        if (img) {
+            editorContainer.querySelectorAll('img.tiptap-img-selected').forEach(function (el) {
+                el.classList.remove('tiptap-img-selected');
+            });
+            img.classList.add('tiptap-img-selected');
+            const attrs = editor.getAttributes('image');
+            imgPanel.querySelector('.img-width').value  = attrs.width  || '';
+            imgPanel.querySelector('.img-height').value = attrs.height || '';
+            imgPanel.querySelector('.img-alt').value    = attrs.alt    || '';
+            imgPanel.classList.add('visible');
+        } else {
+            editorContainer.querySelectorAll('img.tiptap-img-selected').forEach(function (el) {
+                el.classList.remove('tiptap-img-selected');
+            });
+            imgPanel.classList.remove('visible');
+        }
+    });
+
+    // Hide panel when clicking outside the wrapper
+    document.addEventListener('mousedown', function (e) {
+        if (!wrapper.contains(e.target)) {
+            editorContainer.querySelectorAll('img.tiptap-img-selected').forEach(function (el) {
+                el.classList.remove('tiptap-img-selected');
+            });
+            imgPanel.classList.remove('visible');
+        }
+    });
+
+    imgPanel.querySelector('.img-apply').addEventListener('click', function () {
+        const width  = imgPanel.querySelector('.img-width').value.trim().replace(/px$/i, '') || null;
+        const height = imgPanel.querySelector('.img-height').value.trim().replace(/px$/i, '') || null;
+        const alt    = imgPanel.querySelector('.img-alt').value || null;
+        editor.chain().focus().updateAttributes('image', { width, height, alt }).run();
+    });
+
+    imgPanel.querySelector('.img-remove').addEventListener('click', function () {
+        editor.chain().focus().deleteSelection().run();
+        imgPanel.classList.remove('visible');
     });
 
     toolbar.addEventListener('mousedown', function (e) {
@@ -127,23 +201,72 @@ function initEditor(textarea, toolbarHtml) {
             break;
         }
         case 'image': {
-            const url = window.prompt('Enter image URL:');
-            if (url) editor.chain().focus().setImage({ src: url }).run();
+            // Reuse or create the hidden input that the filemanager writes into
+            let targetInput = document.getElementById('tiptap-image-target');
+            if (!targetInput) {
+                targetInput = document.createElement('input');
+                targetInput.type = 'hidden';
+                targetInput.id = 'tiptap-image-target';
+                document.body.appendChild(targetInput);
+            }
+            targetInput.value = '';
+
+            const token = new URLSearchParams(window.location.search).get('token') || '';
+            const fmUrl = 'index.php?route=common/filemanager&token=' + token + '&target=tiptap-image-target';
+
+            window.jQuery('#modal-image').remove();
+
+            // Must use jQuery $.ajax + $().append() — jQuery executes <script> tags
+            // inside appended HTML, which wires up the filemanager's click handlers.
+            // fetch() + innerHTML does NOT execute scripts, breaking folder navigation.
+            window.jQuery.ajax({
+                url: fmUrl,
+                dataType: 'html',
+                success: function (html) {
+                    window.jQuery('body').append('<div id="modal-image" class="modal" tabindex="-1">' + html + '</div>');
+                    const modalEl = document.getElementById('modal-image');
+                    const modal = new window.bootstrap.Modal(modalEl);
+                    window.jQuery(modalEl).one('hidden.bs.modal', function () {
+                        const path = targetInput.value;
+                        if (path) {
+                            // Root-relative path — no domain, works in any environment
+                            const basePath = new URL(window.CATALOG_URL || window.location.href).pathname.replace(/\/$/, '');
+                            editor.chain().focus().setImage({ src: basePath + '/image/' + path }).run();
+                        }
+                        modal.dispose();
+                        modalEl.remove();
+                    });
+                    modal.show();
+                }
+            });
             break;
         }
         case 'source': {
             const isSource = sourceArea.style.display !== 'none';
             if (isSource) {
-                editor.commands.setContent(sourceArea.value, false);
+                const content = cmEditor ? cmEditor.state.doc.toString() : '';
+                editor.commands.setContent(content, false);
                 textarea.value = editor.getHTML();
                 sourceArea.style.display = 'none';
                 editorContainer.style.display = '';
+                imgPanel.classList.remove('visible');
                 btn.classList.remove('active');
             } else {
-                sourceArea.value = editor.getHTML();
                 editorContainer.style.display = 'none';
                 sourceArea.style.display = '';
                 btn.classList.add('active');
+                const htmlContent = editor.getHTML();
+                if (!cmEditor) {
+                    cmEditor = new EditorView({
+                        doc: htmlContent,
+                        extensions: [basicSetup, html()],
+                        parent: sourceArea,
+                    });
+                } else {
+                    cmEditor.dispatch({
+                        changes: { from: 0, to: cmEditor.state.doc.length, insert: htmlContent },
+                    });
+                }
             }
             break;
         }

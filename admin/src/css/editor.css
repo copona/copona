@@ -63,6 +63,46 @@
 .tiptap-content img {
     max-width: 100%;
     height: auto;
+    cursor: pointer;
+}
+
+.tiptap-content img.tiptap-img-selected {
+    outline: 2px solid #66afe9;
+    outline-offset: 1px;
+}
+
+/* Image properties panel — appears below content when an image is selected */
+.tiptap-img-panel {
+    display: none;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    padding: 6px 10px;
+    background: #f0f4f8;
+    border-top: 1px solid #ddd;
+    border-radius: 0 0 4px 4px;
+    font-size: 12px;
+}
+
+.tiptap-img-panel.visible {
+    display: flex;
+}
+
+.tiptap-img-panel label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.tiptap-img-panel .img-dim {
+    width: 68px;
+}
+
+.tiptap-img-panel .img-alt {
+    width: 180px;
 }
 
 .tiptap-content a {
@@ -91,19 +131,25 @@
     padding: 10px;
 }
 
-/* Source view textarea */
+/* Source view — CodeMirror container */
 .tiptap-source-view {
-    border: 0;
     border-top: 1px solid #ddd;
     border-radius: 0 0 4px 4px;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 12px;
-    resize: vertical;
-    width: 100%;
+    overflow: hidden;
 }
 
-.tiptap-source-view:focus {
-    box-shadow: none;
-    border-color: #ddd;
-    outline: 0;
+.tiptap-source-view .cm-editor {
+    min-height: 240px;
+    max-height: 480px;
+    font-size: 12px;
+    border-radius: 0 0 4px 4px;
+}
+
+.tiptap-source-view .cm-editor.cm-focused {
+    outline: none;
+}
+
+.tiptap-source-view .cm-scroller {
+    overflow: auto;
+    max-height: 480px;
 }
