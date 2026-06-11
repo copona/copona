@@ -230,6 +230,9 @@ var cart = {
                 setTimeout(function () {
                     $('#cart').load('index.php?route=common/cart/info');
                     cart.get('#mycart');
+                    if ($('#cart-info').length) {
+                        cart.get('#cart-info');
+                    }
                 }, 100);
                 if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
                     location = 'index.php?route=checkout/cart';
@@ -263,6 +266,9 @@ var cart = {
                     location = 'index.php?route=checkout/cart';
                 } else {
                     $('#cart').load('index.php?route=common/cart/info');
+                    if ($('#cart-info').length) {
+                        cart.get('#cart-info');
+                    }
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -270,16 +276,16 @@ var cart = {
             }
         });
     },
-    'get': function (key) {
+    'get': function (key, callback) {
         $.ajax({
             type: "POST",
             url: 'index.php?route=checkout/cart',
             data: 'checkout=1',
-            success: (function (data) {
+            success: function (data) {
                 $(key).html(data);
-            })
+                if (typeof callback === 'function') callback();
+            }
         });
-
     }
 };
 

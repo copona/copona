@@ -25,12 +25,18 @@
     <?php } ?>
     <div class="row">
         <?php //echo $content_top;?>
-      <div id="content" class="content-cart col-md-12">
+      <div id="content" class="content-cart col-12">
         <div class="onepage-checkout">
+          <!-- Cart contents: full width so the product table has room -->
+          <div class="row mb-3">
+            <div class="col-12">
+              <div id="cart-info"></div>
+            </div>
+          </div>
           <form action="<?php echo $action; ?>" class="form" method="post">
             <div id="step1">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-7">
                   <fieldset>
                     <legend <?= (isset($error_warning['shipping_method']) ? 'class="error"' : ''); ?>><?= $text_shipping_method; ?></legend>
                     <label for="country_id"><?= $entry_country; ?>:</label>
@@ -113,8 +119,7 @@
                     </div>
                   </fieldset>
                 </div>
-                <div class="col-md-6">
-                  <div id="cart-info"></div>
+                <div class="col-md-5">
                   <fieldset>
                     <legend><?= $text_total_title ?>:</legend>
                     <h4><?= $text_price; ?>: <span id="cart_total_value"><?= number_format($cart_total_value, 2); ?> €</span></h4>
@@ -244,12 +249,16 @@
             require_once('checkout.js.tpl'); ?>
         </script>
           <?php echo $content_bottom; ?></div>
-      <?php echo $column_right; ?></div>
+    </div>
   </div>
 </div>
 <script>
 
-    cart.get('#cart-info');
+    cart.get('#cart-info', function() {
+        // Guest page has its own totals + submit — hide sidebar and expand product table
+        $('#cart-info .cart-info-sidebar, #cart-info .cart-info-actions').hide();
+        $('#cart-info .col-md-8').removeClass('col-md-8').addClass('col-12');
+    });
 
 
 </script>

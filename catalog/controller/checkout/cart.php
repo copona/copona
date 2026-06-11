@@ -405,7 +405,7 @@ class ControllerCheckoutCart extends Controller
             // This is Tricky - "too soon" redirect, reason for bugs!
             if (!empty($this->request->post['method']) && $this->request->post['method'] == 'ajax') {
                 $json['status'] = 'OK';
-                $json['current_product_in_cart'] = $this->cart->countProducts((int) $this->request->post['product_id']);
+                $json['current_product_in_cart'] = $this->cart->countProducts((int) ($this->request->post['product_id'] ?? 0));
                 $json['current_cart_total_count'] = $this->cart->countProducts();
                 echo json_encode($json);
                 return false;
