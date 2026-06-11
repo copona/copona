@@ -8,6 +8,7 @@ export default defineConfig({
             name: 'CoponaEditor',
             formats: ['iife'],
             fileName: () => 'editor.bundle.js',
+            cssFileName: 'copona-admin',
         },
         outDir: 'admin/view/javascript/dist',
         emptyOutDir: true,

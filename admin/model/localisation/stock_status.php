@@ -69,7 +69,7 @@ class ModelLocalisationStockStatus extends Model {
         } else {
             $stock_status_data = $this->cache->get('stock_status.' . (int)$this->config->get('config_language_id'));
 
-            if (!$stock_status_data) {
+            if ($stock_status_data === null || $stock_status_data === false) {
                 $query = $this->db->query("SELECT stock_status_id, name FROM " . DB_PREFIX . "stock_status WHERE language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY name");
 
                 $stock_status_data = $query->rows;

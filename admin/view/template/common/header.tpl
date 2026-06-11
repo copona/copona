@@ -11,12 +11,13 @@
         <meta name="keywords" content="<?php echo $keywords; ?>" />
     <?php } ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <script>window.CATALOG_URL = '<?php echo addslashes(HTTP_CATALOG); ?>';</script>
     <script src="view/javascript/jquery/jquery-3.7.1.min.js"></script>
     <script src="view/javascript/jquery/jquery-ui.min.js"></script>
     <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
     <link href="view/stylesheet/bootstrap.css" type="text/css" rel="stylesheet" />
     <link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-    <link href="view/javascript/dist/style.css" type="text/css" rel="stylesheet" />
+    <link href="view/javascript/dist/copona-admin.css" type="text/css" rel="stylesheet" />
     <script src="view/javascript/dist/editor.bundle.js"></script>
     <link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="screen" />
     <link type="text/css" href="view/stylesheet/bs3-compat.css" rel="stylesheet" media="screen" />
