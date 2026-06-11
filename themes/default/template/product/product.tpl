@@ -380,12 +380,13 @@
               <br />
               <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg d-block w-100"><?php echo $button_cart; ?></button>
             </div>
+            <?php $share_url = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
             <div class="d-flex gap-2 align-items-center mt-2 social-icons">
-              <a class="facebook" href="#" title="Facebook share" style="color:#9ca3af;line-height:1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 60 60"><path fill="currentColor" d="M31.8,40.3h-3.7v-10h-2.5v-3.4l2.5,0l0-2c0-2.8,0.8-4.5,4.1-4.5h2.8v3.4h-1.7c-1.3,0-1.4,0.5-1.4,1.4l0,1.7h3.1l-0.4,3.4l-2.7,0L31.8,40.3L31.8,40.3z"/></svg>
+              <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode($share_url) ?>" target="_blank" rel="noopener" title="Share on Facebook" style="color:#9ca3af;line-height:1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
               </a>
-              <a class="twitter" href="#" title="Share on X" style="color:#9ca3af;line-height:1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <a class="twitter" href="https://x.com/intent/post?url=<?= urlencode($share_url) ?>&text=<?= urlencode($heading_title) ?>" target="_blank" rel="noopener" title="Share on X" style="color:#9ca3af;line-height:1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               </a>
             </div>
             <?php if ($minimum > 1) { ?>
@@ -461,7 +462,6 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 </script>
 <script>
     $('#button-cart').on('click', function () {
-        $("alert-success").remove();
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
             type: 'post',
@@ -499,14 +499,14 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
                 }
 
                 if (json['success']) {
-                    $('.breadcrumb')
-                            .after($('<div class="alert alert-success">' + json['success'] +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
-                                    .hide()
-                                    .fadeIn(200));
-                    delay(function () {
-                        $('.alert-success').fadeOut(500);
-                    }, 3000);
+                    var toastEl = document.getElementById('cart-toast');
+                    if (toastEl) {
+                        $('#cart-toast-product').text(json['product_name'] || '');
+                        if (json['cart_url']) {
+                            $('#cart-toast-link').attr('href', json['cart_url']);
+                        }
+                        bootstrap.Toast.getOrCreateInstance(toastEl).show();
+                    }
                     $('#cart').load('index.php?route=common/cart/info');
                 }
             },
@@ -653,13 +653,5 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
             }
         });
     });
-</script>
-<script>
-    $('.facebook').on('click', function(){
-        window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL), 'facebook-popup', 'height=400,width=600');
-    })
-    $('.twitter').on('click', function(){
-        window.open('https://x.com/intent/post?url=http://<?php echo urlencode($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>&text=<?= urlencode($heading_title) ?>', 'x-popup', 'height=400,width=600');
-    })
 </script>
 <?php echo $footer; ?>

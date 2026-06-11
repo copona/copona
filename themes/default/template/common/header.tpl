@@ -50,6 +50,21 @@
   <?php } ?>
 </div>
 <?php } ?>
+<!-- Add-to-cart toast notification -->
+<div class="position-fixed top-0 end-0 p-3" style="z-index:1080;margin-top:4.5rem">
+  <div id="cart-toast" class="toast" role="alert" aria-atomic="true" data-bs-autohide="true" data-bs-delay="4000">
+    <div class="toast-header">
+      <i class="fa fa-check-circle text-success me-2"></i>
+      <strong class="me-auto small"><?php echo isset($text_added_to_cart) ? $text_added_to_cart : 'Added to cart'; ?></strong>
+      <button type="button" class="btn-close btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body d-flex align-items-center justify-content-between gap-3">
+      <span id="cart-toast-product" class="small fw-semibold text-truncate"></span>
+      <a id="cart-toast-link" href="#" class="btn btn-primary btn-sm flex-shrink-0">View Cart <i class="fa fa-arrow-right ms-1"></i></a>
+    </div>
+  </div>
+</div>
+
 <nav id="top">
   <div class="container d-flex align-items-center justify-content-between py-1">
     <div class="d-flex align-items-center gap-2">

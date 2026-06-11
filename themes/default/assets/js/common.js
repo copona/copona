@@ -167,12 +167,10 @@ $(document).ready(function () {
 // Cart add remove functions
 var cart = {
     'add': function (product_id, quantity) {
-        $("alert-success").remove();
-        var e = event;
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
             type: 'post',
-            data: 'product_id=' + product_id + '&quantity=' + (typeof (quantity) != 'undefined' ? quantity : 1),
+            data: 'product_id=' + product_id + '&quantity=' + (typeof (quantity) !== 'undefined' ? quantity : 1),
             dataType: 'json',
             beforeSend: function () {
                 $('#cart > button').button('loading');
@@ -181,26 +179,19 @@ var cart = {
                 $('#cart > button').button('reset');
             },
             success: function (json) {
-                $('.alert, .text-danger').remove();
                 if (json['redirect']) {
                     location = json['redirect'];
+                    return;
                 }
-
                 if (json['success']) {
-
-                    $('body').append('<div class="alert alert-success alert-success-addtocart">' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                        json['success'] + '</div>').fadeIn('slow');
-                    delay(function () {
-                        $('.alert-success-addtocart').fadeOut(500);
-                    }, 3000);
-                    //console.log ( $(e.target) );
-
-                    // TODO: must be fixed with correct notify location.
-                    // json['text_added_to_cart'] != 'text_added_to_cart'
-                    //   ? $(e.target).notify(json['text_added_to_cart'], {position: "right", className: 'success'})
-                    //   : false;
-
+                    var toastEl = document.getElementById('cart-toast');
+                    if (toastEl) {
+                        $('#cart-toast-product').text(json['product_name'] || '');
+                        if (json['cart_url']) {
+                            $('#cart-toast-link').attr('href', json['cart_url']);
+                        }
+                        bootstrap.Toast.getOrCreateInstance(toastEl).show();
+                    }
                     $('#cart').load('index.php?route=common/cart/info');
                 }
             },
