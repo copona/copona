@@ -31,16 +31,16 @@ final class Tax
     public function setShippingAddress($country_id, $zone_id)
     {
 
-        $sql = 'SELECT tr1.tax_class_id, tr2.tax_rate_id, tr2.name, tr2.rate, tr2.type, tr1.priority FROM ' . DB_PREFIX . 'tax_rule tr1
-        LEFT JOIN ' . DB_PREFIX . 'tax_rate tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id) 
-        INNER JOIN ' . DB_PREFIX . 'tax_rate_to_customer_group tr2cg ON (tr2.tax_rate_id = tr2cg.tax_rate_id) 
-        LEFT JOIN ' . DB_PREFIX . 'zone_to_geo_zone z2gz ON (tr2.geo_zone_id = z2gz.geo_zone_id) 
-        LEFT JOIN ' . DB_PREFIX . "geo_zone gz ON (tr2.geo_zone_id = gz.geo_zone_id) 
-        WHERE tr1.based = 'shipping' 
-        AND tr2cg.customer_group_id = '" . (int) $this->config->get('config_customer_group_id') . "' 
-        AND z2gz.country_id = '" . (int) $country_id . "' 
-		ORDER BY tr1.priority ASC";
-        // TODO: Do we need: AND tr1.based = 'shipping' ?
+        $sql = 'SELECT tr1.tax_class_id, tr2.tax_rate_id, COALESCE(trd.name, tr2.name) AS name, tr2.rate, tr2.type, tr1.priority FROM ' . DB_PREFIX . 'tax_rule tr1
+        LEFT JOIN ' . DB_PREFIX . 'tax_rate tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id)
+        LEFT JOIN ' . DB_PREFIX . "tax_rate_description trd ON (tr2.tax_rate_id = trd.tax_rate_id AND trd.language_id = '" . (int)$this->config->get('config_language_id') . "')
+        INNER JOIN " . DB_PREFIX . 'tax_rate_to_customer_group tr2cg ON (tr2.tax_rate_id = tr2cg.tax_rate_id)
+        LEFT JOIN ' . DB_PREFIX . 'zone_to_geo_zone z2gz ON (tr2.geo_zone_id = z2gz.geo_zone_id)
+        LEFT JOIN ' . DB_PREFIX . "geo_zone gz ON (tr2.geo_zone_id = gz.geo_zone_id)
+        WHERE tr1.based = 'shipping'
+        AND tr2cg.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "'
+        AND z2gz.country_id = '" . (int)$country_id . "'
+        ORDER BY tr1.priority ASC";
 
         $tax_query = $this->db->query($sql);
 
@@ -57,7 +57,7 @@ final class Tax
 
     public function setPaymentAddress($country_id, $zone_id)
     {
-        $tax_query = $this->db->query('SELECT tr1.tax_class_id, tr2.tax_rate_id, tr2.name, tr2.rate, tr2.type, tr1.priority FROM ' . DB_PREFIX . 'tax_rule tr1 LEFT JOIN ' . DB_PREFIX . 'tax_rate tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id) INNER JOIN ' . DB_PREFIX . 'tax_rate_to_customer_group tr2cg ON (tr2.tax_rate_id = tr2cg.tax_rate_id) LEFT JOIN ' . DB_PREFIX . 'zone_to_geo_zone z2gz ON (tr2.geo_zone_id = z2gz.geo_zone_id) LEFT JOIN ' . DB_PREFIX . "geo_zone gz ON (tr2.geo_zone_id = gz.geo_zone_id) WHERE tr1.based = 'payment' AND tr2cg.customer_group_id = '" . (int) $this->config->get('config_customer_group_id') . "' AND z2gz.country_id = '" . (int) $country_id . "' AND (z2gz.zone_id = '0' OR z2gz.zone_id = '" . (int) $zone_id . "') ORDER BY tr1.priority ASC");
+        $tax_query = $this->db->query('SELECT tr1.tax_class_id, tr2.tax_rate_id, COALESCE(trd.name, tr2.name) AS name, tr2.rate, tr2.type, tr1.priority FROM ' . DB_PREFIX . 'tax_rule tr1 LEFT JOIN ' . DB_PREFIX . 'tax_rate tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id) LEFT JOIN ' . DB_PREFIX . "tax_rate_description trd ON (tr2.tax_rate_id = trd.tax_rate_id AND trd.language_id = '" . (int)$this->config->get('config_language_id') . "') INNER JOIN " . DB_PREFIX . 'tax_rate_to_customer_group tr2cg ON (tr2.tax_rate_id = tr2cg.tax_rate_id) LEFT JOIN ' . DB_PREFIX . 'zone_to_geo_zone z2gz ON (tr2.geo_zone_id = z2gz.geo_zone_id) LEFT JOIN ' . DB_PREFIX . "geo_zone gz ON (tr2.geo_zone_id = gz.geo_zone_id) WHERE tr1.based = 'payment' AND tr2cg.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND z2gz.country_id = '" . (int)$country_id . "' AND (z2gz.zone_id = '0' OR z2gz.zone_id = '" . (int)$zone_id . "') ORDER BY tr1.priority ASC");
 
         foreach ($tax_query->rows as $result) {
             $this->tax_rates[$result['tax_class_id']][$result['tax_rate_id']] = [
@@ -72,16 +72,15 @@ final class Tax
 
     public function setStoreAddress($country_id, $zone_id)
     {
-        $sql = 'SELECT tr1.tax_class_id, tr2.tax_rate_id, tr2.name, tr2.rate, tr2.type, tr1.priority FROM ' . DB_PREFIX . 'tax_rule tr1 
-        LEFT JOIN ' . DB_PREFIX . 'tax_rate tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id) 
-        -- INNER JOIN ' . DB_PREFIX . 'tax_rate_to_customer_group tr2cg ON (tr2.tax_rate_id = tr2cg.tax_rate_id) 
-        LEFT JOIN ' . DB_PREFIX . 'zone_to_geo_zone z2gz ON (tr2.geo_zone_id = z2gz.geo_zone_id) 
+        $sql = 'SELECT tr1.tax_class_id, tr2.tax_rate_id, COALESCE(trd.name, tr2.name) AS name, tr2.rate, tr2.type, tr1.priority FROM ' . DB_PREFIX . 'tax_rule tr1
+        LEFT JOIN ' . DB_PREFIX . 'tax_rate tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id)
+        LEFT JOIN ' . DB_PREFIX . "tax_rate_description trd ON (tr2.tax_rate_id = trd.tax_rate_id AND trd.language_id = '" . (int)$this->config->get('config_language_id') . "')
+        LEFT JOIN " . DB_PREFIX . 'zone_to_geo_zone z2gz ON (tr2.geo_zone_id = z2gz.geo_zone_id)
         LEFT JOIN ' . DB_PREFIX . "geo_zone gz ON (tr2.geo_zone_id = gz.geo_zone_id)
-         WHERE tr1.based = 'store' 
-         -- AND tr2cg.customer_group_id = '" . (int) $this->config->get('config_customer_group_id') . "' 
-         AND z2gz.country_id = '" . (int) $country_id . "' 
-         AND (z2gz.zone_id = '0' OR z2gz.zone_id = '" . (int) $zone_id . "')
-          ORDER BY tr1.priority ASC";
+        WHERE tr1.based = 'store'
+        AND z2gz.country_id = '" . (int)$country_id . "'
+        AND (z2gz.zone_id = '0' OR z2gz.zone_id = '" . (int)$zone_id . "')
+        ORDER BY tr1.priority ASC";
 
         $tax_query = $this->db->query($sql);
 
@@ -170,7 +169,7 @@ final class Tax
 
     public function getRateName($tax_rate_id)
     {
-        $tax_query = $this->db->query('SELECT name FROM ' . DB_PREFIX . "tax_rate WHERE tax_rate_id = '" . (int) $tax_rate_id . "'");
+        $tax_query = $this->db->query('SELECT COALESCE(trd.name, tr.name) AS name FROM ' . DB_PREFIX . 'tax_rate tr LEFT JOIN ' . DB_PREFIX . "tax_rate_description trd ON (tr.tax_rate_id = trd.tax_rate_id AND trd.language_id = '" . (int)$this->config->get('config_language_id') . "') WHERE tr.tax_rate_id = '" . (int)$tax_rate_id . "'");
 
         if ($tax_query->num_rows) {
             return $tax_query->row['name'];
