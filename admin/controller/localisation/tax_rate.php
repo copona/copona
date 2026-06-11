@@ -296,7 +296,7 @@ class ControllerLocalisationTaxRate extends Controller {
         if (isset($this->error['name'])) {
             $data['error_name'] = $this->error['name'];
         } else {
-            $data['error_name'] = '';
+            $data['error_name'] = array();
         }
 
         if (isset($this->error['rate'])) {
@@ -343,12 +343,16 @@ class ControllerLocalisationTaxRate extends Controller {
             $tax_rate_info = $this->model_localisation_tax_rate->getTaxRate($this->request->get['tax_rate_id']);
         }
 
-        if (isset($this->request->post['name'])) {
-            $data['name'] = $this->request->post['name'];
-        } elseif (!empty($tax_rate_info)) {
-            $data['name'] = $tax_rate_info['name'];
+        $this->load->model('localisation/language');
+
+        $data['languages'] = $this->model_localisation_language->getLanguages();
+
+        if (isset($this->request->post['tax_rate_description'])) {
+            $data['tax_rate_description'] = $this->request->post['tax_rate_description'];
+        } elseif (isset($this->request->get['tax_rate_id'])) {
+            $data['tax_rate_description'] = $this->model_localisation_tax_rate->getTaxRateDescriptions($this->request->get['tax_rate_id']);
         } else {
-            $data['name'] = '';
+            $data['tax_rate_description'] = array();
         }
 
         if (isset($this->request->post['rate'])) {
@@ -403,8 +407,12 @@ class ControllerLocalisationTaxRate extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 32)) {
-            $this->error['name'] = $this->language->get('error_name');
+        if (!empty($this->request->post['tax_rate_description'])) {
+            foreach ($this->request->post['tax_rate_description'] as $language_id => $value) {
+                if (!empty($value['name']) && ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 32))) {
+                    $this->error['name'][$language_id] = $this->language->get('error_name');
+                }
+            }
         }
 
         if (!$this->request->post['rate']) {

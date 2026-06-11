@@ -26,11 +26,15 @@
       <div class="card-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-tax-rate" class="form-horizontal">
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-name"><?php echo $entry_name; ?></label>
+            <label class="col-sm-2 control-label"><?php echo $entry_name; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="name" value="<?php echo $name; ?>" placeholder="<?php echo $entry_name; ?>" id="input-name" class="form-control" />
-              <?php if ($error_name) { ?>
-                  <div class="text-danger"><?php echo $error_name; ?></div>
+                <?php foreach ($languages as $language) { ?>
+                  <div class="input-group"><span class="input-group-addon lng-image"><img src="<?= HTTP_CATALOG ?>catalog/language/<?php echo $language['directory']; ?>/<?php echo $language['directory']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
+                    <input type="text" name="tax_rate_description[<?php echo $language['language_id']; ?>][name]" value="<?php echo isset($tax_rate_description[$language['language_id']]) ? $tax_rate_description[$language['language_id']]['name'] : ''; ?>" placeholder="<?php echo $entry_name; ?>" class="form-control" />
+                  </div>
+                  <?php if (isset($error_name[$language['language_id']])) { ?>
+                    <div class="text-danger"><?php echo $error_name[$language['language_id']]; ?></div>
+                  <?php } ?>
               <?php } ?>
             </div>
           </div>
