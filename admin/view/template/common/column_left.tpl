@@ -8,7 +8,7 @@
       <?php } ?>
     </div>
     <div>
-      <h4><?php echo $firstname; ?> <?php echo $lastname; ?></h4>
+      <h4><a href="<?php echo $profile_url; ?>" style="color:inherit;text-decoration:none;"><?php echo $firstname; ?> <?php echo $lastname; ?></a></h4>
       <small><?php echo $user_group; ?></small></div>
   </div>
   <ul id="menu">

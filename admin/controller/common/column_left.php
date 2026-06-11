@@ -14,6 +14,8 @@ class ControllerCommonColumnLeft extends Controller {
             //set admin left menu
             isset($this->request->cookie['mfold']) && $this->request->cookie['mfold'] == 'active' ? $data['mfold'] = 'active' : $data['mfold'] = '';
 
+            $data['profile_url'] = $this->url->link('user/password', 'token=' . $this->session->data['token']);
+
             if ($user_info) {
                 $data['firstname'] = $user_info['firstname'];
                 $data['lastname'] = $user_info['lastname'];
