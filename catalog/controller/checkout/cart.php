@@ -368,6 +368,8 @@ class ControllerCheckoutCart extends Controller
                     $product_info['name'],
                     $this->url->link('checkout/cart')
                 );
+                $json['product_name'] = $product_info['name'];
+                $json['cart_url']     = $this->url->link('checkout/cart');
 
                 // Unset all shipping and payment methods
                 unset($this->session->data['shipping_method']);
