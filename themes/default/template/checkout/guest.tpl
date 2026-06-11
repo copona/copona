@@ -120,12 +120,21 @@
                   </fieldset>
                 </div>
                 <div class="col-md-5">
-                  <fieldset>
-                    <legend><?= $text_total_title ?>:</legend>
-                    <h4><?= $text_price; ?>: <span id="cart_total_value"><?= number_format($cart_total_value, 2); ?> €</span></h4>
-                    <h4><?= $text_shipping; ?>: <span id="order_shipping"><?= number_format($order_shipping, 2); ?> €</span></h4>
-                    <h3><?= $text_total_payment; ?>: <span id="order_total"><?= number_format($cart_total_value + $order_shipping, 2); ?></span></h3>
-                  </fieldset>
+                  <div class="cart-summary mb-3">
+                    <div class="cart-summary-heading"><?= $text_total_title ?></div>
+                    <div class="cart-summary-line">
+                      <span><?= $text_price; ?></span>
+                      <span id="cart_total_value"><?= number_format($cart_total_value, 2); ?> €</span>
+                    </div>
+                    <div class="cart-summary-line">
+                      <span><?= $text_shipping; ?></span>
+                      <span id="order_shipping"><?= number_format($order_shipping, 2); ?> €</span>
+                    </div>
+                    <div class="cart-summary-line cart-summary-total">
+                      <span><?= $text_total_payment; ?></span>
+                      <span id="order_total"><?= number_format($cart_total_value + $order_shipping, 2); ?></span>
+                    </div>
+                  </div>
                   <fieldset>
                     <div id="payment-method"><?= $payment_method; ?></div>
                   </fieldset>

@@ -145,3 +145,4 @@ error_log
 /admin/language/.gitignore
 /catalog/language/.gitignore
 themes/default/assets/css/_catalog-unused
+.php-cs-fixer.cache
