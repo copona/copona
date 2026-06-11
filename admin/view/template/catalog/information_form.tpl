@@ -3,6 +3,9 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="float-end">
+        <?php if ($information_id) { ?>
+          <a class="btn btn-info" href="<?= HTTP_CATALOG ?>index.php?route=information/information&amp;information_id=<?php echo $information_id; ?>" target="_blank">View page on site</a>
+        <?php } ?>
         <button onclick="saveAndContinue(event);" form="form-information" data-bs-toggle="tooltip" title="<?php echo $button_save_continue; ?>"
                 class="btn btn-primary savecontinue"><i class="fa fa-save"></i><?= $button_save_continue ?></button>
         <button type="submit" form="form-information" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>

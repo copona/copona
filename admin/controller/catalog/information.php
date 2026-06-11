@@ -331,8 +331,10 @@ class ControllerCatalogInformation extends Controller {
 
         if (!isset($this->request->get['information_id'])) {
             $data['action'] = $this->url->link('catalog/information/add', 'token=' . $this->session->data['token'] . $url, true);
+            $data['information_id'] = 0;
         } else {
             $data['action'] = $this->url->link('catalog/information/edit', 'token=' . $this->session->data['token'] . '&information_id=' . $this->request->get['information_id'] . $url, true);
+            $data['information_id'] = (int)$this->request->get['information_id'];
         }
 
         $data['cancel'] = $this->url->link('catalog/information', 'token=' . $this->session->data['token'] . $url, true);
