@@ -1,1 +1,99 @@
-@use 'cart';
+// =====================================================================
+// Copona catalog — Bootstrap 5.3.3 compiled with design tokens
+//
+// Only modules used in catalog templates are imported (see audit).
+// Excluded: modal, progress, toast, spinner, ratio, popover, offcanvas,
+//           carousel, placeholders — zero usage in 179 scanned templates.
+// =====================================================================
+
+// Step 1 — Bootstrap functions (color helpers needed before variables)
+@import "bootstrap/scss/functions";
+
+// Step 2 — Design token overrides (set BEFORE bootstrap variables so
+//          Bootstrap uses these values everywhere, no cascade needed)
+
+// Gray palette — Tailwind-inspired, matches existing cart design
+$gray-100: #f9fafb;
+$gray-200: #f3f4f6;
+$gray-300: #e5e7eb;
+$gray-400: #d1d5db;
+$gray-500: #9ca3af;
+$gray-600: #6b7280;
+$gray-700: #4b5563;
+$gray-800: #374151;
+$gray-900: #111827;
+
+// Typography — keep Open Sans (already loaded via Google Fonts in functions.php)
+$font-family-sans-serif: 'Open Sans', system-ui, -apple-system, sans-serif;
+
+// Border radius — matches cart pill/card style
+$border-radius:     0.5rem;    // 8px  — inputs, buttons
+$border-radius-sm:  0.375rem;  // 6px  — badges, small elements
+$border-radius-lg:  0.75rem;   // 12px — cards
+$border-radius-xl:  0.875rem;  // 14px — panels (cart summary)
+$border-radius-xxl: 1rem;      // 16px — large surfaces
+// keep $border-radius-pill at Bootstrap default (50rem)
+
+// Links — no underline by default (cleaner; underlines via hover only)
+$link-decoration: none;
+
+// Shadows — softer than Bootstrap defaults
+$box-shadow:    0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .05);
+$box-shadow-sm: 0 1px 2px rgba(0, 0, 0, .05);
+$box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, .08), 0 4px 6px -2px rgba(0, 0, 0, .04);
+
+// Breakpoints — drop xxl (zero usage across all templates)
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+$container-max-widths: (
+  sm:  540px,
+  md:  720px,
+  lg:  960px,
+  xl: 1140px,
+);
+
+// Step 3 — Required Bootstrap internals
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// Step 4 — Layout & base
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+// Step 5 — Components in use (from template audit)
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/helpers";
+
+// Step 6 — Utility class generation
+@import "bootstrap/scss/utilities/api";
+
+// Step 7 — Copona cart styles
+@import "cart";

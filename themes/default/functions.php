@@ -20,12 +20,10 @@ if (APPLICATION == 'catalog') {
     $this->document->addScript('assets/vendor/jquery.print/jquery.print.min.js');
     $this->document->addScript('assets/js/common.js');
 
-    $this->document->addStyle('assets/vendor/bootstrap5/css/bootstrap.min.css', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/font-awesome/css/font-awesome.min.css', 'stylesheet', 'screen');
     $this->document->addStyle('//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen');
     $this->document->addStyle('themes/default/assets/vendor/flatpickr/flatpickr.min.css', 'stylesheet', 'screen');
-
     $this->document->addStyle('themes/default/assets/css/main.css', 'stylesheet', 'screen');
 
     // Custom CSS temporarily disabled during BS5 migration — re-enable and fix after template pass

@@ -21,6 +21,7 @@
     "@tiptap/extension-placeholder": "^2.10.0",
     "@tiptap/extension-underline": "^2.10.0",
     "@tiptap/starter-kit": "^2.10.0",
+    "bootstrap": "^5.3.3",
     "codemirror": "^6.0.2"
   }
 }
