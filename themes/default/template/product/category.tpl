@@ -33,21 +33,21 @@
               <?php $columns = $thumb ? 5 : 4 ?>
               <?php foreach (array_chunk($categories, ceil(count($categories) / 3)) as $categories) { ?>
                 <div class="col-sm-<?= $columns ?>">
-                  <ul>
+                  <ul class="list-unstyled mb-0">
                       <?php foreach ($categories as $category) { ?>
                         <li><a href="<?php echo $category['href']; ?>"><?php echo $category['name']; ?></a></li>
                       <?php } ?>
-                  </ol></nav>
+                  </ul>
                 </div>
               <?php } ?>
           </div>
         <?php } ?>
         <?php if ($manufacturers) { ?>
-          <ul class="row manufacturer-list">
+          <ul class="row list-unstyled manufacturer-list">
               <?php foreach ($manufacturers as $manufacturer) { ?>
                 <li><a href="<?= $manufacturer['href'] ?>"><img src="<?= $manufacturer['image'] ?>"></a></li>
               <?php } ?>
-          </ol></nav>
+          </ul>
         <?php } ?>
         <?php if ($products) { ?>
           <div class="row">

@@ -42,6 +42,16 @@ $box-shadow:    0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .05);
 $box-shadow-sm: 0 1px 2px rgba(0, 0, 0, .05);
 $box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, .08), 0 4px 6px -2px rgba(0, 0, 0, .04);
 
+// Typography scale — tighter than Bootstrap defaults for a modern shop feel
+$font-size-base:     0.9375rem;   // 15px  (Bootstrap default: 16px)
+$legend-font-size:   0.8125rem;   // 13px  (Bootstrap default: 1.5rem — the main culprit)
+$legend-font-weight: 600;
+$h1-font-size:       $font-size-base * 2.25;   // ~34px
+$h2-font-size:       $font-size-base * 1.75;   // ~26px
+$h3-font-size:       $font-size-base * 1.375;  // ~21px
+$h4-font-size:       $font-size-base * 1.125;  // ~17px
+$h5-font-size:       $font-size-base * 1;      // 15px
+
 // Breakpoints — drop xxl (zero usage across all templates)
 $grid-breakpoints: (
   xs: 0,
@@ -95,5 +105,6 @@ $container-max-widths: (
 // Step 6 — Utility class generation
 @import "bootstrap/scss/utilities/api";
 
-// Step 7 — Copona cart styles
+// Step 7 — Copona custom styles
 @import "cart";
+@import "topnav";
