@@ -174,6 +174,46 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// jQuery shims: re-wire BS3 jQuery plugin calls to native BS5 API.
+// Keeps every template that still calls .tab('show'), .modal('show'), etc. working
+// without needing to edit them one-by-one.
+$.fn.tab = function (action) {
+  return this.each(function () {
+    if (action === 'show') {
+      this.classList.add('nav-link');
+      bootstrap.Tab.getOrCreateInstance(this).show();
+    }
+  });
+};
+
+$.fn.modal = function (options) {
+  return this.each(function () {
+    if (options === 'show') {
+      bootstrap.Modal.getOrCreateInstance(this).show();
+    } else if (options === 'hide') {
+      var m = bootstrap.Modal.getInstance(this);
+      if (m) m.hide();
+    } else if (typeof options === 'object') {
+      bootstrap.Modal.getOrCreateInstance(this, options);
+    }
+  });
+};
+
+$.fn.tooltip = function (options) {
+  return this.each(function () {
+    if (typeof options === 'string') {
+      var t = bootstrap.Tooltip.getInstance(this);
+      if (t) {
+        if (options === 'destroy' || options === 'dispose') t.dispose();
+        else if (options === 'show') t.show();
+        else if (options === 'hide') t.hide();
+      }
+    } else {
+      new bootstrap.Tooltip(this, options || {});
+    }
+  });
+};
+
 $(document).ready(function () {
   //Form Submit for IE Browser
   $('button[type=\'submit\']').on('click', function () {
@@ -294,6 +334,7 @@ $(document).ready(function () {
 
     var popover = new bootstrap.Popover($element[0], {
       html: true,
+      sanitize: false,
       placement: 'right',
       trigger: 'manual',
       content: function () {

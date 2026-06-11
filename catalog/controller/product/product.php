@@ -310,7 +310,7 @@ class ControllerProductProduct extends Controller {
                 $data['thumb']     = $this->model_tool_image->{$this->config->get('theme_default_product_info_thumb_resize')}($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
                 $data['image_mid'] = $this->model_tool_image->{$this->config->get('theme_default_product_info_image_mid_resize')}($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'));
                 $data['image']     = $this->url->getImageUrlOriginal($product_info['image']);
-                $data['popup']     = $this->model_tool_image->{$this->config->get('theme_default_product_info_popup_resize')}($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                $data['popup']     = $this->url->getImageUrlOriginal($product_info['image']);
                 $this->document->addOGMeta('property="og:image"', $data['image_mid']);
                 $this->document->addOGMeta('property="og:image:width"', $this->config->get($this->config->get('config_theme') . '_image_popup_width'));
                 $this->document->addOGMeta('property="og:image:height"', $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
@@ -339,7 +339,7 @@ class ControllerProductProduct extends Controller {
                 }
 
                 $thumb     = $this->model_tool_image->productImage($result['image'], $image_url, $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'), $this->config->get('theme_default_product_info_thumb_resize'));
-                $popup     = $this->model_tool_image->productImage($result['image'], $image_url, $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'), $this->config->get('theme_default_product_info_popup_resize'));
+                $popup     = !empty($result['image']) ? $this->url->getImageUrlOriginal($result['image']) : $image_url;
                 $image_mid = $this->model_tool_image->productImage($result['image'], $image_url, $this->config->get($this->config->get('config_theme') . '_image_mid_width'), $this->config->get($this->config->get('config_theme') . '_image_mid_height'), $this->config->get('theme_default_product_info_image_mid_resize'));
                 $image     = !empty($result['image']) ? $this->url->getImageUrlOriginal($result['image']) : $image_url;
 
