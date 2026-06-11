@@ -338,8 +338,10 @@ class ControllerCatalogManufacturer extends Controller {
 
         if (!isset($this->request->get['manufacturer_id'])) {
             $data['action'] = $this->url->link('catalog/manufacturer/add', 'token=' . $this->session->data['token'] . $url, true);
+            $data['manufacturer_id'] = 0;
         } else {
             $data['action'] = $this->url->link('catalog/manufacturer/edit', 'token=' . $this->session->data['token'] . '&manufacturer_id=' . $this->request->get['manufacturer_id'] . $url, true);
+            $data['manufacturer_id'] = (int)$this->request->get['manufacturer_id'];
         }
 
         $data['cancel'] = $this->url->link('catalog/manufacturer', 'token=' . $this->session->data['token'] . $url, true);

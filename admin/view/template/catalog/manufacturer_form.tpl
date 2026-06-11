@@ -3,6 +3,9 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="float-end">
+        <?php if ($manufacturer_id) { ?>
+          <a class="btn btn-info" href="<?= HTTP_CATALOG ?>index.php?route=product/manufacturer/info&amp;manufacturer_id=<?php echo $manufacturer_id; ?>" target="_blank">View manufacturer on site</a>
+        <?php } ?>
         <button type="submit" form="form-manufacturer" data-bs-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
         <a href="<?php echo $cancel; ?>" data-bs-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-secondary"><i class="fa fa-reply"></i></a></div>
       <h1><?php echo $heading_title; ?></h1>
