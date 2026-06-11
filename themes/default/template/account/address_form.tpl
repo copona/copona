@@ -360,20 +360,6 @@
     });
 </script>
 <script>
-    $('.date').datetimepicker({
-        pickTime: false
-    });
-
-    $('.datetime').datetimepicker({
-        pickDate: true,
-        pickTime: true
-    });
-
-    $('.time').datetimepicker({
-        pickDate: false
-    });
-</script>
-<script>
     $('select[name=\'country_id\']').on('change', function () {
         $.ajax({
             url: 'index.php?route=account/account/country&country_id=' + this.value,

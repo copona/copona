@@ -302,18 +302,4 @@
         }, 500);
     });
 </script>
-<script>
-    $('.date').datetimepicker({
-        pickTime: false
-    });
-
-    $('.datetime').datetimepicker({
-        pickDate: true,
-        pickTime: true
-    });
-
-    $('.time').datetimepicker({
-        pickDate: false
-    });
-</script>
 <?php echo $footer; ?>

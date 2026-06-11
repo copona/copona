@@ -526,19 +526,6 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 
 </script>
 <script>
-    $('.date').datetimepicker({
-        pickTime: false
-    });
-
-    $('.datetime').datetimepicker({
-        pickDate: true,
-        pickTime: true
-    });
-
-    $('.time').datetimepicker({
-        pickDate: false
-    });
-
     $('button[id^=\'button-upload\']').on('click', function () {
         var node = this;
 
@@ -660,11 +647,18 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
 
         $('.gallery-main a').on('click', function (e) {
             e.preventDefault();
-            $.magnificPopup.open({
-                items:   mfpItems,
-                gallery: { enabled: true },
-                type:    'image'
-            }, $('.gallery-thumb.active').index());
+            if (mfpItems.length > 0) {
+                $.magnificPopup.open({
+                    items:   mfpItems,
+                    gallery: { enabled: true },
+                    type:    'image'
+                }, $('.gallery-thumb.active').index());
+            } else {
+                $.magnificPopup.open({
+                    items: [{ src: $(this).attr('href'), type: 'image' }],
+                    type: 'image'
+                });
+            }
         });
     });
 </script>

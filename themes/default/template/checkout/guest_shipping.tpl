@@ -269,20 +269,6 @@
     });
 </script>
 <script>
-    $('.date').datetimepicker({
-        pickTime: false
-    });
-
-    $('.time').datetimepicker({
-        pickDate: false
-    });
-
-    $('.datetime').datetimepicker({
-        pickDate: true,
-        pickTime: true
-    });
-</script>
-<script>
     $('#collapse-shipping-address select[name=\'country_id\']').on('change', function () {
         $.ajax({
             url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
