@@ -157,6 +157,23 @@ function deleteCookie(name) {
 }
 
 
+// BS3→BS5 tab bridge: BS5 Tab._getChildren() requires .nav-link (or role="tab").
+// Rather than touching every template, add the class at runtime and migrate
+// the active state from <li> to <a>, then add .show to the visible pane.
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('[data-bs-toggle="tab"]').forEach(function (el) {
+    el.classList.add('nav-link');
+    var li = el.closest('li');
+    if (li && li.classList.contains('active')) {
+      el.classList.add('active');
+      li.classList.remove('active');
+    }
+  });
+  document.querySelectorAll('.tab-pane.active').forEach(function (pane) {
+    pane.classList.add('show');
+  });
+});
+
 $(document).ready(function () {
   //Form Submit for IE Browser
   $('button[type=\'submit\']').on('click', function () {
