@@ -222,12 +222,22 @@ $(document).ready(function () {
 
   // Menu
   $('#menu').find('li').has('ul').children('a').on('click', function () {
+    function collapseToggle(els) {
+      els.each(function () { bootstrap.Collapse.getOrCreateInstance(this, {toggle: false}).toggle(); });
+    }
+    function collapseHide(els) {
+      els.each(function () { var c = bootstrap.Collapse.getInstance(this); if (c) c.hide(); });
+    }
     if ($('#column-left').hasClass('active')) {
-      $(this).parent('li').toggleClass('open').children('ul').collapse('toggle');
-      $(this).parent('li').siblings().removeClass('open').children('ul.show').collapse('hide');
+      $(this).parent('li').toggleClass('open');
+      collapseToggle($(this).parent('li').children('ul'));
+      $(this).parent('li').siblings().removeClass('open');
+      collapseHide($(this).parent('li').siblings().children('ul.show'));
     } else if (!$(this).parent().parent().is('#menu')) {
-      $(this).parent('li').toggleClass('open').children('ul').collapse('toggle');
-      $(this).parent('li').siblings().removeClass('open').children('ul.show').collapse('hide');
+      $(this).parent('li').toggleClass('open');
+      collapseToggle($(this).parent('li').children('ul'));
+      $(this).parent('li').siblings().removeClass('open');
+      collapseHide($(this).parent('li').siblings().children('ul.show'));
     }
   });
 
@@ -241,7 +251,7 @@ $(document).ready(function () {
   if ($.trim(window.location.hash))
     $('.nav.nav-tabs a[href$="' + $.trim(window.location.hash) + '"]').trigger('click');
 
-  $(".panel-body > form > .nav-tabs").on("click", 'a', function (event, ui) {
+  $(".card-body > form > .nav-tabs").on("click", 'a', function (event, ui) {
     window.location.hash = $(this).attr('href');
   });
 
@@ -250,19 +260,22 @@ $(document).ready(function () {
   $(document).on('click', 'a[data-bs-toggle=\'image\']', function (e) {
 
     var $element = $(this);
-    var $popover = $element.data('bs.popover'); // element has bs popover?
+    var existingPopover = bootstrap.Popover.getInstance($element[0]);
 
     e.preventDefault();
 
     // destroy all image popovers
-    $('a[data-bs-toggle="image"]').popover('dispose');
+    document.querySelectorAll('a[data-bs-toggle="image"]').forEach(function (el) {
+      var p = bootstrap.Popover.getInstance(el);
+      if (p) p.dispose();
+    });
 
     // remove flickering (do not re-add popover when clicking for removal)
-    if ($popover) {
+    if (existingPopover) {
       return;
     }
 
-    $element.popover({
+    var popover = new bootstrap.Popover($element[0], {
       html: true,
       placement: 'right',
       trigger: 'manual',
@@ -271,7 +284,7 @@ $(document).ready(function () {
       }
     });
 
-    $element.popover('show');
+    popover.show();
 
     $('#button-image').on('click', function () {
       var $button = $(this);
@@ -294,50 +307,40 @@ $(document).ready(function () {
           }
         },
         success: function (html) {
-          $('body').append('<div id="modal-image" class="modal">' + html + '</div>');
-          $('#modal-image').modal('show');
+          $('body').append('<div id="modal-image" class="modal" tabindex="-1">' + html + '</div>');
+          new bootstrap.Modal(document.getElementById('modal-image')).show();
         }
       });
 
-      $element.popover('dispose');
+      popover.dispose();
     });
 
     $('#button-clear').on('click', function () {
-
       $element.find('img').attr('src', $element.find('img').attr('data-placeholder'));
-
       $element.parent().find('input').val('');
-
-      $element.popover('dispose');
+      popover.dispose();
     });
   });
 
   // tooltips on hover
-  $('[data-bs-toggle=\'tooltip\']').tooltip({container: 'body', html: true});
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+    new bootstrap.Tooltip(el, {container: 'body', html: true});
+  });
 
   // Makes tooltips work on ajax generated content
   $(document).ajaxStop(function () {
-    $('[data-bs-toggle=\'tooltip\']').tooltip({container: 'body'});
-  });
-
-  // https://github.com/opencart/opencart/issues/2595
-  $.event.special.remove = {
-    remove: function (o) {
-      if (o.handler) {
-        o.handler.apply(this, arguments);
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+      if (!bootstrap.Tooltip.getInstance(el)) {
+        new bootstrap.Tooltip(el, {container: 'body', html: true});
       }
-    }
-  }
-
-  $('[data-bs-toggle=\'tooltip\']').on('remove', function () {
-    $(this).tooltip('dispose');
+    });
   });
 
-  //TODO:  moved from product_form,
-  // DateTime calendar
   // Tab actions
-  $('#language a:first').tab('show');
-  $('#option a:first').tab('show');
+  var langTab = document.querySelector('#language a:first-child');
+  if (langTab) new bootstrap.Tab(langTab).show();
+  var optionTab = document.querySelector('#option a:first-child');
+  if (optionTab) new bootstrap.Tab(optionTab).show();
 
 });
 
@@ -387,52 +390,54 @@ window.onload = function () {
       var $this = $(this);
       var $dropdown = $('<ul class="dropdown-menu" />');
 
-      this.timer = null;
-      this.items = [];
-
-      $.extend(this, option);
+      // Use a plain object to avoid writing to read-only DOM element properties (e.g. prefix)
+      var self = {
+        timer: null,
+        items: [],
+        source: option.source || null,
+        select: option.select || null,
+        prefix: option.prefix || ''
+      };
 
       $this.attr('autocomplete', 'off');
 
       // Focus
       $this.on('focus', function () {
-        this.request();
+        self.request();
       });
 
       // Blur
       $this.on('blur', function () {
-        setTimeout(function (object) {
-          //object.hide();
-        }, 200, this);
+        setTimeout(function () {}, 200);
       });
 
       // Keydown
       $this.on('keydown', function (event) {
         switch (event.keyCode) {
           case 27: // escape
-            this.hide();
+            self.hide();
             break;
           default:
-            this.request();
+            self.request();
             break;
         }
       });
 
       // Click
-      this.click = function (event) {
+      self.click = function (event) {
         event.stopPropagation();
         event.preventDefault();
 
         var value = $(event.target).parent().attr('data-value');
 
-        if (value && this.items[value]) {
-          this.select(this.items[value]);
+        if (value && self.items[value]) {
+          self.select(self.items[value]);
           $(event.target).parent().remove();
         }
-      }
+      };
 
       // Show
-      this.show = function () {
+      self.show = function () {
         var pos = $this.position();
 
         $dropdown.css({
@@ -441,24 +446,24 @@ window.onload = function () {
         });
 
         $dropdown.show();
-      }
+      };
 
       // Hide
-      this.hide = function () {
+      self.hide = function () {
         $dropdown.hide();
-      }
+      };
 
       // Request
-      this.request = function () {
-        clearTimeout(this.timer);
+      self.request = function () {
+        clearTimeout(self.timer);
 
-        this.timer = setTimeout(function (object) {
-          object.source($(object).val(), $.proxy(object.response, object));
-        }, 200, this);
-      }
+        self.timer = setTimeout(function () {
+          self.source($this.val(), function (json) { self.response(json); });
+        }, 200);
+      };
 
       // Response
-      this.response = function (json) {
+      self.response = function (json) {
         var html = '';
         var category = {};
         var name;
@@ -466,20 +471,16 @@ window.onload = function () {
 
         if (json.length) {
           for (i = 0; i < json.length; i++) {
-            // update element items
-            this.items[json[i]['value']] = json[i];
+            self.items[json[i]['value']] = json[i];
 
             if (!json[i]['category']) {
-              // ungrouped items
-
               var color = '';
-              if ($('#' + option.prefix + json[i]['value']).length > 0) {
+              if ($('#' + self.prefix + json[i]['value']).length > 0) {
                 color = '#26f326';
               }
 
               html += '<li data-value="' + json[i]['value'] + '"><a href="#" style="color: ' + color + ';">' + json[i]['label'] + '</a></li>';
             } else {
-              // grouped items
               name = json[i]['category'];
               if (!category[name]) {
                 category[name] = [];
@@ -499,16 +500,16 @@ window.onload = function () {
         }
 
         if (html) {
-          this.show();
+          self.show();
         } else {
-          this.hide();
+          self.hide();
         }
 
         $dropdown.html(html);
-      }
+      };
 
-      $dropdown.on('click', '> li > a', $.proxy(this.click, this));
+      $dropdown.on('click', '> li > a', function (e) { self.click(e); });
       $this.after($dropdown);
     });
-  }
+  };
 })(window.jQuery);
