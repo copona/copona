@@ -20,6 +20,9 @@
     <script src="view/javascript/dist/editor.bundle.js"></script>
     <link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="screen" />
     <link type="text/css" href="view/stylesheet/bs3-compat.css" rel="stylesheet" media="screen" />
+    <link type="text/css" href="view/stylesheet/flatpickr.min.css" rel="stylesheet" media="screen" />
+    <script src="view/javascript/flatpickr/flatpickr.min.js"></script>
+    <script src="view/javascript/flatpickr/datetimepicker-shim.js"></script>
 
     <?php foreach ($styles as $style) { ?>
         <link type="text/css" href="<?php echo $style['href']; ?>" rel="<?php echo $style['rel']; ?>" media="<?php echo $style['media']; ?>" />

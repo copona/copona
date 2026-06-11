@@ -377,11 +377,12 @@ $('input[name=\'option\']').autocomplete({
         }
 
         $('#tab-option .tab-content').append(html);
-        $('#option > li:last-child').before('<li><a href="#tab-option' + option_row + '" data-bs-toggle="tab"><i class="fa fa-minus-circle" onclick=" $(\'#option a:first\').tab(\'show\');$(\'a[href=\\\'#tab-option' + option_row + '\\\']\').parent().remove(); $(\'#tab-option' + option_row + '\').remove();"></i>' + item['label'] + '</li>');
-        $('#option a[href=\'#tab-option' + option_row + '\']').tab('show');
-        $('[data-bs-toggle=\'tooltip\']').tooltip({
-            container: 'body',
-            html: true
+        var newTabLink = '<li><a href="#tab-option' + option_row + '" data-bs-toggle="tab" class="nav-link"><i class="fa fa-minus-circle" onclick="var ft=document.querySelector(\'#option a:first-child\');if(ft)new bootstrap.Tab(ft).show();document.querySelector(\'a[href=\\\'#tab-option' + option_row + '\\\']\').closest(\'li\').remove();var p=document.getElementById(\'tab-option' + option_row + '\');if(p)p.remove();"></i>' + item['label'] + '</a></li>';
+        $('#option > li:last-child').before(newTabLink);
+        var newTab = document.querySelector('#option a[href=\'#tab-option' + option_row + '\']');
+        if (newTab) new bootstrap.Tab(newTab).show();
+        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+            if (!bootstrap.Tooltip.getInstance(el)) new bootstrap.Tooltip(el, {container: 'body', html: true});
         });
         $('.date').datetimepicker({
             pickTime: false

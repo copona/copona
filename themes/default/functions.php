@@ -15,9 +15,8 @@ if (APPLICATION == 'catalog') {
     $this->document->addScript('themes/default/assets/vendor/bootstrap5/js/bootstrap.bundle.min.js');
     $this->document->addScript('themes/default/assets/vendor/notify/notify.min.js');
     $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'footer', 'product/product');
-    // datetimepicker: needs replacing for BS5 — disabled for now
-    // $this->document->addScript('assets/vendor/datetimepicker/moment.js', 'header', 'product/product');
-    // $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js', 'header', 'product/product');
+    $this->document->addScript('themes/default/assets/vendor/flatpickr/flatpickr.min.js');
+    $this->document->addScript('themes/default/assets/vendor/flatpickr/datetimepicker-shim.js');
     $this->document->addScript('assets/vendor/jquery.print/jquery.print.min.js');
     $this->document->addScript('assets/js/common.js');
 
@@ -25,8 +24,7 @@ if (APPLICATION == 'catalog') {
     $this->document->addStyle('assets/vendor/font-awesome/css/font-awesome.min.css', 'stylesheet', 'screen');
     $this->document->addStyle('//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen');
-    // datetimepicker: needs replacing for BS5 — disabled for now
-    // $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css', 'stylesheet', 'screen', 'product/product');
+    $this->document->addStyle('themes/default/assets/vendor/flatpickr/flatpickr.min.css', 'stylesheet', 'screen');
 
     // Custom CSS temporarily disabled during BS5 migration — re-enable and fix after template pass
     // $this->document->addStyle('assets/css/stylesheet.css', 'stylesheet', 'screen');
