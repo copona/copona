@@ -128,11 +128,11 @@
                 <label class="col-sm-2 control-label" for="input-stock-status"><span data-bs-toggle="tooltip" title="<?php echo $help_stock_status; ?>"><?php echo $entry_stock_status; ?></span></label>
                 <div class="col-sm-10">
                   <select name="stock_status_id" id="input-stock-status" class="form-control">
-                    <?php foreach ($stock_statuses as $stock_status) { ?>
-                        <?php if ($stock_status['stock_status_id'] == $stock_status_id) { ?>
-                        <option value="<?php echo $stock_status['stock_status_id']; ?>" selected="selected"><?php echo $stock_status['name']; ?></option>
-                        <?php } else { ?>
-                        <option value="<?php echo $stock_status['stock_status_id']; ?>"><?php echo $stock_status['name']; ?></option>
+                    <?php if (!$stock_statuses) { ?>
+                        <option value="0" disabled selected><?php echo $text_no_stock_statuses; ?></option>
+                    <?php } else { ?>
+                        <?php foreach ($stock_statuses as $stock_status) { ?>
+                            <option value="<?php echo $stock_status['stock_status_id']; ?>"<?php if ($stock_status['stock_status_id'] == $stock_status_id) { ?> selected="selected"<?php } ?>><?php echo $stock_status['name']; ?></option>
                         <?php } ?>
                     <?php } ?>
                   </select>
@@ -462,11 +462,11 @@
                 <label class="col-sm-2 control-label" for="input-length-class"><?php echo $entry_length_class; ?></label>
                 <div class="col-sm-10">
                   <select name="length_class_id" id="input-length-class" class="form-control">
-                      <?php foreach ($length_classes as $length_class) { ?>
-                          <?php if ($length_class['length_class_id'] == $length_class_id) { ?>
-                          <option value="<?php echo $length_class['length_class_id']; ?>" selected="selected"><?php echo $length_class['title']; ?></option>
-                          <?php } else { ?>
-                          <option value="<?php echo $length_class['length_class_id']; ?>"><?php echo $length_class['title']; ?></option>
+                      <?php if (!$length_classes) { ?>
+                          <option value="0" disabled selected><?php echo $text_no_length_classes; ?></option>
+                      <?php } else { ?>
+                          <?php foreach ($length_classes as $length_class) { ?>
+                              <option value="<?php echo $length_class['length_class_id']; ?>"<?php if ($length_class['length_class_id'] == $length_class_id) { ?> selected="selected"<?php } ?>><?php echo $length_class['title']; ?></option>
                           <?php } ?>
                       <?php } ?>
                   </select>
@@ -482,11 +482,11 @@
                 <label class="col-sm-2 control-label" for="input-weight-class"><?php echo $entry_weight_class; ?></label>
                 <div class="col-sm-10">
                   <select name="weight_class_id" id="input-weight-class" class="form-control">
-                      <?php foreach ($weight_classes as $weight_class) { ?>
-                          <?php if ($weight_class['weight_class_id'] == $weight_class_id) { ?>
-                          <option value="<?php echo $weight_class['weight_class_id']; ?>" selected="selected"><?php echo $weight_class['title']; ?></option>
-                          <?php } else { ?>
-                          <option value="<?php echo $weight_class['weight_class_id']; ?>"><?php echo $weight_class['title']; ?></option>
+                      <?php if (!$weight_classes) { ?>
+                          <option value="0" disabled selected><?php echo $text_no_weight_classes; ?></option>
+                      <?php } else { ?>
+                          <?php foreach ($weight_classes as $weight_class) { ?>
+                              <option value="<?php echo $weight_class['weight_class_id']; ?>"<?php if ($weight_class['weight_class_id'] == $weight_class_id) { ?> selected="selected"<?php } ?>><?php echo $weight_class['title']; ?></option>
                           <?php } ?>
                       <?php } ?>
                   </select>
