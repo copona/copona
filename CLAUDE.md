@@ -206,3 +206,97 @@ Admin and catalog share the same PHP session namespace. Both use the `default` c
 - Always branch → PR → merge to master (never direct push to master).
 - Don't commit after each change; batch at end of session.
 - Remote: `git@github.com:copona/copona.git`
+
+---
+
+## Local Dev on a Custom Port (multiple stacks on one host)
+
+If other Docker projects already occupy 8080/3306, don't edit the tracked
+`docker-compose.yml` — add a `docker-compose.override.yml` (gitignored) next
+to it:
+
+```yaml
+services:
+  db:
+    ports:
+      - "3316:3306"
+  web:
+    ports:
+      - "8091:80"
+```
+
+Docker Compose merges override files automatically; no `-f` flag needed.
+Then follow the normal fresh-install procedure — it works unchanged since
+only the *host* port mapping changes, not the container-internal ports.
+
+---
+
+## Automated Testing — There Is None
+
+Neither `copona/copona` nor `copona/core` has a test suite: no PHPUnit/Pest
+config, no `tests/` directory, no CI workflows (`.github/workflows` doesn't
+exist in either repo). The only checks are static analysis via Composer
+scripts in `copona/copona`'s `composer.json`:
+
+```bash
+composer analyse   # phpstan
+composer cs-check   # php-cs-fixer --dry-run
+composer cs-fix      # php-cs-fixer fix
+```
+
+`phpstan.neon` / the baseline currently has pre-existing unrelated findings
+(`pr` function not found in a few catalog controllers, a `DB_PREFIX`
+constant baseline count mismatch) — these are static-analysis artifacts of
+globals/constants defined at runtime bootstrap, not real bugs, and predate
+any dependency work. Don't treat them as regressions from unrelated changes.
+
+For actual verification, there's no substitute for booting the stack and
+smoke-testing: frontend home, a category listing (confirms DB reads +
+`productImage()`), a product detail page (SEO routing), and an admin
+login → dashboard round trip (confirms session/auth + DB writes).
+
+---
+
+## laravel/framework Is Not a Direct Dependency — It's Transitive via copona/core
+
+`copona/copona`'s `composer.json` does **not** require `laravel/framework`
+directly. It requires `copona/core` via a VCS repository:
+
+```json
+"repositories": {
+  "copona-core": { "type": "vcs", "url": "git@github.com:copona/core.git" }
+},
+"require": { "copona/core": "^0.3.0" }
+```
+
+`copona/core` is where `laravel/framework` actually lives (used for the
+`Illuminate\Database` Capsule/Eloquent adapter — see
+`src/Database/Adapters/Eloquent.php` and `src/Database/OrmModel.php`, the
+*only* two files in that package touching the `Illuminate` namespace).
+
+**Why Dependabot can't auto-fix Laravel advisories in this repo**: the
+version constraint Dependabot would need to edit lives in a different
+repo's `composer.json`. GitHub's dependency graph still flags the
+vulnerable version here (because `composer.lock` records it), but there's
+no manifest in *this* repo for a bot to patch. The fix always has to be a
+manual PR against `copona/core`, followed by a version bump here.
+
+**Laravel version history in copona/core** (`composer.json` → `require` →
+`laravel/framework`): 5.6 → 5.8 → 6.20 → 9.0 → 10.48 (CVE-2025-27515) →
+12.0 (2026-07, Laravel 10 hit EOL for security support Feb 2025 with
+10.50.2 already the newest 10.x patch — no further 10.x fix existed, so
+the only real remediation was a major-version jump).
+
+**When bumping laravel/framework in copona/core again**, watch for:
+- `phpfastcache/phpfastcache` — 8.x pins `psr/simple-cache ~1.0`, which
+  conflicts with `robmorgan/phinx`'s `cakephp/datasource` (`^2.0||^3.0`).
+  Needs `phpfastcache` `^9.0`+ alongside any Laravel version requiring
+  newer `symfony/console`.
+- `symfony/finder`, `symfony/console`, `symfony/css-selector` are also
+  required directly by `copona/core` (not just pulled in via Laravel) —
+  their constraint has to be widened to match whatever `symfony/console`
+  version the new Laravel release requires.
+- Prefer pinning `copona/copona`'s `composer.json` to a tagged `copona/core`
+  release (e.g. `^0.3.0`) rather than `dev-<branch>` — dev-branch refs can
+  be deleted or rewritten after merge, and there's no reason to stay on one
+  once the branch's PR has landed and been tagged.

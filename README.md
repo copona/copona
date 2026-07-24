@@ -35,19 +35,20 @@ Copona is in development mode — please use it, test it, and post issues, bugs,
 * Prepared environment
     * With Docker
         * Install [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
-        * Duplicate `.env.example` to `.env` and configure the file
-        * Execute `docker-compose up -d`
-        * Access bash via `docker-compose exec web bash` and execute:
-            * `cd /app && composer install`
-            * `cd /app && php vendor/bin/phinx migrate`
+        * Do **not** create `.env` by hand — the installer generates it, and its own "is this installed?" check just looks for `.env`, so a pre-existing one makes it skip setup and leave the database empty.
+        * Execute `docker compose up -d --build`
+        * Wait for MariaDB to finish starting (a few seconds), then run:
+            * `docker exec -w /app <web-container> composer install --no-interaction`
+            * `docker exec -u application <web-container> php /app/copona install --no-interaction`
+        * The install command reads its DB/admin settings from the environment variables already set in `docker-compose.yml` (`DB_DRIVER`, `DB_HOSTNAME`, `DB_DATABASE`, `ADMIN_USERNAME`, etc.) and creates `.env`, the database schema, and runs migrations for you.
     * Manual install
         * Install a web server: Apache, IIS, etc.
         * Install PHP and MySQL
         * Install Composer [https://getcomposer.org/](https://getcomposer.org/)
         * From the command prompt, execute:
             * `composer install`
+            * `php copona install` (interactive) — asks for DB/admin details, creates `.env`, and runs migrations
 * Navigate to your web address: `http://domain-OR-IPaddress/` or `http://domain-OR-IPaddress/subfolder-where-you-cloned`
-* Execute migration: `php vendor/bin/phinx migrate`
 * If all requirements have been met, fill in the form and enjoy!
 
 ## Update
