@@ -1,5 +1,6 @@
 # Docker / DB runtime data
 .mysql/
+docker-compose.override.yml
 
 # Config and Htaccess Files
 /favicon.ico

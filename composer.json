@@ -12,7 +12,7 @@
   "license": "GPL-3.0-or-later",
   "require": {
     "php": ">=8.3",
-    "copona/core": "dev-fix-install-command",
+    "copona/core": "dev-security/upgrade-laravel-12",
     "twig/twig": "^3.26"
   },
   "autoload": {
