@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7525904174b562d60eea0e8ad70efe88",
+    "content-hash": "afa4cbc49bc5e5be7fc8c2e37dcf09f0",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -617,16 +617,16 @@
         },
         {
             "name": "copona/core",
-            "version": "dev-security/upgrade-laravel-12",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/copona/core.git",
-                "reference": "263533c26e70eba01de8bc639e8d411cfc186180"
+                "reference": "baa45d7242a0d4bfd60921b355ab5118ca6cff4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/263533c26e70eba01de8bc639e8d411cfc186180",
-                "reference": "263533c26e70eba01de8bc639e8d411cfc186180",
+                "url": "https://api.github.com/repos/copona/core/zipball/baa45d7242a0d4bfd60921b355ab5118ca6cff4a",
+                "reference": "baa45d7242a0d4bfd60921b355ab5118ca6cff4a",
                 "shasum": ""
             },
             "require": {
@@ -668,10 +668,10 @@
                 "opensource"
             ],
             "support": {
-                "source": "https://github.com/copona/core/tree/security/upgrade-laravel-12",
+                "source": "https://github.com/copona/core/tree/v0.3.0",
                 "issues": "https://github.com/copona/core/issues"
             },
-            "time": "2026-07-24T10:43:33+00:00"
+            "time": "2026-07-24T10:59:13+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -8684,9 +8684,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "copona/core": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
