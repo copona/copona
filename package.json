@@ -15,12 +15,12 @@
   },
   "dependencies": {
     "@codemirror/lang-html": "^6.4.11",
-    "@tiptap/core": "^2.10.0",
-    "@tiptap/extension-image": "^2.10.0",
-    "@tiptap/extension-link": "^2.10.0",
-    "@tiptap/extension-placeholder": "^2.10.0",
-    "@tiptap/extension-underline": "^2.10.0",
-    "@tiptap/starter-kit": "^2.10.0",
+    "@tiptap/core": "^3.31.0",
+    "@tiptap/extension-image": "^3.31.0",
+    "@tiptap/extension-link": "^3.31.0",
+    "@tiptap/extension-placeholder": "^3.31.0",
+    "@tiptap/extension-underline": "^3.31.0",
+    "@tiptap/starter-kit": "^3.31.0",
     "bootstrap": "^5.3.3",
     "codemirror": "^6.0.2"
   }
