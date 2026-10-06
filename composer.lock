@@ -4,56 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2d28951d8af68da9d5b5de7fc302445",
+    "content-hash": "4e88ee1c2cc239c70e8c3c0fce471d7f",
     "packages": [
-        {
-            "name": "braintree/braintree_php",
-            "version": "5.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/braintree/braintree_php.git",
-                "reference": "8902a072ac04c9eea2996f2683cb56259cbe46fa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/8902a072ac04c9eea2996f2683cb56259cbe46fa",
-                "reference": "8902a072ac04c9eea2996f2683cb56259cbe46fa",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-dom": "*",
-                "ext-hash": "*",
-                "ext-openssl": "*",
-                "ext-xmlwriter": "*",
-                "php": ">=7.2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Braintree\\": "lib/Braintree"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Braintree",
-                    "homepage": "https://www.braintreepayments.com"
-                }
-            ],
-            "description": "Braintree PHP Client Library",
-            "support": {
-                "issues": "https://github.com/braintree/braintree_php/issues",
-                "source": "https://github.com/braintree/braintree_php/tree/5.5.0"
-            },
-            "time": "2021-01-25T21:53:32+00:00"
-        },
         {
             "name": "brick/math",
             "version": "0.14.8",
@@ -619,65 +571,6 @@
                 "source": "https://github.com/copona/composer-installers/tree/0.3.2"
             },
             "time": "2021-06-07T09:40:36+00:00"
-        },
-        {
-            "name": "copona/core",
-            "version": "v0.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/copona/core.git",
-                "reference": "d43d5de9a3a9b5e2812a20d4f0a5531a046b398b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/d43d5de9a3a9b5e2812a20d4f0a5531a046b398b",
-                "reference": "d43d5de9a3a9b5e2812a20d4f0a5531a046b398b",
-                "shasum": ""
-            },
-            "require": {
-                "braintree/braintree_php": "^5.1.0",
-                "copona/composer-installers": "^0.3",
-                "divido/divido-php": ">=1.1.1",
-                "filp/whoops": "^2.1",
-                "hassankhan/config": "^3.0",
-                "laravel/framework": "^12.0",
-                "php": ">=8.2",
-                "phpfastcache/phpfastcache": "^9.0",
-                "phpmailer/phpmailer": "^6.1.6",
-                "prhost/composer-vendor-merge": "^0.1",
-                "robmorgan/phinx": "^0.12 || ^0.16",
-                "symfony/console": "^7.2",
-                "symfony/css-selector": "^7.2",
-                "symfony/finder": "^7.2",
-                "twig/twig": "^3.26"
-            },
-            "bin": [
-                "bin/copona"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Copona\\": "./src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Copona Core",
-            "homepage": "https://github.com/copona/copona",
-            "keywords": [
-                "copona",
-                "core",
-                "ecommerce",
-                "framework",
-                "opensource"
-            ],
-            "support": {
-                "issues": "https://github.com/copona/core/issues",
-                "source": "https://github.com/copona/core/tree/v0.3.1"
-            },
-            "time": "2026-10-06T19:20:46+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -8696,5 +8589,5 @@
         "php": ">=8.3"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }

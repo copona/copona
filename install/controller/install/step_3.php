@@ -10,8 +10,6 @@ class ControllerInstallStep3 extends Controller
         $data = $this->language->all();
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->load->model('install/install');
-
             $app_env = preg_replace("/[^A-Za-z0-9]/", "", addslashes($this->request->post['app_env']));
 
             $array_dotenv = [
@@ -22,9 +20,9 @@ class ControllerInstallStep3 extends Controller
 
             \Copona\Classes\Install::createDatabaseConfig($app_env, $this->request->post);
 
-            $this->model_install_install->database($this->request->post);
+            \Copona\Classes\Install::database($this->request->post);
 
-            $this->model_install_install->migration();
+            \Copona\Classes\Install::migration();
 
             $this->response->redirect($this->url->link('install/step_4'));
         }

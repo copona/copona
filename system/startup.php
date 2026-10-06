@@ -235,7 +235,8 @@ if (!isset($_SERVER['REQUEST_URI'])) {
 }
 
 if (!isset($_SERVER['HTTP_HOST'])) {
-    $_SERVER['HTTP_HOST'] = getenv('HTTP_HOST');
+    // getenv() returns false when unset (CLI), which phpfastcache rejects.
+    $_SERVER['HTTP_HOST'] = getenv('HTTP_HOST') ?: null;
 }
 
 // Check if SSL
