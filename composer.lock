@@ -622,16 +622,16 @@
         },
         {
             "name": "copona/core",
-            "version": "v0.3.0",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/copona/core.git",
-                "reference": "baa45d7242a0d4bfd60921b355ab5118ca6cff4a"
+                "reference": "d43d5de9a3a9b5e2812a20d4f0a5531a046b398b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/baa45d7242a0d4bfd60921b355ab5118ca6cff4a",
-                "reference": "baa45d7242a0d4bfd60921b355ab5118ca6cff4a",
+                "url": "https://api.github.com/repos/copona/core/zipball/d43d5de9a3a9b5e2812a20d4f0a5531a046b398b",
+                "reference": "d43d5de9a3a9b5e2812a20d4f0a5531a046b398b",
                 "shasum": ""
             },
             "require": {
@@ -673,10 +673,10 @@
                 "opensource"
             ],
             "support": {
-                "source": "https://github.com/copona/core/tree/v0.3.0",
+                "source": "https://github.com/copona/core/tree/v0.3.1",
                 "issues": "https://github.com/copona/core/issues"
             },
-            "time": "2026-07-24T10:59:13+00:00"
+            "time": "2026-10-06T19:20:46+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
