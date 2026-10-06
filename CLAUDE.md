@@ -285,14 +285,17 @@ admin login → dashboard round trip (session/auth + DB writes).
 ## laravel/framework Is Not a Direct Dependency — It's Transitive via copona/core
 
 `copona/copona`'s `composer.json` does **not** require `laravel/framework`
-directly. It requires `copona/core` via a VCS repository:
+directly. It requires `copona/core` from Packagist (tagged releases of
+`github.com/copona/core`):
 
 ```json
-"repositories": {
-  "copona-core": { "type": "vcs", "url": "git@github.com:copona/core.git" }
-},
-"require": { "copona/core": "^0.3.0" }
+"require": { "copona/core": "^0.3.1" }
 ```
+
+Don't add a `git@github.com:` VCS `repositories` entry back for core: it
+makes `composer install` fail for anyone without GitHub SSH keys. If a
+`dev-<branch>` of core is needed temporarily, use the HTTPS URL
+(`https://github.com/copona/core.git`) and drop it once the tag is out.
 
 `copona/core` is where `laravel/framework` actually lives (used for the
 `Illuminate\Database` Capsule/Eloquent adapter — see

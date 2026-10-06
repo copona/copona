@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "afa4cbc49bc5e5be7fc8c2e37dcf09f0",
+    "content-hash": "b2d28951d8af68da9d5b5de7fc302445",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -660,6 +660,7 @@
                     "Copona\\": "./src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -673,8 +674,8 @@
                 "opensource"
             ],
             "support": {
-                "source": "https://github.com/copona/core/tree/v0.3.1",
-                "issues": "https://github.com/copona/core/issues"
+                "issues": "https://github.com/copona/core/issues",
+                "source": "https://github.com/copona/core/tree/v0.3.1"
             },
             "time": "2026-10-06T19:20:46+00:00"
         },
