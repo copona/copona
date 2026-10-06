@@ -38,7 +38,7 @@
                 <td><?php echo $text_image; ?></td>
                 <?php foreach ($products as $product) { ?>
                     <td class="text-center"><?php if ($product['thumb']) { ?>
-                          <img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-thumbnail" />
+                          <img loading="lazy" decoding="async" src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-thumbnail" />
                       <?php } ?></td>
                 <?php } ?>
               </tr>

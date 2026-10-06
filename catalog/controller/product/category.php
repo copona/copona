@@ -103,6 +103,8 @@ class ControllerProductCategory extends Controller {
                 'href' => $this->url->link('product/category', 'path=' . $category_path)
             );
 
+            $this->document->addBreadcrumbJsonLd($data['breadcrumbs']);
+
             if (isset($category_info['image']) && $category_info['image']) {
                 $data['thumb'] = $this->model_tool_image->resize($category_info['image'],
 

@@ -84,7 +84,7 @@
             <div id="product-gallery">
               <div class="gallery-main">
                 <a href="<?php echo htmlspecialchars($gallery_items[0]['popup']); ?>" class="<?php echo $gallery_items[0]['type'] === 'video' ? 'gallery-video' : 'gallery-image'; ?>">
-                  <img id="gallery-main-img" src="<?php echo $gallery_items[0]['mid']; ?>" alt="<?php echo htmlspecialchars($gallery_items[0]['title']); ?>">
+                  <img id="gallery-main-img" fetchpriority="high" src="<?php echo $gallery_items[0]['mid']; ?>" alt="<?php echo htmlspecialchars($gallery_items[0]['title']); ?>">
                 </a>
               </div>
               <?php if (count($gallery_items) > 1) { ?>
@@ -95,7 +95,7 @@
                      data-mid="<?php echo htmlspecialchars($gitem['mid']); ?>"
                      data-title="<?php echo htmlspecialchars($gitem['title']); ?>"
                      data-type="<?php echo $gitem['type']; ?>">
-                  <img src="<?php echo $gitem['thumb']; ?>" alt="<?php echo htmlspecialchars($gitem['title']); ?>">
+                  <img loading="lazy" decoding="async" src="<?php echo $gitem['thumb']; ?>" alt="<?php echo htmlspecialchars($gitem['title']); ?>">
                   <?php if ($gitem['type'] === 'video') { ?><span class="gallery-play">&#9654;</span><?php } ?>
                 </div>
                 <?php } ?>
