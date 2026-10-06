@@ -43,12 +43,6 @@
       "prhost/composer-vendor-merge": true
     }
   },
-  "repositories": {
-    "copona-core": {
-      "type": "vcs",
-      "url": "git@github.com:copona/core.git"
-    }
-  },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.95",
     "phpstan/phpstan": "^2.2"
