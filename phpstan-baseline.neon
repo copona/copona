@@ -433,12 +433,6 @@ parameters:
 			path: catalog/controller/extension/module/latest.php
 
 		-
-			message: '#^Access to an undefined property ControllerExtensionModuleLaybuyLayout\:\:\$model_extension_module_laybuy_layout\.$#'
-			identifier: property.notFound
-			count: 3
-			path: catalog/controller/extension/module/laybuy_layout.php
-
-		-
 			message: '#^Access to an undefined property ControllerExtensionModuleManufacturers\:\:\$hook\.$#'
 			identifier: property.notFound
 			count: 1
@@ -757,78 +751,6 @@ parameters:
 			path: catalog/controller/extension/payment/firstdata_remote.php
 
 		-
-			message: '#^Access to an undefined property ControllerExtensionPaymentG2APay\:\:\$model_extension_payment_g2apay\.$#'
-			identifier: property.notFound
-			count: 11
-			path: catalog/controller/extension/payment/g2apay.php
-
-		-
-			message: '#^Offset ''totals'' on array\{\} in isset\(\) does not exist\.$#'
-			identifier: isset.offset
-			count: 1
-			path: catalog/controller/extension/payment/g2apay.php
-
-		-
-			message: '#^Variable \$items might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: catalog/controller/extension/payment/g2apay.php
-
-		-
-			message: '#^Variable \$order_status_id might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: catalog/controller/extension/payment/g2apay.php
-
-		-
-			message: '#^Access to an undefined property ControllerExtensionPaymentKlarnaAccount\:\:\$db\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/controller/extension/payment/klarna_account.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/controller/extension/payment/klarna_account.php
-
-		-
-			message: '#^Constant VERSION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/payment/klarna_account.php
-
-		-
-			message: '#^Variable \$country might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: catalog/controller/extension/payment/klarna_account.php
-
-		-
-			message: '#^Variable \$currency might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: catalog/controller/extension/payment/klarna_account.php
-
-		-
-			message: '#^Variable \$encoding might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: catalog/controller/extension/payment/klarna_account.php
-
-		-
-			message: '#^Variable \$goods_list might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: catalog/controller/extension/payment/klarna_account.php
-
-		-
-			message: '#^Variable \$language might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: catalog/controller/extension/payment/klarna_account.php
-
-		-
 			message: '#^Access to an undefined property ControllerExtensionPaymentKlarnaCheckout\:\:\$model_extension_payment_klarna_checkout\.$#'
 			identifier: property.notFound
 			count: 72
@@ -883,72 +805,6 @@ parameters:
 			path: catalog/controller/extension/payment/klarna_checkout.php
 
 		-
-			message: '#^Access to an undefined property ControllerExtensionPaymentKlarnaInvoice\:\:\$db\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/controller/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: catalog/controller/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Constant VERSION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Variable \$country might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: catalog/controller/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Variable \$currency might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: catalog/controller/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Variable \$encoding might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: catalog/controller/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Variable \$goods_list might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: catalog/controller/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Variable \$language might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: catalog/controller/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Access to an undefined property ControllerExtensionPaymentLaybuy\:\:\$model_extension_payment_laybuy\.$#'
-			identifier: property.notFound
-			count: 70
-			path: catalog/controller/extension/payment/laybuy.php
-
-		-
-			message: '#^Variable \$month might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: catalog/controller/extension/payment/laybuy.php
-
-		-
-			message: '#^Variable \$next_payment_date might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: catalog/controller/extension/payment/laybuy.php
-
-		-
 			message: '#^Access to an undefined property ControllerExtensionPaymentMastercardPGS\:\:\$model_extension_payment_mastercard_pgs\.$#'
 			identifier: property.notFound
 			count: 24
@@ -1001,24 +857,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: catalog/controller/extension/payment/perpetual_payments.php
-
-		-
-			message: '#^Access to an undefined property ControllerExtensionPaymentPilibaba\:\:\$model_extension_payment_pilibaba\.$#'
-			identifier: property.notFound
-			count: 25
-			path: catalog/controller/extension/payment/pilibaba.php
-
-		-
-			message: '#^Constant HTTP_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/payment/pilibaba.php
-
-		-
-			message: '#^Function token not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/payment/pilibaba.php
 
 		-
 			message: '#^Access to an undefined property ControllerExtensionPaymentPPExpress\:\:\$db\.$#'
@@ -2401,30 +2239,6 @@ parameters:
 			path: catalog/model/extension/module.php
 
 		-
-			message: '#^Access to an undefined property ModelExtensionModuleLaybuyLayout\:\:\$db\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/module/laybuy_layout.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionModuleLaybuyLayout\:\:\$language\.$#'
-			identifier: property.notFound
-			count: 5
-			path: catalog/model/extension/module/laybuy_layout.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionModuleLaybuyLayout\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/module/laybuy_layout.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/extension/module/laybuy_layout.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionModulePPLogin\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 5
@@ -3145,90 +2959,6 @@ parameters:
 			path: catalog/model/extension/payment/free_checkout.php
 
 		-
-			message: '#^Access to an undefined property ModelExtensionPaymentG2APay\:\:\$config\.$#'
-			identifier: property.notFound
-			count: 6
-			path: catalog/model/extension/payment/g2apay.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentG2APay\:\:\$currency\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/payment/g2apay.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentG2APay\:\:\$db\.$#'
-			identifier: property.notFound
-			count: 8
-			path: catalog/model/extension/payment/g2apay.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentG2APay\:\:\$language\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/g2apay.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentG2APay\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/g2apay.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 5
-			path: catalog/model/extension/payment/g2apay.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaAccount\:\:\$config\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/payment/klarna_account.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaAccount\:\:\$currency\.$#'
-			identifier: property.notFound
-			count: 6
-			path: catalog/model/extension/payment/klarna_account.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaAccount\:\:\$db\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/klarna_account.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaAccount\:\:\$language\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/payment/klarna_account.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaAccount\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/klarna_account.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaAccount\:\:\$session\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/klarna_account.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/klarna_account.php
-
-		-
-			message: '#^Variable \$country_to_currency might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: catalog/model/extension/payment/klarna_account.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaCheckout\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 1
@@ -3317,144 +3047,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: catalog/model/extension/payment/klarna_checkout.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaInvoice\:\:\$cart\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaInvoice\:\:\$config\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaInvoice\:\:\$currency\.$#'
-			identifier: property.notFound
-			count: 3
-			path: catalog/model/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaInvoice\:\:\$db\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaInvoice\:\:\$language\.$#'
-			identifier: property.notFound
-			count: 3
-			path: catalog/model/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaInvoice\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaInvoice\:\:\$session\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentKlarnaInvoice\:\:\$tax\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Variable \$country_to_currency might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: catalog/model/extension/payment/klarna_invoice.php
-
-		-
-			message: '#^Access to an undefined property \$this\(ModelExtensionPaymentLaybuy\)\:\:\$config\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentLaybuy\:\:\$cart\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentLaybuy\:\:\$config\.$#'
-			identifier: property.notFound
-			count: 16
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentLaybuy\:\:\$currency\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentLaybuy\:\:\$customer\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentLaybuy\:\:\$db\.$#'
-			identifier: property.notFound
-			count: 28
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentLaybuy\:\:\$language\.$#'
-			identifier: property.notFound
-			count: 5
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentLaybuy\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 5
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentLaybuy\:\:\$model_account_customer\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentLaybuy\:\:\$model_checkout_order\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentLaybuy\:\:\$session\.$#'
-			identifier: property.notFound
-			count: 3
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 13
-			path: catalog/model/extension/payment/laybuy.php
-
-		-
-			message: '#^Deprecated in PHP 8\.0\: Required parameter \$status follows optional parameter \$data\.$#'
-			identifier: parameter.requiredAfterOptional
-			count: 1
-			path: catalog/model/extension/payment/laybuy.php
 
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentLiqPay\:\:\$config\.$#'
@@ -3583,42 +3175,6 @@ parameters:
 			path: catalog/model/extension/payment/nochex.php
 
 		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPayMate\:\:\$config\.$#'
-			identifier: property.notFound
-			count: 5
-			path: catalog/model/extension/payment/paymate.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPayMate\:\:\$db\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/paymate.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPayMate\:\:\$language\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/paymate.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPayMate\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/paymate.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPayMate\:\:\$session\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/paymate.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/paymate.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentPayPoint\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 5
@@ -3649,36 +3205,6 @@ parameters:
 			path: catalog/model/extension/payment/paypoint.php
 
 		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPayza\:\:\$config\.$#'
-			identifier: property.notFound
-			count: 5
-			path: catalog/model/extension/payment/payza.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPayza\:\:\$db\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/payza.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPayza\:\:\$language\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/payza.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPayza\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/payza.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/payza.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentPerpetualPayments\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 5
@@ -3707,36 +3233,6 @@ parameters:
 			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/perpetual_payments.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPilibaba\:\:\$config\.$#'
-			identifier: property.notFound
-			count: 6
-			path: catalog/model/extension/payment/pilibaba.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPilibaba\:\:\$db\.$#'
-			identifier: property.notFound
-			count: 21
-			path: catalog/model/extension/payment/pilibaba.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPilibaba\:\:\$language\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/pilibaba.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionPaymentPilibaba\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/pilibaba.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: catalog/model/extension/payment/pilibaba.php
 
 		-
 			message: '#^Access to an undefined property \$this\(ModelExtensionPaymentPPExpress\)\:\:\$currency\.$#'
@@ -4993,42 +4489,6 @@ parameters:
 			path: catalog/model/extension/shipping/pickup.php
 
 		-
-			message: '#^Access to an undefined property ModelExtensionShippingPilibaba\:\:\$config\.$#'
-			identifier: property.notFound
-			count: 5
-			path: catalog/model/extension/shipping/pilibaba.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionShippingPilibaba\:\:\$currency\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/shipping/pilibaba.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionShippingPilibaba\:\:\$language\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/shipping/pilibaba.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionShippingPilibaba\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/shipping/pilibaba.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionShippingPilibaba\:\:\$session\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/shipping/pilibaba.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionShippingPilibaba\:\:\$tax\.$#'
-			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/shipping/pilibaba.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionShippingRoyalMail\:\:\$cart\.$#'
 			identifier: property.notFound
 			count: 2
@@ -5429,54 +4889,6 @@ parameters:
 			identifier: property.notFound
 			count: 1
 			path: catalog/model/extension/total/handling.php
-
-		-
-			message: '#^Access to an undefined property \$this\(ModelExtensionTotalKlarnaFee\)\:\:\$cart\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/total/klarna_fee.php
-
-		-
-			message: '#^Access to an undefined property \$this\(ModelExtensionTotalKlarnaFee\)\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/total/klarna_fee.php
-
-		-
-			message: '#^Access to an undefined property \$this\(ModelExtensionTotalKlarnaFee\)\:\:\$model_account_address\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/total/klarna_fee.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionTotalKlarnaFee\:\:\$config\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/total/klarna_fee.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionTotalKlarnaFee\:\:\$language\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/total/klarna_fee.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionTotalKlarnaFee\:\:\$load\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/total/klarna_fee.php
-
-		-
-			message: '#^Access to an undefined property ModelExtensionTotalKlarnaFee\:\:\$tax\.$#'
-			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/total/klarna_fee.php
-
-		-
-			message: '#^Variable \$address might not be defined\.$#'
-			identifier: variable.undefined
-			count: 5
-			path: catalog/model/extension/total/klarna_fee.php
 
 		-
 			message: '#^Access to an undefined property ModelExtensionTotalLowOrderFee\:\:\$cart\.$#'
