@@ -12,6 +12,8 @@ class ControllerCommonHome extends Controller {
             $this->document->addLink($this->config->get('config_url'), 'canonical');
         }
 
+        $this->addStoreJsonLd();
+
         $data = $this->language->load('common/home');
         $data['template_name'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
         //Current
@@ -27,6 +29,47 @@ class ControllerCommonHome extends Controller {
 
         $this->hook->getHook('controller/home/after', $data);
         $this->response->setOutput($this->load->view('common/home', $data));
+    }
+
+    /**
+     * schema.org WebSite (with sitelinks search box) and Organization for the home page.
+     */
+    private function addStoreJsonLd() {
+        $home = html_entity_decode($this->url->link('common/home'), ENT_QUOTES, 'UTF-8');
+        $name = html_entity_decode((string)$this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+
+        $search = html_entity_decode($this->url->link('product/search', 'search=__QUERY__'), ENT_QUOTES, 'UTF-8');
+
+        $this->document->addJsonLd([
+            '@type'           => 'WebSite',
+            'name'            => $name,
+            'url'             => $home,
+            'potentialAction' => [
+                '@type'       => 'SearchAction',
+                'target'      => str_replace('__QUERY__', '{search_term_string}', $search),
+                'query-input' => 'required name=search_term_string',
+            ],
+        ]);
+
+        $organization = [
+            '@type' => 'Organization',
+            'name'  => $name,
+            'url'   => $home,
+        ];
+
+        if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
+            $organization['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');
+        }
+
+        if ($this->config->get('config_email')) {
+            $organization['email'] = $this->config->get('config_email');
+        }
+
+        if ($this->config->get('config_telephone')) {
+            $organization['telephone'] = $this->config->get('config_telephone');
+        }
+
+        $this->document->addJsonLd($organization);
     }
 
 }

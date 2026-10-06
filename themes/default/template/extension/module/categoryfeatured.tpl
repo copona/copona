@@ -5,7 +5,7 @@
         <div class="category-thumb transition">
           <div class="image">
             <a href="<?php echo $category['href']; ?>">
-              <img src="<?php echo $category['thumb']; ?>" alt="<?php echo $category['name']; ?>" title="<?php echo $category['name']; ?>" class="img-fluid" />
+              <img loading="lazy" decoding="async" src="<?php echo $category['thumb']; ?>" alt="<?php echo $category['name']; ?>" title="<?php echo $category['name']; ?>" class="img-fluid" />
             </a>
           </div>
           <div class="caption">

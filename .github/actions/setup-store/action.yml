@@ -1,0 +1,51 @@
+name: Set up Copona store
+description: >
+  Installs Composer dependencies, runs the Copona installer against the
+  MariaDB service of the calling job (DB_* / ADMIN_* env vars) and starts
+  the PHP built-in server on 127.0.0.1:8000.
+
+runs:
+  using: composite
+  steps:
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: gd, mysqli, pdo_mysql, mbstring, zip, curl, intl
+        coverage: none
+        tools: composer:v2
+
+    # composer.json points copona/core at an SSH URL; runners have no SSH key.
+    - name: Fetch GitHub repositories over HTTPS
+      shell: bash
+      run: git config --global url."https://github.com/".insteadOf "git@github.com:"
+
+    - name: Cache Composer downloads
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/composer
+        key: composer-${{ hashFiles('composer.lock') }}
+        restore-keys: composer-
+
+    - name: Composer install
+      shell: bash
+      run: composer install --no-interaction --no-progress --prefer-dist
+
+    - name: Prepare storage directories
+      shell: bash
+      run: |
+        mkdir -p storage/public/cache/image storage/private/{cache,logs,download,upload,modification}
+        chmod -R 777 storage
+
+    - name: Run installer
+      shell: bash
+      run: |
+        php copona install --no-interaction | tee install.log
+        # The installer reports some failures without a non-zero exit code.
+        test -f .env
+        mysql -h 127.0.0.1 -u"$DB_USERNAME" -p"$DB_PASSWORD" "$DB_DATABASE" -N -e "SELECT COUNT(*) FROM ${DB_PREFIX}product" | grep -qx 15
+
+    - name: Start PHP built-in server
+      shell: bash
+      run: |
+        php -d display_errors=1 -d error_reporting=E_ALL -S 127.0.0.1:8000 -t . > server.log 2>&1 &
+        for i in $(seq 1 20); do curl -s -o /dev/null http://127.0.0.1:8000/ && break; sleep 0.5; done

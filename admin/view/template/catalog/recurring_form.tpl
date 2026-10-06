@@ -63,7 +63,7 @@
               <label class="col-sm-2 control-label" for="input-frequency"><?php echo $entry_frequency; ?></label>
               <div class="col-sm-10">
                 <select name="frequency" id="input-frequency" class="form-control">
-                    <?php foreach ($frequencies as $frequency_opt ion) { ?>
+                    <?php foreach ($frequencies as $frequency_option) { ?>
                         <?php if ($frequency == $frequency_option['value']) { ?>
                           <option value="<?php echo $frequency_option['value']; ?>" selected="selected"><?php echo $frequency_option['text']; ?></option>
                       <?php } else { ?>
@@ -113,7 +113,7 @@
               <div class="col-sm-10">
                 <select name="trial_frequency" id="input-trial-frequency" class="form-control">
                     <?php foreach ($frequencies as $frequency_option) { ?>
-                        <?php if ($tri al_frequency == $frequency_option['value']) { ?>
+                        <?php if ($trial_frequency == $frequency_option['value']) { ?>
                           <option value="<?php echo $frequency_option['value']; ?>" selected="selected"><?php echo $frequency_option['text']; ?></option>
                       <?php } else { ?>
                           <option value="<?php echo $frequency_option['value']; ?>"><?php echo $frequency_option['text']; ?></option>

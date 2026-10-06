@@ -231,29 +231,54 @@ only the *host* port mapping changes, not the container-internal ports.
 
 ---
 
-## Automated Testing — There Is None
+## Automated Testing / CI
 
-Neither `copona/copona` nor `copona/core` has a test suite: no PHPUnit/Pest
-config, no `tests/` directory, no CI workflows (`.github/workflows` doesn't
-exist in either repo). The only checks are static analysis via Composer
-scripts in `copona/copona`'s `composer.json`:
+There is no unit-test suite (no PHPUnit/Pest, no `tests/`). `copona/copona`
+has GitHub Actions in `.github/workflows/`:
 
-```bash
-composer analyse   # phpstan
-composer cs-check   # php-cs-fixer --dry-run
-composer cs-fix      # php-cs-fixer fix
-```
+- **`ci.yml`** (PRs + pushes to master):
+  - `PHP syntax`: `php -l` over every tracked `*.php` and `*.tpl`. This
+    caught real parse errors that had shipped unnoticed, so keep it blocking.
+  - `Install & smoke test`: MariaDB service → `composer install` → `php copona
+    install --no-interaction` → `php -S` → `.github/scripts/smoke-test.php`,
+    which fetches home, a category, a product, search, the cart and the admin login,
+    failing on non-200 / fatal errors / missing or invalid JSON-LD.
+  - `PHPStan (advisory)`: `continue-on-error`, because the baseline has
+    pre-existing findings (`pr` function not found in a few catalog
+    controllers, a `DB_PREFIX` baseline count mismatch). These are artifacts
+    of runtime-defined globals, not regressions.
+- **`screenshots.yml`** (manual, or feature-branch pushes that touch the
+  capture script): boots the demo store, captures `docs/screenshots/*.png`
+  with Playwright (`.github/scripts/screenshots.cjs`) and commits them back.
+- Shared store setup lives in the composite action
+  `.github/actions/setup-store`. `composer.json` references `copona/core` via
+  `git@github.com:`, so CI rewrites it to HTTPS with `url.insteadOf`.
 
-`phpstan.neon` / the baseline currently has pre-existing unrelated findings
-(`pr` function not found in a few catalog controllers, a `DB_PREFIX`
-constant baseline count mismatch) — these are static-analysis artifacts of
-globals/constants defined at runtime bootstrap, not real bugs, and predate
-any dependency work. Don't treat them as regressions from unrelated changes.
+Local static analysis: `composer analyse` (phpstan), `composer cs-check`,
+`composer cs-fix`.
 
-For actual verification, there's no substitute for booting the stack and
-smoke-testing: frontend home, a category listing (confirms DB reads +
-`productImage()`), a product detail page (SEO routing), and an admin
-login → dashboard round trip (confirms session/auth + DB writes).
+For UI changes, also boot the stack and smoke-test by hand: home, a category
+listing (DB reads + `productImage()`), a product page (SEO routing) and an
+admin login → dashboard round trip (session/auth + DB writes).
+
+---
+
+## SEO: JSON-LD and Open Graph
+
+- `Document::addJsonLd(array)` / `addBreadcrumbJsonLd(array)` collect schema.org
+  objects; `common/header` passes `getJsonLd()` to both themes' `header.tpl`.
+- Product page → `Product` (+ `Offer` only when the price is visible,
+  `AggregateRating` only when reviews exist) and `BreadcrumbList`; category →
+  `BreadcrumbList`; home → `WebSite` (SearchAction) + `Organization`.
+- `Document::addOGMeta()` values are rendered by the theme headers. The
+  hard-coded `og:type=website` is only a fallback when a page set none.
+
+## Image Output
+
+- `ModelToolImage` writes cached resized JPEG/PNG copies as **WebP** when GD
+  supports it (`config_image_webp`, default on). GIFs keep their format.
+- `Image::save()` default quality is `config_image_quality` (default 85, was
+  a hard-coded 100).
 
 ---
 

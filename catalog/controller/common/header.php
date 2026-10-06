@@ -182,6 +182,7 @@ class ControllerCommonHeader extends Controller {
 
         $data['logo_meta'] = str_replace(' ', '%20', $this->model_tool_image->resize($this->config->get('config_logo'), 300, 300));
         $data['ogmeta'] = $this->document->getOGMeta();
+        $data['json_ld'] = $this->document->getJsonLd();
 
         // Admin bar: admin and catalog share the same PHP session namespace (default cookie),
         // so user_id in session means the admin is logged in on this browser.

@@ -16,8 +16,10 @@ class ModelToolImage extends Model {
             return $this->url->getImageUrlOriginal($filename);
         }
 
+        $cache_extension = $this->cacheExtension($extension);
+
         $image_old = $filename;
-        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
+        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $cache_extension;
 
         if (!is_file(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $image_old) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image))) {
 
@@ -37,7 +39,7 @@ class ModelToolImage extends Model {
                 @mkdir(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . dirname($new_image), $this->config->get('directory_permission', 0777), true);
             }
 
-            if ($width_orig != $width || $height_orig != $height) {
+            if ($width_orig != $width || $height_orig != $height || $cache_extension != $extension) {
                 $image = new Image(DIR_IMAGE . $image_old);
                 $image->resize($width, $height);
 
@@ -77,8 +79,10 @@ class ModelToolImage extends Model {
             return $this->url->getImageUrlOriginal($filename);
         }
 
+        $cache_extension = $this->cacheExtension($extension);
+
         $old_image = $filename;
-        $new_image = substr($filename, 0, strrpos($filename, '.')) . '-max-' . $maxsize . '.' . $extension;
+        $new_image = substr($filename, 0, strrpos($filename, '.')) . '-max-' . $maxsize . '.' . $cache_extension;
 
         if (!file_exists(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image)) || filesize(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) < 1) {
 
@@ -123,8 +127,10 @@ class ModelToolImage extends Model {
             return $this->url->getImageUrlOriginal($filename);
         }
 
+        $cache_extension = $this->cacheExtension($extension);
+
         $old_image = $filename;
-        $new_image = substr($filename, 0, strrpos($filename, '.')) . '-cr-' . $width . 'x' . $height . '.' . $extension;
+        $new_image = substr($filename, 0, strrpos($filename, '.')) . '-cr-' . $width . 'x' . $height . '.' . $cache_extension;
 
         if (!file_exists(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image)) || filesize(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) < 1) {
 
@@ -157,8 +163,10 @@ class ModelToolImage extends Model {
             return $this->url->getImageUrlOriginal($filename);
         }
 
+        $cache_extension = $this->cacheExtension($extension);
+
         $old_image = $filename;
-        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $extension;
+        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ps-' . $width . 'x' . $height . $type . '.' . $cache_extension;
 
         if (!file_exists(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image)) || filesize(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) < 1) {
 
@@ -173,7 +181,7 @@ class ModelToolImage extends Model {
                 $this->log->write("Cannot resize image $filename. Error: $resize_warning");
             }
 
-            if ($width_orig != $width || $height_orig != $height) {
+            if ($width_orig != $width || $height_orig != $height || $cache_extension != $extension) {
                 $image = new Image(DIR_IMAGE . $old_image);
                 $image->propsize($width, $height, $type);
 
@@ -203,8 +211,10 @@ class ModelToolImage extends Model {
             return $this->url->getImageUrlOriginal($filename);
         }
 
+        $cache_extension = $this->cacheExtension($extension);
+
         $old_image = $filename;
-        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ds-' . $width . 'x' . $height . $type . '.' . $extension;
+        $new_image = utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-ds-' . $width . 'x' . $height . $type . '.' . $cache_extension;
 
         if (!file_exists(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) || (filemtime(DIR_IMAGE . $old_image) > filemtime(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image)) || filesize(DIR_PUBLIC . '/' . $this->config->get('image_cache_path') . $new_image) < 1) {
 
@@ -214,7 +224,7 @@ class ModelToolImage extends Model {
 
             list($width_orig, $height_orig) = getimagesize(DIR_IMAGE . $old_image);
 
-            if ($width_orig != $width || $height_orig != $height) {
+            if ($width_orig != $width || $height_orig != $height || $cache_extension != $extension) {
                 $image = new Image(DIR_IMAGE . $old_image);
                 $image->downsize($width, $height, $type);
 
@@ -248,5 +258,20 @@ class ModelToolImage extends Model {
             return $imageUrl;
         }
         return $this->{$method}(Config::get('config_no_image', 'placeholder.png'), $width, $height);
+    }
+
+    /**
+     * Extension used for cached resized copies: WebP when enabled (`config_image_webp`,
+     * on by default) and supported by GD, otherwise the source file's own extension.
+     * GIFs are left alone so animations survive.
+     */
+    private function cacheExtension($extension) {
+        if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png'])
+            && Config::get('config_image_webp', true)
+            && function_exists('imagewebp')) {
+            return 'webp';
+        }
+
+        return $extension;
     }
 }
