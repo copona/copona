@@ -1,30 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Constant DIR_APPLICATION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/account/account.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 10
-			path: catalog/controller/account/address.php
-
-		-
-			message: '#^Constant DIR_DOWNLOAD not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: catalog/controller/account/download.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 5
-			path: catalog/controller/account/edit.php
-
-		-
 			message: '#^Function token not found\.$#'
 			identifier: function.notFound
 			count: 1
@@ -37,46 +13,10 @@ parameters:
 			path: catalog/controller/account/login.php
 
 		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/account/order.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/account/order.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: catalog/controller/account/password.php
-
-		-
 			message: '#^Function token not found\.$#'
 			identifier: function.notFound
 			count: 1
 			path: catalog/controller/account/register.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 13
-			path: catalog/controller/account/register.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: catalog/controller/account/reset.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 11
-			path: catalog/controller/account/return.php
 
 		-
 			message: '#^Access to an undefined property ControllerAccountVoucher\:\:\$model_extension_total_voucher_theme\.$#'
@@ -85,34 +25,10 @@ parameters:
 			path: catalog/controller/account/voucher.php
 
 		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 6
-			path: catalog/controller/account/voucher.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 13
-			path: catalog/controller/affiliate/edit.php
-
-		-
 			message: '#^Function token not found\.$#'
 			identifier: function.notFound
 			count: 1
 			path: catalog/controller/affiliate/forgotten.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: catalog/controller/affiliate/password.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 15
-			path: catalog/controller/affiliate/register.php
 
 		-
 			message: '#^Access to an undefined property ControllerApiAjax\:\:\$hook\.$#'
@@ -127,12 +43,6 @@ parameters:
 			path: catalog/controller/api/coupon.php
 
 		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 7
-			path: catalog/controller/api/customer.php
-
-		-
 			message: '#^Function token not found\.$#'
 			identifier: function.notFound
 			count: 2
@@ -143,18 +53,6 @@ parameters:
 			identifier: variable.undefined
 			count: 4
 			path: catalog/controller/api/order.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 10
-			path: catalog/controller/api/payment.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 10
-			path: catalog/controller/api/shipping.php
 
 		-
 			message: '#^Variable \$shipping might not be defined\.$#'
@@ -169,45 +67,15 @@ parameters:
 			path: catalog/controller/api/voucher.php
 
 		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 6
-			path: catalog/controller/api/voucher.php
-
-		-
 			message: '#^Access to an undefined property ControllerCheckoutCart\:\:\$hook\.$#'
 			identifier: property.notFound
 			count: 7
 			path: catalog/controller/checkout/cart.php
 
 		-
-			message: '#^Constant DIR_APPLICATION not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/controller/checkout/cart.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: catalog/controller/checkout/cart.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: catalog/controller/checkout/cart.php
-
-		-
 			message: '#^Access to an undefined property ControllerCheckoutCheckout\:\:\$hook\.$#'
 			identifier: property.notFound
 			count: 3
-			path: catalog/controller/checkout/checkout.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 8
 			path: catalog/controller/checkout/checkout.php
 
 		-
@@ -223,52 +91,10 @@ parameters:
 			path: catalog/controller/checkout/confirm.php
 
 		-
-			message: '#^Constant HTTP_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/checkout/confirm.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/checkout/confirm.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/checkout/confirm.php
-
-		-
 			message: '#^Variable \$shipping_address might not be defined\.$#'
 			identifier: variable.undefined
 			count: 11
 			path: catalog/controller/checkout/confirm.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 10
-			path: catalog/controller/checkout/guest_shipping.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 10
-			path: catalog/controller/checkout/payment_address.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 15
-			path: catalog/controller/checkout/register.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 10
-			path: catalog/controller/checkout/shipping_address.php
 
 		-
 			message: '#^Variable \$shipping might not be defined\.$#'
@@ -289,28 +115,10 @@ parameters:
 			path: catalog/controller/common/header.php
 
 		-
-			message: '#^Constant DIR_IMAGE not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/controller/common/header.php
-
-		-
 			message: '#^Access to an undefined property ControllerCommonHome\:\:\$hook\.$#'
 			identifier: property.notFound
 			count: 1
 			path: catalog/controller/common/home.php
-
-		-
-			message: '#^Constant DIR_IMAGE not found\.$#'
-			identifier: constant.notFound
-			count: 4
-			path: catalog/controller/common/youtube.php
-
-		-
-			message: '#^Function prd not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/common/youtube.php
 
 		-
 			message: '#^Variable \$id might not be defined\.$#'
@@ -373,30 +181,6 @@ parameters:
 			path: catalog/controller/extension/module/amazon_pay.php
 
 		-
-			message: '#^Constant DIR_IMAGE not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/module/banner.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/module/bestseller.php
-
-		-
-			message: '#^Constant DIR_IMAGE not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/module/carousel.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/module/categoryfeatured.php
-
-		-
 			message: '#^Access to an undefined property ControllerExtensionModuleDividoCalculator\:\:\$model_extension_payment_divido\.$#'
 			identifier: property.notFound
 			count: 2
@@ -405,12 +189,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ControllerExtensionModuleFeatured\:\:\$hook\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/controller/extension/module/featured.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
 			count: 1
 			path: catalog/controller/extension/module/featured.php
 
@@ -427,21 +205,9 @@ parameters:
 			path: catalog/controller/extension/module/latest.php
 
 		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/module/latest.php
-
-		-
 			message: '#^Access to an undefined property ControllerExtensionModuleManufacturers\:\:\$hook\.$#'
 			identifier: property.notFound
 			count: 1
-			path: catalog/controller/extension/module/manufacturers.php
-
-		-
-			message: '#^Constant HTTP_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 2
 			path: catalog/controller/extension/module/manufacturers.php
 
 		-
@@ -454,12 +220,6 @@ parameters:
 			message: '#^Access to an undefined property ControllerExtensionModulePPLogin\:\:\$model_extension_module_pp_login\.$#'
 			identifier: property.notFound
 			count: 7
-			path: catalog/controller/extension/module/pp_login.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
 			path: catalog/controller/extension/module/pp_login.php
 
 		-
@@ -493,20 +253,8 @@ parameters:
 			path: catalog/controller/extension/module/simpleform.php
 
 		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: catalog/controller/extension/module/simpleform.php
-
-		-
 			message: '#^Access to an undefined property ControllerExtensionModuleSlideshow\:\:\$hook\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/controller/extension/module/slideshow.php
-
-		-
-			message: '#^Constant DIR_IMAGE not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/controller/extension/module/slideshow.php
 
@@ -517,18 +265,6 @@ parameters:
 			path: catalog/controller/extension/module/special.php
 
 		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/module/special.php
-
-		-
-			message: '#^Constant HTTP_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/module/store.php
-
-		-
 			message: '#^Access to an undefined property ControllerExtensionPaymentAmazonLoginPay\:\:\$model_extension_payment_amazon_login_pay\.$#'
 			identifier: property.notFound
 			count: 31
@@ -537,30 +273,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ControllerExtensionPaymentAmazonLoginPay\:\:\$model_extension_total_coupon\.$#'
 			identifier: property.notFound
-			count: 2
-			path: catalog/controller/extension/payment/amazon_login_pay.php
-
-		-
-			message: '#^Constant HTTP_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/payment/amazon_login_pay.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/payment/amazon_login_pay.php
-
-		-
-			message: '#^Function utf8_strrpos not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/payment/amazon_login_pay.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
 			count: 2
 			path: catalog/controller/extension/payment/amazon_login_pay.php
 
@@ -649,12 +361,6 @@ parameters:
 			path: catalog/controller/extension/payment/cardconnect.php
 
 		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 8
-			path: catalog/controller/extension/payment/cardconnect.php
-
-		-
 			message: '#^Access to an undefined property ControllerExtensionPaymentCardinity\:\:\$model_extension_payment_cardinity\.$#'
 			identifier: property.notFound
 			count: 9
@@ -664,12 +370,6 @@ parameters:
 			message: '#^Caught class Cardinity\\Exception\\Declined not found\.$#'
 			identifier: class.notFound
 			count: 1
-			path: catalog/controller/extension/payment/cardinity.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 6
 			path: catalog/controller/extension/payment/cardinity.php
 
 		-
@@ -721,12 +421,6 @@ parameters:
 			path: catalog/controller/extension/payment/eway.php
 
 		-
-			message: '#^Constant VERSION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/payment/eway.php
-
-		-
 			message: '#^Variable \$fraud might not be defined\.$#'
 			identifier: variable.undefined
 			count: 2
@@ -736,12 +430,6 @@ parameters:
 			message: '#^Access to an undefined property ControllerExtensionPaymentFirstdata\:\:\$model_extension_payment_firstdata\.$#'
 			identifier: property.notFound
 			count: 16
-			path: catalog/controller/extension/payment/firstdata.php
-
-		-
-			message: '#^Constant VERSION not found\.$#'
-			identifier: constant.notFound
-			count: 1
 			path: catalog/controller/extension/payment/firstdata.php
 
 		-
@@ -763,27 +451,9 @@ parameters:
 			path: catalog/controller/extension/payment/klarna_checkout.php
 
 		-
-			message: '#^Constant HTTP_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/payment/klarna_checkout.php
-
-		-
 			message: '#^Function token not found\.$#'
 			identifier: function.notFound
 			count: 1
-			path: catalog/controller/extension/payment/klarna_checkout.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/payment/klarna_checkout.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 38
 			path: catalog/controller/extension/payment/klarna_checkout.php
 
 		-
@@ -817,18 +487,6 @@ parameters:
 			path: catalog/controller/extension/payment/mastercard_pgs.php
 
 		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 6
-			path: catalog/controller/extension/payment/mastercard_pgs.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 36
-			path: catalog/controller/extension/payment/mastercard_pgs.php
-
-		-
 			message: '#^Variable \$order_status_id might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -839,18 +497,6 @@ parameters:
 			identifier: empty.variable
 			count: 1
 			path: catalog/controller/extension/payment/mastercard_pgs.php
-
-		-
-			message: '#^Constant HTTPS_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/payment/paypoint.php
-
-		-
-			message: '#^Constant HTTP_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/payment/paypoint.php
 
 		-
 			message: '#^Variable \$json might not be defined\.$#'
@@ -883,31 +529,7 @@ parameters:
 			path: catalog/controller/extension/payment/pp_express.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 25
-			path: catalog/controller/extension/payment/pp_express.php
-
-		-
-			message: '#^Constant HTTP_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/payment/pp_express.php
-
-		-
 			message: '#^Function token not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/payment/pp_express.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/payment/pp_express.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
 			identifier: function.notFound
 			count: 1
 			path: catalog/controller/extension/payment/pp_express.php
@@ -941,24 +563,6 @@ parameters:
 			identifier: property.notFound
 			count: 2
 			path: catalog/controller/extension/payment/pp_pro_iframe.php
-
-		-
-			message: '#^Constant DIR_APPLICATION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/payment/pp_pro_iframe.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/payment/pp_standard.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/extension/payment/pp_standard.php
 
 		-
 			message: '#^Access to an undefined property ControllerExtensionPaymentSagepayDirect\:\:\$model_extension_payment_sagepay_direct\.$#'
@@ -1039,12 +643,6 @@ parameters:
 			path: catalog/controller/extension/total/coupon.php
 
 		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: catalog/controller/extension/total/shipping.php
-
-		-
 			message: '#^Access to an undefined property ControllerExtensionTotalVoucher\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 1
@@ -1057,27 +655,9 @@ parameters:
 			path: catalog/controller/extension/total/voucher.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: catalog/controller/extension/total/voucher.php
-
-		-
-			message: '#^Constant DIR_IMAGE not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/extension/total/voucher.php
-
-		-
 			message: '#^Function strip2words not found\.$#'
 			identifier: function.notFound
 			count: 2
-			path: catalog/controller/information/contact.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 4
 			path: catalog/controller/information/contact.php
 
 		-
@@ -1111,24 +691,6 @@ parameters:
 			path: catalog/controller/product/compare.php
 
 		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/product/compare.php
-
-		-
-			message: '#^Function utf8_strtoupper not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/product/manufacturer.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 3
-			path: catalog/controller/product/manufacturer.php
-
-		-
 			message: '#^Access to an undefined property ControllerProductProduct\:\:\$hook\.$#'
 			identifier: property.notFound
 			count: 2
@@ -1141,38 +703,14 @@ parameters:
 			path: catalog/controller/product/product.php
 
 		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 4
-			path: catalog/controller/product/product.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: catalog/controller/product/product.php
-
-		-
 			message: '#^Access to an undefined property ControllerProductSearch\:\:\$hook\.$#'
 			identifier: property.notFound
 			count: 3
 			path: catalog/controller/product/search.php
 
 		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/product/search.php
-
-		-
 			message: '#^Access to an undefined property ControllerProductSpecial\:\:\$hook\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/controller/product/special.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
 			count: 1
 			path: catalog/controller/product/special.php
 
@@ -1189,26 +727,8 @@ parameters:
 			path: catalog/controller/startup/seo_url.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: catalog/controller/startup/seo_url.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/controller/startup/seo_url.php
-
-		-
 			message: '#^Access to an undefined property ControllerStartupSession\:\:\$db\.$#'
 			identifier: property.notFound
-			count: 5
-			path: catalog/controller/startup/session.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 5
 			path: catalog/controller/startup/session.php
 
@@ -1219,45 +739,9 @@ parameters:
 			path: catalog/controller/startup/startup.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 5
-			path: catalog/controller/startup/startup.php
-
-		-
-			message: '#^Constant DIR_TEMPLATE not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: catalog/controller/startup/startup.php
-
-		-
-			message: '#^Constant HTTPS_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/startup/startup.php
-
-		-
-			message: '#^Constant HTTP_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/controller/startup/startup.php
-
-		-
-			message: '#^Constant DIR_UPLOAD not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: catalog/controller/tool/upload.php
-
-		-
 			message: '#^Function token not found\.$#'
 			identifier: function.notFound
 			count: 1
-			path: catalog/controller/tool/upload.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 2
 			path: catalog/controller/tool/upload.php
 
 		-
@@ -1279,12 +763,6 @@ parameters:
 			path: catalog/model/account/activity.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/account/activity.php
-
-		-
 			message: '#^Access to an undefined property ModelAccountAddress\:\:\$customer\.$#'
 			identifier: property.notFound
 			count: 8
@@ -1297,21 +775,9 @@ parameters:
 			path: catalog/model/account/address.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 12
-			path: catalog/model/account/address.php
-
-		-
 			message: '#^Access to an undefined property ModelAccountApi\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 7
-			path: catalog/model/account/api.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 3
 			path: catalog/model/account/api.php
 
 		-
@@ -1330,12 +796,6 @@ parameters:
 			message: '#^Access to an undefined property ModelAccountCustomField\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 4
-			path: catalog/model/account/custom_field.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 9
 			path: catalog/model/account/custom_field.php
 
 		-
@@ -1387,24 +847,6 @@ parameters:
 			path: catalog/model/account/customer.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 20
-			path: catalog/model/account/customer.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/model/account/customer.php
-
-		-
-			message: '#^Function utf8_strtolower not found\.$#'
-			identifier: function.notFound
-			count: 8
-			path: catalog/model/account/customer.php
-
-		-
 			message: '#^Access to an undefined property ModelAccountCustomerGroup\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 2
@@ -1414,12 +856,6 @@ parameters:
 			message: '#^Access to an undefined property ModelAccountCustomerGroup\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 2
-			path: catalog/model/account/customer_group.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 4
 			path: catalog/model/account/customer_group.php
 
 		-
@@ -1441,12 +877,6 @@ parameters:
 			path: catalog/model/account/download.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 12
-			path: catalog/model/account/download.php
-
-		-
 			message: '#^Access to an undefined property ModelAccountOrder\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 4
@@ -1465,12 +895,6 @@ parameters:
 			path: catalog/model/account/order.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 17
-			path: catalog/model/account/order.php
-
-		-
 			message: '#^Access to an undefined property ModelAccountRecurring\:\:\$customer\.$#'
 			identifier: property.notFound
 			count: 3
@@ -1480,12 +904,6 @@ parameters:
 			message: '#^Access to an undefined property ModelAccountRecurring\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 8
-			path: catalog/model/account/recurring.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 10
 			path: catalog/model/account/recurring.php
 
 		-
@@ -1507,12 +925,6 @@ parameters:
 			path: catalog/model/account/return.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 10
-			path: catalog/model/account/return.php
-
-		-
 			message: '#^Access to an undefined property ModelAccountReward\:\:\$customer\.$#'
 			identifier: property.notFound
 			count: 3
@@ -1521,12 +933,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelAccountReward\:\:\$db\.$#'
 			identifier: property.notFound
-			count: 3
-			path: catalog/model/account/reward.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 3
 			path: catalog/model/account/reward.php
 
@@ -1543,12 +949,6 @@ parameters:
 			path: catalog/model/account/search.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/account/search.php
-
-		-
 			message: '#^Access to an undefined property ModelAccountTransaction\:\:\$customer\.$#'
 			identifier: property.notFound
 			count: 3
@@ -1557,12 +957,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelAccountTransaction\:\:\$db\.$#'
 			identifier: property.notFound
-			count: 3
-			path: catalog/model/account/transaction.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 3
 			path: catalog/model/account/transaction.php
 
@@ -1579,12 +973,6 @@ parameters:
 			path: catalog/model/account/wishlist.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 5
-			path: catalog/model/account/wishlist.php
-
-		-
 			message: '#^Access to an undefined property ModelAffiliateActivity\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 4
@@ -1593,12 +981,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelAffiliateActivity\:\:\$request\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/affiliate/activity.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/affiliate/activity.php
 
@@ -1651,24 +1033,6 @@ parameters:
 			path: catalog/model/affiliate/affiliate.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 16
-			path: catalog/model/affiliate/affiliate.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/model/affiliate/affiliate.php
-
-		-
-			message: '#^Function utf8_strtolower not found\.$#'
-			identifier: function.notFound
-			count: 7
-			path: catalog/model/affiliate/affiliate.php
-
-		-
 			message: '#^Access to an undefined property ModelAffiliateTransaction\:\:\$affiliate\.$#'
 			identifier: property.notFound
 			count: 3
@@ -1677,12 +1041,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelAffiliateTransaction\:\:\$db\.$#'
 			identifier: property.notFound
-			count: 3
-			path: catalog/model/affiliate/transaction.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 3
 			path: catalog/model/affiliate/transaction.php
 
@@ -1705,27 +1063,9 @@ parameters:
 			path: catalog/model/catalog/category.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 24
-			path: catalog/model/catalog/category.php
-
-		-
-			message: '#^Constant HTTP_SERVER not found\.$#'
-			identifier: constant.notFound
-			count: 4
-			path: catalog/model/catalog/category.php
-
-		-
 			message: '#^Access to an undefined property ModelCatalogContent\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 4
-			path: catalog/model/catalog/content.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
 			path: catalog/model/catalog/content.php
 
 		-
@@ -1738,12 +1078,6 @@ parameters:
 			message: '#^Access to an undefined property ModelCatalogInformation\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 4
-			path: catalog/model/catalog/information.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 8
 			path: catalog/model/catalog/information.php
 
 		-
@@ -1762,18 +1096,6 @@ parameters:
 			message: '#^Access to an undefined property ModelCatalogManufacturer\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 5
-			path: catalog/model/catalog/manufacturer.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 12
-			path: catalog/model/catalog/manufacturer.php
-
-		-
-			message: '#^Function prd not found\.$#'
-			identifier: function.notFound
-			count: 1
 			path: catalog/model/catalog/manufacturer.php
 
 		-
@@ -1825,18 +1147,6 @@ parameters:
 			path: catalog/model/catalog/product.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 84
-			path: catalog/model/catalog/product.php
-
-		-
-			message: '#^Function utf8_strtolower not found\.$#'
-			identifier: function.notFound
-			count: 14
-			path: catalog/model/catalog/product.php
-
-		-
 			message: '#^Access to an undefined property ModelCatalogReview\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 15
@@ -1873,21 +1183,9 @@ parameters:
 			path: catalog/model/catalog/review.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 7
-			path: catalog/model/catalog/review.php
-
-		-
 			message: '#^Access to an undefined property ModelCheckoutMarketing\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 2
-			path: catalog/model/checkout/marketing.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
 			path: catalog/model/checkout/marketing.php
 
 		-
@@ -1969,39 +1267,9 @@ parameters:
 			path: catalog/model/checkout/order.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 52
-			path: catalog/model/checkout/order.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 3
-			path: catalog/model/checkout/order.php
-
-		-
-			message: '#^Function utf8_strrpos not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/model/checkout/order.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 4
-			path: catalog/model/checkout/order.php
-
-		-
 			message: '#^Access to an undefined property ModelCheckoutRecurring\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 11
-			path: catalog/model/checkout/recurring.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
 			path: catalog/model/checkout/recurring.php
 
 		-
@@ -2014,12 +1282,6 @@ parameters:
 			message: '#^Access to an undefined property ModelDesignBanner\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 1
-			path: catalog/model/design/banner.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
 			path: catalog/model/design/banner.php
 
 		-
@@ -2047,12 +1309,6 @@ parameters:
 			path: catalog/model/design/layout.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/design/layout.php
-
-		-
 			message: '#^Access to an undefined property ModelDesignTheme\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 1
@@ -2062,12 +1318,6 @@ parameters:
 			message: '#^Access to an undefined property ModelDesignTheme\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 3
-			path: catalog/model/design/theme.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
 			path: catalog/model/design/theme.php
 
 		-
@@ -2083,32 +1333,14 @@ parameters:
 			path: catalog/model/design/translation.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/design/translation.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionEvent\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 1
 			path: catalog/model/extension/event.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/event.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionExtension\:\:\$db\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/extension.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/extension.php
 
@@ -2122,12 +1354,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionFeedGoogleBase\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 2
-			path: catalog/model/extension/feed/google_base.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 4
 			path: catalog/model/extension/feed/google_base.php
 
 		-
@@ -2146,18 +1372,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionFraudFraudLabsPro\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 46
-			path: catalog/model/extension/fraud/fraudlabspro.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/extension/fraud/fraudlabspro.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
 			path: catalog/model/extension/fraud/fraudlabspro.php
 
 		-
@@ -2185,12 +1399,6 @@ parameters:
 			path: catalog/model/extension/fraud/ip.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/extension/fraud/ip.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionFraudMaxMind\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 4
@@ -2209,32 +1417,8 @@ parameters:
 			path: catalog/model/extension/fraud/maxmind.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/extension/fraud/maxmind.php
-
-		-
-			message: '#^Function utf8_strtolower not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/model/extension/fraud/maxmind.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/model/extension/fraud/maxmind.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionModule\:\:\$db\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/module.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/module.php
 
@@ -2266,12 +1450,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionModuleSimpleform\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 12
-			path: catalog/model/extension/module/simpleform.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 3
 			path: catalog/model/extension/module/simpleform.php
 
 		-
@@ -2341,19 +1519,7 @@ parameters:
 			path: catalog/model/extension/payment/amazon_login_pay.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 19
-			path: catalog/model/extension/payment/amazon_login_pay.php
-
-		-
 			message: '#^Function token not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/model/extension/payment/amazon_login_pay.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
 			identifier: function.notFound
 			count: 1
 			path: catalog/model/extension/payment/amazon_login_pay.php
@@ -2389,12 +1555,6 @@ parameters:
 			path: catalog/model/extension/payment/authorizenet_aim.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/authorizenet_aim.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentAuthorizeNetSim\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 5
@@ -2415,12 +1575,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentAuthorizeNetSim\:\:\$load\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/authorizenet_sim.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/authorizenet_sim.php
 
@@ -2455,12 +1609,6 @@ parameters:
 			path: catalog/model/extension/payment/bank_transfer.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/bank_transfer.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentBluePayHosted\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 7
@@ -2491,12 +1639,6 @@ parameters:
 			path: catalog/model/extension/payment/bluepay_hosted.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: catalog/model/extension/payment/bluepay_hosted.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentBluePayRedirect\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 7
@@ -2524,12 +1666,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionPaymentBluePayRedirect\:\:\$load\.$#'
 			identifier: property.notFound
 			count: 2
-			path: catalog/model/extension/payment/bluepay_redirect.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 7
 			path: catalog/model/extension/payment/bluepay_redirect.php
 
 		-
@@ -2572,12 +1708,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionPaymentCardConnect\:\:\$model_extension_payment_cardconnect\.$#'
 			identifier: property.notFound
 			count: 3
-			path: catalog/model/extension/payment/cardconnect.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 10
 			path: catalog/model/extension/payment/cardconnect.php
 
 		-
@@ -2629,12 +1759,6 @@ parameters:
 			path: catalog/model/extension/payment/cardinity.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: catalog/model/extension/payment/cardinity.php
-
-		-
 			message: '#^Instantiated class Cardinity\\Method\\Payment\\Create not found\.$#'
 			identifier: class.notFound
 			count: 1
@@ -2671,12 +1795,6 @@ parameters:
 			path: catalog/model/extension/payment/cheque.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/cheque.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentCOD\:\:\$cart\.$#'
 			identifier: property.notFound
 			count: 1
@@ -2703,12 +1821,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentCOD\:\:\$load\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/cod.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/cod.php
 
@@ -2785,12 +1897,6 @@ parameters:
 			path: catalog/model/extension/payment/divido.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 5
-			path: catalog/model/extension/payment/divido.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentEway\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 10
@@ -2827,12 +1933,6 @@ parameters:
 			path: catalog/model/extension/payment/eway.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 9
-			path: catalog/model/extension/payment/eway.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentFirstdata\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 9
@@ -2866,12 +1966,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionPaymentFirstdata\:\:\$load\.$#'
 			identifier: property.notFound
 			count: 1
-			path: catalog/model/extension/payment/firstdata.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 11
 			path: catalog/model/extension/payment/firstdata.php
 
 		-
@@ -2925,18 +2019,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentFirstdataRemote\:\:\$request\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/firstdata_remote.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 6
-			path: catalog/model/extension/payment/firstdata_remote.php
-
-		-
-			message: '#^Constant VERSION not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/firstdata_remote.php
 
@@ -2998,12 +2080,6 @@ parameters:
 			message: '#^Call to static method create\(\) on an unknown class Klarna\\Rest\\Transport\\Connector\.$#'
 			identifier: class.notFound
 			count: 1
-			path: catalog/model/extension/payment/klarna_checkout.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 10
 			path: catalog/model/extension/payment/klarna_checkout.php
 
 		-
@@ -3073,12 +2149,6 @@ parameters:
 			path: catalog/model/extension/payment/liqpay.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/liqpay.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentMastercardPGS\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 15
@@ -3133,18 +2203,6 @@ parameters:
 			path: catalog/model/extension/payment/mastercard_pgs.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 11
-			path: catalog/model/extension/payment/mastercard_pgs.php
-
-		-
-			message: '#^Constant VERSION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/mastercard_pgs.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentNOCHEX\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 5
@@ -3165,12 +2223,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentNOCHEX\:\:\$load\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/nochex.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/nochex.php
 
@@ -3199,12 +2251,6 @@ parameters:
 			path: catalog/model/extension/payment/paypoint.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/paypoint.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentPerpetualPayments\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 5
@@ -3225,12 +2271,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentPerpetualPayments\:\:\$load\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/perpetual_payments.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/perpetual_payments.php
 
@@ -3331,30 +2371,6 @@ parameters:
 			path: catalog/model/extension/payment/pp_express.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 8
-			path: catalog/model/extension/payment/pp_express.php
-
-		-
-			message: '#^Function utf8_strlen not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/model/extension/payment/pp_express.php
-
-		-
-			message: '#^Function utf8_strrpos not found\.$#'
-			identifier: function.notFound
-			count: 1
-			path: catalog/model/extension/payment/pp_express.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: catalog/model/extension/payment/pp_express.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentPPPayflow\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 4
@@ -3375,12 +2391,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentPPPayflow\:\:\$load\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/pp_payflow.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/pp_payflow.php
 
@@ -3409,12 +2419,6 @@ parameters:
 			path: catalog/model/extension/payment/pp_payflow_iframe.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 5
-			path: catalog/model/extension/payment/pp_payflow_iframe.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentPPPro\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 5
@@ -3435,12 +2439,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentPPPro\:\:\$load\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/pp_pro.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/pp_pro.php
 
@@ -3466,12 +2464,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionPaymentPPProIframe\:\:\$load\.$#'
 			identifier: property.notFound
 			count: 1
-			path: catalog/model/extension/payment/pp_pro_iframe.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 3
 			path: catalog/model/extension/payment/pp_pro_iframe.php
 
 		-
@@ -3501,12 +2493,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentPPStandard\:\:\$session\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/pp_standard.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/pp_standard.php
 
@@ -3574,12 +2560,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionPaymentSagePayDirect\:\:\$tax\.$#'
 			identifier: property.notFound
 			count: 2
-			path: catalog/model/extension/payment/sagepay_direct.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 21
 			path: catalog/model/extension/payment/sagepay_direct.php
 
 		-
@@ -3661,12 +2641,6 @@ parameters:
 			path: catalog/model/extension/payment/sagepay_server.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 23
-			path: catalog/model/extension/payment/sagepay_server.php
-
-		-
 			message: '#^Variable \$data might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -3699,12 +2673,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentSagePayUS\:\:\$load\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/sagepay_us.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/sagepay_us.php
 
@@ -3742,12 +2710,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionPaymentSecureTradingPp\:\:\$model_checkout_order\.$#'
 			identifier: property.notFound
 			count: 3
-			path: catalog/model/extension/payment/securetrading_pp.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 9
 			path: catalog/model/extension/payment/securetrading_pp.php
 
 		-
@@ -3793,12 +2755,6 @@ parameters:
 			path: catalog/model/extension/payment/securetrading_ws.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 11
-			path: catalog/model/extension/payment/securetrading_ws.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentSkrill\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 5
@@ -3819,12 +2775,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentSkrill\:\:\$load\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/skrill.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/skrill.php
 
@@ -3853,12 +2803,6 @@ parameters:
 			path: catalog/model/extension/payment/twocheckout.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/payment/twocheckout.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionPaymentWebPaymentSoftware\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 5
@@ -3879,12 +2823,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionPaymentWebPaymentSoftware\:\:\$load\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/payment/web_payment_software.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/payment/web_payment_software.php
 
@@ -3955,12 +2893,6 @@ parameters:
 			path: catalog/model/extension/payment/worldpay.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 18
-			path: catalog/model/extension/payment/worldpay.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionShippingAusPost\:\:\$cart\.$#'
 			identifier: property.notFound
 			count: 1
@@ -4015,12 +2947,6 @@ parameters:
 			path: catalog/model/extension/shipping/auspost.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/shipping/auspost.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionShippingCitylink\:\:\$cart\.$#'
 			identifier: property.notFound
 			count: 1
@@ -4071,12 +2997,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionShippingCitylink\:\:\$weight\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/extension/shipping/citylink.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/shipping/citylink.php
 
@@ -4165,12 +3085,6 @@ parameters:
 			path: catalog/model/extension/shipping/fedex.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/shipping/fedex.php
-
-		-
 			message: '#^Variable \$total_net_charge might not be defined\.$#'
 			identifier: variable.undefined
 			count: 2
@@ -4225,12 +3139,6 @@ parameters:
 			path: catalog/model/extension/shipping/flat.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/shipping/flat.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionShippingFree\:\:\$cart\.$#'
 			identifier: property.notFound
 			count: 1
@@ -4270,12 +3178,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionShippingFree\:\:\$session\.$#'
 			identifier: property.notFound
 			count: 2
-			path: catalog/model/extension/shipping/free.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
 			path: catalog/model/extension/shipping/free.php
 
 		-
@@ -4327,12 +3229,6 @@ parameters:
 			path: catalog/model/extension/shipping/item.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/shipping/item.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionShippingLocationBasedShipping\:\:\$cart\.$#'
 			identifier: property.notFound
 			count: 2
@@ -4372,12 +3268,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionShippingLocationBasedShipping\:\:\$tax\.$#'
 			identifier: property.notFound
 			count: 2
-			path: catalog/model/extension/shipping/location_based_shipping.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
 			path: catalog/model/extension/shipping/location_based_shipping.php
 
 		-
@@ -4435,12 +3325,6 @@ parameters:
 			path: catalog/model/extension/shipping/parcelforce_48.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/shipping/parcelforce_48.php
-
-		-
 			message: '#^Variable \$insurance might not be defined\.$#'
 			identifier: variable.undefined
 			count: 2
@@ -4480,12 +3364,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionShippingPickup\:\:\$session\.$#'
 			identifier: property.notFound
 			count: 2
-			path: catalog/model/extension/shipping/pickup.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
 			path: catalog/model/extension/shipping/pickup.php
 
 		-
@@ -4545,12 +3423,6 @@ parameters:
 		-
 			message: '#^Array has 2 duplicate keys with value ''text'' \(''text'', ''text''\)\.$#'
 			identifier: array.duplicateKey
-			count: 1
-			path: catalog/model/extension/shipping/royal_mail.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/extension/shipping/royal_mail.php
 
@@ -4621,12 +3493,6 @@ parameters:
 			path: catalog/model/extension/shipping/ups.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/extension/shipping/ups.php
-
-		-
 			message: '#^Access to an undefined property ModelExtensionShippingUsps\:\:\$cart\.$#'
 			identifier: property.notFound
 			count: 2
@@ -4684,12 +3550,6 @@ parameters:
 			message: '#^Access to an undefined property ModelExtensionShippingUsps\:\:\$weight\.$#'
 			identifier: property.notFound
 			count: 2
-			path: catalog/model/extension/shipping/usps.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
 			path: catalog/model/extension/shipping/usps.php
 
 		-
@@ -4753,12 +3613,6 @@ parameters:
 			path: catalog/model/extension/shipping/weight.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/extension/shipping/weight.php
-
-		-
 			message: '#^Access to an undefined property \$this\(ModelExtensionTotalCoupon\)\:\:\$cart\.$#'
 			identifier: property.notFound
 			count: 3
@@ -4813,12 +3667,6 @@ parameters:
 			path: catalog/model/extension/total/coupon.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 9
-			path: catalog/model/extension/total/coupon.php
-
-		-
 			message: '#^Variable \$product_data might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -4851,12 +3699,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelExtensionTotalCredit\:\:\$load\.$#'
 			identifier: property.notFound
-			count: 2
-			path: catalog/model/extension/total/credit.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 2
 			path: catalog/model/extension/total/credit.php
 
@@ -4987,12 +3829,6 @@ parameters:
 			path: catalog/model/extension/total/reward.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/extension/total/reward.php
-
-		-
 			message: '#^Access to an undefined property \$this\(ModelExtensionTotalShipping\)\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 1
@@ -5095,12 +3931,6 @@ parameters:
 			path: catalog/model/extension/total/voucher.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 10
-			path: catalog/model/extension/total/voucher.php
-
-		-
 			message: '#^Variable \$amount might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -5125,12 +3955,6 @@ parameters:
 			path: catalog/model/extension/total/voucher_theme.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 6
-			path: catalog/model/extension/total/voucher_theme.php
-
-		-
 			message: '#^Access to an undefined property ModelLocalisationCountry\:\:\$cache\.$#'
 			identifier: property.notFound
 			count: 2
@@ -5139,12 +3963,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelLocalisationCountry\:\:\$db\.$#'
 			identifier: property.notFound
-			count: 2
-			path: catalog/model/localisation/country.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 2
 			path: catalog/model/localisation/country.php
 
@@ -5161,12 +3979,6 @@ parameters:
 			path: catalog/model/localisation/currency.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/localisation/currency.php
-
-		-
 			message: '#^Access to an undefined property ModelLocalisationLanguage\:\:\$cache\.$#'
 			identifier: property.notFound
 			count: 2
@@ -5179,12 +3991,6 @@ parameters:
 			path: catalog/model/localisation/language.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/localisation/language.php
-
-		-
 			message: '#^Access to an undefined property ModelLocalisationLocation\:\:\$config\.$#'
 			identifier: property.notFound
 			count: 2
@@ -5193,12 +3999,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelLocalisationLocation\:\:\$db\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/localisation/location.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/localisation/location.php
 
@@ -5221,12 +4021,6 @@ parameters:
 			path: catalog/model/localisation/return_reason.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/localisation/return_reason.php
-
-		-
 			message: '#^Access to an undefined property ModelLocalisationZone\:\:\$cache\.$#'
 			identifier: property.notFound
 			count: 2
@@ -5239,33 +4033,15 @@ parameters:
 			path: catalog/model/localisation/zone.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/localisation/zone.php
-
-		-
 			message: '#^Access to an undefined property ModelSettingApi\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 3
 			path: catalog/model/setting/api.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: catalog/model/setting/api.php
-
-		-
 			message: '#^Access to an undefined property ModelSettingSetting\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 4
-			path: catalog/model/setting/setting.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
 			path: catalog/model/setting/setting.php
 
 		-
@@ -5277,12 +4053,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelSettingStore\:\:\$db\.$#'
 			identifier: property.notFound
-			count: 1
-			path: catalog/model/setting/store.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
 			count: 1
 			path: catalog/model/setting/store.php
 
@@ -5305,27 +4075,9 @@ parameters:
 			path: catalog/model/tool/image.php
 
 		-
-			message: '#^Constant DIR_IMAGE not found\.$#'
-			identifier: constant.notFound
-			count: 29
-			path: catalog/model/tool/image.php
-
-		-
 			message: '#^Constant DIR_PUBLIC not found\.$#'
 			identifier: constant.notFound
 			count: 29
-			path: catalog/model/tool/image.php
-
-		-
-			message: '#^Function utf8_strrpos not found\.$#'
-			identifier: function.notFound
-			count: 3
-			path: catalog/model/tool/image.php
-
-		-
-			message: '#^Function utf8_substr not found\.$#'
-			identifier: function.notFound
-			count: 3
 			path: catalog/model/tool/image.php
 
 		-
@@ -5347,12 +4099,6 @@ parameters:
 			path: catalog/model/tool/online.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/tool/online.php
-
-		-
 			message: '#^Access to an undefined property ModelToolUpload\:\:\$db\.$#'
 			identifier: property.notFound
 			count: 6
@@ -5365,45 +4111,9 @@ parameters:
 			path: catalog/model/tool/upload.php
 
 		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: catalog/model/tool/upload.php
-
-		-
-			message: '#^Constant DIR_APPLICATION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: system/engine/Action.php
-
-		-
-			message: '#^Constant APPLICATION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: system/engine/Loader.php
-
-		-
-			message: '#^Constant DIR_APPLICATION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: system/engine/Loader.php
-
-		-
 			message: '#^Constant DIR_PUBLIC not found\.$#'
 			identifier: constant.notFound
 			count: 3
-			path: system/engine/Loader.php
-
-		-
-			message: '#^Constant DIR_SYSTEM not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: system/engine/Loader.php
-
-		-
-			message: '#^Constant DIR_TEMPLATE not found\.$#'
-			identifier: constant.notFound
-			count: 8
 			path: system/engine/Loader.php
 
 		-
@@ -5419,12 +4129,6 @@ parameters:
 			path: system/engine/registry.php
 
 		-
-			message: '#^Constant DIR_CONFIG not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: system/library/ConfigManager.php
-
-		-
 			message: '#^Call to an undefined method Copona\\System\\Library\\Extension\\ExtensionBase\:\:detail\(\)\.$#'
 			identifier: method.notFound
 			count: 2
@@ -5437,21 +4141,9 @@ parameters:
 			path: system/library/Extension/ExtensionCollection.php
 
 		-
-			message: '#^Constant APPLICATION not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: system/library/Extension/ExtensionManager.php
-
-		-
 			message: '#^Constant DIR_PUBLIC not found\.$#'
 			identifier: constant.notFound
 			count: 1
-			path: system/library/Extension/ExtensionManager.php
-
-		-
-			message: '#^Constant PATH_TEMPLATE not found\.$#'
-			identifier: constant.notFound
-			count: 2
 			path: system/library/Extension/ExtensionManager.php
 
 		-
@@ -5479,88 +4171,10 @@ parameters:
 			path: system/library/Template/Adapters/Twig.php
 
 		-
-			message: '#^Constant DIR_CACHE_PRIVATE not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: system/library/Template/Adapters/Twig.php
-
-		-
-			message: '#^Constant DIR_TEMPLATE not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: system/library/Template/Adapters/Twig.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 5
-			path: system/library/cart/affiliate.php
-
-		-
-			message: '#^Function utf8_strtolower not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: system/library/cart/affiliate.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 31
-			path: system/library/cart/cart.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: system/library/cart/currency.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 10
-			path: system/library/cart/customer.php
-
-		-
-			message: '#^Function utf8_strtolower not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: system/library/cart/customer.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: system/library/cart/length.php
-
-		-
 			message: '#^Access to an undefined property Cart\\Tax\:\:\$taxes\.$#'
 			identifier: property.notFound
 			count: 1
 			path: system/library/cart/tax.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 16
-			path: system/library/cart/tax.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 7
-			path: system/library/cart/user.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: system/library/cart/weight.php
-
-		-
-			message: '#^Constant DIR_CONFIG not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: system/library/config.php
 
 		-
 			message: '#^Access to an undefined property DB\\mPDO\:\:\$rowCount\.$#'
@@ -5635,12 +4249,6 @@ parameters:
 			path: system/library/db/postgre.php
 
 		-
-			message: '#^Constant DIR_IMAGE not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: system/library/image.php
-
-		-
 			message: '#^Variable \$from_x might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -5677,36 +4285,6 @@ parameters:
 			path: system/library/image.php
 
 		-
-			message: '#^Constant APPLICATION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: system/library/language.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: system/library/language.php
-
-		-
-			message: '#^Constant DIR_LANGUAGE not found\.$#'
-			identifier: constant.notFound
-			count: 6
-			path: system/library/language.php
-
-		-
-			message: '#^Constant DIR_TEMPLATE not found\.$#'
-			identifier: constant.notFound
-			count: 6
-			path: system/library/language.php
-
-		-
-			message: '#^Constant DIR_LOGS not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: system/library/log.php
-
-		-
 			message: '#^Caught class phpmailerException not found\.$#'
 			identifier: class.notFound
 			count: 1
@@ -5729,36 +4307,6 @@ parameters:
 			identifier: array.duplicateKey
 			count: 1
 			path: system/library/seourl.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 3
-			path: system/library/seourl.php
-
-		-
-			message: '#^Constant DB_PREFIX not found\.$#'
-			identifier: constant.notFound
-			count: 4
-			path: system/library/session/db.php
-
-		-
-			message: '#^Method Session\\File\:\:destroy\(\) should return bool but return statement is missing\.$#'
-			identifier: return.missing
-			count: 2
-			path: system/library/session/file.php
-
-		-
-			message: '#^Constant APPLICATION not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: system/library/url.php
-
-		-
-			message: '#^Constant BASE_URL_IMAGE not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: system/library/url.php
 
 		-
 			message: '#^Variable \$ex_link might not be defined\.$#'

@@ -243,10 +243,10 @@ has GitHub Actions in `.github/workflows/`:
     install --no-interaction` → `php -S` → `.github/scripts/smoke-test.php`,
     which fetches home, a category, a product, search, the cart and the admin login,
     failing on non-200 / fatal errors / missing or invalid JSON-LD.
-  - `PHPStan (advisory)`: `continue-on-error`, because the baseline has
-    pre-existing findings (`pr` function not found in a few catalog
-    controllers, a `DB_PREFIX` baseline count mismatch). These are artifacts
-    of runtime-defined globals, not regressions.
+  - `PHPStan (advisory)`: `continue-on-error` for now. Runtime-defined
+    globals (`DB_PREFIX`, `DIR_*`, `pr()`, `utf8_*`) are made visible to
+    PHPStan through `scanFiles` in `phpstan.neon`, not baseline entries.
+    Regenerate the baseline (`--generate-baseline`) only to drop fixed errors.
 - **`screenshots.yml`** (manual, or feature-branch pushes that touch the
   capture script): boots the demo store, captures `docs/screenshots/*.png`
   with Playwright (`.github/scripts/screenshots.cjs`) and commits them back.

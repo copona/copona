@@ -3,6 +3,12 @@ includes:
 
 parameters:
     level: 1
+    # Constants and helpers defined at runtime bootstrap, so PHPStan knows them.
+    scanFiles:
+        - system/startup.php
+        - system/constants.php
+        - system/framework.php
+        - system/helper/utf8.php
     paths:
         - catalog
         - system/engine
