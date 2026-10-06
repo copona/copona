@@ -22,9 +22,9 @@ class CacheClearCommand extends Command
      *
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return bool|int|null
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $driver = \Config::get('cache.driver', 'Files');
         $configs = \Config::get('cache.configs', []);
@@ -47,6 +47,6 @@ class CacheClearCommand extends Command
 
         $output->writeln('<info>Cache successfully clean.</info>');
 
-        return true;
+        return Command::SUCCESS;
     }
 }
