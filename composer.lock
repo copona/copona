@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c53391d503498f16ae4ec25921354624",
+    "content-hash": "b2d28951d8af68da9d5b5de7fc302445",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -617,16 +617,16 @@
         },
         {
             "name": "copona/core",
-            "version": "v0.3.0",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/copona/core.git",
-                "reference": "baa45d7242a0d4bfd60921b355ab5118ca6cff4a"
+                "reference": "d43d5de9a3a9b5e2812a20d4f0a5531a046b398b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/copona/core/zipball/baa45d7242a0d4bfd60921b355ab5118ca6cff4a",
-                "reference": "baa45d7242a0d4bfd60921b355ab5118ca6cff4a",
+                "url": "https://api.github.com/repos/copona/core/zipball/d43d5de9a3a9b5e2812a20d4f0a5531a046b398b",
+                "reference": "d43d5de9a3a9b5e2812a20d4f0a5531a046b398b",
                 "shasum": ""
             },
             "require": {
@@ -655,6 +655,7 @@
                     "Copona\\": "./src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -668,10 +669,10 @@
                 "opensource"
             ],
             "support": {
-                "source": "https://github.com/copona/core/tree/v0.3.0",
-                "issues": "https://github.com/copona/core/issues"
+                "issues": "https://github.com/copona/core/issues",
+                "source": "https://github.com/copona/core/tree/v0.3.1"
             },
-            "time": "2026-07-24T10:59:13+00:00"
+            "time": "2026-10-06T19:20:46+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

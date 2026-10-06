@@ -264,7 +264,7 @@ directly. It requires `copona/core` from Packagist (tagged releases of
 `github.com/copona/core`):
 
 ```json
-"require": { "copona/core": "^0.3.0" }
+"require": { "copona/core": "^0.3.1" }
 ```
 
 Don't add a `git@github.com:` VCS `repositories` entry back for core: it
