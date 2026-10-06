@@ -1,0 +1,114 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: PHP syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: none
+
+      - name: php -l on every PHP file and template
+        run: |
+          failed=0
+          while IFS= read -r -d '' file; do
+            if ! out=$(php -l "$file" 2>&1); then
+              echo "::error file=$file::$out"
+              failed=1
+            fi
+          done < <(git ls-files -z '*.php' '*.tpl')
+          exit $failed
+
+  smoke:
+    name: Install & smoke test
+    runs-on: ubuntu-latest
+    needs: lint
+
+    services:
+      mariadb:
+        image: mariadb:12.3.2
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MARIADB_DATABASE: copona
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=24
+
+    env:
+      DB_DRIVER: mysqli
+      DB_HOSTNAME: 127.0.0.1
+      DB_DATABASE: copona
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_PORT: 3306
+      DB_PREFIX: cp_
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: admin123
+      ADMIN_EMAIL: admin@example.com
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-store
+        env:
+          COMPOSER_AUTH: '{"github-oauth":{"github.com":"${{ secrets.GITHUB_TOKEN }}"}}'
+
+      - name: Smoke test
+        run: php .github/scripts/smoke-test.php http://127.0.0.1:8000
+
+      - name: Show logs on failure
+        if: failure()
+        run: |
+          echo '--- install.log'; cat install.log || true
+          echo '--- server.log'; tail -n 200 server.log || true
+          for f in storage/private/logs/*; do echo "--- $f"; tail -n 100 "$f"; done 2>/dev/null || true
+
+  phpstan:
+    name: PHPStan (advisory)
+    runs-on: ubuntu-latest
+    needs: lint
+    # Advisory until it has stayed green for a while; then drop
+    # continue-on-error so new findings block.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: gd, mysqli, mbstring, zip, intl
+          coverage: none
+          tools: composer:v2
+
+      - name: Fetch GitHub repositories over HTTPS
+        run: git config --global url."https://github.com/".insteadOf "git@github.com:"
+
+      - name: Composer install
+        run: composer install --no-interaction --no-progress --prefer-dist
+        env:
+          COMPOSER_AUTH: '{"github-oauth":{"github.com":"${{ secrets.GITHUB_TOKEN }}"}}'
+
+      - name: PHPStan
+        run: composer analyse -- --no-progress --memory-limit=1G --error-format=github

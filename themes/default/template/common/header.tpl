@@ -11,13 +11,22 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <?php $og_has_type = false; foreach ($ogmeta as $og) { if (strpos($og['name'], '"og:type"') !== false) { $og_has_type = true; } } ?>
+  <?php if (!$og_has_type) { ?>
   <meta property="og:type" content="website"/>
+  <?php } ?>
   <meta property="og:title" content="<?php echo $title; ?>">
   <meta property="og:description"
         content="<?= $description ? $description : '' ?>"><?php if ($class == 'common-home') { ?>
     <meta property="og:url" content="<?php echo $base; ?>">
     <?php }; ?>
   <meta property="og:site_name" content="<?php echo Config::get('config_name') ?>">
+    <?php foreach ($ogmeta as $og) { ?>
+      <meta <?php echo $og['name']; ?> content="<?php echo htmlspecialchars((string)$og['content'], ENT_QUOTES, 'UTF-8', false); ?>">
+    <?php } ?>
+    <?php foreach ($json_ld as $schema) { ?>
+      <script type="application/ld+json"><?php echo $schema; ?></script>
+    <?php } ?>
   <title><?php echo $title; ?></title>
   <base href="<?php echo $base; ?>"/>
     <?php if ($description) { ?>

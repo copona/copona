@@ -12,6 +12,7 @@ class Document
     private $theme_name;
     private $request;
     private $ogmetas = [];
+    private $json_ld = [];
 
     public function __construct()
     {
@@ -195,6 +196,48 @@ class Document
     }
     public function getOGMeta() {
         return $this->ogmetas;
+    }
+
+    /**
+     * Add a schema.org structured-data object, rendered in <head> as
+     * <script type="application/ld+json">.
+     */
+    public function addJsonLd(array $schema) {
+        if (!isset($schema['@context'])) {
+            $schema = ['@context' => 'https://schema.org'] + $schema;
+        }
+
+        $this->json_ld[] = $schema;
+    }
+
+    /**
+     * Add a schema.org BreadcrumbList from breadcrumbs in the usual
+     * [['text' => ..., 'href' => ...], ...] shape.
+     */
+    public function addBreadcrumbJsonLd(array $breadcrumbs) {
+        $list = [];
+
+        foreach (array_values($breadcrumbs) as $i => $crumb) {
+            $list[] = [
+                '@type'    => 'ListItem',
+                'position' => $i + 1,
+                'name'     => trim(strip_tags(html_entity_decode((string)$crumb['text'], ENT_QUOTES, 'UTF-8'))),
+                'item'     => html_entity_decode((string)$crumb['href'], ENT_QUOTES, 'UTF-8'),
+            ];
+        }
+
+        if ($list) {
+            $this->addJsonLd(['@type' => 'BreadcrumbList', 'itemListElement' => $list]);
+        }
+    }
+
+    /**
+     * @return string[] JSON strings, safe to print inside a <script> element.
+     */
+    public function getJsonLd() {
+        return array_map(function ($schema) {
+            return json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG);
+        }, $this->json_ld);
     }
 
 }

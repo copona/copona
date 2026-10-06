@@ -3,9 +3,9 @@
     <?php foreach ($banners as $banner) { ?>
       <div class="swiper-slide">
         <?php if ($banner['link']) { ?>
-          <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-fluid" /></a>
+          <a href="<?php echo $banner['link']; ?>"><img loading="lazy" decoding="async" src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-fluid" /></a>
         <?php } else { ?>
-          <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-fluid" />
+          <img loading="lazy" decoding="async" src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-fluid" />
         <?php } ?>
       </div>
     <?php } ?>

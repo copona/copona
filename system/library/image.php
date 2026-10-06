@@ -76,14 +76,28 @@ class Image {
         return $this->mime;
     }
 
-    public function save($file, $quality = 100) {
+    /**
+     * @param string   $file    Target path; the output format follows its extension.
+     * @param int|null $quality JPEG/WebP quality (0-100). Defaults to `config_image_quality`, or 85.
+     */
+    public function save($file, $quality = null) {
         $info = pathinfo($file);
 
         $extension = strtolower($info['extension']);
 
+        if ($quality === null) {
+            $quality = (int)Config::get('config_image_quality', 85);
+        }
+
         if ($this->image instanceof \GdImage || is_resource($this->image)) {
             if ($extension == 'jpeg' || $extension == 'jpg') {
                 imagejpeg($this->image, $file, $quality);
+            } elseif ($extension == 'webp') {
+                if (!imageistruecolor($this->image)) {
+                    imagepalettetotruecolor($this->image);
+                }
+                imagesavealpha($this->image, true);
+                imagewebp($this->image, $file, $quality);
             } elseif ($extension == 'png') {
                 imagepng($this->image, $file);
             } elseif ($extension == 'gif') {

@@ -25,11 +25,11 @@
             <?php if ($thumb || $images) { ?>
               <ul class="thumbnails">
                   <?php if ($thumb) { ?>
-                    <li><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+                    <li><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img fetchpriority="high" src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
                 <?php } ?>
                 <?php if ($images) { ?>
                     <?php foreach ($images as $image) { ?>
-                        <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $image['description']; ?>"> <img src="<?php echo $image['thumb']; ?>" title="title="<?php echo $image['description']; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+                        <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $image['description']; ?>"> <img loading="lazy" decoding="async" src="<?php echo $image['thumb']; ?>" title="<?php echo $image['description']; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
                     <?php } ?>
                 <?php } ?>
                 <?php
@@ -370,7 +370,7 @@
                   <?php } ?>
                 <div class="<?php echo $class; ?>">
                   <div class="product-thumb transition">
-                    <div class="image"><a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a></div>
+                    <div class="image"><a href="<?php echo $product['href']; ?>"><img loading="lazy" decoding="async" src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a></div>
                     <div class="caption">
                       <h4><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h4>
                       <p><?php echo $product['description']; ?></p>

@@ -1,11 +1,62 @@
 # Copona
 
-Copona is an open-source PHP digital e-commerce platform inspired by and based on OpenCart (http://www.opencart.com).
+[![CI](https://github.com/copona/copona/actions/workflows/ci.yml/badge.svg)](https://github.com/copona/copona/actions/workflows/ci.yml)
+![PHP 8.3+](https://img.shields.io/badge/PHP-8.3%2B-777bb4)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
-A good alternative to OpenCart, WooCommerce, and PrestaShop. Read our Wiki for more information on changes and advantages over competitors.
+**A modern, open-source PHP e-commerce platform.** Copona started as a fork of
+[OpenCart](https://www.opencart.com) and has been rebuilt on a current stack:
+if you like OpenCart's simplicity but not its age, this is for you.
 
-Copona is in development mode — please use it, test it, and post issues, bugs, or **feature requests** at https://github.com/Copona/copona/issues. Our team will be happy to assist!
+![Copona storefront](docs/screenshots/home.png)
 
+## Why Copona
+
+| | Copona | OpenCart 3 | WooCommerce |
+|---|---|---|---|
+| PHP | 8.3+ | 7.x–8.x | 7.4+ (via WordPress) |
+| Front-end | Bootstrap 5, Vite + SCSS build | Bootstrap 3 | theme-dependent |
+| Admin editor | Tiptap + CodeMirror source view | Summernote | Gutenberg |
+| Database layer | Laravel 12 Eloquent/Query Builder alongside the classic models | custom | WordPress `$wpdb` |
+| Migrations | Phinx | none (manual SQL) | plugin-specific |
+| SEO out of the box | JSON-LD (Product, Offer, Rating, Breadcrumbs, WebSite), Open Graph, canonical URLs, sitemap | basic meta | plugin needed |
+| Images | auto WebP thumbnails, lazy loading | JPEG/PNG only | plugin needed |
+| Install | `php copona install` or Docker | web wizard | WordPress + plugin |
+| Needs WordPress | no | no | yes |
+
+**Also included:** multi-store, multi-currency, guest checkout, coupons/vouchers/rewards,
+reviews, wishlist and compare, an admin bar on the storefront with one-click
+"edit this product/category/page" links, and two themes (`default` and `simplica`).
+
+## Screenshots
+
+| Category | Product | Mobile |
+|---|---|---|
+| ![Category](docs/screenshots/category.png) | ![Product](docs/screenshots/product.png) | ![Product on mobile](docs/screenshots/product-mobile.png) |
+
+![Admin dashboard](docs/screenshots/admin-dashboard.png)
+
+<sub>Screenshots are generated from the demo data by the
+[Screenshots workflow](.github/workflows/screenshots.yml).</sub>
+
+## Try the demo in 2 minutes
+
+You need Docker. This starts a store with 15 demo products (phones, laptops,
+audio, gaming…) in 11 categories:
+
+```bash
+git clone https://github.com/copona/copona.git && cd copona
+docker compose up -d --build
+sleep 15   # let MariaDB start
+docker exec -w /app copona-web-1 composer install --no-interaction
+docker exec -u application copona-web-1 php /app/copona install --no-interaction
+```
+
+- Storefront: http://localhost:8080
+- Admin: http://localhost:8080/admin (user `admin`, password `admin123`)
+
+Copona is under active development. Please try it and post issues, bugs, or
+**feature requests** at https://github.com/copona/copona/issues. We're happy to help!
 
 ## Requirements
 * MySQL >= 5.6
@@ -13,7 +64,7 @@ Copona is in development mode — please use it, test it, and post issues, bugs,
 * Composer [https://getcomposer.org/](https://getcomposer.org/)
 
 ## Get started
-`composer create-project copona/copona --stability=dev`
+`composer create-project copona/copona`
 
 `cd copona && php copona install`
 

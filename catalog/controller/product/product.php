@@ -472,6 +472,8 @@ class ControllerProductProduct extends Controller {
             $this->document->addOGMeta('property="product:price:amount"', $meta_price);
             $this->document->addOGMeta('property="product:price:currency"', $this->session->data['currency']);
 
+            $this->addProductJsonLd($product_info, $data, $meta_price, $bread_crumbs->getPath());
+
 
             $data['stock_quantity'] = $product_info['quantity'];
 
@@ -763,6 +765,80 @@ class ControllerProductProduct extends Controller {
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
+    }
+
+    /**
+     * schema.org Product + BreadcrumbList structured data, so search engines can
+     * show price, availability and rating in results.
+     */
+    private function addProductJsonLd(array $product_info, array $data, $price, $breadcrumbs) {
+        $decode = function ($text) {
+            return trim(html_entity_decode((string)$text, ENT_QUOTES, 'UTF-8'));
+        };
+
+        $url = $decode($this->url->link('product/product', 'product_id=' . (int)$product_info['product_id']));
+
+        $product = [
+            '@type' => 'Product',
+            'name'  => $decode($product_info['name']),
+            'url'   => $url,
+        ];
+
+        $description = utf8_substr(trim(preg_replace('/\s+/u', ' ', strip_tags($data['description']))), 0, 5000);
+        if ($description !== '') {
+            $product['description'] = $description;
+        }
+
+        $images = array_merge([$data['image']], array_column($data['images'], 'image'));
+        $images = array_values(array_unique(array_filter($images)));
+        if ($images) {
+            $product['image'] = $images;
+        }
+
+        if ((string)$product_info['sku'] !== '') {
+            $product['sku'] = $product_info['sku'];
+        }
+
+        if ((string)$product_info['mpn'] !== '') {
+            $product['mpn'] = $product_info['mpn'];
+        }
+
+        if (preg_match('/^\d{8}$|^\d{12,14}$/', (string)$product_info['ean'])) {
+            $product['gtin'] = $product_info['ean'];
+        }
+
+        if (!empty($product_info['manufacturer'])) {
+            $product['brand'] = ['@type' => 'Brand', 'name' => $decode($product_info['manufacturer'])];
+        }
+
+        // Only advertise a price when the store actually shows one to this visitor.
+        if ($data['price'] !== false) {
+            $product['offers'] = [
+                '@type'         => 'Offer',
+                'url'           => $url,
+                'price'         => $price,
+                'priceCurrency' => $this->session->data['currency'],
+                'availability'  => $product_info['quantity'] > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+                'itemCondition' => 'https://schema.org/NewCondition',
+            ];
+        }
+
+        if ($this->config->get('config_review_status') && (int)$product_info['reviews'] > 0 && (int)$product_info['rating'] > 0) {
+            $product['aggregateRating'] = [
+                '@type'       => 'AggregateRating',
+                'ratingValue' => (int)$product_info['rating'],
+                'reviewCount' => (int)$product_info['reviews'],
+                'bestRating'  => 5,
+                'worstRating' => 1,
+            ];
+        }
+
+        $this->document->addJsonLd($product);
+
+        $breadcrumbs = $breadcrumbs ?: [['text' => $this->language->get('text_home'), 'href' => $this->url->link('common/home')]];
+        $breadcrumbs[] = ['text' => $product_info['name'], 'href' => $url];
+
+        $this->document->addBreadcrumbJsonLd($breadcrumbs);
     }
 
     public function getRecurringDescription() {

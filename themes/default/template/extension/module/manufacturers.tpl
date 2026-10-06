@@ -4,9 +4,9 @@
       if (!$banner['image']) continue; ?>
       <div class="swiper-slide text-center">
         <?php if ($banner['href']) { ?>
-          <a href="<?php echo $banner['href']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['name']; ?>" class="img-fluid"/></a>
+          <a href="<?php echo $banner['href']; ?>"><img loading="lazy" decoding="async" src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['name']; ?>" class="img-fluid"/></a>
         <?php } else { ?>
-          <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['name']; ?>" class="img-fluid"/>
+          <img loading="lazy" decoding="async" src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['name']; ?>" class="img-fluid"/>
         <?php } ?>
       </div>
     <?php } ?>
