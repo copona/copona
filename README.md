@@ -13,7 +13,7 @@ Copona is in development mode — please use it, test it, and post issues, bugs,
 * Composer [https://getcomposer.org/](https://getcomposer.org/)
 
 ## Get started
-`composer create-project copona/copona --stability=dev`
+`composer create-project copona/copona`
 
 `cd copona && php copona install`
 
