@@ -2,7 +2,9 @@
 
 
 
-if (PHP_SAPI !== 'cli') {
+// Block direct web requests to this file, but not the web installer, which
+// includes it to run migrations (install/controller/install/step_3.php).
+if (PHP_SAPI !== 'cli' && realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === __FILE__) {
     http_response_code(403);
     exit('Forbidden');
 }

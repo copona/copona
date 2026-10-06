@@ -86,7 +86,7 @@ docker exec -u application copona-web-1 php /app/copona install --no-interaction
 
 ## Install Internals
 
-**`install/model/install/install.php` and `vendor/copona/core/src/Classes/Install.php`**
+**`src/Classes/Install.php`** (shared by the CLI `php copona install` and the web installer's `install/controller/install/step_3.php`)
 
 The `database()` method loads `migrations/structure.sql` and replaces `oc_` prefix with the configured prefix. It only replaces these four patterns:
 
@@ -251,8 +251,7 @@ has GitHub Actions in `.github/workflows/`:
   capture script): boots the demo store, captures `docs/screenshots/*.png`
   with Playwright (`.github/scripts/screenshots.cjs`) and commits them back.
 - Shared store setup lives in the composite action
-  `.github/actions/setup-store`. `composer.json` references `copona/core` via
-  `git@github.com:`, so CI rewrites it to HTTPS with `url.insteadOf`.
+  `.github/actions/setup-store`.
 
 Local static analysis: `composer analyse` (phpstan), `composer cs-check`,
 `composer cs-fix`.
@@ -282,49 +281,30 @@ admin login → dashboard round trip (session/auth + DB writes).
 
 ---
 
-## laravel/framework Is Not a Direct Dependency — It's Transitive via copona/core
+## Core Lives in `src/` (merged back from copona/core, 2026-10)
 
-`copona/copona`'s `composer.json` does **not** require `laravel/framework`
-directly. It requires `copona/core` from Packagist (tagged releases of
-`github.com/copona/core`):
+The former `copona/core` package (installer, CLI, Phinx wrappers, cache
+manager, Eloquent adapter, class loader) is now in this repo under `src/`,
+autoloaded as `Copona\` → `./src/`. It was imported with `git subtree`, so
+`git log -- src/` keeps its history. The `copona/core` repo and Packagist
+package are no longer used; don't re-add them as a dependency.
 
-```json
-"require": { "copona/core": "^0.3.1" }
-```
+- `php copona <command>` is the CLI entry point (`src/Cli/LoadCommands.php`
+  registers everything in `src/Cli/Commands/`). `Util::load_cp()` resolves
+  the project root as `src/Helpers/../../`.
+- All of core's runtime dependencies (`laravel/framework`, `robmorgan/phinx`,
+  `phpfastcache`, `symfony/console`, …) are direct requirements in this
+  repo's `composer.json`, so Dependabot and security updates can patch them
+  here. `braintree/braintree_php` was dropped (no code used it).
+- `phinx.php` refuses direct web requests but must stay includable from the
+  web installer, which runs migrations through it.
 
-Don't add a `git@github.com:` VCS `repositories` entry back for core: it
-makes `composer install` fail for anyone without GitHub SSH keys. If a
-`dev-<branch>` of core is needed temporarily, use the HTTPS URL
-(`https://github.com/copona/core.git`) and drop it once the tag is out.
-
-`copona/core` is where `laravel/framework` actually lives (used for the
-`Illuminate\Database` Capsule/Eloquent adapter — see
-`src/Database/Adapters/Eloquent.php` and `src/Database/OrmModel.php`, the
-*only* two files in that package touching the `Illuminate` namespace).
-
-**Why Dependabot can't auto-fix Laravel advisories in this repo**: the
-version constraint Dependabot would need to edit lives in a different
-repo's `composer.json`. GitHub's dependency graph still flags the
-vulnerable version here (because `composer.lock` records it), but there's
-no manifest in *this* repo for a bot to patch. The fix always has to be a
-manual PR against `copona/core`, followed by a version bump here.
-
-**Laravel version history in copona/core** (`composer.json` → `require` →
-`laravel/framework`): 5.6 → 5.8 → 6.20 → 9.0 → 10.48 (CVE-2025-27515) →
-12.0 (2026-07, Laravel 10 hit EOL for security support Feb 2025 with
-10.50.2 already the newest 10.x patch — no further 10.x fix existed, so
-the only real remediation was a major-version jump).
-
-**When bumping laravel/framework in copona/core again**, watch for:
+**When bumping laravel/framework again**, watch for:
 - `phpfastcache/phpfastcache` — 8.x pins `psr/simple-cache ~1.0`, which
   conflicts with `robmorgan/phinx`'s `cakephp/datasource` (`^2.0||^3.0`).
   Needs `phpfastcache` `^9.0`+ alongside any Laravel version requiring
   newer `symfony/console`.
-- `symfony/finder`, `symfony/console`, `symfony/css-selector` are also
-  required directly by `copona/core` (not just pulled in via Laravel) —
-  their constraint has to be widened to match whatever `symfony/console`
-  version the new Laravel release requires.
-- Prefer pinning `copona/copona`'s `composer.json` to a tagged `copona/core`
-  release (e.g. `^0.3.0`) rather than `dev-<branch>` — dev-branch refs can
-  be deleted or rewritten after merge, and there's no reason to stay on one
-  once the branch's PR has landed and been tagged.
+- `symfony/finder` and `symfony/console` are required directly; widen their
+  constraints to match whatever `symfony/console` the new Laravel requires.
+- Laravel version history: 5.6 → 5.8 → 6.20 → 9.0 → 10.48 (CVE-2025-27515)
+  → 12.0 (2026-07; Laravel 10 was EOL with no further 10.x fix).

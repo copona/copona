@@ -12,11 +12,22 @@
   "license": "GPL-3.0-or-later",
   "require": {
     "php": ">=8.3",
-    "copona/core": "^0.3.1",
+    "copona/composer-installers": "^0.3",
+    "divido/divido-php": ">=1.1.1",
+    "filp/whoops": "^2.1",
+    "hassankhan/config": "^3.0",
+    "laravel/framework": "^12.0",
+    "phpfastcache/phpfastcache": "^9.0",
+    "phpmailer/phpmailer": "^6.1.6",
+    "prhost/composer-vendor-merge": "^0.1",
+    "robmorgan/phinx": "^0.12 || ^0.16",
+    "symfony/console": "^7.2",
+    "symfony/finder": "^7.2",
     "twig/twig": "^3.26"
   },
   "autoload": {
     "psr-4": {
+      "Copona\\": "./src/",
       "Copona\\Model\\": "./Model/",
 
       "Copona\\Catalog\\": "./catalog/",

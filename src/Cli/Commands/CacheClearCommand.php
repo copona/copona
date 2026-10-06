@@ -27,8 +27,9 @@ class CacheClearCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $driver = \Config::get('cache.driver', 'Files');
-        $configs = \Config::get('cache.configs', []);
-        $cache = new \Copona\Cache\CacheManager($driver, $configs);
+        // Same as system/framework.php: phpfastcache 9 only accepts a config
+        // object here, not the cache.configs array.
+        $cache = new \Copona\Cache\CacheManager($driver, null);
         $cache->flush();
 
         $paths = [];

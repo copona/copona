@@ -2,6 +2,17 @@
 
 ## 0.3.0 — unreleased
 
+### Core merged back
+
+- `copona/core` now lives in this repository under `src/` (history kept via
+  `git subtree`), so core fixes no longer need a separate tag and lock bump.
+  Its dependencies are required directly; the unused `braintree/braintree_php`
+  was dropped.
+- The web installer and `php copona install` share one installer
+  (`src/Classes/Install.php`). The web installer now runs Phinx migrations
+  again (`phinx.php` had been refusing them with a 403), and
+  `php copona cache:clear` no longer crashes.
+
 ### Security
 
 - **Laravel 12.** `copona/core` is now on its tagged `v0.3.0` release, which moves

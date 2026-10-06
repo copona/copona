@@ -14,11 +14,6 @@ runs:
         coverage: none
         tools: composer:v2
 
-    # composer.json points copona/core at an SSH URL; runners have no SSH key.
-    - name: Fetch GitHub repositories over HTTPS
-      shell: bash
-      run: git config --global url."https://github.com/".insteadOf "git@github.com:"
-
     - name: Cache Composer downloads
       uses: actions/cache@v4
       with:

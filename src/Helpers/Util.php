@@ -7,7 +7,7 @@ class Util
 {
     public static function load_cp()
     {
-        define('DIR_PUBLIC', realpath(__DIR__ . '/../../../../../'));
+        define('DIR_PUBLIC', realpath(__DIR__ . '/../../'));
         define('APPLICATION', 'core');
 
         require_once(DIR_PUBLIC . '/system/startup.php');
@@ -21,7 +21,7 @@ class Util
     public static function pathRoot()
     {
         if (!defined('DIR_PUBLIC')) {
-            define('DIR_PUBLIC', realpath(__DIR__ . '/../../../../../'));
+            define('DIR_PUBLIC', realpath(__DIR__ . '/../../'));
         }
 
         return DIR_PUBLIC . '/';
