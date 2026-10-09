@@ -14,6 +14,7 @@ return [
             'startup/event',
             'startup/sass',
             'startup/login',
+            'startup/demo',
             'startup/permission'
         ],
 

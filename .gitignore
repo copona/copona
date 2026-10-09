@@ -147,3 +147,7 @@ error_log
 /catalog/language/.gitignore
 themes/default/assets/css/_catalog-unused
 .php-cs-fixer.cache
+
+# Public demo deploy secrets and snapshot
+deploy/demo/demo.env
+deploy/demo/snapshot.sql

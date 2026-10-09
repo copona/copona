@@ -78,11 +78,24 @@ jobs:
       - name: Smoke test
         run: php .github/scripts/smoke-test.php http://127.0.0.1:8000
 
+      - name: Demo mode check
+        env:
+          DEMO_ADMIN_USERNAME: admin
+          DEMO_ADMIN_PASSWORD: admin123
+        run: |
+          # The store reads its settings from .env (as deploy/demo/demo.sh does).
+          printf '\nDEMO_MODE=true\nDEMO_ADMIN_USERNAME=%s\nDEMO_ADMIN_PASSWORD=%s\n' "$DEMO_ADMIN_USERNAME" "$DEMO_ADMIN_PASSWORD" >> .env
+          pkill -f 'php -d display_errors=1' || true
+          php -d display_errors=1 -d error_reporting=E_ALL -S 127.0.0.1:8001 -t . > server-demo.log 2>&1 &
+          for i in $(seq 1 20); do curl -s -o /dev/null http://127.0.0.1:8001/ && break; sleep 0.5; done
+          .github/scripts/demo-mode-test.sh http://127.0.0.1:8001
+
       - name: Show logs on failure
         if: failure()
         run: |
           echo '--- install.log'; cat install.log || true
           echo '--- server.log'; tail -n 200 server.log || true
+          echo '--- server-demo.log'; tail -n 200 server-demo.log || true
           for f in storage/private/logs/*; do echo "--- $f"; tail -n 100 "$f"; done 2>/dev/null || true
 
   phpstan:

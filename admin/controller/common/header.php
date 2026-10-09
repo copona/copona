@@ -126,6 +126,21 @@ class ControllerCommonHeader extends Controller {
             }
         }
 
+        $data['demo_text'] = '';
+        $data['demo_warning'] = '';
+
+        if ($this->config->get('demo.mode')) {
+            $this->load->language('common/demo');
+
+            $data['demo_text'] = sprintf($this->language->get('text_demo'), $this->config->get('demo.reset_interval'));
+
+            if (isset($this->session->data['demo_warning'])) {
+                $data['demo_warning'] = $this->session->data['demo_warning'];
+
+                unset($this->session->data['demo_warning']);
+            }
+        }
+
         return $this->load->view('common/header', $data);
     }
 

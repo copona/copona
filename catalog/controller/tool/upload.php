@@ -6,6 +6,16 @@ class ControllerToolUpload extends Controller {
 
         $json = array();
 
+        if ($this->config->get('demo.mode')) {
+            $this->load->language('common/demo');
+
+            $json['error'] = $this->language->get('error_demo');
+
+            $this->response->addHeader('Content-Type: application/json');
+            $this->response->setOutput(json_encode($json));
+            return;
+        }
+
         if (!empty($this->request->files['file']['name']) && is_file($this->request->files['file']['tmp_name'])) {
             // Sanitize the filename
             $filename = basename(preg_replace('/[^a-zA-Z0-9\.\-\s+]/', '', html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8')));

@@ -214,6 +214,14 @@ class ControllerCommonHeader extends Controller {
             }
         }
 
+        $data['demo_text'] = '';
+
+        if ($this->config->get('demo.mode')) {
+            $this->load->language('common/demo');
+
+            $data['demo_text'] = sprintf($this->language->get('text_demo'), $this->config->get('demo.reset_interval'));
+        }
+
         $this->hook->getHook('header/index/after', $data);
 
         return $this->load->view('common/header', $data);

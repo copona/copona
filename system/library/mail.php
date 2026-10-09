@@ -85,6 +85,11 @@ class Mail {
             throw new \Exception('Error: E-Mail message required!');
         }
 
+        // Demo mode: never send e-mail from a public demo store
+        if (\Config::get('demo.mode')) {
+            return true;
+        }
+
         if (is_array($this->to)) {
             $to = implode(',', $this->to);
         } else {
