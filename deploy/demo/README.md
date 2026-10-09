@@ -44,6 +44,14 @@ make the changes in the admin, run `./demo.sh snapshot`, and set it back.
    git clone https://github.com/copona/copona.git && cd copona/deploy/demo
    ```
 
+**Shortcut:** under *Show advanced options → Management*, choose "Paste
+cloud-init script" and paste [`cloud-init.sh`](cloud-init.sh). The VM then
+installs Docker and the store on first boot (with a random database password)
+and sets up the hourly reset, so steps 3 and 4 below are done for you;
+`/var/log/copona-demo-setup.log` shows progress. Only the tunnel token is
+left: add it to `/home/ubuntu/copona/deploy/demo/demo.env` and run
+`./demo.sh tunnel`.
+
 Oracle can reclaim Always Free instances that stay almost idle for 7 days;
 a public demo with an hourly reset normally stays above that threshold.
 
@@ -65,8 +73,10 @@ cp demo.env.example demo.env
 ./demo.sh install
 ```
 
-`install` builds the image, starts MariaDB, the store and the tunnel, runs the
-installer, turns on HTTPS links, and saves `snapshot.sql` as the clean state.
+`install` builds the image, starts MariaDB and the store, runs the installer,
+turns on HTTPS links, saves `snapshot.sql` as the clean state, and starts the
+tunnel if `TUNNEL_TOKEN` is set. Set or change the token later with
+`./demo.sh tunnel`.
 
 ### 4. Hourly reset
 

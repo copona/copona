@@ -4,6 +4,7 @@
 #   ./demo.sh install    first start: build, install the store, take a snapshot
 #   ./demo.sh reset      restore the database from the snapshot (run hourly from cron)
 #   ./demo.sh snapshot   save the current database as the new clean state
+#   ./demo.sh tunnel     (re)start the Cloudflare Tunnel after setting TUNNEL_TOKEN
 set -euo pipefail
 
 cd "$(dirname "$0")"
@@ -39,8 +40,13 @@ reset() {
     echo "Demo reset at $(date -u +%FT%TZ)"
 }
 
+tunnel() {
+    [ -n "${TUNNEL_TOKEN:-}" ] || { echo "Set TUNNEL_TOKEN in demo.env first" >&2; exit 1; }
+    compose up -d --force-recreate cloudflared
+}
+
 install() {
-    compose up -d --build
+    compose up -d --build db web
     wait_for_db
     compose exec -T -w /app web composer install --no-interaction --no-dev --optimize-autoloader
     compose exec -T -u application web php /app/copona install --no-interaction
@@ -60,6 +66,7 @@ install() {
     db copona -e "UPDATE cp_setting SET value = '1' WHERE \`key\` = 'config_secure'"
 
     snapshot
+    if [ -n "${TUNNEL_TOKEN:-}" ]; then tunnel; fi
     echo "Demo store installed. Add the hourly reset to cron, see README.md."
 }
 
@@ -67,5 +74,6 @@ case "${1:-}" in
     install)  install ;;
     reset)    reset ;;
     snapshot) snapshot ;;
-    *) echo "Usage: $0 install|reset|snapshot" >&2; exit 1 ;;
+    tunnel)   tunnel ;;
+    *) echo "Usage: $0 install|reset|snapshot|tunnel" >&2; exit 1 ;;
 esac
