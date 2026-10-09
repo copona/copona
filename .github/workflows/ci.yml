@@ -80,10 +80,11 @@ jobs:
 
       - name: Demo mode check
         env:
-          DEMO_MODE: 'true'
           DEMO_ADMIN_USERNAME: admin
           DEMO_ADMIN_PASSWORD: admin123
         run: |
+          # The store reads its settings from .env (as deploy/demo/demo.sh does).
+          printf '\nDEMO_MODE=true\nDEMO_ADMIN_USERNAME=%s\nDEMO_ADMIN_PASSWORD=%s\n' "$DEMO_ADMIN_USERNAME" "$DEMO_ADMIN_PASSWORD" >> .env
           pkill -f 'php -d display_errors=1' || true
           php -d display_errors=1 -d error_reporting=E_ALL -S 127.0.0.1:8001 -t . > server-demo.log 2>&1 &
           for i in $(seq 1 20); do curl -s -o /dev/null http://127.0.0.1:8001/ && break; sleep 0.5; done

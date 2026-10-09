@@ -6,7 +6,7 @@ from a clean snapshot every hour.
 
 ## What demo mode does
 
-`DEMO_MODE=true` (set by `docker-compose.yml`, see `config/demo.php`):
+`DEMO_MODE=true` in the repo's `.env` (`demo.sh install` adds it; see `config/demo.php`):
 
 - **Admin is read-only.** Every admin POST except the login form is refused,
   and the `modify` permission is denied for everyone, so saves, deletes,

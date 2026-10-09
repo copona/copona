@@ -45,8 +45,7 @@ install() {
     compose exec -T -w /app web composer install --no-interaction --no-dev --optimize-autoloader
     compose exec -T -u application web php /app/copona install --no-interaction
 
-    # Make sure PHP sees demo mode even if the web server doesn't pass the
-    # container environment through to PHP.
+    # The store reads its settings from .env, not the container environment.
     if ! grep -q '^DEMO_MODE=' ../../.env; then
         {
             echo

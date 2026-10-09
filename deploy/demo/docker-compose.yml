@@ -30,7 +30,6 @@ services:
       DB_USERNAME: root
       DB_PORT: 3306
       DB_PREFIX: cp_
-      DEMO_MODE: "true"
     volumes:
       - ../..:/app
     ports:
