@@ -308,3 +308,17 @@ package are no longer used; don't re-add them as a dependency.
   constraints to match whatever `symfony/console` the new Laravel requires.
 - Laravel version history: 5.6 → 5.8 → 6.20 → 9.0 → 10.48 (CVE-2025-27515)
   → 12.0 (2026-07; Laravel 10 was EOL with no further 10.x fix).
+
+---
+
+## Public Demo Mode
+
+`DEMO_MODE=true` (`config/demo.php`) makes the admin read-only for a public
+demo: `admin/controller/startup/demo.php` refuses every admin POST except the
+login form, and `Cart\User::hasPermission('modify', …)` returns false. It also
+stops `Mail::send()`, refuses catalog `tool/upload`, pre-fills the admin login
+from `DEMO_ADMIN_USERNAME`/`DEMO_ADMIN_PASSWORD`, and shows a banner in both
+themes and the admin. CI runs `.github/scripts/demo-mode-test.sh` against it.
+
+Hosting (Oracle Always Free VM + Cloudflare Tunnel + hourly snapshot restore)
+lives in `deploy/demo/` (`demo.sh install|reset|snapshot`, README there).

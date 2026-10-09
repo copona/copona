@@ -1,0 +1,48 @@
+# Public demo store: see README.md in this folder.
+#
+#   cp demo.env.example demo.env   # then fill in the passwords and tunnel token
+#   ./demo.sh install
+#
+# Nothing is published on a public port: the web container listens on
+# 127.0.0.1 only and visitors arrive through the Cloudflare Tunnel.
+name: copona-demo
+
+services:
+  db:
+    image: mariadb:12.3.2
+    restart: unless-stopped
+    env_file: demo.env
+    environment:
+      MARIADB_DATABASE: copona
+    volumes:
+      - db:/var/lib/mysql
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    env_file: demo.env
+    environment:
+      DB_DRIVER: mysqli
+      DB_HOSTNAME: db
+      DB_DATABASE: copona
+      DB_USERNAME: root
+      DB_PORT: 3306
+      DB_PREFIX: cp_
+      DEMO_MODE: "true"
+    volumes:
+      - ../..:/app
+    ports:
+      - "127.0.0.1:8080:80"
+
+  cloudflared:
+    image: cloudflare/cloudflared:2026.9.3
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    env_file: demo.env
+    depends_on:
+      - web
+
+volumes:
+  db:

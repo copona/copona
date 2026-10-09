@@ -37,6 +37,12 @@
     <?php } ?>
   </head>
   <body>
+  <?php if (!empty($demo_text)) { ?>
+  <div id="copona-demo-bar" style="background:#fff3cd;color:#664d03;border-bottom:1px solid #ffe69c;padding:6px 16px;font-size:13px;text-align:center;"><?php echo $demo_text; ?></div>
+  <?php } ?>
+  <?php if (!empty($demo_warning)) { ?>
+  <div class="alert alert-warning" style="margin:0;border-radius:0;text-align:center;"><i class="fa fa-lock"></i> <?php echo $demo_warning; ?></div>
+  <?php } ?>
 
   <div id="container">
       <header id="header" class="navbar">

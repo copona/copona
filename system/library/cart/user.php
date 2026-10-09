@@ -91,6 +91,11 @@ class User {
     }
 
     public function hasPermission($key, $value) {
+        // Demo mode: the admin is read-only for everyone
+        if ($key == 'modify' && \Config::get('demo.mode')) {
+            return false;
+        }
+
         if (isset($this->permission[$key])) {
             return in_array($value, $this->permission[$key]);
         } elseif ($this->session->data['user_id'] == 1) {

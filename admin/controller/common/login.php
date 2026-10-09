@@ -63,12 +63,16 @@ class ControllerCommonLogin extends Controller {
 
         if (isset($this->request->post['username'])) {
             $data['username'] = $this->request->post['username'];
+        } elseif ($this->config->get('demo.mode')) {
+            $data['username'] = $this->config->get('demo.admin_username');
         } else {
             $data['username'] = '';
         }
 
         if (isset($this->request->post['password'])) {
             $data['password'] = $this->request->post['password'];
+        } elseif ($this->config->get('demo.mode')) {
+            $data['password'] = $this->config->get('demo.admin_password');
         } else {
             $data['password'] = '';
         }
@@ -90,7 +94,7 @@ class ControllerCommonLogin extends Controller {
             $data['redirect'] = '';
         }
 
-        if ($this->config->get('config_password')) {
+        if ($this->config->get('config_password') && !$this->config->get('demo.mode')) {
             $data['forgotten'] = $this->url->link('common/forgotten', '', true);
         } else {
             $data['forgotten'] = '';
