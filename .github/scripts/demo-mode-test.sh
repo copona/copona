@@ -9,8 +9,12 @@ base="${1%/}"
 jar="$(mktemp)"
 trap 'rm -f "$jar"' EXIT
 fail() { echo "FAIL: $*" >&2; exit 1; }
+# Fetch a page into a variable first: piping curl into `grep -q` under
+# pipefail fails whenever grep exits before curl has written everything.
+page() { curl -fsS -b "$jar" "$1"; }
 
-curl -fsS "$base/" | grep -q 'copona-demo-bar' || fail 'catalog demo banner missing'
+home="$(page "$base/")"
+grep -q 'copona-demo-bar' <<<"$home" || fail 'catalog demo banner missing'
 echo 'ok   catalog banner'
 
 login_page="$(curl -fsS -c "$jar" "$base/admin/index.php?route=common/login")"
@@ -24,7 +28,8 @@ token="$(sed -n 's/.*token=\([A-Za-z0-9]*\).*/\1/p' <<<"$location")"
 [ -n "$token" ] || fail "admin login did not redirect with a token (got '$location')"
 echo 'ok   admin login'
 
-curl -fsS -b "$jar" "$base/admin/index.php?route=common/dashboard&token=$token" | grep -q 'copona-demo-bar' || fail 'admin demo banner missing'
+dashboard="$(page "$base/admin/index.php?route=common/dashboard&token=$token")"
+grep -q 'copona-demo-bar' <<<"$dashboard" || fail 'admin demo banner missing'
 echo 'ok   admin banner'
 
 before="$(mysql -h "$DB_HOSTNAME" -u"$DB_USERNAME" -p"$DB_PASSWORD" "$DB_DATABASE" -N -e "SELECT name FROM ${DB_PREFIX}product_description WHERE product_id = (SELECT MIN(product_id) FROM ${DB_PREFIX}product) LIMIT 1")"
@@ -44,5 +49,6 @@ after="$(mysql -h "$DB_HOSTNAME" -u"$DB_USERNAME" -p"$DB_PASSWORD" "$DB_DATABASE
 [ -n "$after" ] && [ "$after" = "$before" ] || fail "product $product_id changed or was deleted"
 echo 'ok   admin writes refused'
 
-curl -fsS -b "$jar" "$base/admin/index.php?route=catalog/product&token=$token" | grep -q 'disabled in the demo' || fail 'refusal message not shown after redirect'
+products="$(page "$base/admin/index.php?route=catalog/product&token=$token")"
+grep -q 'disabled in the demo' <<<"$products" || fail 'refusal message not shown after redirect'
 echo 'ok   refusal message shown'
