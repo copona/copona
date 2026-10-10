@@ -17,10 +17,10 @@
     <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
     <link href="view/stylesheet/bootstrap.css" type="text/css" rel="stylesheet" />
     <link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-    <link href="view/javascript/dist/copona-admin.css" type="text/css" rel="stylesheet" />
-    <script src="view/javascript/dist/editor.bundle.js"></script>
-    <link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="screen" />
-    <link type="text/css" href="view/stylesheet/bs3-compat.css" rel="stylesheet" media="screen" />
+    <link href="view/javascript/dist/copona-admin.css?v=<?php echo $asset_v; ?>" type="text/css" rel="stylesheet" />
+    <script src="view/javascript/dist/editor.bundle.js?v=<?php echo $asset_v; ?>"></script>
+    <link type="text/css" href="view/stylesheet/stylesheet.css?v=<?php echo $asset_v; ?>" rel="stylesheet" media="screen" />
+    <link type="text/css" href="view/stylesheet/bs3-compat.css?v=<?php echo $asset_v; ?>" rel="stylesheet" media="screen" />
     <link type="text/css" href="view/stylesheet/flatpickr.min.css" rel="stylesheet" media="screen" />
     <script src="view/javascript/flatpickr/flatpickr.min.js"></script>
     <script src="view/javascript/flatpickr/datetimepicker-shim.js"></script>
@@ -31,7 +31,7 @@
     <?php foreach ($links as $link) { ?>
         <link href="<?php echo $link['href']; ?>" rel="<?php echo $link['rel']; ?>" />
     <?php } ?>
-    <script src="view/javascript/common.js" type="text/javascript"></script>
+    <script src="view/javascript/common.js?v=<?php echo $asset_v; ?>" type="text/javascript"></script>
     <?php foreach ($scripts as $script) { ?>
         <script type="text/javascript" src="<?php echo $script; ?>"></script>
     <?php } ?>
@@ -50,7 +50,7 @@
             <?php if ($logged) { ?>
               <a type="button" id="button-menu" class="float-start"><i class="fa fa-indent fa-lg"></i></a>
           <?php } ?>
-          <a href="<?php echo $home; ?>" class="navbar-brand"><span class="hidden-xs"><img src="view/image/logo.png" height="30" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>" /></span><span class="hidden-lg hidden-md hidden-sm"><i class="fa fa-shopping-cart"></i></span></a></div>
+          <a href="<?php echo $home; ?>" class="navbar-brand"><span class="hidden-xs"><img src="view/image/logo.png?v=<?php echo $asset_v; ?>" height="30" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>" /></span><span class="hidden-lg hidden-md hidden-sm"><i class="fa fa-shopping-cart"></i></span></a></div>
         <?php if ($logged) { ?>
             <ul class="nav float-end">
                 <li>
