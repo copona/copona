@@ -108,6 +108,11 @@ span.d-none, span.d-sm-block, span.d-md-block, span.d-lg-block {
 	float: left;
 }
 }
+#header .navbar-brand {
+	display: inline-block;
+	padding: 10px 15px;
+	margin: 0;
+}
 #header #button-menu + .navbar-brand {
 	padding: 10px 10px 10px 10px;
 	margin-right: 10px;

@@ -180,3 +180,23 @@ li.divider { height: 0; margin: 0.5rem 0; overflow: hidden; border-top: 1px soli
     color: #6c757d;
     content: "/\00a0";
 }
+
+/* BS3 .input-group-addon (used by 40+ admin templates) styled as BS5 .input-group-text */
+.input-group > .input-group-addon {
+    display: flex; align-items: center; padding: .375rem .75rem;
+    font-size: 1rem; line-height: 1.5; color: var(--bs-body-color); text-align: center; white-space: nowrap;
+    background-color: var(--bs-tertiary-bg); border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+}
+.input-group > .input-group-addon:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.input-group > .input-group-addon:last-child { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.input-group > .input-group-addon + .form-control { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.input-group > .form-control:has(+ .input-group-addon) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+
+/* BS3 column offsets */
+@media (min-width: 576px) {
+    .col-sm-offset-2 { margin-left: 16.666667%; } .col-sm-offset-3 { margin-left: 25%; } .col-sm-offset-4 { margin-left: 33.333333%; }
+}
+@media (min-width: 768px) {
+    .col-md-offset-2 { margin-left: 16.666667%; } .col-md-offset-3 { margin-left: 25%; } .col-md-offset-4 { margin-left: 33.333333%; }
+}
