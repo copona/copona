@@ -23,7 +23,7 @@ class ControllerStartupDemo extends Controller {
 
         if (!empty($this->request->server['HTTP_X_REQUESTED_WITH']) && strtolower($this->request->server['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
             $this->response->addHeader('Content-Type: application/json');
-            $this->response->setOutput(json_encode(array('error' => array('warning' => $message), 'warning' => $message)));
+            $this->response->setOutput(json_encode(array('error' => array('warning' => $message), 'warning' => $message, 'demo' => $message)));
             $this->response->output();
             exit;
         }

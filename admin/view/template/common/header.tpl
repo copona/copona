@@ -40,8 +40,27 @@
   <?php if (!empty($demo_text)) { ?>
   <div id="copona-demo-bar" style="background:#fff3cd;color:#664d03;border-bottom:1px solid #ffe69c;padding:6px 16px;font-size:13px;text-align:center;"><?php echo $demo_text; ?></div>
   <?php } ?>
-  <?php if (!empty($demo_warning)) { ?>
-  <div class="alert alert-warning" style="margin:0;border-radius:0;text-align:center;"><i class="fa fa-lock"></i> <?php echo $demo_warning; ?></div>
+  <?php if (!empty($demo_text)) { ?>
+  <!-- Demo mode: refused saves get a popup nobody can miss (page reloads and AJAX alike). -->
+  <div id="copona-demo-popup" role="alertdialog" aria-live="assertive" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.45);align-items:center;justify-content:center;">
+    <div style="background:#198754;color:#fff;max-width:440px;margin:16px;padding:28px 32px;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.35);text-align:center;font-size:18px;">
+      <i class="fa fa-lock" style="font-size:36px;display:block;margin-bottom:12px;"></i>
+      <span id="copona-demo-popup-text"><?php echo $demo_warning ? $demo_warning : $demo_text; ?></span>
+      <div style="margin-top:20px;"><button type="button" class="btn btn-light" onclick="document.getElementById('copona-demo-popup').style.display='none';">OK</button></div>
+    </div>
+  </div>
+  <script>
+    function coponaDemoPopup(message) {
+      var popup = document.getElementById('copona-demo-popup');
+      if (message) document.getElementById('copona-demo-popup-text').textContent = message;
+      popup.style.display = 'flex';
+      popup.querySelector('button').focus();
+    }
+    <?php if (!empty($demo_warning)) { ?>coponaDemoPopup();<?php } ?>
+    $(document).ajaxComplete(function (event, xhr) {
+      if (xhr.responseJSON && xhr.responseJSON.demo) coponaDemoPopup(xhr.responseJSON.demo);
+    });
+  </script>
   <?php } ?>
 
   <div id="container">
