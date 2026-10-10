@@ -8,7 +8,7 @@
           <small><?php echo $text_step_2; ?></small></h3>
       </div>
       <div class="col-sm-6">
-        <div id="logo" class="pull-right hidden-xs"><img src="view/image/logo.png" alt="OpenCart" title="OpenCart" /></div>
+        <div id="logo" class="pull-right hidden-xs"><img src="view/image/logo.png" alt="Copona" title="Copona" /></div>
       </div>
     </div>
   </header>
