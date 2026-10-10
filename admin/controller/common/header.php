@@ -13,6 +13,14 @@ class ControllerCommonHeader extends Controller {
             $data['base'] = HTTP_SERVER;
         }
 
+        // Cache-busting stamp for the theme's own assets: a deploy changes the
+        // files' mtime, so browsers and CDNs (Cloudflare) fetch the new copies.
+        $asset_v = 0;
+        foreach (['view/stylesheet/stylesheet.css', 'view/stylesheet/bs3-compat.css', 'view/javascript/dist/copona-admin.css', 'view/javascript/dist/editor.bundle.js', 'view/javascript/common.js', 'view/image/logo.png'] as $asset) {
+            $asset_v = max($asset_v, (int)@filemtime(DIR_APPLICATION . $asset));
+        }
+        $data['asset_v'] = $asset_v;
+
         $this->document->addStyle('view/stylesheet/additional.css');
         $data['description'] = $this->document->getDescription();
         $data['keywords'] = $this->document->getKeywords();
