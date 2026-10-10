@@ -49,6 +49,9 @@ install() {
     compose up -d --build db web
     wait_for_db
     compose exec -T -w /app web composer install --no-interaction --no-dev --optimize-autoloader
+    # The installer runs as the web user and writes .env, .htaccess and config/
+    # into the checkout, which is root-owned when cloned by cloud-init.
+    compose exec -T web chown -R application:application /app
     compose exec -T -u application web php /app/copona install --no-interaction
 
     # The store reads its settings from .env, not the container environment.
