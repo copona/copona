@@ -1,5 +1,5 @@
 <?php
-$_['heading_title'] = 'OpenCart';
+$_['heading_title'] = 'Copona';
 $_['text_order'] = 'Orders';
 $_['text_processing_status'] = 'Processing';
 $_['text_complete_status'] = 'Completed';
@@ -14,8 +14,8 @@ $_['text_affiliate'] = 'Affiliates';
 $_['text_store'] = 'Stores';
 $_['text_front'] = 'Store Front';
 $_['text_help'] = 'Help';
-$_['text_homepage'] = 'OpenCart Homepage';
-$_['text_support'] = 'Support Forum';
+$_['text_homepage'] = 'Copona Homepage';
+$_['text_support'] = 'Support';
 $_['text_documentation'] = 'Documentation';
 $_['text_logout'] = 'Logout';
 $_['error_secure'] = 'You are accessing the dashboard through a non-secure method! 

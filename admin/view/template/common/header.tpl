@@ -50,7 +50,7 @@
             <?php if ($logged) { ?>
               <a type="button" id="button-menu" class="float-start"><i class="fa fa-indent fa-lg"></i></a>
           <?php } ?>
-          <a href="<?php echo $home; ?>" class="navbar-brand"><span class="hidden-xs"><img src="view/image/logo.png" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>" /></span><span class="hidden-lg hidden-md hidden-sm"><i class="fa fa-opencart"></i></span></a></div>
+          <a href="<?php echo $home; ?>" class="navbar-brand"><span class="hidden-xs"><img src="view/image/logo.png" height="30" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>" /></span><span class="hidden-lg hidden-md hidden-sm"><i class="fa fa-shopping-cart"></i></span></a></div>
         <?php if ($logged) { ?>
             <ul class="nav float-end">
                 <li>
@@ -88,9 +88,9 @@
               <li class="dropdown"><a class="dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-life-ring fa-lg"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li class="dropdown-header"><?php echo $text_help; ?></li>
-                  <li><a href="http://www.opencart.com" target="_blank"><?php echo $text_homepage; ?></a></li>
-                  <li><a href="http://docs.opencart.com" target="_blank"><?php echo $text_documentation; ?></a></li>
-                  <li><a href="http://forum.opencart.com" target="_blank"><?php echo $text_support; ?></a></li>
+                  <li><a href="https://copona.org" target="_blank"><?php echo $text_homepage; ?></a></li>
+                  <li><a href="https://github.com/copona/copona#readme" target="_blank"><?php echo $text_documentation; ?></a></li>
+                  <li><a href="https://github.com/copona/copona/issues" target="_blank"><?php echo $text_support; ?></a></li>
                 </ul>
               </li>
               <li><a href="<?php echo $logout; ?>"><span class="hidden-xs hidden-sm hidden-md"><?php echo $text_logout; ?></span> <i class="fa fa-sign-out fa-lg"></i></a></li>

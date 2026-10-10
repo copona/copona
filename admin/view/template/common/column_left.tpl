@@ -4,7 +4,7 @@
         <?php if ($image) { ?>
           <img src="<?php echo $image; ?>" alt="<?php echo $firstname; ?> <?php echo $lastname; ?>" title="<?php echo $username; ?>" class="img-circle" />
       <?php } else { ?>
-          <i class="fa fa-opencart"></i>
+          <i class="fa fa-user"></i>
       <?php } ?>
     </div>
     <div>

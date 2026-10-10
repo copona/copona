@@ -20,12 +20,8 @@ class ControllerCommonDashboard extends Controller {
             'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true)
         );
 
-        // Check install directory exists
-        if (is_dir(dirname(DIR_APPLICATION) . '/install') && $this->config->get('debug.mode') !== true) {
-            $data['error_install'] = $this->language->get('error_install');
-        } else {
-            $data['error_install'] = '';
-        }
+        // No "delete the install folder" warning: once .env exists the web
+        // installer refuses to run (install/controller/startup/upgrade.php).
 
         // Dashboard Extensions
         $dashboards = array();

@@ -85,6 +85,10 @@ span.d-none, span.d-sm-block, span.d-md-block, span.d-lg-block {
 	border-bottom: 1px solid #E5E5E5;
 	margin: 0;
 	padding: 0;
+	/* Above #column-left (z-index 10), which starts at the top of the page;
+	   Bootstrap 3's .navbar-static-top used to provide this. */
+	position: relative;
+	z-index: 11;
 }
 #header .nav > li {
 	float: left;
