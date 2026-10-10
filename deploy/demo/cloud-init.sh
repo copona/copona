@@ -1,8 +1,10 @@
 #!/bin/bash
-# Oracle Cloud "Create instance" → Show advanced options → Management →
+# Oracle Cloud "Create instance" > Show advanced options > Management >
 # "Paste cloud-init script": paste this file. On first boot it installs
 # Docker, the demo store (random DB password) and the hourly reset.
 # Afterwards add the Cloudflare Tunnel token, see README.md.
+# Keep this file plain ASCII: the Oracle console can reject user data with
+# characters such as arrows ("Incorrectly formatted request").
 set -euxo pipefail
 exec > /var/log/copona-demo-setup.log 2>&1
 
