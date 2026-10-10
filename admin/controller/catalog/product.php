@@ -606,6 +606,12 @@ class ControllerCatalogProduct extends Controller {
             $data['error_name'] = array();
         }
 
+        if (isset($this->error['model'])) {
+            $data['error_model'] = $this->error['model'];
+        } else {
+            $data['error_model'] = '';
+        }
+
         if (isset($this->error['keyword'])) {
             $data['error_keyword'] = $this->error['keyword'];
         } else {
@@ -1182,6 +1188,10 @@ class ControllerCatalogProduct extends Controller {
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'catalog/product')) {
             $this->error['warning'] = $this->language->get('error_permission');
+        }
+
+        if (isset($this->request->post['model']) && ((utf8_strlen($this->request->post['model']) < 1) || (utf8_strlen($this->request->post['model']) > 64))) {
+            $this->error['model'] = $this->language->get('error_model');
         }
 
         if ($this->error && !isset($this->error['warning'])) {
