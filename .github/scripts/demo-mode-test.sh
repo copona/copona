@@ -51,4 +51,5 @@ echo 'ok   admin writes refused'
 
 products="$(page "$base/admin/index.php?route=catalog/product&token=$token")"
 grep -q 'disabled in the demo' <<<"$products" || fail 'refusal message not shown after redirect'
+grep -q 'coponaDemoPopup();' <<<"$products" || fail 'refusal popup not opened after redirect'
 echo 'ok   refusal message shown'
