@@ -8,6 +8,9 @@
 [OpenCart](https://www.opencart.com) and has been rebuilt on a current stack:
 if you like OpenCart's simplicity but not its age, this is for you.
 
+**Live demo: [demo.copona.org](https://demo.copona.org)** (admin at
+[/admin/](https://demo.copona.org/admin/), login pre-filled; resets every hour).
+
 ![Copona storefront](docs/screenshots/home.png)
 
 ## Why Copona
