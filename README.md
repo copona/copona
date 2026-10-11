@@ -8,10 +8,31 @@
 [OpenCart](https://www.opencart.com) and has been rebuilt on a current stack:
 if you like OpenCart's simplicity but not its age, this is for you.
 
-**Live demo: [demo.copona.org](https://demo.copona.org)** (admin at
-[/admin/](https://demo.copona.org/admin/), login pre-filled; resets every hour).
+<p align="center">
+  <a href="https://demo.copona.org"><strong>▶ Try the live demo</strong></a> ·
+  <a href="https://demo.copona.org/admin/">Admin demo</a> (login pre-filled) ·
+  <a href="#try-it-locally-in-2-minutes">Run it locally</a>
+</p>
 
-![Copona storefront](docs/screenshots/home.png)
+![Copona storefront with the Signal theme](docs/screenshots/home.png)
+
+## Highlights
+
+- **A storefront that looks current out of the box.** The default "Signal" theme
+  is an original design (Bricolage Grotesque + Figtree, one accent colour) built
+  on Bootstrap 5 with a Vite/SCSS pipeline, and it is fully responsive.
+- **SEO and speed without plugins.** It ships schema.org JSON-LD (Product, Offer,
+  rating, breadcrumbs, site search), Open Graph tags, canonical URLs and a
+  sitemap. Thumbnails are WebP, images below the fold load lazily, and every
+  asset URL carries a version stamp so deploys never leave stale CSS behind.
+- **PHP 8.3 and a modern core.** Laravel 12's Eloquent/Query Builder sits next to
+  the familiar OpenCart-style MVC, schema changes are Phinx migrations, and
+  `php copona install` sets up a store from the command line.
+- **Built for real use.** You get multi-store, multi-currency, guest checkout,
+  coupons/vouchers/rewards, reviews, wishlist and compare, plus a storefront
+  admin bar with one-click "edit this product/category/page" links.
+- **A safe public demo mode.** `DEMO_MODE=true` makes the admin read-only and
+  disables e-mail, which is how demo.copona.org runs.
 
 ## Why Copona
 
@@ -27,22 +48,21 @@ if you like OpenCart's simplicity but not its age, this is for you.
 | Install | `php copona install` or Docker | web wizard | WordPress + plugin |
 | Needs WordPress | no | no | yes |
 
-**Also included:** multi-store, multi-currency, guest checkout, coupons/vouchers/rewards,
-reviews, wishlist and compare, an admin bar on the storefront with one-click
-"edit this product/category/page" links, and two themes (`default` and `simplica`).
-
 ## Screenshots
 
-| Category | Product | Mobile |
+| Category | Product |
+|---|---|
+| ![Category listing](docs/screenshots/category.png) | ![Product page](docs/screenshots/product.png) |
+
+| Mobile: home | Mobile: product | Admin: products |
 |---|---|---|
-| ![Category](docs/screenshots/category.png) | ![Product](docs/screenshots/product.png) | ![Product on mobile](docs/screenshots/product-mobile.png) |
+| <img src="docs/screenshots/home-mobile.png" alt="Home page on mobile" width="260"> | <img src="docs/screenshots/product-mobile.png" alt="Product page on mobile" width="260"> | ![Admin product list](docs/screenshots/admin-products.png) |
 
-![Admin dashboard](docs/screenshots/admin-dashboard.png)
+<sub>Captured from [demo.copona.org](https://demo.copona.org); the
+[Screenshots workflow](.github/workflows/screenshots.yml) regenerates them from
+the demo data.</sub>
 
-<sub>Screenshots are generated from the demo data by the
-[Screenshots workflow](.github/workflows/screenshots.yml).</sub>
-
-## Try the demo in 2 minutes
+## Try it locally in 2 minutes
 
 You need Docker. This starts a store with 15 demo products (phones, laptops,
 audio, gaming…) in 11 categories:
@@ -58,8 +78,20 @@ docker exec -u application copona-web-1 php /app/copona install --no-interaction
 - Storefront: http://localhost:8080
 - Admin: http://localhost:8080/admin (user `admin`, password `admin123`)
 
-Copona is under active development. Please try it and post issues, bugs, or
-**feature requests** at https://github.com/copona/copona/issues. We're happy to help!
+## Roadmap
+
+Next up are the Signal design for checkout, sidebar modules and affiliate pages,
+then Stripe and PayPal Checkout v2, a cookie-consent banner and more bundled
+languages. Ideas and votes are welcome in
+[issues](https://github.com/copona/copona/issues).
+
+## Contributing
+
+Copona is under active development. Please try it and post issues, bugs or
+**feature requests** at https://github.com/copona/copona/issues; pull requests
+are welcome too. CI checks every PR: it lints all PHP, installs a fresh store and
+smoke-tests the storefront and admin. If Copona is useful to you, a ⭐ on GitHub
+helps other people find it.
 
 ## Requirements
 * MySQL >= 5.6
