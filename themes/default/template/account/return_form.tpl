@@ -1,179 +1,64 @@
 <?php echo $header; ?>
-<div class="container">
-  <nav aria-label="breadcrumb"><ol class="breadcrumb">
-      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"> <?php echo $breadcrumb['text']; ?></a></li>
-    <?php } ?>
-  </ol></nav>
-  <?php if ($error_warning) { ?>
-      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?></div>
-  <?php } ?>
-  <div class="row"><?php echo $column_left; ?>
-      <?php if ($column_left && $column_right) { ?>
-          <?php $class = 'col-sm-6'; ?>
-      <?php } elseif ($column_left || $column_right) { ?>
-          <?php $class = 'col-sm-9'; ?>
-      <?php } else { ?>
-          <?php $class = 'col-sm-12'; ?>
-      <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <h1><?php echo $heading_title; ?></h1>
-      <p><?php echo $text_description; ?></p>
-      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="row">
-        <fieldset>
+<?php include(__DIR__ . '/../common/_page_open.tpl'); ?>
+      <div class="cp-page-intro">
+        <h1><?php echo $heading_title; ?></h1>
+        <p class="cp-muted"><?php echo $text_description; ?></p>
+      </div>
+      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="cp-form">
+        <fieldset class="cp-fieldset">
           <legend><?php echo $text_order; ?></legend>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label" for="input-firstname"><?php echo $entry_firstname; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="firstname" value="<?php echo $firstname; ?>" placeholder="<?php echo $entry_firstname; ?>" id="input-firstname" class="form-control" />
-              <?php if ($error_firstname) { ?>
-                  <div class="text-danger"><?php echo $error_firstname; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label" for="input-lastname"><?php echo $entry_lastname; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="lastname" value="<?php echo $lastname; ?>" placeholder="<?php echo $entry_lastname; ?>" id="input-lastname" class="form-control" />
-              <?php if ($error_lastname) { ?>
-                  <div class="text-danger"><?php echo $error_lastname; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label" for="input-email"><?php echo $entry_email; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="email" value="<?php echo $email; ?>" placeholder="<?php echo $entry_email; ?>" id="input-email" class="form-control" />
-              <?php if ($error_email) { ?>
-                  <div class="text-danger"><?php echo $error_email; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label" for="input-telephone"><?php echo $entry_telephone; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="telephone" value="<?php echo $telephone; ?>" placeholder="<?php echo $entry_telephone; ?>" id="input-telephone" class="form-control" />
-              <?php if ($error_telephone) { ?>
-                  <div class="text-danger"><?php echo $error_telephone; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label" for="input-order-id"><?php echo $entry_order_id; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="order_id" value="<?php echo $order_id; ?>" placeholder="<?php echo $entry_order_id; ?>" id="input-order-id" class="form-control" />
-              <?php if ($error_order_id) { ?>
-                  <div class="text-danger"><?php echo $error_order_id; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 form-label" for="input-date-ordered"><?php echo $entry_date_ordered; ?></label>
-            <div class="col-sm-3">
-              <div class="input-group date"><input type="text" name="date_ordered" value="<?php echo $date_ordered; ?>" placeholder="<?php echo $entry_date_ordered; ?>" data-date-format="YYYY-MM-DD" id="input-date-ordered" class="form-control" /><span class="input-group-text">
-                  <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
-                </span></div>
+          <div class="cp-fields">
+            <?php $field = ['name' => 'firstname', 'label' => $entry_firstname, 'value' => $firstname, 'id' => 'input-firstname', 'error' => $error_firstname, 'required' => true, 'autocomplete' => 'given-name']; include(__DIR__ . '/../common/_field.tpl'); ?>
+            <?php $field = ['name' => 'lastname', 'label' => $entry_lastname, 'value' => $lastname, 'id' => 'input-lastname', 'error' => $error_lastname, 'required' => true, 'autocomplete' => 'family-name']; include(__DIR__ . '/../common/_field.tpl'); ?>
+            <?php $field = ['name' => 'email', 'label' => $entry_email, 'value' => $email, 'id' => 'input-email', 'type' => 'email', 'error' => $error_email, 'required' => true, 'autocomplete' => 'email']; include(__DIR__ . '/../common/_field.tpl'); ?>
+            <?php $field = ['name' => 'telephone', 'label' => $entry_telephone, 'value' => $telephone, 'id' => 'input-telephone', 'type' => 'tel', 'error' => $error_telephone, 'required' => true, 'autocomplete' => 'tel']; include(__DIR__ . '/../common/_field.tpl'); ?>
+            <?php $field = ['name' => 'order_id', 'label' => $entry_order_id, 'value' => $order_id, 'id' => 'input-order-id', 'error' => $error_order_id, 'required' => true]; include(__DIR__ . '/../common/_field.tpl'); ?>
+            <div class="form-group cp-field">
+              <label class="form-label" for="input-date-ordered"><?php echo $entry_date_ordered; ?></label>
+              <div class="input-group date">
+                <input type="text" name="date_ordered" value="<?php echo $date_ordered; ?>" placeholder="YYYY-MM-DD" data-date-format="YYYY-MM-DD" id="input-date-ordered" class="form-control" />
+                <button type="button" class="btn btn-outline-secondary" aria-label="<?php echo $entry_date_ordered; ?>"><i class="fa fa-calendar"></i></button>
+              </div>
             </div>
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset class="cp-fieldset">
           <legend><?php echo $text_product; ?></legend>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label" for="input-product"><?php echo $entry_product; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="product" value="<?php echo $product; ?>" placeholder="<?php echo $entry_product; ?>" id="input-product" class="form-control" />
-              <?php if ($error_product) { ?>
-                  <div class="text-danger"><?php echo $error_product; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label" for="input-model"><?php echo $entry_model; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="model" value="<?php echo $model; ?>" placeholder="<?php echo $entry_model; ?>" id="input-model" class="form-control" />
-              <?php if ($error_model) { ?>
-                  <div class="text-danger"><?php echo $error_model; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 form-label" for="input-quantity"><?php echo $entry_quantity; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="quantity" value="<?php echo $quantity; ?>" placeholder="<?php echo $entry_quantity; ?>" id="input-quantity" class="form-control" />
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label"><?php echo $entry_reason; ?></label>
-            <div class="col-sm-10">
+          <div class="cp-fields">
+            <?php $field = ['name' => 'product', 'label' => $entry_product, 'value' => $product, 'id' => 'input-product', 'error' => $error_product, 'required' => true]; include(__DIR__ . '/../common/_field.tpl'); ?>
+            <?php $field = ['name' => 'model', 'label' => $entry_model, 'value' => $model, 'id' => 'input-model', 'error' => $error_model, 'required' => true]; include(__DIR__ . '/../common/_field.tpl'); ?>
+            <?php $field = ['name' => 'quantity', 'label' => $entry_quantity, 'value' => $quantity, 'id' => 'input-quantity', 'type' => 'number']; include(__DIR__ . '/../common/_field.tpl'); ?>
+            <?php $yes_no = ['name' => 'opened', 'label' => $entry_opened, 'value' => $opened]; include(__DIR__ . '/../common/_yes_no.tpl'); ?>
+            <div class="form-group cp-field cp-field--wide required">
+              <span class="form-label"><?php echo $entry_reason; ?></span>
+              <div class="cp-choices">
                 <?php foreach ($return_reasons as $return_reason) { ?>
-                    <?php if ($return_reason['return_reason_id'] == $return_reason_id) { ?>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="return_reason_id" value="<?php echo $return_reason['return_reason_id']; ?>" checked="checked" />
-                          <?php echo $return_reason['name']; ?></label>
-                      </div>
-                  <?php } else { ?>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="return_reason_id" value="<?php echo $return_reason['return_reason_id']; ?>" />
-                          <?php echo $return_reason['name']; ?></label>
-                      </div>
-                  <?php } ?>
-              <?php } ?>
+                  <label class="form-check">
+                    <input type="radio" name="return_reason_id" value="<?php echo $return_reason['return_reason_id']; ?>" class="form-check-input"<?php echo $return_reason['return_reason_id'] == $return_reason_id ? ' checked="checked"' : ''; ?> />
+                    <span class="form-check-label"><?php echo $return_reason['name']; ?></span>
+                  </label>
+                <?php } ?>
+              </div>
               <?php if ($error_reason) { ?>
-                  <div class="text-danger"><?php echo $error_reason; ?></div>
+                <div class="text-danger"><?php echo $error_reason; ?></div>
               <?php } ?>
             </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label"><?php echo $entry_opened; ?></label>
-            <div class="col-sm-10">
-              <label class="radio-inline">
-                  <?php if ($opened) { ?>
-                    <input type="radio" name="opened" value="1" checked="checked" />
-                <?php } else { ?>
-                    <input type="radio" name="opened" value="1" />
-                <?php } ?>
-                <?php echo $text_yes; ?></label>
-              <label class="radio-inline">
-                  <?php if (!$opened) { ?>
-                    <input type="radio" name="opened" value="0" checked="checked" />
-                <?php } else { ?>
-                    <input type="radio" name="opened" value="0" />
-                <?php } ?>
-                <?php echo $text_no; ?></label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 form-label" for="input-comment"><?php echo $entry_fault_detail; ?></label>
-            <div class="col-sm-10">
-              <textarea name="comment" rows="10" placeholder="<?php echo $entry_fault_detail; ?>" id="input-comment" class="form-control"><?php echo $comment; ?></textarea>
-            </div>
+            <?php $field = ['name' => 'comment', 'label' => $entry_fault_detail, 'value' => $comment, 'id' => 'input-comment', 'type' => 'textarea', 'wide' => true]; include(__DIR__ . '/../common/_field.tpl'); ?>
           </div>
           <?php echo $captcha; ?>
         </fieldset>
-        <?php if ($text_agree) { ?>
-            <div class="buttons clearfix">
-              <div class="float-start"><a href="<?php echo $back; ?>" class="btn btn-danger"><?php echo $button_back; ?></a></div>
-              <div class="float-end"><?php echo $text_agree; ?>
-                  <?php if ($agree) { ?>
-                    <input type="checkbox" name="agree" value="1" checked="checked" />
-                <?php } else { ?>
-                    <input type="checkbox" name="agree" value="1" />
-                <?php } ?>
-                <input type="submit" value="<?php echo $button_submit; ?>" class="btn btn-primary" />
-              </div>
-            </div>
-        <?php } else { ?>
-            <div class="buttons clearfix">
-              <div class="float-start"><a href="<?php echo $back; ?>" class="btn btn-secondary"><?php echo $button_back; ?></a></div>
-              <div class="float-end">
-                <input type="submit" value="<?php echo $button_submit; ?>" class="btn btn-primary" />
-              </div>
-            </div>
-        <?php } ?>
+        <div class="cp-actions">
+          <a href="<?php echo $back; ?>" class="btn btn-outline-secondary"><?php echo $button_back; ?></a>
+          <div class="cp-actions__end">
+            <?php if ($text_agree) { ?>
+              <label class="form-check cp-agree">
+                <input type="checkbox" name="agree" value="1" class="form-check-input"<?php echo $agree ? ' checked="checked"' : ''; ?> />
+                <span class="form-check-label"><?php echo $text_agree; ?></span>
+              </label>
+            <?php } ?>
+            <button type="submit" class="btn btn-primary"><?php echo $button_submit; ?></button>
+          </div>
+        </div>
       </form>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
-</div>
+<?php include(__DIR__ . '/../common/_page_close.tpl'); ?>
 <?php echo $footer; ?>

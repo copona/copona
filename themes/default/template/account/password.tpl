@@ -1,60 +1,17 @@
 <?php echo $header; ?>
-<div class="container">
-  <nav aria-label="breadcrumb"><ol class="breadcrumb">
-      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-    <?php } ?>
-  </ol></nav>
-
-  <?php if ($error_csrf_token) { ?>
-      <div class="alert alert-danger">
-        <i class="fa fa-exclamation-circle"></i> <?php echo $error_csrf_token; ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-  <?php } ?>
-
-  <div class="row"><?php echo $column_left; ?>
-      <?php if ($column_left && $column_right) { ?>
-          <?php $class = 'col-sm-6'; ?>
-      <?php } elseif ($column_left || $column_right) { ?>
-          <?php $class = 'col-sm-9'; ?>
-      <?php } else { ?>
-          <?php $class = 'col-sm-12'; ?>
-      <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+<?php include(__DIR__ . '/../common/_page_open.tpl'); ?>
       <h1><?php echo $heading_title; ?></h1>
-      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="row">
-        <fieldset>
+      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="cp-form cp-form--narrow">
+        <fieldset class="cp-fieldset">
           <legend><?php echo $text_password; ?></legend>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label" for="input-password"><?php echo $entry_password; ?></label>
-            <div class="col-sm-10">
-              <input type="password" name="password" value="<?php echo $password; ?>" placeholder="<?php echo $entry_password; ?>" id="input-password" class="form-control" />
-              <?php if ($error_password) { ?>
-                  <div class="text-danger"><?php echo $error_password; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 form-label" for="input-confirm"><?php echo $entry_confirm; ?></label>
-            <div class="col-sm-10">
-              <input type="password" name="confirm" value="<?php echo $confirm; ?>" placeholder="<?php echo $entry_confirm; ?>" id="input-confirm" class="form-control" />
-              <?php if ($error_confirm) { ?>
-                  <div class="text-danger"><?php echo $error_confirm; ?></div>
-              <?php } ?>
-            </div>
-          </div>
+          <?php $field = ['name' => 'password', 'label' => $entry_password, 'value' => $password, 'id' => 'input-password', 'type' => 'password', 'error' => $error_password, 'required' => true, 'autocomplete' => 'new-password']; include(__DIR__ . '/../common/_field.tpl'); ?>
+          <?php $field = ['name' => 'confirm', 'label' => $entry_confirm, 'value' => $confirm, 'id' => 'input-confirm', 'type' => 'password', 'error' => $error_confirm, 'required' => true, 'autocomplete' => 'new-password']; include(__DIR__ . '/../common/_field.tpl'); ?>
         </fieldset>
-        <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>" id="input-csrf-token" class="form-control" />
-
-        <div class="buttons clearfix">
-          <div class="float-start"><a href="<?php echo $back; ?>" class="btn btn-secondary"><?php echo $button_back; ?></a></div>
-          <div class="float-end">
-            <input type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary" />
-          </div>
+        <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>" id="input-csrf-token" />
+        <div class="cp-actions">
+          <a href="<?php echo $back; ?>" class="btn btn-outline-secondary"><?php echo $button_back; ?></a>
+          <button type="submit" class="btn btn-primary"><?php echo $button_continue; ?></button>
         </div>
       </form>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
-</div>
+<?php include(__DIR__ . '/../common/_page_close.tpl'); ?>
 <?php echo $footer; ?>

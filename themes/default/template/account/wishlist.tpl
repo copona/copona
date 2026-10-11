@@ -1,67 +1,41 @@
 <?php echo $header; ?>
-<div class="container">
-  <nav aria-label="breadcrumb"><ol class="breadcrumb">
-      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-    <?php } ?>
-  </ol></nav>
-  <?php if ($success) { ?>
-      <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-  <?php } ?>
-  <div class="row"><?php echo $column_left; ?>
-      <?php if ($column_left && $column_right) { ?>
-          <?php $class = 'col-sm-6'; ?>
-      <?php } elseif ($column_left || $column_right) { ?>
-          <?php $class = 'col-sm-9'; ?>
-      <?php } else { ?>
-          <?php $class = 'col-sm-12'; ?>
-      <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <h2><?php echo $heading_title; ?></h2>
+<?php include(__DIR__ . '/../common/_page_open.tpl'); ?>
+      <h1><?php echo $heading_title; ?></h1>
       <?php if ($products) { ?>
-          <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <td class="text-center"><?php echo $column_image; ?></td>
-                  <td class="text-start"><?php echo $column_name; ?></td>
-                  <td class="text-start"><?php echo $column_model; ?></td>
-                  <td class="text-end"><?php echo $column_stock; ?></td>
-                  <td class="text-end"><?php echo $column_price; ?></td>
-                  <td class="text-end"><?php echo $column_action; ?></td>
-                </tr>
-              </thead>
-              <tbody>
-                  <?php foreach ($products as $product) { ?>
-                    <tr>
-                      <td class="text-center"><?php if ($product['thumb']) { ?>
-                            <a href="<?php echo $product['href']; ?>"><img loading="lazy" decoding="async" src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" /></a>
-                        <?php } ?></td>
-                      <td class="text-start"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></td>
-                      <td class="text-start"><?php echo $product['model']; ?></td>
-                      <td class="text-end"><?php echo $product['stock']; ?></td>
-                      <td class="text-end"><?php if ($product['price']) { ?>
-                            <div class="price">
-                                <?php if (!$product['special']) { ?>
-                                    <?php echo $product['price']; ?>
-                                <?php } else { ?>
-                                  <b><?php echo $product['special']; ?></b> <s><?php echo $product['price']; ?></s>
-                              <?php } ?>
-                            </div>
-                        <?php } ?></td>
-                      <td class="text-end"><button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');" data-bs-toggle="tooltip" title="<?php echo $button_cart; ?>" class="btn btn-primary"><i class="fa fa-shopping-cart"></i></button>
-                        <a href="<?php echo $product['remove']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-times"></i></a></td>
-                    </tr>
+        <ul class="cp-rows">
+          <?php foreach ($products as $product) { ?>
+            <li class="cp-row">
+              <a href="<?php echo $product['href']; ?>" class="cp-row__media">
+                <?php if ($product['thumb']) { ?>
+                  <img loading="lazy" decoding="async" src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" />
                 <?php } ?>
-              </tbody>
-            </table>
-          </div>
+              </a>
+              <div class="cp-row__body">
+                <a href="<?php echo $product['href']; ?>" class="cp-row__name"><?php echo $product['name']; ?></a>
+                <div class="cp-row__meta"><?php echo $column_model; ?>: <?php echo $product['model']; ?> · <?php echo $column_stock; ?>: <?php echo $product['stock']; ?></div>
+              </div>
+              <?php if ($product['price']) { ?>
+                <div class="cp-price">
+                  <?php if (!$product['special']) { ?>
+                    <span class="cp-price__now"><?php echo $product['price']; ?></span>
+                  <?php } else { ?>
+                    <span class="cp-price__now is-special"><?php echo $product['special']; ?></span>
+                    <s class="cp-price__old"><?php echo $product['price']; ?></s>
+                  <?php } ?>
+                </div>
+              <?php } ?>
+              <div class="cp-row__actions">
+                <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <?php echo $button_cart; ?></button>
+                <a href="<?php echo $product['remove']; ?>" class="cp-icon-btn" title="<?php echo $button_remove; ?>" aria-label="<?php echo $button_remove; ?>"><i class="fa fa-times"></i></a>
+              </div>
+            </li>
+          <?php } ?>
+        </ul>
       <?php } else { ?>
-          <p><?php echo $text_empty; ?></p>
+        <p class="cp-empty"><?php echo $text_empty; ?></p>
       <?php } ?>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
-</div>
+      <div class="cp-actions">
+        <a href="<?php echo $continue; ?>" class="btn btn-outline-secondary"><?php echo $button_continue; ?></a>
+      </div>
+<?php include(__DIR__ . '/../common/_page_close.tpl'); ?>
 <?php echo $footer; ?>

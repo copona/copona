@@ -1,0 +1,336 @@
+// =========================================================
+// Account area and shared page pieces: forms, tables, panels
+// (account/*, common/success, common/_page_open + _field partials)
+// =========================================================
+
+.cp-muted { color: $copona-muted; }
+.cp-link-muted { color: $copona-muted; font-size: .875rem; text-decoration: underline; }
+.cp-link-accent { color: $copona-accent; font-weight: 600; }
+.cp-link-danger { color: $danger; }
+
+// Heading with a lead line or a button next to it
+.cp-page-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: .5rem 1.5rem;
+  margin-bottom: 1.5rem;
+
+  h1 { margin: 0; }
+  > p, > .cp-prose { flex-basis: 100%; margin: 0; }
+}
+
+// Back link left, primary action right
+.cp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .75rem 1rem;
+  margin-top: 1.5rem;
+
+  > .btn-outline-secondary:first-child:not(:last-child) { margin-right: auto; }
+}
+.cp-actions__end { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; }
+.cp-agree { margin: 0; font-size: .9375rem; }
+
+// ---------------------------------------------------------
+// Forms
+// ---------------------------------------------------------
+.cp-form { max-width: 960px; }
+.cp-form--narrow { max-width: 560px; }
+
+.cp-fieldset {
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-xl;
+  padding: 1.25rem 1.25rem .25rem;
+  margin-bottom: 1rem;
+
+  > legend {
+    float: left;
+    width: 100%;
+    font-family: $copona-display-font;
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+    padding: 0;
+
+    + * { clear: left; }
+  }
+
+  @include media-breakpoint-up(md) { padding: 1.5rem 1.75rem .5rem; }
+}
+
+// Two-column field grid on wider screens
+.cp-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 1.25rem;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    .cp-field--wide { grid-column: 1 / -1; }
+  }
+}
+
+.cp-field {
+  .form-label { margin-bottom: .375rem; font-size: .9375rem; }
+  .form-text { color: $copona-muted; font-size: .8125rem; }
+}
+
+.cp-choices {
+  .form-check { display: inline-flex; align-items: center; gap: .5rem; margin: 0 1rem 0 0; padding: .375rem 0; min-height: 0; }
+  .form-check-input { float: none; margin: 0; }
+}
+.cp-field .cp-choices:not(.cp-choices--inline) { flex-direction: column; align-items: flex-start; gap: 0; }
+
+// ---------------------------------------------------------
+// Account hub (account/account)
+// ---------------------------------------------------------
+.cp-hub {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.cp-hub__card {
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-xl;
+  padding: 1.25rem 1.25rem .75rem;
+}
+
+.cp-hub__title {
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  font-size: 1.125rem;
+  margin-bottom: .5rem;
+
+  .fa {
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $border-radius-sm;
+    background: $copona-accent-soft;
+    color: $copona-accent-dark;
+    font-size: .9375rem;
+  }
+}
+
+.cp-hub__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li + li { border-top: 1px solid $copona-line-soft; }
+  a {
+    display: flex;
+    justify-content: space-between;
+    padding: .625rem 0;
+    font-weight: 500;
+
+    &::after { content: "\203A"; color: $copona-muted; }
+    &:hover::after { color: $copona-accent; }
+  }
+}
+
+// ---------------------------------------------------------
+// Login / register choice
+// ---------------------------------------------------------
+.cp-auth {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+
+  @include media-breakpoint-up(md) { grid-template-columns: 3fr 2fr; }
+}
+.cp-auth__panel {
+  padding: 1.5rem;
+  h2 { font-size: 1.5rem; }
+  @include media-breakpoint-up(md) { padding: 2rem; }
+}
+.cp-auth__panel--alt { background: $copona-sunken; border-color: transparent; }
+.cp-auth__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-top: .5rem; }
+
+// ---------------------------------------------------------
+// Tables (order list, downloads, rewards, compare)
+// ---------------------------------------------------------
+.cp-table-wrap {
+  overflow-x: auto;
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-xl;
+}
+
+.cp-table {
+  margin: 0;
+  --bs-table-bg: transparent;
+  font-size: .9375rem;
+
+  > :not(caption) > * > * { padding: .875rem 1rem; border-bottom-color: $copona-line-soft; vertical-align: middle; }
+  thead th {
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: $copona-muted;
+    white-space: nowrap;
+  }
+  tbody tr:last-child > * { border-bottom: 0; }
+  tfoot > tr > * { border-bottom: 0; }
+}
+
+.cp-table__strong { font-weight: 600; color: $copona-ink; }
+.cp-table__note { display: block; color: $copona-muted; font-size: .8125rem; }
+.cp-table__empty { color: $copona-muted; text-align: center; padding: 2rem 1rem !important; }
+.cp-table__total {
+  > * { padding-top: .375rem !important; padding-bottom: .375rem !important; }
+  &:first-child > * { padding-top: 1rem !important; border-top: 1px solid $copona-line; }
+  &:last-child > * { font-weight: 700; font-size: 1.0625rem; padding-bottom: 1rem !important; }
+}
+
+.cp-status {
+  display: inline-block;
+  padding: .1875rem .625rem;
+  border-radius: 999px;
+  background: $copona-sunken;
+  font-size: .8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cp-stat { font-size: 1.0625rem; strong { font-family: $copona-display-font; font-size: 1.375rem; margin-left: .25rem; } }
+
+// ---------------------------------------------------------
+// Label/value panels (order, return, recurring details)
+// ---------------------------------------------------------
+.cp-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cp-info {
+  padding: 1.25rem;
+
+  dl { margin: 0; }
+  address { margin: 0; line-height: 1.6; }
+}
+.cp-info__title {
+  font-family: $font-family-sans-serif;
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: $copona-muted;
+  margin-bottom: .75rem;
+}
+.cp-info__item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .375rem 0;
+
+  + .cp-info__item { border-top: 1px solid $copona-line-soft; }
+  dt { font-weight: 500; color: $copona-muted; }
+  dd { margin: 0; font-weight: 600; text-align: right; }
+}
+
+.cp-note { padding: 1.25rem; margin: 1.5rem 0; p:last-child { margin: 0; } }
+
+// Status history
+.cp-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.25rem;
+  border-left: 2px solid $copona-line;
+}
+.cp-timeline__item {
+  position: relative;
+  padding: 0 0 1.25rem 1rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: calc(-1.25rem - 6px);
+    top: .375rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $copona-surface;
+    border: 2px solid $copona-muted;
+  }
+  &:last-child::before { background: $copona-accent; border-color: $copona-accent; }
+  &:last-child { padding-bottom: 0; }
+}
+.cp-timeline__head { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+.cp-timeline__date { color: $copona-muted; font-size: .875rem; }
+.cp-timeline__comment { margin-top: .375rem; color: $gray-700; }
+
+// ---------------------------------------------------------
+// Product rows (wishlist)
+// ---------------------------------------------------------
+.cp-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
+.cp-row {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: .75rem 1rem;
+  padding: .875rem;
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-xl;
+
+  .cp-price { grid-column: 2; }
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 88px minmax(0, 1fr) auto auto;
+    .cp-price { grid-column: auto; }
+  }
+}
+.cp-row__media {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: $border-radius-lg;
+  background: $gray-100;
+  overflow: hidden;
+  img { width: 100%; height: 100%; object-fit: contain; }
+}
+.cp-row__name { font-weight: 600; }
+.cp-row__meta { color: $copona-muted; font-size: .8125rem; margin-top: .125rem; }
+.cp-row__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: .5rem;
+  @include media-breakpoint-up(md) { grid-column: auto; }
+}
+
+// Address book cards
+.cp-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.cp-address { display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; padding: 1.25rem; }
+.cp-address__body { margin: 0; line-height: 1.6; }
+.cp-address__actions { display: flex; align-items: center; gap: .5rem; .btn-link { padding-left: .25rem; padding-right: .25rem; } }
+
+// Message pages (common/success)
+.cp-message {
+  max-width: 640px;
+  margin: 1rem auto 2rem;
+  padding: 2rem;
+  text-align: center;
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-xxl;
+
+  .cp-prose { margin: 0 auto; color: $gray-700; }
+  .cp-actions { justify-content: center; }
+}

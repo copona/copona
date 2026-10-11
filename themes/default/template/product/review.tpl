@@ -1,23 +1,17 @@
 <?php if ($reviews) { ?>
+  <ul class="cp-reviews">
     <?php foreach ($reviews as $review) { ?>
-        <table class="table table-striped table-bordered">
-          <tr>
-            <td style="width: 50%;"><strong><?php echo $review['author']; ?></strong></td>
-            <td class="text-end"><?php echo $review['date_added']; ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><p><?php echo $review['text']; ?></p>
-                <?php for ($i = 1; $i <= 5; $i++) { ?>
-                    <?php if ($review['rating'] < $i) { ?>
-                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
-                  <?php } else { ?>
-                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
-                  <?php } ?>
-                  <?php } ?></td>
-          </tr>
-        </table>
+      <li class="cp-review">
+        <div class="cp-review__head">
+          <strong><?php echo $review['author']; ?></strong>
+          <span class="cp-rating" aria-label="<?php echo $review['rating']; ?>/5"><?php for ($i = 1; $i <= 5; $i++) { ?><i class="fa <?php echo $review['rating'] < $i ? 'fa-star-o' : 'fa-star'; ?>"></i><?php } ?></span>
+          <time class="cp-review__date"><?php echo $review['date_added']; ?></time>
+        </div>
+        <p class="cp-review__text"><?php echo $review['text']; ?></p>
+      </li>
     <?php } ?>
-    <div class="text-end"><?php echo $pagination; ?></div>
+  </ul>
+  <div class="cp-pagination"><?php echo $pagination; ?></div>
 <?php } else { ?>
-    <p><?php echo $text_no_reviews; ?></p>
+  <p class="cp-empty"><?php echo $text_no_reviews; ?></p>
 <?php } ?>

@@ -1,52 +1,34 @@
 <?php echo $header; ?>
-<div class="container">
-  <nav aria-label="breadcrumb"><ol class="breadcrumb">
-      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-    <?php } ?>
-  </ol></nav>
-  <div class="row"><?php echo $column_left; ?>
-      <?php if ($column_left && $column_right) { ?>
-          <?php $class = 'col-sm-6'; ?>
-      <?php } elseif ($column_left || $column_right) { ?>
-          <?php $class = 'col-sm-9'; ?>
-      <?php } else { ?>
-          <?php $class = 'col-sm-12'; ?>
-      <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+<?php include(__DIR__ . '/../common/_page_open.tpl'); ?>
       <h1><?php echo $heading_title; ?></h1>
-      <p><?php echo $text_total; ?> <b><?php echo $total; ?></b>.</p>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
+      <p class="cp-stat"><?php echo $text_total; ?> <strong><?php echo $total; ?></strong></p>
+      <div class="cp-table-wrap">
+        <table class="table cp-table">
           <thead>
             <tr>
-              <td class="text-start"><?php echo $column_date_added; ?></td>
-              <td class="text-start"><?php echo $column_description; ?></td>
-              <td class="text-end"><?php echo $column_amount; ?></td>
+              <th><?php echo $column_date_added; ?></th>
+              <th><?php echo $column_description; ?></th>
+              <th class="text-end"><?php echo $column_amount; ?></th>
             </tr>
           </thead>
           <tbody>
-              <?php if ($transactions) { ?>
-                  <?php foreach ($transactions as $transaction) { ?>
-                    <tr>
-                      <td class="text-start"><?php echo $transaction['date_added']; ?></td>
-                      <td class="text-start"><?php echo $transaction['description']; ?></td>
-                      <td class="text-end"><?php echo $transaction['amount']; ?></td>
-                    </tr>
-                <?php } ?>
-            <?php } else { ?>
+            <?php if ($transactions) { ?>
+              <?php foreach ($transactions as $transaction) { ?>
                 <tr>
-                  <td class="text-center" colspan="5"><?php echo $text_empty; ?></td>
+                  <td><?php echo $transaction['date_added']; ?></td>
+                  <td><?php echo $transaction['description']; ?></td>
+                  <td class="text-end cp-table__strong"><?php echo $transaction['amount']; ?></td>
                 </tr>
+              <?php } ?>
+            <?php } else { ?>
+              <tr><td class="cp-table__empty" colspan="3"><?php echo $text_empty; ?></td></tr>
             <?php } ?>
           </tbody>
         </table>
       </div>
-      <div class="row">
-        <div class="col-sm-7 text-start"><?php echo $pagination; ?></div>
-        <div class="col-sm-5 text-end"><?php echo $results; ?></div>
+      <?php include(__DIR__ . '/../common/_pagination.tpl'); ?>
+      <div class="cp-actions">
+        <a href="<?php echo $continue; ?>" class="btn btn-outline-secondary"><?php echo $button_continue; ?></a>
       </div>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
-</div>
+<?php include(__DIR__ . '/../common/_page_close.tpl'); ?>
 <?php echo $footer; ?>
