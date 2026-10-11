@@ -1,42 +1,26 @@
 <?php echo $header; ?>
-<div class="container">
-  <nav aria-label="breadcrumb"><ol class="breadcrumb">
-      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li> <a href="<?php echo $breadcrumb['href']; ?>"> <?php echo $breadcrumb['text']; ?> </a> </li>
-    <?php } ?>
-  </ol></nav>
-  <div class="row"><?php echo $column_left; ?>
-      <?php if ($column_left && $column_right) { ?>
-          <?php $class = 'col-sm-6'; ?>
-      <?php } elseif ($column_left || $column_right) { ?>
-          <?php $class = 'col-sm-9'; ?>
-      <?php } else { ?>
-          <?php $class = 'col-sm-12'; ?>
-      <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+<?php include(__DIR__ . '/../common/_page_open.tpl'); ?>
       <h1><?php echo $heading_title; ?></h1>
       <?php if ($categories) { ?>
-          <p><strong><?php echo $text_index; ?></strong>
-              <?php foreach ($categories as $category) { ?>
-                &nbsp;&nbsp;&nbsp;<a href="index.php?route=product/manufacturer#<?php echo $category['name']; ?>"><?php echo $category['name']; ?></a>
-            <?php } ?>
-          </p>
+        <nav class="cp-chips cp-chips--index" aria-label="<?php echo strip_tags($text_index); ?>">
           <?php foreach ($categories as $category) { ?>
-              <h2 id="<?php echo $category['name']; ?>"><?php echo $category['name']; ?></h2>
-              <?php if ($category['manufacturer']) { ?>
-                  <?php foreach (array_chunk($category['manufacturer'], 4) as $manufacturers) { ?>
-                      <div class="row">
-                          <?php foreach ($manufacturers as $manufacturer) { ?>
-                            <div class="col-sm-3"><a href="<?php echo $manufacturer['href']; ?>"><?php echo $manufacturer['name']; ?></a></div>
-                        <?php } ?>
-                      </div>
-                  <?php } ?>
-              <?php } ?>
+            <a href="#brand-<?php echo urlencode($category['name']); ?>"><?php echo $category['name']; ?></a>
           <?php } ?>
+        </nav>
+        <?php foreach ($categories as $category) { ?>
+          <section class="cp-brand-group" id="brand-<?php echo urlencode($category['name']); ?>">
+            <h2 class="cp-brand-group__letter"><?php echo $category['name']; ?></h2>
+            <?php if ($category['manufacturer']) { ?>
+              <ul class="cp-brand-group__list">
+                <?php foreach ($category['manufacturer'] as $manufacturer) { ?>
+                  <li><a href="<?php echo $manufacturer['href']; ?>"><?php echo $manufacturer['name']; ?></a></li>
+                <?php } ?>
+              </ul>
+            <?php } ?>
+          </section>
+        <?php } ?>
       <?php } else { ?>
-          <p><?php echo $text_empty; ?></p>
+        <p class="cp-empty"><?php echo $text_empty; ?></p>
       <?php } ?>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
-</div>
+<?php include(__DIR__ . '/../common/_page_close.tpl'); ?>
 <?php echo $footer; ?>

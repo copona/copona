@@ -1,117 +1,42 @@
 <?php echo $header; ?>
-<div class="container">
-  <nav aria-label="breadcrumb"><ol class="breadcrumb">
-      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-    <?php } ?>
-  </ol></nav>
-  <div class="row"><?php echo $column_left; ?>
-      <?php if ($column_left && $column_right) { ?>
-          <?php $class = 'col-sm-6'; ?>
-      <?php } elseif ($column_left || $column_right) { ?>
-          <?php $class = 'col-sm-9'; ?>
-      <?php } else { ?>
-          <?php $class = 'col-sm-12'; ?>
-      <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+<?php include(__DIR__ . '/../common/_page_open.tpl'); ?>
       <h1><?php echo $heading_title; ?></h1>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <td class="text-start" colspan="2"><?php echo $text_return_detail; ?></td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-start" style="width: 50%;"><b><?php echo $text_return_id; ?></b> #<?php echo $return_id; ?><br />
-              <b><?php echo $text_date_added; ?></b> <?php echo $date_added; ?></td>
-            <td class="text-start" style="width: 50%;"><b><?php echo $text_order_id; ?></b> #<?php echo $order_id; ?><br />
-              <b><?php echo $text_date_ordered; ?></b> <?php echo $date_ordered; ?></td>
-          </tr>
-        </tbody>
-      </table>
-      <h3><?php echo $text_product; ?></h3>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <td class="text-start" style="width: 33.3%;"><?php echo $column_product; ?></td>
-              <td class="text-start" style="width: 33.3%;"><?php echo $column_model; ?></td>
-              <td class="text-end" style="width: 33.3%;"><?php echo $column_quantity; ?></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-start"><?php echo $product; ?></td>
-              <td class="text-start"><?php echo $model; ?></td>
-              <td class="text-end"><?php echo $quantity; ?></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <h3><?php echo $text_reason; ?></h3>
-      <div class="table-responsive">
-        <table class="list table table-bordered table-hover">
-          <thead>
-            <tr>
-              <td class="text-start" style="width: 33.3%;"><?php echo $column_reason; ?></td>
-              <td class="text-start" style="width: 33.3%;"><?php echo $column_opened; ?></td>
-              <td class="text-start" style="width: 33.3%;"><?php echo $column_action; ?></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-start"><?php echo $reason; ?></td>
-              <td class="text-start"><?php echo $opened; ?></td>
-              <td class="text-start"><?php echo $action; ?></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="cp-summary">
+        <?php
+        $facts_title = $text_return_detail;
+        $facts = [
+            [$text_return_id, '#' . $return_id],
+            [$text_date_added, $date_added],
+            [$text_order_id, '#' . $order_id],
+            [$text_date_ordered, $date_ordered],
+        ];
+        include(__DIR__ . '/../common/_facts.tpl');
+        $facts_title = $text_product;
+        $facts = [
+            [$column_product, $product],
+            [$column_model, $model],
+            [$column_quantity, $quantity],
+        ];
+        include(__DIR__ . '/../common/_facts.tpl');
+        $facts_title = $text_reason;
+        $facts = [
+            [$column_reason, $reason],
+            [$column_opened, $opened],
+            [$column_action, $action],
+        ];
+        include(__DIR__ . '/../common/_facts.tpl');
+        ?>
       </div>
       <?php if ($comment) { ?>
-          <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <td class="text-start"><?php echo $text_comment; ?></td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="text-start"><?php echo $comment; ?></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <section class="cp-panel cp-note">
+          <h2 class="cp-info__title"><?php echo $text_comment; ?></h2>
+          <p><?php echo $comment; ?></p>
+        </section>
       <?php } ?>
-      <h3><?php echo $text_history; ?></h3>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <td class="text-start" style="width: 33.3%;"><?php echo $column_date_added; ?></td>
-              <td class="text-start" style="width: 33.3%;"><?php echo $column_status; ?></td>
-              <td class="text-start" style="width: 33.3%;"><?php echo $column_comment; ?></td>
-            </tr>
-          </thead>
-          <tbody>
-              <?php if ($histories) { ?>
-                  <?php foreach ($histories as $history) { ?>
-                    <tr>
-                      <td class="text-start"><?php echo $history['date_added']; ?></td>
-                      <td class="text-start"><?php echo $history['status']; ?></td>
-                      <td class="text-start"><?php echo $history['comment']; ?></td>
-                    </tr>
-                <?php } ?>
-            <?php } else { ?>
-                <tr>
-                  <td colspan="3" class="text-center"><?php echo $text_no_results; ?></td>
-                </tr>
-            <?php } ?>
-          </tbody>
-        </table>
+      <h2 class="cp-section__title"><?php echo $text_history; ?></h2>
+      <?php $history_rows = $histories; include(__DIR__ . '/_history.tpl'); ?>
+      <div class="cp-actions">
+        <a href="<?php echo $continue; ?>" class="btn btn-outline-secondary"><?php echo $button_continue; ?></a>
       </div>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
-</div>
+<?php include(__DIR__ . '/../common/_page_close.tpl'); ?>
 <?php echo $footer; ?>

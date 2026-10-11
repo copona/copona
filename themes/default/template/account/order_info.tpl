@@ -1,169 +1,100 @@
 <?php echo $header; ?>
-<div class="container">
-  <nav aria-label="breadcrumb"><ol class="breadcrumb">
-      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-    <?php } ?>
-  </ol></nav>
-  <?php if ($success) { ?>
-      <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<?php include(__DIR__ . '/../common/_page_open.tpl'); ?>
+      <h1><?php echo $heading_title; ?></h1>
+      <div class="cp-summary">
+        <?php
+        $facts_title = $text_order_detail;
+        $facts = [
+            [$text_order_id, '#' . $order_id],
+            [$text_invoice_no, $invoice_no],
+            [$text_date_added, $date_added],
+            [$text_payment_method, $payment_method],
+            [$text_shipping_method, $shipping_method],
+        ];
+        include(__DIR__ . '/../common/_facts.tpl');
+        ?>
+        <section class="cp-panel cp-info">
+          <h2 class="cp-info__title"><?php echo $text_payment_address; ?></h2>
+          <address><?php echo $payment_address; ?></address>
+        </section>
+        <?php if ($shipping_address) { ?>
+          <section class="cp-panel cp-info">
+            <h2 class="cp-info__title"><?php echo $text_shipping_address; ?></h2>
+            <address><?php echo $shipping_address; ?></address>
+          </section>
+        <?php } ?>
       </div>
-  <?php } ?>
-  <?php if ($error_warning) { ?>
-      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-  <?php } ?>
-  <div class="row"><?php echo $column_left; ?>
-      <?php if ($column_left && $column_right) { ?>
-          <?php $class = 'col-sm-6'; ?>
-      <?php } elseif ($column_left || $column_right) { ?>
-          <?php $class = 'col-sm-9'; ?>
-      <?php } else { ?>
-          <?php $class = 'col-sm-12'; ?>
-      <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <h2><?php echo $heading_title; ?></h2>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <td class="text-start" colspan="2"><?php echo $text_order_detail; ?></td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-start" style="width: 50%;"><?php if ($invoice_no) { ?>
-                  <b><?php echo $text_invoice_no; ?></b> <?php echo $invoice_no; ?><br />
-              <?php } ?>
-              <b><?php echo $text_order_id; ?></b> #<?php echo $order_id; ?><br />
-              <b><?php echo $text_date_added; ?></b> <?php echo $date_added; ?></td>
-            <td class="text-start" style="width: 50%;"><?php if ($payment_method) { ?>
-                  <b><?php echo $text_payment_method; ?></b> <?php echo $payment_method; ?><br />
-              <?php } ?>
-              <?php if ($shipping_method) { ?>
-                  <b><?php echo $text_shipping_method; ?></b> <?php echo $shipping_method; ?>
-              <?php } ?></td>
-          </tr>
-        </tbody>
-      </table>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <td class="text-start" style="width: 50%; vertical-align: top;"><?php echo $text_payment_address; ?></td>
-            <?php if ($shipping_address) { ?>
-                <td class="text-start" style="width: 50%; vertical-align: top;"><?php echo $text_shipping_address; ?></td>
-            <?php } ?>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-start"><?php echo $payment_address; ?></td>
-            <?php if ($shipping_address) { ?>
-                <td class="text-start"><?php echo $shipping_address; ?></td>
-            <?php } ?>
-          </tr>
-        </tbody>
-      </table>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
+      <div class="cp-table-wrap">
+        <table class="table cp-table">
           <thead>
             <tr>
-              <td class="text-start"><?php echo $column_name; ?></td>
-              <td class="text-start"><?php echo $column_model; ?></td>
-              <td class="text-end"><?php echo $column_quantity; ?></td>
-              <td class="text-end"><?php echo $column_price; ?></td>
-              <td class="text-end"><?php echo $column_total; ?></td>
+              <th><?php echo $column_name; ?></th>
+              <th><?php echo $column_model; ?></th>
+              <th class="text-end"><?php echo $column_quantity; ?></th>
+              <th class="text-end"><?php echo $column_price; ?></th>
+              <th class="text-end"><?php echo $column_total; ?></th>
               <?php if ($products) { ?>
-                  <td style="width: 20px;"></td>
+                <th></th>
               <?php } ?>
             </tr>
           </thead>
           <tbody>
-              <?php foreach ($products as $product) { ?>
-                <tr>
-                  <td class="text-start"><?php echo $product['name']; ?>
-                      <?php foreach ($product['option'] as $option) { ?>
-                        <br />
-                        &nbsp;<small> - <?php echo $option['name']; ?>: <?php echo $option['value']; ?></small>
-                    <?php } ?></td>
-                  <td class="text-start"><?php echo $product['model']; ?></td>
-                  <td class="text-end"><?php echo $product['quantity']; ?></td>
-                  <td class="text-end"><?php echo $product['price']; ?></td>
-                  <td class="text-end"><?php echo $product['total']; ?></td>
-                  <td class="text-end" style="white-space: nowrap;"><?php if ($product['reorder']) { ?>
-                        <a href="<?php echo $product['reorder']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_reorder; ?>" class="btn btn-primary"><i class="fa fa-shopping-cart"></i></a>
-                    <?php } ?>
-                    <a href="<?php echo $product['return']; ?>" data-bs-toggle="tooltip" title="<?php echo $button_return; ?>" class="btn btn-danger"><i class="fa fa-reply"></i></a></td>
-                </tr>
+            <?php foreach ($products as $product) { ?>
+              <tr>
+                <td>
+                  <span class="cp-table__strong"><?php echo $product['name']; ?></span>
+                  <?php foreach ($product['option'] as $option) { ?>
+                    <div class="cp-table__note"><?php echo $option['name']; ?>: <?php echo $option['value']; ?></div>
+                  <?php } ?>
+                </td>
+                <td><?php echo $product['model']; ?></td>
+                <td class="text-end"><?php echo $product['quantity']; ?></td>
+                <td class="text-end"><?php echo $product['price']; ?></td>
+                <td class="text-end cp-table__strong"><?php echo $product['total']; ?></td>
+                <td class="text-end text-nowrap">
+                  <?php if ($product['reorder']) { ?>
+                    <a href="<?php echo $product['reorder']; ?>" class="cp-icon-btn" title="<?php echo $button_reorder; ?>" aria-label="<?php echo $button_reorder; ?>"><i class="fa fa-shopping-cart"></i></a>
+                  <?php } ?>
+                  <a href="<?php echo $product['return']; ?>" class="cp-icon-btn" title="<?php echo $button_return; ?>" aria-label="<?php echo $button_return; ?>"><i class="fa fa-reply"></i></a>
+                </td>
+              </tr>
             <?php } ?>
             <?php foreach ($vouchers as $voucher) { ?>
-                <tr>
-                  <td class="text-start"><?php echo $voucher['description']; ?></td>
-                  <td class="text-start"></td>
-                  <td class="text-end">1</td>
-                  <td class="text-end"><?php echo $voucher['amount']; ?></td>
-                  <td class="text-end"><?php echo $voucher['amount']; ?></td>
-                  <?php if ($products) { ?>
-                      <td></td>
-                  <?php } ?>
-                </tr>
+              <tr>
+                <td class="cp-table__strong"><?php echo $voucher['description']; ?></td>
+                <td></td>
+                <td class="text-end">1</td>
+                <td class="text-end"><?php echo $voucher['amount']; ?></td>
+                <td class="text-end cp-table__strong"><?php echo $voucher['amount']; ?></td>
+                <?php if ($products) { ?>
+                  <td></td>
+                <?php } ?>
+              </tr>
             <?php } ?>
           </tbody>
           <tfoot>
-              <?php foreach ($totals as $total) { ?>
-                <tr>
-                  <td colspan="3"></td>
-                  <td class="text-end"><b><?php echo $total['title']; ?></b></td>
-                  <td class="text-end"><?php echo $total['text']; ?></td>
-                  <?php if ($products) { ?>
-                      <td></td>
-                  <?php } ?>
-                </tr>
+            <?php foreach ($totals as $total) { ?>
+              <tr class="cp-table__total">
+                <td colspan="4" class="text-end"><?php echo $total['title']; ?></td>
+                <td class="text-end"><?php echo $total['text']; ?></td>
+                <?php if ($products) { ?>
+                  <td></td>
+                <?php } ?>
+              </tr>
             <?php } ?>
           </tfoot>
         </table>
       </div>
       <?php if ($comment) { ?>
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <td class="text-start"><?php echo $text_comment; ?></td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-start"><?php echo $comment; ?></td>
-              </tr>
-            </tbody>
-          </table>
+        <section class="cp-panel cp-note">
+          <h2 class="cp-info__title"><?php echo $text_comment; ?></h2>
+          <p><?php echo $comment; ?></p>
+        </section>
       <?php } ?>
-      <h3><?php echo $text_history; ?></h3>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <td class="text-start"><?php echo $column_date_added; ?></td>
-            <td class="text-start"><?php echo $column_status; ?></td>
-            <td class="text-start"><?php echo $column_comment; ?></td>
-          </tr>
-        </thead>
-        <tbody>
-            <?php if ($histories) { ?>
-                <?php foreach ($histories as $history) { ?>
-                  <tr>
-                    <td class="text-start"><?php echo $history['date_added']; ?></td>
-                    <td class="text-start"><?php echo $history['status']; ?></td>
-                    <td class="text-start"><?php echo $history['comment']; ?></td>
-                  </tr>
-              <?php } ?>
-          <?php } else { ?>
-              <tr>
-                <td colspan="3" class="text-center"><?php echo $text_no_results; ?></td>
-              </tr>
-          <?php } ?>
-        </tbody>
-      </table>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
-</div>
+      <h2 class="cp-section__title"><?php echo $text_history; ?></h2>
+      <?php $history_rows = $histories; include(__DIR__ . '/_history.tpl'); ?>
+      <div class="cp-actions">
+        <a href="<?php echo $continue; ?>" class="btn btn-outline-secondary"><?php echo $button_continue; ?></a>
+      </div>
+<?php include(__DIR__ . '/../common/_page_close.tpl'); ?>
 <?php echo $footer; ?>

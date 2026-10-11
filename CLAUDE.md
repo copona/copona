@@ -282,7 +282,12 @@ admin login → dashboard round trip (session/auth + DB writes).
   `npm run build:catalog`. Rebuild and commit `main.css` after any SCSS change.
 - Theme classes use a `cp-` prefix. Shared partials: `common/_product_card.tpl`
   (the only product card), `_listing_toolbar.tpl` + `_listing_products.tpl`
-  (category, search, specials, brand pages).
+  (category, search, specials, brand pages). Simple pages (account, compare,
+  information, `common/success`) open and close with `common/_page_open.tpl` /
+  `_page_close.tpl` (breadcrumbs, flash alerts, `.cp-layout`); form inputs use
+  `common/_field.tpl` / `_yes_no.tpl`, and customer custom fields
+  `account/_custom_field.tpl`. Keep the `.form-group` wrapper on fields: the
+  custom-field sort and postcode-required scripts look for it.
 - Page templates lay out side columns with `.cp-layout.has-left/.has-right`
   (CSS grid), not Bootstrap `col-sm-*` arithmetic.
 - `themes/simplica` is still Bootstrap 3 and loads `themes/default/assets/css/additional.css`.
