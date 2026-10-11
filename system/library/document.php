@@ -160,9 +160,21 @@ class Document
             return $href;
         }
 
-        $mtime = @filemtime(DIR_PUBLIC . '/' . ltrim($href, '/'));
+        // Catalog assets are relative to the project root, admin ones to
+        // admin/ (DIR_APPLICATION). Check is_file() first: the app's error
+        // handler reports filemtime() warnings even when they are suppressed.
+        $path = ltrim($href, '/');
+        $candidates = [DIR_PUBLIC . '/' . $path];
+        if (defined('DIR_APPLICATION')) {
+            $candidates[] = rtrim(DIR_APPLICATION, '/') . '/' . $path;
+        }
+        foreach ($candidates as $file) {
+            if (is_file($file)) {
+                return $href . '?v=' . filemtime($file);
+            }
+        }
 
-        return $mtime ? $href . '?v=' . $mtime : $href;
+        return $href;
     }
 
     public function addScriptVersioned($href, $position = 'header', $route = '')
