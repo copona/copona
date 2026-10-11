@@ -9,9 +9,6 @@ class ControllerAccountEdit extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->document->addScript('assets/vendor/datetimepicker/moment.js');
-        $this->document->addScript('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.js');
-        $this->document->addStyle('assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css');
 
         $this->load->model('account/customer');
 

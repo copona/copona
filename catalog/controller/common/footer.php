@@ -66,6 +66,9 @@ class ControllerCommonFooter extends Controller {
         }
 
 
+        $data['name'] = $this->config->get('config_name');
+        $data['home'] = $this->url->link('common/home');
+
         $data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));
 
         // Whos Online

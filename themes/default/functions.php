@@ -17,18 +17,13 @@ if (APPLICATION == 'catalog') {
     $this->document->addScript('assets/vendor/magnific/jquery.magnific-popup.min.js', 'footer', 'product/product');
     $this->document->addScript('themes/default/assets/vendor/flatpickr/flatpickr.min.js');
     $this->document->addScript('themes/default/assets/vendor/flatpickr/datetimepicker-shim.js');
-    $this->document->addScript('assets/vendor/jquery.print/jquery.print.min.js');
     $this->document->addScript('assets/js/common.js');
 
     $this->document->addStyle('assets/vendor/font-awesome/css/font-awesome.min.css', 'stylesheet', 'screen');
-    $this->document->addStyle('//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700', 'stylesheet', 'screen');
+    $this->document->addStyle('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap', 'stylesheet', 'screen');
     $this->document->addStyle('assets/vendor/magnific/magnific-popup.css', 'stylesheet', 'screen');
     $this->document->addStyle('themes/default/assets/vendor/flatpickr/flatpickr.min.css', 'stylesheet', 'screen');
     $this->document->addStyle('themes/default/assets/css/main.css', 'stylesheet', 'screen');
-
-    // Custom CSS temporarily disabled during BS5 migration — re-enable and fix after template pass
-    // $this->document->addStyle('assets/css/stylesheet.css', 'stylesheet', 'screen');
-    // $this->document->addStyle('assets/css/additional.css', 'stylesheet', 'screen');
 }
 /* * * Theme specific - override Settings !  * * */
 

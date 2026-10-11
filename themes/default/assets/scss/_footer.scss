@@ -1,0 +1,38 @@
+// =========================================================
+// Signal footer
+// =========================================================
+
+.cp-footer {
+  background: $copona-surface;
+  border-top: 1px solid $copona-line;
+  margin-top: 2rem;
+
+  h5 {
+    font-family: $font-family-sans-serif;
+    font-size: .9375rem;
+    font-weight: 600;
+    margin-bottom: .75rem;
+  }
+
+  nav { display: flex; flex-direction: column; gap: .5rem; }
+  nav a { color: $copona-muted; }
+  nav a:hover { color: $copona-accent; }
+}
+
+.cp-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.cp-footer__brand { display: flex; flex-direction: column; gap: 1rem; }
+.cp-footer__social { display: flex; gap: .5rem; img { width: 28px; height: 28px; } }
+
+.cp-footer__bottom {
+  border-top: 1px solid $copona-line;
+  padding: 1rem 0;
+  font-size: .8125rem;
+  color: $copona-muted;
+}

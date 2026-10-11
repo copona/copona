@@ -20,6 +20,8 @@ class ControllerCommonHome extends Controller {
         $data['theme_directory'] = $this->config->get('theme_default_directory') ? $this->config->get('theme_default_directory') : $this->config->get('config_template');
 
 
+        $data['categories'] = $this->getCategoryTiles();
+
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['column_right'] = $this->load->controller('common/column_right');
         $data['content_top'] = $this->load->controller('common/content_top');
@@ -29,6 +31,35 @@ class ControllerCommonHome extends Controller {
 
         $this->hook->getHook('controller/home/after', $data);
         $this->response->setOutput($this->load->view('common/home', $data));
+    }
+
+    /**
+     * Top-level categories with their product counts, for the home page tiles.
+     */
+    private function getCategoryTiles() {
+        $this->load->model('catalog/category');
+        $this->load->model('catalog/product');
+
+        $tiles = [];
+
+        foreach ($this->model_catalog_category->getCategories(0) as $category) {
+            $total = $this->model_catalog_product->getTotalProducts([
+                'filter_category_id'  => $category['category_id'],
+                'filter_sub_category' => true,
+            ]);
+
+            if (!$total) {
+                continue;
+            }
+
+            $tiles[] = [
+                'name'  => $category['name'],
+                'total' => $total,
+                'href'  => $this->url->link('product/category', 'path=' . $category['category_id']),
+            ];
+        }
+
+        return $tiles;
     }
 
     /**

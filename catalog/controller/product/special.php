@@ -83,7 +83,7 @@ class ControllerProductSpecial extends Controller {
 
         $product_total = $this->model_catalog_product->getTotalProductSpecials();
 
-        $results = $this->model_catalog_product->getProductSpecials($filter_data);
+        $results = $this->model_catalog_product->getProductSpecials($filter_data) ?: [];
 
         foreach ($results as $result) {
             $image = $this->model_tool_image->productImage(

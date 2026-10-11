@@ -1,0 +1,166 @@
+// =========================================================
+// Signal base: type, page shell, shared bits
+// =========================================================
+
+body {
+  accent-color: $copona-accent;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .h1 { letter-spacing: -0.03em; }
+h2, .h2, h3, .h3 { letter-spacing: -0.015em; }
+
+a { transition: color .15s; }
+
+img { max-width: 100%; height: auto; }
+
+.btn { letter-spacing: .005em; }
+.btn-primary { --bs-btn-color: #fff; --bs-btn-hover-color: #fff; --bs-btn-active-color: #fff; --bs-btn-disabled-color: #fff; }
+.btn-outline-secondary { --bs-btn-color: #{$copona-ink}; --bs-btn-border-color: #{$copona-line}; --bs-btn-hover-bg: #{$copona-ink}; --bs-btn-hover-border-color: #{$copona-ink}; }
+
+.form-control, .form-select { background-color: $copona-surface; }
+
+.cp-wordmark {
+  font-family: $copona-display-font;
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: -0.03em;
+  color: $copona-ink;
+  line-height: 1;
+
+  &::after { content: "."; color: $copona-accent; }
+}
+
+// Page shell
+// Every page template opens a .container right after the header
+.cp-page, .cp-header ~ .container { padding-top: 1.5rem; padding-bottom: 3rem; }
+
+#content > h1, #content > h2:first-child, .cp-page-head h1 {
+  margin-bottom: 1.25rem;
+}
+
+// Content column + optional side columns, without Bootstrap's 3/9 split
+.cp-layout {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+
+  > aside { width: auto; max-width: none; padding: 0; }
+
+  @include media-breakpoint-up(md) {
+    &.has-left { grid-template-columns: 240px minmax(0, 1fr); }
+    &.has-right { grid-template-columns: minmax(0, 1fr) 240px; }
+    &.has-left.has-right { grid-template-columns: 220px minmax(0, 1fr) 220px; }
+  }
+}
+
+// Sections with a display heading
+.cp-section { margin: 2.5rem 0; }
+.cp-section__title { font-size: 1.75rem; margin-bottom: 1rem; }
+
+// Surface used by side modules, panels and forms
+.cp-panel, .list-group, #column-left .card, #column-right .card {
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-xl;
+}
+
+.list-group-item {
+  border-color: $copona-line-soft;
+  &.active { background: $copona-ink; border-color: $copona-ink; }
+}
+
+.breadcrumb a { color: $copona-muted; }
+.breadcrumb a:hover { color: $copona-accent; }
+.breadcrumb-item:last-child a { color: $copona-ink; }
+
+.cp-empty { color: $copona-muted; padding: 2rem 0; }
+
+// Pagination
+.pagination {
+  --bs-pagination-color: #{$copona-ink};
+  --bs-pagination-border-color: #{$copona-line};
+  --bs-pagination-active-bg: #{$copona-ink};
+  --bs-pagination-active-border-color: #{$copona-ink};
+  --bs-pagination-hover-color: #{$copona-accent};
+  gap: .375rem;
+  margin: 0;
+
+  .page-link { border-radius: $border-radius !important; min-width: 2.5rem; text-align: center; }
+}
+
+.cp-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.cp-pagination__results { color: $copona-muted; font-size: .875rem; }
+
+// Ratings
+.cp-rating { color: $copona-accent; font-size: .875rem; letter-spacing: .1em; }
+
+// Small label on media
+.cp-badge {
+  position: absolute;
+  top: .75rem;
+  left: .75rem;
+  background: $copona-accent;
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 600;
+  padding: .25rem .625rem;
+  border-radius: 999px;
+}
+
+// Add-to-cart toast
+.cp-toast-wrap {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1080;
+
+  .toast { border-radius: $border-radius-lg; border-color: $copona-line; }
+  .toast-body { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  #cart-toast-product { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+
+// Public demo notice and admin edit bar (both injected by common/header)
+#copona-demo-bar {
+  background: $copona-accent-soft;
+  color: $copona-accent-dark;
+  border-bottom: 1px solid #FBD5C0;
+  padding: .375rem 1rem;
+  font-size: .8125rem;
+  text-align: center;
+}
+
+#copona-admin-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .5rem 1rem;
+  background: $copona-ink;
+  color: $copona-ground;
+  font-size: .8125rem;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, .3);
+
+  a { color: $copona-ground; }
+}
+.copona-admin-bar__home { opacity: .6; font-size: .6875rem; text-transform: uppercase; letter-spacing: .05em; }
+.copona-admin-bar__edit {
+  background: $copona-accent;
+  padding: .3rem .875rem;
+  border-radius: $border-radius-sm;
+  font-weight: 600;
+  &:hover { color: #fff !important; background: $copona-accent-dark; }
+}
