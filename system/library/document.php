@@ -135,11 +135,34 @@ class Document
         $result = [];
         $this->route = !empty($this->request->get['route']) ? $this->request->get['route'] : '';
         if (!empty($this->styles[$this->route]) && $this->route != 'common') {
-            return array_merge($result, $this->styles['common'], $this->styles[$this->route]);
+            $styles = array_merge($result, $this->styles['common'], $this->styles[$this->route]);
         } else {
-            return $this->styles['common'];
+            $styles = $this->styles['common'];
         }
-        // return $this->styles;
+
+        foreach ($styles as &$style) {
+            $style['href'] = $this->withVersion($style['href']);
+        }
+
+        return $styles;
+    }
+
+    /**
+     * Append ?v=<file mtime> to a local asset path, so a deploy that changes
+     * the file also changes its URL and browsers/CDNs (Cloudflare) fetch the
+     * new copy instead of a cached old one. URLs that are remote, already
+     * carry a query string, or don't point at an existing file are returned
+     * unchanged.
+     */
+    private function withVersion($href)
+    {
+        if (strpos($href, '//') !== false || strpos($href, '?') !== false) {
+            return $href;
+        }
+
+        $mtime = @filemtime(DIR_PUBLIC . '/' . ltrim($href, '/'));
+
+        return $mtime ? $href . '?v=' . $mtime : $href;
     }
 
     public function addScriptVersioned($href, $position = 'header', $route = '')
@@ -182,10 +205,12 @@ class Document
         // prd($this->scripts);
 
         if (!empty($this->scripts[$this->route][$position]) && $this->route != 'common') {
-            return array_merge($result, $this->scripts['common'][$position], $this->scripts[$this->route][$position]);
+            $scripts = array_merge($result, $this->scripts['common'][$position], $this->scripts[$this->route][$position]);
         } else {
-            return $this->scripts['common'][$position];
+            $scripts = $this->scripts['common'][$position];
         }
+
+        return array_map([$this, 'withVersion'], (array)$scripts);
     }
 
     public function addOGMeta($name, $content) {
