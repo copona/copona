@@ -59,7 +59,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
         if (file_exists(DIR_APPLICATION . 'themes/' . $this->config->get('config_template') . '/assets/css/stylesheet.css')) {
             $data['stylesheet'] = '/themes/' . $this->config->get('config_template') . '/assets/css/stylesheet.css';
         } else {
-            $data['stylesheet'] = '/themes/default/assets/css/stylesheet.css';
+            $data['stylesheet'] = '/themes/default/assets/css/main.css';
         }
 
         $this->response->setOutput($this->load->view('extension/payment/pp_pro_iframe_body', $data));

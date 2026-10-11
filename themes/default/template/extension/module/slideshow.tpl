@@ -1,21 +1,16 @@
-<div id="slideshow<?php echo $module; ?>" class="swiper banner-slideshow">
+<div id="slideshow<?php echo $module; ?>" class="swiper cp-hero">
   <div class="swiper-wrapper">
-      <?php foreach ($banners as $banner) { ?>
-
-        <div class="swiper-slide">
-            <?php if ($banner['link']) { ?><?php if ($banner['title']) { ?>
-              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-fluid"/><a class="banner-text" href="<?= $banner['link'] ?>">
-                <h2><?php echo $banner['title']; ?></h2>
-                    <?= ($banner['description'] ? "<span>" . $banner['description'] . "</span>" : ''); ?>
-              </a>
-            <?php } else { ?>
-              <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-fluid"/></a>
-            <?php } ?><?php } else { ?>
-              <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>" class="img-fluid"/>
-            <?php } ?>
-        </div>
-
-      <?php } ?>
+    <?php foreach ($banners as $banner) { ?>
+      <<?php echo $banner['link'] ? 'a href="' . $banner['link'] . '"' : 'div'; ?> class="swiper-slide cp-hero__slide">
+        <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['alt']; ?>"/>
+        <?php if ($banner['title']) { ?>
+          <span class="cp-hero__caption">
+            <span class="cp-hero__title"><?php echo $banner['title']; ?></span>
+            <?php if ($banner['description']) { ?><span class="cp-hero__text"><?php echo $banner['description']; ?></span><?php } ?>
+          </span>
+        <?php } ?>
+      </<?php echo $banner['link'] ? 'a' : 'div'; ?>>
+    <?php } ?>
   </div>
   <div class="swiper-button-prev"></div>
   <div class="swiper-button-next"></div>

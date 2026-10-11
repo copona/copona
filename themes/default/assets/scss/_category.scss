@@ -1,0 +1,50 @@
+// =========================================================
+// Listings: category, search, specials, brand pages
+// =========================================================
+
+.cp-page-head {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  h1 { font-size: clamp(2.25rem, 4vw, 3.25rem); margin: 0; }
+}
+.cp-page-head__thumb { width: 96px; height: 96px; object-fit: cover; border-radius: $border-radius-xl; }
+.cp-page-head__desc { color: $copona-muted; margin-top: .5rem; max-width: 60ch; p:last-child { margin: 0; } }
+
+.cp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1.5rem;
+
+  a {
+    padding: .5rem 1rem;
+    border: 1px solid $copona-line;
+    border-radius: 999px;
+    background: $copona-surface;
+    font-weight: 500;
+    font-size: .9375rem;
+    &:hover { border-color: $copona-ink; color: $copona-ink; }
+  }
+}
+
+.cp-chips--brands {
+  a { background: transparent; color: $copona-muted; }
+  img { max-height: 24px; width: auto; }
+}
+
+.cp-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem 1.5rem;
+  margin-bottom: 1rem;
+
+  label { display: flex; align-items: center; gap: .5rem; font-size: .875rem; font-weight: 600; }
+  .form-select { width: auto; font-weight: 500; }
+}
+.cp-toolbar__compare { color: $copona-muted; font-size: .875rem; text-decoration: underline; }
+.cp-toolbar__selects { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; }

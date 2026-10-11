@@ -1,444 +1,280 @@
 <?php echo $header; ?>
-<style>
-#product-gallery { margin-bottom: 20px; }
-.gallery-main {
-  background: #f5f5f7;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 10px;
-  aspect-ratio: 4/3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+<?php
+$gallery_items = [];
+if ($thumb) {
+    $gallery_items[] = ['popup' => $popup, 'mid' => $image_mid, 'thumb' => $thumb, 'title' => $heading_title, 'type' => 'image'];
 }
-.gallery-main a { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; }
-.gallery-main img { width: 100%; height: 100%; object-fit: contain; }
-.gallery-thumbs {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  scrollbar-width: thin;
+foreach ($images as $gimg) {
+    $gallery_items[] = ['popup' => $gimg['popup'], 'mid' => $gimg['image_mid'], 'thumb' => $gimg['thumb'], 'title' => $gimg['description'], 'type' => 'image'];
 }
-.gallery-thumb {
-  position: relative;
-  flex: 0 0 72px;
-  height: 72px;
-  border-radius: 6px;
-  overflow: hidden;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: border-color .15s;
+foreach ($product_videos ?? [] as $video) {
+    $gallery_items[] = ['popup' => $video['video'], 'mid' => $video['video_src'], 'thumb' => $video['video_src'], 'title' => $heading_title, 'type' => 'video'];
 }
-.gallery-thumb.active, .gallery-thumb:hover { border-color: #0071e3; }
-.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.gallery-play {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,.35);
-  color: #fff;
-  font-size: 20px;
-  pointer-events: none;
-}
-</style>
-<div class="container">
+$share_url = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+?>
+<div class="container cp-page">
   <nav aria-label="breadcrumb"><ol class="breadcrumb">
-      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+    <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+      <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
   </ol></nav>
-  <div class="row"><?php echo $column_left; ?>
-      <?php if ($column_left && $column_right) { ?>
-          <?php $class = 'col-sm-6'; ?>
-      <?php } elseif ($column_left || $column_right) { ?>
-          <?php $class = 'col-sm-9'; ?>
-      <?php } else { ?>
-          <?php $class = 'col-sm-12'; ?>
-      <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <div class="row" id="printable">
-          <?php if ($column_left || $column_right) { ?>
-              <?php $class = 'col-sm-6'; ?>
-          <?php } else { ?>
-              <?php $class = 'col-sm-8'; ?>
-          <?php } ?>
-
-        <div class="<?php echo $class; ?>">
-            <?php
-            $gallery_items = array();
-            if ($thumb) {
-                $gallery_items[] = array('popup' => $popup, 'mid' => $image_mid, 'thumb' => $thumb, 'title' => $heading_title, 'type' => 'image');
-            }
-            if ($images) {
-                foreach ($images as $gimg) {
-                    $gallery_items[] = array('popup' => $gimg['popup'], 'mid' => $gimg['image_mid'], 'thumb' => $gimg['thumb'], 'title' => $gimg['description'], 'type' => 'image');
-                }
-            }
-            if (!empty($product_videos)) {
-                foreach ($product_videos as $video) {
-                    $gallery_items[] = array('popup' => $video['video'], 'mid' => $video['video_src'], 'thumb' => $video['video_src'], 'title' => $heading_title, 'type' => 'video');
-                }
-            }
-            ?>
-            <?php if ($gallery_items) { ?>
-            <div id="product-gallery">
-              <div class="gallery-main">
-                <a href="<?php echo htmlspecialchars($gallery_items[0]['popup']); ?>" class="<?php echo $gallery_items[0]['type'] === 'video' ? 'gallery-video' : 'gallery-image'; ?>">
-                  <img id="gallery-main-img" fetchpriority="high" src="<?php echo $gallery_items[0]['mid']; ?>" alt="<?php echo htmlspecialchars($gallery_items[0]['title']); ?>">
-                </a>
-              </div>
-              <?php if (count($gallery_items) > 1) { ?>
+  <div class="cp-layout<?php echo $column_left ? ' has-left' : ''; ?><?php echo $column_right ? ' has-right' : ''; ?>">
+    <?php echo $column_left; ?>
+    <div id="content"><?php echo $content_top; ?>
+      <div class="cp-product">
+        <div class="cp-product__gallery">
+          <?php if ($gallery_items) { ?>
+            <div class="gallery-main">
+              <a href="<?php echo htmlspecialchars($gallery_items[0]['popup']); ?>" class="<?php echo $gallery_items[0]['type'] === 'video' ? 'gallery-video' : 'gallery-image'; ?>">
+                <img id="gallery-main-img" fetchpriority="high" src="<?php echo $gallery_items[0]['mid']; ?>" alt="<?php echo htmlspecialchars($gallery_items[0]['title']); ?>">
+              </a>
+            </div>
+            <?php if (count($gallery_items) > 1) { ?>
               <div class="gallery-thumbs">
                 <?php foreach ($gallery_items as $gi => $gitem) { ?>
-                <div class="gallery-thumb<?php echo $gi === 0 ? ' active' : ''; ?>"
-                     data-popup="<?php echo htmlspecialchars($gitem['popup']); ?>"
-                     data-mid="<?php echo htmlspecialchars($gitem['mid']); ?>"
-                     data-title="<?php echo htmlspecialchars($gitem['title']); ?>"
-                     data-type="<?php echo $gitem['type']; ?>">
-                  <img loading="lazy" decoding="async" src="<?php echo $gitem['thumb']; ?>" alt="<?php echo htmlspecialchars($gitem['title']); ?>">
-                  <?php if ($gitem['type'] === 'video') { ?><span class="gallery-play">&#9654;</span><?php } ?>
-                </div>
+                  <button type="button" class="gallery-thumb<?php echo $gi === 0 ? ' active' : ''; ?>"
+                          data-popup="<?php echo htmlspecialchars($gitem['popup']); ?>"
+                          data-mid="<?php echo htmlspecialchars($gitem['mid']); ?>"
+                          data-title="<?php echo htmlspecialchars($gitem['title']); ?>"
+                          data-type="<?php echo $gitem['type']; ?>">
+                    <img loading="lazy" decoding="async" src="<?php echo $gitem['thumb']; ?>" alt="<?php echo htmlspecialchars($gitem['title']); ?>">
+                    <?php if ($gitem['type'] === 'video') { ?><span class="gallery-play">&#9654;</span><?php } ?>
+                  </button>
                 <?php } ?>
               </div>
-              <?php } ?>
-            </div>
             <?php } ?>
-
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item" role="presentation"><a class="nav-link active" href="#tab-description" data-bs-toggle="tab" role="tab"><?php echo $tab_description; ?></a></li>
-            <?php if ($attribute_groups) { ?>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="#tab-specification" data-bs-toggle="tab" role="tab"><?php echo $tab_attribute; ?></a></li>
-            <?php } ?>
-            <?php if ($review_status) { ?>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="#tab-review" data-bs-toggle="tab" role="tab"><?php echo $tab_review; ?></a></li>
-            <?php } ?>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane show active" id="tab-description"><?php echo $description; ?></div>
-            <?php if ($attribute_groups) { ?>
-                <div class="tab-pane" id="tab-specification">
-                  <table class="table table-bordered">
-                      <?php foreach ($attribute_groups as $attribute_group) { ?>
-                        <thead>
-                          <tr>
-                            <td colspan="2"><strong><?php echo $attribute_group['name']; ?></strong></td>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($attribute_group['attribute'] as $attribute) { ?>
-                              <tr>
-                                <td><?php echo $attribute['name']; ?></td>
-                                <td><?php echo $attribute['text']; ?></td>
-                              </tr>
-                          <?php } ?>
-                        </tbody>
-                    <?php } ?>
-                  </table>
-                </div>
-            <?php } ?>
-            <?php if ($review_status) { ?>
-                <div class="tab-pane" id="tab-review">
-                  <form class="row" id="form-review">
-                    <div id="review"></div>
-                    <h2><?php echo $text_write; ?></h2>
-                    <?php if ($review_guest) { ?>
-                        <div class="form-group required">
-                          <div class="col-sm-12">
-                            <label class="form-label" for="input-name"><?php echo $entry_name; ?></label>
-                            <input type="text" name="name" value="<?php echo $customer_name; ?>" id="input-name" class="form-control" />
-                          </div>
-                        </div>
-                        <div class="form-group required">
-                          <div class="col-sm-12">
-                            <label class="form-label" for="input-review"><?php echo $entry_review; ?></label>
-                            <textarea name="text" rows="5" id="input-review" class="form-control"></textarea>
-                            <div class="form-text text-muted"><?php echo $text_note; ?></div>
-                          </div>
-                        </div>
-                        <div class="form-group required">
-                          <div class="col-sm-12">
-                            <label class="form-label"><?php echo $entry_rating; ?></label>
-                            &nbsp;&nbsp;&nbsp; <?php echo $entry_bad; ?>&nbsp;
-                            <input type="radio" name="rating" value="1" />
-                            &nbsp;
-                            <input type="radio" name="rating" value="2" />
-                            &nbsp;
-                            <input type="radio" name="rating" value="3" />
-                            &nbsp;
-                            <input type="radio" name="rating" value="4" />
-                            &nbsp;
-                            <input type="radio" name="rating" value="5" />
-                            &nbsp;<?php echo $entry_good; ?></div>
-                        </div>
-                        <?php echo $captcha; ?>
-                        <div class="buttons clearfix">
-                          <div class="float-end">
-                            <button type="button" id="button-review" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary"><?php echo $button_continue; ?></button>
-                          </div>
-                        </div>
-                    <?php } else { ?>
-                        <?php echo $text_login; ?>
-                    <?php } ?>
-                  </form>
-                </div>
-            <?php } ?>
-          </div>
-        </div>
-        <?php if ($column_left || $column_right) { ?>
-            <?php $class = 'col-sm-6'; ?>
-        <?php } else { ?>
-            <?php $class = 'col-sm-4'; ?>
-        <?php } ?>
-        <div class="<?php echo $class; ?>">
-          <div class="btn-group">
-            <button type="button" data-bs-toggle="tooltip" class="btn btn-secondary" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="fa fa-heart"></i></button>
-            <button type="button" data-bs-toggle="tooltip" class="btn btn-secondary" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
-            <button type="button" data-bs-toggle="tooltip" class="btn btn-secondary print" title="<?php echo $button_print; ?>"><i class="fa fa-print" aria-hidden="true"></i></button>
-          </div>
-          <h1><?php echo $heading_title; ?></h1>
-          <ul class="list-unstyled">
-              <?php if ($manufacturer) { ?>
-                <li><?php echo $text_manufacturer; ?> <a href="<?php echo $manufacturers; ?>"><?php echo $manufacturer; ?></a></li>
-            <?php } ?>
-            <li><?php echo $text_model; ?> <?php echo $model; ?></li>
-            <?php if ($reward) { ?>
-                <li><?php echo $text_reward; ?> <?php echo $reward; ?></li>
-            <?php } ?>
-            <li><?php echo $text_stock; ?> <?php echo $stock; ?></li>
-          </ul>
-          <?php if ($group_products) { ?>
-              <ul class="list-unstyled product-group">
-                  <?php foreach ($group_products as $group_product) { ?>
-                    <li <?= ($group_product['product_id'] == $product_id ? 'class="active"' : '') ?>>
-                      <a href="<?php echo $group_product['href'] ?>"><img src="<?php echo $group_product['image'] ?>" alt="<?php echo $group_product['name'] ?>" title="<?php echo $group_product['name'] ?>"></a>
-                    </li>
-                <?php } ?>
-              </ul>
           <?php } ?>
+        </div>
 
+        <div class="cp-product__info">
+          <?php if ($manufacturer) { ?>
+            <a href="<?php echo $manufacturers; ?>" class="cp-eyebrow"><?php echo $manufacturer; ?></a>
+          <?php } ?>
+          <h1><?php echo $heading_title; ?></h1>
+          <p class="cp-product__meta">
+            <?php echo $text_model; ?> <?php echo $model; ?>
+            <?php if ($review_status) { ?>
+              ·
+              <?php if ($rating) { ?>
+                <span class="cp-rating"><?php for ($i = 1; $i <= 5; $i++) { ?><i class="fa <?php echo $rating < $i ? 'fa-star-o' : 'fa-star'; ?>"></i><?php } ?></span>
+              <?php } ?>
+              <a href="#tab-review" class="cp-review-link"><?php echo $reviews; ?></a>
+            <?php } ?>
+          </p>
 
           <?php if ($price) { ?>
-              <ul class="list-unstyled">
-                  <?php if (!$special) { ?>
-                    <li>
-                      <h2><?php echo $price; ?></h2>
-                    </li>
-                <?php } else { ?>
-                    <li><span class="price-old"><?php echo $price; ?></span></li>
-                    <li>
-                      <h2><?php echo $special; ?></h2>
-                    </li>
-                <?php } ?>
-                <?php if ($tax) { ?>
-                    <li><?php echo $text_tax; ?> <?php echo $tax; ?></li>
-                <?php } ?>
-                <?php if ($points) { ?>
-                    <li><?php echo $text_points; ?> <?php echo $points; ?></li>
-                <?php } ?>
-                <?php if ($discounts) { ?>
-                    <li>
-                      <hr>
-                    </li>
-                    <?php foreach ($discounts as $discount) { ?>
-                        <li><?php echo $discount['quantity']; ?><?php echo $text_discount; ?><?php echo $discount['price']; ?></li>
-                    <?php } ?>
+            <div class="cp-price cp-price--lg">
+              <?php if (!$special) { ?>
+                <span class="cp-price__now"><?php echo $price; ?></span>
+              <?php } else { ?>
+                <span class="cp-price__now is-special"><?php echo $special; ?></span>
+                <s class="cp-price__old"><?php echo $price; ?></s>
+              <?php } ?>
+              <?php if ($tax) { ?>
+                <span class="cp-price__tax"><?php echo $text_tax; ?> <?php echo $tax; ?></span>
+              <?php } ?>
+            </div>
+            <?php if ($discounts) { ?>
+              <ul class="cp-discounts">
+                <?php foreach ($discounts as $discount) { ?>
+                  <li><?php echo $discount['quantity']; ?><?php echo $text_discount; ?><?php echo $discount['price']; ?></li>
                 <?php } ?>
               </ul>
+            <?php } ?>
           <?php } ?>
-          <div id="product">
 
-            <?php if ($options) { ?>
-                <hr>
-                <h3><?php echo $text_option; ?></h3>
-                <?php foreach ($options as $option) { ?>
-                    <?php if ($option['type'] == 'select') { ?>
-                        <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-                          <select name="option[<?php echo $option['product_option_id']; ?>]" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control">
-                            <option value=""><?php echo $text_select; ?></option>
-                            <?php foreach ($option['product_option_value'] as $option_value) { ?>
-                                <option value="<?php echo $option_value['product_option_value_id']; ?>"><?php echo $option_value['name']; ?>
-                                    <?php if ($option_value['price']) { ?>
-                                      (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
-                                  <?php } ?>
-                                </option>
-                            <?php } ?>
-                          </select>
-                        </div>
+          <?php if ($short_description) { ?>
+            <p class="cp-product__lead"><?php echo $short_description; ?></p>
+          <?php } ?>
+
+          <?php if ($group_products) { ?>
+            <ul class="cp-product__group">
+              <?php foreach ($group_products as $group_product) { ?>
+                <li<?= ($group_product['product_id'] == $product_id ? ' class="active"' : '') ?>>
+                  <a href="<?php echo $group_product['href'] ?>"><img src="<?php echo $group_product['image'] ?>" alt="<?php echo $group_product['name'] ?>" title="<?php echo $group_product['name'] ?>"></a>
+                </li>
+              <?php } ?>
+            </ul>
+          <?php } ?>
+
+          <div id="product">
+            <?php foreach ($options as $option) { ?>
+              <?php $oid = $option['product_option_id']; ?>
+              <div class="cp-field<?php echo ($option['required'] ? ' required' : ''); ?>">
+                <?php if ($option['type'] == 'select') { ?>
+                  <label class="form-label" for="input-option<?php echo $oid; ?>"><?php echo $option['name']; ?></label>
+                  <select name="option[<?php echo $oid; ?>]" id="input-option<?php echo $oid; ?>" class="form-select">
+                    <option value=""><?php echo $text_select; ?></option>
+                    <?php foreach ($option['product_option_value'] as $option_value) { ?>
+                      <option value="<?php echo $option_value['product_option_value_id']; ?>"><?php echo $option_value['name']; ?><?php if ($option_value['price']) { ?> (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?></option>
                     <?php } ?>
-                    <?php if ($option['type'] == 'radio') { ?>
-                        <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="form-label"><?php echo $option['name']; ?></label>
-                          <div id="input-option<?php echo $option['product_option_id']; ?>">
-                              <?php foreach ($option['product_option_value'] as $option_value) { ?>
-                                <div class="radio">
-                                  <label>
-                                    <input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" />
-                                    <?php if ($option_value['image']) { ?>
-                                        <img src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="img-thumbnail" />
-                                    <?php } ?>
-                                    <?php echo $option_value['name']; ?>
-                                    <?php if ($option_value['price']) { ?>
-                                        (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
-                                    <?php } ?>
-                                  </label>
-                                </div>
-                            <?php } ?>
-                          </div>
-                        </div>
+                  </select>
+                <?php } elseif ($option['type'] == 'radio' || $option['type'] == 'checkbox') { ?>
+                  <span class="form-label"><?php echo $option['name']; ?></span>
+                  <div id="input-option<?php echo $oid; ?>" class="cp-choices">
+                    <?php foreach ($option['product_option_value'] as $option_value) { ?>
+                      <label class="cp-choice">
+                        <input type="<?php echo $option['type']; ?>" name="option[<?php echo $oid; ?>]<?php echo $option['type'] == 'checkbox' ? '[]' : ''; ?>" value="<?php echo $option_value['product_option_value_id']; ?>"/>
+                        <?php if ($option_value['image']) { ?>
+                          <img src="<?php echo $option_value['image']; ?>" alt=""/>
+                        <?php } ?>
+                        <span><?php echo $option_value['name']; ?><?php if ($option_value['price']) { ?> <small><?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?></small><?php } ?></span>
+                      </label>
                     <?php } ?>
-                    <?php if ($option['type'] == 'checkbox') { ?>
-                        <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="form-label"><?php echo $option['name']; ?></label>
-                          <div id="input-option<?php echo $option['product_option_id']; ?>">
-                              <?php foreach ($option['product_option_value'] as $option_value) { ?>
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="option[<?php echo $option['product_option_id']; ?>][]" value="<?php echo $option_value['product_option_value_id']; ?>" />
-                                    <?php if ($option_value['image']) { ?>
-                                        <img src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="img-thumbnail" />
-                                    <?php } ?>
-                                    <?php echo $option_value['name']; ?>
-                                    <?php if ($option_value['price']) { ?>
-                                        (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
-                                    <?php } ?>
-                                  </label>
-                                </div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                    <?php } ?>
-                    <?php if ($option['type'] == 'text') { ?>
-                        <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-                          <input type="text" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" placeholder="<?php echo $option['name']; ?>" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
-                        </div>
-                    <?php } ?>
-                    <?php if ($option['type'] == 'textarea') { ?>
-                        <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-                          <textarea name="option[<?php echo $option['product_option_id']; ?>]" rows="5" placeholder="<?php echo $option['name']; ?>" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control"><?php echo $option['value']; ?></textarea>
-                        </div>
-                    <?php } ?>
-                    <?php if ($option['type'] == 'file') { ?>
-                        <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="form-label"><?php echo $option['name']; ?></label>
-                          <button type="button" id="button-upload<?php echo $option['product_option_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-secondary d-block w-100"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
-                          <input type="hidden" name="option[<?php echo $option['product_option_id']; ?>]" value="" id="input-option<?php echo $option['product_option_id']; ?>" />
-                        </div>
-                    <?php } ?>
-                    <?php if ($option['type'] == 'date') { ?>
-                        <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-                          <div class="input-group date">
-                            <input type="text" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['product_option_value']; ?>" data-date-format="YYYY-MM-DD" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
-                            <span class="input-group-text">
-                              <button class="btn btn-secondary" type="button"><i class="fa fa-calendar"></i></button>
-                            </span></div>
-                        </div>
-                    <?php } ?>
-                    <?php if ($option['type'] == 'datetime') { ?>
-                        <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-                          <div class="input-group datetime">
-                            <input type="text" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
-                            <span class="input-group-text">
-                              <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
-                            </span></div>
-                        </div>
-                    <?php } ?>
-                    <?php if ($option['type'] == 'time') { ?>
-                        <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                          <label class="form-label" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-                          <div class="input-group time">
-                            <input type="text" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" data-date-format="HH:mm" id="input-option<?php echo $option['product_option_id']; ?>" class="form-control" />
-                            <span class="input-group-text">
-                              <button type="button" class="btn btn-secondary"><i class="fa fa-calendar"></i></button>
-                            </span></div>
-                        </div>
-                    <?php } ?>
+                  </div>
+                <?php } elseif ($option['type'] == 'text') { ?>
+                  <label class="form-label" for="input-option<?php echo $oid; ?>"><?php echo $option['name']; ?></label>
+                  <input type="text" name="option[<?php echo $oid; ?>]" value="<?php echo $option['value']; ?>" id="input-option<?php echo $oid; ?>" class="form-control"/>
+                <?php } elseif ($option['type'] == 'textarea') { ?>
+                  <label class="form-label" for="input-option<?php echo $oid; ?>"><?php echo $option['name']; ?></label>
+                  <textarea name="option[<?php echo $oid; ?>]" rows="4" id="input-option<?php echo $oid; ?>" class="form-control"><?php echo $option['value']; ?></textarea>
+                <?php } elseif ($option['type'] == 'file') { ?>
+                  <span class="form-label"><?php echo $option['name']; ?></span>
+                  <button type="button" id="button-upload<?php echo $oid; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-outline-secondary w-100"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
+                  <input type="hidden" name="option[<?php echo $oid; ?>]" value="" id="input-option<?php echo $oid; ?>"/>
+                <?php } elseif (in_array($option['type'], ['date', 'datetime', 'time'])) { ?>
+                  <?php $formats = ['date' => 'YYYY-MM-DD', 'datetime' => 'YYYY-MM-DD HH:mm', 'time' => 'HH:mm']; ?>
+                  <label class="form-label" for="input-option<?php echo $oid; ?>"><?php echo $option['name']; ?></label>
+                  <div class="input-group <?php echo $option['type']; ?>">
+                    <input type="text" name="option[<?php echo $oid; ?>]" value="<?php echo $option['value']; ?>" data-date-format="<?php echo $formats[$option['type']]; ?>" id="input-option<?php echo $oid; ?>" class="form-control"/>
+                    <button type="button" class="btn btn-outline-secondary" aria-label="<?php echo $option['name']; ?>"><i class="fa fa-calendar"></i></button>
+                  </div>
                 <?php } ?>
+              </div>
             <?php } ?>
 
             <?php if ($recurrings) { ?>
-                <hr>
-                <h3><?php echo $text_payment_recurring; ?></h3>
-                <div class="form-group required">
-                  <select name="recurring_id" class="form-control">
-                    <option value=""><?php echo $text_select; ?></option>
-                    <?php foreach ($recurrings as $recurring) { ?>
-                        <option value="<?php echo $recurring['recurring_id']; ?>"><?php echo $recurring['name']; ?></option>
-                    <?php } ?>
-                  </select>
-                  <div class="form-text text-muted" id="recurring-description"></div>
-                </div>
+              <div class="cp-field required">
+                <label class="form-label" for="input-recurring"><?php echo $text_payment_recurring; ?></label>
+                <select name="recurring_id" id="input-recurring" class="form-select">
+                  <option value=""><?php echo $text_select; ?></option>
+                  <?php foreach ($recurrings as $recurring) { ?>
+                    <option value="<?php echo $recurring['recurring_id']; ?>"><?php echo $recurring['name']; ?></option>
+                  <?php } ?>
+                </select>
+                <div class="form-text" id="recurring-description"></div>
+              </div>
             <?php } ?>
-            <div class="form-group">
-              <label class="form-label" for="input-quantity"><?php echo $entry_qty; ?></label>
-              <input type="text" name="quantity" value="<?php echo $minimum; ?>" size="2" id="input-quantity" class="form-control" />
-              <input type="hidden" name="product_id" value="<?php echo $product_id; ?>" />
-              <br />
-              <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg d-block w-100"><?php echo $button_cart; ?></button>
-            </div>
-            <?php $share_url = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
-            <div class="d-flex gap-2 align-items-center mt-2 social-icons">
-              <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode($share_url) ?>" target="_blank" rel="noopener" title="Share on Facebook" style="color:#9ca3af;line-height:1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
-              </a>
-              <a class="twitter" href="https://x.com/intent/post?url=<?= urlencode($share_url) ?>&text=<?= urlencode($heading_title) ?>" target="_blank" rel="noopener" title="Share on X" style="color:#9ca3af;line-height:1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              </a>
+
+            <div class="cp-buy">
+              <div class="cp-qty">
+                <button type="button" data-qty="-1" aria-label="&minus;">&minus;</button>
+                <input type="text" inputmode="numeric" name="quantity" value="<?php echo $minimum; ?>" id="input-quantity" aria-label="<?php echo $entry_qty; ?>"/>
+                <button type="button" data-qty="1" aria-label="+">+</button>
+              </div>
+              <input type="hidden" name="product_id" value="<?php echo $product_id; ?>"/>
+              <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg cp-buy__add"><?php echo $button_cart; ?></button>
+              <button type="button" class="cp-icon-btn cp-icon-btn--lg" title="<?php echo $button_wishlist; ?>" aria-label="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="fa fa-heart-o"></i></button>
+              <button type="button" class="cp-icon-btn cp-icon-btn--lg" title="<?php echo $button_compare; ?>" aria-label="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
             </div>
             <?php if ($minimum > 1) { ?>
-                <div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $text_minimum; ?></div>
+              <div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $text_minimum; ?></div>
             <?php } ?>
           </div>
+
+          <ul class="cp-facts">
+            <li><strong><?php echo $text_stock; ?></strong> <?php echo $stock; ?></li>
+            <?php if ($reward) { ?>
+              <li><strong><?php echo $text_reward; ?></strong> <?php echo $reward; ?></li>
+            <?php } ?>
+            <?php if ($points) { ?>
+              <li><strong><?php echo $text_points; ?></strong> <?php echo $points; ?></li>
+            <?php } ?>
+          </ul>
+
+          <div class="cp-share">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode($share_url) ?>" target="_blank" rel="noopener" title="Share on Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+            </a>
+            <a href="https://x.com/intent/post?url=<?= urlencode($share_url) ?>&text=<?= urlencode($heading_title) ?>" target="_blank" rel="noopener" title="Share on X">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cp-product__details">
+        <ul class="nav nav-underline" role="tablist">
+          <li class="nav-item" role="presentation"><a class="nav-link active" href="#tab-description" data-bs-toggle="tab" role="tab"><?php echo $tab_description; ?></a></li>
+          <?php if ($attribute_groups) { ?>
+            <li class="nav-item" role="presentation"><a class="nav-link" href="#tab-specification" data-bs-toggle="tab" role="tab"><?php echo $tab_attribute; ?></a></li>
+          <?php } ?>
           <?php if ($review_status) { ?>
-              <div class="rating">
-                <p>
-                    <?php for ($i = 1; $i <= 5; $i++) { ?>
-                        <?php if ($rating < $i) { ?>
-                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                      <?php } else { ?>
-                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                      <?php } ?>
+            <li class="nav-item" role="presentation"><a class="nav-link" href="#tab-review" data-bs-toggle="tab" role="tab"><?php echo $tab_review; ?></a></li>
+          <?php } ?>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane show active cp-prose" id="tab-description"><?php echo $description; ?></div>
+          <?php if ($attribute_groups) { ?>
+            <div class="tab-pane" id="tab-specification">
+              <?php foreach ($attribute_groups as $attribute_group) { ?>
+                <h3 class="cp-spec__group"><?php echo $attribute_group['name']; ?></h3>
+                <dl class="cp-spec">
+                  <?php foreach ($attribute_group['attribute'] as $attribute) { ?>
+                    <div><dt><?php echo $attribute['name']; ?></dt><dd><?php echo $attribute['text']; ?></dd></div>
                   <?php } ?>
-                  <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;"><?php echo $reviews; ?></a> / <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;"><?php echo $text_write; ?></a></p>
-                <hr>
-              </div>
+                </dl>
+              <?php } ?>
+            </div>
+          <?php } ?>
+          <?php if ($review_status) { ?>
+            <div class="tab-pane" id="tab-review">
+              <div id="review"></div>
+              <form id="form-review" class="cp-review-form">
+                <h3><?php echo $text_write; ?></h3>
+                <?php if ($review_guest) { ?>
+                  <div class="cp-field required">
+                    <label class="form-label" for="input-name"><?php echo $entry_name; ?></label>
+                    <input type="text" name="name" value="<?php echo $customer_name; ?>" id="input-name" class="form-control"/>
+                  </div>
+                  <div class="cp-field required">
+                    <label class="form-label" for="input-review"><?php echo $entry_review; ?></label>
+                    <textarea name="text" rows="5" id="input-review" class="form-control"></textarea>
+                    <div class="form-text"><?php echo $text_note; ?></div>
+                  </div>
+                  <fieldset class="cp-field required">
+                    <legend class="form-label"><?php echo $entry_rating; ?></legend>
+                    <div class="cp-stars-input">
+                      <span><?php echo $entry_bad; ?></span>
+                      <?php for ($r = 1; $r <= 5; $r++) { ?>
+                        <input type="radio" name="rating" value="<?php echo $r; ?>" aria-label="<?php echo $r; ?>"/>
+                      <?php } ?>
+                      <span><?php echo $entry_good; ?></span>
+                    </div>
+                  </fieldset>
+                  <?php echo $captcha; ?>
+                  <button type="button" id="button-review" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-dark"><?php echo $button_continue; ?></button>
+                <?php } else { ?>
+                  <p><?php echo $text_login; ?></p>
+                <?php } ?>
+              </form>
+            </div>
           <?php } ?>
         </div>
       </div>
+
       <?php if ($products) { ?>
-          <h3><?php echo $text_related; ?></h3>
-          <div class="row">
-              <?php
-              if ($column_left && $column_right) {
-                  $product_col_class = 'col-8 col-sm-6';
-              } elseif ($column_left || $column_right) {
-                  $product_col_class = 'col-6 col-md-4';
-              } else {
-                  $product_col_class = 'col-6 col-sm-3';
-              }
-              ?>
-              <?php foreach ($products as $product) { ?>
-                <?php include(__DIR__ . '/../common/_product_card.tpl'); ?>
-              <?php } ?>
+        <section class="cp-section">
+          <h2 class="cp-section__title"><?php echo $text_related; ?></h2>
+          <div class="cp-product-grid">
+            <?php foreach ($products as $product) { ?>
+              <?php include(__DIR__ . '/../common/_product_card.tpl'); ?>
+            <?php } ?>
           </div>
+        </section>
       <?php } ?>
       <?php if ($tags) { ?>
-          <p><?php echo $text_tags; ?>
-              <?php for ($i = 0; $i < count($tags); $i++) { ?>
-                  <?php if ($i < (count($tags) - 1)) { ?>
-                    <a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>,
-                <?php } else { ?>
-                    <a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>
-                <?php } ?>
-            <?php } ?>
-          </p>
+        <nav class="cp-chips cp-tags" aria-label="<?php echo $text_tags; ?>">
+          <span><?php echo $text_tags; ?></span>
+          <?php foreach ($tags as $tag) { ?>
+            <a href="<?php echo $tag['href']; ?>"><?php echo $tag['tag']; ?></a>
+          <?php } ?>
+        </nav>
       <?php } ?>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
+      <?php echo $content_bottom; ?>
+    </div>
+    <?php echo $column_right; ?>
+  </div>
 </div>
 <script>
 $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
@@ -475,7 +311,7 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
             },
             success: function (json) {
                 $('.alert, .text-danger').remove();
-                $('.form-group').removeClass('is-invalid');
+                $('.cp-field').removeClass('is-invalid');
 
                 if (json['error']) {
                     if (json['error']['option']) {
@@ -611,6 +447,17 @@ $('select[name=\'recurring_id\'], input[name="quantity"]').change(function () {
                 }
             }
         });
+    });
+
+    $('.cp-qty button').on('click', function () {
+        var input = $('#input-quantity');
+        input.val(Math.max(1, (parseInt(input.val(), 10) || 1) + parseInt($(this).data('qty'), 10)));
+    });
+
+    $('.cp-review-link').on('click', function (e) {
+        e.preventDefault();
+        bootstrap.Tab.getOrCreateInstance(document.querySelector('a[href="#tab-review"]')).show();
+        document.querySelector('.cp-product__details').scrollIntoView({behavior: 'smooth'});
     });
 
     $(document).ready(function () {

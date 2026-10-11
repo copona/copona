@@ -1,0 +1,97 @@
+// =========================================================
+// Home page: category tiles, slideshow and brand carousel
+// =========================================================
+
+.cp-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: .75rem;
+}
+
+.cp-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: .125rem;
+  min-height: 6rem;
+  padding: 1.25rem;
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-xl;
+  color: $copona-ink;
+  transition: border-color .15s, transform .15s;
+
+  &:hover { border-color: $copona-ink; color: $copona-ink; transform: translateY(-2px); }
+}
+.cp-tile__name { font-weight: 600; font-size: 1.0625rem; }
+.cp-tile__count { font-size: .875rem; color: $copona-muted; }
+
+@include media-breakpoint-down(sm) {
+  .cp-tile { min-height: 4.5rem; padding: .875rem 1rem; }
+  .cp-tile__name { font-size: .9375rem; }
+}
+
+
+.cp-hero {
+  border-radius: $border-radius-xxl;
+  overflow: hidden;
+  background: $copona-sunken;
+
+  --swiper-theme-color: #{$copona-ink};
+  --swiper-navigation-size: 1.25rem;
+  --swiper-pagination-bullet-inactive-color: #fff;
+  --swiper-pagination-bullet-inactive-opacity: .7;
+
+  .swiper-button-prev, .swiper-button-next {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .92);
+    color: $copona-ink;
+    &::after { font-size: 1rem; font-weight: 700; }
+  }
+  @include media-breakpoint-down(md) { .swiper-button-prev, .swiper-button-next { display: none; } }
+  .swiper-button-prev { left: 1rem; }
+  .swiper-button-next { right: 1rem; }
+  .swiper-pagination-bullet-active { background: #fff; }
+}
+
+.cp-hero__slide {
+  position: relative;
+  display: block;
+  color: #fff;
+
+  img { display: block; width: 100%; aspect-ratio: 3 / 1; object-fit: cover; }
+
+  @include media-breakpoint-down(md) { img { aspect-ratio: 4 / 3; } }
+}
+
+a.cp-hero__slide:hover { color: #fff; }
+
+.cp-hero__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  padding: 4rem 2.5rem 2.5rem;
+  background: linear-gradient(to top, rgba(18, 20, 23, .72), rgba(18, 20, 23, 0));
+
+  @include media-breakpoint-down(md) { padding: 3rem 1.25rem 2rem; }
+}
+.cp-hero__title { font-family: $copona-display-font; font-weight: 700; font-size: clamp(1.75rem, 4vw, 3.5rem); line-height: 1; letter-spacing: -0.03em; }
+.cp-hero__text { font-size: 1.0625rem; max-width: 46ch; opacity: .9; }
+
+// Brand logo carousel
+.cp-logos {
+  padding: 1rem 3rem;
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-xl;
+  --swiper-theme-color: #{$copona-ink};
+  --swiper-navigation-size: 1rem;
+
+  .swiper-slide { display: flex; align-items: center; justify-content: center; }
+  img { max-height: 64px; width: auto; filter: grayscale(1); opacity: .75; transition: .15s; }
+  a:hover img { filter: none; opacity: 1; }
+}

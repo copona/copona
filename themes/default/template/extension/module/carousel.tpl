@@ -1,11 +1,11 @@
-<div id="carousel<?php echo $module; ?>" class="swiper">
+<div id="carousel<?php echo $module; ?>" class="swiper cp-logos">
   <div class="swiper-wrapper">
     <?php foreach ($banners as $banner) { ?>
-      <div class="swiper-slide text-center">
+      <div class="swiper-slide">
         <?php if ($banner['link']) { ?>
-          <a href="<?php echo $banner['link']; ?>"><img loading="lazy" decoding="async" src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-fluid" /></a>
+          <a href="<?php echo $banner['link']; ?>"><img loading="lazy" decoding="async" src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" /></a>
         <?php } else { ?>
-          <img loading="lazy" decoding="async" src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-fluid" />
+          <img loading="lazy" decoding="async" src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" />
         <?php } ?>
       </div>
     <?php } ?>

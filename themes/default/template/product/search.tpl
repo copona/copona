@@ -54,46 +54,8 @@
 
       <?php if ($products) { ?>
         <h5 class="mb-3"><?php echo $text_search; ?></h5>
-        <div class="row g-2 mb-3">
-          <div class="col-md-2 col-sm-6 d-none d-sm-block">
-            <div class="btn-group btn-group-sm">
-              <button type="button" id="list-view" class="btn btn-secondary" data-bs-toggle="tooltip" title="<?php echo $button_list; ?>"><i class="fa fa-th-list"></i></button>
-              <button type="button" id="grid-view" class="btn btn-secondary" data-bs-toggle="tooltip" title="<?php echo $button_grid; ?>"><i class="fa fa-th"></i></button>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <a href="<?php echo $compare; ?>" id="compare-total" class="btn btn-link btn-sm"><?php echo $text_compare; ?></a>
-          </div>
-          <div class="col-md-4 col-6">
-            <div class="input-group input-group-sm">
-              <label class="input-group-text" for="input-sort"><?php echo $text_sort; ?></label>
-              <select id="input-sort" class="form-select form-select-sm" onchange="location = this.value;">
-                <?php foreach ($sorts as $sorts) { ?>
-                  <option value="<?php echo $sorts['href']; ?>"<?php if ($sorts['value'] == $sort . '-' . $order) echo ' selected'; ?>><?php echo $sorts['text']; ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3 col-6">
-            <div class="input-group input-group-sm">
-              <label class="input-group-text" for="input-limit"><?php echo $text_limit; ?></label>
-              <select id="input-limit" class="form-select form-select-sm" onchange="location = this.value;">
-                <?php foreach ($limits as $limits) { ?>
-                  <option value="<?php echo $limits['href']; ?>"<?php if ($limits['value'] == $limit) echo ' selected'; ?>><?php echo $limits['text']; ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="row gy-4">
-          <?php foreach ($products as $product) { if ($product['product_id'] != '') { ?>
-            <?php include(__DIR__ . '/../common/_product_list_card.tpl'); ?>
-          <?php }} ?>
-        </div>
-        <div class="row mt-3">
-          <div class="col-sm-7 text-start"><?php echo $pagination; ?></div>
-          <div class="col-sm-5 text-end"><?php echo $results; ?></div>
-        </div>
+        <?php include(__DIR__ . '/../common/_listing_toolbar.tpl'); ?>
+        <?php include(__DIR__ . '/../common/_listing_products.tpl'); ?>
       <?php } else { ?>
         <div class="text-center py-5 text-muted">
           <i class="fa fa-search fa-2x mb-3 d-block" style="opacity:.25"></i>

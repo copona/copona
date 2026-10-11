@@ -272,6 +272,21 @@ admin login → dashboard round trip (session/auth + DB writes).
 - `Document::addOGMeta()` values are rendered by the theme headers. The
   hard-coded `og:type=website` is only a fallback when a page set none.
 
+## Storefront Theme ("Signal")
+
+- `themes/default` is the active storefront theme. Its CSS is one Vite build:
+  `themes/default/assets/scss/main.scss` (Bootstrap 5 with Signal tokens:
+  ground `#F3F4F1`, ink `#121417`, accent `#C2410C`, Bricolage Grotesque +
+  Figtree) plus `_base/_header/_footer/_product-card/_home/_category/
+  _product/_cart.scss`, compiled to the committed `assets/css/main.css` by
+  `npm run build:catalog`. Rebuild and commit `main.css` after any SCSS change.
+- Theme classes use a `cp-` prefix. Shared partials: `common/_product_card.tpl`
+  (the only product card), `_listing_toolbar.tpl` + `_listing_products.tpl`
+  (category, search, specials, brand pages).
+- Page templates lay out side columns with `.cp-layout.has-left/.has-right`
+  (CSS grid), not Bootstrap `col-sm-*` arithmetic.
+- `themes/simplica` is still Bootstrap 3 and loads `themes/default/assets/css/additional.css`.
+
 ## Image Output
 
 - `ModelToolImage` writes cached resized JPEG/PNG copies as **WebP** when GD

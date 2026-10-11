@@ -1,3 +1,4 @@
+<?php if ($categories) { ?>
 <div class="list-group">
     <?php foreach ($categories as $category) { ?>
       <div class="category-item">
@@ -42,3 +43,4 @@
       </div>
     <?php } ?>
 </div>
+<?php } ?>

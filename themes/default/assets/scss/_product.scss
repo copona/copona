@@ -1,0 +1,215 @@
+// =========================================================
+// Product page (product/product.tpl)
+// =========================================================
+
+.cp-product {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+
+// Gallery
+.gallery-main {
+  aspect-ratio: 4 / 3;
+  border-radius: $border-radius-xxl;
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  overflow: hidden;
+
+  a { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; }
+  img { width: 100%; height: 100%; object-fit: contain; }
+}
+
+.gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  gap: .75rem;
+  margin-top: .75rem;
+}
+
+.gallery-thumb {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-lg;
+  background: $copona-surface;
+  overflow: hidden;
+  transition: border-color .15s;
+
+  &.active, &:hover { border: 2px solid $copona-ink; }
+  img { width: 100%; height: 100%; object-fit: cover; }
+}
+
+.gallery-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .35);
+  color: #fff;
+  font-size: 1.25rem;
+  pointer-events: none;
+}
+
+// Buy box
+.cp-product__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  h1 { font-size: clamp(2.25rem, 4vw, 3rem); margin: 0; }
+}
+
+.cp-eyebrow {
+  font-size: .8125rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: $copona-muted;
+  margin-bottom: -.75rem;
+}
+
+.cp-product__meta { margin: -.5rem 0 0; color: $copona-muted; font-size: .875rem; a { text-decoration: underline; color: $copona-muted; } }
+
+.cp-price--lg .cp-price__now { font-size: 2.5rem; }
+.cp-price--lg .cp-price__old { font-size: 1.125rem; }
+.cp-price--lg .cp-price__tax { font-size: .875rem; }
+
+.cp-discounts { list-style: none; padding: 0; margin: -.5rem 0 0; font-size: .875rem; color: $copona-muted; }
+
+.cp-product__lead { margin: 0; font-size: 1.0625rem; color: $gray-700; }
+
+.cp-product__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  img { width: 56px; height: 56px; object-fit: cover; border-radius: $border-radius; border: 1px solid $copona-line; }
+  .active img { border: 2px solid $copona-ink; }
+}
+
+.cp-field {
+  margin-bottom: 1rem;
+  border: 0;
+  padding: 0;
+
+  .form-label { font-weight: 600; display: block; }
+  &.required .form-label::after { content: " *"; color: $copona-accent; }
+  .text-danger { font-size: .875rem; margin-top: .25rem; }
+}
+
+.cp-choices { display: flex; flex-wrap: wrap; gap: .5rem; }
+
+.cp-choice {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .625rem 1rem;
+  border: 1.5px solid $copona-line;
+  border-radius: $border-radius;
+  background: $copona-surface;
+  cursor: pointer;
+
+  input { position: absolute; opacity: 0; pointer-events: none; }
+  img { width: 28px; height: 28px; border-radius: 4px; object-fit: cover; }
+  small { color: $copona-muted; }
+
+  &:hover { border-color: $gray-500; }
+  &:has(input:checked) { border: 2px solid $copona-ink; font-weight: 600; }
+  &:has(input:focus-visible) { box-shadow: $input-focus-box-shadow; }
+}
+
+.cp-buy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+
+.cp-qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid $copona-line;
+  border-radius: $border-radius-lg;
+  background: $copona-surface;
+
+  button { width: 2.75rem; height: 3.25rem; border: 0; background: none; font-size: 1.25rem; color: $copona-ink; }
+  button:hover { color: $copona-accent; }
+  input { width: 2.75rem; height: 3.25rem; border: 0; text-align: center; font-weight: 600; background: transparent; }
+  input:focus { outline: none; }
+}
+
+.cp-buy__add { flex: 1 1 200px; border-radius: $border-radius-lg; }
+.cp-icon-btn--lg { width: 3.5rem; height: 3.5rem; background: $copona-surface; border-radius: $border-radius-lg; }
+
+.cp-facts {
+  list-style: none;
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-xl;
+  font-size: .9375rem;
+  display: flex;
+  flex-direction: column;
+  gap: .375rem;
+}
+
+.cp-share {
+  display: flex;
+  gap: .75rem;
+  a { color: $copona-muted; }
+  a:hover { color: $copona-ink; }
+}
+
+// Description, specification, reviews
+.cp-product__details {
+  margin-top: 3.5rem;
+
+  .nav-underline {
+    --bs-nav-underline-link-active-color: #{$copona-ink};
+    --bs-nav-link-color: #{$copona-muted};
+    --bs-nav-link-hover-color: #{$copona-ink};
+    --bs-nav-link-font-weight: 600;
+    gap: 2rem;
+    border-bottom: 1px solid $copona-line;
+    margin-bottom: 1.5rem;
+    font-family: $copona-display-font;
+    font-size: 1.25rem;
+
+    .nav-link { padding: .5rem 0 .75rem; }
+    .nav-link.active { border-bottom-color: $copona-accent; }
+  }
+}
+
+.cp-prose { max-width: 72ch; font-size: 1.0625rem; color: $gray-700; }
+
+.cp-spec__group { font-family: $font-family-sans-serif; font-size: 1rem; font-weight: 600; margin: 1.25rem 0 .5rem; }
+.cp-spec {
+  margin: 0;
+  max-width: 720px;
+  background: $copona-surface;
+  border: 1px solid $copona-line;
+  border-radius: $border-radius-xl;
+  overflow: hidden;
+
+  > div { display: grid; grid-template-columns: minmax(120px, 1fr) 2fr; gap: 1rem; padding: .75rem 1.25rem; }
+  > div + div { border-top: 1px solid $copona-line-soft; }
+  dt { font-weight: 400; color: $copona-muted; }
+  dd { margin: 0; font-weight: 500; }
+}
+
+.cp-review-form { max-width: 640px; margin-top: 1.5rem; h3 { margin-bottom: 1rem; } }
+.cp-stars-input { display: flex; align-items: center; gap: .625rem; color: $copona-muted; font-size: .875rem; }
+
+.cp-tags { margin-top: 2rem; align-items: center; span { color: $copona-muted; font-size: .875rem; } }
