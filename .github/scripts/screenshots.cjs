@@ -10,7 +10,7 @@ const outDir = process.argv[3] || 'docs/screenshots';
 const storefront = [
   { name: 'home', url: '/' },
   { name: 'category', url: '/index.php?route=product/category&path=100' },
-  { name: 'product', url: '/index.php?route=product/product&product_id=4' },
+  { name: 'product', url: '/index.php?route=product/product&product_id=8' }, // AirPods: no leftover test options
 ];
 
 (async () => {
@@ -30,6 +30,7 @@ const storefront = [
   }
 
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true });
+  await shoot(mobile, storefront[0].url, 'home-mobile.png');
   await shoot(mobile, storefront[2].url, 'product-mobile.png');
 
   await desktop.goto(base + '/admin/', { waitUntil: 'networkidle' });
@@ -39,8 +40,13 @@ const storefront = [
     desktop.waitForNavigation({ waitUntil: 'networkidle' }),
     desktop.click('button[type="submit"]'),
   ]);
-  await desktop.screenshot({ path: path.join(outDir, 'admin-dashboard.png') });
-  console.log('saved admin-dashboard.png');
+  // The product list rather than the dashboard: the dashboard shows customer
+  // names from recent orders, which don't belong in public screenshots.
+  const adminUrl = new URL(desktop.url());
+  adminUrl.searchParams.set('route', 'catalog/product');
+  await desktop.goto(adminUrl.toString(), { waitUntil: 'networkidle' });
+  await desktop.screenshot({ path: path.join(outDir, 'admin-products.png') });
+  console.log('saved admin-products.png');
 
   await browser.close();
 })().catch((err) => {
