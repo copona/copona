@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "sass": "^1.100.0",
-    "vite": "^8.0.16"
+    "vite": "^8.1.6"
   },
   "dependencies": {
     "@codemirror/lang-html": "^6.4.11",
