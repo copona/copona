@@ -59,6 +59,7 @@ install() {
         {
             echo
             echo 'DEMO_MODE=true'
+            echo "APP_URL=${APP_URL:-https://demo.copona.org}"
             echo "DEMO_ADMIN_USERNAME=${DEMO_ADMIN_USERNAME:-}"
             echo "DEMO_ADMIN_PASSWORD=${DEMO_ADMIN_PASSWORD:-}"
             echo "DEMO_RESET_INTERVAL=\"${DEMO_RESET_INTERVAL:-every hour}\""

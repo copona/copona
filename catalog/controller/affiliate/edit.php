@@ -258,10 +258,16 @@ class ControllerAffiliateEdit extends Controller {
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
 
+        $data['csrf_token'] = $this->csrfToken();
+
         $this->response->setOutput($this->load->view('affiliate/edit', $data));
     }
 
     protected function validate() {
+        if (!$this->csrfValid()) {
+            $this->error['warning'] = $this->language->get('error_csrf_token');
+        }
+
         if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }

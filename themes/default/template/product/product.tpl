@@ -10,7 +10,7 @@ foreach ($images as $gimg) {
 foreach ($product_videos ?? [] as $video) {
     $gallery_items[] = ['popup' => $video['video'], 'mid' => $video['video_src'], 'thumb' => $video['video_src'], 'title' => $heading_title, 'type' => 'video'];
 }
-$share_url = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$share_url = $share_url ?? '';
 ?>
 <div class="container cp-page">
   <nav aria-label="breadcrumb"><ol class="breadcrumb">

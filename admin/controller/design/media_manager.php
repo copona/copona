@@ -389,8 +389,7 @@ class ControllerDesignMediamanager extends Controller {
         }
 
         if (!isset($json['error'])) {
-            mkdir($directory . '/' . $folder, 0777);
-            chmod($directory . '/' . $folder, 0777);
+            mkdir($directory . '/' . $folder, 0775);
 
             @touch($directory . '/' . $folder . '/' . 'index.html');
 

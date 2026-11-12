@@ -2,6 +2,7 @@
 <?php include(__DIR__ . '/../common/_page_open.tpl'); ?>
       <h1><?php echo $text_edit_address; ?></h1>
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="cp-form">
+        <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>" />
         <fieldset class="cp-fieldset">
           <div class="cp-fields">
             <?php $field = ['name' => 'firstname', 'label' => $entry_firstname, 'value' => $firstname, 'id' => 'input-firstname', 'error' => $error_firstname, 'required' => true, 'autocomplete' => 'given-name']; include(__DIR__ . '/../common/_field.tpl'); ?>

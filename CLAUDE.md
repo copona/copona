@@ -362,3 +362,20 @@ and are enabled under Extensions → Extensions. Don't reintroduce a
 runtime upload-and-execute path. If one is ever needed, it has to verify
 signed packages first.
 `admin/language/en-gb/design/translation.php` stays: `design/language` uses it.
+
+---
+
+## Site URL (`APP_URL`) and CSRF
+
+- `APP_URL` in `.env` (comma-separated `scheme://host[:port]` list) is the
+  canonical site URL. `system/constants.php` picks the entry matching the
+  request Host, else the first, and uses its scheme for `HTTP_SERVER` *and*
+  `HTTPS_SERVER`. Without it, URLs come from the request (legacy, spoofable).
+  `.env` is therefore loaded at the top of `system/startup.php`, before
+  `constants.php`. Don't build URLs from `$_SERVER['HTTP_HOST']`; use
+  `$this->url->link()` or the `HTTP(S)_SERVER` constants.
+- Catalog forms that change customer/affiliate data use
+  `Controller::csrfToken()` (put it in a hidden `csrf_token` field) and
+  `Controller::csrfValid()` in validation. GET actions (address delete) pass
+  the token in the URL. Shared message: `error_csrf_token` in `en-gb.php`.
+

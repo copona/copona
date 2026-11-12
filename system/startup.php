@@ -6,6 +6,12 @@ loadTime::start();
 // Error Reporting
 error_reporting(E_ALL);
 
+// .env before constants.php: the site URL (APP_URL) is read there.
+if (file_exists(DIR_PUBLIC . '/.env') && is_file(DIR_PUBLIC . '/vendor/autoload.php')) {
+    require_once DIR_PUBLIC . '/vendor/autoload.php';
+    Dotenv\Dotenv::createMutable(DIR_PUBLIC)->load();
+}
+
 require_once DIR_PUBLIC . '/system/constants.php';
 
 //env function
@@ -163,12 +169,6 @@ if (\Copona\Classes\Install::checkIfInstalled() == false
     exit;
 }
 
-//Dotenv
-if (file_exists(DIR_PUBLIC . '/.env')) {
-    $dotenv = Dotenv\Dotenv::createMutable(DIR_PUBLIC);
-    $dotenv->load();
-}
-
 //Init Config
 $config = new ConfigManager(DIR_CONFIG);
 $GLOBALS['config'] = $config;
@@ -178,7 +178,6 @@ require_once(DIR_SYSTEM . 'helper/debug.php');
 require_once(DIR_SYSTEM . 'helper/general.php');
 require_once(DIR_SYSTEM . 'helper/text.php');
 require_once(DIR_SYSTEM . 'helper/utf8.php');
-require_once(DIR_SYSTEM . 'helper/json.php');
 require_once(DIR_SYSTEM . 'helper/translation.php');
 
 //Errors handler

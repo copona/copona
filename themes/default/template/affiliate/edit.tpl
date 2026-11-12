@@ -19,6 +19,7 @@
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="row">
+        <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>" />
         <fieldset>
           <legend><?php echo $text_your_details; ?></legend>
           <div class="form-group required">

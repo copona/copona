@@ -160,3 +160,6 @@ $_['text_shipping_address'] = 'Shipping address';
 $_['entry_bank_account'] = 'Bank account';
 $_['text_follow_us'] = 'Follow us';
 $_['text_search'] = 'Search';
+
+// CSRF
+$_['error_csrf_token'] = 'Your session has expired or the form was not sent from this site. Please try again.';

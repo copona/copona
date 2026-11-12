@@ -98,13 +98,13 @@ class ControllerAccountPassword extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
-        $data['csrf_token'] = $this->session->data['csrf_token'];
+        $data['csrf_token'] = $this->csrfToken();
 
         $this->response->setOutput($this->load->view('account/password', $data));
     }
 
     protected function validate() {
-        if ($this->request->post['csrf_token'] != $this->session->data['csrf_token']) {
+        if (!$this->csrfValid()) {
             $this->error['csrf_token'] = $this->language->get('error_csrf_token');
         }
         if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 40)) {
