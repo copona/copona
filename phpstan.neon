@@ -5,6 +5,7 @@ parameters:
     level: 1
     # Constants and helpers defined at runtime bootstrap, so PHPStan knows them.
     scanFiles:
+        - index.php  # defines DIR_PUBLIC
         - system/startup.php
         - system/constants.php
         - system/framework.php
