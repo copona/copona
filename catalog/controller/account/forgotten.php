@@ -14,52 +14,60 @@ class ControllerAccountForgotten extends Controller {
         $this->load->model('account/customer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->load->language('mail/forgotten');
+            // Same response whether or not the address is registered, so the form
+            // can't be used to find out who has an account (#206).
+            $customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
 
-            $code = token(40);
+            if ($customer_info && $customer_info['approved']) {
+                $this->load->language('mail/forgotten');
 
-            $this->model_account_customer->editCode($this->request->post['email'], $code);
+                $code = token(40);
 
-            $subject = sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+                $this->model_account_customer->editCode($this->request->post['email'], $code);
 
-            $message = sprintf($this->language->get('text_greeting'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')) . "\n\n";
-            $message .= $this->language->get('text_change') . "\n\n";
-            $message .= $this->url->link('account/reset', 'code=' . $code, true) . "\n\n";
-            $message .= sprintf($this->language->get('text_ip'), $this->request->server['REMOTE_ADDR']) . "\n\n";
+                $subject = sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+                $message = sprintf($this->language->get('text_greeting'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')) . "\n\n";
+                $message .= $this->language->get('text_change') . "\n\n";
+                $message .= $this->url->link('account/reset', 'code=' . $code, true) . "\n\n";
+                $message .= sprintf($this->language->get('text_ip'), $this->request->server['REMOTE_ADDR']) . "\n\n";
 
-            $mail->setTo($this->request->post['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-            $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-            $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            $mail->send();
+                $mail = new Mail();
+                $mail->protocol = $this->config->get('config_mail_protocol');
+                $mail->parameter = $this->config->get('config_mail_parameter');
+                $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+                $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+                $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+                $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+                $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-            $this->session->data['success'] = $this->language->get('text_success');
+                $mail->setTo($this->request->post['email']);
+                $mail->setFrom($this->config->get('config_email'));
+                $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+                $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+                $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
+                $mail->send();
 
-            // Add to activity log
-            if ($this->config->get('config_customer_activity')) {
-                $customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
+                // Add to activity log
+                if ($this->config->get('config_customer_activity')) {
+                    $customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
 
-                if ($customer_info) {
-                    $this->load->model('account/activity');
+                    if ($customer_info) {
+                        $this->load->model('account/activity');
 
-                    $activity_data = array(
-                        'customer_id' => $customer_info['customer_id'],
-                        'name'        => $customer_info['firstname'] . ' ' . $customer_info['lastname']
-                    );
+                        $activity_data = array(
+                            'customer_id' => $customer_info['customer_id'],
+                            'name'        => $customer_info['firstname'] . ' ' . $customer_info['lastname']
+                        );
 
-                    $this->model_account_activity->addActivity('forgotten', $activity_data);
+                        $this->model_account_activity->addActivity('forgotten', $activity_data);
+                    }
                 }
             }
+
+            $this->load->language('account/forgotten');
+
+            $this->session->data['success'] = $this->language->get('text_success');
 
             $this->response->redirect($this->url->link('account/login', '', true));
         }
@@ -118,16 +126,9 @@ class ControllerAccountForgotten extends Controller {
     }
 
     protected function validate() {
-        if (!isset($this->request->post['email'])) {
+        // Only the format is checked: whether the address is registered must not show (#206).
+        if (empty($this->request->post['email']) || !is_string($this->request->post['email']) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
             $this->error['warning'] = $this->language->get('error_email');
-        } elseif (!$this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_email');
-        }
-
-        $customer_info = $this->model_account_customer->getCustomerByEmail($this->request->post['email']);
-
-        if ($customer_info && !$customer_info['approved']) {
-            $this->error['warning'] = $this->language->get('error_approved');
         }
 
         return !$this->error;

@@ -18,34 +18,42 @@ class ControllerCommonForgotten extends Controller {
         $this->load->model('user/user');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->load->language('mail/forgotten');
+            // Same response whether or not the address is registered, so the form
+            // can't be used to find out who has an account (#206).
+            $user_info = $this->model_user_user->getUserByEmail($this->request->post['email']);
 
-            $code = token(40);
+            if ($user_info) {
+                $this->load->language('mail/forgotten');
 
-            $this->model_user_user->editCode($this->request->post['email'], $code);
+                $code = token(40);
 
-            $subject = sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+                $this->model_user_user->editCode($this->request->post['email'], $code);
 
-            $message = sprintf($this->language->get('text_greeting'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')) . "\n\n";
-            $message .= $this->language->get('text_change') . "\n\n";
-            $message .= $this->url->link('common/reset', 'code=' . $code, true) . "\n\n";
-            $message .= sprintf($this->language->get('text_ip'), $this->request->server['REMOTE_ADDR']) . "\n\n";
+                $subject = sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 
-            $mail = new Mail();
-            $mail->protocol = $this->config->get('config_mail_protocol');
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+                $message = sprintf($this->language->get('text_greeting'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')) . "\n\n";
+                $message .= $this->language->get('text_change') . "\n\n";
+                $message .= $this->url->link('common/reset', 'code=' . $code, true) . "\n\n";
+                $message .= sprintf($this->language->get('text_ip'), $this->request->server['REMOTE_ADDR']) . "\n\n";
 
-            $mail->setTo($this->request->post['email']);
-            $mail->setFrom($this->config->get('config_email'));
-            $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-            $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-            $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
-            $mail->send();
+                $mail = new Mail();
+                $mail->protocol = $this->config->get('config_mail_protocol');
+                $mail->parameter = $this->config->get('config_mail_parameter');
+                $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+                $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+                $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+                $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+                $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+                $mail->setTo($this->request->post['email']);
+                $mail->setFrom($this->config->get('config_email'));
+                $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+                $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+                $mail->setText(html_entity_decode($message, ENT_QUOTES, 'UTF-8'));
+                $mail->send();
+            }
+
+            $this->load->language('common/forgotten');
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -97,9 +105,8 @@ class ControllerCommonForgotten extends Controller {
     }
 
     protected function validate() {
-        if (!isset($this->request->post['email'])) {
-            $this->error['warning'] = $this->language->get('error_email');
-        } elseif (!$this->model_user_user->getTotalUsersByEmail($this->request->post['email'])) {
+        // Only the format is checked: whether the address is registered must not show (#206).
+        if (empty($this->request->post['email']) || !is_string($this->request->post['email']) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
             $this->error['warning'] = $this->language->get('error_email');
         }
 

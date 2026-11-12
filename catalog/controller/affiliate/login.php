@@ -83,6 +83,12 @@ class ControllerAffiliateLogin extends Controller {
             $data['success'] = '';
         }
 
+        if (!$data['error_warning'] && isset($this->session->data['error'])) {
+            $data['error_warning'] = $this->session->data['error'];
+
+            unset($this->session->data['error']);
+        }
+
         if (isset($this->request->post['email'])) {
             $data['email'] = $this->request->post['email'];
         } else {
