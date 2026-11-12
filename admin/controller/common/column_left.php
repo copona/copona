@@ -174,34 +174,10 @@ class ControllerCommonColumnLeft extends Controller {
             // Extension
             $extension = array();
 
-            if ($this->user->hasPermission('access', 'extension/store')) {
-                $extension[] = array(
-                    'name'     => $this->language->get('text_store'),
-                    'href'     => $this->url->link('extension/store', 'token=' . $this->session->data['token'], true),
-                    'children' => array()
-                );
-            }
-
-            if ($this->user->hasPermission('access', 'extension/installer')) {
-                $extension[] = array(
-                    'name'     => $this->language->get('text_installer'),
-                    'href'     => $this->url->link('extension/installer', 'token=' . $this->session->data['token'], true),
-                    'children' => array()
-                );
-            }
-
             if ($this->user->hasPermission('access', 'extension/extension')) {
                 $extension[] = array(
                     'name'     => $this->language->get('text_extension'),
                     'href'     => $this->url->link('extension/extension', 'token=' . $this->session->data['token'], true),
-                    'children' => array()
-                );
-            }
-
-            if ($this->user->hasPermission('access', 'extension/modification')) {
-                $extension[] = array(
-                    'name'     => $this->language->get('text_modification'),
-                    'href'     => $this->url->link('extension/modification', 'token=' . $this->session->data['token'], true),
                     'children' => array()
                 );
             }

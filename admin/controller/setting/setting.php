@@ -64,10 +64,6 @@ class ControllerSettingSetting extends Controller {
             'voucher_max',
             'processing_status',
             'complete_status',
-            'ftp_hostname',
-            'ftp_port',
-            'ftp_username',
-            'ftp_password',
             'error_filename',
             'limit_admin',
             'encryption',
@@ -406,22 +402,6 @@ class ControllerSettingSetting extends Controller {
             $data['no_image'] = $this->model_tool_image->resize('no_image.png', 100, 100);
         }
 
-        if (isset($this->request->post['config_ftp_hostname'])) {
-            $data['config_ftp_hostname'] = $this->request->post['config_ftp_hostname'];
-        } elseif ($this->config->get('config_ftp_hostname')) {
-            $data['config_ftp_hostname'] = $this->config->get('config_ftp_hostname');
-        } else {
-            $data['config_ftp_hostname'] = str_replace('www.', '', $this->request->server['HTTP_HOST']);
-        }
-
-        if (isset($this->request->post['config_ftp_port'])) {
-            $data['config_ftp_port'] = $this->request->post['config_ftp_port'];
-        } elseif ($this->config->get('config_ftp_port')) {
-            $data['config_ftp_port'] = $this->config->get('config_ftp_port');
-        } else {
-            $data['config_ftp_port'] = 21;
-        }
-
         if (isset($this->request->post['config_mail_smtp_port'])) {
             $data['config_mail_smtp_port'] = $this->request->post['config_mail_smtp_port'];
         } elseif ($this->config->has('config_mail_smtp_port')) {
@@ -553,25 +533,6 @@ class ControllerSettingSetting extends Controller {
 
         if (!empty($this->request->post['config_customer_group_display']) && !in_array($this->request->post['config_customer_group_id'], $this->request->post['config_customer_group_display'])) {
             $this->error['customer_group_display'] = $this->language->get('error_customer_group_display');
-        }
-
-        if ($this->request->post['config_ftp_status']) {
-            if (!$this->request->post['config_ftp_hostname']) {
-                $this->error['ftp_hostname'] = $this->language->get('error_ftp_hostname');
-            }
-
-            if (!$this->request->post['config_ftp_port']) {
-                $this->error['ftp_port'] = $this->language->get('error_ftp_port');
-            }
-
-
-            if (!$this->request->post['config_ftp_username']) {
-                $this->error['ftp_username'] = $this->language->get('error_ftp_username');
-            }
-
-            if (!$this->request->post['config_ftp_password']) {
-                $this->error['ftp_password'] = $this->language->get('error_ftp_password');
-            }
         }
 
         if (!$this->request->post['config_error_filename']) {

@@ -41,13 +41,7 @@ catalog/controller/xml/*.xml
 # System Cache Files
 /storage/cache/*
 
-# Vqmod
-/vqmod/vqcache/*
-/vqmod/logs/*
-/vqmod/*.cache
-
 # Modification Files
-/storage/modification/*
 /catalog/controller/extension/plugins/
 
 # Templates Files

@@ -64,7 +64,6 @@ class ControllerInstallStep2 extends Controller
         $data['logs'] = DIR_LOGS;
         $data['download'] = DIR_DOWNLOAD;
         $data['upload'] = DIR_UPLOAD;
-        $data['modification'] = DIR_MODIFICATION;
 
         //create folder if not exist
         @mkdir($data['image'], $this->config->get('directory_permission', 0777), true);
@@ -75,7 +74,6 @@ class ControllerInstallStep2 extends Controller
         @mkdir($data['logs'], $this->config->get('directory_permission', 0777), true);
         @mkdir($data['download'], $this->config->get('directory_permission', 0777), true);
         @mkdir($data['upload'], $this->config->get('directory_permission', 0777), true);
-        @mkdir($data['modification'], $this->config->get('directory_permission', 0777), true);
 
         $data['back'] = $this->url->link('install/step_1');
 
@@ -178,10 +176,6 @@ class ControllerInstallStep2 extends Controller
 
         if (!is_writable(DIR_UPLOAD)) {
             $this->error['warning'] = $this->language->get('error_upload');
-        }
-
-        if (!is_writable(DIR_MODIFICATION)) {
-            $this->error['warning'] = $this->language->get('error_modification');
         }
 
         return !$this->error;
