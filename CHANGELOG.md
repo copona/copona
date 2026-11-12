@@ -4,6 +4,13 @@
 
 ### Security (#184)
 
+- **Affiliate bank details encrypted** (#83): bank name, branch, SWIFT,
+  account name and number are stored with libsodium `secretbox` using
+  `APP_KEY` from `.env` (never the database). The installer generates the key;
+  migration `20261113000001` creates it for existing stores and encrypts
+  existing rows. **Back up `.env`**: without `APP_KEY` the details can't be read.
+- Legacy MD5/SHA1 password hashes are compared with `hash_equals` (a stored
+  "magic" `0e…` MD5 accepted other passwords) (#83).
 - **Site URL from `APP_URL`.** URLs, including password-reset e-mail links,
   were built from the request's `Host` header and scheme, so a forged `Host`
   could send reset links to another domain. Set `APP_URL` in `.env` (one or

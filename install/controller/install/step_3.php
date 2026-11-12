@@ -13,7 +13,9 @@ class ControllerInstallStep3 extends Controller
             $app_env = preg_replace("/[^A-Za-z0-9]/", "", addslashes($this->request->post['app_env']));
 
             $array_dotenv = [
-                'APP_ENV' => $app_env
+                'APP_ENV' => $app_env,
+                // Encrypts sensitive DB fields (affiliate bank details); keep it out of the DB.
+                'APP_KEY' => \Copona\Security\FieldCipher::generateKey(),
             ];
 
             // Record the address the store is being installed on as its site URL.

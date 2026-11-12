@@ -216,6 +216,9 @@ class InstallCommand extends Command
             'DB_PREFIX'   => addslashes($data['db_prefix'] ?? ''),
         ];
 
+        // Encrypts sensitive DB fields (affiliate bank details); keep it out of the DB.
+        $env['APP_KEY'] = getenv('APP_KEY') ?: \Copona\Security\FieldCipher::generateKey();
+
         // Site URL(s) for generated links and e-mails, see .env.example.
         if (getenv('APP_URL')) {
             $env['APP_URL'] = preg_replace('/[^A-Za-z0-9:\/.,\-\[\]]/', '', getenv('APP_URL'));
