@@ -11,6 +11,12 @@
   existing rows. **Back up `.env`**: without `APP_KEY` the details can't be read.
 - Legacy MD5/SHA1 password hashes are compared with `hash_equals` (a stored
   "magic" `0e…` MD5 accepted other passwords) (#83).
+- **Forgotten-password forms no longer reveal registered addresses** (#206):
+  customer, affiliate and admin forms answer the same whether or not the
+  e-mail exists (only the format is validated).
+- **Affiliate password reset uses a link** like customers (`affiliate/reset`,
+  new `reset_code` column). Previously anyone who knew an affiliate's e-mail
+  could replace their password with a random one sent by e-mail.
 - **Site URL from `APP_URL`.** URLs, including password-reset e-mail links,
   were built from the request's `Host` header and scheme, so a forged `Host`
   could send reset links to another domain. Set `APP_URL` in `.env` (one or

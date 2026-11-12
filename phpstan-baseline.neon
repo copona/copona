@@ -1005,7 +1005,7 @@ parameters:
 		-
 			message: '#^Access to an undefined property ModelAffiliateAffiliate\:\:\$db\.$#'
 			identifier: property.notFound
-			count: 73
+			count: 78
 			path: catalog/model/affiliate/affiliate.php
 
 		-

@@ -88,7 +88,17 @@ class ModelAffiliateAffiliate extends Model {
 	}
 
 	public function editPassword($email, $password) {
-		$this->db->query("UPDATE " . DB_PREFIX . "affiliate SET password = '" . password_hash($password, PASSWORD_DEFAULT) . "' WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
+		$this->db->query("UPDATE " . DB_PREFIX . "affiliate SET password = '" . password_hash($password, PASSWORD_DEFAULT) . "', reset_code = '' WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
+	}
+
+	public function editResetCode($email, $code) {
+		$this->db->query("UPDATE " . DB_PREFIX . "affiliate SET reset_code = '" . $this->db->escape($code) . "' WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
+	}
+
+	public function getAffiliateByResetCode($code) {
+		$query = $this->db->query("SELECT affiliate_id, firstname, lastname, email FROM " . DB_PREFIX . "affiliate WHERE reset_code = '" . $this->db->escape($code) . "' AND reset_code != ''");
+
+		return $query->row;
 	}
 
 	public function getAffiliate($affiliate_id) {
