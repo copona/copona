@@ -63,4 +63,3 @@ $_['error_cache_private']    = 'Warning: Private Cache directory needs to be wri
 $_['error_log']              = 'Warning: Logs directory needs to be writable for OpenCart to work!';
 $_['error_download']         = 'Warning: Download directory needs to be writable for OpenCart to work!';
 $_['error_upload']           = 'Warning: Upload directory needs to be writable for OpenCart to work!';
-$_['error_modification']     = 'Warning: Modification directory needs to be writable for OpenCart to work!';

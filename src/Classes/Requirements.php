@@ -160,10 +160,6 @@ class Requirements
                 'path'   => DIR_UPLOAD,
                 'exists' => (is_writable(DIR_UPLOAD)),
             ],
-            'modification'  => [
-                'path'   => DIR_MODIFICATION,
-                'exists' => (is_writable(DIR_MODIFICATION)),
-            ],
         ];
     }
 

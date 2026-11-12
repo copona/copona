@@ -84,7 +84,6 @@ use Copona\System\Library\Breadcrumbs;
  * @property ModelCustomerCustomField $model_customer_custom_field
  * @property ModelDesignLanguage $model_design_language
  * @property ModelDesignMenu $model_design_menu
- * @property ModelExtensionModification $model_extension_modification
  * @property ModelLocalisationGeoZone $model_localisation_geo_zone
  * @property ModelLocalisationLengthClass $model_localisation_length_class
  * @property ModelLocalisationOrderStatus $model_localisation_order_status

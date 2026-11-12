@@ -47,7 +47,6 @@ catalog/controller/xml/*.xml
 /vqmod/*.cache
 
 # Modification Files
-/storage/modification/*
 /catalog/controller/extension/plugins/
 
 # Templates Files

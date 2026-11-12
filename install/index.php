@@ -44,7 +44,6 @@ define('DIR_CACHE_PRIVATE', DIR_PUBLIC . '/' . PATH_CACHE_PRIVATE);
 
 define('DIR_DOWNLOAD', DIR_STORAGE_PRIVATE . 'download/');
 define('DIR_LOGS', DIR_STORAGE_PRIVATE . 'logs/');
-define('DIR_MODIFICATION', DIR_STORAGE_PRIVATE . 'modification/');
 define('DIR_UPLOAD', DIR_STORAGE_PRIVATE . 'upload/');
 
 // Startup

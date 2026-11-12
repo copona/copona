@@ -342,3 +342,23 @@ themes and the admin. CI runs `.github/scripts/demo-mode-test.sh` against it.
 
 Hosting (Oracle Always Free VM + Cloudflare Tunnel + hourly snapshot restore)
 lives in `deploy/demo/` (`demo.sh install|reset|snapshot`, README there).
+
+---
+
+## No OCMOD / Extension Installer (removed 2026-11, security)
+
+The OpenCart Extension Installer (zip/XML upload, FTP push), Extension Store,
+Modifications (OCMOD) manager and the Crowdin `design/translation` installer
+were removed: they wrote uploaded or downloaded PHP into the webroot and
+patched core code from XML with no signature or content checks. The
+`modification()` include override (which let any file in
+`storage/private/modification/` replace core PHP) and `DIR_MODIFICATION` are
+gone too, as are the installer-only `config_ftp_*` settings.
+Migration `20261112000001_remove_ocmod_installer` drops `modification`,
+deletes the FTP settings and strips the routes from user-group permissions.
+
+Extensions now ship as code in the repo (`admin|catalog/controller/extension/…`)
+and are enabled under Extensions → Extensions. Don't reintroduce a
+runtime upload-and-execute path. If one is ever needed, it has to verify
+signed packages first.
+`admin/language/en-gb/design/translation.php` stays: `design/language` uses it.
