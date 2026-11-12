@@ -82,6 +82,16 @@ class Action
     }
 
     /**
+     * Whether the route resolves to an existing controller file (core or extension).
+     *
+     * @return bool
+     */
+    public function controllerExists(): bool
+    {
+        return is_file($this->action->file);
+    }
+
+    /**
      * Find and prepare controller file
      *
      * @param string $route

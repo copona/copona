@@ -26,6 +26,8 @@ class ControllerErrorPermission extends Controller {
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
+        $this->response->addHeader(($this->request->server['SERVER_PROTOCOL'] ?? 'HTTP/1.1') . ' 403 Forbidden');
+
         $this->response->setOutput($this->load->view('error/permission', $data));
     }
 
