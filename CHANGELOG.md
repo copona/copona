@@ -24,6 +24,10 @@
 
 ### Fixes
 
+- MySQL now runs in PHP's time zone (`config_timezone`): `SET time_zone` on
+  connect, also for Eloquent. `NOW()` was UTC while PHP used local time, so
+  dates were stored hours off and "today" dashboard counts and special-price
+  date checks disagreed around midnight (#186).
 - Saving "Edit Account" or an address no longer emits PHP warnings for the
   `fax`, `company` and `address_2` fields the Signal templates dropped.
 

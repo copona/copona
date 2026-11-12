@@ -65,7 +65,7 @@ if ($config->get($application_config . '.db_autostart')) {
     define('DB_DATABASE', $db_config['db_database']);
 
     $registry->singleton('db', function ($registry) use ($db_config) {
-        return new DB(
+        $db = new DB(
             $db_config['db_type'],
             $db_config['db_hostname'],
             $db_config['db_username'],
@@ -73,6 +73,12 @@ if ($config->get($application_config . '.db_autostart')) {
             $db_config['db_database'],
             $db_config['db_port']
         );
+
+        // Run MySQL in PHP's time zone (config_timezone), so NOW() in SQL and
+        // date() in PHP agree on what "now" and "today" are.
+        $db->query("SET time_zone = '" . $db->escape(date('P')) . "'");
+
+        return $db;
     });
 }
 

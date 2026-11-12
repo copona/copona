@@ -50,7 +50,9 @@ class Eloquent extends AbstractDatabaseAdapters
                 'charset'   => isset($connection['db_charset']) ? $connection['db_charset'] : 'utf8',
                 'collation' => isset($connection['db_collation']) ? $connection['db_collation'] : 'utf8_unicode_ci',
                 'prefix'    => isset($connection['db_prefix']) ? $connection['db_prefix'] : NULL,
-                'port'      => isset($connection['db_port']) ? $connection['db_port'] : '3306'
+                'port'      => isset($connection['db_port']) ? $connection['db_port'] : '3306',
+                // Same time zone as PHP, see system/framework.php
+                'timezone'  => date('P'),
             ], $name);
         }
 
