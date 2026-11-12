@@ -46,6 +46,11 @@ class ControllerStartupPermission extends Controller {
                 'user/password'
             );
 
+            // Unknown pages are "not found" (404), not "permission denied" (#163).
+            if (!(new \Copona\System\Engine\Action($this->request->get['route']))->controllerExists()) {
+                return new \Copona\System\Engine\Action('error/not_found');
+            }
+
             if (!in_array($route, $ignore) && !$this->user->hasPermission('access', $route)) {
                 return new \Copona\System\Engine\Action('error/permission');
             }

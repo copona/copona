@@ -24,6 +24,9 @@
 
 ### Fixes
 
+- Admin: unknown routes return **404 Not Found** instead of "Permission
+  Denied" with status 200, and permission-denied pages return **403** (#163).
+  The storefront already returned 404.
 - MySQL now runs in PHP's time zone (`config_timezone`): `SET time_zone` on
   connect, also for Eloquent. `NOW()` was UTC while PHP used local time, so
   dates were stored hours off and "today" dashboard counts and special-price
