@@ -39,7 +39,6 @@ class CacheClearCommand extends Command
 
         $paths[] = DIR_PUBLIC . '/storage/private/cache/files/';
         $paths[] = DIR_PUBLIC . '/storage/private/cache/twig/';
-        $paths[] = DIR_PUBLIC . '/storage/private/cache/vqmod/';
         $paths[] = DIR_PUBLIC . '/storage/private/cache/';
 
         foreach ($paths as $path) {
