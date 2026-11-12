@@ -235,7 +235,7 @@ class ControllerAccountAddress extends Controller {
                 'address'    => str_replace(array( "\r\n", "\r", "\n" ), '<br />', preg_replace(array(
                     "/\s\s+/", "/\r\r+/", "/\n\n+/" ), '<br />', trim(str_replace($find, $replace, $format)))),
                 'update'     => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'], true),
-                'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], true)
+                'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'] . '&csrf_token=' . $this->csrfToken(), true)
             );
         }
 
@@ -471,10 +471,17 @@ class ControllerAccountAddress extends Controller {
         $data['header'] = $this->load->controller('common/header');
 
 
+        $data['csrf_token'] = $this->csrfToken();
+        $data['error_csrf_token'] = $this->error['csrf_token'] ?? '';
+
         $this->response->setOutput($this->load->view('account/address_form', $data));
     }
 
     protected function validateForm() {
+        if (!$this->csrfValid()) {
+            $this->error['csrf_token'] = $this->language->get('error_csrf_token');
+        }
+
         if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
@@ -525,6 +532,12 @@ class ControllerAccountAddress extends Controller {
     }
 
     protected function validateDelete() {
+        if (!$this->csrfValid($this->request->get['csrf_token'] ?? '')) {
+            $this->error['warning'] = $this->language->get('error_csrf_token');
+
+            return false;
+        }
+
         if ($this->model_account_address->getTotalAddresses() == 1) {
             $this->error['warning'] = $this->language->get('error_delete');
         }

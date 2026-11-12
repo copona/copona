@@ -16,6 +16,12 @@ class ControllerInstallStep3 extends Controller
                 'APP_ENV' => $app_env
             ];
 
+            // Record the address the store is being installed on as its site URL.
+            $site = parse_url(HTTP_COPONA);
+            if (!empty($site['scheme']) && !empty($site['host'])) {
+                $array_dotenv['APP_URL'] = $site['scheme'] . '://' . $site['host'] . (isset($site['port']) ? ':' . (int)$site['port'] : '');
+            }
+
             \Copona\Classes\Install::createDotEnv($array_dotenv);
 
             \Copona\Classes\Install::createDatabaseConfig($app_env, $this->request->post);

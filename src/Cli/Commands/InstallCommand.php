@@ -216,6 +216,11 @@ class InstallCommand extends Command
             'DB_PREFIX'   => addslashes($data['db_prefix'] ?? ''),
         ];
 
+        // Site URL(s) for generated links and e-mails, see .env.example.
+        if (getenv('APP_URL')) {
+            $env['APP_URL'] = preg_replace('/[^A-Za-z0-9:\/.,\-\[\]]/', '', getenv('APP_URL'));
+        }
+
         if ($this->advenced) {
             $env['APP_ENV'] = $data['app_env'];
             $env['DEBUG_MODE'] = $data['debug_mode'] ? 'true' : 'false';

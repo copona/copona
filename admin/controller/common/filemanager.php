@@ -393,9 +393,8 @@ class ControllerCommonFileManager extends Controller {
         }
 
         if (!isset($json['error'])) {
-            mkdir($directory . '/' . $folder, 0777);
+            mkdir($directory . '/' . $folder, 0775);
             if (file_exists($directory . '/' . $folder)) {
-                chmod($directory . '/' . $folder, 0777);
                 @touch($directory . '/' . $folder . '/' . 'index.html');
 
                 $json['success'] = $this->language->get('text_directory');

@@ -1,5 +1,32 @@
 # Changelog
 
+## Unreleased
+
+### Security (#184)
+
+- **Site URL from `APP_URL`.** URLs, including password-reset e-mail links,
+  were built from the request's `Host` header and scheme, so a forged `Host`
+  could send reset links to another domain. Set `APP_URL` in `.env` (one or
+  more comma-separated `scheme://host[:port]`); the matching entry, or else the
+  first, is used and its scheme always applies. New installs write it; existing
+  installs keep the old behaviour until it is added.
+- **CSRF tokens** on every customer and affiliate form that changes data
+  (address add/edit/delete, newsletter, affiliate edit/password/payment). The
+  existing checks on account edit/password could be bypassed when the customer
+  logged in through checkout; the token is now created on demand and compared
+  with `hash_equals`.
+- `token()` uses `random_int()` instead of `mt_rand()`; it produces password
+  reset codes, admin session tokens and CSRF tokens.
+- Admin file/media manager no longer `chmod 0777`s new folders.
+- Product share links use the canonical product URL instead of the request's
+  Host/URI (the Simplica theme printed them unescaped).
+- Removed the unused `system/helper/json.php` polyfill.
+
+### Fixes
+
+- Saving "Edit Account" or an address no longer emits PHP warnings for the
+  `fax`, `company` and `address_2` fields the Signal templates dropped.
+
 ## 0.3.0 — unreleased
 
 ### Core merged back

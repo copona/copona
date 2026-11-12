@@ -156,4 +156,31 @@ abstract class Controller
         }
     }
 
+    /**
+     * Per-session CSRF token for storefront forms; created on first use, so
+     * it exists however the customer logged in (account, checkout, social).
+     */
+    protected function csrfToken(): string
+    {
+        if (empty($this->session->data['csrf_token']) || !is_string($this->session->data['csrf_token'])) {
+            $this->session->data['csrf_token'] = token(32);
+        }
+
+        return $this->session->data['csrf_token'];
+    }
+
+    /**
+     * Whether $value (default: POST csrf_token) matches the session token.
+     */
+    protected function csrfValid($value = null): bool
+    {
+        if ($value === null) {
+            $value = $this->request->post['csrf_token'] ?? '';
+        }
+
+        return is_string($value)
+            && !empty($this->session->data['csrf_token'])
+            && is_string($this->session->data['csrf_token'])
+            && hash_equals($this->session->data['csrf_token'], $value);
+    }
 }

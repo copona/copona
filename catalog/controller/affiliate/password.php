@@ -97,10 +97,17 @@ class ControllerAffiliatePassword extends Controller {
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
 
+        $data['csrf_token'] = $this->csrfToken();
+        $data['error_csrf_token'] = $this->error['csrf_token'] ?? '';
+
         $this->response->setOutput($this->load->view('affiliate/password', $data));
     }
 
     protected function validate() {
+        if (!$this->csrfValid()) {
+            $this->error['csrf_token'] = $this->language->get('error_csrf_token');
+        }
+
         if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 40)) {
             $this->error['password'] = $this->language->get('error_password');
         }

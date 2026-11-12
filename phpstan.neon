@@ -10,6 +10,7 @@ parameters:
         - system/constants.php
         - system/framework.php
         - system/helper/utf8.php
+        - system/helper/general.php
     paths:
         - catalog
         - system/engine

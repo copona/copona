@@ -257,6 +257,9 @@ class ControllerProductProduct extends Controller {
             $this->document->setDescription($product_info['meta_description']);
             $this->document->setKeywords($product_info['meta_keyword']);
             $this->document->addLink($this->url->link('product/product', 'product_id=' . $product_id), 'canonical');
+
+            // Share buttons use the canonical URL, never the request's Host/URI.
+            $data['share_url'] = html_entity_decode($this->url->link('product/product', 'product_id=' . $product_id), ENT_QUOTES, 'UTF-8');
             $this->document->addOGMeta('property="og:url"', $this->url->link('product/product', 'product_id=' . $this->request->get['product_id']) );
 
             $data['heading_title'] = $product_info['name'];

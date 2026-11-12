@@ -7,7 +7,11 @@ class ControllerAccountNewsletter extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+        $data['error_csrf_token'] = '';
+
+        if ($this->request->server['REQUEST_METHOD'] == 'POST' && !$this->csrfValid()) {
+            $data['error_csrf_token'] = $this->language->get('error_csrf_token');
+        } elseif ($this->request->server['REQUEST_METHOD'] == 'POST') {
             $this->load->model('account/customer');
 
             $this->model_account_customer->editNewsletter($this->request->post['newsletter']);
@@ -56,6 +60,8 @@ class ControllerAccountNewsletter extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
+
+        $data['csrf_token'] = $this->csrfToken();
 
         $this->response->setOutput($this->load->view('account/newsletter', $data));
     }

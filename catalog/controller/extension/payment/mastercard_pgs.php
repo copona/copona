@@ -24,8 +24,6 @@ class ControllerExtensionPaymentMastercardPGS extends Controller {
 			$data['cards'] = array();
 		}
 
-		$this->load->helper('json');
-
 		if (
 			($this->customer->isLogged() || (!$this->customer->isLogged() && !empty($this->session->data['guest']))) &&
 			!empty($this->session->data['payment_address']) && 

@@ -15,7 +15,11 @@ class ControllerAffiliatePayment extends Controller {
 
         $this->load->model('affiliate/affiliate');
 
-        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+        $data['error_csrf_token'] = '';
+
+        if ($this->request->server['REQUEST_METHOD'] == 'POST' && !$this->csrfValid()) {
+            $data['error_csrf_token'] = $this->language->get('error_csrf_token');
+        } elseif ($this->request->server['REQUEST_METHOD'] == 'POST') {
             $this->model_affiliate_affiliate->editPayment($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -158,6 +162,8 @@ class ControllerAffiliatePayment extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
+
+        $data['csrf_token'] = $this->csrfToken();
 
         $this->response->setOutput($this->load->view('affiliate/payment', $data));
     }

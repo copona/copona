@@ -2,7 +2,7 @@
 
 function token($length = 32)
 {
-    // Create random token
+    // Create random token (CSPRNG: used for reset codes, session and CSRF tokens)
     $string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
     $max = strlen($string) - 1;
@@ -10,7 +10,7 @@ function token($length = 32)
     $token = '';
 
     for ($i = 0; $i < $length; $i++) {
-        $token .= $string[mt_rand(0, $max)];
+        $token .= $string[random_int(0, $max)];
     }
 
     return $token;
