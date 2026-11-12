@@ -47,7 +47,7 @@ class Affiliate {
         $this->password     = $affiliate_query->row['password'];
         $this->salt         = $affiliate_query->row['salt'];
 
-        if(mb_strlen($this->password) == 32 && $this->password == md5($password) || mb_strlen($this->password) == 40 && $this->password == sha1($this->salt . sha1($this->salt . sha1($password)))) {
+        if(mb_strlen($this->password) == 32 && hash_equals($this->password, md5($password)) || mb_strlen($this->password) == 40 && hash_equals($this->password, sha1($this->salt . sha1($this->salt . sha1($password))))) {
             $affiliate_query = $this->db->query("UPDATE " . DB_PREFIX . "affiliate SET password = '" . password_hash($password, PASSWORD_DEFAULT) . "' WHERE affiliate_id = '" . $this->affiliate_id . "'");
 
             $affiliate_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "affiliate WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1' limit 1");

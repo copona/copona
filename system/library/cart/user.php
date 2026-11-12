@@ -54,7 +54,7 @@ class User {
         $this->password = $user_query->row['password'];
         $this->salt = $user_query->row['salt'];
 
-        if (mb_strlen($this->password) == 32 && $this->password == md5($password) || mb_strlen($this->password) == 40 && $this->password == sha1($this->salt . sha1($this->salt . sha1($password)))) {
+        if (mb_strlen($this->password) == 32 && hash_equals($this->password, md5($password)) || mb_strlen($this->password) == 40 && hash_equals($this->password, sha1($this->salt . sha1($this->salt . sha1($password))))) {
             $password_update = $this->db->query("UPDATE " . DB_PREFIX . "user SET password = '" . password_hash($password, PASSWORD_DEFAULT) . "' WHERE user_id = '" . $user_query->row['user_id'] . "'");
 
             $user_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "user WHERE username = '" . $this->db->escape($username) . "' AND status = '1' limit 1");
