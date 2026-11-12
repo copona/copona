@@ -379,3 +379,13 @@ signed packages first.
   `Controller::csrfValid()` in validation. GET actions (address delete) pass
   the token in the URL. Shared message: `error_csrf_token` in `en-gb.php`.
 
+## Encrypted DB fields (`APP_KEY`)
+
+`Copona\Security\FieldCipher` encrypts single DB fields (libsodium secretbox,
+`enc:v1:` prefix) with `APP_KEY` from `.env`. Used for affiliate bank details
+(`FieldCipher::AFFILIATE_FIELDS`): models encrypt on write and
+`decryptFields()` on read. Unprefixed values are legacy plaintext and pass
+through. Don't use the old `Encryption` class (`config_encryption`) for new
+data: its key lives in the DB and it isn't authenticated. Losing `APP_KEY`
+makes encrypted values unreadable (they decrypt to '').
+
